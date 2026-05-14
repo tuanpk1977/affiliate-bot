@@ -20,6 +20,7 @@ from modules.money_content_builder import generate_money_content_pages
 from modules.priority_page_builder import generate_priority_pages
 from modules.pricing_page_builder import generate_pricing_pages
 from modules.review_page_builder import generate_review_pages
+from modules.seo_expansion_pages import generate_seo_expansion_pages
 from modules.sitemap_generator import generate_sitemap
 from modules.toplist_generator import generate_toplist_pages
 
@@ -160,6 +161,7 @@ def build_site_output(landing_index: pd.DataFrame | None = None, base_site_url: 
     programmatic_pages.extend(generate_category_pages(output, offer_scores))
     write_navigation_index_pages(output, built_pages)
     programmatic_pages.extend(generate_money_content_pages(output, offer_scores))
+    programmatic_pages.extend(generate_seo_expansion_pages(output))
     write_legal_pages(output)
     built_pages.extend(copy_user_published_pages(output))
     write_robots(output, base_site_url)
@@ -927,8 +929,20 @@ def base_schemas(title: str, description: str, canonical: str) -> list[str]:
 
 
 def write_robots(output: Path, base_site_url: str) -> None:
-    sitemap = f"Sitemap: {base_site_url}/sitemap.xml\n" if base_site_url else ""
-    (output / "robots.txt").write_text(f"User-agent: *\nAllow: /\n{sitemap}", encoding="utf-8")
+    base = (base_site_url or settings.base_site_url or settings.site_domain or "").rstrip("/")
+    sitemap = f"Sitemap: {base}/sitemap.xml\n" if base else ""
+    robots = (
+        "User-agent: *\n"
+        "Allow: /\n"
+        "Disallow: /go/\n"
+        "Disallow: /__pycache__/\n"
+        "Disallow: /draft_output/\n"
+        "Disallow: /data/\n"
+        "Disallow: /config/\n"
+        "Disallow: /logs/\n"
+        f"{sitemap}"
+    )
+    (output / "robots.txt").write_text(robots, encoding="utf-8")
 
 
 def write_sitemap(output: Path, pages: list[dict], base_site_url: str) -> None:

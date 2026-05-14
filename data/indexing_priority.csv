@@ -2,8 +2,10 @@ url,page_type,priority,reason,suggested_action
 https://review.mssmileenglish.com/compare/cursor-vs-github-copilot/,comparison,75,contains cursor + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection
 https://review.mssmileenglish.com/compare/cursor-vs-windsurf/,comparison,75,contains cursor + contains windsurf + high-intent comparison,Submit in Google Search Console URL Inspection
 https://review.mssmileenglish.com/comparisons/copilot-vs-cursor/,comparison,75,contains cursor + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection
+https://review.mssmileenglish.com/comparisons/cursor-vs-copilot/,comparison,75,contains cursor + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection
 https://review.mssmileenglish.com/comparisons/cursor-vs-github-copilot/,comparison,75,contains cursor + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection
 https://review.mssmileenglish.com/comparisons/cursor-vs-windsurf/,comparison,75,contains cursor + contains windsurf + high-intent comparison,Submit in Google Search Console URL Inspection
+https://review.mssmileenglish.com/comparisons/windsurf-vs-copilot/,comparison,75,contains windsurf + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection
 https://review.mssmileenglish.com/category/ai-coding-tools/,category,62,contains ai-coding + contains coding-tools + supporting category,Add more internal links
 https://review.mssmileenglish.com/ai-coding-software-review/,review,50,contains ai-coding + high-intent review,Share on social before indexing
 https://review.mssmileenglish.com/best-ai-coding-tools-2026/,seo_page,50,contains ai-coding + contains coding-tools,Include in sitemap
@@ -31,6 +33,7 @@ https://review.mssmileenglish.com/compare/make-vs-zapier/,comparison,25,high-int
 https://review.mssmileenglish.com/compare/semrush-vs-ahrefs/,comparison,25,high-intent comparison,Share on social before indexing
 https://review.mssmileenglish.com/compare/synthesia-vs-pictory/,comparison,25,high-intent comparison,Share on social before indexing
 https://review.mssmileenglish.com/comparisons/,comparison,25,high-intent comparison,Share on social before indexing
+https://review.mssmileenglish.com/comparisons/canva-vs-adobe-express/,comparison,25,high-intent comparison,Share on social before indexing
 https://review.mssmileenglish.com/comparisons/canva-vs-gamma/,comparison,25,high-intent comparison,Share on social before indexing
 https://review.mssmileenglish.com/comparisons/chatgpt-vs-claude/,comparison,25,high-intent comparison,Share on social before indexing
 https://review.mssmileenglish.com/comparisons/chatgpt-vs-gemini/,comparison,25,high-intent comparison,Share on social before indexing

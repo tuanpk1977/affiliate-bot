@@ -83,6 +83,9 @@ def post_process_internal_links(output: Path) -> dict[str, int]:
             links_added += block.count("<a ")
         text = inject_seo_footer(text, footer_links, page.url)
         text = ensure_breadcrumb_schema(text, page)
+        text = ensure_visible_breadcrumb(text, page)
+        text = ensure_sticky_toc(text, page)
+        text = ensure_go_link_attributes(text)
         page.path.write_text(text, encoding="utf-8")
         pages_updated += 1
     return {"pages": pages_updated, "links_added": links_added}
@@ -260,7 +263,7 @@ def inject_seo_footer(text: str, groups: dict[str, list[PageInfo]], current_url:
 
 
 def ensure_breadcrumb_schema(text: str, page: PageInfo) -> str:
-    if page.kind not in {"comparison", "pricing", "toplist", "category"} or '"@type": "BreadcrumbList"' in text:
+    if page.kind not in {"review", "comparison", "pricing", "toplist", "category", "hub"} or '"@type": "BreadcrumbList"' in text:
         return text
     base = (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
     schema = {
@@ -273,6 +276,86 @@ def ensure_breadcrumb_schema(text: str, page: PageInfo) -> str:
     }
     script = f'<script type="application/ld+json">{json.dumps(schema, ensure_ascii=False)}</script>'
     return text.replace("</head>", script + "</head>", 1)
+
+
+def ensure_visible_breadcrumb(text: str, page: PageInfo) -> str:
+    if page.kind not in {"review", "comparison", "pricing", "toplist", "category", "hub"}:
+        return text
+    if "data-auto-breadcrumb=\"1\"" in text or "data-auto-breadcrumb='1'" in text:
+        return text
+    parent_label = {
+        "review": "Reviews",
+        "comparison": "Comparisons",
+        "pricing": "Pricing",
+        "toplist": "Best Tools",
+        "category": "Categories",
+        "hub": "Hubs",
+    }.get(page.kind, "Research")
+    parent_url = {
+        "review": "/reviews/",
+        "comparison": "/comparisons/",
+        "pricing": "/pricing/",
+        "toplist": "/categories/",
+        "category": "/categories/",
+        "hub": "/hubs/",
+    }.get(page.kind, "/")
+    crumb = (
+        f"<nav class='breadcrumb' data-auto-breadcrumb='1'>"
+        f"<a href='/'>Home</a> / <a href='{html.escape(parent_url)}'>{html.escape(parent_label)}</a> / "
+        f"<span>{html.escape(clean_title(page.title))}</span></nav>"
+    )
+    main_match = re.search(r"(<main\b[^>]*>)", text, flags=re.IGNORECASE)
+    if main_match:
+        return text[: main_match.end()] + crumb + text[main_match.end() :]
+    return crumb + text
+
+
+def ensure_sticky_toc(text: str, page: PageInfo) -> str:
+    if page.kind not in {"review", "comparison", "pricing", "toplist", "category", "hub"}:
+        return text
+    if "data-auto-toc=\"1\"" in text or "data-auto-toc='1'" in text:
+        return text
+    headings = re.findall(r"<h2[^>]*>(.*?)</h2>", text, flags=re.IGNORECASE | re.DOTALL)
+    clean_headings = [re.sub(r"<[^>]+>", "", html.unescape(item)).strip() for item in headings]
+    clean_headings = [item for item in clean_headings if item and item.lower() not in {"related research"}]
+    if len(clean_headings) < 5:
+        return text
+    links = []
+    updated = text
+    for heading in clean_headings[:10]:
+        anchor = slugify_fragment(heading)
+        pattern = re.compile(rf"(<h2)([^>]*)(>{re.escape(heading)}</h2>)", flags=re.IGNORECASE)
+        if f'id="{anchor}"' not in updated and pattern.search(updated):
+            updated = pattern.sub(rf'\1 id="{anchor}"\2\3', updated, count=1)
+        links.append(f"<a href='#{html.escape(anchor)}'>{html.escape(heading)}</a>")
+    toc = "<aside class='card toc' data-auto-toc='1'><h2>Contents</h2>" + "".join(links) + "</aside>"
+    marker = "</nav>" if "data-auto-breadcrumb='1'" in updated else None
+    if marker:
+        return updated.replace(marker, marker + toc, 1)
+    main_match = re.search(r"(<main\b[^>]*>)", updated, flags=re.IGNORECASE)
+    if main_match:
+        return updated[: main_match.end()] + toc + updated[main_match.end() :]
+    return toc + updated
+
+
+def ensure_go_link_attributes(text: str) -> str:
+    def repl(match: re.Match[str]) -> str:
+        tag = match.group(0)
+        if re.search(r"\brel=", tag, flags=re.IGNORECASE):
+            return re.sub(r"\brel=(['\"])(.*?)\1", lambda rel: f'rel={rel.group(1)}{merge_rel(rel.group(2))}{rel.group(1)}', tag, count=1, flags=re.IGNORECASE)
+        return tag[:-1] + ' rel="nofollow sponsored">'
+
+    return re.sub(r"<a\b(?=[^>]*href=['\"]/go/)[^>]*>", repl, text, flags=re.IGNORECASE)
+
+
+def merge_rel(value: str) -> str:
+    tokens = set(str(value or "").split())
+    tokens.update({"nofollow", "sponsored"})
+    return " ".join(sorted(tokens))
+
+
+def slugify_fragment(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", str(text).lower()).strip("-") or "section"
 
 
 def inject_before_footer(text: str, block: str) -> str:

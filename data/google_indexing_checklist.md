@@ -13,10 +13,10 @@
 - https://review.mssmileenglish.com/compare/cursor-vs-github-copilot/
 - https://review.mssmileenglish.com/compare/cursor-vs-windsurf/
 - https://review.mssmileenglish.com/comparisons/copilot-vs-cursor/
+- https://review.mssmileenglish.com/comparisons/cursor-vs-copilot/
 - https://review.mssmileenglish.com/comparisons/cursor-vs-github-copilot/
 - https://review.mssmileenglish.com/comparisons/cursor-vs-windsurf/
+- https://review.mssmileenglish.com/comparisons/windsurf-vs-copilot/
 - https://review.mssmileenglish.com/category/ai-coding-tools/
 - https://review.mssmileenglish.com/ai-coding-software-review/
 - https://review.mssmileenglish.com/best-ai-coding-tools-2026/
-- https://review.mssmileenglish.com/best-ai-coding-tools/
-- https://review.mssmileenglish.com/compare/github-copilot-vs-codeium/

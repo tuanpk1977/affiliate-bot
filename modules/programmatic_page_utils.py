@@ -101,7 +101,9 @@ def shell(title: str, description: str, path: str, body: str, extra_schema: list
   <meta property="og:title" content="{html.escape(title)}">
   <meta property="og:description" content="{html.escape(description)}">
   <meta property="og:type" content="article">
+  <meta property="og:image" content="{html.escape(BASE + '/assets/og/site.svg', quote=True)}">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="{html.escape(BASE + '/assets/og/site.svg', quote=True)}">
   {schema}
   <style>{css()}</style>
 </head>
@@ -115,7 +117,7 @@ def shell(title: str, description: str, path: str, body: str, extra_schema: list
 
 
 def nav() -> str:
-    return f"<nav class='nav'><div class='wrap nav-inner'><a class='logo' href='/'>{html.escape(settings.site_name)}</a><div class='menu'><a href='/'>Home</a><a href='/reviews/'>Reviews</a><a href='/comparisons/'>Comparisons</a><a href='/blog/'>Blog</a><a href='/contact/'>Contact</a></div></div><div class='wrap'><p class='note'>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p></div></nav>"
+    return f"<nav class='nav'><div class='wrap nav-inner'><a class='logo' href='/'>{html.escape(settings.site_name)}</a><div class='menu'><a href='/'>Home</a><a href='/reviews/'>Reviews</a><a href='/comparisons/'>Comparisons</a><a href='/pricing/'>Pricing</a><a href='/categories/'>Categories</a><a href='/hubs/'>Hubs</a><a href='/blog/'>Blog</a><a href='/contact/'>Contact</a></div></div><div class='wrap'><p class='note'>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p></div></nav>"
 
 
 def footer() -> str:
