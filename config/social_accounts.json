@@ -1,0 +1,39 @@
+{
+  "telegram": {
+    "enabled": true,
+    "bot_token": "",
+    "chat_id": ""
+  },
+  "facebook": {
+    "enabled": false,
+    "page_name": "",
+    "login_method": "manual_cookie"
+  },
+  "linkedin": {
+    "enabled": false,
+    "email": "",
+    "password": ""
+  },
+  "twitter": {
+    "enabled": false,
+    "username": ""
+  },
+  "future_hooks": {
+    "n8n": {
+      "enabled": false,
+      "webhook_url": ""
+    },
+    "supabase": {
+      "enabled": false,
+      "project_url": ""
+    },
+    "playwright": {
+      "enabled": false,
+      "mode": "manual_review_only"
+    },
+    "rss_auto_distribution": {
+      "enabled": false,
+      "feed_url": ""
+    }
+  }
+}

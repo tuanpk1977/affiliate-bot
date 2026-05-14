@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.env
+.pytest_cache/
+.streamlit/
+logs/*.log
+data/logs/
+data/output/
+*.tmp
+*.bak
+
+# Keep these tracked for GitHub + Netlify static deploy:
+# site_output/
+# data/published_static_pages/

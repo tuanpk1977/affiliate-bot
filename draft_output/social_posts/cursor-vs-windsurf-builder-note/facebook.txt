@@ -1,0 +1,12 @@
+Mình ghi lại một bài ngắn về Cursor vs Windsurf Builder Note theo góc nhìn build project thật, không phải chỉ nhìn danh sách tính năng.
+
+Góc nhìn chính: Cursor gives me tighter control once the repo is clean; Windsurf is faster when I need rough structure from zero.
+
+Điều mình quan tâm nhất: công cụ này giúp debug nhanh hơn hay chỉ tạo thêm code phải dọn?
+
+Đọc bài đầy đủ:
+https://review.mssmileenglish.com/comparisons/cursor-vs-windsurf/
+
+#AITools #SaaS #AffiliateMarketing #AICoding
+
+Disclosure: Some links may be affiliate links.

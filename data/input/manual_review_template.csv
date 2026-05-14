@@ -1,0 +1,2 @@
+brand_name,website,affiliate_url,review_status,sale_status,ads_status,verified_by,verified_at,proof_url,allowed_traffic_sources,manual_notes,final_decision
+Example SaaS,https://example.com,,needs_manual_review,blocked_until_verified,not_ready_for_ads,,,,,,

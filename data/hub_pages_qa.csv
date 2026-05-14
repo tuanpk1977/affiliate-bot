@@ -1,0 +1,14 @@
+hub_slug,url_path,status,has_file,has_h1,has_meta_description,has_schema,internal_link_count,in_sitemap,passed,issue
+hubs,/hubs/,built,True,True,True,True,47,True,True,ok
+ai-coding,/hub/ai-coding/,built,True,True,True,True,39,True,True,ok
+ai-seo,/hub/ai-seo/,built,True,True,True,True,42,True,True,ok
+ai-automation,/hub/ai-automation/,built,True,True,True,True,43,True,True,ok
+ai-presentation,/hub/ai-presentation/,built,True,True,True,True,38,True,True,ok
+ai-voice,/hub/ai-voice/,built,True,True,True,True,40,True,True,ok
+ai-video,/hub/ai-video/,built,True,True,True,True,43,True,True,ok
+crm,/hub/crm/,built,True,True,True,True,44,True,True,ok
+website-builders,/hub/website-builders/,built,True,True,True,True,46,True,True,ok
+ai-writing,/hub/ai-writing/,built,True,True,True,True,52,True,True,ok
+email-marketing,/hub/email-marketing/,built,True,True,True,True,46,True,True,ok
+productivity,/hub/productivity/,built,True,True,True,True,48,True,True,ok
+marketing,/hub/marketing/,built,True,True,True,True,54,True,True,ok

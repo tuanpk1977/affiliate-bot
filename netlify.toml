@@ -1,0 +1,27 @@
+[build]
+  publish = "site_output"
+  functions = "netlify/functions"
+
+[build.processing]
+  skip_processing = false
+
+[build.processing.html]
+  pretty_urls = true
+
+[[redirects]]
+  from = "/go/:tool"
+  to = "/go/:tool/"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/review/:tool"
+  to = "/review/:tool/"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/pricing/:tool"
+  to = "/pricing/:tool/"
+  status = 301
+  force = false

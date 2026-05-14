@@ -1,0 +1,16 @@
+Platform: LinkedIn
+Image path: D:\AFFILATE BOT\draft_output\social_images\cursor-vs-windsurf-builder-note.png
+
+Cursor vs Windsurf Builder Note
+
+I stopped judging AI coding tools by how impressive the first generated answer looks.
+
+The better test is what happens after the project gets messy: failed builds, duplicated logic, unclear architecture, and half-working refactors.
+
+My working note: Cursor gives me tighter control once the repo is clean; Windsurf is faster when I need rough structure from zero.
+
+Full builder note: https://review.mssmileenglish.com/comparisons/cursor-vs-windsurf/
+
+#AITools #SaaS #AffiliateMarketing #AICoding
+
+Affiliate disclosure: some links may be affiliate links.

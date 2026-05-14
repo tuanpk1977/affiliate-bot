@@ -1,0 +1,1048 @@
+from __future__ import annotations
+
+import html
+import json
+import shutil
+from datetime import date
+from pathlib import Path
+
+import pandas as pd
+
+from config import settings
+from modules.affiliate_tracking import generate_go_pages, rewrite_outbound_ctas
+from modules.category_page_builder import generate_category_pages
+from modules.comparison_page_builder import generate_comparison_review_pages
+from modules.comparison_generator import generate_comparison_pages
+from modules.hub_page_builder import generate_hub_pages
+from modules.internal_linker import post_process_internal_links
+from modules.intent_page_generator import generate_intent_pages
+from modules.money_content_builder import generate_money_content_pages
+from modules.priority_page_builder import generate_priority_pages
+from modules.pricing_page_builder import generate_pricing_pages
+from modules.review_page_builder import generate_review_pages
+from modules.sitemap_generator import generate_sitemap
+from modules.toplist_generator import generate_toplist_pages
+
+
+LEGAL_SLUGS = ["privacy-policy", "terms", "contact", "affiliate-disclosure"]
+CONTENT_SLUGS = [
+    "reviews",
+    "comparisons",
+    "about",
+    "about-author",
+    "author-profile",
+    "editorial-policy",
+    "how-we-review-tools",
+    "testing-methodology",
+]
+CATEGORY_SLUGS = [
+    "category/ai-video-tools",
+    "category/ai-voice-tools",
+    "category/ai-coding-tools",
+    "category/ai-seo-tools",
+    "category/ai-automation-tools",
+    "category/crm-tools",
+    "category/website-builders",
+    "category/ai-presentation-tools",
+    "category/ai-writing-tools",
+    "category/ai-customer-support-tools",
+    "category/ai-writing",
+    "category/automation",
+    "category/crm",
+    "category/seo-tools",
+    "category/email-marketing-tools",
+    "category/automation-tools",
+    "category/design-tools",
+    "category/video-tools",
+    "category/writing-tools",
+    "category/website-builder-tools",
+]
+COMPARISON_SLUGS = [
+    "comparisons/chatgpt-vs-gemini",
+    "comparisons/chatgpt-vs-claude",
+    "comparisons/cursor-vs-windsurf",
+    "comparisons/cursor-vs-vscode",
+    "comparisons/make-vs-zapier",
+    "comparisons/notion-vs-clickup",
+    "comparisons/elevenlabs-vs-playht",
+    "comparisons/hubspot-vs-salesforce",
+    "comparisons/semrush-vs-ahrefs",
+    "comparisons/canva-vs-gamma",
+    "comparisons/jasper-vs-copyai",
+    "comparisons/runway-vs-pika",
+    "comparisons/synthesia-vs-heygen",
+    "comparisons/copilot-vs-tabnine",
+    "comparisons/perplexity-vs-chatgpt",
+    "comparisons/gemini-vs-claude",
+    "comparisons/midjourney-vs-dalle",
+    "comparisons/notion-ai-vs-chatgpt",
+    "comparisons/elevenlabs-vs-murf",
+    "comparisons/framer-vs-webflow",
+    "comparisons/copilot-vs-cursor",
+]
+EXTRA_SLUGS = ["blog", "sitemap", "media-kit", "aeo-action-plan"]
+
+NAV_INDEX_SLUGS = ["reviews", "comparisons", "pricing", "categories", "hubs"]
+
+
+BLOG_POSTS = [
+    ("best-ai-tools-for-small-business", "Best AI Tools for Small Business", "AI tools can help small teams document work, produce content, manage customers, and automate repetitive operations without hiring a large specialist team."),
+    ("best-ai-presentation-tools", "Best AI Presentation Tools", "AI presentation tools help turn ideas, outlines, and research notes into clearer decks, pitch pages, and visual explanations."),
+    ("best-ai-voice-generators", "Best AI Voice Generators", "AI voice generators are useful for creators and teams that need narration, learning content, and repeatable audio workflows."),
+    ("ai-tools-for-marketers", "AI Tools for Marketers", "Marketing teams use AI tools to draft campaigns, create visuals, compare keywords, and speed up research while still reviewing every output."),
+    ("ai-website-builders-comparison", "AI Website Builders Comparison", "AI website builders can reduce setup time, but the best choice depends on design control, CMS needs, hosting, and long-term maintenance."),
+    ("best-crm-for-startups", "Best CRM for Startups", "Startup teams need CRM tools that keep sales follow-up organized without adding too much administrative friction."),
+    ("ai-productivity-tools", "AI Productivity Tools", "AI productivity tools help teams plan tasks, schedule work, summarize information, and reduce manual coordination."),
+    ("best-alternatives-to-canva-ai", "Best Alternatives to Canva AI", "Canva is broad and accessible, but some teams need alternatives for presentations, ads, websites, or more specialized creative workflows."),
+    ("automation-tools-for-beginners", "Automation Tools for Beginners", "Beginner-friendly automation tools help connect apps, move data, and reduce repeated manual steps across business workflows."),
+    ("ai-tools-for-content-creators", "AI Tools for Content Creators", "Content creators can use AI for planning, writing support, audio, visuals, repurposing, and workflow organization."),
+    ("ai-tools-under-20-month", "AI Tools Under $20/month", "Low-cost AI tools can be useful for testing workflows before committing to larger SaaS subscriptions."),
+    ("how-to-choose-saas-tools-safely", "How to Choose SaaS Tools Safely", "Choosing SaaS tools safely means checking pricing, terms, data policy, cancellation rules, support, and workflow fit before buying."),
+]
+
+
+COMPARISON_TOPICS = [
+    ("chatgpt-vs-gemini", "ChatGPT", "Gemini", "AI chatbot", "ChatGPT mạnh ở viết, phân tích, hỗ trợ công việc tổng quát và hệ sinh thái công cụ.", "Gemini phù hợp khi bạn dùng nhiều sản phẩm Google và cần kết nối với hệ sinh thái Google.", "Chọn ChatGPT nếu bạn cần trợ lý AI tổng quát linh hoạt; chọn Gemini nếu workflow của bạn nằm nhiều trong Google Workspace."),
+    ("chatgpt-vs-claude", "ChatGPT", "Claude", "AI assistant", "ChatGPT phù hợp cho nhiều tác vụ đa dạng, từ viết nội dung đến phân tích và workflow hằng ngày.", "Claude thường được cân nhắc khi cần xử lý văn bản dài, biên tập và lập luận cẩn thận.", "Chọn ChatGPT cho workflow đa năng; chọn Claude nếu ưu tiên đọc, tóm tắt và phân tích tài liệu dài."),
+    ("cursor-vs-windsurf", "Cursor", "Windsurf", "AI coding tool", "Cursor là editor AI-first phù hợp cho lập trình viên muốn code cùng AI ngay trong môi trường làm việc.", "Windsurf phù hợp để so sánh nếu bạn muốn một trải nghiệm coding agent/editor khác.", "Chọn Cursor nếu bạn cần AI coding editor phổ biến; thử Windsurf nếu bạn muốn so sánh workflow agent coding mới hơn."),
+    ("cursor-vs-vscode", "Cursor", "VS Code", "code editor", "Cursor tập trung vào trải nghiệm AI coding tích hợp sâu trong editor.", "VS Code là editor phổ biến, linh hoạt, có hệ sinh thái extension rất lớn.", "Chọn Cursor nếu AI là trung tâm workflow; chọn VS Code nếu bạn cần hệ sinh thái extension rộng và workflow quen thuộc."),
+    ("make-vs-zapier", "Make", "Zapier", "automation platform", "Make mạnh ở workflow automation trực quan, nhiều nhánh logic và kiểm soát chi tiết.", "Zapier thường dễ bắt đầu hơn và có hệ sinh thái app rộng cho automation đơn giản.", "Chọn Make nếu workflow phức tạp; chọn Zapier nếu bạn cần automation nhanh, dễ triển khai."),
+    ("notion-vs-clickup", "Notion", "ClickUp", "productivity workspace", "Notion mạnh ở knowledge base, tài liệu, wiki và workspace linh hoạt.", "ClickUp mạnh hơn khi trọng tâm là project management, task và vận hành nhóm.", "Chọn Notion cho tài liệu và knowledge base; chọn ClickUp cho quản lý dự án và task execution."),
+    ("elevenlabs-vs-playht", "ElevenLabs", "PlayHT", "AI voice generator", "ElevenLabs được nhiều người cân nhắc cho giọng AI tự nhiên và workflow audio linh hoạt.", "PlayHT là lựa chọn đáng so sánh cho voiceover, narration và audio content.", "Chọn sau khi nghe thử voice mẫu, kiểm tra quyền sử dụng thương mại và pricing mới nhất."),
+    ("elevenlabs-vs-murf", "ElevenLabs", "Murf", "AI voice generator", "ElevenLabs thường được cân nhắc cho voice chất lượng cao và use case creator/developer.", "Murf thường phù hợp với voiceover doanh nghiệp, presentation và training content.", "So sánh cả hai bằng voice quality, quyền sử dụng, ngôn ngữ hỗ trợ và chi phí thực tế."),
+    ("hubspot-vs-salesforce", "HubSpot", "Salesforce", "CRM software", "HubSpot phù hợp với team muốn CRM, marketing và sales workflow dễ tiếp cận hơn.", "Salesforce phù hợp hơn với tổ chức lớn cần tùy biến sâu và quy trình enterprise.", "Chọn HubSpot cho SMB/growth team; chọn Salesforce nếu cần enterprise customization."),
+    ("semrush-vs-ahrefs", "Semrush", "Ahrefs", "SEO platform", "Semrush là bộ SEO/marketing rộng, có keyword, competitor và content research.", "Ahrefs nổi bật ở backlink analysis, SEO research và kiểm tra cạnh tranh organic.", "Chọn dựa trên nhu cầu chính: marketing suite rộng hay SEO/backlink research sâu."),
+    ("framer-vs-webflow", "Framer", "Webflow", "website builder", "Framer mạnh ở landing page hiện đại, thiết kế nhanh và visual publishing.", "Webflow mạnh ở CMS, cấu trúc website marketing và quyền kiểm soát thiết kế.", "Chọn Framer cho landing page/design tốc độ cao; chọn Webflow cho CMS và site dài hạn."),
+    ("canva-vs-gamma", "Canva", "Gamma", "AI presentation/design tool", "Canva mạnh ở template design, social graphics và tài sản visual đa dạng.", "Gamma mạnh ở presentation/doc dạng kể chuyện, biến outline thành trang trình bày nhanh.", "Chọn Canva cho design rộng; chọn Gamma cho presentation và document-style storytelling."),
+    ("jasper-vs-copyai", "Jasper", "Copy.ai", "AI writing tool", "Jasper thường phù hợp với marketing team cần brand voice và content workflow.", "Copy.ai thường được so sánh cho GTM, sales copy và workflow tạo nội dung nhanh.", "Chọn theo workflow nội dung, khả năng cộng tác, output quality và giá hiện tại."),
+    ("runway-vs-pika", "Runway", "Pika", "AI video generator", "Runway mạnh ở AI video generation và creative editing workflow.", "Pika là lựa chọn đáng so sánh cho tạo video AI ngắn, ý tưởng nhanh và creative testing.", "Hãy test bằng cùng một prompt, kiểm tra chất lượng output, quyền sử dụng và chi phí."),
+    ("synthesia-vs-heygen", "Synthesia", "HeyGen", "AI avatar video", "Synthesia thường được cân nhắc cho video doanh nghiệp, training và avatar workflow.", "HeyGen thường được so sánh cho avatar video, localization và creator/business video.", "Chọn dựa trên avatar quality, ngôn ngữ, quyền thương mại và workflow team."),
+    ("copilot-vs-tabnine", "GitHub Copilot", "Tabnine", "AI coding assistant", "GitHub Copilot mạnh nhờ tích hợp hệ sinh thái GitHub và IDE phổ biến.", "Tabnine thường được cân nhắc khi team quan tâm đến coding assistant và kiểm soát môi trường.", "Chọn GitHub Copilot nếu team dùng GitHub sâu; so sánh Tabnine nếu cần tiêu chí privacy/deployment khác."),
+    ("perplexity-vs-chatgpt", "Perplexity", "ChatGPT", "AI search assistant", "Perplexity phù hợp khi trọng tâm là AI search, nguồn tham khảo và research nhanh.", "ChatGPT mạnh ở trợ lý tổng quát, viết, phân tích, lập kế hoạch và xử lý đa tác vụ.", "Chọn Perplexity cho research có nguồn; chọn ChatGPT cho workflow sản xuất nội dung và phân tích rộng."),
+    ("gemini-vs-claude", "Gemini", "Claude", "AI assistant", "Gemini phù hợp với người dùng trong hệ sinh thái Google.", "Claude phù hợp khi cần xử lý văn bản dài, reasoning và biên tập cẩn thận.", "Chọn theo hệ sinh thái và loại tài liệu bạn xử lý thường xuyên."),
+    ("midjourney-vs-dalle", "Midjourney", "DALL-E", "AI image generator", "Midjourney thường được cân nhắc cho hình ảnh sáng tạo, phong cách mạnh và visual concept.", "DALL-E thường phù hợp khi muốn tạo ảnh trực tiếp trong workflow AI dễ tiếp cận.", "Chọn dựa trên style mong muốn, quyền sử dụng, workflow chỉnh sửa và chi phí hiện tại."),
+    ("notion-ai-vs-chatgpt", "Notion AI", "ChatGPT", "AI productivity assistant", "Notion AI phù hợp khi nội dung và knowledge base đã nằm trong Notion.", "ChatGPT phù hợp khi cần trợ lý AI độc lập cho nhiều workflow ngoài một workspace.", "Chọn Notion AI nếu workflow nằm trong Notion; chọn ChatGPT nếu bạn cần trợ lý AI tổng quát hơn."),
+]
+
+
+def build_site_output(landing_index: pd.DataFrame | None = None, base_site_url: str = "", offer_scores: pd.DataFrame | None = None) -> dict:
+    output = settings.site_output_dir
+    landing_root = settings.landing_output_dir
+    if output.exists():
+        shutil.rmtree(output)
+    output.mkdir(parents=True, exist_ok=True)
+
+    pages = collect_landing_pages(landing_index, landing_root, offer_scores)
+    built_pages = []
+    for page in pages:
+        slug = page["slug"]
+        target_dir = output / slug
+        target_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(page["source"], target_dir / "index.html")
+        built_pages.append({**page, "deploy_path": str(target_dir / "index.html"), "url_path": f"/{slug}/"})
+
+    copy_screenshot_assets(output)
+    write_og_images(output, built_pages)
+    write_index(output, built_pages)
+    write_blog_pages(output, built_pages)
+    write_content_pages(output, built_pages)
+    write_category_pages(output, built_pages)
+    write_comparison_detail_pages(output)
+    programmatic_pages = []
+    programmatic_pages.extend(generate_comparison_pages(output, offer_scores))
+    programmatic_pages.extend(generate_toplist_pages(output, offer_scores))
+    programmatic_pages.extend(generate_intent_pages(output, offer_scores))
+    programmatic_pages.extend(generate_priority_pages(output, offer_scores))
+    programmatic_pages.extend(generate_hub_pages(output, offer_scores))
+    programmatic_pages.extend(generate_review_pages(output, offer_scores, landing_index))
+    programmatic_pages.extend(generate_comparison_review_pages(output, offer_scores))
+    programmatic_pages.extend(generate_pricing_pages(output, offer_scores))
+    programmatic_pages.extend(generate_category_pages(output, offer_scores))
+    write_navigation_index_pages(output, built_pages)
+    programmatic_pages.extend(generate_money_content_pages(output, offer_scores))
+    write_legal_pages(output)
+    built_pages.extend(copy_user_published_pages(output))
+    write_robots(output, base_site_url)
+    write_sitemap(output, built_pages, base_site_url)
+    write_html_sitemap(output, built_pages)
+    write_rss(output, built_pages)
+    write_media_kit(output)
+    write_aeo_action_plan(output)
+    go_pages = generate_go_pages(output)
+    tracked_pages = rewrite_outbound_ctas(output)
+    write_llms_txt(output, built_pages, base_site_url)
+    write_redirects(output, built_pages)
+    link_stats = post_process_internal_links(output)
+    return {
+        "site_output": str(output.resolve()),
+        "pages": len(built_pages),
+        "base_site_url": base_site_url,
+        "internal_links_added": link_stats.get("links_added", 0),
+        "internal_linked_pages": link_stats.get("pages", 0),
+        "go_pages": go_pages,
+        "tracked_pages": tracked_pages,
+    }
+
+
+def collect_landing_pages(landing_index: pd.DataFrame | None, landing_root: Path, offer_scores: pd.DataFrame | None = None) -> list[dict]:
+    score_map = {}
+    if offer_scores is not None and not offer_scores.empty:
+        score_map = offer_scores.set_index("brand_name").to_dict("index")
+    pages = []
+    if landing_index is not None and not landing_index.empty and "landing_page" in landing_index.columns:
+        for _, row in landing_index.iterrows():
+            source = Path(str(row.get("landing_page", "")))
+            if source.exists():
+                brand = str(row.get("brand_name", source.parent.name))
+                meta = score_map.get(brand, {})
+                pages.append(
+                    {
+                        "brand_name": brand,
+                        "slug": source.parent.name,
+                        "source": source,
+                        "niche": str(meta.get("niche", "SaaS")),
+                        "score": str(meta.get("total_score", "N/A")),
+                        "risk": str(meta.get("risk_level", "NEED_REVIEW")),
+                        "description": short_description(brand, str(meta.get("niche", "SaaS"))),
+                    }
+                )
+    if pages:
+        return pages
+    for source in landing_root.glob("*/index.html"):
+        brand = source.parent.name.replace("-", " ").title()
+        pages.append({"brand_name": brand, "slug": source.parent.name, "source": source, "niche": "SaaS", "score": "N/A", "risk": "NEED_REVIEW", "description": short_description(brand, "SaaS")})
+    return pages
+
+
+def copy_screenshot_assets(output: Path) -> None:
+    source_dir = settings.base_dir / "assets" / "screenshots"
+    if not source_dir.exists():
+        return
+    target_dir = output / "assets" / "screenshots"
+    target_dir.mkdir(parents=True, exist_ok=True)
+    for source in source_dir.glob("*.png"):
+        shutil.copy2(source, target_dir / source.name)
+
+
+def write_index(output: Path, pages: list[dict]) -> None:
+    cards = "\n".join(card_html(page) for page in pages)
+    category_cards = nav_card_links(
+        [
+            ("AI Coding Tools", "/category/ai-coding-tools/", "Coding assistants, developer workflows, repository context, and team controls."),
+            ("SEO Tools", "/category/seo-tools/", "Keyword research, competitor research, audits, and content planning."),
+            ("Email Marketing Tools", "/category/email-marketing-tools/", "List growth, lifecycle automation, deliverability, and CRM-style follow-up."),
+            ("Automation Tools", "/category/automation-tools/", "Workflow automation, task volume, integrations, and operational reliability."),
+            ("Design Tools", "/category/design-tools/", "Visual content, presentations, ad creative, and brand asset workflows."),
+            ("Video Tools", "/category/video-tools/", "AI video generation, editing, exports, and commercial usage checks."),
+            ("Writing Tools", "/category/writing-tools/", "Drafting, editing, brand voice, and content quality review."),
+            ("Website Builder Tools", "/category/website-builder-tools/", "Landing pages, CMS structure, launch speed, and maintenance needs."),
+        ]
+    )
+    priority_links = list_links_from_csv(settings.data_dir / "priority_pages_index.csv", "suggested_slug", "title", limit=8)
+    review_links = nav_card_links([(p["brand_name"], f"/review/{p['slug']}/", p["description"]) for p in pages[:8]])
+    comparison_links = nav_card_links(
+        [
+            ("Cursor vs GitHub Copilot", "/compare/cursor-vs-github-copilot/", "Compare AI coding workflow fit and team adoption."),
+            ("Make vs Zapier", "/compare/make-vs-zapier/", "Compare automation setup, maintenance, and task cost."),
+            ("Semrush vs Ahrefs", "/compare/semrush-vs-ahrefs/", "Compare SEO research depth and pricing risk."),
+            ("ActiveCampaign vs Mailchimp", "/compare/activecampaign-vs-mailchimp/", "Compare email automation and contact growth tradeoffs."),
+        ]
+    )
+    pricing_links = nav_card_links(
+        [
+            ("Cursor Pricing", "/pricing/cursor/", "Plan fit, trial notes, and hidden cost checks."),
+            ("Semrush Pricing", "/pricing/semrush/", "SEO plan limits, exports, users, and project cost checks."),
+            ("Make Pricing", "/pricing/make/", "Automation volume, operations, and upgrade triggers."),
+            ("Canva Pricing", "/pricing/canva/", "Design plan fit, brand controls, and team usage checks."),
+        ]
+    )
+    hub_links = nav_card_links(
+        [
+            ("AI Coding Hub", "/hub/ai-coding/", "Research coding tools, reviews, comparisons, and pricing pages."),
+            ("AI SEO Hub", "/hub/ai-seo/", "Research SEO tools and content workflow decisions."),
+            ("Automation Hub", "/hub/ai-automation/", "Research workflow automation tools and buying risks."),
+            ("AI Writing Hub", "/hub/ai-writing/", "Research writing tools, alternatives, and editorial workflows."),
+        ]
+    )
+    homepage_faq = [
+        "What is AI Tool Review Center?",
+        "Does this site use affiliate links?",
+        "How should I use the reviews and pricing guides?",
+        "Are prices guaranteed to be current?",
+    ]
+    faq_schema_text = json.dumps({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": "Use this site as a research starting point. Verify official pricing, terms, product limits, affiliate rules, and workflow fit before buying or promoting any tool."}} for q in homepage_faq]}, ensure_ascii=False)
+    sections = section_html("AI Tools", [p for p in pages if "AI" in p["niche"]]) + section_html("Marketing", [p for p in pages if "Marketing" in p["niche"] or "SEO" in p["niche"] or "Design" in p["niche"]]) + section_html("CRM", [p for p in pages if "CRM" in p["niche"]]) + section_html("Website Builder", [p for p in pages if "Website" in p["niche"]]) + section_html("Productivity", [p for p in pages if "Productivity" in p["niche"] or "Meeting" in p["niche"] or "Automation" in p["niche"]])
+    recent = "\n".join(f"<li><a href='/{html.escape(page['slug'])}/'>{html.escape(page['brand_name'])}</a> <span>{date.today().isoformat()}</span></li>" for page in pages[:6])
+    popular = section_html("Popular Reviews", pages[:6])
+    html_text = f"""<!doctype html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Tool Review Center - {html.escape(settings.site_name)}</title>
+  <meta name="description" content="AI Tool Review Center for reviews, comparisons, pricing research, categories, hubs, and affiliate disclosure before buying AI and SaaS tools.">
+  <link rel="canonical" href="{html.escape((settings.base_site_url or settings.site_domain or 'https://yourdomain.com').rstrip('/') + '/', quote=True)}">
+  <link rel="alternate" type="application/rss+xml" title="{html.escape(settings.site_name)} RSS" href="{html.escape(site_url('/rss.xml'), quote=True)}">
+  <meta property="og:title" content="{html.escape(settings.site_name)}">
+  <meta property="og:description" content="Independent-style AI and SaaS review hub with practical reviews and comparisons.">
+  <meta property="og:image" content="{html.escape(site_url('/assets/og/home.svg'), quote=True)}">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image" content="{html.escape(site_url('/assets/og/home.svg'), quote=True)}">
+  <meta name="google-site-verification" content="{html.escape(settings.google_site_verification, quote=True)}">
+  {analytics_snippet()}
+  {''.join(f'<script type="application/ld+json">{schema}</script>' for schema in base_schemas(settings.site_name, 'Independent-style AI and SaaS review hub.', (settings.base_site_url or settings.site_domain or 'https://yourdomain.com').rstrip('/') + '/'))}
+  <script type="application/ld+json">{faq_schema_text}</script>
+  <style>{base_css()}</style>
+</head>
+<body>
+  {nav_html()}
+  <header class="hero"><div class="wrap"><span class="badge">Independent-style reviews</span><h1>AI Tool Review Center</h1><p>{html.escape(settings.site_name)} helps readers navigate AI and SaaS tools with review pages, comparison guides, pricing research, category hubs, and transparent affiliate disclosure. The focus is practical workflow fit, not hype.</p><p><a class="btn" href="/reviews/">Browse reviews</a><a class="btn secondary" href="/comparisons/">Compare tools</a><a class="btn secondary" href="/pricing/">Pricing guides</a></p></div></header>
+  <main class="wrap" id="reviews">
+    <section class="card trust"><h2>Affiliate disclosure</h2><p>Some links may be affiliate links. We may earn a commission at no extra cost to you. Reviews and comparisons are research-style content, not guaranteed results.</p></section>
+    <section><h2>Best AI tools by category</h2><div class="cards">{category_cards}</div></section>
+    <section><h2>Top priority pages</h2><div class="cards">{priority_links}</div></section>
+    <section><h2>Review pages</h2><div class="cards">{review_links}</div></section>
+    <section><h2>Comparison pages</h2><div class="cards">{comparison_links}</div></section>
+    <section><h2>Pricing pages</h2><div class="cards">{pricing_links}</div></section>
+    <section><h2>Hub pages</h2><div class="cards">{hub_links}</div></section>
+    <section><h2>Latest Reviews</h2><div class="cards">{cards}</div></section>
+    <section class="list-section"><h2>Recently Updated Reviews</h2><ul>{recent}</ul></section>
+    {popular}
+    {sections}
+    {newsletter_html()}
+    <section class="card"><h2>About this review hub</h2><p>This website is an independent-style AI/SaaS review hub for research and comparison purposes. Reviews are written to help readers compare features, tradeoffs, alternatives, and policy notes before visiting an official vendor website.</p></section>
+    <section class="card"><h2>FAQ</h2>{faq_html(homepage_faq)}</section>
+    <section class="card trust"><h2>Trust and disclosure</h2><p>Some links may become affiliate links after approval. Affiliate commissions do not change the buyer's price. Reviews should not be treated as financial, legal, or business advice.</p></section>
+  </main>
+  {footer_html()}
+</body>
+</html>
+"""
+    (output / "index.html").write_text(html_text, encoding="utf-8")
+
+
+def card_html(page: dict, extra_class: str = "") -> str:
+    class_name = "card" if not extra_class else f"card {extra_class}"
+    brand = str(page.get("brand_name", "")).strip()
+    category = str(page.get("niche", "SaaS")).strip()
+    return f"""<article class="{class_name}">
+  <h3>{html.escape(brand)}</h3>
+  <p class="muted"><strong>Category:</strong> {html.escape(category)}</p>
+  <p>{html.escape(page['description'])}</p>
+  <p><strong>Score:</strong> {html.escape(page['score'])} | <strong>Risk:</strong> {html.escape(page['risk'])}</p>
+  <a class="btn" href="{html.escape(page['url_path'] if 'url_path' in page else '/' + page['slug'] + '/')}">Read review</a>
+</article>"""
+
+
+def section_html(title: str, pages: list[dict]) -> str:
+    shown = pages[:6]
+    if not shown:
+        return ""
+    items = "\n".join(f'<li><a href="/{html.escape(page["slug"])}/">{html.escape(page["brand_name"])}</a> <span>{html.escape(page["niche"])}</span></li>' for page in shown)
+    return f'<section class="list-section"><h2>{html.escape(title)}</h2><ul>{items}</ul></section>'
+
+
+def nav_card_links(items: list[tuple[str, str, str]]) -> str:
+    return "".join(
+        f"<article class='card'><h3>{html.escape(title)}</h3><p>{html.escape(description)}</p><a class='btn' href='{html.escape(url)}'>Open</a></article>"
+        for title, url, description in items
+    )
+
+
+def list_links_from_csv(path: Path, slug_column: str, title_column: str, limit: int = 8) -> str:
+    if not path.exists():
+        return nav_card_links([("Browse reviews", "/reviews/", "Start from the review library and shortlist tools by workflow fit.")])
+    try:
+        df = pd.read_csv(path).fillna("")
+    except Exception:
+        return nav_card_links([("Browse reviews", "/reviews/", "Start from the review library and shortlist tools by workflow fit.")])
+    cards = []
+    for _, row in df.head(limit).iterrows():
+        slug = str(row.get(slug_column, "")).strip()
+        title = str(row.get(title_column, "")).strip() or slug.replace("-", " ").title()
+        if not slug:
+            continue
+        cards.append((title, f"/{slug}/", "Priority research page built from keyword opportunity planning."))
+    return nav_card_links(cards)
+
+
+def write_content_pages(output: Path, pages: list[dict]) -> None:
+    write_reviews_page(output, pages)
+    write_comparisons_page(output, pages)
+    write_about_page(output)
+    write_trust_pages(output)
+
+
+def write_navigation_index_pages(output: Path, pages: list[dict]) -> None:
+    write_pricing_index_page(output)
+    write_categories_index_page(output)
+    write_hubs_index_page(output)
+    write_reviews_page(output, pages)
+    write_comparisons_page(output, pages)
+
+
+def write_pricing_index_page(output: Path) -> None:
+    folder = output / "pricing"
+    folder.mkdir(parents=True, exist_ok=True)
+    items = [
+        ("Cursor Pricing", "/pricing/cursor/", "AI coding plan fit, repository workflow, and team policy checks."),
+        ("GitHub Copilot Pricing", "/pricing/github-copilot/", "Developer seat billing, organization controls, and upgrade triggers."),
+        ("Semrush Pricing", "/pricing/semrush/", "SEO project limits, exports, users, and reporting cost checks."),
+        ("Make Pricing", "/pricing/make/", "Automation operations, task volume, and maintenance risk."),
+        ("Zapier Pricing", "/pricing/zapier/", "Automation task volume, premium apps, and team handoff checks."),
+        ("Canva Pricing", "/pricing/canva/", "Design plan fit, brand controls, exports, and team use."),
+        ("ActiveCampaign Pricing", "/pricing/activecampaign/", "Email automation, contact tiers, and CRM-style workflow checks."),
+        ("Mailchimp Pricing", "/pricing/mailchimp/", "List size, automation depth, and upgrade pressure checks."),
+    ]
+    faq = faq_html(["How should I use pricing guides?", "Are prices guaranteed to be current?", "Why do pricing pages use tracking links?", "Should I check official terms before buying?"])
+    body = f"""<section class='card'><h1>Pricing Guides</h1><p>Use these pricing research pages to verify plan fit, trial terms, hidden cost risks, and official pricing before buying or promoting an AI or SaaS tool.</p><p><a class='btn' href='/go/cursor/?src=pricing&cta=index_page'>Visit Official Website</a><a class='btn secondary' href='/reviews/'>Read reviews first</a></p></section>
+<section><h2>Pricing research pages</h2><div class='cards'>{nav_card_links(items)}</div></section>
+<section class='card'><h2>FAQ</h2>{faq}</section>
+<section class='card trust'><h2>Pricing disclosure</h2><p>Prices and plan limits can change. Always verify current pricing on the official vendor website before buying or using affiliate content.</p></section>"""
+    (folder / "index.html").write_text(page_shell("Pricing Guides", "Pricing research index for AI and SaaS tools, including plan fit, trial notes, hidden cost risk, and official verification.", body, "/pricing/"), encoding="utf-8")
+
+
+def write_categories_index_page(output: Path) -> None:
+    folder = output / "categories"
+    folder.mkdir(parents=True, exist_ok=True)
+    items = [
+        ("AI Coding Tools", "/category/ai-coding-tools/", "Developer assistants, repository context, code review, and team controls."),
+        ("SEO Tools", "/category/seo-tools/", "Keyword research, audits, competitor analysis, and content planning."),
+        ("Email Marketing Tools", "/category/email-marketing-tools/", "Lifecycle campaigns, segmentation, deliverability, and contact growth."),
+        ("Automation Tools", "/category/automation-tools/", "Workflow automation, task volume, integrations, and maintenance risk."),
+        ("Design Tools", "/category/design-tools/", "Visual assets, presentations, ad creative, and brand workflows."),
+        ("Video Tools", "/category/video-tools/", "AI video generation, editing, export rights, and review workflows."),
+        ("Writing Tools", "/category/writing-tools/", "Drafting, editing, brand voice, and content quality checks."),
+        ("Website Builder Tools", "/category/website-builder-tools/", "Site structure, CMS needs, launch speed, and design control."),
+    ]
+    faq = faq_html(["How should I choose a tool category?", "Should I start with reviews or pricing pages?", "Are category rankings final recommendations?", "Do category pages include affiliate disclosure?"])
+    body = f"""<section class='card'><h1>Categories</h1><p>Browse AI and SaaS tool categories by workflow. Each category page links to reviews, comparisons, pricing guides, hub pages, and tracked official-site CTAs.</p></section>
+<section><h2>Best AI tools by category</h2><div class='cards'>{nav_card_links(items)}</div></section>
+<section class='card'><h2>FAQ</h2>{faq}</section>"""
+    (folder / "index.html").write_text(page_shell("Categories", "Category index for AI and SaaS tools with links to reviews, comparisons, pricing guides, and research hubs.", body, "/categories/"), encoding="utf-8")
+
+
+def write_hubs_index_page(output: Path) -> None:
+    folder = output / "hubs"
+    folder.mkdir(parents=True, exist_ok=True)
+    items = [
+        ("AI Coding Hub", "/hub/ai-coding/", "Coding reviews, comparisons, pricing pages, and priority topics."),
+        ("AI SEO Hub", "/hub/ai-seo/", "SEO tool research, alternatives, comparison pages, and buying checks."),
+        ("Automation Hub", "/hub/ai-automation/", "Workflow automation tools, pricing risk, and implementation notes."),
+        ("AI Writing Hub", "/hub/ai-writing/", "Writing tools, editorial workflows, alternatives, and reviews."),
+        ("AI Video Hub", "/hub/ai-video/", "Video generation, editing tools, avatar video, and export considerations."),
+        ("Website Builders Hub", "/hub/website-builders/", "CMS, landing page, site builder, and launch workflow research."),
+    ]
+    faq = faq_html(["What is a research hub?", "How are hub pages different from category pages?", "Should I use hubs before buying software?", "Do hub pages include affiliate disclosure?"])
+    body = f"""<section class='card'><h1>Hubs</h1><p>Hub pages organize related reviews, comparison pages, pricing guides, and category pages so readers can move through a full research path before clicking to an official website.</p><p>A hub is useful when you are still mapping the market and do not yet know which tool deserves a closer look. Instead of pushing one product immediately, a hub connects the broader topic to practical decision pages: review pages for individual tools, comparison pages for close alternatives, pricing guides for plan risk, and category pages for a wider shortlist.</p><p>The best way to use a hub is to start with the workflow you want to improve. For example, a coding hub should help you compare editor fit, repository context, privacy questions, and team adoption. An SEO hub should help you compare keyword research, audits, reporting, and content workflows. An automation hub should help you think about task volume, maintenance, ownership, and failure handling. This keeps the research process grounded in real work rather than brand popularity.</p></section>
+<section><h2>Research hubs</h2><div class='cards'>{nav_card_links(items)}</div></section>
+<section class='card'><h2>How to use these hubs</h2><p>Open the hub that matches your current buying question, then follow at least three internal links before making a decision. Read one review to understand a specific product, open one comparison to see tradeoffs, and check one pricing guide to identify plan limits. This pattern gives you a more balanced view than jumping straight from a social media recommendation to a checkout page.</p><p>For affiliate research, hubs also help identify which topics have enough depth for trustworthy content. A thin affiliate site often has isolated product pages with little context. A stronger review site connects tools through categories, pricing, alternatives, and buyer questions. That structure helps readers navigate naturally and gives search engines clearer topical relationships.</p><p>These pages do not guarantee outcomes, rankings, commissions, or software performance. They are editorial research paths. Always verify current vendor terms, pricing, refund rules, affiliate policy, and paid traffic restrictions on the official website before buying, promoting, or running ads.</p></section>
+<section class='card'><h2>FAQ</h2>{faq}</section>
+<section class='card trust'><h2>Affiliate disclosure</h2><p>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p></section>"""
+    (folder / "index.html").write_text(page_shell("Hubs", "Research hub index for AI and SaaS categories, reviews, comparisons, pricing pages, and buyer decision paths.", body, "/hubs/"), encoding="utf-8")
+
+
+def write_blog_pages(output: Path, pages: list[dict]) -> None:
+    blog_root = output / "blog"
+    blog_root.mkdir(parents=True, exist_ok=True)
+    cards = "\n".join(blog_card(slug, title, summary) for slug, title, summary in BLOG_POSTS)
+    index_body = f"<section><h1>Blog</h1><p>Informational guides for comparing AI tools, SaaS software, automation, CRM, and productivity workflows.</p><div class='cards'>{cards}</div></section>{newsletter_html()}"
+    (blog_root / "index.html").write_text(page_shell("Blog", "AI and SaaS research guides for safer software evaluation.", index_body, "/blog/", image_path="/assets/og/blog.svg"), encoding="utf-8")
+    for slug, title, summary in BLOG_POSTS:
+        folder = blog_root / slug
+        folder.mkdir(parents=True, exist_ok=True)
+        body = blog_article_html(slug, title, summary, pages)
+        (folder / "index.html").write_text(page_shell(title, summary, body, f"/blog/{slug}/", image_path=f"/assets/og/{slug}.svg", page_type="article"), encoding="utf-8")
+
+
+def blog_card(slug: str, title: str, summary: str) -> str:
+    return f"<article class='card'><h3>{html.escape(title)}</h3><p>{html.escape(summary)}</p><p class='muted'>8 min read</p><a class='btn' href='/blog/{html.escape(slug)}/'>Read article</a></article>"
+
+
+def blog_article_html(slug: str, title: str, summary: str, pages: list[dict]) -> str:
+    related = related_links_for_blog(slug, pages)
+    sections = [
+        ("overview", "Overview", summary),
+        ("evaluation", "How to evaluate the category", "Start with the problem you are trying to solve, then compare workflow fit, pricing model, cancellation terms, data handling, integrations, and support. A tool that looks impressive in a demo may still be the wrong choice if it does not match your daily process or if the pricing changes after a trial period."),
+        ("tools", "Tools to compare", "A practical shortlist should include one category leader, one budget-friendly option, and one specialized alternative. For example, teams comparing creative tools may look at Gamma, Canva, Webflow AI, and AdCreative AI depending on whether they need presentations, websites, or ad concepts."),
+        ("use-cases", "Common use cases", "Small businesses often use AI and SaaS tools for drafting documents, creating marketing assets, organizing sales follow-up, producing voice or video content, and automating repetitive admin work. The safest approach is to test a narrow workflow before adopting a tool across the whole business."),
+        ("risks", "Risks and limitations", "Do not assume that AI output is ready to publish. Review accuracy, brand tone, copyright concerns, privacy implications, and platform policy before using any output in public campaigns. For affiliate or paid advertising, also verify trademark bidding, direct linking, and disclosure rules."),
+        ("decision", "Decision checklist", "Before paying for software, check whether the tool saves real time, improves output quality, fits your team process, and has acceptable terms. Keep notes from your trial so you can compare tools based on evidence instead of first impressions."),
+    ]
+    section_html_text = "".join(f"<section class='card' id='{sid}'><h2>{html.escape(heading)}</h2><p>{html.escape(text)}</p><p>{html.escape(expand_article_paragraph(title, heading))}</p></section>" for sid, heading, text in sections)
+    toc = "".join(f"<a href='#{sid}'>{html.escape(heading)}</a>" for sid, heading, _ in sections)
+    faq = faq_html([f"What is the main benefit of {title.lower()}?", "How should I compare tools safely?", "Should I rely only on AI recommendations?", "Are affiliate links used on this site?", "What should I verify before buying?"])
+    return f"""<nav class='breadcrumb'><a href='/'>Home</a> / <a href='/blog/'>Blog</a> / {html.escape(title)}</nav>
+    <article class='review-layout'><aside class='card toc'><h2>Contents</h2>{toc}</aside><div><section class='card'><h1>{html.escape(title)}</h1><p>{html.escape(summary)}</p><p class='muted'>8 min read | Last updated {date.today().isoformat()}</p>{share_buttons(f'/blog/{slug}/', title)}</section>{section_html_text}<section class='card' id='faq'><h2>FAQ</h2>{faq}</section><section class='card related'><h2>Related Reviews</h2>{related}</section><section class='card'><h2>Next step</h2><p><a class='btn' href='/reviews/'>Read related reviews</a><a class='btn secondary' href='/comparisons/'>Compare tools</a></p></section>{newsletter_html()}</div></article>"""
+
+
+def expand_article_paragraph(title: str, heading: str) -> str:
+    return (
+        f"For {title.lower()}, the useful question is not whether the category is popular, but whether the tool improves a real workflow. "
+        "Review the official website, compare at least two alternatives, and document what changed during a trial. "
+        "This research-first approach is slower than chasing hype, but it reduces the chance of buying software that looks good and then sits unused. "
+        "If a tool will be promoted through affiliate content or paid traffic, the review also needs clear disclosure, accurate pricing notes, and careful wording around benefits."
+    )
+
+
+def related_links_for_blog(slug: str, pages: list[dict]) -> str:
+    picks = pages[:4]
+    if "crm" in slug:
+        picks = [p for p in pages if "CRM" in p["niche"]][:4] or picks
+    elif "voice" in slug:
+        picks = [p for p in pages if "Voice" in p["niche"] or "Video" in p["niche"]][:4] or picks
+    elif "website" in slug or "presentation" in slug or "canva" in slug:
+        picks = [p for p in pages if p["slug"] in {"gamma", "webflow-ai", "canva", "adcreative-ai"}][:4] or picks
+    return "".join(f"<a href='/{html.escape(page['slug'])}/'>{html.escape(page['brand_name'])}</a> " for page in picks)
+
+
+def write_reviews_page(output: Path, pages: list[dict]) -> None:
+    folder = output / "reviews"
+    folder.mkdir(parents=True, exist_ok=True)
+    cards = "\n".join(card_html(page, extra_class="review-card") for page in pages)
+    page = page_shell(
+        "Reviews",
+        "Browse AI and SaaS reviews by product, category, score, and risk level.",
+        f'<section><h1>Latest Reviews</h1><p>Browse practical AI and SaaS tool reviews for research and comparison.</p><label for="reviewSearch">Search reviews by tool or category</label><input class="search" id="reviewSearch" type="search"><div class="cards" id="reviewGrid">{cards}</div></section><script>const q=document.getElementById("reviewSearch");const cards=[...document.querySelectorAll(".review-card")];q.addEventListener("input",()=>{{const v=q.value.toLowerCase();cards.forEach(c=>c.style.display=c.innerText.toLowerCase().includes(v)?"block":"none")}});</script>',
+        "/reviews/",
+    )
+    (folder / "index.html").write_text(page, encoding="utf-8")
+
+
+def write_comparisons_page(output: Path, pages: list[dict]) -> None:
+    folder = output / "comparisons"
+    folder.mkdir(parents=True, exist_ok=True)
+    topic_rows = "\n".join(
+        f"<tr><td><a href='/comparisons/{html.escape(slug)}/'>{html.escape(left)} vs {html.escape(right)}</a></td><td>{html.escape(category)}</td><td>{html.escape(recommendation)}</td></tr>"
+        for slug, left, right, category, _, _, recommendation in COMPARISON_TOPICS
+    )
+    review_rows = "\n".join(
+        f"<tr><td><a href='/{html.escape(page['slug'])}/'>{html.escape(page['brand_name'])}</a></td><td>{html.escape(page['niche'])}</td><td>{html.escape(page['score'])}</td><td>{html.escape(page['risk'])}</td></tr>"
+        for page in pages[:12]
+    )
+    body = f"""<nav class='breadcrumb'><a href='/'>Home</a> / Comparisons</nav>
+    <section class='card'><h1>So sánh AI/SaaS tools</h1><p>Danh sách các trang so sánh có intent cao, viết theo hướng nghiên cứu trước khi mua. Nội dung không thay thế thông tin chính thức từ vendor.</p></section>
+    <section class='card'><h2>High-intent comparison pages</h2><table><thead><tr><th>Comparison keyword</th><th>Category</th><th>Khuyến nghị nhanh</th></tr></thead><tbody>{topic_rows}</tbody></table></section>
+    <section class='card'><h2>Related reviews</h2><table><thead><tr><th>Tool</th><th>Category</th><th>Score</th><th>Risk</th></tr></thead><tbody>{review_rows}</tbody></table></section>"""
+    (folder / "index.html").write_text(page_shell("Comparisons", "Compare AI and SaaS tools by category, score, risk, and research notes.", body, "/comparisons/"), encoding="utf-8")
+
+
+def write_about_page(output: Path) -> None:
+    folder = output / "about"
+    folder.mkdir(parents=True, exist_ok=True)
+    body = f"""<section class="card"><h1>About {html.escape(settings.site_name)}</h1>
+    <p>{html.escape(settings.site_name)} publishes independent-style AI/SaaS tool reviews for research and comparison purposes.</p>
+    <p>The site focuses on practical buyer questions: what the tool does, who it is for, key strengths, limitations, alternatives, pricing notes, and affiliate disclosure.</p>
+    <p>We do not promise outcomes. Always verify current pricing, product terms, and affiliate policies directly with the vendor.</p></section>"""
+    (folder / "index.html").write_text(page_shell("About", "About this independent-style AI and SaaS review hub.", body, "/about/"), encoding="utf-8")
+
+
+def write_category_pages(output: Path, pages: list[dict]) -> None:
+    categories = {
+        "ai-video-tools": ("AI Video Tools", lambda p: "Video" in p["niche"] or p["slug"] in {"synthesia", "runway", "descript"}),
+        "ai-voice-tools": ("AI Voice Tools", lambda p: "Voice" in p["niche"] or p["slug"] in {"elevenlabs"}),
+        "ai-coding-tools": ("AI Coding Tools", lambda p: "Coding" in p["niche"] or p["slug"] in {"cursor", "github-copilot"}),
+        "ai-seo-tools": ("AI SEO Tools", lambda p: "SEO" in p["niche"] or p["slug"] in {"surfer-seo", "semrush"}),
+        "ai-automation-tools": ("AI Automation Tools", lambda p: "Automation" in p["niche"] or p["slug"] in {"zapier", "make"}),
+        "crm-tools": ("CRM Tools", lambda p: "CRM" in p["niche"] or p["slug"] in {"hubspot", "pipedrive", "pipedrive-crm"}),
+        "website-builders": ("Website Builders", lambda p: "Website" in p["niche"] or p["slug"] in {"webflow", "webflow-ai", "framer", "durable"}),
+        "ai-presentation-tools": ("AI Presentation Tools", lambda p: p["slug"] in {"gamma", "canva"}),
+        "ai-writing-tools": ("AI Writing Tools", lambda p: "Writing" in p["niche"] or p["slug"] in {"jasper", "jasper-ai", "copy-ai"}),
+        "ai-customer-support-tools": ("AI Customer Support Tools", lambda p: "Customer" in p["niche"] or p["slug"] in {"hubspot"}),
+        "ai-writing": ("AI Writing", lambda p: "Writing" in p["niche"] or "AI" in p["niche"]),
+        "automation": ("Automation", lambda p: "Automation" in p["niche"] or "Productivity" in p["niche"]),
+        "crm": ("CRM", lambda p: "CRM" in p["niche"]),
+    }
+    category_root = output / "category"
+    category_root.mkdir(parents=True, exist_ok=True)
+    for slug, (title, predicate) in categories.items():
+        folder = category_root / slug
+        folder.mkdir(parents=True, exist_ok=True)
+        selected = [page for page in pages if predicate(page)]
+        body = f'<section><h1>{html.escape(title)}</h1><p>Reviews and comparisons for {html.escape(title.lower())} tools.</p><div class="cards">{"".join(card_html(page) for page in selected)}</div></section>'
+        (folder / "index.html").write_text(page_shell(title, f"Browse {title} reviews and SaaS comparison notes.", body, f"/category/{slug}/"), encoding="utf-8")
+
+
+def write_comparison_detail_pages(output: Path) -> None:
+    root = output / "comparisons"
+    root.mkdir(parents=True, exist_ok=True)
+    for slug, left, right, category, left_strength, right_strength, recommendation in COMPARISON_TOPICS:
+        folder = root / slug
+        folder.mkdir(parents=True, exist_ok=True)
+        title = f"{left} vs {right}"
+        left_url = review_url_for(left)
+        right_url = review_url_for(right)
+        faq_questions = [
+            f"{left} vs {right}: nên chọn công cụ nào?",
+            f"{left} phù hợp với ai?",
+            f"{right} phù hợp với ai?",
+            "Nên so sánh pricing như thế nào?",
+            "Trang này có affiliate link không?",
+        ]
+        faq = faq_html(faq_questions)
+        left_pros = [left_strength, "Phù hợp khi nhu cầu chính trùng với thế mạnh của công cụ.", "Đáng đưa vào shortlist nếu pricing và policy phù hợp."]
+        right_pros = [right_strength, "Phù hợp khi workflow của bạn cần thế mạnh riêng của công cụ này.", "Đáng kiểm tra nếu bạn muốn một lựa chọn thay thế thực tế."]
+        left_cons = ["Có thể không phù hợp nếu workflow của bạn cần thế mạnh của công cụ còn lại.", "Cần kiểm tra pricing, giới hạn plan và điều khoản chính thức."]
+        right_cons = ["Có thể không phù hợp nếu workflow của bạn cần thế mạnh của công cụ còn lại.", "Cần kiểm tra pricing, giới hạn plan và điều khoản chính thức."]
+        list_left_pros = "".join(f"<li>{html.escape(item)}</li>" for item in left_pros)
+        list_right_pros = "".join(f"<li>{html.escape(item)}</li>" for item in right_pros)
+        list_left_cons = "".join(f"<li>{html.escape(item)}</li>" for item in left_cons)
+        list_right_cons = "".join(f"<li>{html.escape(item)}</li>" for item in right_cons)
+        schemas = comparison_schemas(title, slug, left, right, category, recommendation, faq_questions)
+        body = f"""<nav class='breadcrumb'><a href='/'>Home</a> / <a href='/comparisons/'>Comparisons</a> / {html.escape(title)}</nav>
+        {schemas}
+        <article class='review-layout'><aside class='card toc'><h2>Nội dung</h2><a href='#overview'>Overview</a><a href='#table'>Feature comparison</a><a href='#pricing'>Pricing comparison</a><a href='#best-for'>Best for</a><a href='#pros-cons'>Pros and cons</a><a href='#faq'>FAQ</a><a href='#verdict'>Final recommendation</a></aside><div>
+        <section class="card" id="overview"><h1>{html.escape(title)}</h1><p><strong>Khuyến nghị nhanh:</strong> {html.escape(recommendation)}</p><p>Trang so sánh {html.escape(title)} này dành cho người đang tìm kiếm {html.escape(category)} và muốn hiểu khác biệt thực tế trước khi đăng ký. Nội dung tập trung vào use case, pricing note, pros/cons và bước kiểm tra cần làm trước khi mua.</p><p class='muted'>7 min read | Last updated {date.today().isoformat()}</p>{share_buttons(f'/comparisons/{slug}/', title)}</section>
+        <section class="card trust"><strong>Affiliate disclosure:</strong> Some links may be affiliate links. We may earn a commission at no extra cost to you.</section>
+        <section class="card" id="table"><h2>Feature comparison table</h2><table><thead><tr><th>Tiêu chí</th><th>{html.escape(left)}</th><th>{html.escape(right)}</th></tr></thead><tbody><tr><td>Thế mạnh chính</td><td>{html.escape(left_strength)}</td><td>{html.escape(right_strength)}</td></tr><tr><td>Loại người dùng phù hợp</td><td>Người dùng có workflow trùng với thế mạnh của {html.escape(left)}.</td><td>Người dùng có workflow trùng với thế mạnh của {html.escape(right)}.</td></tr><tr><td>Pricing</td><td>Kiểm tra website chính thức để xem giá mới nhất.</td><td>Kiểm tra website chính thức để xem giá mới nhất.</td></tr><tr><td>Internal review</td><td><a href='{html.escape(left_url)}'>Đọc review {html.escape(left)}</a></td><td><a href='{html.escape(right_url)}'>Đọc review {html.escape(right)}</a></td></tr></tbody></table></section>
+        <section class="card" id="pricing"><h2>Pricing comparison</h2><p>Không nên dựa vào giá cũ. Hãy kiểm tra website chính thức của {html.escape(left)} và {html.escape(right)} để xác nhận plan hiện tại, giới hạn sử dụng, trial, điều khoản hủy và quyền dùng thương mại.</p></section>
+        <section class="grid" id="best-for"><div class="card"><h2>Ai nên chọn {html.escape(left)}?</h2><p>{html.escape(left_strength)}</p><p>Chọn {html.escape(left)} nếu đây là nhu cầu chính trong workflow của bạn.</p></div><div class="card"><h2>Ai nên chọn {html.escape(right)}?</h2><p>{html.escape(right_strength)}</p><p>Chọn {html.escape(right)} nếu workflow của bạn cần thế mạnh này hơn.</p></div></section>
+        <section class="grid" id="pros-cons"><div class="card"><h2>{html.escape(left)} pros</h2><ul>{list_left_pros}</ul><h2>{html.escape(left)} cons</h2><ul>{list_left_cons}</ul></div><div class="card"><h2>{html.escape(right)} pros</h2><ul>{list_right_pros}</ul><h2>{html.escape(right)} cons</h2><ul>{list_right_cons}</ul></div></section>
+        <section class="card"><h2>CTA</h2><p>Đọc cả hai review liên quan, kiểm tra pricing chính thức, sau đó chọn công cụ phù hợp nhất với workflow thật của bạn.</p><p><a class='btn' href='{html.escape(left_url)}'>Đọc review {html.escape(left)}</a><a class='btn secondary' href='{html.escape(right_url)}'>Đọc review {html.escape(right)}</a></p></section>
+        <section class="card" id="faq"><h2>FAQ</h2>{faq}</section>
+        <section class="card trust"><h2>Affiliate disclosure</h2><p>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p></section>
+        <section class="card" id="verdict"><h2>Final recommendation</h2><p>{html.escape(recommendation)}</p><p>Đây là trang nghiên cứu, không phải cam kết kết quả. Trước khi mua hoặc quảng bá affiliate, hãy kiểm tra pricing, terms, privacy, traffic policy và quyền dùng thương mại trên website chính thức.</p><p><a class='btn' href='{html.escape(left_url)}'>Đọc review {html.escape(left)}</a><a class='btn secondary' href='{html.escape(right_url)}'>Đọc review {html.escape(right)}</a></p></section>{newsletter_html()}</div></article>"""
+        (folder / "index.html").write_text(page_shell(title, f"So sánh {left} vs {right}: overview, feature comparison, pricing, best for, pros/cons, FAQ và khuyến nghị cuối.", body, f"/comparisons/{slug}/"), encoding="utf-8")
+
+
+def review_url_for(brand: str) -> str:
+    mapping = {
+        "Canva": "/canva/",
+        "Make": "/make/",
+        "Zapier": "/zapier/",
+        "Surfer SEO": "/surfer-seo/",
+        "Semrush": "/semrush/",
+        "Webflow": "/webflow/",
+        "Webflow AI": "/webflow-ai/",
+        "Framer": "/framer/",
+        "Copy.ai": "/copy-ai/",
+        "Jasper": "/jasper/",
+        "ElevenLabs": "/elevenlabs/",
+        "HubSpot": "/hubspot/",
+        "Pipedrive": "/pipedrive/",
+        "Cursor": "/cursor/",
+        "GitHub Copilot": "/github-copilot/",
+        "Synthesia": "/synthesia/",
+        "Runway": "/runway/",
+        "Notion": "/notion/",
+        "Notion AI": "/notion-ai/",
+        "Gamma": "/gamma/",
+    }
+    return mapping.get(brand, "/reviews/")
+
+
+def comparison_schemas(title: str, slug: str, left: str, right: str, category: str, recommendation: str, faq_questions: list[str]) -> str:
+    base = (settings.base_site_url or settings.site_domain or "https://yourdomain.com").rstrip("/")
+    url = f"{base}/comparisons/{slug}/"
+    faq_schema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": question,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Hãy dùng trang này như điểm bắt đầu nghiên cứu, sau đó kiểm tra pricing, terms, policy và workflow fit trên website chính thức trước khi mua hoặc quảng bá.",
+                },
+            }
+            for question in faq_questions
+        ],
+    }
+    review_schema = {
+        "@context": "https://schema.org",
+        "@type": "Review",
+        "itemReviewed": {
+            "@type": "SoftwareApplication",
+            "name": f"{left} vs {right}",
+            "applicationCategory": category,
+        },
+        "name": title,
+        "url": url,
+        "reviewBody": recommendation,
+        "author": {"@type": "Person", "name": "Nguyen Quoc Tuan"},
+        "publisher": {"@type": "Organization", "name": settings.site_name},
+    }
+    return (
+        f'<script type="application/ld+json">{json.dumps(faq_schema, ensure_ascii=False)}</script>'
+        f'<script type="application/ld+json">{json.dumps(review_schema, ensure_ascii=False)}</script>'
+    )
+
+
+def write_trust_pages(output: Path) -> None:
+    pages = {
+        "about-author": ("About Author", "<section class='card'><h1>About the Author</h1><p><strong>Nguyen Quoc Tuan</strong> is an Independent AI & SaaS Researcher researching AI tools, SaaS software, automation systems, and productivity workflows.</p></section>"),
+        "author-profile": ("Author Profile", "<section class='card'><h1>Author Profile</h1><p><strong>Nguyen Quoc Tuan</strong><br>Independent AI & SaaS Researcher</p><p>Researching AI tools, SaaS software, automation systems, and productivity workflows.</p></section>"),
+        "editorial-policy": ("Editorial Policy", "<section class='card'><h1>Editorial Policy</h1><p>Reviews are written for research and comparison. We do not publish fake guarantees, fake users, fake traffic counters, or misleading claims. Affiliate relationships are disclosed clearly.</p></section>"),
+        "how-we-review-tools": ("How We Review Tools", "<section class='card'><h1>How We Review Tools</h1><p>Our review process considers public feature information, pricing notes, UI evaluation, workflow comparison, user feedback research, alternatives, limitations, and affiliate transparency.</p></section>"),
+        "testing-methodology": ("Testing Methodology", "<section class='card'><h1>Testing Methodology</h1><p>We review tools through public feature research, pricing review, UI and workflow evaluation, comparison against alternatives, policy checks, and affiliate transparency checks. When hands-on testing is not completed, the page is marked as research-based and should be verified against the official vendor website.</p></section>"),
+    }
+    for slug, (title, body) in pages.items():
+        folder = output / slug
+        folder.mkdir(parents=True, exist_ok=True)
+        (folder / "index.html").write_text(page_shell(title, f"{title} for AI Tool Review Hub.", body, f"/{slug}/"), encoding="utf-8")
+
+
+def copy_user_published_pages(output: Path) -> list[dict]:
+    source_root = settings.data_dir / "published_static_pages"
+    if not source_root.exists():
+        return []
+    pages = []
+    for source in source_root.glob("*/index.html"):
+        slug = source.parent.name
+        target_dir = output / slug
+        target_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, target_dir / "index.html")
+        title = slug.replace("-", " ").title()
+        pages.append(
+            {
+                "brand_name": title,
+                "slug": slug,
+                "source": source,
+                "niche": "Published Draft",
+                "score": "N/A",
+                "risk": "Human approved",
+                "description": f"Human-approved published draft: {title}.",
+                "deploy_path": str((target_dir / "index.html").resolve()),
+                "url_path": f"/{slug}/",
+            }
+        )
+    return pages
+
+
+def page_shell(title: str, description: str, body: str, path: str | None = None, image_path: str = "/assets/og/site.svg", page_type: str = "article") -> str:
+    base = (settings.base_site_url or settings.site_domain or "https://yourdomain.com").rstrip("/")
+    canonical = base + (path or f"/{title.lower().replace(' ', '-')}/")
+    schema_items = base_schemas(title, description, canonical)
+    schema_items.append(json.dumps({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": f"{base}/"}, {"@type": "ListItem", "position": 2, "name": title, "item": canonical}]}, ensure_ascii=False))
+    if "FAQ" in body or "<details" in body:
+        schema_items.append(json.dumps({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": f"What should I verify before using {title}?", "acceptedAnswer": {"@type": "Answer", "text": "Verify current pricing, terms, integrations, limitations, and official vendor policy before buying or promoting any tool."}}]}, ensure_ascii=False))
+    schemas = "\n".join(
+        f'<script type="application/ld+json">{schema}</script>'
+        for schema in schema_items
+    )
+    return f"""<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{html.escape(title)} - {html.escape(settings.site_name)}</title><meta name="description" content="{html.escape(description)}"><link rel="canonical" href="{html.escape(canonical, quote=True)}"><link rel="alternate" type="application/rss+xml" title="{html.escape(settings.site_name)} RSS" href="{html.escape(site_url('/rss.xml'), quote=True)}"><meta property="og:title" content="{html.escape(title)} - {html.escape(settings.site_name)}"><meta property="og:description" content="{html.escape(description)}"><meta property="og:type" content="{html.escape(page_type)}"><meta property="og:image" content="{html.escape(site_url(image_path), quote=True)}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{html.escape(site_url(image_path), quote=True)}"><meta name="google-site-verification" content="{html.escape(settings.google_site_verification, quote=True)}">{analytics_snippet()}{schemas}<style>{base_css()}</style></head>
+<body>{nav_html()}<main class="wrap legal">{body}</main>{footer_html()}</body></html>"""
+
+
+def write_legal_pages(output: Path) -> None:
+    for slug, (title, body) in legal_pages().items():
+        folder = output / slug
+        folder.mkdir(parents=True, exist_ok=True)
+        page = page_shell(title, f"{title} for {settings.site_name}.", f"<h1>{html.escape(title)}</h1>{body}", f"/{slug}/")
+        (folder / "index.html").write_text(page, encoding="utf-8")
+
+
+def write_og_images(output: Path, pages: list[dict]) -> None:
+    og_dir = output / "assets" / "og"
+    og_dir.mkdir(parents=True, exist_ok=True)
+    write_og_svg(og_dir / "home.svg", settings.site_name, "AI & SaaS Reviews")
+    write_og_svg(og_dir / "site.svg", settings.site_name, "Independent research hub")
+    write_og_svg(og_dir / "blog.svg", "AI & SaaS Blog", settings.site_name)
+    for page in pages:
+        write_og_svg(og_dir / f"{page['slug']}.svg", f"{page['brand_name']} Review", settings.site_name)
+    for slug, title, _ in BLOG_POSTS:
+        write_og_svg(og_dir / f"{slug}.svg", title, settings.site_name)
+
+
+def write_og_svg(path: Path, title: str, subtitle: str) -> None:
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#0f766e"/><stop offset="1" stop-color="#1e293b"/></linearGradient></defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <rect x="70" y="70" width="1060" height="490" rx="28" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.28)"/>
+  <text x="110" y="170" fill="#d1fae5" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">{html.escape(subtitle)}</text>
+  <text x="110" y="300" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="68" font-weight="800">{html.escape(title[:42])}</text>
+  <text x="110" y="410" fill="#e2e8f0" font-family="Arial, Helvetica, sans-serif" font-size="30">Research-first reviews, comparisons, and disclosure</text>
+</svg>"""
+    path.write_text(svg, encoding="utf-8")
+
+
+def write_html_sitemap(output: Path, pages: list[dict]) -> None:
+    folder = output / "sitemap"
+    folder.mkdir(parents=True, exist_ok=True)
+    review_links = "".join(f"<li><a href='/{html.escape(page['slug'])}/'>{html.escape(page['brand_name'])} Review</a></li>" for page in pages)
+    blog_links = "".join(f"<li><a href='/blog/{html.escape(slug)}/'>{html.escape(title)}</a></li>" for slug, title, _ in BLOG_POSTS)
+    static_links = "".join(f"<li><a href='/{html.escape(slug)}/'>/{html.escape(slug)}/</a></li>" for slug in CONTENT_SLUGS + CATEGORY_SLUGS + COMPARISON_SLUGS + LEGAL_SLUGS + ["blog", "media-kit"])
+    body = f"<section class='card'><h1>HTML Sitemap</h1><h2>Reviews</h2><ul>{review_links}</ul><h2>Blog</h2><ul>{blog_links}</ul><h2>Site pages</h2><ul>{static_links}</ul></section>"
+    (folder / "index.html").write_text(page_shell("Sitemap", "Human-readable sitemap for AI Tool Review Hub.", body, "/sitemap/"), encoding="utf-8")
+
+
+def write_rss(output: Path, pages: list[dict] | None = None) -> None:
+    base = (settings.base_site_url or settings.site_domain or "https://yourdomain.com").rstrip("/")
+    blog_items = "\n".join(
+        f"<item><title>{html.escape(title)}</title><link>{base}/blog/{html.escape(slug)}/</link><guid>{base}/blog/{html.escape(slug)}/</guid><description>{html.escape(summary)}</description></item>"
+        for slug, title, summary in BLOG_POSTS
+    )
+    review_items = "\n".join(
+        f"<item><title>{html.escape(page['brand_name'])} Review</title><link>{base}/{html.escape(page['slug'])}/</link><guid>{base}/{html.escape(page['slug'])}/</guid><description>{html.escape(page['description'])}</description></item>"
+        for page in (pages or [])[:20]
+    )
+    comparison_items = "\n".join(
+        f"<item><title>{html.escape(slug.split('/')[-1].replace('-', ' ').title())}</title><link>{base}/{html.escape(slug)}/</link><guid>{base}/{html.escape(slug)}/</guid><description>AI and SaaS comparison page.</description></item>"
+        for slug in COMPARISON_SLUGS[:10]
+    )
+    rss = f"""<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel><title>{html.escape(settings.site_name)}</title><link>{base}/</link><description>AI and SaaS reviews, comparisons, and research guides.</description>{review_items}{comparison_items}{blog_items}</channel></rss>"""
+    (output / "rss.xml").write_text(rss, encoding="utf-8")
+
+
+def write_media_kit(output: Path) -> None:
+    folder = output / "media-kit"
+    folder.mkdir(parents=True, exist_ok=True)
+    body = f"""<section class='card'><h1>Media Kit</h1><p><strong>{html.escape(settings.site_name)}</strong> is an independent-style AI and SaaS review hub focused on research, comparisons, and transparent affiliate disclosure.</p><p>Contact: <a href='mailto:{html.escape(settings.contact_email)}'>{html.escape(settings.contact_email)}</a></p></section>
+    <section class='grid'><div class='card'><h2>Categories</h2><ul><li>AI Tools</li><li>Marketing</li><li>CRM</li><li>Website Builders</li><li>Productivity</li></ul></div><div class='card'><h2>Social preview</h2><img loading='lazy' src='/assets/og/home.svg' alt='AI Tool Review Hub social preview' style='width:100%;border-radius:8px'></div></section>"""
+    (folder / "index.html").write_text(page_shell("Media Kit", "Brand, category, contact, and social preview information.", body, "/media-kit/"), encoding="utf-8")
+
+
+def write_aeo_action_plan(output: Path) -> None:
+    folder = output / "aeo-action-plan"
+    folder.mkdir(parents=True, exist_ok=True)
+    sections = {
+        "Technical SEO": [("Done", "Keep sitemap.xml updated"), ("Done", "Generate robots.txt and llms.txt"), ("Doing", "Submit site to Google Search Console"), ("Planned", "Check Core Web Vitals after deployment"), ("Done", "Validate schema markup")],
+        "Content": [("Doing", "Publish deeper review updates"), ("Done", "Add comparison answers for high-intent queries"), ("Planned", "Refresh pricing notes monthly")],
+        "Off-page": [("Planned", "Share useful summaries on LinkedIn and Medium"), ("Planned", "Answer relevant questions without spam"), ("Planned", "Build citations from real communities")],
+        "Internal Links": [("Done", "Link categories to reviews"), ("Done", "Link reviews to comparisons"), ("Doing", "Add related reviews to every article")],
+        "AI Visibility Tracking": [("Planned", "Track ChatGPT/Gemini/Perplexity mentions"), ("Planned", "Record competitors cited"), ("Doing", "Create missing answer pages")],
+        "Affiliate Conversion": [("Doing", "Add clear CTA sections"), ("Planned", "Replace pending affiliate routes after approval"), ("Planned", "Verify current pricing and terms before paid traffic")],
+    }
+    blocks = ""
+    for title, items in sections.items():
+        rows = "".join(f"<tr><td>{status_badge(status)}</td><td>{html.escape(item)}</td></tr>" for status, item in items)
+        blocks += f"<section class='card'><h2>{html.escape(title)}</h2><table><thead><tr><th>Status</th><th>Checklist item</th></tr></thead><tbody>{rows}</tbody></table></section>"
+    body = f"<section class='card'><h1>AEO Action Plan</h1><p>Manual checklist for improving AI search visibility, SEO trust, and affiliate conversion without automation spam.</p><p><span class='status planned'>Planned</span> <span class='status doing'>Doing</span> <span class='status done'>Done</span></p></section>{blocks}"
+    (folder / "index.html").write_text(page_shell("AEO Action Plan", "Manual AEO tasks for technical SEO, content, off-page work, links, and AI visibility tracking.", body, "/aeo-action-plan/"), encoding="utf-8")
+
+
+def status_badge(status: str) -> str:
+    css_class = status.lower()
+    return f"<span class='status {html.escape(css_class)}'>{html.escape(status)}</span>"
+
+
+def write_llms_txt(output: Path, pages: list[dict], base_site_url: str) -> None:
+    base = (base_site_url or settings.base_site_url or settings.site_domain or "https://yourdomain.com").rstrip("/")
+    review_lines = "\n".join(f"- {page['brand_name']} Review: {base}/{page['slug']}/" for page in pages)
+    tool_review_lines = "\n".join(f"- {base}/{slug}/" for slug in discover_paths(output, "review"))
+    comparison_lines = "\n".join(f"- {base}/{slug}/" for slug in discover_paths(output, "comparisons"))
+    compare_lines = "\n".join(f"- {base}/{slug}/" for slug in discover_paths(output, "compare"))
+    category_lines = "\n".join(f"- {base}/{slug}/" for slug in CATEGORY_SLUGS)
+    toplist_lines = "\n".join(f"- {base}/{slug}/" for slug in discover_prefix_pages(output, "best-"))
+    pricing_lines = "\n".join(f"- {base}/{slug}/" for slug in discover_suffix_pages(output, "-pricing"))
+    pricing_directory_lines = "\n".join(f"- {base}/{slug}/" for slug in discover_paths(output, "pricing"))
+    hub_lines = "\n".join(f"- {base}/{slug}/" for slug in discover_paths(output, "hub"))
+    text = f"""# {settings.site_name}
+
+Purpose: independent-style AI and SaaS review website for research, comparison, affiliate disclosure, and safer software evaluation.
+
+Important pages:
+- Home: {base}/
+- Reviews: {base}/reviews/
+- Comparisons: {base}/comparisons/
+- Editorial Policy: {base}/editorial-policy/
+- Affiliate Disclosure: {base}/affiliate-disclosure/
+- Testing Methodology: {base}/testing-methodology/
+- Sitemap: {base}/sitemap.xml
+
+Categories:
+{category_lines}
+
+Review pages:
+{review_lines}
+
+Tool review engine pages:
+{tool_review_lines}
+
+Comparison pages:
+{comparison_lines}
+
+Decision comparison pages:
+{compare_lines}
+
+Top list pages:
+{toplist_lines}
+
+Pricing and intent pages:
+{pricing_lines}
+{pricing_directory_lines}
+
+Hub pages:
+{hub_lines}
+
+Editorial notes: content is research-based, avoids fake guarantees, discloses affiliate relationships, and asks readers to verify current pricing and vendor terms.
+"""
+    (output / "llms.txt").write_text(text, encoding="utf-8")
+
+
+def discover_paths(output: Path, prefix: str) -> list[str]:
+    root = output / prefix
+    if not root.exists():
+        return []
+    return sorted(str(path.parent.relative_to(output)).replace("\\", "/") for path in root.rglob("index.html"))
+
+
+def discover_prefix_pages(output: Path, prefix: str) -> list[str]:
+    return sorted(path.parent.name for path in output.glob(f"{prefix}*/index.html"))
+
+
+def discover_suffix_pages(output: Path, suffix: str) -> list[str]:
+    return sorted(path.parent.name for path in output.glob(f"*{suffix}/index.html"))
+
+
+def base_schemas(title: str, description: str, canonical: str) -> list[str]:
+    base = (settings.base_site_url or settings.site_domain or "https://yourdomain.com").rstrip("/")
+    schemas = [
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": settings.site_name,
+            "url": base + "/",
+            "contactPoint": {"@type": "ContactPoint", "email": settings.contact_email or "", "contactType": "editorial"},
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Nguyen Quoc Tuan",
+            "jobTitle": "Independent AI & SaaS Researcher",
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": settings.site_name,
+            "url": base + "/",
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": f"{title} - {settings.site_name}",
+            "description": description,
+            "url": canonical,
+            "author": {"@type": "Person", "name": "Nguyen Quoc Tuan"},
+            "publisher": {"@type": "Organization", "name": settings.site_name},
+            "dateModified": date.today().isoformat(),
+        },
+    ]
+    return [json.dumps(schema, ensure_ascii=False) for schema in schemas]
+
+
+def write_robots(output: Path, base_site_url: str) -> None:
+    sitemap = f"Sitemap: {base_site_url}/sitemap.xml\n" if base_site_url else ""
+    (output / "robots.txt").write_text(f"User-agent: *\nAllow: /\n{sitemap}", encoding="utf-8")
+
+
+def write_sitemap(output: Path, pages: list[dict], base_site_url: str) -> None:
+    generate_sitemap(output, base_site_url or settings.base_site_url or settings.site_domain)
+
+
+def write_redirects(output: Path, pages: list[dict]) -> None:
+    lines = ["/home / 301"]
+    for page in pages:
+        lines.append(f"/{page['slug']} /{page['slug']}/ 301")
+    (output / "_redirects").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def short_description(brand: str, niche: str) -> str:
+    return f"A research-focused review of {brand} for buyers comparing {niche} tools."
+
+
+def nav_html() -> str:
+    return f'<nav class="nav"><div class="wrap nav-inner"><a class="logo" href="/">{html.escape(settings.site_name)}</a><div class="menu"><a href="/">Home</a><a href="/reviews/">Reviews</a><a href="/comparisons/">Comparisons</a><a href="/pricing/">Pricing</a><a href="/categories/">Categories</a><a href="/hubs/">Hubs</a><a href="/blog/">Blog</a><a href="/contact/">Contact</a></div></div><div class="wrap"><p class="note">Some links may be affiliate links. We may earn a commission at no extra cost to you.</p></div></nav>'
+
+
+def footer_html() -> str:
+    contact = settings.contact_email or "contact@example.com"
+    return f'<footer><div class="wrap"><p><strong>{html.escape(settings.site_name)}</strong></p><a href="/">Home</a><a href="/reviews/">Reviews</a><a href="/comparisons/">Comparisons</a><a href="/pricing/">Pricing</a><a href="/categories/">Categories</a><a href="/hubs/">Hubs</a><a href="/blog/">Blog</a><a href="/privacy-policy/">Privacy Policy</a><a href="/terms/">Terms</a><a href="/contact/">Contact</a><a href="/affiliate-disclosure/">Affiliate Disclosure</a><a href="/about-author/">About Author</a><a href="/editorial-policy/">Editorial Policy</a><a href="/testing-methodology/">Testing Methodology</a><p>&copy; 2026 {html.escape(settings.site_name)}. Contact: <a href="mailto:{html.escape(contact)}">{html.escape(contact)}</a></p><p>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p><p>Reviews are for research purposes only.</p></div></footer>'
+
+
+def newsletter_html() -> str:
+    return "<section class='card trust'><h2>Get new AI tool reviews and comparisons.</h2><p>Join the research list for new AI/SaaS review updates. This static form is prepared for a future email provider.</p><form><input class='search' type='email' aria-label='Email address'><button class='btn' type='button'>Notify me</button></form></section>"
+
+
+def share_buttons(path: str, title: str) -> str:
+    url = site_url(path)
+    text = html.escape(title)
+    encoded_url = html.escape(url, quote=True)
+    encoded_text = html.escape(text.replace(" ", "%20"), quote=True)
+    return f"<p class='share'><strong>Share:</strong> <a href='https://www.linkedin.com/sharing/share-offsite/?url={encoded_url}'>LinkedIn</a> <a href='https://www.pinterest.com/pin/create/button/?url={encoded_url}&description={encoded_text}'>Pinterest</a> <a href='https://www.facebook.com/sharer/sharer.php?u={encoded_url}'>Facebook</a> <a href='https://twitter.com/intent/tweet?url={encoded_url}&text={encoded_text}'>X/Twitter</a></p>"
+
+
+def faq_html(questions: list[str]) -> str:
+    return "".join(f"<details><summary>{html.escape(question)}</summary><p>Use this guide as a research starting point, then verify pricing, terms, policy, and workflow fit on the official vendor website before buying or promoting a tool.</p></details>" for question in questions)
+
+
+def site_url(path: str) -> str:
+    base = (settings.base_site_url or settings.site_domain or "https://yourdomain.com").rstrip("/")
+    return base + "/" + path.lstrip("/")
+
+
+def analytics_snippet() -> str:
+    if not settings.ga_measurement_id:
+        return "<!-- Google Analytics disabled until GA_MEASUREMENT_ID is set in .env. -->"
+    measurement = html.escape(settings.ga_measurement_id, quote=True)
+    return f"""<script async src="https://www.googletagmanager.com/gtag/js?id={measurement}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{measurement}');</script>"""
+
+
+def legal_pages() -> dict[str, tuple[str, str]]:
+    site_name = html.escape(settings.site_name)
+    owner = html.escape(settings.site_owner or "Site owner")
+    email = html.escape(settings.contact_email or "contact@example.com")
+    domain = html.escape(settings.site_domain or settings.base_site_url or "")
+    contact_link = f'<a href="mailto:{email}">{email}</a>'
+    return {
+        "contact": (
+            "Contact",
+            f"""
+            <section class="card">
+              <h2>{site_name}</h2>
+              <p><strong>Owner:</strong> {owner}</p>
+              <p><strong>Website:</strong> {domain}</p>
+              <p><strong>Contact email:</strong> {contact_link}</p>
+              <p>This website publishes independent-style AI/SaaS tool reviews for research and comparison purposes.</p>
+            </section>
+            """,
+        ),
+        "privacy-policy": (
+            "Privacy Policy",
+            f"""
+            <section class="card">
+              <p>{site_name} does not ask visitors to submit sensitive personal information.</p>
+              <p>This site may use basic analytics, cookies, or similar technologies in the future to understand traffic and improve review content.</p>
+              <p>If a contact form or email link is used, the information you send is used only to respond to your request.</p>
+              <p>You can contact the site owner at {contact_link} for privacy-related questions.</p>
+            </section>
+            """,
+        ),
+        "terms": (
+            "Terms",
+            f"""
+            <section class="card">
+              <p>Content on {site_name} is provided for research and comparison purposes only.</p>
+              <p>No result is promised. Software outcomes, pricing, availability, affiliate terms, payouts, and policies can change at any time.</p>
+              <p>Users should verify current pricing, product details, and official terms directly with each vendor before buying, promoting, or running ads.</p>
+              <p>By using this site, you agree that decisions based on the information here are your own responsibility.</p>
+            </section>
+            """,
+        ),
+        "affiliate-disclosure": (
+            "Affiliate Disclosure",
+            f"""
+            <section class="card">
+              <p>{site_name} may receive affiliate commissions when visitors purchase through links on this website.</p>
+              <p>Affiliate commission does not change the price paid by the buyer.</p>
+              <p>Reviews are created for research and comparison purposes. They should not be treated as financial, legal, or business advice.</p>
+              <p>Always check the vendor's official website for the latest pricing, features, and terms.</p>
+            </section>
+            """,
+        ),
+    }
+
+
+def base_css() -> str:
+    return """
+    *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f7f9fc;color:#17202a;line-height:1.6}.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+    .nav{background:#fff;border-bottom:1px solid #dbe3ef}.nav-inner{height:64px;display:flex;align-items:center;justify-content:space-between;gap:18px}.logo{font-weight:800;color:#0f172a;text-decoration:none}.menu{display:flex;gap:18px;flex-wrap:wrap}.menu a{color:#475569;text-decoration:none;font-size:14px}
+    .hero{padding:56px 0;background:linear-gradient(180deg,#fff,#f7f9fc)}h1{font-size:44px;line-height:1.08;margin:10px 0}h2{font-size:26px;margin:28px 0 12px}h3{margin:0 0 8px}.muted,p,li{color:#596579}.badge{display:inline-block;border:1px solid #a7f3d0;background:#ecfdf5;color:#047857;border-radius:999px;padding:5px 10px;font-size:13px;font-weight:700}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}.card{background:#fff;border:1px solid #dbe3ef;border-radius:8px;padding:18px;box-shadow:0 1px 2px rgba(15,23,42,.04)}.btn{display:inline-block;background:#0f766e;color:#fff;text-decoration:none;padding:10px 14px;border-radius:6px;font-weight:800;margin-right:10px}.btn.secondary{background:#e2e8f0;color:#0f172a}.search{width:100%;padding:12px 14px;border:1px solid #cbd5e1;border-radius:8px;margin:8px 0 18px}.share a{display:inline-block;margin:0 8px 8px 0;color:#0f766e;font-weight:700}.breadcrumb{font-size:14px;color:#64748b;margin-bottom:18px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}.review-layout{display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:start}.toc{position:sticky;top:84px}.toc a{display:block;color:#475569;text-decoration:none;padding:6px 0;border-bottom:1px solid #edf2f7}.note{font-size:13px;color:#7c2d12}.status{display:inline-block;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:800}.status.planned{background:#f1f5f9;color:#334155}.status.doing{background:#fef3c7;color:#92400e}.status.done{background:#dcfce7;color:#166534}.list-section ul{background:#fff;border:1px solid #dbe3ef;border-radius:8px;padding:18px 28px}.list-section li{margin:8px 0}.list-section span{color:#64748b;margin-left:8px}.legal{padding-top:44px;padding-bottom:44px}.trust{border-left:4px solid #9a3412;background:#fff7ed}details{border-top:1px solid #e6edf5;padding:12px 0}summary{cursor:pointer;font-weight:800;color:#334155}table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #dbe3ef;border-radius:8px;overflow:hidden}th,td{text-align:left;border-bottom:1px solid #e6edf5;padding:12px;vertical-align:top}th{background:#f1f5f9;color:#334155}
+    footer{margin-top:36px;background:#0f172a;color:#cbd5e1;padding:28px 0}footer a{color:#e2e8f0;text-decoration:none;margin-right:14px}footer p{color:#cbd5e1}@media(max-width:900px){.review-layout{grid-template-columns:1fr}.toc{position:relative;top:auto}}@media(max-width:760px){.nav-inner{height:auto;padding:14px 0;align-items:flex-start;flex-direction:column}h1{font-size:34px}}
+    """

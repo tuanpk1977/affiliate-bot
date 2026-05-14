@@ -1,0 +1,36 @@
+{
+  "reviews": [
+    {"title": "Cursor review", "slug": "cursor-review", "tool": "Cursor", "keyword": "cursor review", "page_type": "Review page"},
+    {"title": "Windsurf review", "slug": "windsurf-review", "tool": "Windsurf", "keyword": "windsurf review", "page_type": "Review page"},
+    {"title": "GitHub Copilot review", "slug": "github-copilot-review", "tool": "GitHub Copilot", "keyword": "github copilot review", "page_type": "Review page"},
+    {"title": "Replit review", "slug": "replit-review", "tool": "Replit", "keyword": "replit review", "page_type": "Review page"},
+    {"title": "Bolt review", "slug": "bolt-review", "tool": "Bolt", "keyword": "bolt review", "page_type": "Review page"},
+    {"title": "Lovable review", "slug": "lovable-review", "tool": "Lovable", "keyword": "lovable review", "page_type": "Review page"},
+    {"title": "Devin review", "slug": "devin-review", "tool": "Devin", "keyword": "devin review", "page_type": "Review page"}
+  ],
+  "comparisons": [
+    {"title": "Cursor vs Codex", "slug": "cursor-vs-codex", "tool": "Cursor", "keyword": "cursor vs codex", "page_type": "Comparison page"},
+    {"title": "Windsurf vs Codex", "slug": "windsurf-vs-codex", "tool": "Windsurf", "keyword": "windsurf vs codex", "page_type": "Comparison page"},
+    {"title": "Cursor vs Replit", "slug": "cursor-vs-replit", "tool": "Cursor", "keyword": "cursor vs replit", "page_type": "Comparison page"},
+    {"title": "Cursor vs Devin", "slug": "cursor-vs-devin", "tool": "Cursor", "keyword": "cursor vs devin", "page_type": "Comparison page"},
+    {"title": "Windsurf vs Cursor", "slug": "windsurf-vs-cursor", "tool": "Windsurf", "keyword": "windsurf vs cursor", "page_type": "Comparison page"},
+    {"title": "Copilot vs Cursor", "slug": "copilot-vs-cursor", "tool": "GitHub Copilot", "keyword": "copilot vs cursor", "page_type": "Comparison page"}
+  ],
+  "workflows": [
+    {"title": "My AI coding workflow", "slug": "my-ai-coding-workflow", "tool": "Cursor", "keyword": "my ai coding workflow", "page_type": "Blog article"},
+    {"title": "How I use Codex after Windsurf", "slug": "how-i-use-codex-after-windsurf", "tool": "Codex", "keyword": "how i use codex after windsurf", "page_type": "Blog article"},
+    {"title": "How I use Windsurf for rough draft and Codex for final repair", "slug": "windsurf-rough-draft-codex-final-repair", "tool": "Windsurf", "keyword": "windsurf rough draft codex final repair", "page_type": "Blog article"},
+    {"title": "Real debugging workflow using AI coding tools", "slug": "real-debugging-workflow-ai-coding-tools", "tool": "Codex", "keyword": "real debugging workflow using ai coding tools", "page_type": "Blog article"},
+    {"title": "Best AI coding stack for solo builders", "slug": "best-ai-coding-stack-solo-builders", "tool": "Cursor", "keyword": "best ai coding stack for solo builders", "page_type": "Blog article"}
+  ],
+  "problem_based_seo": [
+    {"title": "Best AI tool for fixing bugs", "slug": "best-ai-tool-for-fixing-bugs", "tool": "Codex", "keyword": "best ai tool for fixing bugs", "page_type": "Blog article"},
+    {"title": "Best AI coding tool for large projects", "slug": "best-ai-coding-tool-for-large-projects", "tool": "Cursor", "keyword": "best ai coding tool for large projects", "page_type": "Blog article"},
+    {"title": "Why AI coding tools fail on refactors", "slug": "why-ai-coding-tools-fail-on-refactors", "tool": "Windsurf", "keyword": "why ai coding tools fail on refactors", "page_type": "Blog article"},
+    {"title": "Best AI coding workflow for startups", "slug": "best-ai-coding-workflow-for-startups", "tool": "Cursor", "keyword": "best ai coding workflow for startups", "page_type": "Blog article"},
+    {"title": "Best AI tool for deployment errors", "slug": "best-ai-tool-for-deployment-errors", "tool": "Codex", "keyword": "best ai tool for deployment errors", "page_type": "Blog article"},
+    {"title": "Cursor not fixing bug: what to do", "slug": "cursor-not-fixing-bug-what-to-do", "tool": "Cursor", "keyword": "cursor not fixing bug what to do", "page_type": "Blog article"},
+    {"title": "Windsurf broke my project: how to recover", "slug": "windsurf-broke-my-project-how-to-recover", "tool": "Windsurf", "keyword": "windsurf broke my project how to recover", "page_type": "Blog article"},
+    {"title": "Codex vs Cursor for debugging", "slug": "codex-vs-cursor-for-debugging", "tool": "Codex", "keyword": "codex vs cursor for debugging", "page_type": "Comparison page"}
+  ]
+}

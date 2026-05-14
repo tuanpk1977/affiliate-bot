@@ -1,0 +1,14 @@
+SOCIAL DISTRIBUTION SUMMARY
+generated_posts: 0
+approved_posts: 0
+scheduled_posts: 4
+published_posts: 1
+failed_posts: 0
+
+Platform stats:
+- no social posts generated yet
+
+Safety:
+- No social post is published without approval and queue scheduling.
+- Facebook, LinkedIn, and X/Twitter are safe-copy mode only.
+- Telegram requires TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID before sending.

@@ -1,0 +1,22 @@
+{
+  "telegram": {
+    "enabled": true,
+    "daily_times": ["09:00", "20:00"],
+    "max_posts_per_day": 2
+  },
+  "facebook": {
+    "enabled": false,
+    "daily_times": ["09:30", "20:30"],
+    "max_posts_per_day": 2
+  },
+  "linkedin": {
+    "enabled": false,
+    "daily_times": ["10:00"],
+    "max_posts_per_day": 1
+  },
+  "twitter": {
+    "enabled": false,
+    "daily_times": ["09:15", "14:00", "20:15"],
+    "max_posts_per_day": 3
+  }
+}

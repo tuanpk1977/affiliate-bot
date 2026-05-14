@@ -1,0 +1,9 @@
+pandas
+requests
+beautifulsoup4
+lxml
+python-dotenv
+streamlit
+jinja2
+protobuf>=7.34.1,<8
+Pillow

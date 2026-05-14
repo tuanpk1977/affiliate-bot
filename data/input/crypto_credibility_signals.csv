@@ -1,0 +1,25 @@
+signal_type,name,score,notes
+tier1_backer,a16z,18,Top crypto venture fund
+tier1_backer,Andreessen Horowitz,18,Top crypto venture fund
+tier1_backer,Paradigm,18,Top crypto venture fund
+tier1_backer,Polychain,16,Top crypto venture fund
+tier1_backer,Dragonfly,16,Top crypto venture fund
+tier1_backer,Multicoin,16,Top crypto venture fund
+tier1_backer,Framework Ventures,14,Known crypto venture fund
+tier1_backer,Pantera,14,Known crypto venture fund
+tier1_backer,Coinbase Ventures,16,Exchange venture arm
+tier1_backer,Binance Labs,16,Exchange venture arm
+tier1_backer,OKX Ventures,14,Exchange venture arm
+tier1_backer,Animoca Brands,12,Web3 gaming/metaverse investor
+team_signal,founder,8,Public founder/team signal
+team_signal,co-founder,8,Public founder/team signal
+team_signal,team,5,Team page or public team mention
+team_signal,advisor,5,Advisor mention
+security_signal,audit,8,Audit signal
+security_signal,audited,8,Audit signal
+security_signal,certik,8,Security audit firm signal
+security_signal,trail of bits,8,Security audit firm signal
+security_signal,quantstamp,7,Security audit firm signal
+risk_signal,anonymous team,-15,Anonymous team risk
+risk_signal,anon team,-15,Anonymous team risk
+risk_signal,no audit,-8,No audit risk

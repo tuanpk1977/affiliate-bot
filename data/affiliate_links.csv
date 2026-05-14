@@ -1,0 +1,35 @@
+tool_slug,tool_name,brand,slug,official_url,affiliate_url,affiliate_status,status,notes,commission_note,network,approved
+gamma,Gamma,Gamma,gamma,https://gamma.app,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+elevenlabs,ElevenLabs,ElevenLabs,elevenlabs,https://elevenlabs.io,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+webflow-ai,Webflow AI,Webflow AI,webflow-ai,https://webflow.com/ai,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+adcreative-ai,AdCreative AI,AdCreative AI,adcreative-ai,https://www.adcreative.ai,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+pipedrive-crm,Pipedrive CRM,Pipedrive CRM,pipedrive-crm,https://www.pipedrive.com,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,PartnerStack,False
+jasper-ai,Jasper AI,Jasper AI,jasper-ai,https://www.jasper.ai,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+surfer-seo,Surfer SEO,Surfer SEO,surfer-seo,https://surferseo.com,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+synthesia,Synthesia,Synthesia,synthesia,https://www.synthesia.io,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+notion,Notion,Notion,notion,https://www.notion.com,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+make,Make,Make,make,https://www.make.com,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+hubspot,HubSpot,HubSpot,hubspot,https://www.hubspot.com,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+activecampaign,ActiveCampaign,ActiveCampaign,activecampaign,https://www.activecampaign.com,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+canva,Canva,Canva,canva,https://www.canva.com,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+reclaim-ai,Reclaim AI,Reclaim AI,reclaim-ai,https://reclaim.ai,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+pipedrive,Pipedrive,Pipedrive,pipedrive,https://www.pipedrive.com,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+notion-ai,Notion AI,Notion AI,notion-ai,https://www.notion.com/product/ai,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+jasper,Jasper,Jasper,jasper,https://www.jasper.ai,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+copy-ai,Copy.ai,Copy.ai,copy-ai,https://www.copy.ai,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+descript,Descript,Descript,descript,https://www.descript.com,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+runway,Runway,Runway,runway,https://runwayml.com,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+zapier,Zapier,Zapier,zapier,https://zapier.com,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+framer,Framer,Framer,framer,https://www.framer.com,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+webflow,Webflow,Webflow,webflow,https://webflow.com,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+durable,Durable,Durable,durable,https://durable.co,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+cursor,Cursor,Cursor,cursor,https://cursor.com,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+github-copilot,GitHub Copilot,GitHub Copilot,github-copilot,https://github.com/features/copilot,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+semrush,Semrush,Semrush,semrush,https://www.semrush.com,,pending,pending_approval,Affiliate link pending approval.,Affiliate link pending approval.,Other,False
+windsurf,Windsurf,Windsurf,windsurf,https://windsurf.com,,official_only,official_only,Official site only. No affiliate link has been added.,Affiliate link pending approval.,Other,False
+codeium,Codeium,Codeium,codeium,https://codeium.com,,official_only,official_only,Official site only. No affiliate link has been added.,Affiliate link pending approval.,Other,False
+ahrefs,Ahrefs,Ahrefs,ahrefs,https://ahrefs.com,,official_only,official_only,Official site only. No affiliate link has been added.,Affiliate link pending approval.,Other,False
+mailchimp,Mailchimp,Mailchimp,mailchimp,https://mailchimp.com,,official_only,official_only,Official site only. No affiliate link has been added.,Affiliate link pending approval.,Other,False
+pictory,Pictory,Pictory,pictory,https://pictory.ai,,official_only,official_only,Official site only. No affiliate link has been added.,Affiliate link pending approval.,Other,False
+grammarly,Grammarly,Grammarly,grammarly,https://www.grammarly.com,,official_only,official_only,Official site only. No affiliate link has been added.,Affiliate link pending approval.,Other,False
+quillbot,QuillBot,QuillBot,quillbot,https://quillbot.com,,official_only,official_only,Official site only. No affiliate link has been added.,Affiliate link pending approval.,Other,False

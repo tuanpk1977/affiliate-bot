@@ -1,0 +1,21 @@
+campaign,offer_name,impressions,clicks,cost,conversions,revenue,CTR,CPC,CPA,EPC,profit,ROI,decision,decision_reason
+AIIP - Jasper AI - Test 1,Jasper AI,1200,38,79.8,1,35,3.17,2.1,79.8,0.92,-44.8,-56.14,PAUSE,đang lỗ
+AIIP - Surfer SEO - Test 2,Surfer SEO,1340,42,107.1,1,60,3.13,2.55,107.1,1.43,-47.1,-43.98,PAUSE,đang lỗ
+AIIP - Synthesia - Test 3,Synthesia,1480,46,138.0,2,170,3.11,3.0,69.0,3.7,32.0,23.19,OPTIMIZE,cần thêm dữ liệu trước khi tăng ngân sách
+AIIP - ElevenLabs - Test 4,ElevenLabs,1620,50,172.5,4,440,3.09,3.45,43.12,8.8,267.5,155.07,SCALE,"ROI tốt, có thể tăng budget từng bước"
+AIIP - Make - Test 5,Make,1760,54,210.6,4,140,3.07,3.9,52.65,2.59,-70.6,-33.52,PAUSE,đang lỗ
+AIIP - HubSpot - Test 6,HubSpot,1900,58,121.8,5,300,3.05,2.1,24.36,5.17,178.2,146.31,SCALE,"ROI tốt, có thể tăng budget từng bước"
+AIIP - Canva - Test 7,Canva,2040,62,158.1,1,85,3.04,2.55,158.1,1.37,-73.1,-46.24,PAUSE,đang lỗ
+AIIP - Reclaim AI - Test 8,Reclaim AI,2180,66,198.0,1,110,3.03,3.0,198.0,1.67,-88.0,-44.44,PAUSE,đang lỗ
+AIIP - Notion - Test 9,Notion,2320,70,241.5,2,70,3.02,3.45,120.75,1.0,-171.5,-71.01,PAUSE,đang lỗ
+AIIP - ActiveCampaign - Test 10,ActiveCampaign,2460,74,288.6,4,240,3.01,3.9,72.15,3.24,-48.6,-16.84,WATCH,đang lỗ
+AIIP - Jasper AI - Test 11,Jasper AI,2600,78,163.8,4,340,3.0,2.1,40.95,4.36,176.2,107.57,SCALE,"ROI tốt, có thể tăng budget từng bước"
+AIIP - Surfer SEO - Test 12,Surfer SEO,2740,82,209.1,5,550,2.99,2.55,41.82,6.71,340.9,163.03,SCALE,"ROI tốt, có thể tăng budget từng bước"
+AIIP - Synthesia - Test 13,Synthesia,2880,86,258.0,1,35,2.99,3.0,258.0,0.41,-223.0,-86.43,PAUSE,đang lỗ
+AIIP - ElevenLabs - Test 14,ElevenLabs,3020,90,310.5,1,60,2.98,3.45,310.5,0.67,-250.5,-80.68,PAUSE,đang lỗ
+AIIP - Make - Test 15,Make,3160,94,366.6,2,170,2.97,3.9,183.3,1.81,-196.6,-53.63,PAUSE,đang lỗ
+AIIP - HubSpot - Test 16,HubSpot,3300,98,205.8,4,440,2.97,2.1,51.45,4.49,234.2,113.8,SCALE,"ROI tốt, có thể tăng budget từng bước"
+AIIP - Canva - Test 17,Canva,3440,102,260.1,4,140,2.97,2.55,65.03,1.37,-120.1,-46.17,PAUSE,đang lỗ
+AIIP - Reclaim AI - Test 18,Reclaim AI,3580,106,318.0,5,300,2.96,3.0,63.6,2.83,-18.0,-5.66,WATCH,đang lỗ
+AIIP - Notion - Test 19,Notion,3720,110,379.5,1,85,2.96,3.45,379.5,0.77,-294.5,-77.6,PAUSE,đang lỗ
+AIIP - ActiveCampaign - Test 20,ActiveCampaign,3860,114,444.6,1,110,2.95,3.9,444.6,0.96,-334.6,-75.26,PAUSE,đang lỗ
