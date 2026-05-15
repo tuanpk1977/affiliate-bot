@@ -121,8 +121,8 @@ def nav() -> str:
 
 
 def footer() -> str:
-    contact = settings.contact_email or "contact@example.com"
-    return f"<footer><div class='wrap'><p><strong>{html.escape(settings.site_name)}</strong></p><a href='/privacy-policy/'>Privacy Policy</a><a href='/terms/'>Terms</a><a href='/contact/'>Contact</a><a href='/affiliate-disclosure/'>Affiliate Disclosure</a><p>&copy; 2026 {html.escape(settings.site_name)}. Contact: <a href='mailto:{html.escape(contact)}'>{html.escape(contact)}</a></p><p>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p></div></footer>"
+    contact = settings.contact_email or "tuanpk1977@gmail.com"
+    return f"<footer><div class='wrap'><p><strong>{html.escape(settings.site_name)}</strong></p><p>Contact: <a href='mailto:{html.escape(contact)}'>{html.escape(contact)}</a></p><a href='/privacy/'>Privacy Policy</a><a href='/terms/'>Terms</a><a href='/disclosure/'>Disclosure</a><a href='/about/'>About</a><a href='/contact/'>Contact</a><p>&copy; 2026 {html.escape(settings.site_name)}.</p><p>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p></div></footer>"
 
 
 def css() -> str:

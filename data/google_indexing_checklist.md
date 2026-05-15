@@ -9,14 +9,24 @@
 - Test `/go/` links manually but do not submit `/go/` pages for indexing.
 - Share the highest-priority pages on social before requesting indexing if possible.
 
-## Priority URLs to inspect first
-- https://review.mssmileenglish.com/compare/cursor-vs-github-copilot/
-- https://review.mssmileenglish.com/compare/cursor-vs-windsurf/
-- https://review.mssmileenglish.com/comparisons/copilot-vs-cursor/
-- https://review.mssmileenglish.com/comparisons/cursor-vs-copilot/
-- https://review.mssmileenglish.com/comparisons/cursor-vs-github-copilot/
-- https://review.mssmileenglish.com/comparisons/cursor-vs-windsurf/
-- https://review.mssmileenglish.com/comparisons/windsurf-vs-copilot/
-- https://review.mssmileenglish.com/category/ai-coding-tools/
-- https://review.mssmileenglish.com/ai-coding-software-review/
+## 20 priority URLs to inspect first
+- https://review.mssmileenglish.com/
+- https://review.mssmileenglish.com/sitemap.xml
 - https://review.mssmileenglish.com/best-ai-coding-tools-2026/
+- https://review.mssmileenglish.com/best-ai-seo-tools-2026/
+- https://review.mssmileenglish.com/best-ai-writing-tools-2026/
+- https://review.mssmileenglish.com/best-ai-video-tools-2026/
+- https://review.mssmileenglish.com/best-ai-automation-tools-2026/
+- https://review.mssmileenglish.com/comparisons/cursor-vs-copilot/
+- https://review.mssmileenglish.com/comparisons/windsurf-vs-copilot/
+- https://review.mssmileenglish.com/comparisons/canva-vs-adobe-express/
+- https://review.mssmileenglish.com/comparisons/cursor-vs-windsurf/
+- https://review.mssmileenglish.com/review/cursor/
+- https://review.mssmileenglish.com/review/github-copilot/
+- https://review.mssmileenglish.com/review/surfer-seo/
+- https://review.mssmileenglish.com/review/semrush/
+- https://review.mssmileenglish.com/review/canva/
+- https://review.mssmileenglish.com/review/zapier/
+- https://review.mssmileenglish.com/review/make/
+- https://review.mssmileenglish.com/review/elevenlabs/
+- https://review.mssmileenglish.com/category/ai-coding-tools/

@@ -1,0 +1,23 @@
+{
+  "telegram": {
+    "enabled": false,
+    "bot_token_env": "TELEGRAM_BOT_TOKEN",
+    "chat_id_env": "TELEGRAM_CHAT_ID",
+    "mode": "manual_or_future_api"
+  },
+  "facebook": {
+    "enabled": false,
+    "page_name": "",
+    "mode": "manual_copy_ready"
+  },
+  "linkedin": {
+    "enabled": false,
+    "profile_or_page": "",
+    "mode": "manual_copy_ready"
+  },
+  "twitter": {
+    "enabled": false,
+    "username": "",
+    "mode": "manual_copy_ready"
+  }
+}

@@ -2,7 +2,7 @@
   <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#0f766e"/><stop offset="1" stop-color="#1e293b"/></linearGradient></defs>
   <rect width="1200" height="630" fill="url(#g)"/>
   <rect x="70" y="70" width="1060" height="490" rx="28" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.28)"/>
-  <text x="110" y="170" fill="#d1fae5" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">AI Tool Review Hub</text>
+  <text x="110" y="170" fill="#d1fae5" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">MS Smile AI Review Hub</text>
   <text x="110" y="300" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="68" font-weight="800">GitHub Copilot Review</text>
   <text x="110" y="410" fill="#e2e8f0" font-family="Arial, Helvetica, sans-serif" font-size="30">Research-first reviews, comparisons, and disclosure</text>
 </svg>

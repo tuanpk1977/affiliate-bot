@@ -201,7 +201,7 @@ LANDING_TEMPLATE = """<!doctype html>
     <section class="card" id="verdict"><h2>Final verdict</h2><p>{{ verdict }}</p><p><a class="btn" href="/comparisons/">Compare now</a><a class="btn" href="{{ cta_url }}" rel="nofollow sponsored">Visit Official Website</a><a class="btn secondary" href="#alternatives">See alternatives</a></p></section>
     </div>
   </main>
-  <footer><div class="wrap"><p><strong>{{ site_name }}</strong></p><a href="/privacy-policy/">Privacy Policy</a><a href="/terms/">Terms</a><a href="/contact/">Contact</a><a href="/affiliate-disclosure/">Affiliate Disclosure</a><p>&copy; 2026 {{ site_name }}. Contact: <a href="mailto:{{ contact_email }}">{{ contact_email }}</a></p><p>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p><p>Reviews are for research purposes only.</p></div></footer>
+  <footer><div class="wrap"><p><strong>{{ site_name }}</strong></p><p>Contact: <a href="mailto:{{ contact_email }}">{{ contact_email }}</a></p><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms</a><a href="/disclosure/">Disclosure</a><a href="/about/">About</a><a href="/contact/">Contact</a><p>&copy; 2026 {{ site_name }}.</p><p>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p><p>Reviews are for research purposes only.</p></div></footer>
 </body>
 </html>
 """
@@ -247,7 +247,7 @@ def build_context(offer: pd.Series, affiliate_links: pd.DataFrame | None = None)
     return {
         "brand": html.escape(brand),
         "site_name": html.escape(settings.site_name),
-        "contact_email": html.escape(settings.contact_email or "contact@example.com"),
+        "contact_email": html.escape(settings.contact_email or "tuanpk1977@gmail.com"),
         "rss_url": html.escape(f"{(settings.base_site_url or settings.site_domain or 'https://yourdomain.com').rstrip('/')}/rss.xml", quote=True),
         "google_site_verification": html.escape(settings.google_site_verification, quote=True),
         "analytics_snippet": analytics_snippet(),

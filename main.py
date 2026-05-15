@@ -30,6 +30,7 @@ from modules.site_builder import build_site_output
 from modules.sitemap_generator import generate_sitemap
 from modules.social_content_generator import ensure_report as ensure_social_post_report
 from modules.social_content_generator import write_distribution_summary
+from modules.social_distribution import ensure_social_distribution_assets
 from modules.social_publish_queue import ensure_queue as ensure_social_publish_queue
 
 
@@ -48,6 +49,7 @@ def main() -> None:
     ensure_affiliate_links(offers)
     ensure_content_drafts()
     ensure_social_post_report()
+    ensure_social_distribution_assets()
     social_queue = ensure_social_publish_queue()
 
     data_sources = load_data_sources(offers)

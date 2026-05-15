@@ -2,7 +2,10 @@
   "telegram": {
     "enabled": true,
     "bot_token": "",
-    "chat_id": ""
+    "chat_id": "",
+    "telegram_bot_token": "",
+    "telegram_chat_id": "",
+    "note": "Do not commit real tokens. Prefer .env TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID."
   },
   "facebook": {
     "enabled": false,

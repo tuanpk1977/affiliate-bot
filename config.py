@@ -48,7 +48,7 @@ class Settings:
 
     @property
     def site_name(self) -> str:
-        return os.getenv("SITE_NAME", "AI Tool Review Hub").strip() or "AI Tool Review Hub"
+        return os.getenv("SITE_NAME", "MS Smile AI Review Hub").strip() or "MS Smile AI Review Hub"
 
     @property
     def site_owner(self) -> str:
@@ -56,7 +56,7 @@ class Settings:
 
     @property
     def contact_email(self) -> str:
-        return os.getenv("CONTACT_EMAIL", "").strip()
+        return (os.getenv("SITE_CONTACT_EMAIL") or os.getenv("CONTACT_EMAIL", "")).strip()
 
     @property
     def site_domain(self) -> str:

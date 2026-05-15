@@ -534,10 +534,11 @@ def write_about_page(output: Path) -> None:
     folder = output / "about"
     folder.mkdir(parents=True, exist_ok=True)
     body = f"""<section class="card"><h1>About {html.escape(settings.site_name)}</h1>
-    <p>{html.escape(settings.site_name)} publishes independent-style AI/SaaS tool reviews for research and comparison purposes.</p>
-    <p>The site focuses on practical buyer questions: what the tool does, who it is for, key strengths, limitations, alternatives, pricing notes, and affiliate disclosure.</p>
-    <p>We do not promise outcomes. Always verify current pricing, product terms, and affiliate policies directly with the vendor.</p></section>"""
-    (folder / "index.html").write_text(page_shell("About", "About this independent-style AI and SaaS review hub.", body, "/about/"), encoding="utf-8")
+    <p>{html.escape(settings.site_name)} is a practical AI tools review hub focused on real workflow questions, not polished software demos.</p>
+    <p>The site covers AI coding tools, SEO tools, automation software, and builder workflows. The goal is to help readers understand where a tool fits, where it fails, what needs manual verification, and whether it is worth adding to a shortlist.</p>
+    <p>Most pages are written from a research-first perspective: compare the workflow, check pricing risk, verify official terms, and avoid exaggerated claims. We do not promise outcomes, rankings, revenue, or guaranteed productivity.</p>
+    <p>Contact: <a href="mailto:{html.escape(settings.contact_email)}">{html.escape(settings.contact_email)}</a></p></section>"""
+    (folder / "index.html").write_text(page_shell("About", "About this practical AI coding, SEO, automation, and workflow review hub.", body, "/about/"), encoding="utf-8")
 
 
 def write_category_pages(output: Path, pages: list[dict]) -> None:
@@ -965,8 +966,8 @@ def nav_html() -> str:
 
 
 def footer_html() -> str:
-    contact = settings.contact_email or "contact@example.com"
-    return f'<footer><div class="wrap"><p><strong>{html.escape(settings.site_name)}</strong></p><a href="/">Home</a><a href="/reviews/">Reviews</a><a href="/comparisons/">Comparisons</a><a href="/pricing/">Pricing</a><a href="/categories/">Categories</a><a href="/hubs/">Hubs</a><a href="/blog/">Blog</a><a href="/privacy-policy/">Privacy Policy</a><a href="/terms/">Terms</a><a href="/contact/">Contact</a><a href="/affiliate-disclosure/">Affiliate Disclosure</a><a href="/about-author/">About Author</a><a href="/editorial-policy/">Editorial Policy</a><a href="/testing-methodology/">Testing Methodology</a><p>&copy; 2026 {html.escape(settings.site_name)}. Contact: <a href="mailto:{html.escape(contact)}">{html.escape(contact)}</a></p><p>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p><p>Reviews are for research purposes only.</p></div></footer>'
+    contact = settings.contact_email or "tuanpk1977@gmail.com"
+    return f'<footer><div class="wrap"><p><strong>{html.escape(settings.site_name)}</strong></p><p>Contact: <a href="mailto:{html.escape(contact)}">{html.escape(contact)}</a></p><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms</a><a href="/disclosure/">Disclosure</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/reviews/">Reviews</a><a href="/comparisons/">Comparisons</a><a href="/pricing/">Pricing</a><a href="/categories/">Categories</a><a href="/hubs/">Hubs</a><p>&copy; 2026 {html.escape(settings.site_name)}.</p><p>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p><p>Reviews are for research purposes only.</p></div></footer>'
 
 
 def newsletter_html() -> str:
@@ -1000,7 +1001,7 @@ def analytics_snippet() -> str:
 def legal_pages() -> dict[str, tuple[str, str]]:
     site_name = html.escape(settings.site_name)
     owner = html.escape(settings.site_owner or "Site owner")
-    email = html.escape(settings.contact_email or "contact@example.com")
+    email = html.escape(settings.contact_email or "tuanpk1977@gmail.com")
     domain = html.escape(settings.site_domain or settings.base_site_url or "")
     contact_link = f'<a href="mailto:{email}">{email}</a>'
     return {
@@ -1012,7 +1013,8 @@ def legal_pages() -> dict[str, tuple[str, str]]:
               <p><strong>Owner:</strong> {owner}</p>
               <p><strong>Website:</strong> {domain}</p>
               <p><strong>Contact email:</strong> {contact_link}</p>
-              <p>This website publishes independent-style AI/SaaS tool reviews for research and comparison purposes.</p>
+              <p>This website publishes practical AI/SaaS tool reviews for research and comparison purposes, with a strong focus on AI coding, SEO, automation, and real workflow decisions.</p>
+              <p>If you want to suggest a tool, report an outdated pricing note, or ask about editorial/affiliate disclosure, email the address above.</p>
             </section>
             """,
         ),
@@ -1024,6 +1026,23 @@ def legal_pages() -> dict[str, tuple[str, str]]:
               <p>This site may use basic analytics, cookies, or similar technologies in the future to understand traffic and improve review content.</p>
               <p>If a contact form or email link is used, the information you send is used only to respond to your request.</p>
               <p>You can contact the site owner at {contact_link} for privacy-related questions.</p>
+            </section>
+            """,
+        ),
+        "privacy": (
+            "Privacy Policy",
+            f"""
+            <section class="card">
+              <p>{site_name} does not ask visitors to submit sensitive personal information.</p>
+              <p>This site may use basic analytics, cookies, or similar technologies in the future to understand traffic and improve review content.</p>
+              <p>If you contact the site by email, your message is used only to respond to your request.</p>
+              <p>You can contact the site owner at {contact_link} for privacy-related questions.</p>
+              <p><strong>CTA:</strong> Use the contact page if you need to ask about privacy, corrections, or site ownership.</p>
+              <p><a class="btn" href="/contact/">Contact the site</a><a class="btn secondary" href="/about/">About this review hub</a></p>
+            </section>
+            <section class="card" id="faq"><h2>FAQ</h2>
+              <details><summary>Does this site collect sensitive personal information?</summary><p>No. The site is designed as a static research hub and does not ask visitors for sensitive personal information.</p></details>
+              <details><summary>Can I request privacy-related changes?</summary><p>Yes. Contact the site owner by email for privacy-related questions.</p></details>
             </section>
             """,
         ),
@@ -1044,8 +1063,23 @@ def legal_pages() -> dict[str, tuple[str, str]]:
             <section class="card">
               <p>{site_name} may receive affiliate commissions when visitors purchase through links on this website.</p>
               <p>Affiliate commission does not change the price paid by the buyer.</p>
-              <p>Reviews are created for research and comparison purposes. They should not be treated as financial, legal, or business advice.</p>
+              <p>Reviews are based on practical research, available product information, workflow evaluation, and clearly marked limitations. They should not be treated as financial, legal, or business advice.</p>
               <p>Always check the vendor's official website for the latest pricing, features, and terms.</p>
+            </section>
+            """,
+        ),
+        "disclosure": (
+            "Disclosure",
+            f"""
+            <section class="card">
+              <p>Some links on {site_name} may be affiliate links. If you buy through those links, the site may earn a commission at no extra cost to you.</p>
+              <p>Affiliate relationships do not change the editorial goal: explain the practical workflow fit, risks, alternatives, and checks a buyer should make before choosing a tool.</p>
+              <p>Always verify official pricing, terms, and affiliate rules directly with the vendor.</p>
+              <p><a class="btn" href="/reviews/">Read reviews</a><a class="btn secondary" href="/comparisons/">Compare tools</a></p>
+            </section>
+            <section class="card" id="faq"><h2>FAQ</h2>
+              <details><summary>Do affiliate links change the buyer's price?</summary><p>No. Affiliate commissions do not add extra cost to the buyer.</p></details>
+              <details><summary>Are recommendations guaranteed?</summary><p>No. Reviews are research and comparison notes. Always verify current vendor pricing, features, and terms.</p></details>
             </section>
             """,
         ),

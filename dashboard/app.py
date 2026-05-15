@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import base64
 import json
 import os
 import sys
@@ -7,6 +8,7 @@ from pathlib import Path
 
 import pandas as pd
 import streamlit as st
+import streamlit.components.v1 as components
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -55,6 +57,23 @@ from modules.social_content_generator import (
     load_social_accounts,
     read_social_post_report,
     write_distribution_summary,
+)
+from modules.social_distribution import (
+    VALID_STATUSES as SOCIAL_REVIEW_STATUSES,
+    content_angle_dataframe,
+    ensure_social_distribution_assets,
+    generate_deep_dive_outline,
+    generate_more_variations,
+    load_content_angle_history,
+    load_social_limits,
+    load_publish_modes,
+    load_social_calendar,
+    posted_today_count,
+    save_social_calendar,
+    save_publish_modes,
+    social_asset_path,
+    telegram_config_status,
+    update_calendar_status,
 )
 from modules.social_publish_queue import (
     clear_duplicate_scheduled_posts,
@@ -302,6 +321,447 @@ def render_social_distribution_page(review_queue: pd.DataFrame) -> None:
             st.success(f"Removed {removed} queued rows and saved data/social_publish_queue.csv.")
             st.rerun()
     st.dataframe(queue_df, use_container_width=True, hide_index=True)
+
+
+def render_manual_social_distribution_page() -> None:
+    st.header("Phân phối xã hội")
+    st.warning("Local-safe: chỉ tạo nội dung và cập nhật CSV. Không auto-post, không gọi API ngoài, không deploy.")
+    calendar = ensure_social_distribution_assets()
+
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Tổng bài seed", len(calendar))
+    c2.metric("Chờ duyệt", int((calendar["status"].astype(str) == "Pending Review").sum()) if not calendar.empty else 0)
+    c3.metric("Approved", int((calendar["status"].astype(str) == "Approved").sum()) if not calendar.empty else 0)
+    c4.metric("Ready/Posted", int(calendar["status"].astype(str).isin(["Ready to Post", "Posted"]).sum()) if not calendar.empty else 0)
+    stat_cols = st.columns(4)
+    total_approved = int(calendar["status"].astype(str).isin(["Approved", "Scheduled", "Ready to Post", "Posted"]).sum()) if not calendar.empty else 0
+    total_auto_posted = int(((calendar["platform"].astype(str).str.lower() == "telegram") & (calendar["status"].astype(str) == "Posted")).sum()) if not calendar.empty else 0
+    total_manual = int((calendar["status"].astype(str) == "Ready to Post").sum()) if not calendar.empty else 0
+    stat_cols[0].metric("Total approved", total_approved)
+    stat_cols[1].metric("Total auto-posted", total_auto_posted)
+    stat_cols[2].metric("Total manual", total_manual)
+    stat_cols[3].metric("CTR", "chưa có data")
+    if not calendar.empty:
+        with st.expander("Platform breakdown", expanded=False):
+            breakdown = calendar.groupby(["platform", "status"]).size().reset_index(name="count")
+            st.dataframe(breakdown, use_container_width=True, hide_index=True)
+
+    telegram_ready, telegram_message = telegram_config_status()
+    if telegram_ready:
+        st.success(telegram_message)
+    else:
+        st.warning(telegram_message)
+
+    st.markdown("### Publish Mode")
+    modes = load_publish_modes()
+    limits = load_social_limits()
+    mode_updates: dict[str, str] = {}
+    mode_cols = st.columns(4)
+    platform_labels = [
+        ("telegram", "Telegram"),
+        ("facebook", "Facebook"),
+        ("linkedin", "LinkedIn"),
+        ("twitter", "Twitter/X"),
+    ]
+    for idx, (key, label) in enumerate(platform_labels):
+        with mode_cols[idx]:
+            current = modes.get(key, "manual")
+            selected = st.selectbox(
+                label,
+                ["manual", "auto"],
+                index=0 if current == "manual" else 1,
+                key=f"publish_mode_{key}",
+            )
+            mode_updates[key] = selected
+            if key != "telegram" and selected == "auto":
+                st.warning("Auto-post for this platform is not enabled yet. Manual copy-ready mode is safer.")
+            if key == "telegram" and selected == "auto" and not telegram_ready:
+                st.warning("Telegram Auto cần token/chat_id trước khi scheduler có thể gửi.")
+    if st.button("Save publish modes", key="save_social_publish_modes"):
+        save_publish_modes(mode_updates)
+        st.success("Saved config/social_publish_mode.json")
+        st.rerun()
+
+    st.markdown("### Daily limits")
+    limit_rows = []
+    for key, label in platform_labels:
+        config = limits.get(key, {})
+        limit_rows.append(
+            {
+                "platform": label,
+                "mode": modes.get(key, "manual"),
+                "daily_limit": config.get("daily_limit", ""),
+                "cooldown_minutes": config.get("cooldown_minutes", ""),
+                "posted_or_ready_today": posted_today_count(calendar, key),
+            }
+        )
+    st.dataframe(pd.DataFrame(limit_rows), use_container_width=True, hide_index=True)
+
+    st.markdown("### Content Expansion Engine")
+    st.caption("Tao nhieu goc khai thac cho cung mot topic de tranh lap hook, opening va CTA. Moi variation van cho duyet truoc khi dang.")
+    angles_df = content_angle_dataframe()
+    history_df = load_content_angle_history()
+    if angles_df.empty:
+        st.info("Chua co topic angle config.")
+    else:
+        h1, h2, h3 = st.columns(3)
+        h1.metric("Topics", int(angles_df["topic_slug"].nunique()))
+        h2.metric("Angles/topic", int(angles_df["angle"].nunique()))
+        h3.metric("Generated history", len(history_df))
+        topic_options = angles_df[["topic", "topic_slug"]].drop_duplicates().sort_values("topic")
+        topic_label_map = {
+            f"{row.topic} | {row.topic_slug}": row.topic_slug
+            for row in topic_options.itertuples(index=False)
+        }
+        selected_topic_label = st.selectbox("Topic", list(topic_label_map.keys()), key="angle_topic_select")
+        selected_topic_slug = topic_label_map[selected_topic_label]
+        topic_angles = angles_df[angles_df["topic_slug"].astype(str) == selected_topic_slug].copy()
+        angle_label_map = {
+            f"{row.angle} | {row.content_style}": row.angle
+            for row in topic_angles.itertuples(index=False)
+        }
+        selected_angle_label = st.selectbox("Angle", list(angle_label_map.keys()), key="angle_select")
+        selected_angle = angle_label_map[selected_angle_label]
+        selected_meta = topic_angles[topic_angles["angle"].astype(str) == selected_angle].iloc[0].to_dict()
+        st.markdown(
+            f"**Hook:** {selected_meta.get('hook', '')}  \n"
+            f"**Summary:** {selected_meta.get('summary', '')}  \n"
+            f"**CTA:** {selected_meta.get('cta', '')}  \n"
+            f"**Suggested styles:** {selected_meta.get('suggested_social_styles', '')}"
+        )
+        if st.button("Generate More Variations", key="generate_more_social_variations"):
+            created = generate_more_variations(selected_topic_slug, selected_angle)
+            st.success(f"Da tao {len(created)} variations: 3 X/Twitter, 2 LinkedIn, 2 Telegram, 2 Facebook. Tat ca dang o Pending Review.")
+            st.rerun()
+        if st.button("Deep Dive Mode: create article outline", key="generate_deep_dive_outline"):
+            outline_path = generate_deep_dive_outline(selected_topic_slug, selected_angle)
+            if outline_path:
+                st.success(f"Da tao outline: {outline_path}")
+            else:
+                st.warning("Khong tao duoc outline cho topic/angle nay.")
+        if not history_df.empty:
+            with st.expander("Content angle history", expanded=False):
+                st.dataframe(
+                    history_df[["created_at", "topic", "angle", "platform", "content_style", "post_id", "status"]].tail(50),
+                    use_container_width=True,
+                    hide_index=True,
+                )
+
+    if calendar.empty:
+        st.info("Chưa có social calendar. Chạy `python main.py` để tạo seed.")
+        return
+
+    f1, f2 = st.columns(2)
+    platform_options = ["All"] + sorted(calendar["platform"].astype(str).unique().tolist())
+    status_options = ["All"] + SOCIAL_REVIEW_STATUSES
+    platform_filter = f1.selectbox("Lọc platform", platform_options, key="manual_social_platform")
+    status_filter = f2.selectbox("Lọc status", status_options, key="manual_social_status")
+
+    filtered = calendar.copy()
+    if platform_filter != "All":
+        filtered = filtered[filtered["platform"].astype(str) == platform_filter]
+    if status_filter != "All":
+        filtered = filtered[filtered["status"].astype(str) == status_filter]
+
+    st.markdown("### Bài chờ duyệt")
+    table_columns = ["id", "platform", "topic", "angle", "content_style", "post_title", "target_url", "status", "scheduled_date", "scheduled_time"]
+    table_columns = [column for column in table_columns if column in filtered.columns]
+    st.dataframe(
+        filtered[table_columns],
+        use_container_width=True,
+        hide_index=True,
+    )
+    ready = calendar[calendar["status"].astype(str) == "Ready to Post"]
+    if not ready.empty:
+        st.markdown("### Ready to Post")
+        st.info("Các bài này đã tới lịch nhưng Facebook/LinkedIn/X không auto-post. Hãy copy thủ công rồi bấm Mark Posted.")
+        st.dataframe(
+            ready[["id", "platform", "post_title", "scheduled_date", "scheduled_time", "target_url"]],
+            use_container_width=True,
+            hide_index=True,
+        )
+    failed = calendar[calendar["status"].astype(str) == "Failed"]
+    if not failed.empty:
+        st.markdown("### Failed / Retry queue")
+        st.warning("Telegram auto failures can be retried up to 3 times. Use Retry Now to set the item back to Approved immediately.")
+        st.dataframe(
+            failed[["id", "platform", "post_title", "retry_count", "next_retry_time", "notes"]],
+            use_container_width=True,
+            hide_index=True,
+        )
+
+    if filtered.empty:
+        st.info("Không có bài phù hợp bộ lọc.")
+        return
+
+    option_rows = filtered.to_dict("records")
+    option_map = {
+        f"{row.get('platform', '')} | {row.get('post_title', '')} | {row.get('id', '')}": str(row.get("id", ""))
+        for row in option_rows
+    }
+    selected_label = st.selectbox("Chọn bài để preview", list(option_map.keys()), key="manual_social_selected")
+    selected_id = option_map[selected_label]
+    row = calendar[calendar["id"].astype(str) == selected_id].iloc[0].to_dict()
+    st.markdown(f"### Preview: {row.get('post_title', '')}")
+    st.caption(f"Platform: {row.get('platform', '')} | Status: {row.get('status', '')} | Schedule: {row.get('scheduled_date', '')} {row.get('scheduled_time', '')}")
+    if row.get("content_style"):
+        st.caption(f"Content style: {row.get('content_style')}")
+    if row.get("topic") or row.get("angle"):
+        st.caption(f"Topic: {row.get('topic', '')} | Angle: {row.get('angle', '')}")
+    image_path = social_asset_path(selected_id)
+    if image_path.exists():
+        st.image(str(image_path), caption=f"Social asset: {image_path.name}", use_container_width=True)
+    post_body_value = str(row.get("post_body", ""))
+    st.text_area("Nội dung copy-ready", value=post_body_value, height=260, key=f"manual_social_body_{selected_id}")
+    platform_key = str(row.get("platform", "")).lower()
+    char_count = len(post_body_value)
+    st.caption(f"Character count: {char_count}")
+    if platform_key == "x/twitter":
+        thread_posts = split_x_thread(post_body_value)
+        st.markdown("#### X/Twitter thread")
+        for index, post in enumerate(thread_posts, start=1):
+            count = len(post)
+            if count > 260:
+                st.warning(f"Post {index} vượt 260 ký tự: {count}")
+            else:
+                st.caption(f"Post {index}: {count} ký tự")
+            st.text_area(
+                f"Post {index}",
+                value=post,
+                height=90,
+                key=f"x_thread_post_{selected_id}_{index}",
+                disabled=True,
+            )
+        thread_copy_cols = st.columns(max(1, len(thread_posts) + 1))
+        with thread_copy_cols[0]:
+            clipboard_button("Copy Thread", post_body_value, f"copy_thread_{selected_id}", toast_text="Copied thread")
+        for index, post in enumerate(thread_posts, start=1):
+            with thread_copy_cols[min(index, len(thread_copy_cols) - 1)]:
+                clipboard_button(f"Copy Post {index}", post, f"copy_x_post_{selected_id}_{index}", toast_text=f"Copied post {index}")
+    elif platform_key in {"facebook", "linkedin"} and char_count < 400:
+        st.warning("Bài Facebook/LinkedIn đang dưới 400 ký tự, nên viết dài hơn trước khi đăng.")
+    elif platform_key == "telegram" and char_count < 400:
+        st.info("Telegram có thể ngắn hơn, nhưng mục tiêu hiện tại là khoảng 700-1000 ký tự nếu cần kéo traffic tốt hơn.")
+    same_article = calendar[
+        calendar["target_url"].astype(str).map(base_social_url) == base_social_url(str(row.get("target_url", "")))
+    ].copy()
+    if len(same_article) > 1:
+        st.markdown("#### Platform psychology versions")
+        version_tabs = st.tabs(["Twitter version", "LinkedIn version", "Telegram version", "Facebook version"])
+        platform_lookup = {
+            "Twitter version": "X/Twitter",
+            "LinkedIn version": "LinkedIn",
+            "Telegram version": "Telegram",
+            "Facebook version": "Facebook",
+        }
+        for tab, label in zip(version_tabs, platform_lookup):
+            with tab:
+                platform_name = platform_lookup[label]
+                match = same_article[same_article["platform"].astype(str) == platform_name]
+                if match.empty:
+                    st.caption("Chưa có version cho platform này.")
+                else:
+                    item = match.iloc[0].to_dict()
+                    body = str(item.get("post_body", ""))
+                    st.caption(f"{platform_name} | {len(body)} ký tự | style: {item.get('content_style', '')}")
+                    st.text_area(
+                        f"{platform_name} copy",
+                        value=body,
+                        height=180,
+                        disabled=True,
+                        key=f"platform_version_{selected_id}_{platform_name}",
+                    )
+    st.caption("Link đã nằm trực tiếp trong nội dung bài. Không cần copy link riêng.")
+    target_url = str(row.get("target_url", "")).strip()
+    action_columns = st.columns(4)
+    with action_columns[0]:
+        clipboard_button("Copy Content", post_body_value, f"copy_content_{selected_id}")
+    with action_columns[1]:
+        clipboard_button("Copy Link", target_url, f"copy_link_{selected_id}", toast_text="Copied link")
+    if image_path.exists():
+        with action_columns[2]:
+            open_image_button(image_path, f"open_image_{selected_id}")
+        with action_columns[3]:
+            st.download_button(
+                "Download Image",
+                data=image_path.read_bytes(),
+                file_name=image_path.name,
+                mime="image/png",
+                key=f"download_image_{selected_id}",
+                use_container_width=True,
+            )
+    elif str(row.get("platform", "")).lower() == "telegram":
+        with action_columns[2]:
+            channel_url = telegram_channel_link()
+            if channel_url:
+                st.link_button("Open Telegram Channel", channel_url, use_container_width=True)
+            else:
+                st.caption("Telegram channel link chưa cấu hình.")
+    if image_path.exists() and str(row.get("platform", "")).lower() == "telegram":
+        channel_url = telegram_channel_link()
+        if channel_url:
+            st.link_button("Open Telegram Channel", channel_url)
+    post_pack = (
+        f"Platform: {row.get('platform', '')}\n"
+        f"Title: {row.get('post_title', '')}\n"
+        f"ID: {selected_id}\n"
+        f"Style: {row.get('content_style', '')}\n"
+        f"Target URL: {target_url}\n"
+        f"Image: {image_path if image_path.exists() else ''}\n\n"
+        f"{post_body_value}"
+    )
+    clipboard_button("Copy Post Pack", post_pack, f"copy_pack_{selected_id}", toast_text="Copied post pack")
+    if not target_url:
+        st.error("Target URL đang trống.")
+    elif not target_url.startswith(("http://", "https://")):
+        st.warning("Target URL thiếu http/https.")
+    elif target_url.startswith("https://review.mssmileenglish.com"):
+        st.success("Target URL OK: dùng domain review.mssmileenglish.com")
+    else:
+        st.info("Target URL có format hợp lệ nhưng không thuộc review.mssmileenglish.com")
+    note = st.text_input("Ghi chú khi cập nhật trạng thái", value=str(row.get("notes", "")), key=f"manual_social_note_{selected_id}")
+
+    b1, b2, b3, b4 = st.columns(4)
+    if b1.button("Approved", key=f"manual_social_approve_{selected_id}"):
+        update_calendar_status(selected_id, "Approved", note)
+        st.success("Đã duyệt và lưu vào data/social_calendar.csv")
+        st.rerun()
+    if b2.button("Rejected", key=f"manual_social_reject_{selected_id}"):
+        update_calendar_status(selected_id, "Rejected", note)
+        st.success("Đã từ chối và lưu vào data/social_calendar.csv")
+        st.rerun()
+    if b3.button("Needs edit", key=f"manual_social_edit_{selected_id}"):
+        update_calendar_status(selected_id, "Needs Edit", note)
+        st.success("Đã đánh dấu cần chỉnh sửa.")
+        st.rerun()
+    if b4.button("Mark Posted", key=f"manual_social_posted_{selected_id}"):
+        update_calendar_status(selected_id, "Posted", note)
+        st.success("Đã đánh dấu đã đăng thủ công.")
+        st.rerun()
+    if row.get("status", "") == "Failed" and st.button("Retry Now", key=f"manual_social_retry_{selected_id}"):
+        calendar_retry = load_social_calendar()
+        mask = calendar_retry["id"].astype(str) == selected_id
+        calendar_retry.loc[mask, "status"] = "Approved"
+        calendar_retry.loc[mask, "next_retry_time"] = ""
+        calendar_retry.loc[mask, "notes"] = "Retry requested from dashboard."
+        save_social_calendar(calendar_retry)
+        st.success("Đã đưa bài Failed về Approved để scheduler retry ngay.")
+        st.rerun()
+
+    st.markdown("### Export")
+    st.download_button(
+        "Download social_calendar.csv",
+        data=load_social_calendar().to_csv(index=False).encode("utf-8"),
+        file_name="social_calendar.csv",
+        mime="text/csv",
+    )
+    st.caption("Markdown copy files are saved in `draft_output/social_queue/`.")
+
+
+def clipboard_button(label: str, value: str, key: str, toast_text: str = "Copied social content") -> None:
+    safe_key = "".join(ch if ch.isalnum() else "_" for ch in str(key))
+    payload = json.dumps(str(value or ""))
+    safe_toast = json.dumps(toast_text)
+    components.html(
+        f"""
+        <div>
+          <button id="copy-{safe_key}" style="
+            border:1px solid #3b82f6;border-radius:8px;background:#1f2937;color:#f8fafc;
+            padding:0.45rem 0.75rem;font-weight:600;cursor:pointer;width:100%;">
+            {label}
+          </button>
+          <div id="toast-{safe_key}" style="
+            visibility:hidden;margin-top:8px;background:#0f172a;color:#d1fae5;border:1px solid #10b981;
+            border-radius:8px;padding:6px 10px;font-size:13px;">{toast_text}</div>
+          <script>
+            const btn_{safe_key} = document.getElementById('copy-{safe_key}');
+            const toast_{safe_key} = document.getElementById('toast-{safe_key}');
+            btn_{safe_key}.addEventListener('click', async () => {{
+              const text = {payload};
+              try {{
+                await navigator.clipboard.writeText(text);
+                toast_{safe_key}.textContent = {safe_toast};
+              }} catch (e) {{
+                const area = document.createElement('textarea');
+                area.value = text;
+                document.body.appendChild(area);
+                area.select();
+                document.execCommand('copy');
+                area.remove();
+                toast_{safe_key}.textContent = {safe_toast};
+              }}
+              toast_{safe_key}.style.visibility = 'visible';
+              setTimeout(() => {{ toast_{safe_key}.style.visibility = 'hidden'; }}, 1800);
+            }});
+          </script>
+        </div>
+        """,
+        height=74,
+    )
+
+
+def image_data_uri(path: Path) -> str:
+    try:
+        encoded = base64.b64encode(path.read_bytes()).decode("ascii")
+    except OSError:
+        return ""
+    return f"data:image/png;base64,{encoded}"
+
+
+def open_image_button(path: Path, key: str) -> None:
+    uri = image_data_uri(path)
+    if not uri:
+        return
+    components.html(
+        f"""
+        <a href="{uri}" target="_blank" download="{path.name}" style="
+          display:block;text-align:center;border:1px solid #64748b;border-radius:8px;
+          background:#111827;color:#f8fafc;padding:0.48rem 0.75rem;
+          font-weight:600;text-decoration:none;">Open Image</a>
+        """,
+        height=42,
+    )
+
+
+def telegram_channel_link() -> str:
+    env_chat = os.getenv("TELEGRAM_CHAT_ID", "").strip()
+    config_chat = ""
+    config_path = settings.base_dir / "config" / "social_accounts.json"
+    if config_path.exists():
+        try:
+            payload = json.loads(config_path.read_text(encoding="utf-8"))
+            telegram = payload.get("telegram", {}) if isinstance(payload, dict) else {}
+            if isinstance(telegram, dict):
+                config_chat = str(telegram.get("telegram_chat_id") or telegram.get("chat_id") or "").strip()
+        except Exception:
+            config_chat = ""
+    chat = env_chat or config_chat
+    if chat.startswith("@"):
+        return f"https://t.me/{chat.lstrip('@')}"
+    if chat.startswith("https://t.me/"):
+        return chat
+    return ""
+
+
+def split_x_thread(content: str) -> list[str]:
+    posts: list[str] = []
+    current: list[str] = []
+    for raw_line in str(content or "").splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        if line[:2] in {"1/", "2/", "3/", "4/", "5/", "6/", "7/", "8/", "9/"} and current:
+            posts.append("\n".join(current).strip())
+            current = [line]
+        else:
+            current.append(line)
+    if current:
+        posts.append("\n".join(current).strip())
+    return posts
+
+
+def base_social_url(value: str) -> str:
+    return str(value or "").split("?", 1)[0].rstrip("/")
 
 
 def render_post_deploy_page() -> None:
@@ -641,7 +1101,7 @@ st.warning("Dữ liệu hiện tại là dữ liệu mẫu/rule-based. Cần ki�
 
 sidebar_page = st.sidebar.radio(
     "Navigation",
-    ["Dashboard", "Review Queue", "Content Approval", "Social Distribution", "Post Deploy Kit", "Reports"],
+    ["Dashboard", "Review Queue", "Content Approval", "Social Distribution", "Phân phối xã hội", "Post Deploy Kit", "Reports"],
     index=0,
 )
 st.sidebar.caption("Local-safe workflow. No deploy and no social auto-posting without approval.")
@@ -671,6 +1131,9 @@ if not social_queue.empty and "status" in social_queue.columns:
 
 if sidebar_page == "Social Distribution":
     render_social_distribution_page(review_queue)
+    st.stop()
+elif sidebar_page == "Phân phối xã hội":
+    render_manual_social_distribution_page()
     st.stop()
 elif sidebar_page == "Post Deploy Kit":
     render_post_deploy_page()
@@ -702,6 +1165,7 @@ tabs = st.tabs(
         "SEO Programmatic Pages",
         "Affiliate Tracking",
         f"Social Distribution ({scheduled_social_count})",
+        "Phân phối xã hội",
     ]
 )
 
@@ -1639,3 +2103,80 @@ with tabs[15]:
         st.download_button("Download social_post_report.csv", data=social_posts.to_csv(index=False).encode("utf-8"), file_name="social_post_report.csv", mime="text/csv")
     if not social_queue.empty:
         st.download_button("Download social_publish_queue.csv", data=social_queue.to_csv(index=False).encode("utf-8"), file_name="social_publish_queue.csv", mime="text/csv")
+
+with tabs[16]:
+    render_manual_social_distribution_page()
+
+
+def _render_manual_social_distribution_page_legacy_unused() -> None:
+    st.header("Phân phối xã hội")
+    st.warning("Local-safe: chỉ tạo nội dung và cập nhật CSV. Không auto-post, không gọi API ngoài, không deploy.")
+    calendar = ensure_social_distribution_assets()
+
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Tổng bài seed", len(calendar))
+    c2.metric("Chờ duyệt", int((calendar["status"].astype(str) == "Pending Review").sum()) if not calendar.empty else 0)
+    c3.metric("Approved", int((calendar["status"].astype(str) == "Approved").sum()) if not calendar.empty else 0)
+    c4.metric("Posted", int((calendar["status"].astype(str) == "Posted").sum()) if not calendar.empty else 0)
+
+    if calendar.empty:
+        st.info("Chưa có social calendar. Chạy `python main.py` để tạo seed.")
+        return
+
+    f1, f2 = st.columns(2)
+    platform_options = ["All"] + sorted(calendar["platform"].astype(str).unique().tolist())
+    status_options = ["All"] + SOCIAL_REVIEW_STATUSES
+    platform_filter = f1.selectbox("Lọc platform", platform_options, key="manual_social_platform")
+    status_filter = f2.selectbox("Lọc status", status_options, key="manual_social_status")
+
+    filtered = calendar.copy()
+    if platform_filter != "All":
+        filtered = filtered[filtered["platform"].astype(str) == platform_filter]
+    if status_filter != "All":
+        filtered = filtered[filtered["status"].astype(str) == status_filter]
+
+    st.markdown("### Bài chờ duyệt")
+    st.dataframe(
+        filtered[["id", "platform", "post_title", "target_url", "status", "scheduled_date", "scheduled_time"]],
+        use_container_width=True,
+        hide_index=True,
+    )
+
+    if filtered.empty:
+        st.info("Không có bài phù hợp bộ lọc.")
+        return
+
+    selected_id = st.selectbox("Chọn bài để preview", filtered["id"].astype(str).tolist(), key="manual_social_selected")
+    row = calendar[calendar["id"].astype(str) == selected_id].iloc[0].to_dict()
+    st.markdown(f"### Preview: {row.get('post_title', '')}")
+    st.caption(f"Platform: {row.get('platform', '')} | Status: {row.get('status', '')} | Schedule: {row.get('scheduled_date', '')} {row.get('scheduled_time', '')}")
+    st.text_area("Nội dung copy-ready", value=str(row.get("post_body", "")), height=260, key=f"manual_social_body_{selected_id}")
+    st.code(str(row.get("target_url", "")))
+    note = st.text_input("Ghi chú khi cập nhật trạng thái", value=str(row.get("notes", "")), key=f"manual_social_note_{selected_id}")
+
+    b1, b2, b3, b4 = st.columns(4)
+    if b1.button("Approved", key=f"manual_social_approve_{selected_id}"):
+        update_calendar_status(selected_id, "Approved", note)
+        st.success("Đã duyệt và lưu vào data/social_calendar.csv")
+        st.rerun()
+    if b2.button("Rejected", key=f"manual_social_reject_{selected_id}"):
+        update_calendar_status(selected_id, "Rejected", note)
+        st.success("Đã từ chối và lưu vào data/social_calendar.csv")
+        st.rerun()
+    if b3.button("Needs edit", key=f"manual_social_edit_{selected_id}"):
+        update_calendar_status(selected_id, "Needs edit", note)
+        st.success("Đã đánh dấu cần chỉnh sửa.")
+        st.rerun()
+    if b4.button("Mark Posted", key=f"manual_social_posted_{selected_id}"):
+        update_calendar_status(selected_id, "Posted", note)
+        st.success("Đã đánh dấu đã đăng thủ công.")
+        st.rerun()
+
+    st.markdown("### Export")
+    st.download_button(
+        "Download social_calendar.csv",
+        data=load_social_calendar().to_csv(index=False).encode("utf-8"),
+        file_name="social_calendar.csv",
+        mime="text/csv",
+    )
+    st.caption("Markdown copy files are saved in `draft_output/social_queue/`.")

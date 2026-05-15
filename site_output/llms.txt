@@ -1,4 +1,4 @@
-# AI Tool Review Hub
+# MS Smile AI Review Hub
 
 Purpose: independent-style AI and SaaS review website for research, comparison, affiliate disclosure, and safer software evaluation.
 

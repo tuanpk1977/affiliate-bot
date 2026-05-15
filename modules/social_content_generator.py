@@ -204,7 +204,7 @@ def generate_social_image(title: str, topic: str, slug: str) -> Path:
         y += 68
     tool_line = tool_names_from_text(f"{title} {topic}") or "Cursor / Windsurf / Codex / Copilot"
     draw.text((92, 430), tool_line, font=font_mid, fill=(160, 196, 255))
-    draw.text((92, 500), "AI Tool Review Hub - real workflow notes", font=font_small, fill=(197, 207, 224))
+    draw.text((92, 500), "MS Smile AI Review Hub - real workflow notes", font=font_small, fill=(197, 207, 224))
     buffer = io.BytesIO()
     image.save(buffer, format="PNG")
     output.write_bytes(buffer.getvalue())

@@ -53,7 +53,8 @@ def generate_comparison(output: Path, slug: str, tool_a: str, tool_b: str, conte
 <section class='grid'><div class='card'><h2>{html.escape(tool_a)} pros and cons</h2><p><strong>Pros:</strong> focused workflow fit, strong use-case depth, and useful evaluation path.</p><p><strong>Cons:</strong> may require onboarding, current pricing must be checked, and not every feature fits every team.</p></div><div class='card'><h2>{html.escape(tool_b)} pros and cons</h2><p><strong>Pros:</strong> familiar adoption, broad ecosystem fit, and easy comparison against existing tools.</p><p><strong>Cons:</strong> may be less specialized, can hide usage limits, and still needs policy/pricing verification.</p></div></section>
 <section class='card'><h2>Pricing comparison</h2><p>Do not rely on static prices in any review. Pricing may change, plans may differ by region, and team features often sit behind higher tiers. Check official pricing pages before buying or recommending either tool.</p></section>
 <section class='card'><h2>Best use case</h2><p>Use this comparison when the buying decision is not only feature count. The better choice is the tool that matches the daily workflow, team size, switching cost, and risk tolerance.</p></section>
-<section class='card'><h2>Alternatives and internal links</h2><p><a href='/reviews/'>Browse all reviews</a> <a href='/comparisons/'>Browse comparisons</a> <a href='/pricing/'>Check pricing guides</a> <a href='/categories/'>Explore categories</a></p></section>
+<section class='card'><h2>Related reviews and pricing</h2><p>{related_tool_links(output, tool_a, tool_b)}</p></section>
+<section class='card'><h2>Alternatives and internal links</h2><p><a href='/reviews/'>Browse all reviews</a> <a href='/comparisons/'>Browse comparisons</a> <a href='/pricing/'>Check pricing guides</a> <a href='/categories/'>Explore categories</a> <a href='{category_link(tool_a, tool_b)}'>Related category</a></p></section>
 <section class='card trust'><h2>Affiliate disclosure</h2><p>Some links may be affiliate links. We may earn a commission at no extra cost to you. Verify official pricing and terms before buying.</p></section>
 <section class='card'><h2>FAQ</h2>{faq_html(questions)}</section>
 """
@@ -87,6 +88,7 @@ def generate_toplist(output: Path, slug: str, title: str, tools: list[str], intr
 <section class='card'><h2>Top picks</h2><div class='grid'>{cards}</div></section>
 <section class='grid'><div class='card'><h2>Best for beginners</h2><p>Choose the tool with the clearest onboarding, useful templates, and low setup friction.</p></div><div class='card'><h2>Best for teams</h2><p>Prioritize collaboration controls, permissions, repeatable workflows, and predictable billing.</p></div><div class='card'><h2>Best budget option</h2><p>Look for the plan that solves the core workflow without forcing unnecessary enterprise features.</p></div><div class='card'><h2>Best enterprise option</h2><p>Check security, admin controls, procurement fit, support, and team usage limits.</p></div></section>
 <section class='card'><h2>How to choose</h2><p>Start with the workflow you repeat every week. Then compare integrations, pricing risks, cancellation terms, and whether the tool reduces manual work without creating cleanup.</p></section>
+<section class='card'><h2>Related reviews</h2><p>{toplist_related_links(output, tools)}</p></section>
 <section class='card'><h2>Related research</h2><p><a href='/reviews/'>Read reviews</a> <a href='/comparisons/'>Compare tools</a> <a href='/pricing/'>Review pricing guides</a> <a href='/categories/'>Explore categories</a></p></section>
 <section class='card trust'><h2>Affiliate disclosure</h2><p>Some links may be affiliate links. We may earn a commission at no extra cost to you. This does not change your price.</p></section>
 <section class='card'><h2>FAQ</h2>{faq_html(questions)}</section>
@@ -147,6 +149,97 @@ def tool_cta(tool: str, source: str, cta: str, css_class: str = "btn") -> str:
     if tool_slug in TRACKED_TOOLS:
         return f"<a class='{html.escape(css_class)}' href='/go/{html.escape(tool_slug)}/?src={html.escape(source)}&cta={html.escape(cta)}' rel='nofollow sponsored'>Visit Official Website</a>"
     return f"<a class='{html.escape(css_class)}' href='/comparisons/'>Compare alternatives</a>"
+
+
+def related_tool_links(output: Path, tool_a: str, tool_b: str) -> str:
+    tools = [tool_a, tool_b]
+    links = []
+    for tool in tools:
+        slug = slugify(tool)
+        review = existing_review_path(output, slug)
+        pricing = existing_pricing_path(output, slug)
+        if review:
+            links.append(f"<a href='{html.escape(review)}'>Read {html.escape(tool)} review</a>")
+        if pricing:
+            links.append(f"<a href='{html.escape(pricing)}'>See {html.escape(tool)} pricing guide</a>")
+    if any(slugify(tool) in {"cursor", "windsurf", "github-copilot"} for tool in tools):
+        links.extend(
+            [
+                "<a href='/best-ai-coding-tools-2026/'>Best AI coding tools 2026</a>",
+                "<a href='/category/ai-coding-tools/'>AI coding tools category</a>",
+                "<a href='/comparisons/cursor-vs-windsurf/'>Cursor vs Windsurf</a>",
+            ]
+        )
+    if any(slugify(tool) in {"canva", "adobe-express"} for tool in tools):
+        links.extend(
+            [
+                "<a href='/review/canva/'>Canva review</a>",
+                "<a href='/category/design-tools/'>Design tools category</a>",
+                "<a href='/best-ai-presentation-tools/'>Best AI presentation tools</a>",
+            ]
+        )
+    return " ".join(dict.fromkeys(links))
+
+
+def category_link(tool_a: str, tool_b: str) -> str:
+    slugs = {slugify(tool_a), slugify(tool_b)}
+    if slugs & {"cursor", "windsurf", "github-copilot"}:
+        return "/category/ai-coding-tools/"
+    if slugs & {"canva", "adobe-express"}:
+        return "/category/design-tools/"
+    return "/categories/"
+
+
+def toplist_related_links(output: Path, tools: list[str]) -> str:
+    links = []
+    for tool in tools:
+        slug = slugify(tool)
+        review = existing_review_path(output, slug)
+        pricing = existing_pricing_path(output, slug)
+        if review:
+            links.append(f"<a href='{html.escape(review)}'>{html.escape(tool)} review</a>")
+        if pricing:
+            links.append(f"<a href='{html.escape(pricing)}'>{html.escape(tool)} pricing</a>")
+    category = "/categories/"
+    joined = " ".join(slugify(tool) for tool in tools)
+    if any(token in joined for token in ["semrush", "surfer", "ahrefs"]):
+        category = "/category/seo-tools/"
+        links.append("<a href='/comparisons/semrush-vs-ahrefs/'>Semrush vs Ahrefs</a>")
+    elif any(token in joined for token in ["jasper", "copy-ai", "notion-ai"]):
+        category = "/category/writing-tools/"
+        links.append("<a href='/comparisons/jasper-vs-copyai/'>Jasper vs Copy.ai</a>")
+    elif any(token in joined for token in ["synthesia", "runway", "descript"]):
+        category = "/category/video-tools/"
+        links.append("<a href='/comparisons/synthesia-vs-heygen/'>Synthesia vs HeyGen</a>")
+    elif any(token in joined for token in ["make", "zapier", "hubspot", "activecampaign"]):
+        category = "/category/automation-tools/"
+        links.append("<a href='/comparisons/make-vs-zapier/'>Make vs Zapier</a>")
+    links.append(f"<a href='{category}'>Related category</a>")
+    return " ".join(dict.fromkeys(links))
+
+
+def existing_review_path(output: Path, slug: str) -> str:
+    aliases = {"windsurf": "/windsurf-review/"}
+    candidates = [aliases.get(slug, ""), f"/review/{slug}/", f"/{slug}/"]
+    for candidate in candidates:
+        if candidate and page_exists(output, candidate):
+            return candidate
+    return ""
+
+
+def existing_pricing_path(output: Path, slug: str) -> str:
+    candidates = [f"/pricing/{slug}/", f"/{slug}-pricing/"]
+    for candidate in candidates:
+        if page_exists(output, candidate):
+            return candidate
+    return ""
+
+
+def page_exists(output: Path, url_path: str) -> bool:
+    clean = str(url_path or "").strip("/")
+    if not clean:
+        return (output / "index.html").exists()
+    return (output / clean / "index.html").exists()
 
 
 def slugify(text: str) -> str:

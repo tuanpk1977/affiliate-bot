@@ -1,36 +1,446 @@
 {
   "reviews": [
-    {"title": "Cursor review", "slug": "cursor-review", "tool": "Cursor", "keyword": "cursor review", "page_type": "Review page"},
-    {"title": "Windsurf review", "slug": "windsurf-review", "tool": "Windsurf", "keyword": "windsurf review", "page_type": "Review page"},
-    {"title": "GitHub Copilot review", "slug": "github-copilot-review", "tool": "GitHub Copilot", "keyword": "github copilot review", "page_type": "Review page"},
-    {"title": "Replit review", "slug": "replit-review", "tool": "Replit", "keyword": "replit review", "page_type": "Review page"},
-    {"title": "Bolt review", "slug": "bolt-review", "tool": "Bolt", "keyword": "bolt review", "page_type": "Review page"},
-    {"title": "Lovable review", "slug": "lovable-review", "tool": "Lovable", "keyword": "lovable review", "page_type": "Review page"},
-    {"title": "Devin review", "slug": "devin-review", "tool": "Devin", "keyword": "devin review", "page_type": "Review page"}
+    {
+      "title": "Cursor review",
+      "slug": "cursor-review",
+      "tool": "Cursor",
+      "keyword": "cursor review",
+      "page_type": "Review page"
+    },
+    {
+      "title": "Windsurf review",
+      "slug": "windsurf-review",
+      "tool": "Windsurf",
+      "keyword": "windsurf review",
+      "page_type": "Review page"
+    },
+    {
+      "title": "GitHub Copilot review",
+      "slug": "github-copilot-review",
+      "tool": "GitHub Copilot",
+      "keyword": "github copilot review",
+      "page_type": "Review page"
+    },
+    {
+      "title": "Replit review",
+      "slug": "replit-review",
+      "tool": "Replit",
+      "keyword": "replit review",
+      "page_type": "Review page"
+    },
+    {
+      "title": "Bolt review",
+      "slug": "bolt-review",
+      "tool": "Bolt",
+      "keyword": "bolt review",
+      "page_type": "Review page"
+    },
+    {
+      "title": "Lovable review",
+      "slug": "lovable-review",
+      "tool": "Lovable",
+      "keyword": "lovable review",
+      "page_type": "Review page"
+    },
+    {
+      "title": "Devin review",
+      "slug": "devin-review",
+      "tool": "Devin",
+      "keyword": "devin review",
+      "page_type": "Review page"
+    }
   ],
   "comparisons": [
-    {"title": "Cursor vs Codex", "slug": "cursor-vs-codex", "tool": "Cursor", "keyword": "cursor vs codex", "page_type": "Comparison page"},
-    {"title": "Windsurf vs Codex", "slug": "windsurf-vs-codex", "tool": "Windsurf", "keyword": "windsurf vs codex", "page_type": "Comparison page"},
-    {"title": "Cursor vs Replit", "slug": "cursor-vs-replit", "tool": "Cursor", "keyword": "cursor vs replit", "page_type": "Comparison page"},
-    {"title": "Cursor vs Devin", "slug": "cursor-vs-devin", "tool": "Cursor", "keyword": "cursor vs devin", "page_type": "Comparison page"},
-    {"title": "Windsurf vs Cursor", "slug": "windsurf-vs-cursor", "tool": "Windsurf", "keyword": "windsurf vs cursor", "page_type": "Comparison page"},
-    {"title": "Copilot vs Cursor", "slug": "copilot-vs-cursor", "tool": "GitHub Copilot", "keyword": "copilot vs cursor", "page_type": "Comparison page"}
+    {
+      "title": "Cursor vs Codex",
+      "slug": "cursor-vs-codex",
+      "tool": "Cursor",
+      "keyword": "cursor vs codex",
+      "page_type": "Comparison page"
+    },
+    {
+      "title": "Windsurf vs Codex",
+      "slug": "windsurf-vs-codex",
+      "tool": "Windsurf",
+      "keyword": "windsurf vs codex",
+      "page_type": "Comparison page"
+    },
+    {
+      "title": "Cursor vs Replit",
+      "slug": "cursor-vs-replit",
+      "tool": "Cursor",
+      "keyword": "cursor vs replit",
+      "page_type": "Comparison page"
+    },
+    {
+      "title": "Cursor vs Devin",
+      "slug": "cursor-vs-devin",
+      "tool": "Cursor",
+      "keyword": "cursor vs devin",
+      "page_type": "Comparison page"
+    },
+    {
+      "title": "Windsurf vs Cursor",
+      "slug": "windsurf-vs-cursor",
+      "tool": "Windsurf",
+      "keyword": "windsurf vs cursor",
+      "page_type": "Comparison page"
+    },
+    {
+      "title": "Copilot vs Cursor",
+      "slug": "copilot-vs-cursor",
+      "tool": "GitHub Copilot",
+      "keyword": "copilot vs cursor",
+      "page_type": "Comparison page"
+    }
   ],
   "workflows": [
-    {"title": "My AI coding workflow", "slug": "my-ai-coding-workflow", "tool": "Cursor", "keyword": "my ai coding workflow", "page_type": "Blog article"},
-    {"title": "How I use Codex after Windsurf", "slug": "how-i-use-codex-after-windsurf", "tool": "Codex", "keyword": "how i use codex after windsurf", "page_type": "Blog article"},
-    {"title": "How I use Windsurf for rough draft and Codex for final repair", "slug": "windsurf-rough-draft-codex-final-repair", "tool": "Windsurf", "keyword": "windsurf rough draft codex final repair", "page_type": "Blog article"},
-    {"title": "Real debugging workflow using AI coding tools", "slug": "real-debugging-workflow-ai-coding-tools", "tool": "Codex", "keyword": "real debugging workflow using ai coding tools", "page_type": "Blog article"},
-    {"title": "Best AI coding stack for solo builders", "slug": "best-ai-coding-stack-solo-builders", "tool": "Cursor", "keyword": "best ai coding stack for solo builders", "page_type": "Blog article"}
+    {
+      "title": "My AI coding workflow",
+      "slug": "my-ai-coding-workflow",
+      "tool": "Cursor",
+      "keyword": "my ai coding workflow",
+      "page_type": "Blog article"
+    },
+    {
+      "title": "How I use Codex after Windsurf",
+      "slug": "how-i-use-codex-after-windsurf",
+      "tool": "Codex",
+      "keyword": "how i use codex after windsurf",
+      "page_type": "Blog article"
+    },
+    {
+      "title": "How I use Windsurf for rough draft and Codex for final repair",
+      "slug": "windsurf-rough-draft-codex-final-repair",
+      "tool": "Windsurf",
+      "keyword": "windsurf rough draft codex final repair",
+      "page_type": "Blog article"
+    },
+    {
+      "title": "Real debugging workflow using AI coding tools",
+      "slug": "real-debugging-workflow-ai-coding-tools",
+      "tool": "Codex",
+      "keyword": "real debugging workflow using ai coding tools",
+      "page_type": "Blog article"
+    },
+    {
+      "title": "Best AI coding stack for solo builders",
+      "slug": "best-ai-coding-stack-solo-builders",
+      "tool": "Cursor",
+      "keyword": "best ai coding stack for solo builders",
+      "page_type": "Blog article"
+    }
   ],
   "problem_based_seo": [
-    {"title": "Best AI tool for fixing bugs", "slug": "best-ai-tool-for-fixing-bugs", "tool": "Codex", "keyword": "best ai tool for fixing bugs", "page_type": "Blog article"},
-    {"title": "Best AI coding tool for large projects", "slug": "best-ai-coding-tool-for-large-projects", "tool": "Cursor", "keyword": "best ai coding tool for large projects", "page_type": "Blog article"},
-    {"title": "Why AI coding tools fail on refactors", "slug": "why-ai-coding-tools-fail-on-refactors", "tool": "Windsurf", "keyword": "why ai coding tools fail on refactors", "page_type": "Blog article"},
-    {"title": "Best AI coding workflow for startups", "slug": "best-ai-coding-workflow-for-startups", "tool": "Cursor", "keyword": "best ai coding workflow for startups", "page_type": "Blog article"},
-    {"title": "Best AI tool for deployment errors", "slug": "best-ai-tool-for-deployment-errors", "tool": "Codex", "keyword": "best ai tool for deployment errors", "page_type": "Blog article"},
-    {"title": "Cursor not fixing bug: what to do", "slug": "cursor-not-fixing-bug-what-to-do", "tool": "Cursor", "keyword": "cursor not fixing bug what to do", "page_type": "Blog article"},
-    {"title": "Windsurf broke my project: how to recover", "slug": "windsurf-broke-my-project-how-to-recover", "tool": "Windsurf", "keyword": "windsurf broke my project how to recover", "page_type": "Blog article"},
-    {"title": "Codex vs Cursor for debugging", "slug": "codex-vs-cursor-for-debugging", "tool": "Codex", "keyword": "codex vs cursor for debugging", "page_type": "Comparison page"}
+    {
+      "title": "Best AI tool for fixing bugs",
+      "slug": "best-ai-tool-for-fixing-bugs",
+      "tool": "Codex",
+      "keyword": "best ai tool for fixing bugs",
+      "page_type": "Blog article"
+    },
+    {
+      "title": "Best AI coding tool for large projects",
+      "slug": "best-ai-coding-tool-for-large-projects",
+      "tool": "Cursor",
+      "keyword": "best ai coding tool for large projects",
+      "page_type": "Blog article"
+    },
+    {
+      "title": "Why AI coding tools fail on refactors",
+      "slug": "why-ai-coding-tools-fail-on-refactors",
+      "tool": "Windsurf",
+      "keyword": "why ai coding tools fail on refactors",
+      "page_type": "Blog article"
+    },
+    {
+      "title": "Best AI coding workflow for startups",
+      "slug": "best-ai-coding-workflow-for-startups",
+      "tool": "Cursor",
+      "keyword": "best ai coding workflow for startups",
+      "page_type": "Blog article"
+    },
+    {
+      "title": "Best AI tool for deployment errors",
+      "slug": "best-ai-tool-for-deployment-errors",
+      "tool": "Codex",
+      "keyword": "best ai tool for deployment errors",
+      "page_type": "Blog article"
+    },
+    {
+      "title": "Cursor not fixing bug: what to do",
+      "slug": "cursor-not-fixing-bug-what-to-do",
+      "tool": "Cursor",
+      "keyword": "cursor not fixing bug what to do",
+      "page_type": "Blog article"
+    },
+    {
+      "title": "Windsurf broke my project: how to recover",
+      "slug": "windsurf-broke-my-project-how-to-recover",
+      "tool": "Windsurf",
+      "keyword": "windsurf broke my project how to recover",
+      "page_type": "Blog article"
+    },
+    {
+      "title": "Codex vs Cursor for debugging",
+      "slug": "codex-vs-cursor-for-debugging",
+      "tool": "Codex",
+      "keyword": "codex vs cursor for debugging",
+      "page_type": "Comparison page"
+    }
+  ],
+  "social_campaign_topics": [
+    {
+      "title": "Copilot vs Codex",
+      "slug": "copilot-vs-codex",
+      "page_type": "Comparison page",
+      "topic": "Copilot vs Codex",
+      "target_path": "best-ai-coding-tools-2026",
+      "content_style": "comparison",
+      "hook": "Copilot writes faster. Codex cleans up better.",
+      "angle": "Copilot is useful for lightweight autocomplete, but Codex is where I usually go when the repo needs deeper repair."
+    },
+    {
+      "title": "Cursor vs Codex",
+      "slug": "cursor-vs-codex",
+      "page_type": "Comparison page",
+      "topic": "Cursor vs Codex",
+      "target_path": "review/cursor",
+      "content_style": "comparison",
+      "hook": "Cursor is fast inside a clean repo. Codex is better when the project is already broken.",
+      "angle": "Cursor helps me iterate in context, while Codex is stronger when the fix requires architecture-level reasoning."
+    },
+    {
+      "title": "Windsurf + Codex workflow",
+      "slug": "windsurf-codex-workflow",
+      "page_type": "Workflow article",
+      "topic": "Windsurf + Codex workflow",
+      "target_path": "windsurf-review",
+      "content_style": "workflow_tip",
+      "hook": "Windsurf is fast for scaffolding, but Codex is where I usually repair the mess.",
+      "angle": "The workflow that works best for me is rough structure first, then logic repair, build fixes, and final cleanup."
+    },
+    {
+      "title": "When Codex fixes what Cursor breaks",
+      "slug": "when-codex-fixes-what-cursor-breaks",
+      "page_type": "Failure case article",
+      "topic": "When Codex fixes what Cursor breaks",
+      "target_path": "review/cursor",
+      "content_style": "failure_case",
+      "hook": "The second failed fix is the real AI coding benchmark.",
+      "angle": "Cursor is useful for fast repo edits, but repeated small fixes can loop. That is when I move the problem to Codex."
+    },
+    {
+      "title": "Why I stopped using only one AI coding tool",
+      "slug": "why-i-stopped-using-one-ai-coding-tool",
+      "page_type": "Workflow article",
+      "topic": "Why I stopped using only one AI coding tool",
+      "target_path": "best-ai-coding-tools-2026",
+      "content_style": "hot_take",
+      "hook": "I stopped asking which AI coding tool is best. I started asking which one fits each stage.",
+      "angle": "One tool rarely wins every stage: bootstrapping, debugging, refactoring, deployment, and final review behave differently."
+    },
+    {
+      "title": "My actual AI coding workflow in 2026",
+      "slug": "my-actual-ai-coding-workflow-2026",
+      "page_type": "Workflow article",
+      "topic": "My actual AI coding workflow in 2026",
+      "target_path": "best-ai-coding-tools-2026",
+      "content_style": "builder_note",
+      "hook": "My current workflow: Windsurf for rough structure, Codex for repair, Cursor for iteration, Copilot for light autocomplete.",
+      "angle": "The stack only works when each tool has a job. If every tool is asked to do everything, cleanup gets expensive."
+    },
+    {
+      "title": "Which AI survives the second failed fix?",
+      "slug": "which-ai-survives-the-second-failed-fix",
+      "page_type": "Problem-based SEO article",
+      "topic": "Which AI survives the second failed fix?",
+      "target_path": "comparisons/cursor-vs-copilot",
+      "content_style": "failure_case",
+      "hook": "Most AI coding demos collapse when the repo gets messy.",
+      "angle": "The real benchmark is not the first generated answer. It is what happens after two fixes fail and the build is still red."
+    }
+  ],
+  "content_angles": [
+    {
+      "angle": "beginner_guide",
+      "content_style": "practical_review",
+      "title": "Beginner guide",
+      "hook": "The mistake beginners make is asking one AI coding tool to do every stage.",
+      "summary": "Use the topic to explain the first practical decision: which tool handles setup, which one handles repair, and which one should stay in autocomplete mode.",
+      "cta": "Read the practical guide",
+      "suggested_social_styles": [
+        "practical_review",
+        "workflow_tip"
+      ]
+    },
+    {
+      "angle": "advanced_debugging",
+      "content_style": "failure_case",
+      "title": "Advanced debugging",
+      "hook": "The second failed fix is where AI coding tools stop looking equal.",
+      "summary": "Focus on repo context, build errors, duplicated logic, and how the tool behaves after the first confident answer fails.",
+      "cta": "See the debugging breakdown",
+      "suggested_social_styles": [
+        "failure_case",
+        "builder_note"
+      ]
+    },
+    {
+      "angle": "workflow_tip",
+      "content_style": "workflow_tip",
+      "title": "Workflow tip",
+      "hook": "The best AI coding workflow is usually a handoff, not a single-tool bet.",
+      "summary": "Show a practical sequence: scaffold, repair, iterate, review, then deploy.",
+      "cta": "Read the workflow note",
+      "suggested_social_styles": [
+        "workflow_tip",
+        "builder_note"
+      ]
+    },
+    {
+      "angle": "failure_case",
+      "content_style": "failure_case",
+      "title": "Failure case",
+      "hook": "Most AI coding demos hide the cleanup step.",
+      "summary": "Use a realistic failure: repeated patches, broken build, weak context, or architecture drift.",
+      "cta": "Read what failed",
+      "suggested_social_styles": [
+        "failure_case",
+        "hot_take"
+      ]
+    },
+    {
+      "angle": "hot_take",
+      "content_style": "hot_take",
+      "title": "Hot take",
+      "hook": "Autocomplete speed is not the same as engineering leverage.",
+      "summary": "Challenge the usual tool ranking and explain why the winner changes by project stage.",
+      "cta": "Read the take",
+      "suggested_social_styles": [
+        "hot_take",
+        "comparison"
+      ]
+    },
+    {
+      "angle": "pricing_reality",
+      "content_style": "practical_review",
+      "title": "Pricing reality",
+      "hook": "The expensive part of AI coding tools is not always the monthly plan.",
+      "summary": "Talk about cleanup time, review cost, team adoption, and when a cheaper tool becomes expensive.",
+      "cta": "See the pricing reality",
+      "suggested_social_styles": [
+        "practical_review",
+        "builder_note"
+      ]
+    },
+    {
+      "angle": "architecture_scaling",
+      "content_style": "builder_note",
+      "title": "Architecture scaling",
+      "hook": "AI coding tools are easy to like until the architecture starts drifting.",
+      "summary": "Frame the topic around module boundaries, repeated logic, and what happens when the repo grows.",
+      "cta": "Read the architecture notes",
+      "suggested_social_styles": [
+        "builder_note",
+        "failure_case"
+      ]
+    },
+    {
+      "angle": "repo_context",
+      "content_style": "comparison",
+      "title": "Repo context",
+      "hook": "Repo context beats demo speed once the project stops being clean.",
+      "summary": "Compare how tools read existing files, keep context, and avoid repeating failed fixes.",
+      "cta": "Compare repo context",
+      "suggested_social_styles": [
+        "comparison",
+        "hot_take"
+      ]
+    },
+    {
+      "angle": "startup_team",
+      "content_style": "workflow_tip",
+      "title": "Startup team",
+      "hook": "For small teams, the best AI coding tool is the one that does not create review debt.",
+      "summary": "Focus on adoption, code review, handoff, and risk for lean teams.",
+      "cta": "Read the startup workflow",
+      "suggested_social_styles": [
+        "workflow_tip",
+        "practical_review"
+      ]
+    },
+    {
+      "angle": "solo_builder",
+      "content_style": "builder_note",
+      "title": "Solo builder",
+      "hook": "Solo builders do not need the flashiest AI tool. They need the least cleanup drag.",
+      "summary": "Discuss speed, mental load, debugging fatigue, and shipping alone.",
+      "cta": "Read the solo builder note",
+      "suggested_social_styles": [
+        "builder_note",
+        "workflow_tip"
+      ]
+    },
+    {
+      "angle": "productivity_myth",
+      "content_style": "hot_take",
+      "title": "Productivity myth",
+      "hook": "AI coding productivity is not measured by how much code appears on screen.",
+      "summary": "Separate generation speed from shipped, reviewed, working code.",
+      "cta": "Read the productivity myth",
+      "suggested_social_styles": [
+        "hot_take",
+        "failure_case"
+      ]
+    },
+    {
+      "angle": "second_failed_fix",
+      "content_style": "failure_case",
+      "title": "Second failed fix",
+      "hook": "The second failed fix is my favorite AI coding benchmark.",
+      "summary": "Make the repeated-fix moment the main test for reasoning, context, and tool limits.",
+      "cta": "See the second-fix test",
+      "suggested_social_styles": [
+        "failure_case",
+        "comparison"
+      ]
+    },
+    {
+      "angle": "ai_limitations",
+      "content_style": "practical_review",
+      "title": "AI limitations",
+      "hook": "The more I use AI coding tools, the more I respect their limits.",
+      "summary": "Discuss what should stay human-reviewed: architecture, security, policy, deployment, and final judgment.",
+      "cta": "Read the limitations",
+      "suggested_social_styles": [
+        "practical_review",
+        "builder_note"
+      ]
+    },
+    {
+      "angle": "real_world_tradeoff",
+      "content_style": "comparison",
+      "title": "Real-world tradeoff",
+      "hook": "Every AI coding tool tradeoff shows up after the first clean demo.",
+      "summary": "Compare speed, context, stability, adoption, and debugging cost without making any tool perfect.",
+      "cta": "Read the tradeoff",
+      "suggested_social_styles": [
+        "comparison",
+        "practical_review"
+      ]
+    },
+    {
+      "angle": "migration_story",
+      "content_style": "workflow_tip",
+      "title": "Migration story",
+      "hook": "Switching AI coding tools only helps if the workflow changes too.",
+      "summary": "Explain what changes when moving from one tool to a staged workflow across Cursor, Windsurf, Codex, and Copilot.",
+      "cta": "Read the migration story",
+      "suggested_social_styles": [
+        "workflow_tip",
+        "builder_note"
+      ]
+    }
   ]
 }
