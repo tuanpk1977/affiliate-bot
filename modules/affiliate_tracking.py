@@ -5,7 +5,7 @@ import json
 import re
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from urllib.parse import quote
+from urllib.parse import parse_qs, quote, urlencode, urlparse, urlunparse
 
 import pandas as pd
 
@@ -41,6 +41,35 @@ REQUIRED_AFFILIATE_COLUMNS = [
     "notes",
 ]
 
+AFFILIATE_TRACKING_REPORT_COLUMNS = [
+    "tracking_id",
+    "source",
+    "medium",
+    "campaign",
+    "content",
+    "platform",
+    "target_url",
+    "tracked_url",
+    "page_slug",
+    "topic",
+    "tool_name",
+    "status",
+    "recommendation",
+]
+
+REDIRECT_MAP_COLUMNS = [
+    "tracking_id",
+    "source",
+    "medium",
+    "campaign",
+    "content",
+    "platform",
+    "target_url",
+    "tracked_url",
+    "redirect_path",
+    "status",
+]
+
 
 def click_events_file() -> Path:
     return settings.data_dir / "click_events.csv"
@@ -60,7 +89,7 @@ def ensure_click_events() -> pd.DataFrame:
         if column not in df.columns:
             df[column] = ""
     df = df[CLICK_EVENT_COLUMNS]
-    df.to_csv(path, index=False)
+    df.to_csv(path, index=False, encoding="utf-8-sig")
     return df
 
 
@@ -487,3 +516,233 @@ def ensure_affiliate_tracking_files() -> None:
     ensure_click_events()
     links = load_affiliate_links()
     save_affiliate_links(links)
+
+
+def run_affiliate_tracking_engine(output: Path | None = None) -> dict[str, int]:
+    """Build local-safe tracking reports and static /go/<tracking_id>/ pages."""
+    output_dir = output or settings.site_output_dir
+    report = build_affiliate_tracking_report()
+    redirect_map = build_redirect_map(report)
+    settings.data_dir.mkdir(parents=True, exist_ok=True)
+    report.to_csv(settings.data_dir / "affiliate_tracking_report.csv", index=False, encoding="utf-8-sig")
+    redirect_map.to_csv(settings.data_dir / "redirect_map.csv", index=False, encoding="utf-8-sig")
+    pages = generate_tracking_redirect_pages(output_dir, redirect_map)
+    return {"tracking_links": len(report), "redirect_rows": len(redirect_map), "redirect_pages": pages}
+
+
+def build_affiliate_tracking_report() -> pd.DataFrame:
+    source_path = settings.data_dir / "link_tracking_map.csv"
+    if not source_path.exists():
+        return pd.DataFrame(columns=AFFILIATE_TRACKING_REPORT_COLUMNS)
+    tracking_map = pd.read_csv(source_path).fillna("")
+    rows: list[dict[str, str]] = []
+    seen: set[str] = set()
+    for index, row in tracking_map.iterrows():
+        platform = str(row.get("platform", "")).strip()
+        post_id = str(row.get("post_id", "")).strip() or f"post-{index + 1:03d}"
+        target_url = str(row.get("target_url", "")).strip()
+        tracked_url = normalize_tracked_url(str(row.get("tracked_url", "") or target_url).strip(), platform, row)
+        source = platform_source(platform)
+        medium = medium_for_source(source, target_url)
+        campaign = str(row.get("campaign", "")).strip() or campaign_from_url_or_topic(target_url, str(row.get("topic", "")))
+        content = str(row.get("content_angle", "") or post_id).strip()
+        page_slug = page_slug_from_url(target_url)
+        topic = str(row.get("topic", "")).strip() or page_slug.replace("-", " ")
+        tool_name = detect_tool_name(f"{target_url} {topic} {campaign}")
+        base_tracking_id = slugify("-".join([page_slug or "page", source or "seo", post_id]))
+        tracking_id = unique_tracking_id(base_tracking_id, seen)
+        status = "ready" if target_url and tracked_url else "needs_review"
+        rows.append(
+            {
+                "tracking_id": tracking_id,
+                "source": source,
+                "medium": medium,
+                "campaign": campaign,
+                "content": content,
+                "platform": platform,
+                "target_url": target_url,
+                "tracked_url": tracked_url,
+                "page_slug": page_slug,
+                "topic": topic,
+                "tool_name": tool_name,
+                "status": status,
+                "recommendation": tracking_recommendation(target_url, tracked_url, tool_name, source, content),
+            }
+        )
+    return pd.DataFrame(rows, columns=AFFILIATE_TRACKING_REPORT_COLUMNS)
+
+
+def build_redirect_map(report: pd.DataFrame) -> pd.DataFrame:
+    if report.empty:
+        return pd.DataFrame(columns=REDIRECT_MAP_COLUMNS)
+    rows = []
+    for _, row in report.iterrows():
+        tracking_id = str(row.get("tracking_id", "")).strip()
+        rows.append(
+            {
+                "tracking_id": tracking_id,
+                "source": row.get("source", ""),
+                "medium": row.get("medium", ""),
+                "campaign": row.get("campaign", ""),
+                "content": row.get("content", ""),
+                "platform": row.get("platform", ""),
+                "target_url": row.get("target_url", ""),
+                "tracked_url": row.get("tracked_url", ""),
+                "redirect_path": f"/go/{tracking_id}/" if tracking_id else "",
+                "status": row.get("status", "needs_review"),
+            }
+        )
+    return pd.DataFrame(rows, columns=REDIRECT_MAP_COLUMNS)
+
+
+def generate_tracking_redirect_pages(output: Path, redirect_map: pd.DataFrame) -> int:
+    if redirect_map.empty:
+        return 0
+    go_root = output / "go"
+    go_root.mkdir(parents=True, exist_ok=True)
+    count = 0
+    for _, row in redirect_map.iterrows():
+        tracking_id = str(row.get("tracking_id", "")).strip()
+        tracked_url = str(row.get("tracked_url", "")).strip()
+        if not tracking_id or not tracked_url:
+            continue
+        folder = go_root / tracking_id
+        folder.mkdir(parents=True, exist_ok=True)
+        (folder / "index.html").write_text(tracking_redirect_html(row), encoding="utf-8")
+        count += 1
+    return count
+
+
+def tracking_redirect_html(row: pd.Series | dict) -> str:
+    tracking_id = str(row.get("tracking_id", "")).strip()
+    tracked_url = str(row.get("tracked_url", "")).strip()
+    safe_url = html.escape(tracked_url, quote=True)
+    safe_id = html.escape(tracking_id)
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta http-equiv="refresh" content="0; url={safe_url}">
+  <title>Continue - {safe_id}</title>
+  <meta name="description" content="Local-safe tracking redirect.">
+  <style>body{{font-family:Arial,Helvetica,sans-serif;background:#f8fafc;color:#0f172a;margin:0}}main{{max-width:720px;margin:12vh auto;padding:24px}}.card{{background:#fff;border:1px solid #dbe3ef;border-radius:8px;padding:24px}}a{{color:#0f766e;font-weight:700}}</style>
+  <script>window.location.replace({json.dumps(tracked_url)});</script>
+</head>
+<body>
+  <main><section class="card">
+    <h1>Continue to page</h1>
+    <p>This tracking page does not store personal data. If you are not redirected, use the fallback link below.</p>
+    <p><a rel="nofollow sponsored" href="{safe_url}">Continue to official page</a></p>
+  </section></main>
+</body>
+</html>"""
+
+
+def normalize_tracked_url(url: str, platform: str, row: pd.Series | dict) -> str:
+    if not url:
+        return ""
+    parsed = urlparse(url)
+    if not parsed.scheme and url.startswith("/"):
+        base = (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
+        url = base + url
+        parsed = urlparse(url)
+    query = parse_qs(parsed.query, keep_blank_values=True)
+    source = platform_source(platform)
+    campaign = str(row.get("campaign", "")).strip() or campaign_from_url_or_topic(url, str(row.get("topic", "")))
+    content = str(row.get("post_id", "") or row.get("content_angle", "") or "content").strip()
+    query.setdefault("utm_source", [source])
+    query.setdefault("utm_medium", [medium_for_source(source, url)])
+    query.setdefault("utm_campaign", [slugify(campaign) or "affiliate-content"])
+    query.setdefault("utm_content", [slugify(content) or "social-post"])
+    return urlunparse(parsed._replace(query=urlencode(query, doseq=True)))
+
+
+def platform_source(platform: str) -> str:
+    text = str(platform or "").strip().lower()
+    if "linkedin" in text:
+        return "linkedin"
+    if "facebook" in text:
+        return "facebook"
+    if "telegram" in text:
+        return "telegram"
+    if text in {"x", "twitter", "x/twitter"} or "twitter" in text:
+        return "twitter"
+    if text in {"seo", "article", "internal"}:
+        return text
+    return "seo"
+
+
+def medium_for_source(source: str, target_url: str = "") -> str:
+    if source in {"linkedin", "facebook", "twitter", "telegram"}:
+        return "organic_social"
+    if "/go/" in str(target_url):
+        return "internal"
+    return "article"
+
+
+def campaign_from_url_or_topic(url: str, topic: str) -> str:
+    slug = page_slug_from_url(url)
+    if slug:
+        return slug
+    return slugify(topic) or "affiliate-content"
+
+
+def page_slug_from_url(url: str) -> str:
+    parsed = urlparse(str(url or ""))
+    path = parsed.path.strip("/")
+    if not path:
+        return "homepage"
+    parts = [part for part in path.split("/") if part]
+    return parts[-1] if parts else "homepage"
+
+
+def detect_tool_name(text: str) -> str:
+    known = {
+        "github-copilot": "GitHub Copilot",
+        "github copilot": "GitHub Copilot",
+        "cursor": "Cursor",
+        "windsurf": "Windsurf",
+        "codex": "Codex",
+        "semrush": "Semrush",
+        "surfer-seo": "Surfer SEO",
+        "surfer seo": "Surfer SEO",
+        "canva": "Canva",
+        "make": "Make",
+        "zapier": "Zapier",
+        "elevenlabs": "ElevenLabs",
+        "jasper": "Jasper",
+        "copy-ai": "Copy.ai",
+        "copy.ai": "Copy.ai",
+    }
+    lowered = str(text or "").lower()
+    for key, value in known.items():
+        if key in lowered:
+            return value
+    return ""
+
+
+def tracking_recommendation(target_url: str, tracked_url: str, tool_name: str, source: str, content: str) -> str:
+    if not target_url or not tracked_url:
+        return "needs_better_cta"
+    if not tool_name:
+        return "missing_tool_name"
+    if source in {"linkedin", "facebook", "twitter", "telegram"}:
+        return "priority_social_push"
+    if "comparison" in str(content).lower() or "vs" in str(target_url).lower():
+        return "good_for_seo_internal_link"
+    return "ready"
+
+
+def unique_tracking_id(base: str, seen: set[str]) -> str:
+    value = base or "tracking-link"
+    if value not in seen:
+        seen.add(value)
+        return value
+    index = 2
+    while f"{value}-{index}" in seen:
+        index += 1
+    final = f"{value}-{index}"
+    seen.add(final)
+    return final

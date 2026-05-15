@@ -1,0 +1,10 @@
+Action mới cần xử lý: copilot vs codex
+
+Góc nên viết:
+- không review chung chung
+- có use-case thật
+- có so sánh / pricing risk / CTA rõ
+- ưu tiên quyết định: nên test hay bỏ qua
+
+Link:
+https://review.mssmileenglish.com/copilot-vs-codex/

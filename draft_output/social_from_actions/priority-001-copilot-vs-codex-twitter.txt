@@ -1,0 +1,7 @@
+1/ The interesting part of copilot vs codex is not the demo. It is what happens when the first answer is not enough.
+
+2/ I would judge this by workflow fit: context, debugging, pricing risk, and whether it still helps after the second failed fix.
+
+3/ The practical move: test one narrow use case before committing to the tool or workflow.
+
+4/ Full research note: https://review.mssmileenglish.com/copilot-vs-codex/ #AITools #AffiliateMarketing

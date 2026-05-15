@@ -98,6 +98,16 @@ def main() -> int:
         errors.append(item)
     add_row(rows, "internal_link_scan", not broken_links, f"{len(broken_links)} broken internal links")
 
+    tracking_errors = validate_tracking_outputs()
+    for item in tracking_errors:
+        errors.append(item)
+    add_row(rows, "affiliate_tracking_outputs", not tracking_errors, f"{len(tracking_errors)} tracking report issues")
+
+    keyword_errors = validate_keyword_report()
+    for item in keyword_errors:
+        errors.append(item)
+    add_row(rows, "keyword_intelligence_report", not keyword_errors, f"{len(keyword_errors)} keyword report issues")
+
     counts = page_counts(html_files, sitemap_urls, go_pages)
     for key, value in counts.items():
         add_row(rows, key, True, str(value))
@@ -185,6 +195,55 @@ def validate_internal_links(html_files: list[Path]) -> list[str]:
             if not target.exists():
                 errors.append(f"{rel}: broken internal link {link}")
     return sorted(set(errors))
+
+
+def validate_tracking_outputs() -> list[str]:
+    errors = []
+    redirect_path = DATA / "redirect_map.csv"
+    report_path = DATA / "affiliate_tracking_report.csv"
+    if not redirect_path.exists():
+        errors.append("missing data/redirect_map.csv")
+        return errors
+    if not report_path.exists():
+        errors.append("missing data/affiliate_tracking_report.csv")
+    try:
+        with redirect_path.open(newline="", encoding="utf-8-sig") as handle:
+            rows = list(csv.DictReader(handle))
+    except Exception as exc:
+        return [f"redirect_map.csv unreadable: {exc}"]
+    ids = [str(row.get("tracking_id", "")).strip() for row in rows]
+    if len(ids) != len(set(ids)):
+        errors.append("redirect_map.csv has duplicate tracking_id")
+    for row in rows:
+        tracking_id = str(row.get("tracking_id", "")).strip()
+        tracked_url = str(row.get("tracked_url", "")).strip()
+        if not tracking_id:
+            errors.append("redirect_map.csv row missing tracking_id")
+            continue
+        if not tracked_url:
+            errors.append(f"redirect_map.csv {tracking_id}: empty tracked_url")
+        if not (SITE / "go" / tracking_id / "index.html").exists():
+            errors.append(f"redirect page missing: /go/{tracking_id}/")
+    sitemap_text = (SITE / "sitemap.xml").read_text(encoding="utf-8", errors="ignore") if (SITE / "sitemap.xml").exists() else ""
+    if "/go/" in sitemap_text:
+        errors.append("sitemap contains /go/ URLs")
+    return errors
+
+
+def validate_keyword_report() -> list[str]:
+    path = DATA / "keyword_intelligence_report.csv"
+    if not path.exists():
+        return ["missing data/keyword_intelligence_report.csv"]
+    try:
+        with path.open(newline="", encoding="utf-8-sig") as handle:
+            rows = list(csv.DictReader(handle))
+    except Exception as exc:
+        return [f"keyword_intelligence_report.csv unreadable: {exc}"]
+    if not rows:
+        return ["keyword_intelligence_report.csv is empty"]
+    required = {"keyword", "topic_cluster", "intent", "priority_score", "content_gap", "next_action"}
+    missing = required - set(rows[0].keys())
+    return [f"keyword_intelligence_report.csv missing columns: {', '.join(sorted(missing))}"] if missing else []
 
 
 def normalize_internal_link(link: str) -> str:

@@ -1,1 +1,1 @@
-timestamp,session_id,click_id,tool_slug,tool_name,source_page,source_page_type,cta_label,target_url,referrer,event_type,page_load_seconds,user_agent_hint,is_suspicious,suspicious_reason,click_quality_score
+﻿timestamp,session_id,click_id,tool_slug,tool_name,source_page,source_page_type,cta_label,target_url,referrer,event_type,page_load_seconds,user_agent_hint,is_suspicious,suspicious_reason,click_quality_score

@@ -1,4 +1,4 @@
-offer_id,brand_name,scenario,CPC,Conversion Rate,ROI,Profit
+﻿offer_id,brand_name,scenario,CPC,Conversion Rate,ROI,Profit
 activecampaign,ActiveCampaign,Conservative,5.0,0.012,-65.44,-16.36
 activecampaign,ActiveCampaign,Normal,4.0,0.025,-10.0,-2.5
 activecampaign,ActiveCampaign,Aggressive,3.4,0.045,90.59,22.65

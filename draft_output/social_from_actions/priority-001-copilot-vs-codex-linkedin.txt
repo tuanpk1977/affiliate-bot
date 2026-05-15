@@ -1,0 +1,22 @@
+I would not treat "copilot vs codex" as just another SEO topic.
+
+The reason it deserves a real page is simple: people searching this are usually trying to make a decision, not just browse.
+
+What I would cover:
+- the actual workflow problem
+- where the tool or category helps
+- where it breaks down
+- pricing and switching risk
+- what to test first
+
+The current action reason is: keyword priority 75; content gap: missing_page; high-intent comparison keyword.
+
+That means the content should not be generic. It needs a clear recommendation, a practical comparison, and a soft CTA that helps the reader continue researching.
+
+Draft angle:
+Help the reader avoid the wrong first test.
+
+Read the related page here:
+https://review.mssmileenglish.com/copilot-vs-codex/
+
+#AITools #SEO #AffiliateMarketing #SaaS

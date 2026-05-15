@@ -1,4 +1,4 @@
-offer_id,brand_name,niche,keyword_group,keyword,intent_score,competition_level,estimated_cpc,match_type
+﻿offer_id,brand_name,niche,keyword_group,keyword,intent_score,competition_level,estimated_cpc,match_type
 activecampaign,ActiveCampaign,Email Marketing,buyer_keywords,best email marketing software,90,Medium,3.2,phrase
 activecampaign,ActiveCampaign,Email Marketing,buyer_keywords,email marketing tool for business,90,Medium,3.2,phrase
 activecampaign,ActiveCampaign,Email Marketing,review_keywords,email marketing software review,84,Medium,3.2,phrase

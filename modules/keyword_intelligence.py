@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import re
 from pathlib import Path
+from urllib.parse import urlparse
 
 import pandas as pd
 
@@ -66,6 +67,19 @@ VERY_HIGH_COMPETITION_TERMS = [
     "best ai tools",
     "top ai",
     "chatgpt alternatives",
+]
+
+KEYWORD_INTELLIGENCE_REPORT_COLUMNS = [
+    "keyword",
+    "topic_cluster",
+    "intent",
+    "page_url",
+    "current_page_exists",
+    "competition_level",
+    "content_gap",
+    "social_angle",
+    "priority_score",
+    "next_action",
 ]
 
 
@@ -164,10 +178,59 @@ def run_keyword_intelligence(keywords: pd.DataFrame | None = None) -> tuple[pd.D
     opportunities = analyze_keyword_opportunities(source)
     summary = build_keyword_intelligence_summary(opportunities, total_keywords=len(source))
     priority_plan = build_keyword_priority_plan(opportunities)
-    opportunities.to_csv(settings.data_dir / "keyword_opportunities.csv", index=False)
-    summary.to_csv(settings.data_dir / "keyword_intelligence_summary.csv", index=False)
-    priority_plan.to_csv(settings.data_dir / "keyword_priority_plan.csv", index=False)
+    opportunities.to_csv(settings.data_dir / "keyword_opportunities.csv", index=False, encoding="utf-8-sig")
+    summary.to_csv(settings.data_dir / "keyword_intelligence_summary.csv", index=False, encoding="utf-8-sig")
+    priority_plan.to_csv(settings.data_dir / "keyword_priority_plan.csv", index=False, encoding="utf-8-sig")
     return opportunities, summary
+
+
+def run_keyword_intelligence_report() -> pd.DataFrame:
+    """Build a page-aware keyword strategy report for SEO/AEO decisions."""
+    report = build_keyword_intelligence_report()
+    settings.data_dir.mkdir(parents=True, exist_ok=True)
+    report.to_csv(settings.data_dir / "keyword_intelligence_report.csv", index=False, encoding="utf-8-sig")
+    return report
+
+
+def build_keyword_intelligence_report() -> pd.DataFrame:
+    pages = load_site_pages()
+    topical = load_optional_csv(settings.data_dir / "topical_map.csv")
+    social = load_optional_csv(settings.data_dir / "social_calendar.csv")
+    keywords = collect_keyword_candidates(pages, topical, social)
+    if not keywords:
+        return pd.DataFrame(columns=KEYWORD_INTELLIGENCE_REPORT_COLUMNS)
+    rows: list[dict[str, object]] = []
+    page_index = build_page_index(pages)
+    for keyword in sorted(set(keywords)):
+        normalized = normalize_keyword(keyword)
+        if not normalized or is_low_quality_short_keyword(normalized):
+            continue
+        intent = detect_keyword_intent(normalized)
+        cluster = topic_cluster_for_keyword(normalized)
+        matched_page = match_keyword_to_page(normalized, page_index)
+        exists = bool(matched_page)
+        competition_score = score_competition(normalized, {})
+        intent_score = score_affiliate_intent(normalized, {})
+        gap = keyword_content_gap(normalized, intent, matched_page)
+        priority = keyword_priority_score(intent_score, competition_score, gap, exists)
+        rows.append(
+            {
+                "keyword": normalized,
+                "topic_cluster": cluster,
+                "intent": intent,
+                "page_url": matched_page.get("url", "") if matched_page else "",
+                "current_page_exists": str(exists).lower(),
+                "competition_level": competition_level_label(competition_score),
+                "content_gap": gap,
+                "social_angle": social_angle_for_keyword(normalized, intent),
+                "priority_score": priority,
+                "next_action": keyword_next_action(gap, priority, intent),
+            }
+        )
+    report = pd.DataFrame(rows, columns=KEYWORD_INTELLIGENCE_REPORT_COLUMNS)
+    if report.empty:
+        return report
+    return report.sort_values(["priority_score", "keyword"], ascending=[False, True]).reset_index(drop=True)
 
 
 def score_affiliate_intent(keyword: str, row: pd.Series | dict | None = None) -> int:
@@ -383,3 +446,208 @@ def _safe_float(value: object, default: float) -> float:
         return float(value)
     except Exception:
         return default
+
+
+def load_optional_csv(path: Path) -> pd.DataFrame:
+    if not path.exists():
+        return pd.DataFrame()
+    try:
+        return pd.read_csv(path).fillna("")
+    except Exception:
+        return pd.DataFrame()
+
+
+def load_site_pages() -> list[dict[str, str]]:
+    output = settings.site_output_dir
+    pages: list[dict[str, str]] = []
+    if not output.exists():
+        return pages
+    for file in sorted(output.rglob("index.html")):
+        rel = file.relative_to(output).as_posix()
+        if rel.startswith(("assets/", "go/")):
+            continue
+        url = "/" if rel == "index.html" else "/" + rel.removesuffix("index.html")
+        text = file.read_text(encoding="utf-8", errors="ignore")
+        title = extract_tag(text, "title")
+        h1 = extract_tag(text, "h1")
+        body = re.sub(r"<[^>]+>", " ", text)
+        body = re.sub(r"\s+", " ", body)
+        pages.append({"url": url, "title": title, "h1": h1, "text": body[:6000], "slug": page_slug(url)})
+    return pages
+
+
+def extract_tag(html_text: str, tag: str) -> str:
+    match = re.search(rf"<{tag}[^>]*>(.*?)</{tag}>", html_text, flags=re.IGNORECASE | re.DOTALL)
+    if not match:
+        return ""
+    return re.sub(r"<[^>]+>", " ", match.group(1)).strip()
+
+
+def collect_keyword_candidates(pages: list[dict[str, str]], topical: pd.DataFrame, social: pd.DataFrame) -> list[str]:
+    candidates: list[str] = []
+    raw_keywords = load_keywords()
+    if not raw_keywords.empty and "keyword" in raw_keywords.columns:
+        candidates.extend(raw_keywords["keyword"].astype(str).tolist())
+    for page in pages:
+        candidates.extend(keyword_variants_from_page(page))
+    if not topical.empty:
+        for column in ["title", "page_url", "topic_group"]:
+            if column in topical.columns:
+                candidates.extend(topical[column].astype(str).map(keyword_from_text).tolist())
+    if not social.empty:
+        for column in ["post_title", "topic", "target_url"]:
+            if column in social.columns:
+                candidates.extend(social[column].astype(str).map(keyword_from_text).tolist())
+    return [item for item in candidates if item]
+
+
+def keyword_variants_from_page(page: dict[str, str]) -> list[str]:
+    title = keyword_from_text(page.get("title") or page.get("h1") or page.get("slug", ""))
+    slug = page.get("slug", "").replace("-", " ")
+    variants = [title, slug]
+    if "/pricing/" in page.get("url", ""):
+        variants.append(f"{slug} pricing")
+    if "/compare/" in page.get("url", "") or "/comparisons/" in page.get("url", ""):
+        variants.append(slug.replace(" vs ", " vs "))
+    if "review" in page.get("url", ""):
+        variants.append(f"{slug} review")
+    return [normalize_keyword(item) for item in variants if item]
+
+
+def keyword_from_text(value: str) -> str:
+    text = str(value or "")
+    parsed = urlparse(text)
+    if parsed.path:
+        text = parsed.path.strip("/").split("/")[-1].replace("-", " ")
+    text = re.sub(r"\b(2026|review|guide|pricing|plans|which tool is better)\b", " ", text, flags=re.IGNORECASE)
+    text = re.sub(r"[^a-zA-Z0-9 .+-]+", " ", text)
+    return normalize_keyword(text)
+
+
+def build_page_index(pages: list[dict[str, str]]) -> list[dict[str, str]]:
+    return [{**page, "search": normalize_keyword(" ".join([page.get("url", ""), page.get("title", ""), page.get("h1", ""), page.get("slug", "")]))} for page in pages]
+
+
+def match_keyword_to_page(keyword: str, pages: list[dict[str, str]]) -> dict[str, str] | None:
+    slug = suggested_slug(keyword)
+    for page in pages:
+        if page.get("slug") == slug or page.get("url", "").strip("/") == slug:
+            return page
+    key_terms = [term for term in re.split(r"\s+", keyword) if len(term) > 2]
+    if not key_terms:
+        return None
+    scored: list[tuple[int, dict[str, str]]] = []
+    for page in pages:
+        search = page.get("search", "")
+        score = sum(1 for term in key_terms if term in search)
+        if score:
+            scored.append((score, page))
+    if not scored:
+        return None
+    scored.sort(key=lambda item: item[0], reverse=True)
+    return scored[0][1] if scored[0][0] >= max(1, min(3, len(key_terms))) else None
+
+
+def detect_keyword_intent(keyword: str) -> str:
+    text = normalize_keyword(keyword)
+    if " vs " in f" {text} " or "comparison" in text or "compare" in text:
+        return "comparison"
+    if "pricing" in text or "price" in text or "cost" in text:
+        return "pricing"
+    if "alternative" in text:
+        return "alternative"
+    if "review" in text:
+        return "review"
+    if text.startswith("best ") or " best " in f" {text} ":
+        return "best_tools"
+    if any(term in text for term in ["how to", "workflow", "fix", "debug", "tutorial"]):
+        return "tutorial"
+    return "review"
+
+
+def topic_cluster_for_keyword(keyword: str) -> str:
+    text = normalize_keyword(keyword)
+    if any(term in text for term in ["cursor", "copilot", "codex", "windsurf", "coding", "debug", "repo"]):
+        return "AI coding tools"
+    if any(term in text for term in ["seo", "semrush", "ahrefs", "surfer"]):
+        return "AI SEO tools"
+    if any(term in text for term in ["writing", "jasper", "copy", "content"]):
+        return "AI writing tools"
+    if any(term in text for term in ["automation", "make", "zapier", "workflow"]):
+        return "AI automation tools"
+    if "pricing" in text:
+        return "pricing"
+    if "alternative" in text:
+        return "alternatives"
+    if " vs " in f" {text} ":
+        return "comparisons"
+    return "general"
+
+
+def keyword_content_gap(keyword: str, intent: str, page: dict[str, str] | None) -> str:
+    if not page:
+        return "missing_page"
+    text = normalize_keyword(page.get("text", ""))
+    word_count = len(text.split())
+    if word_count < 800:
+        return "thin_content"
+    if intent == "comparison" and not any(term in text for term in ["comparison", " vs ", "tradeoff", "which"]):
+        return "needs_comparison"
+    if intent == "pricing" and not any(term in text for term in ["pricing", "plan", "cost", "contract"]):
+        return "needs_pricing_section"
+    if not any(term in text for term in ["use case", "workflow", "best for", "who should"]):
+        return "needs_use_case"
+    return "ready"
+
+
+def keyword_priority_score(intent_score: int, competition_score: int, gap: str, exists: bool) -> int:
+    gap_bonus = {
+        "missing_page": 22,
+        "needs_comparison": 18,
+        "needs_pricing_section": 16,
+        "needs_use_case": 12,
+        "thin_content": 10,
+        "ready": -5,
+    }.get(gap, 0)
+    score = intent_score * 0.45 + (100 - competition_score) * 0.30 + gap_bonus + (0 if exists else 10)
+    return int(max(0, min(100, round(score))))
+
+
+def competition_level_label(score: int) -> str:
+    if score >= 75:
+        return "high"
+    if score >= 50:
+        return "medium"
+    return "low"
+
+
+def social_angle_for_keyword(keyword: str, intent: str) -> str:
+    if intent == "comparison":
+        return "comparison debate / practical tradeoff"
+    if intent == "pricing":
+        return "pricing reality / buying risk"
+    if intent == "alternative":
+        return "switching story / alternatives"
+    if "workflow" in keyword or "debug" in keyword:
+        return "builder workflow / failure case"
+    if intent == "best_tools":
+        return "shortlist / decision guide"
+    return "practical review / use case"
+
+
+def keyword_next_action(gap: str, priority: int, intent: str) -> str:
+    if gap == "missing_page" and priority >= 60:
+        return f"build_{intent}_page"
+    if gap in {"needs_comparison", "needs_pricing_section", "needs_use_case"}:
+        return f"update_existing_page_{gap}"
+    if gap == "thin_content":
+        return "expand_content_depth"
+    if priority >= 70:
+        return "promote_with_internal_links_and_social"
+    return "monitor"
+
+
+def page_slug(url: str) -> str:
+    parsed = urlparse(str(url or ""))
+    parts = [part for part in parsed.path.strip("/").split("/") if part]
+    return parts[-1] if parts else "homepage"

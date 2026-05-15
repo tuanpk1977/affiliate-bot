@@ -39,7 +39,19 @@ CALENDAR_COLUMNS = [
     "angle",
 ]
 
-VALID_STATUSES = ["Pending Review", "Approved", "Scheduled", "Ready to Post", "Posted", "Needs Edit", "Rejected", "Failed"]
+VALID_STATUSES = [
+    "Draft",
+    "Pending approval",
+    "Pending Review",
+    "Approved",
+    "Scheduled",
+    "Ready to Post",
+    "Published",
+    "Posted",
+    "Needs Edit",
+    "Rejected",
+    "Failed",
+]
 
 PUBLISH_LOG_COLUMNS = ["post_id", "platform", "mode", "scheduled_time", "action", "status", "error"]
 DEFAULT_PUBLISH_MODE = {
@@ -54,6 +66,15 @@ DEFAULT_SOCIAL_LIMITS = {
     "linkedin": {"daily_limit": 2, "cooldown_minutes": 360},
     "twitter": {"daily_limit": 5, "cooldown_minutes": 60},
 }
+X_THREAD_MODES = [
+    "Quick tips",
+    "Short post",
+    "Viral thread",
+    "Authority style",
+    "Comparison review",
+    "Founder story style",
+    "Educational",
+]
 CONTENT_ANGLE_HISTORY_COLUMNS = [
     "created_at",
     "topic",
@@ -907,7 +928,7 @@ def ensure_publish_log() -> pd.DataFrame:
     path = publish_log_path()
     if not path.exists():
         df = pd.DataFrame(columns=PUBLISH_LOG_COLUMNS)
-        df.to_csv(path, index=False)
+        df.to_csv(path, index=False, encoding="utf-8-sig")
         return df
     try:
         df = pd.read_csv(path)
@@ -917,7 +938,7 @@ def ensure_publish_log() -> pd.DataFrame:
         if column not in df.columns:
             df[column] = ""
     df = df[PUBLISH_LOG_COLUMNS].fillna("")
-    df.to_csv(path, index=False)
+    df.to_csv(path, index=False, encoding="utf-8-sig")
     return df
 
 
@@ -1202,6 +1223,186 @@ def send_telegram_photo(token: str, chat_id: str, image_path: Path, caption: str
 def extract_last_url(text: str) -> str:
     matches = [part.strip() for part in str(text).split() if part.startswith(("http://", "https://"))]
     return matches[-1] if matches else ""
+
+
+def build_x_thread_preview(
+    content: str,
+    target_url: str,
+    title: str = "",
+    content_style: str = "practical_review",
+    mode: str = "Viral thread",
+    hashtags: str = "#AICoding #BuilderNotes",
+) -> list[str]:
+    """Build a copy-ready X/Twitter thread without calling external APIs."""
+    clean_url = str(target_url or extract_last_url(content) or "").strip()
+    source = remove_urls(str(content or ""))
+    sentences = sentence_units(source)
+    topic = str(title or "AI coding workflow").strip()
+    mode = mode if mode in X_THREAD_MODES else "Viral thread"
+    if mode == "Comparison review":
+        mode = "Comparison style"
+    hook = x_mode_hook(topic, content_style, mode, sentences)
+
+    if mode == "Short post":
+        posts = [
+            hook,
+            "The practical check is simple: does the tool reduce cleanup time after a real bug, or only create a fast first draft?",
+            f"{cta_for_x(mode)} {clean_url} {hashtags}".strip(),
+        ]
+        total = len(posts)
+        return [
+            f"{index}/{total} " + smart_trim_sentence(post, 279 - len(f"{index}/{total} "))
+            for index, post in enumerate(posts, start=1)
+        ]
+
+    body_candidates = [
+        sentence
+        for sentence in sentences
+        if len(sentence) > 28 and not sentence.lower().startswith(("http", "#"))
+    ]
+    if not body_candidates:
+        body_candidates = [
+            "The real test is not the first generated answer. It is what happens when the repo gets messy.",
+            "I care more about cleanup time, debugging quality, and context handling than demo speed.",
+            "A good AI coding workflow assigns each tool a job instead of forcing one assistant to do everything.",
+        ]
+    target_count = 5 if mode in {"Viral thread", "Founder story style", "Educational", "Quick tips"} else 4
+    posts: list[str] = [hook]
+    for sentence in body_candidates:
+        if len(posts) >= target_count - 1:
+            break
+        posts.append(sentence)
+    while len(posts) < target_count - 1:
+        posts.append(f"Builder note: {fallback_x_point(mode, len(posts))}")
+    final = f"{cta_for_x(mode)}\n{clean_url}\n\n{hashtags}".strip()
+    posts.append(final)
+    total = len(posts)
+    numbered = []
+    for index, post in enumerate(posts, start=1):
+        prefix = f"{index}/{total} "
+        numbered.append(prefix + smart_trim_sentence(post, 279 - len(prefix)))
+    return numbered
+
+
+def remove_urls(text: str) -> str:
+    parts = [part for part in str(text or "").replace("\r", "\n").split() if not part.startswith(("http://", "https://"))]
+    return " ".join(parts)
+
+
+def sentence_units(text: str) -> list[str]:
+    normalized = " ".join(str(text or "").replace("\r", "\n").split())
+    chunks: list[str] = []
+    current = []
+    for token in normalized.split(" "):
+        stripped = token.strip()
+        if not stripped:
+            continue
+        if stripped[:2] in {"1/", "2/", "3/", "4/", "5/", "6/", "7/", "8/", "9/"}:
+            stripped = stripped[2:].strip()
+        current.append(stripped)
+        if stripped.endswith((".", "?", "!")) and len(" ".join(current)) > 34:
+            chunks.append(" ".join(current).strip())
+            current = []
+    if current:
+        chunks.append(" ".join(current).strip())
+    cleaned = []
+    for chunk in chunks:
+        if chunk and chunk not in cleaned and not chunk.startswith("#"):
+            cleaned.append(chunk)
+    return cleaned
+
+
+def x_mode_hook(topic: str, content_style: str, mode: str, sentences: list[str]) -> str:
+    if mode == "Quick tips":
+        return f"Quick tips for {topic}: judge the workflow after the first failed fix."
+    if mode == "Educational":
+        return f"Educational note: {topic} is easier to evaluate when you separate drafting, repair, and review."
+    if mode == "Founder story style":
+        return f"I changed how I use AI coding tools after {topic} exposed the cleanup problem."
+    if mode == "Comparison style":
+        return f"{topic}: the useful question is not which tool is faster. It is which one fails cheaper."
+    if mode == "Authority style":
+        return f"After using AI coding tools on real projects, I judge {topic} by the second failed fix."
+    if mode == "Short post":
+        base = sentences[0] if sentences else "AI coding tools should be judged by cleanup time, not demo speed."
+        return smart_trim_sentence(base, 170)
+    if content_style == "hot_take":
+        return "Hot take: most AI coding demos collapse when the repo gets messy."
+    if content_style == "failure_case":
+        return "The second failed fix is where AI coding tools get exposed."
+    if content_style == "comparison":
+        return f"{topic}: speed is not the same as lower cleanup cost."
+    return "Builder note: the best AI coding workflow is usually a handoff, not a single-tool bet."
+
+
+def cta_for_x(mode: str) -> str:
+    return {
+        "Short post": "Full note:",
+        "Quick tips": "Save the full checklist:",
+        "Viral thread": "Read the practical breakdown:",
+        "Authority style": "Full workflow note:",
+        "Comparison style": "Compare the tradeoffs:",
+        "Comparison review": "Compare the tradeoffs:",
+        "Founder story style": "I wrote the full builder note here:",
+        "Educational": "Read the full explainer:",
+    }.get(mode, "Read more:")
+
+
+def fallback_x_point(mode: str, index: int) -> str:
+    points = {
+        "Viral thread": [
+            "The tool that looks fastest in a demo can still be slower after review.",
+            "Repo context matters more than a clean first answer.",
+            "The best workflow reduces cleanup, not just keystrokes.",
+        ],
+        "Authority style": [
+            "I separate scaffolding, repair, iteration, and autocomplete into different jobs.",
+            "That makes tool choice easier and reduces repeated failed patches.",
+            "This is why I avoid ranking every tool with one generic score.",
+        ],
+        "Comparison style": [
+            "One tool can win first drafts while another wins messy repair.",
+            "Pricing only makes sense after counting cleanup time.",
+            "Context handling is the difference between a patch and a fix.",
+        ],
+        "Founder story style": [
+            "The first week was about speed. The second week was about cleanup.",
+            "That changed how I choose between Cursor, Windsurf, Codex, and Copilot.",
+            "Now each tool gets a narrower job.",
+        ],
+        "Educational": [
+            "Separate generation speed from reviewed, working output.",
+            "Test the tool on an existing repo, not only a blank demo.",
+            "Track how many fix loops it takes before the build passes.",
+        ],
+        "Quick tips": [
+            "Use one tool for scaffolding and another for repair.",
+            "Keep the final review human-led.",
+            "Measure cleanup time before you call a workflow productive.",
+        ],
+    }
+    if mode == "Comparison review":
+        mode = "Comparison style"
+    selected = points.get(mode, points["Viral thread"])
+    return selected[index % len(selected)]
+
+
+def smart_trim_sentence(text: str, limit: int = 279) -> str:
+    value = " ".join(str(text or "").split())
+    if len(value) <= limit:
+        return value
+    sentence_parts = []
+    current = ""
+    for token in value.split(" "):
+        candidate = f"{current} {token}".strip()
+        if len(candidate) > limit - 3:
+            break
+        current = candidate
+        if token.endswith((".", "?", "!")):
+            sentence_parts.append(current)
+    if sentence_parts:
+        return sentence_parts[-1]
+    return current.rstrip(".,;:") + "..."
 
 
 def sort_calendar_for_scheduler(calendar: pd.DataFrame) -> pd.DataFrame:

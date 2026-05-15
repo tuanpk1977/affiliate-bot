@@ -1,4 +1,4 @@
-campaign,offer_name,impressions,clicks,cost,conversions,revenue,CTR,CPC,CPA,EPC,profit,ROI,decision,decision_reason
+﻿campaign,offer_name,impressions,clicks,cost,conversions,revenue,CTR,CPC,CPA,EPC,profit,ROI,decision,decision_reason
 AIIP - Jasper AI - Test 1,Jasper AI,1200,38,79.8,1,35,3.17,2.1,79.8,0.92,-44.8,-56.14,PAUSE,đang lỗ
 AIIP - Surfer SEO - Test 2,Surfer SEO,1340,42,107.1,1,60,3.13,2.55,107.1,1.43,-47.1,-43.98,PAUSE,đang lỗ
 AIIP - Synthesia - Test 3,Synthesia,1480,46,138.0,2,170,3.11,3.0,69.0,3.7,32.0,23.19,OPTIMIZE,cần thêm dữ liệu trước khi tăng ngân sách

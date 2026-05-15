@@ -6,6 +6,8 @@ import pandas as pd
 
 from config import ensure_platform_dirs, settings, setup_logging
 from modules.ads_generator import generate_ads, validate_ads_csv
+from modules.action_priority import run_action_priority_report
+from modules.affiliate_tracking import run_affiliate_tracking_engine
 from modules.affiliate_links import ensure_affiliate_links
 from modules.ai_angle_generator import generate_angles
 from modules.compliance_checker import build_compliance_report
@@ -16,9 +18,10 @@ from modules.data_sources import attach_data_confidence, load_data_sources
 from modules.decision_engine import decide_campaigns, decide_offers
 from modules.geo_analyzer import suggest_geos
 from modules.keyword_analyzer import generate_keywords
-from modules.keyword_intelligence import run_keyword_intelligence
+from modules.keyword_intelligence import run_keyword_intelligence, run_keyword_intelligence_report
 from modules.landing_page_generator import generate_landing_pages
 from modules.market_analyzer import analyze_market
+from modules.markdown_publisher import publish_markdown_articles
 from modules.offer_loader import load_offers
 from modules.offer_scorer import score_offers
 from modules.profit_simulator import simulate_all
@@ -28,6 +31,7 @@ from modules.review_workflow import run_review_workflow_audit
 from modules.roi_tracker import build_roi_report
 from modules.site_builder import build_site_output
 from modules.sitemap_generator import generate_sitemap
+from modules.seo_system import run_seo_system
 from modules.social_content_generator import ensure_report as ensure_social_post_report
 from modules.social_content_generator import write_distribution_summary
 from modules.social_distribution import ensure_social_distribution_assets
@@ -70,6 +74,7 @@ def main() -> None:
 
     landing_index = generate_landing_pages(offer_scores, angles)
     build_site_output(landing_index, settings.base_site_url, offer_scores)
+    publish_markdown_articles()
     generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     google_ads, bing_ads = generate_ads(offer_scores, keywords, landing_index)
     validate_ads_csv(google_ads, "Google Ads")
@@ -97,6 +102,11 @@ def main() -> None:
     run_review_workflow_audit()
     write_distribution_summary(social_queue)
     run_post_deploy_kit()
+    run_seo_system()
+    run_affiliate_tracking_engine(settings.site_output_dir)
+    run_keyword_intelligence_report()
+    run_action_priority_report()
+    generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     print_keyword_summary(keyword_summary)
     LOGGER.info("Pipeline completed. Dashboard data is ready in %s", settings.data_dir)
 

@@ -4,11 +4,13 @@ import base64
 import json
 import os
 import sys
+import urllib.parse
 from pathlib import Path
 
 import pandas as pd
 import streamlit as st
 import streamlit.components.v1 as components
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -39,6 +41,12 @@ from modules.auto_offer_importer import (
     validate_required_fields,
 )
 from modules import content_approval as content_approval_module
+from modules.action_priority import (
+    generate_article_draft as generate_action_article_draft,
+    generate_internal_link_plan as generate_action_internal_link_plan,
+    generate_social_pack as generate_action_social_pack,
+    mark_action_status,
+)
 from modules.distribution_boost import save_distribution_boost
 from modules.profit_simulator import simulate_offer_profit, simulate_scenarios
 from modules.post_deploy_kit import (
@@ -60,6 +68,8 @@ from modules.social_content_generator import (
 )
 from modules.social_distribution import (
     VALID_STATUSES as SOCIAL_REVIEW_STATUSES,
+    X_THREAD_MODES,
+    build_x_thread_preview,
     content_angle_dataframe,
     ensure_social_distribution_assets,
     generate_deep_dive_outline,
@@ -102,6 +112,41 @@ update_draft = getattr(content_approval_module, "update_draft")
 if publish_static_draft is None:
     def publish_static_draft(*args: object, **kwargs: object) -> tuple[bool, str]:
         return False, "Thiếu hàm publish static page trong modules.content_approval."
+
+
+def fix_mojibake_text(value: object) -> str:
+    """Repair common Windows mojibake already stored in old CSV/text rows."""
+    text = "" if value is None else str(value)
+    if not text:
+        return text
+    try:
+        raw = bytearray()
+        for ch in text:
+            code = ord(ch)
+            if 0x80 <= code <= 0x9F:
+                raw.append(code)
+            else:
+                raw.extend(ch.encode("cp1252"))
+        fixed = raw.decode("utf-8")
+    except Exception:
+        return text
+    return fixed if fixed != text else text
+
+
+def fix_mojibake_df(df: pd.DataFrame) -> pd.DataFrame:
+    if df.empty:
+        return df
+    fixed = df.copy()
+    for column in fixed.select_dtypes(include=["object"]).columns:
+        fixed[column] = fixed[column].map(fix_mojibake_text)
+    return fixed
+
+
+_read_csv_base = read_csv
+
+
+def read_csv(path) -> pd.DataFrame:  # type: ignore[no-redef]
+    return fix_mojibake_df(_read_csv_base(path))
 
 
 def load_review_queue() -> pd.DataFrame:
@@ -398,11 +443,11 @@ def render_manual_social_distribution_page() -> None:
     st.dataframe(pd.DataFrame(limit_rows), use_container_width=True, hide_index=True)
 
     st.markdown("### Content Expansion Engine")
-    st.caption("Tao nhieu goc khai thac cho cung mot topic de tranh lap hook, opening va CTA. Moi variation van cho duyet truoc khi dang.")
+    st.caption("Tạo nhiều góc khai thác cho cùng một topic để tránh lặp hook, opening và CTA. Mỗi variation vẫn chờ duyệt trước khi đăng.")
     angles_df = content_angle_dataframe()
     history_df = load_content_angle_history()
     if angles_df.empty:
-        st.info("Chua co topic angle config.")
+        st.info("Chưa có topic angle config.")
     else:
         h1, h2, h3 = st.columns(3)
         h1.metric("Topics", int(angles_df["topic_slug"].nunique()))
@@ -431,14 +476,14 @@ def render_manual_social_distribution_page() -> None:
         )
         if st.button("Generate More Variations", key="generate_more_social_variations"):
             created = generate_more_variations(selected_topic_slug, selected_angle)
-            st.success(f"Da tao {len(created)} variations: 3 X/Twitter, 2 LinkedIn, 2 Telegram, 2 Facebook. Tat ca dang o Pending Review.")
+            st.success(f"Đã tạo {len(created)} variations: 3 X/Twitter, 2 LinkedIn, 2 Telegram, 2 Facebook. Tất cả đang ở Pending Review.")
             st.rerun()
         if st.button("Deep Dive Mode: create article outline", key="generate_deep_dive_outline"):
             outline_path = generate_deep_dive_outline(selected_topic_slug, selected_angle)
             if outline_path:
-                st.success(f"Da tao outline: {outline_path}")
+                st.success(f"Đã tạo outline: {outline_path}")
             else:
-                st.warning("Khong tao duoc outline cho topic/angle nay.")
+                st.warning("Không tạo được outline cho topic/angle này.")
         if not history_df.empty:
             with st.expander("Content angle history", expanded=False):
                 st.dataframe(
@@ -509,36 +554,17 @@ def render_manual_social_distribution_page() -> None:
     if row.get("topic") or row.get("angle"):
         st.caption(f"Topic: {row.get('topic', '')} | Angle: {row.get('angle', '')}")
     image_path = social_asset_path(selected_id)
-    if image_path.exists():
-        st.image(str(image_path), caption=f"Social asset: {image_path.name}", use_container_width=True)
+    render_image_workflow(selected_id, image_path, row)
     post_body_value = str(row.get("post_body", ""))
-    st.text_area("Nội dung copy-ready", value=post_body_value, height=260, key=f"manual_social_body_{selected_id}")
     platform_key = str(row.get("platform", "")).lower()
     char_count = len(post_body_value)
-    st.caption(f"Character count: {char_count}")
     if platform_key == "x/twitter":
-        thread_posts = split_x_thread(post_body_value)
-        st.markdown("#### X/Twitter thread")
-        for index, post in enumerate(thread_posts, start=1):
-            count = len(post)
-            if count > 260:
-                st.warning(f"Post {index} vượt 260 ký tự: {count}")
-            else:
-                st.caption(f"Post {index}: {count} ký tự")
-            st.text_area(
-                f"Post {index}",
-                value=post,
-                height=90,
-                key=f"x_thread_post_{selected_id}_{index}",
-                disabled=True,
-            )
-        thread_copy_cols = st.columns(max(1, len(thread_posts) + 1))
-        with thread_copy_cols[0]:
-            clipboard_button("Copy Thread", post_body_value, f"copy_thread_{selected_id}", toast_text="Copied thread")
-        for index, post in enumerate(thread_posts, start=1):
-            with thread_copy_cols[min(index, len(thread_copy_cols) - 1)]:
-                clipboard_button(f"Copy Post {index}", post, f"copy_x_post_{selected_id}_{index}", toast_text=f"Copied post {index}")
-    elif platform_key in {"facebook", "linkedin"} and char_count < 400:
+        render_x_thread_preview(row, selected_id, image_path)
+    else:
+        render_social_preview_card(row, selected_id, image_path)
+        st.text_area("Nội dung copy-ready", value=post_body_value, height=260, key=f"manual_social_body_{selected_id}")
+        st.caption(f"Character count: {char_count}")
+    if platform_key in {"facebook", "linkedin"} and char_count < 400:
         st.warning("Bài Facebook/LinkedIn đang dưới 400 ký tự, nên viết dài hơn trước khi đăng.")
     elif platform_key == "telegram" and char_count < 400:
         st.info("Telegram có thể ngắn hơn, nhưng mục tiêu hiện tại là khoảng 700-1000 ký tự nếu cần kéo traffic tốt hơn.")
@@ -572,16 +598,25 @@ def render_manual_social_distribution_page() -> None:
                         key=f"platform_version_{selected_id}_{platform_name}",
                     )
     st.caption("Link đã nằm trực tiếp trong nội dung bài. Không cần copy link riêng.")
-    target_url = str(row.get("target_url", "")).strip()
-    action_columns = st.columns(4)
+    target_url = effective_social_url(row)
+    action_columns = st.columns(5)
     with action_columns[0]:
         clipboard_button("Copy Content", post_body_value, f"copy_content_{selected_id}")
     with action_columns[1]:
         clipboard_button("Copy Link", target_url, f"copy_link_{selected_id}", toast_text="Copied link")
+    with action_columns[2]:
+        st.download_button(
+            "Download .md",
+            data=build_social_markdown(row, selected_id, image_path).encode("utf-8"),
+            file_name=f"{selected_id}.md",
+            mime="text/markdown",
+            key=f"download_social_md_{selected_id}",
+            use_container_width=True,
+        )
     if image_path.exists():
-        with action_columns[2]:
-            open_image_button(image_path, f"open_image_{selected_id}")
         with action_columns[3]:
+            open_image_button(image_path, f"open_image_{selected_id}")
+        with action_columns[4]:
             st.download_button(
                 "Download Image",
                 data=image_path.read_bytes(),
@@ -611,14 +646,7 @@ def render_manual_social_distribution_page() -> None:
         f"{post_body_value}"
     )
     clipboard_button("Copy Post Pack", post_pack, f"copy_pack_{selected_id}", toast_text="Copied post pack")
-    if not target_url:
-        st.error("Target URL đang trống.")
-    elif not target_url.startswith(("http://", "https://")):
-        st.warning("Target URL thiếu http/https.")
-    elif target_url.startswith("https://review.mssmileenglish.com"):
-        st.success("Target URL OK: dùng domain review.mssmileenglish.com")
-    else:
-        st.info("Target URL có format hợp lệ nhưng không thuộc review.mssmileenglish.com")
+    render_link_health(target_url)
     note = st.text_input("Ghi chú khi cập nhật trạng thái", value=str(row.get("notes", "")), key=f"manual_social_note_{selected_id}")
 
     b1, b2, b3, b4 = st.columns(4)
@@ -651,7 +679,7 @@ def render_manual_social_distribution_page() -> None:
     st.markdown("### Export")
     st.download_button(
         "Download social_calendar.csv",
-        data=load_social_calendar().to_csv(index=False).encode("utf-8"),
+        data=load_social_calendar().to_csv(index=False).encode("utf-8-sig"),
         file_name="social_calendar.csv",
         mime="text/csv",
     )
@@ -697,6 +725,300 @@ def clipboard_button(label: str, value: str, key: str, toast_text: str = "Copied
         </div>
         """,
         height=74,
+    )
+
+
+def render_x_thread_preview(row: dict[str, object], selected_id: str, image_path: Path) -> None:
+    st.markdown("#### X/Twitter thread composer")
+    mode = st.selectbox(
+        "Thread mode",
+        X_THREAD_MODES,
+        index=1 if "Viral thread" in X_THREAD_MODES else 0,
+        key=f"x_thread_mode_{selected_id}",
+    )
+    original_body = str(row.get("post_body", ""))
+    target_url = effective_social_url(row)
+    title = str(row.get("post_title", "")).strip()
+    style = str(row.get("content_style", "practical_review"))
+    thread_posts = build_x_thread_preview(original_body, target_url, title, style, mode)
+    thread_text = "\n\n".join(thread_posts)
+    inject_x_preview_css()
+
+    top_cols = st.columns([1, 1, 1, 1])
+    with top_cols[0]:
+        clipboard_button("Copy full thread", thread_text, f"copy_entire_thread_{selected_id}", toast_text="Copied thread")
+    with top_cols[1]:
+        st.download_button(
+            "Download .txt",
+            data=thread_text.encode("utf-8"),
+            file_name=f"{selected_id}-x-thread.txt",
+            mime="text/plain",
+            key=f"download_x_thread_{selected_id}",
+            use_container_width=True,
+        )
+    st.download_button(
+        "Download markdown",
+        data=build_thread_markdown(row, selected_id, image_path, thread_posts).encode("utf-8"),
+        file_name=f"{selected_id}-x-thread.md",
+        mime="text/markdown",
+        key=f"download_x_thread_md_{selected_id}",
+        use_container_width=True,
+    )
+    clipboard_button(
+        "Copy CTA + Link + Hashtag",
+        extract_cta_link_hashtag(thread_posts, target_url),
+        f"copy_x_cta_link_hashtag_{selected_id}",
+        toast_text="Copied CTA + link + hashtag",
+    )
+    with top_cols[2]:
+        st.link_button("Open X Compose", "https://x.com/compose/post", use_container_width=True)
+    with top_cols[3]:
+        if image_path.exists():
+            st.download_button(
+                "Download image",
+                data=image_path.read_bytes(),
+                file_name=image_path.name,
+                mime="image/png",
+                key=f"download_x_image_{selected_id}",
+                use_container_width=True,
+            )
+        else:
+            st.caption("No image yet")
+
+    st.markdown('<div class="x-thread-shell">', unsafe_allow_html=True)
+    for index, post in enumerate(thread_posts, start=1):
+        count = len(post)
+        status = "OK" if count <= 280 else "Too long"
+        status_class = "ok" if count <= 280 else "warn"
+        st.markdown(
+            f"""
+            <div class="x-post-card">
+              <div class="x-avatar">MS</div>
+              <div class="x-post-body">
+                <div class="x-post-meta">MS Smile AI Review Hub <span>@mssmileai</span> · Post {index}/{len(thread_posts)}</div>
+                <div class="x-post-text">{html_escape(post).replace(chr(10), '<br>')}</div>
+                <div class="x-post-footer"><span class="{status_class}">{status}</span> · {count}/280 chars</div>
+              </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+        button_cols = st.columns([1, 4])
+        with button_cols[0]:
+            clipboard_button(f"Copy Post {index}", post, f"copy_x_post_{selected_id}_{index}", toast_text=f"Copied post {index}")
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    if image_path.exists():
+        st.image(str(image_path), caption=f"Selected social image: {image_path.name}", use_container_width=True)
+    if any(len(post) > 280 for post in thread_posts):
+        st.warning("Có post vượt 280 ký tự. Hãy đổi mode hoặc rút gọn hook.")
+    render_link_health(target_url)
+    st.caption("Open X Compose chỉ mở trang soạn bài. Hãy paste thủ công từng post/thread. Dashboard không gọi API X và không tự đăng.")
+    st.caption("Link/CTA/hashtag được đưa vào post cuối. X/Facebook/LinkedIn vẫn manual-only, không auto-post.")
+
+
+def render_image_workflow(selected_id: str, image_path: Path, row: dict[str, object]) -> None:
+    st.markdown("#### Image workflow")
+    cols = st.columns([1.2, 1, 1])
+    with cols[0]:
+        uploaded = st.file_uploader(
+            "Upload thumbnail/social image",
+            type=["png", "jpg", "jpeg"],
+            key=f"social_image_upload_{selected_id}",
+        )
+        if uploaded is not None:
+            save_uploaded_social_image(uploaded, image_path)
+            st.success(f"Saved image: {image_path.name}")
+            st.rerun()
+    with cols[1]:
+        if image_path.exists():
+            open_image_button(image_path, f"open_social_image_{selected_id}")
+        else:
+            st.caption("No image selected")
+    with cols[2]:
+        if image_path.exists():
+            st.download_button(
+                "Download image",
+                data=image_path.read_bytes(),
+                file_name=image_path.name,
+                mime="image/png",
+                key=f"download_social_image_top_{selected_id}",
+                use_container_width=True,
+            )
+    if image_path.exists():
+        try:
+            with Image.open(image_path) as image:
+                width, height = image.size
+            shape = "square" if abs(width - height) < 8 else "landscape" if width > height else "portrait"
+            size_kb = image_path.stat().st_size / 1024
+            st.caption(f"Selected image: {image_path.name} | {size_kb:.1f} KB | {width}x{height} | {shape} preview")
+        except Exception:
+            st.caption(f"Selected image: {image_path.name}")
+        st.image(str(image_path), caption=f"{row.get('platform', '')} social preview image", use_container_width=True)
+    else:
+        st.info("No image attached yet. Upload a square or landscape image for X/LinkedIn/Facebook preview.")
+
+
+def render_social_preview_card(row: dict[str, object], selected_id: str, image_path: Path) -> None:
+    platform = str(row.get("platform", "Social"))
+    body = str(row.get("post_body", ""))
+    title = str(row.get("post_title", ""))
+    target_url = effective_social_url(row)
+    inject_social_preview_css()
+    platform_class = platform.lower().replace("/", "-").replace(" ", "-")
+    preview_text = html_escape(body).replace(chr(10), "<br>")
+    image_html = ""
+    if image_path.exists():
+        image_src = image_path.as_posix()
+        image_html = f'<img class="social-preview-img" src="{image_src}" alt="{html_escape(title)} preview image">'
+    st.markdown(
+        f"""
+        <div class="social-preview-card {platform_class}">
+          <div class="social-preview-top">
+            <div class="social-preview-avatar">MS</div>
+            <div>
+              <div class="social-preview-name">MS Smile AI Review Hub</div>
+              <div class="social-preview-meta">{html_escape(platform)} preview · copy-ready</div>
+            </div>
+          </div>
+          {image_html}
+          <div class="social-preview-title">{html_escape(title)}</div>
+          <div class="social-preview-text">{preview_text}</div>
+          <div class="social-preview-link">{html_escape(target_url)}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def inject_social_preview_css() -> None:
+    st.markdown(
+        """
+        <style>
+        .social-preview-card {
+            background:#101827;border:1px solid #26364d;border-radius:18px;padding:18px;margin:12px 0 18px 0;
+            color:#e5edf8;box-shadow:0 10px 26px rgba(0,0,0,.2);
+        }
+        .social-preview-top {display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+        .social-preview-avatar {
+            width:42px;height:42px;border-radius:50%;background:#2563eb;color:white;font-weight:800;
+            display:flex;align-items:center;justify-content:center;flex:0 0 42px;
+        }
+        .social-preview-name {font-weight:800;}
+        .social-preview-meta {font-size:13px;color:#93a4bc;}
+        .social-preview-img {width:100%;border-radius:14px;border:1px solid #2b3a52;margin:8px 0 14px 0;}
+        .social-preview-title {font-weight:800;font-size:18px;margin-bottom:8px;}
+        .social-preview-text {font-size:15.5px;line-height:1.55;}
+        .social-preview-link {margin-top:14px;color:#93c5fd;font-size:13px;word-break:break-all;}
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def build_social_markdown(row: dict[str, object], selected_id: str, image_path: Path) -> str:
+    return (
+        f"# {row.get('post_title', '')}\n\n"
+        f"- ID: {selected_id}\n"
+        f"- Platform: {row.get('platform', '')}\n"
+        f"- Status: {row.get('status', '')}\n"
+        f"- Style: {row.get('content_style', '')}\n"
+        f"- Target URL: {effective_social_url(row)}\n"
+        f"- Image: {image_path if image_path.exists() else ''}\n\n"
+        "## Copy\n\n"
+        f"{row.get('post_body', '')}\n"
+    )
+
+
+def build_thread_markdown(row: dict[str, object], selected_id: str, image_path: Path, posts: list[str]) -> str:
+    parts = [
+        f"# {row.get('post_title', '')}",
+        "",
+        f"- ID: {selected_id}",
+        f"- Platform: {row.get('platform', '')}",
+        f"- Style: {row.get('content_style', '')}",
+        f"- Target URL: {effective_social_url(row)}",
+        f"- Image: {image_path if image_path.exists() else ''}",
+        "",
+    ]
+    for index, post in enumerate(posts, start=1):
+        parts.extend([f"## Post {index}", "", post, ""])
+    return "\n".join(parts)
+
+
+def effective_social_url(row: dict[str, object]) -> str:
+    return str(row.get("short_url", "") or row.get("target_url", "")).strip()
+
+
+def extract_cta_link_hashtag(posts: list[str], target_url: str) -> str:
+    if posts:
+        final = posts[-1]
+        if target_url and target_url not in final:
+            return f"{final}\n{target_url}"
+        return final
+    return target_url
+
+
+def render_link_health(target_url: str) -> None:
+    st.caption(f"Link đang dùng: {target_url or '(empty)'}")
+    allowed_domains = (
+        "https://review.mssmileenglish.com",
+        "https://tuanpk1977.github.io/affiliate-bot",
+    )
+    if not target_url:
+        st.error("Target URL đang trống.")
+    elif not target_url.startswith(("http://", "https://")):
+        st.warning("Target URL thiếu http/https.")
+    elif target_url.startswith(allowed_domains):
+        st.success("Target URL OK: dùng domain được phép.")
+    else:
+        st.warning("Cảnh báo: link không thuộc review.mssmileenglish.com hoặc tuanpk1977.github.io/affiliate-bot.")
+
+
+def save_uploaded_social_image(uploaded_file: object, output_path: Path) -> None:
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with Image.open(uploaded_file) as image:
+        image.convert("RGB").save(output_path, format="PNG")
+
+
+def html_escape(value: str) -> str:
+    return (
+        str(value or "")
+        .replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace('"', "&quot;")
+    )
+
+
+def inject_x_preview_css() -> None:
+    st.markdown(
+        """
+        <style>
+        .x-thread-shell {display:flex;flex-direction:column;gap:14px;margin:12px 0 18px 0;}
+        .x-post-card {
+            display:flex;gap:12px;background:#0f172a;border:1px solid #263244;border-radius:18px;
+            padding:16px 18px;margin:10px 0;color:#e5edf8;box-shadow:0 10px 26px rgba(0,0,0,.22);
+        }
+        .x-avatar {
+            width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+            background:#2563eb;color:#fff;font-weight:800;flex:0 0 42px;
+        }
+        .x-post-body {flex:1;min-width:0;}
+        .x-post-meta {font-weight:700;color:#f8fafc;margin-bottom:8px;}
+        .x-post-meta span {font-weight:500;color:#93a4bc;}
+        .x-post-text {font-size:16px;line-height:1.48;white-space:normal;}
+        .x-post-footer {margin-top:10px;color:#93a4bc;font-size:13px;}
+        .x-post-footer .ok {color:#86efac;font-weight:700;}
+        .x-post-footer .warn {color:#fca5a5;font-weight:700;}
+        @media (max-width: 640px) {
+            .x-post-card {padding:14px 12px;border-radius:14px;}
+            .x-avatar {width:34px;height:34px;flex-basis:34px;font-size:12px;}
+            .x-post-text {font-size:15px;}
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
     )
 
 
@@ -789,7 +1111,7 @@ def render_post_deploy_page() -> None:
         st.info("No indexing priority data yet. Click regenerate or run python main.py.")
     else:
         st.dataframe(indexing, use_container_width=True, hide_index=True)
-        st.download_button("Download indexing_priority.csv", indexing.to_csv(index=False).encode("utf-8"), "indexing_priority.csv", "text/csv")
+        st.download_button("Download indexing_priority.csv", indexing.to_csv(index=False).encode("utf-8-sig"), "indexing_priority.csv", "text/csv")
     checklist_path = settings.data_dir / "google_indexing_checklist.md"
     if checklist_path.exists():
         st.caption(f"Checklist file: {checklist_path}")
@@ -800,7 +1122,7 @@ def render_post_deploy_page() -> None:
         st.info("No copy-ready social posts yet. Generate social variations first.")
     else:
         st.dataframe(social_ready, use_container_width=True, hide_index=True)
-        st.download_button("Download social_posting_queue.csv", social_ready.to_csv(index=False).encode("utf-8"), "social_posting_queue.csv", "text/csv")
+        st.download_button("Download social_posting_queue.csv", social_ready.to_csv(index=False).encode("utf-8-sig"), "social_posting_queue.csv", "text/csv")
         image_candidates = [str(path) for path in social_ready.get("image_path", pd.Series(dtype=str)).astype(str).tolist() if path and Path(path).exists()]
         if image_candidates:
             st.image(image_candidates[0], caption="Thumbnail preview", use_container_width=True)
@@ -831,6 +1153,215 @@ def render_post_deploy_page() -> None:
     if st.button("Save post deploy checklist", key="save_post_deploy_checklist"):
         save_post_deploy_checklist(updated)
         st.success("Saved config/post_deploy_checklist.json")
+
+
+def render_seo_system_page() -> None:
+    st.header("SEO System")
+    st.warning("Local-only SEO/tracking reports. Không gọi Google API, không deploy, không auto-post.")
+    seo_audit = read_csv(settings.data_dir / "seo_audit_report.csv")
+    topical_map = read_csv(settings.data_dir / "topical_map.csv")
+    tracking_map = read_csv(settings.data_dir / "link_tracking_map.csv")
+    quality = read_csv(settings.data_dir / "content_quality_report.csv")
+    affiliate_tracking = read_csv(settings.data_dir / "affiliate_tracking_report.csv")
+    redirect_map = read_csv(settings.data_dir / "redirect_map.csv")
+    keyword_report = read_csv(settings.data_dir / "keyword_intelligence_report.csv")
+    action_priority = read_csv(settings.data_dir / "action_priority_report.csv")
+
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("SEO audit pages", len(seo_audit))
+    c2.metric("Topical map rows", len(topical_map))
+    c3.metric("Tracked social links", len(tracking_map))
+    warning_count = int((quality.get("recommendation", pd.Series(dtype=str)).astype(str) != "ok").sum()) if not quality.empty else 0
+    c4.metric("Quality warnings", warning_count)
+
+    st.markdown("### SEO audit summary")
+    if seo_audit.empty:
+        st.info("Chưa có seo_audit_report.csv. Hãy chạy python main.py.")
+    else:
+        warn_rows = seo_audit[seo_audit["warnings"].astype(str).str.len() > 0] if "warnings" in seo_audit.columns else pd.DataFrame()
+        st.caption(f"Rows with warnings: {len(warn_rows)}")
+        st.dataframe(warn_rows.head(50) if not warn_rows.empty else seo_audit.head(50), use_container_width=True, hide_index=True)
+        st.download_button("Download seo_audit_report.csv", seo_audit.to_csv(index=False).encode("utf-8-sig"), "seo_audit_report.csv", "text/csv")
+
+    st.markdown("### Topical map summary")
+    if topical_map.empty:
+        st.info("Chưa có topical_map.csv.")
+    else:
+        if "topic_group" in topical_map.columns:
+            st.dataframe(topical_map.groupby("topic_group").size().reset_index(name="pages"), use_container_width=True, hide_index=True)
+        st.download_button("Download topical_map.csv", topical_map.to_csv(index=False).encode("utf-8-sig"), "topical_map.csv", "text/csv")
+
+    st.markdown("### Tracking map summary")
+    if tracking_map.empty:
+        st.info("Chưa có link_tracking_map.csv.")
+    else:
+        if "platform" in tracking_map.columns:
+            st.dataframe(tracking_map.groupby("platform").size().reset_index(name="links"), use_container_width=True, hide_index=True)
+        missing_utm = tracking_map[tracking_map.get("has_utm", pd.Series(dtype=str)).astype(str) != "true"] if "has_utm" in tracking_map.columns else pd.DataFrame()
+        if not missing_utm.empty:
+            st.warning(f"Có {len(missing_utm)} social links chưa đủ UTM.")
+            st.dataframe(missing_utm.head(30), use_container_width=True, hide_index=True)
+        st.download_button("Download link_tracking_map.csv", tracking_map.to_csv(index=False).encode("utf-8-sig"), "link_tracking_map.csv", "text/csv")
+
+    st.markdown("### Content quality warnings")
+    if quality.empty:
+        st.info("Chưa có content_quality_report.csv.")
+    else:
+        warnings = quality[quality["recommendation"].astype(str) != "ok"] if "recommendation" in quality.columns else quality
+        st.dataframe(warnings.head(80), use_container_width=True, hide_index=True)
+        st.download_button("Download content_quality_report.csv", quality.to_csv(index=False).encode("utf-8-sig"), "content_quality_report.csv", "text/csv")
+
+    st.divider()
+    st.markdown("## Affiliate Tracking")
+    t1, t2, t3 = st.columns(3)
+    t1.metric("Tracking links", len(affiliate_tracking))
+    t2.metric("Redirect pages", len(redirect_map))
+    rec_count = affiliate_tracking["recommendation"].nunique() if not affiliate_tracking.empty and "recommendation" in affiliate_tracking.columns else 0
+    t3.metric("Recommendation types", rec_count)
+    if affiliate_tracking.empty:
+        st.info("Chưa có affiliate_tracking_report.csv. Hãy chạy python main.py.")
+    else:
+        if "source" in affiliate_tracking.columns:
+            st.caption("Link count by source/platform")
+            st.dataframe(affiliate_tracking.groupby(["source", "platform"]).size().reset_index(name="links"), use_container_width=True, hide_index=True)
+        if "recommendation" in affiliate_tracking.columns:
+            st.caption("Recommendation queue")
+            st.dataframe(
+                affiliate_tracking[["tracking_id", "source", "platform", "page_slug", "tool_name", "status", "recommendation"]].head(80),
+                use_container_width=True,
+                hide_index=True,
+            )
+        cta1, cta2 = st.columns(2)
+        cta1.download_button(
+            "Download affiliate_tracking_report.csv",
+            affiliate_tracking.to_csv(index=False).encode("utf-8-sig"),
+            "affiliate_tracking_report.csv",
+            "text/csv",
+        )
+        cta2.download_button(
+            "Download redirect_map.csv",
+            redirect_map.to_csv(index=False).encode("utf-8-sig"),
+            "redirect_map.csv",
+            "text/csv",
+        )
+
+    st.divider()
+    st.markdown("## Keyword Intelligence")
+    k1, k2, k3 = st.columns(3)
+    k1.metric("Keywords", len(keyword_report))
+    high_priority = int((keyword_report.get("priority_score", pd.Series(dtype=float)).astype(float) >= 70).sum()) if not keyword_report.empty and "priority_score" in keyword_report.columns else 0
+    k2.metric("High priority", high_priority)
+    gap_count = keyword_report["content_gap"].nunique() if not keyword_report.empty and "content_gap" in keyword_report.columns else 0
+    k3.metric("Gap types", gap_count)
+    if keyword_report.empty:
+        st.info("Chưa có keyword_intelligence_report.csv. Hãy chạy python main.py.")
+    else:
+        filter_cols = st.columns(2)
+        intents = ["All"] + sorted(keyword_report["intent"].dropna().astype(str).unique().tolist()) if "intent" in keyword_report.columns else ["All"]
+        clusters = ["All"] + sorted(keyword_report["topic_cluster"].dropna().astype(str).unique().tolist()) if "topic_cluster" in keyword_report.columns else ["All"]
+        intent_filter = filter_cols[0].selectbox("Intent", intents, key="seo_system_keyword_intent")
+        cluster_filter = filter_cols[1].selectbox("Topic cluster", clusters, key="seo_system_keyword_cluster")
+        filtered_keywords = keyword_report.copy()
+        if intent_filter != "All" and "intent" in filtered_keywords.columns:
+            filtered_keywords = filtered_keywords[filtered_keywords["intent"].astype(str) == intent_filter]
+        if cluster_filter != "All" and "topic_cluster" in filtered_keywords.columns:
+            filtered_keywords = filtered_keywords[filtered_keywords["topic_cluster"].astype(str) == cluster_filter]
+        st.caption("Top 20 keyword priority")
+        st.dataframe(filtered_keywords.head(20), use_container_width=True, hide_index=True)
+        if "content_gap" in keyword_report.columns:
+            st.caption("Content gap summary")
+            st.dataframe(keyword_report.groupby("content_gap").size().reset_index(name="keywords"), use_container_width=True, hide_index=True)
+        st.download_button(
+            "Download keyword_intelligence_report.csv",
+            keyword_report.to_csv(index=False).encode("utf-8-sig"),
+            "keyword_intelligence_report.csv",
+            "text/csv",
+        )
+
+    st.divider()
+    st.markdown("## Next Best Actions / Hành động ưu tiên tiếp theo")
+    if action_priority.empty:
+        st.info("Chưa có action_priority_report.csv. Hãy chạy python main.py.")
+    else:
+        a1, a2, a3, a4, a5, a6 = st.columns(6)
+        a1.metric("Total action items", len(action_priority))
+        high_items = int(action_priority["expected_impact"].astype(str).str.lower().eq("high").sum()) if "expected_impact" in action_priority.columns else 0
+        a2.metric("High priority items", high_items)
+        improve_items = int(action_priority["action_type"].astype(str).eq("improve_existing_article").sum()) if "action_type" in action_priority.columns else 0
+        a3.metric("Articles to improve", improve_items)
+        new_items = int(action_priority["action_type"].astype(str).eq("write_new_article").sum()) if "action_type" in action_priority.columns else 0
+        a4.metric("New articles", new_items)
+        social_items = int(action_priority["action_type"].astype(str).eq("push_social").sum()) if "action_type" in action_priority.columns else 0
+        a5.metric("Social pushes", social_items)
+        cta_items = int(action_priority["action_type"].astype(str).eq("improve_cta").sum()) if "action_type" in action_priority.columns else 0
+        a6.metric("CTA issues", cta_items)
+
+        filters = st.columns(2)
+        action_types = ["All"] + sorted(action_priority["action_type"].dropna().astype(str).unique().tolist()) if "action_type" in action_priority.columns else ["All"]
+        topics = ["All"] + sorted(action_priority["topic"].dropna().astype(str).unique().tolist()) if "topic" in action_priority.columns else ["All"]
+        action_filter = filters[0].selectbox("Action type", action_types, key="seo_system_action_type")
+        topic_filter = filters[1].selectbox("Topic", topics, key="seo_system_action_topic")
+        filtered_actions = action_priority.copy()
+        if action_filter != "All" and "action_type" in filtered_actions.columns:
+            filtered_actions = filtered_actions[filtered_actions["action_type"].astype(str) == action_filter]
+        if topic_filter != "All" and "topic" in filtered_actions.columns:
+            filtered_actions = filtered_actions[filtered_actions["topic"].astype(str) == topic_filter]
+        st.caption("Top 20 việc nên làm tiếp")
+        st.dataframe(filtered_actions.head(20), use_container_width=True, hide_index=True)
+        if not filtered_actions.empty:
+            st.markdown("### Execute selected action")
+            options = []
+            labels = {}
+            for idx, row in filtered_actions.head(100).iterrows():
+                label = f"#{row.get('priority_rank')} | {row.get('action_type')} | {row.get('keyword') or row.get('page_url')}"
+                key = str(idx)
+                options.append(key)
+                labels[key] = label
+            selected_key = st.selectbox(
+                "Select action item",
+                options,
+                format_func=lambda value: labels.get(value, value),
+                key="seo_system_selected_action",
+            )
+            selected_action = filtered_actions.loc[int(selected_key)].fillna("").to_dict()
+            detail_cols = [
+                "priority_rank",
+                "action_type",
+                "topic",
+                "keyword",
+                "page_url",
+                "platform",
+                "reason",
+                "expected_impact",
+                "difficulty",
+                "next_action",
+            ]
+            st.dataframe(pd.DataFrame([{column: selected_action.get(column, "") for column in detail_cols}]), use_container_width=True, hide_index=True)
+            b1, b2, b3, b4, b5 = st.columns(5)
+            if b1.button("Generate Article Draft", key="generate_action_article_draft"):
+                path = generate_action_article_draft(selected_action)
+                st.success(f"Draft created: {path}")
+            if b2.button("Generate Social Pack", key="generate_action_social_pack"):
+                paths = generate_action_social_pack(selected_action)
+                st.success("Social pack created: " + ", ".join(str(path) for path in paths.values()))
+            if b3.button("Generate Internal Link Plan", key="generate_action_internal_link_plan"):
+                path = generate_action_internal_link_plan(selected_action)
+                st.success(f"Internal link plan updated: {path}")
+            if b4.button("Mark As Done", key="mark_action_done"):
+                path = mark_action_status(selected_action, "done", "Marked done from SEO System dashboard")
+                st.success(f"Action status updated: {path}")
+            b5.download_button(
+                "Export Selected Action",
+                pd.DataFrame([selected_action]).to_csv(index=False).encode("utf-8-sig"),
+                file_name=f"action-{selected_action.get('priority_rank', 'selected')}.csv",
+                mime="text/csv",
+            )
+        st.download_button(
+            "Download action_priority_report.csv",
+            action_priority.to_csv(index=False).encode("utf-8-sig"),
+            "action_priority_report.csv",
+            "text/csv",
+        )
 
 
 def to_bool(value: object) -> bool:
@@ -1101,7 +1632,16 @@ st.warning("Dữ liệu hiện tại là dữ liệu mẫu/rule-based. Cần ki�
 
 sidebar_page = st.sidebar.radio(
     "Navigation",
-    ["Dashboard", "Review Queue", "Content Approval", "Social Distribution", "Phân phối xã hội", "Post Deploy Kit", "Reports"],
+    [
+        "Dashboard",
+        "Review Queue",
+        "Content Approval",
+        "Social Distribution",
+        "Phân phối xã hội",
+        "Post Deploy Kit",
+        "SEO System",
+        "Reports",
+    ],
     index=0,
 )
 st.sidebar.caption("Local-safe workflow. No deploy and no social auto-posting without approval.")
@@ -1137,6 +1677,9 @@ elif sidebar_page == "Phân phối xã hội":
     st.stop()
 elif sidebar_page == "Post Deploy Kit":
     render_post_deploy_page()
+    st.stop()
+elif sidebar_page == "SEO System":
+    render_seo_system_page()
     st.stop()
 elif sidebar_page == "Review Queue":
     st.info("Review Queue is available in the Content Review tab below. Use the sidebar Social Distribution item for the dedicated social workflow.")
@@ -1829,10 +2372,10 @@ with tabs[12]:
                 drafts = load_review_queue()
 
     st.markdown("### Backup / Export CSV")
-    all_csv = drafts.to_csv(index=False).encode("utf-8")
+    all_csv = drafts.to_csv(index=False).encode("utf-8-sig")
     st.download_button("Export all drafts CSV", data=all_csv, file_name="content_drafts_all.csv", mime="text/csv")
-    st.download_button("Export approved drafts CSV", data=drafts[drafts["status"] == "Approved"].to_csv(index=False).encode("utf-8"), file_name="content_drafts_approved.csv", mime="text/csv")
-    st.download_button("Export published drafts CSV", data=drafts[drafts["status"] == "Published"].to_csv(index=False).encode("utf-8"), file_name="content_drafts_published.csv", mime="text/csv")
+    st.download_button("Export approved drafts CSV", data=drafts[drafts["status"] == "Approved"].to_csv(index=False).encode("utf-8-sig"), file_name="content_drafts_approved.csv", mime="text/csv")
+    st.download_button("Export published drafts CSV", data=drafts[drafts["status"] == "Published"].to_csv(index=False).encode("utf-8-sig"), file_name="content_drafts_published.csv", mime="text/csv")
 
 with tabs[13]:
     st.subheader("SEO Programmatic Pages")
@@ -1979,7 +2522,7 @@ with tabs[14]:
         ]
         visible_columns = [column for column in preferred_columns if column in detail_clicks.columns]
         st.dataframe(detail_clicks.sort_values("timestamp", ascending=False)[visible_columns], use_container_width=True)
-        st.download_button("Export click_events.csv", data=clicks.to_csv(index=False).encode("utf-8"), file_name="click_events.csv", mime="text/csv")
+        st.download_button("Export click_events.csv", data=clicks.to_csv(index=False).encode("utf-8-sig"), file_name="click_events.csv", mime="text/csv")
 
     st.markdown("### Test tracking URL")
     st.code("/go/cursor/?src=/cursor/&cta=official_site&debug=1", language="text")
@@ -2100,9 +2643,9 @@ with tabs[15]:
         st.info(result)
     st.markdown("### Manual export")
     if not social_posts.empty:
-        st.download_button("Download social_post_report.csv", data=social_posts.to_csv(index=False).encode("utf-8"), file_name="social_post_report.csv", mime="text/csv")
+        st.download_button("Download social_post_report.csv", data=social_posts.to_csv(index=False).encode("utf-8-sig"), file_name="social_post_report.csv", mime="text/csv")
     if not social_queue.empty:
-        st.download_button("Download social_publish_queue.csv", data=social_queue.to_csv(index=False).encode("utf-8"), file_name="social_publish_queue.csv", mime="text/csv")
+        st.download_button("Download social_publish_queue.csv", data=social_queue.to_csv(index=False).encode("utf-8-sig"), file_name="social_publish_queue.csv", mime="text/csv")
 
 with tabs[16]:
     render_manual_social_distribution_page()
@@ -2175,7 +2718,7 @@ def _render_manual_social_distribution_page_legacy_unused() -> None:
     st.markdown("### Export")
     st.download_button(
         "Download social_calendar.csv",
-        data=load_social_calendar().to_csv(index=False).encode("utf-8"),
+        data=load_social_calendar().to_csv(index=False).encode("utf-8-sig"),
         file_name="social_calendar.csv",
         mime="text/csv",
     )

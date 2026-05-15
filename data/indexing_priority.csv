@@ -1,6 +1,7 @@
 url,page_type,priority,reason,suggested_action
 https://review.mssmileenglish.com/compare/cursor-vs-github-copilot/,comparison,75,contains cursor + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection
 https://review.mssmileenglish.com/compare/cursor-vs-windsurf/,comparison,75,contains cursor + contains windsurf + high-intent comparison,Submit in Google Search Console URL Inspection
+https://review.mssmileenglish.com/comparisons/copilot-vs-codex/,comparison,75,contains codex + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection
 https://review.mssmileenglish.com/comparisons/copilot-vs-cursor/,comparison,75,contains cursor + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection
 https://review.mssmileenglish.com/comparisons/cursor-vs-copilot/,comparison,75,contains cursor + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection
 https://review.mssmileenglish.com/comparisons/cursor-vs-github-copilot/,comparison,75,contains cursor + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection

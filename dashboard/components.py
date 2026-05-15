@@ -130,7 +130,12 @@ def status_badge(value: str) -> str:
 
 def read_csv(path) -> pd.DataFrame:
     try:
-        return pd.read_csv(path).fillna("")
+        return pd.read_csv(path, encoding="utf-8-sig").fillna("")
+    except UnicodeDecodeError:
+        try:
+            return pd.read_csv(path, encoding="utf-8").fillna("")
+        except Exception:
+            return pd.DataFrame()
     except Exception:
         return pd.DataFrame()
 

@@ -77,6 +77,16 @@ SEED_LINKS = [
         "network": "PartnerStack",
         "approved": False,
     },
+    {
+        "brand": "Codex",
+        "slug": "codex",
+        "official_url": "https://openai.com/codex/",
+        "affiliate_url": "",
+        "status": "official_only",
+        "commission_note": "Official link only. No affiliate link configured.",
+        "network": "Other",
+        "approved": False,
+    },
 ]
 
 
