@@ -1,0 +1,186 @@
+# MS Smile AI Review Hub
+
+Purpose: independent-style AI and SaaS review website for research, comparison, affiliate disclosure, and safer software evaluation.
+
+Important pages:
+- Home: https://review.mssmileenglish.com/
+- Reviews: https://review.mssmileenglish.com/reviews/
+- Comparisons: https://review.mssmileenglish.com/comparisons/
+- Editorial Policy: https://review.mssmileenglish.com/editorial-policy/
+- Affiliate Disclosure: https://review.mssmileenglish.com/affiliate-disclosure/
+- Testing Methodology: https://review.mssmileenglish.com/testing-methodology/
+- Sitemap: https://review.mssmileenglish.com/sitemap.xml
+
+Categories:
+- https://review.mssmileenglish.com/category/ai-video-tools/
+- https://review.mssmileenglish.com/category/ai-voice-tools/
+- https://review.mssmileenglish.com/category/ai-coding-tools/
+- https://review.mssmileenglish.com/category/ai-seo-tools/
+- https://review.mssmileenglish.com/category/ai-automation-tools/
+- https://review.mssmileenglish.com/category/crm-tools/
+- https://review.mssmileenglish.com/category/website-builders/
+- https://review.mssmileenglish.com/category/ai-presentation-tools/
+- https://review.mssmileenglish.com/category/ai-writing-tools/
+- https://review.mssmileenglish.com/category/ai-customer-support-tools/
+- https://review.mssmileenglish.com/category/ai-writing/
+- https://review.mssmileenglish.com/category/automation/
+- https://review.mssmileenglish.com/category/crm/
+- https://review.mssmileenglish.com/category/seo-tools/
+- https://review.mssmileenglish.com/category/email-marketing-tools/
+- https://review.mssmileenglish.com/category/automation-tools/
+- https://review.mssmileenglish.com/category/design-tools/
+- https://review.mssmileenglish.com/category/video-tools/
+- https://review.mssmileenglish.com/category/writing-tools/
+- https://review.mssmileenglish.com/category/website-builder-tools/
+
+Review pages:
+- ActiveCampaign Review: https://review.mssmileenglish.com/activecampaign/
+- Make Review: https://review.mssmileenglish.com/make/
+- Surfer SEO Review: https://review.mssmileenglish.com/surfer-seo/
+- GitHub Copilot Review: https://review.mssmileenglish.com/github-copilot/
+- Semrush Review: https://review.mssmileenglish.com/semrush/
+- ElevenLabs Review: https://review.mssmileenglish.com/elevenlabs/
+- Zapier Review: https://review.mssmileenglish.com/zapier/
+- Webflow AI Review: https://review.mssmileenglish.com/webflow-ai/
+- HubSpot Review: https://review.mssmileenglish.com/hubspot/
+- Reclaim AI Review: https://review.mssmileenglish.com/reclaim-ai/
+- Webflow Review: https://review.mssmileenglish.com/webflow/
+- Cursor Review: https://review.mssmileenglish.com/cursor/
+- Notion AI Review: https://review.mssmileenglish.com/notion-ai/
+- Framer Review: https://review.mssmileenglish.com/framer/
+- Durable Review: https://review.mssmileenglish.com/durable/
+- Gamma Review: https://review.mssmileenglish.com/gamma/
+- AdCreative AI Review: https://review.mssmileenglish.com/adcreative-ai/
+- Jasper Review: https://review.mssmileenglish.com/jasper/
+- Jasper AI Review: https://review.mssmileenglish.com/jasper-ai/
+- Canva Review: https://review.mssmileenglish.com/canva/
+- Notion Review: https://review.mssmileenglish.com/notion/
+- Synthesia Review: https://review.mssmileenglish.com/synthesia/
+- Pipedrive Review: https://review.mssmileenglish.com/pipedrive/
+- Pipedrive CRM Review: https://review.mssmileenglish.com/pipedrive-crm/
+- Copy.ai Review: https://review.mssmileenglish.com/copy-ai/
+- Descript Review: https://review.mssmileenglish.com/descript/
+- Runway Review: https://review.mssmileenglish.com/runway/
+- Cursor Ai Review A Practical Guide For Developers And Ai Coders Review: https://review.mssmileenglish.com/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/
+
+Tool review engine pages:
+- https://review.mssmileenglish.com/review/activecampaign/
+- https://review.mssmileenglish.com/review/adcreative-ai/
+- https://review.mssmileenglish.com/review/canva/
+- https://review.mssmileenglish.com/review/copy-ai/
+- https://review.mssmileenglish.com/review/cursor/
+- https://review.mssmileenglish.com/review/descript/
+- https://review.mssmileenglish.com/review/durable/
+- https://review.mssmileenglish.com/review/elevenlabs/
+- https://review.mssmileenglish.com/review/framer/
+- https://review.mssmileenglish.com/review/gamma/
+- https://review.mssmileenglish.com/review/github-copilot/
+- https://review.mssmileenglish.com/review/hubspot/
+- https://review.mssmileenglish.com/review/jasper/
+- https://review.mssmileenglish.com/review/jasper-ai/
+- https://review.mssmileenglish.com/review/make/
+- https://review.mssmileenglish.com/review/notion/
+- https://review.mssmileenglish.com/review/notion-ai/
+- https://review.mssmileenglish.com/review/pipedrive/
+- https://review.mssmileenglish.com/review/pipedrive-crm/
+- https://review.mssmileenglish.com/review/reclaim-ai/
+- https://review.mssmileenglish.com/review/runway/
+- https://review.mssmileenglish.com/review/semrush/
+- https://review.mssmileenglish.com/review/surfer-seo/
+- https://review.mssmileenglish.com/review/synthesia/
+- https://review.mssmileenglish.com/review/webflow/
+- https://review.mssmileenglish.com/review/webflow-ai/
+- https://review.mssmileenglish.com/review/zapier/
+
+Comparison pages:
+- https://review.mssmileenglish.com/comparisons/
+- https://review.mssmileenglish.com/comparisons/canva-vs-adobe-express/
+- https://review.mssmileenglish.com/comparisons/canva-vs-gamma/
+- https://review.mssmileenglish.com/comparisons/chatgpt-vs-claude/
+- https://review.mssmileenglish.com/comparisons/chatgpt-vs-gemini/
+- https://review.mssmileenglish.com/comparisons/copilot-vs-cursor/
+- https://review.mssmileenglish.com/comparisons/copilot-vs-tabnine/
+- https://review.mssmileenglish.com/comparisons/cursor-vs-copilot/
+- https://review.mssmileenglish.com/comparisons/cursor-vs-github-copilot/
+- https://review.mssmileenglish.com/comparisons/cursor-vs-vscode/
+- https://review.mssmileenglish.com/comparisons/cursor-vs-windsurf/
+- https://review.mssmileenglish.com/comparisons/elevenlabs-vs-murf/
+- https://review.mssmileenglish.com/comparisons/elevenlabs-vs-playht/
+- https://review.mssmileenglish.com/comparisons/framer-vs-webflow/
+- https://review.mssmileenglish.com/comparisons/gemini-vs-claude/
+- https://review.mssmileenglish.com/comparisons/hubspot-vs-salesforce/
+- https://review.mssmileenglish.com/comparisons/jasper-vs-copyai/
+- https://review.mssmileenglish.com/comparisons/make-vs-zapier/
+- https://review.mssmileenglish.com/comparisons/midjourney-vs-dalle/
+- https://review.mssmileenglish.com/comparisons/notion-ai-vs-chatgpt/
+- https://review.mssmileenglish.com/comparisons/notion-ai-vs-clickup-ai/
+- https://review.mssmileenglish.com/comparisons/notion-vs-clickup/
+- https://review.mssmileenglish.com/comparisons/perplexity-vs-chatgpt/
+- https://review.mssmileenglish.com/comparisons/runway-vs-pika/
+- https://review.mssmileenglish.com/comparisons/semrush-vs-ahrefs/
+- https://review.mssmileenglish.com/comparisons/synthesia-vs-heygen/
+- https://review.mssmileenglish.com/comparisons/windsurf-vs-copilot/
+
+Decision comparison pages:
+- https://review.mssmileenglish.com/compare/activecampaign-vs-mailchimp/
+- https://review.mssmileenglish.com/compare/canva-vs-adcreative-ai/
+- https://review.mssmileenglish.com/compare/cursor-vs-github-copilot/
+- https://review.mssmileenglish.com/compare/cursor-vs-windsurf/
+- https://review.mssmileenglish.com/compare/github-copilot-vs-codeium/
+- https://review.mssmileenglish.com/compare/grammarly-vs-quillbot/
+- https://review.mssmileenglish.com/compare/jasper-vs-copy-ai/
+- https://review.mssmileenglish.com/compare/make-vs-zapier/
+- https://review.mssmileenglish.com/compare/semrush-vs-ahrefs/
+- https://review.mssmileenglish.com/compare/synthesia-vs-pictory/
+
+Top list pages:
+- https://review.mssmileenglish.com/best-ai-automation-tools/
+- https://review.mssmileenglish.com/best-ai-automation-tools-2026/
+- https://review.mssmileenglish.com/best-ai-coding-tools/
+- https://review.mssmileenglish.com/best-ai-coding-tools-2026/
+- https://review.mssmileenglish.com/best-ai-presentation-tools/
+- https://review.mssmileenglish.com/best-ai-seo-tools/
+- https://review.mssmileenglish.com/best-ai-seo-tools-2026/
+- https://review.mssmileenglish.com/best-ai-video-tools/
+- https://review.mssmileenglish.com/best-ai-video-tools-2026/
+- https://review.mssmileenglish.com/best-ai-writing-tools/
+- https://review.mssmileenglish.com/best-ai-writing-tools-2026/
+- https://review.mssmileenglish.com/best-crm-tools/
+- https://review.mssmileenglish.com/best-website-builders/
+
+Pricing and intent pages:
+- https://review.mssmileenglish.com/cursor-pricing/
+- https://review.mssmileenglish.com/elevenlabs-pricing/
+- https://review.mssmileenglish.com/github-copilot-pricing/
+- https://review.mssmileenglish.com/jasper-pricing/
+- https://review.mssmileenglish.com/make-pricing/
+- https://review.mssmileenglish.com/semrush-pricing/
+- https://review.mssmileenglish.com/surfer-seo-pricing/
+- https://review.mssmileenglish.com/zapier-pricing/
+- https://review.mssmileenglish.com/pricing/
+- https://review.mssmileenglish.com/pricing/activecampaign/
+- https://review.mssmileenglish.com/pricing/canva/
+- https://review.mssmileenglish.com/pricing/cursor/
+- https://review.mssmileenglish.com/pricing/github-copilot/
+- https://review.mssmileenglish.com/pricing/grammarly/
+- https://review.mssmileenglish.com/pricing/mailchimp/
+- https://review.mssmileenglish.com/pricing/make/
+- https://review.mssmileenglish.com/pricing/pictory/
+- https://review.mssmileenglish.com/pricing/semrush/
+- https://review.mssmileenglish.com/pricing/zapier/
+
+Hub pages:
+- https://review.mssmileenglish.com/hub/ai-automation/
+- https://review.mssmileenglish.com/hub/ai-coding/
+- https://review.mssmileenglish.com/hub/ai-presentation/
+- https://review.mssmileenglish.com/hub/ai-seo/
+- https://review.mssmileenglish.com/hub/ai-video/
+- https://review.mssmileenglish.com/hub/ai-voice/
+- https://review.mssmileenglish.com/hub/ai-writing/
+- https://review.mssmileenglish.com/hub/crm/
+- https://review.mssmileenglish.com/hub/email-marketing/
+- https://review.mssmileenglish.com/hub/marketing/
+- https://review.mssmileenglish.com/hub/productivity/
+- https://review.mssmileenglish.com/hub/website-builders/
+
+Editorial notes: content is research-based, avoids fake guarantees, discloses affiliate relationships, and asks readers to verify current pricing and vendor terms.

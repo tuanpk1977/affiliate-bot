@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /go/
+Disallow: /__pycache__/
+Disallow: /draft_output/
+Disallow: /data/
+Disallow: /config/
+Disallow: /logs/
+Sitemap: https://review.mssmileenglish.com/sitemap.xml
