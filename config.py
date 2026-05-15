@@ -56,7 +56,7 @@ class Settings:
 
     @property
     def contact_email(self) -> str:
-        return (os.getenv("SITE_CONTACT_EMAIL") or os.getenv("CONTACT_EMAIL", "")).strip()
+        return (os.getenv("SITE_CONTACT_EMAIL") or os.getenv("CONTACT_EMAIL", "tuanpk1977@gmail.com")).strip()
 
     @property
     def site_domain(self) -> str:
