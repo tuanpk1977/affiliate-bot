@@ -85,6 +85,13 @@ from modules.social_distribution import (
     telegram_config_status,
     update_calendar_status,
 )
+from modules.social_draft_generator import (
+    REQUIRED_DRAFT_FIELDS,
+    load_all_social_drafts,
+    move_draft_status,
+    save_draft_record,
+)
+from modules.social_scheduler import schedule_approved_posts
 from modules.social_publish_queue import (
     clear_duplicate_scheduled_posts,
     enqueue_posts,
@@ -189,6 +196,77 @@ def read_generated_social_posts_from_files() -> pd.DataFrame:
                 }
             )
     return pd.DataFrame(rows).fillna("")
+
+
+def render_social_automation_approval_queue() -> None:
+    st.markdown("### Social Automation Approval Queue")
+    st.caption("Draft -> approve/reject/edit -> schedule. This is local-only and never posts automatically.")
+    records = load_all_social_drafts()
+    if not records:
+        st.info("No social automation drafts yet. Run `python scripts/generate_social_drafts.py` to create draft posts.")
+        return
+    df = pd.DataFrame(records).fillna("")
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Drafts", int((df["status"].astype(str) == "draft").sum()))
+    c2.metric("Approved", int((df["status"].astype(str) == "approved").sum()))
+    c3.metric("Rejected", int((df["status"].astype(str) == "rejected").sum()))
+    c4.metric("Scheduled", int((df["status"].astype(str) == "scheduled").sum()))
+
+    f1, f2, f3 = st.columns(3)
+    platform_filter = f1.selectbox("Automation platform", ["All"] + sorted(df["platform"].astype(str).unique().tolist()), key="automation_platform_filter")
+    language_filter = f2.selectbox("Language", ["All"] + sorted(df["language"].astype(str).unique().tolist()), key="automation_language_filter")
+    status_filter = f3.selectbox("Automation status", ["All", "draft", "approved", "rejected", "scheduled", "posted"], key="automation_status_filter")
+    view = df.copy()
+    if platform_filter != "All":
+        view = view[view["platform"].astype(str) == platform_filter]
+    if language_filter != "All":
+        view = view[view["language"].astype(str) == language_filter]
+    if status_filter != "All":
+        view = view[view["status"].astype(str) == status_filter]
+    show_cols = ["id", "platform", "language", "title", "source_url", "cta_url", "status", "created_at", "approved_at", "scheduled_at"]
+    st.dataframe(view[[col for col in show_cols if col in view.columns]], use_container_width=True, hide_index=True)
+    if view.empty:
+        return
+
+    options = {
+        f"{row.get('platform', '')} | {row.get('language', '')} | {row.get('title', '')} | {row.get('id', '')}": row.get("id", "")
+        for row in view.to_dict("records")
+    }
+    selected_label = st.selectbox("Select social draft", list(options.keys()), key="automation_selected_draft")
+    selected_id = str(options[selected_label])
+    selected = df[df["id"].astype(str) == selected_id].iloc[0].to_dict()
+    st.markdown(f"#### {selected.get('title', '')}")
+    st.caption(f"Platform: {selected.get('platform', '')} | Language: {selected.get('language', '')} | Status: {selected.get('status', '')}")
+    st.text_input("Source URL", value=str(selected.get("source_url", "")), disabled=True, key=f"automation_source_{selected_id}")
+    st.text_input("CTA URL", value=str(selected.get("cta_url", "")), disabled=True, key=f"automation_cta_{selected_id}")
+    edited_content = st.text_area("Content", value=str(selected.get("content", "")), height=260, key=f"automation_content_{selected_id}")
+    edit_col, approve_col, reject_col, schedule_col = st.columns(4)
+    if edit_col.button("Edit / Save", key=f"automation_edit_{selected_id}"):
+        updated = {field: str(selected.get(field, "")) for field in REQUIRED_DRAFT_FIELDS}
+        updated.update(selected)
+        updated["content"] = edited_content
+        status_dir_map = {
+            "draft": "drafts",
+            "approved": "approved",
+            "rejected": "rejected",
+            "scheduled": "scheduled",
+            "posted": "posted",
+        }
+        save_draft_record(updated, status_dir_map.get(str(selected.get("status", "draft")), "drafts"), overwrite=True)
+        st.success("Saved draft content locally.")
+        st.rerun()
+    if approve_col.button("Approve", key=f"automation_approve_{selected_id}"):
+        move_draft_status(selected_id, "approved", {"content": edited_content})
+        st.success("Approved. It can now be scheduled.")
+        st.rerun()
+    if reject_col.button("Reject", key=f"automation_reject_{selected_id}"):
+        move_draft_status(selected_id, "rejected", {"content": edited_content})
+        st.success("Rejected and moved to social_assets/rejected.")
+        st.rerun()
+    if schedule_col.button("Schedule approved", key=f"automation_schedule_{selected_id}"):
+        scheduled = schedule_approved_posts()
+        st.success(f"Scheduled {len(scheduled)} approved draft(s).")
+        st.rerun()
 
 
 def render_social_distribution_page(review_queue: pd.DataFrame) -> None:
@@ -371,6 +449,8 @@ def render_social_distribution_page(review_queue: pd.DataFrame) -> None:
 def render_manual_social_distribution_page() -> None:
     st.header("Phân phối xã hội")
     st.warning("Local-safe: chỉ tạo nội dung và cập nhật CSV. Không auto-post, không gọi API ngoài, không deploy.")
+    with st.expander("Social Automation With Human Approval", expanded=True):
+        render_social_automation_approval_queue()
     calendar = ensure_social_distribution_assets()
 
     c1, c2, c3, c4 = st.columns(4)
