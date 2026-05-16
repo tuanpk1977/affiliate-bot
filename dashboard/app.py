@@ -1166,6 +1166,8 @@ def render_seo_system_page() -> None:
     redirect_map = read_csv(settings.data_dir / "redirect_map.csv")
     keyword_report = read_csv(settings.data_dir / "keyword_intelligence_report.csv")
     action_priority = read_csv(settings.data_dir / "action_priority_report.csv")
+    page_tracking = read_csv(settings.data_dir / "seo_tracking_page_report.csv")
+    social_assets = read_csv(settings.data_dir / "seo_social_assets_report.csv")
 
     c1, c2, c3, c4 = st.columns(4)
     c1.metric("SEO audit pages", len(seo_audit))
@@ -1182,6 +1184,18 @@ def render_seo_system_page() -> None:
         st.caption(f"Rows with warnings: {len(warn_rows)}")
         st.dataframe(warn_rows.head(50) if not warn_rows.empty else seo_audit.head(50), use_container_width=True, hide_index=True)
         st.download_button("Download seo_audit_report.csv", seo_audit.to_csv(index=False).encode("utf-8-sig"), "seo_audit_report.csv", "text/csv")
+
+    st.markdown("### Page SEO + Tracking report")
+    if page_tracking.empty:
+        st.info("No seo_tracking_page_report.csv yet. Run python main.py.")
+    else:
+        s1, s2, s3, s4 = st.columns(4)
+        s1.metric("Main pages", len(page_tracking))
+        s2.metric("Pages with CTA", int((page_tracking.get("cta_links_count", pd.Series(dtype=int)).astype(int) > 0).sum()))
+        s3.metric("Hreflang OK", int((page_tracking.get("hreflang_status", pd.Series(dtype=str)).astype(str) == "ok").sum()))
+        s4.metric("In sitemap", int((page_tracking.get("sitemap_included", pd.Series(dtype=str)).astype(str) == "yes").sum()))
+        st.dataframe(page_tracking.head(80), use_container_width=True, hide_index=True)
+        st.download_button("Download seo_tracking_page_report.csv", page_tracking.to_csv(index=False).encode("utf-8-sig"), "seo_tracking_page_report.csv", "text/csv")
 
     st.markdown("### Topical map summary")
     if topical_map.empty:
@@ -1210,6 +1224,13 @@ def render_seo_system_page() -> None:
         warnings = quality[quality["recommendation"].astype(str) != "ok"] if "recommendation" in quality.columns else quality
         st.dataframe(warnings.head(80), use_container_width=True, hide_index=True)
         st.download_button("Download content_quality_report.csv", quality.to_csv(index=False).encode("utf-8-sig"), "content_quality_report.csv", "text/csv")
+
+    st.markdown("### SEO Social Assets")
+    if social_assets.empty:
+        st.info("No seo_social_assets_report.csv yet. Run python main.py.")
+    else:
+        st.dataframe(social_assets.groupby(["language", "platform"]).size().reset_index(name="drafts"), use_container_width=True, hide_index=True)
+        st.download_button("Download seo_social_assets_report.csv", social_assets.to_csv(index=False).encode("utf-8-sig"), "seo_social_assets_report.csv", "text/csv")
 
     st.divider()
     st.markdown("## Affiliate Tracking")

@@ -8,6 +8,7 @@ from pathlib import Path
 import pandas as pd
 
 from config import settings
+from modules.tracking_config import analytics_snippet
 
 
 BASE = (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
@@ -104,6 +105,8 @@ def shell(title: str, description: str, path: str, body: str, extra_schema: list
   <meta property="og:image" content="{html.escape(BASE + '/assets/og/site.svg', quote=True)}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="{html.escape(BASE + '/assets/og/site.svg', quote=True)}">
+  <meta name="google-site-verification" content="{html.escape(settings.google_site_verification, quote=True)}">
+  {analytics_snippet()}
   {schema}
   <style>{css()}</style>
 </head>

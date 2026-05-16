@@ -37,6 +37,7 @@ from modules.seo_system import run_seo_system
 from modules.social_content_generator import ensure_report as ensure_social_post_report
 from modules.social_content_generator import write_distribution_summary
 from modules.social_distribution import ensure_social_distribution_assets
+from modules.social_seo_exporter import generate_social_seo_assets
 from modules.social_publish_queue import ensure_queue as ensure_social_publish_queue
 
 
@@ -112,6 +113,8 @@ def main() -> None:
     post_process_internal_links(settings.site_output_dir)
     add_bilingual_pages(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
+    run_seo_system()
+    generate_social_seo_assets()
     print_keyword_summary(keyword_summary)
     LOGGER.info("Pipeline completed. Dashboard data is ready in %s", settings.data_dir)
 

@@ -24,6 +24,7 @@ from modules.seo_expansion_pages import generate_seo_expansion_pages
 from modules.sitemap_generator import generate_sitemap
 from modules.sitemap_generator import NOINDEX_EXACT_PATHS
 from modules.toplist_generator import generate_toplist_pages
+from modules.tracking_config import analytics_snippet
 
 
 LEGAL_SLUGS = ["privacy-policy", "terms", "contact", "affiliate-disclosure"]
@@ -1064,13 +1065,6 @@ def faq_html(questions: list[str]) -> str:
 def site_url(path: str) -> str:
     base = (settings.base_site_url or settings.site_domain or "https://yourdomain.com").rstrip("/")
     return base + "/" + path.lstrip("/")
-
-
-def analytics_snippet() -> str:
-    if not settings.ga_measurement_id:
-        return "<!-- Google Analytics disabled until GA_MEASUREMENT_ID is set in .env. -->"
-    measurement = html.escape(settings.ga_measurement_id, quote=True)
-    return f"""<script async src="https://www.googletagmanager.com/gtag/js?id={measurement}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{measurement}');</script>"""
 
 
 def legal_pages() -> dict[str, tuple[str, str]]:

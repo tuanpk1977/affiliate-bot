@@ -9,6 +9,7 @@ import pandas as pd
 from jinja2 import Template
 
 from config import settings
+from modules.tracking_config import analytics_snippet
 from modules.affiliate_links import link_for_brand, load_affiliate_links
 
 
@@ -197,7 +198,7 @@ LANDING_TEMPLATE = """<!doctype html>
     </section>
     <section class="card related"><h2>Internal links for deeper research</h2><h3>Related comparisons</h3>{% for item in related_comparisons %}<a href="/comparisons/{{ item.slug }}/">{{ item.title }}</a>{% endfor %}<h3>Alternatives and similar tools</h3>{% for item in related_reviews %}<a href="/{{ item.slug }}/">{{ item.brand }}</a>{% endfor %}</section>
     <section class="card author-box"><h2>Author</h2><p><strong>Nguyen Quoc Tuan</strong><br>Independent AI & SaaS Researcher</p><p>Researching AI tools, SaaS software, automation systems, and productivity workflows.</p><h3>Research methodology</h3><ul><li>Tested feature review</li><li>Public pricing review</li><li>UI evaluation</li><li>Workflow comparison</li><li>User feedback research</li></ul></section>
-    <section class="card trust"><h2>Get new AI tool reviews and comparisons.</h2><p>Join the research list for new AI/SaaS review updates. No backend is connected yet; this placeholder is ready for a future email provider.</p><form><input class="search" type="email" placeholder="you@example.com" aria-label="Email address"><button class="btn" type="button">Notify me</button></form></section>
+    <section class="card trust"><h2>Get new AI tool reviews and comparisons.</h2><p>Join the research list for new AI/SaaS review updates. No backend is connected yet; this email field is ready for a future email provider.</p><form><input class="search" type="email" placeholder="email address" aria-label="Email address"><button class="btn" type="button">Notify me</button></form></section>
     <section class="card" id="verdict"><h2>Final verdict</h2><p>{{ verdict }}</p><p><a class="btn" href="/comparisons/">Compare now</a><a class="btn" href="{{ cta_url }}" rel="nofollow sponsored">Visit Official Website</a><a class="btn secondary" href="#alternatives">See alternatives</a></p></section>
     </div>
   </main>
@@ -511,13 +512,6 @@ def share_buttons(slug: str, brand: str) -> str:
     encoded_url = html.escape(url, quote=True)
     encoded_title = html.escape(title.replace(" ", "%20"), quote=True)
     return f"<p class='share'><strong>Share:</strong> <a href='https://www.linkedin.com/sharing/share-offsite/?url={encoded_url}'>LinkedIn</a> <a href='https://www.pinterest.com/pin/create/button/?url={encoded_url}&description={encoded_title}'>Pinterest</a> <a href='https://www.facebook.com/sharer/sharer.php?u={encoded_url}'>Facebook</a> <a href='https://twitter.com/intent/tweet?url={encoded_url}&text={encoded_title}'>X/Twitter</a></p>"
-
-
-def analytics_snippet() -> str:
-    if not settings.ga_measurement_id:
-        return "<!-- Google Analytics placeholder: set GA_MEASUREMENT_ID in .env to enable tracking. -->"
-    measurement = html.escape(settings.ga_measurement_id, quote=True)
-    return f"""<script async src="https://www.googletagmanager.com/gtag/js?id={measurement}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{measurement}');</script>"""
 
 
 def article_schema(brand: str, description: str, canonical: str) -> dict:

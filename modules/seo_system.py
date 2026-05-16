@@ -47,8 +47,10 @@ class PageAudit:
     internal_links: list[str]
     related_posts_count: int
     canonical: str
+    hreflangs: dict[str, str]
     schema_types: list[str]
     text: str
+    html: str
 
 
 class SEOParser(HTMLParser):
@@ -60,6 +62,7 @@ class SEOParser(HTMLParser):
         self.h1_count = 0
         self.meta_description = ""
         self.canonical = ""
+        self.hreflangs: dict[str, str] = {}
         self.links: list[str] = []
         self.schema_texts: list[str] = []
         self._script_type = ""
@@ -77,6 +80,8 @@ class SEOParser(HTMLParser):
             self.meta_description = attrs_dict.get("content", "")
         elif tag == "link" and attrs_dict.get("rel", "").lower() == "canonical":
             self.canonical = attrs_dict.get("href", "")
+        elif tag == "link" and attrs_dict.get("rel", "").lower() == "alternate" and attrs_dict.get("hreflang"):
+            self.hreflangs[attrs_dict.get("hreflang", "")] = attrs_dict.get("href", "")
         elif tag == "a" and attrs_dict.get("href"):
             self.links.append(attrs_dict["href"])
         elif tag == "script":
@@ -109,17 +114,20 @@ def run_seo_system() -> dict[str, int]:
     seo_audit = build_seo_audit(pages)
     tracking = build_link_tracking_map()
     quality = build_content_quality_report(pages)
+    page_report = build_page_tracking_report(pages)
     settings.data_dir.mkdir(parents=True, exist_ok=True)
-    topical.to_csv(settings.data_dir / "topical_map.csv", index=False)
-    seo_audit.to_csv(settings.data_dir / "seo_audit_report.csv", index=False)
-    tracking.to_csv(settings.data_dir / "link_tracking_map.csv", index=False)
-    quality.to_csv(settings.data_dir / "content_quality_report.csv", index=False)
+    topical.to_csv(settings.data_dir / "topical_map.csv", index=False, encoding="utf-8-sig")
+    seo_audit.to_csv(settings.data_dir / "seo_audit_report.csv", index=False, encoding="utf-8-sig")
+    tracking.to_csv(settings.data_dir / "link_tracking_map.csv", index=False, encoding="utf-8-sig")
+    quality.to_csv(settings.data_dir / "content_quality_report.csv", index=False, encoding="utf-8-sig")
+    page_report.to_csv(settings.data_dir / "seo_tracking_page_report.csv", index=False, encoding="utf-8-sig")
     return {
         "pages": len(pages),
         "topical_rows": len(topical),
         "seo_audit_rows": len(seo_audit),
         "tracking_rows": len(tracking),
         "quality_rows": len(quality),
+        "page_report_rows": len(page_report),
     }
 
 
@@ -146,8 +154,10 @@ def audit_pages() -> list[PageAudit]:
                 internal_links=sorted({normalize_internal_link(link) for link in parser.links if normalize_internal_link(link)}),
                 related_posts_count=related_count(html),
                 canonical=parser.canonical.strip(),
+                hreflangs=dict(parser.hreflangs),
                 schema_types=schema_types(parser.schema_texts),
                 text=" ".join(parser.text_parts),
+                html=html,
             )
         )
     return pages
@@ -205,8 +215,33 @@ def build_seo_audit(pages: list[PageAudit]) -> pd.DataFrame:
                 "internal_links_count": len(page.internal_links),
                 "related_posts_count": page.related_posts_count,
                 "canonical_ok": str(canonical_ok(page)).lower(),
+                "hreflang_ok": str(hreflang_ok(page)).lower(),
                 "schema_types": "|".join(page.schema_types),
                 "warnings": "|".join(warnings),
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def build_page_tracking_report(pages: list[PageAudit]) -> pd.DataFrame:
+    sitemap_urls = sitemap_url_set()
+    rows = []
+    for page in pages:
+        ctas = sorted(set(re.findall(r"href=['\"]([^'\"]*/go/[^'\"]*)['\"]", page.html)))
+        internal_count = len(page.internal_links)
+        rows.append(
+            {
+                "page_url": full_url(page.url),
+                "page_type": classify_page(page.url),
+                "title": page.title,
+                "meta_description_status": "ok" if page.meta_description else "missing",
+                "title_status": "ok" if page.title else "missing",
+                "canonical_status": "ok" if canonical_ok(page) else "check",
+                "hreflang_status": "ok" if hreflang_ok(page) else "check",
+                "internal_links_count": internal_count,
+                "cta_links_count": len(ctas),
+                "cta_links": " | ".join(ctas[:12]),
+                "sitemap_included": "yes" if full_url(page.url).rstrip("/") in sitemap_urls else "no",
             }
         )
     return pd.DataFrame(rows)
@@ -274,6 +309,12 @@ def build_content_quality_report(pages: list[PageAudit]) -> pd.DataFrame:
             missing.append("add_comparison")
         if not has_cta(page.text):
             missing.append("add_cta")
+        if not has_faq(page.text):
+            missing.append("add_faq")
+        if page_type in {"comparison", "toplist", "pricing"} and "<table" not in page.html.lower():
+            missing.append("add_comparison_table")
+        if len(page.internal_links) < 3:
+            missing.append("add_internal_links")
         rows.append(
             {
                 "page_url": full_url(page.url),
@@ -283,6 +324,9 @@ def build_content_quality_report(pages: list[PageAudit]) -> pd.DataFrame:
                 "has_use_case": str(has_use_case).lower(),
                 "has_opinion": str(has_opinion).lower(),
                 "has_comparison": str(has_comparison).lower(),
+                "has_faq": str(has_faq(page.text)).lower(),
+                "has_table": str("<table" in page.html.lower()).lower(),
+                "internal_links_count": len(page.internal_links),
                 "recommendation": "ok" if not missing else "|".join(missing),
             }
         )
@@ -317,6 +361,8 @@ def schema_types(schema_texts: list[str]) -> list[str]:
 
 
 def classify_page(url: str) -> str:
+    if url.startswith("/vi/"):
+        url = url[3:] or "/"
     if url == "/":
         return "home"
     if url.startswith("/review/") or re.search(r"/[^/]+/$", url) and "review" in url:
@@ -347,6 +393,29 @@ def detect_topic_groups(text: str) -> list[str]:
 
 def canonical_ok(page: PageAudit) -> bool:
     return page.canonical.rstrip("/") == full_url(page.url).rstrip("/")
+
+
+def hreflang_ok(page: PageAudit) -> bool:
+    expected_self = full_url(page.url)
+    if page.url.startswith("/vi/"):
+        en_url = full_url(page.url[3:] or "/")
+        vi_url = expected_self
+    else:
+        en_url = expected_self
+        vi_url = full_url("/vi/" if page.url == "/" else "/vi" + page.url)
+    return (
+        page.hreflangs.get("en", "").rstrip("/") == en_url.rstrip("/")
+        and page.hreflangs.get("vi", "").rstrip("/") == vi_url.rstrip("/")
+        and page.hreflangs.get("x-default", "").rstrip("/") == en_url.rstrip("/")
+    )
+
+
+def sitemap_url_set() -> set[str]:
+    path = settings.site_output_dir / "sitemap.xml"
+    if not path.exists():
+        return set()
+    text = path.read_text(encoding="utf-8", errors="ignore")
+    return {match.rstrip("/") for match in re.findall(r"<loc>(.*?)</loc>", text)}
 
 
 def full_url(path: str) -> str:

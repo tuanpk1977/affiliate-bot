@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 import os
+import json
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -10,6 +11,15 @@ from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent
 load_dotenv()
+
+
+def load_json_config(path: Path) -> dict:
+    if not path.exists():
+        return {}
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
 
 
 @dataclass(frozen=True)
@@ -64,11 +74,21 @@ class Settings:
 
     @property
     def google_site_verification(self) -> str:
-        return os.getenv("GOOGLE_SITE_VERIFICATION", "").strip()
+        tracking = load_json_config(BASE_DIR / "config" / "tracking.json")
+        return (os.getenv("GOOGLE_SITE_VERIFICATION") or tracking.get("GOOGLE_SITE_VERIFICATION", "")).strip()
 
     @property
     def ga_measurement_id(self) -> str:
-        return os.getenv("GA_MEASUREMENT_ID", "").strip()
+        tracking = load_json_config(BASE_DIR / "config" / "tracking.json")
+        return (os.getenv("GA4_MEASUREMENT_ID") or os.getenv("GA_MEASUREMENT_ID") or tracking.get("GA4_MEASUREMENT_ID", "")).strip()
+
+    @property
+    def enable_tracking(self) -> bool:
+        tracking = load_json_config(BASE_DIR / "config" / "tracking.json")
+        raw = os.getenv("ENABLE_TRACKING")
+        if raw is None:
+            raw = tracking.get("ENABLE_TRACKING", False)
+        return str(raw).strip().lower() in {"1", "true", "yes", "on"}
 
     @property
     def click_webhook_url(self) -> str:

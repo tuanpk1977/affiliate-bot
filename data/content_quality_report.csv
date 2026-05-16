@@ -1,185 +1,371 @@
-page_url,topic,generic_score,has_experience,has_use_case,has_opinion,has_comparison,recommendation
-https://review.mssmileenglish.com/ai-coding-software-review/,AI coding tools,0,true,true,true,true,ok
-https://review.mssmileenglish.com/ai-meeting-software-review/,general,0,true,true,true,true,ok
-https://review.mssmileenglish.com/ai-productivity-software-review/,general,0,true,true,true,true,ok
-https://review.mssmileenglish.com/ai-seo-software-review/,AI SEO tools,0,true,true,true,true,ok
-https://review.mssmileenglish.com/ai-voice-software-review/,general,0,true,true,true,true,ok
-https://review.mssmileenglish.com/automation-software-review/,AI automation tools,0,true,true,true,true,ok
-https://review.mssmileenglish.com/best-ai-automation-tools/,AI automation tools,54,true,true,true,true,too_generic
-https://review.mssmileenglish.com/best-ai-automation-tools-2026/,AI automation tools,18,false,true,true,true,add_experience
-https://review.mssmileenglish.com/best-ai-coding-tools/,AI coding tools,54,true,true,true,true,too_generic
-https://review.mssmileenglish.com/best-ai-coding-tools-2026/,AI coding tools,72,true,true,true,true,too_generic
-https://review.mssmileenglish.com/best-ai-presentation-tools/,general,54,true,true,true,true,too_generic
-https://review.mssmileenglish.com/best-ai-seo-tools/,AI SEO tools,54,true,true,true,true,too_generic
-https://review.mssmileenglish.com/best-ai-seo-tools-2026/,AI SEO tools,18,false,true,true,true,add_experience
-https://review.mssmileenglish.com/best-ai-video-tools/,general,54,true,true,true,true,too_generic
-https://review.mssmileenglish.com/best-ai-video-tools-2026/,general,18,false,true,true,true,add_experience
-https://review.mssmileenglish.com/best-ai-writing-tools/,AI writing tools,54,true,true,true,true,too_generic
-https://review.mssmileenglish.com/best-ai-writing-tools-2026/,AI writing tools,18,false,true,true,true,add_experience
-https://review.mssmileenglish.com/best-crm-tools/,general,54,true,true,true,true,too_generic
-https://review.mssmileenglish.com/best-website-builders/,general,54,true,true,true,true,too_generic
-https://review.mssmileenglish.com/blog/ai-productivity-tools/,general,0,true,true,true,true,ok
-https://review.mssmileenglish.com/blog/ai-tools-for-content-creators/,AI writing tools,0,true,true,true,true,ok
-https://review.mssmileenglish.com/blog/ai-tools-for-marketers/,general,0,true,true,true,true,ok
-https://review.mssmileenglish.com/blog/ai-tools-under-20-month/,general,0,true,true,true,true,ok
-https://review.mssmileenglish.com/blog/ai-website-builders-comparison/,comparisons,0,true,true,true,true,ok
-https://review.mssmileenglish.com/blog/automation-tools-for-beginners/,AI automation tools,0,true,true,true,true,ok
-https://review.mssmileenglish.com/blog/best-ai-presentation-tools/,general,0,true,true,true,true,ok
-https://review.mssmileenglish.com/blog/best-ai-tools-for-small-business/,general,54,true,true,true,true,too_generic
-https://review.mssmileenglish.com/blog/best-ai-voice-generators/,general,0,true,true,true,true,ok
-https://review.mssmileenglish.com/blog/best-alternatives-to-canva-ai/,alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/blog/best-crm-for-startups/,general,0,true,true,true,true,ok
-https://review.mssmileenglish.com/blog/how-to-choose-saas-tools-safely/,general,0,true,true,true,true,ok
-https://review.mssmileenglish.com/blog/,general,18,false,true,true,true,add_experience
-https://review.mssmileenglish.com/category/ai-automation-tools/,AI automation tools,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/category/ai-coding-tools/,AI coding tools,36,true,true,true,true,ok
-https://review.mssmileenglish.com/category/ai-customer-support-tools/,general,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/category/ai-presentation-tools/,general,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/category/ai-seo-tools/,AI SEO tools,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/category/ai-video-tools/,general,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/category/ai-voice-tools/,general,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/category/ai-writing/,AI writing tools,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/category/ai-writing-tools/,AI writing tools,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/category/automation/,AI automation tools,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/category/automation-tools/,AI automation tools,36,true,true,true,true,ok
-https://review.mssmileenglish.com/category/crm/,general,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/category/crm-tools/,general,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/category/design-tools/,general,36,true,true,true,true,ok
-https://review.mssmileenglish.com/category/email-marketing-tools/,general,36,true,true,true,true,ok
-https://review.mssmileenglish.com/category/seo-tools/,AI SEO tools,36,true,true,true,true,ok
-https://review.mssmileenglish.com/category/video-tools/,general,36,true,true,true,true,ok
-https://review.mssmileenglish.com/category/website-builder-tools/,general,36,true,true,true,true,ok
-https://review.mssmileenglish.com/category/website-builders/,general,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/category/writing-tools/,AI writing tools,36,true,true,true,true,ok
-https://review.mssmileenglish.com/compare/activecampaign-vs-mailchimp/,comparisons,0,true,true,true,true,ok
-https://review.mssmileenglish.com/compare/canva-vs-adcreative-ai/,comparisons,0,true,true,true,true,ok
-https://review.mssmileenglish.com/compare/cursor-vs-github-copilot/,AI coding tools|comparisons,0,true,true,true,true,ok
-https://review.mssmileenglish.com/compare/cursor-vs-windsurf/,AI coding tools|comparisons,0,true,true,true,true,ok
-https://review.mssmileenglish.com/compare/github-copilot-vs-codeium/,AI coding tools|comparisons,0,true,true,true,true,ok
-https://review.mssmileenglish.com/compare/grammarly-vs-quillbot/,AI writing tools|comparisons,0,true,true,true,true,ok
-https://review.mssmileenglish.com/compare/jasper-vs-copy-ai/,AI writing tools|comparisons,0,true,true,true,true,ok
-https://review.mssmileenglish.com/compare/make-vs-zapier/,AI automation tools|comparisons,0,true,true,true,true,ok
-https://review.mssmileenglish.com/compare/semrush-vs-ahrefs/,AI SEO tools|comparisons,0,true,true,true,true,ok
-https://review.mssmileenglish.com/compare/synthesia-vs-pictory/,comparisons,0,true,true,true,true,ok
-https://review.mssmileenglish.com/comparisons/canva-vs-adobe-express/,comparisons,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/comparisons/canva-vs-gamma/,comparisons,0,true,true,true,true,ok
-https://review.mssmileenglish.com/comparisons/chatgpt-vs-claude/,comparisons,0,true,true,true,true,ok
-https://review.mssmileenglish.com/comparisons/chatgpt-vs-gemini/,comparisons,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/comparisons/copilot-vs-codex/,AI coding tools|comparisons,36,true,true,true,true,ok
-https://review.mssmileenglish.com/comparisons/copilot-vs-cursor/,AI coding tools|comparisons,0,true,true,true,true,ok
-https://review.mssmileenglish.com/comparisons/copilot-vs-tabnine/,AI coding tools|comparisons,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/comparisons/cursor-vs-copilot/,AI coding tools|comparisons,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/comparisons/cursor-vs-github-copilot/,AI coding tools|comparisons,0,true,true,true,true,ok
-https://review.mssmileenglish.com/comparisons/cursor-vs-vscode/,AI coding tools|comparisons,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/comparisons/cursor-vs-windsurf/,AI coding tools|comparisons,18,true,true,true,true,ok
-https://review.mssmileenglish.com/comparisons/elevenlabs-vs-murf/,comparisons,0,true,true,true,true,ok
-https://review.mssmileenglish.com/comparisons/elevenlabs-vs-playht/,comparisons,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/comparisons/framer-vs-webflow/,comparisons,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/comparisons/gemini-vs-claude/,comparisons,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/comparisons/hubspot-vs-salesforce/,comparisons,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/comparisons/,general,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/comparisons/jasper-vs-copyai/,AI writing tools|comparisons,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/comparisons/make-vs-zapier/,AI automation tools|comparisons,0,true,true,true,true,ok
-https://review.mssmileenglish.com/comparisons/midjourney-vs-dalle/,comparisons,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/comparisons/notion-ai-vs-chatgpt/,AI writing tools|comparisons,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/comparisons/notion-ai-vs-clickup-ai/,AI writing tools|comparisons,0,true,true,true,true,ok
-https://review.mssmileenglish.com/comparisons/notion-vs-clickup/,AI writing tools|comparisons,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/comparisons/perplexity-vs-chatgpt/,comparisons,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/comparisons/runway-vs-pika/,comparisons,0,true,true,true,true,ok
-https://review.mssmileenglish.com/comparisons/semrush-vs-ahrefs/,AI SEO tools|comparisons,0,true,true,true,true,ok
-https://review.mssmileenglish.com/comparisons/synthesia-vs-heygen/,comparisons,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/comparisons/windsurf-vs-copilot/,AI coding tools|comparisons,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,AI coding tools,0,true,true,true,true,ok
-https://review.mssmileenglish.com/cursor-pricing/,AI coding tools|pricing,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/elevenlabs-pricing/,pricing,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/email-marketing-software-review/,general,0,true,true,true,true,ok
-https://review.mssmileenglish.com/github-copilot-pricing/,AI coding tools|pricing,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/how-we-review-tools/,general,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/hub/ai-automation/,AI automation tools,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/hub/ai-coding/,AI coding tools,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/hub/ai-presentation/,general,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/hub/ai-seo/,AI SEO tools,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/hub/ai-video/,general,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/hub/ai-voice/,general,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/hub/ai-writing/,AI writing tools,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/hub/crm/,general,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/hub/email-marketing/,general,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/hub/marketing/,general,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/hub/productivity/,general,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/hub/website-builders/,general,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/jasper-pricing/,AI writing tools|pricing,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/make-pricing/,AI automation tools|pricing,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/marketing-software-review/,general,0,true,true,true,true,ok
-https://review.mssmileenglish.com/pricing/activecampaign/,pricing,18,true,true,true,true,ok
-https://review.mssmileenglish.com/pricing/canva/,pricing,18,true,true,true,true,ok
-https://review.mssmileenglish.com/pricing/cursor/,AI coding tools|pricing,18,true,true,true,true,ok
-https://review.mssmileenglish.com/pricing/github-copilot/,AI coding tools|pricing,18,true,true,true,true,ok
-https://review.mssmileenglish.com/pricing/grammarly/,pricing,18,true,true,true,true,ok
-https://review.mssmileenglish.com/pricing/,pricing,0,true,true,true,true,ok
-https://review.mssmileenglish.com/pricing/mailchimp/,pricing,18,true,true,true,true,ok
-https://review.mssmileenglish.com/pricing/make/,AI automation tools|pricing,18,true,true,true,true,ok
-https://review.mssmileenglish.com/pricing/pictory/,pricing,18,true,true,true,true,ok
-https://review.mssmileenglish.com/pricing/semrush/,AI SEO tools|pricing,18,true,true,true,true,ok
-https://review.mssmileenglish.com/pricing/zapier/,AI automation tools|pricing,18,true,true,true,true,ok
-https://review.mssmileenglish.com/review/activecampaign/,AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/adcreative-ai/,AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/canva/,AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/copy-ai/,AI writing tools|AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/cursor/,AI coding tools|AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/descript/,AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/durable/,AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/elevenlabs/,AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/framer/,AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/gamma/,AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/github-copilot/,AI coding tools|AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/hubspot/,AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/jasper/,AI writing tools|AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/jasper-ai/,AI writing tools|AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/make/,AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/notion/,AI writing tools|AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/notion-ai/,AI writing tools|AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/pipedrive/,AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/pipedrive-crm/,AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/reclaim-ai/,AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/runway/,AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/semrush/,AI SEO tools|AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/surfer-seo/,AI SEO tools|AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/synthesia/,AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/webflow/,AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/webflow-ai/,AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/review/zapier/,AI automation tools|pricing|alternatives,0,true,true,true,true,ok
-https://review.mssmileenglish.com/reviews/activecampaign/,general,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/adcreative-ai/,general,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/canva/,general,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/copy-ai/,AI writing tools,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/cursor/,AI coding tools,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,AI coding tools,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/descript/,general,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/durable/,general,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/elevenlabs/,general,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/framer/,general,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/gamma/,general,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/github-copilot/,AI coding tools,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/hubspot/,general,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/,general,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/reviews/jasper/,AI writing tools,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/jasper-ai/,AI writing tools,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/make/,AI automation tools,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/notion/,AI writing tools,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/notion-ai/,AI writing tools,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/pipedrive/,general,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/pipedrive-crm/,general,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/reclaim-ai/,general,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/runway/,general,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/semrush/,AI SEO tools,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/surfer-seo/,AI SEO tools,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/synthesia/,general,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/webflow/,general,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/webflow-ai/,general,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/windsurf-review/,AI coding tools,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/reviews/zapier/,AI automation tools,0,false,true,true,true,add_experience|add_cta
-https://review.mssmileenglish.com/semrush-pricing/,AI SEO tools|pricing,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/surfer-seo-pricing/,AI SEO tools|pricing,0,false,true,true,true,add_experience
-https://review.mssmileenglish.com/website-builder-software-review/,general,0,true,true,true,true,ok
-https://review.mssmileenglish.com/windsurf-review/,AI coding tools|AI automation tools|alternatives,72,true,true,true,true,too_generic
-https://review.mssmileenglish.com/zapier-pricing/,AI automation tools|pricing,0,false,true,true,true,add_experience
+﻿page_url,topic,generic_score,has_experience,has_use_case,has_opinion,has_comparison,has_faq,has_table,internal_links_count,recommendation
+https://review.mssmileenglish.com/ai-coding-software-review/,AI coding tools,0,true,true,true,true,true,true,52,ok
+https://review.mssmileenglish.com/ai-meeting-software-review/,general,0,true,true,true,true,true,true,53,ok
+https://review.mssmileenglish.com/ai-productivity-software-review/,general,0,true,true,true,true,true,true,54,ok
+https://review.mssmileenglish.com/ai-seo-software-review/,AI SEO tools,0,true,true,true,true,true,true,55,ok
+https://review.mssmileenglish.com/ai-voice-software-review/,general,0,true,true,true,true,true,true,53,ok
+https://review.mssmileenglish.com/automation-software-review/,AI automation tools,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/best-ai-automation-tools/,AI automation tools,54,true,true,true,true,true,true,54,too_generic
+https://review.mssmileenglish.com/best-ai-automation-tools-2026/,AI automation tools,18,false,true,true,true,true,true,58,add_experience
+https://review.mssmileenglish.com/best-ai-coding-tools/,AI coding tools,54,true,true,true,true,true,true,51,too_generic
+https://review.mssmileenglish.com/best-ai-coding-tools-2026/,AI coding tools,72,true,true,true,true,true,true,53,too_generic
+https://review.mssmileenglish.com/best-ai-presentation-tools/,general,54,true,true,true,true,true,true,53,too_generic
+https://review.mssmileenglish.com/best-ai-seo-tools/,AI SEO tools,54,true,true,true,true,true,true,55,too_generic
+https://review.mssmileenglish.com/best-ai-seo-tools-2026/,AI SEO tools,18,false,true,true,true,true,true,58,add_experience
+https://review.mssmileenglish.com/best-ai-video-tools/,general,54,true,true,true,true,true,true,55,too_generic
+https://review.mssmileenglish.com/best-ai-video-tools-2026/,general,18,false,true,true,true,true,true,57,add_experience
+https://review.mssmileenglish.com/best-ai-writing-tools/,AI writing tools,54,true,true,true,true,true,true,57,too_generic
+https://review.mssmileenglish.com/best-ai-writing-tools-2026/,AI writing tools,18,false,true,true,true,true,true,59,add_experience
+https://review.mssmileenglish.com/best-crm-tools/,general,54,true,true,true,true,true,true,54,too_generic
+https://review.mssmileenglish.com/best-website-builders/,general,54,true,true,true,true,true,true,56,too_generic
+https://review.mssmileenglish.com/blog/ai-productivity-tools/,general,0,true,true,true,true,true,false,51,ok
+https://review.mssmileenglish.com/blog/ai-tools-for-content-creators/,AI writing tools,0,true,true,true,true,true,false,50,ok
+https://review.mssmileenglish.com/blog/ai-tools-for-marketers/,general,0,true,true,true,true,true,false,50,ok
+https://review.mssmileenglish.com/blog/ai-tools-under-20-month/,general,0,true,true,true,true,true,false,50,ok
+https://review.mssmileenglish.com/blog/ai-website-builders-comparison/,comparisons,0,true,true,true,true,true,false,51,ok
+https://review.mssmileenglish.com/blog/automation-tools-for-beginners/,AI automation tools,0,true,true,true,true,true,false,51,ok
+https://review.mssmileenglish.com/blog/best-ai-presentation-tools/,general,0,true,true,true,true,true,false,50,ok
+https://review.mssmileenglish.com/blog/best-ai-tools-for-small-business/,general,54,true,true,true,true,true,false,50,too_generic
+https://review.mssmileenglish.com/blog/best-ai-voice-generators/,general,0,true,true,true,true,true,false,52,ok
+https://review.mssmileenglish.com/blog/best-alternatives-to-canva-ai/,alternatives,0,true,true,true,true,true,false,51,ok
+https://review.mssmileenglish.com/blog/best-crm-for-startups/,general,0,true,true,true,true,true,false,51,ok
+https://review.mssmileenglish.com/blog/how-to-choose-saas-tools-safely/,general,0,true,true,true,true,true,false,50,ok
+https://review.mssmileenglish.com/blog/,general,18,false,true,true,true,false,false,58,add_experience|add_faq
+https://review.mssmileenglish.com/category/ai-automation-tools/,AI automation tools,0,false,true,true,true,false,false,57,add_experience|add_faq
+https://review.mssmileenglish.com/category/ai-coding-tools/,AI coding tools,36,true,true,true,true,true,true,53,ok
+https://review.mssmileenglish.com/category/ai-customer-support-tools/,general,0,false,true,true,true,false,false,57,add_experience|add_faq
+https://review.mssmileenglish.com/category/ai-presentation-tools/,general,0,false,true,true,true,false,false,57,add_experience|add_faq
+https://review.mssmileenglish.com/category/ai-seo-tools/,AI SEO tools,0,false,true,true,true,false,false,59,add_experience|add_faq
+https://review.mssmileenglish.com/category/ai-video-tools/,general,0,false,true,true,true,false,false,59,add_experience|add_faq
+https://review.mssmileenglish.com/category/ai-voice-tools/,general,0,false,true,true,true,false,false,57,add_experience|add_faq
+https://review.mssmileenglish.com/category/ai-writing/,AI writing tools,0,false,true,true,true,false,false,73,add_experience|add_faq
+https://review.mssmileenglish.com/category/ai-writing-tools/,AI writing tools,0,false,true,true,true,false,false,61,add_experience|add_faq
+https://review.mssmileenglish.com/category/automation/,AI automation tools,0,false,true,true,true,false,false,60,add_experience|add_faq
+https://review.mssmileenglish.com/category/automation-tools/,AI automation tools,36,true,true,true,true,true,true,56,ok
+https://review.mssmileenglish.com/category/crm/,general,0,false,true,true,true,false,false,59,add_experience|add_faq
+https://review.mssmileenglish.com/category/crm-tools/,general,0,false,true,true,true,false,false,59,add_experience|add_faq
+https://review.mssmileenglish.com/category/design-tools/,general,36,true,true,true,true,true,true,56,ok
+https://review.mssmileenglish.com/category/email-marketing-tools/,general,36,true,true,true,true,true,true,57,ok
+https://review.mssmileenglish.com/category/seo-tools/,AI SEO tools,36,true,true,true,true,true,true,57,ok
+https://review.mssmileenglish.com/category/video-tools/,general,36,true,true,true,true,true,true,58,ok
+https://review.mssmileenglish.com/category/website-builder-tools/,general,36,true,true,true,true,true,true,56,ok
+https://review.mssmileenglish.com/category/website-builders/,general,0,false,true,true,true,false,false,61,add_experience|add_faq
+https://review.mssmileenglish.com/category/writing-tools/,AI writing tools,36,true,true,true,true,true,true,57,ok
+https://review.mssmileenglish.com/compare/activecampaign-vs-mailchimp/,comparisons,0,true,true,true,true,true,true,52,ok
+https://review.mssmileenglish.com/compare/canva-vs-adcreative-ai/,comparisons,0,true,true,true,true,true,true,50,ok
+https://review.mssmileenglish.com/compare/cursor-vs-github-copilot/,AI coding tools|comparisons,0,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/compare/cursor-vs-windsurf/,AI coding tools|comparisons,0,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/compare/github-copilot-vs-codeium/,AI coding tools|comparisons,0,true,true,true,true,true,true,47,ok
+https://review.mssmileenglish.com/compare/grammarly-vs-quillbot/,AI writing tools|comparisons,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/compare/jasper-vs-copy-ai/,AI writing tools|comparisons,0,true,true,true,true,true,true,52,ok
+https://review.mssmileenglish.com/compare/make-vs-zapier/,AI automation tools|comparisons,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/compare/semrush-vs-ahrefs/,AI SEO tools|comparisons,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/compare/synthesia-vs-pictory/,comparisons,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/comparisons/canva-vs-adobe-express/,comparisons,0,false,true,true,true,true,true,50,add_experience
+https://review.mssmileenglish.com/comparisons/canva-vs-gamma/,comparisons,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/comparisons/chatgpt-vs-claude/,comparisons,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/comparisons/chatgpt-vs-gemini/,comparisons,0,false,true,true,true,true,true,52,add_experience|add_cta
+https://review.mssmileenglish.com/comparisons/copilot-vs-codex/,AI coding tools|comparisons,36,true,true,true,true,true,true,50,ok
+https://review.mssmileenglish.com/comparisons/copilot-vs-cursor/,AI coding tools|comparisons,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/comparisons/copilot-vs-tabnine/,AI coding tools|comparisons,0,false,true,true,true,true,true,47,add_experience|add_cta
+https://review.mssmileenglish.com/comparisons/cursor-vs-copilot/,AI coding tools|comparisons,0,false,true,true,true,true,true,49,add_experience
+https://review.mssmileenglish.com/comparisons/cursor-vs-github-copilot/,AI coding tools|comparisons,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/comparisons/cursor-vs-vscode/,AI coding tools|comparisons,0,false,true,true,true,true,true,50,add_experience|add_cta
+https://review.mssmileenglish.com/comparisons/cursor-vs-windsurf/,AI coding tools|comparisons,18,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/comparisons/elevenlabs-vs-murf/,comparisons,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/comparisons/elevenlabs-vs-playht/,comparisons,0,false,true,true,true,true,true,50,add_experience|add_cta
+https://review.mssmileenglish.com/comparisons/framer-vs-webflow/,comparisons,0,false,true,true,true,true,true,53,add_experience|add_cta
+https://review.mssmileenglish.com/comparisons/gemini-vs-claude/,comparisons,0,false,true,true,true,true,true,51,add_experience|add_cta
+https://review.mssmileenglish.com/comparisons/hubspot-vs-salesforce/,comparisons,0,false,true,true,true,true,true,51,add_experience|add_cta
+https://review.mssmileenglish.com/comparisons/,general,0,false,true,true,true,false,true,78,add_experience|add_faq
+https://review.mssmileenglish.com/comparisons/jasper-vs-copyai/,AI writing tools|comparisons,0,false,true,true,true,true,true,54,add_experience|add_cta
+https://review.mssmileenglish.com/comparisons/make-vs-zapier/,AI automation tools|comparisons,0,true,true,true,true,true,true,53,ok
+https://review.mssmileenglish.com/comparisons/midjourney-vs-dalle/,comparisons,0,false,true,true,true,true,true,50,add_experience|add_cta
+https://review.mssmileenglish.com/comparisons/notion-ai-vs-chatgpt/,AI writing tools|comparisons,0,false,true,true,true,true,true,53,add_experience|add_cta
+https://review.mssmileenglish.com/comparisons/notion-ai-vs-clickup-ai/,AI writing tools|comparisons,0,true,true,true,true,true,true,52,ok
+https://review.mssmileenglish.com/comparisons/notion-vs-clickup/,AI writing tools|comparisons,0,false,true,true,true,true,true,53,add_experience|add_cta
+https://review.mssmileenglish.com/comparisons/perplexity-vs-chatgpt/,comparisons,0,false,true,true,true,true,true,52,add_experience|add_cta
+https://review.mssmileenglish.com/comparisons/runway-vs-pika/,comparisons,0,true,true,true,true,true,true,52,ok
+https://review.mssmileenglish.com/comparisons/semrush-vs-ahrefs/,AI SEO tools|comparisons,0,true,true,true,true,true,true,52,ok
+https://review.mssmileenglish.com/comparisons/synthesia-vs-heygen/,comparisons,0,false,true,true,true,true,true,51,add_experience|add_cta
+https://review.mssmileenglish.com/comparisons/windsurf-vs-copilot/,AI coding tools|comparisons,0,false,true,true,true,true,true,50,add_experience
+https://review.mssmileenglish.com/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,AI coding tools,0,true,true,true,true,true,false,49,ok
+https://review.mssmileenglish.com/cursor-pricing/,AI coding tools|pricing,0,false,true,true,true,true,false,45,add_experience|add_comparison_table
+https://review.mssmileenglish.com/elevenlabs-pricing/,pricing,0,false,true,true,true,true,false,47,add_experience|add_comparison_table
+https://review.mssmileenglish.com/email-marketing-software-review/,general,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/github-copilot-pricing/,AI coding tools|pricing,0,false,true,true,true,true,false,43,add_experience|add_comparison_table
+https://review.mssmileenglish.com/how-we-review-tools/,general,0,false,true,true,true,false,false,47,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/hub/ai-automation/,AI automation tools,0,false,true,true,true,false,false,52,add_experience|add_faq
+https://review.mssmileenglish.com/hub/ai-coding/,AI coding tools,0,false,true,true,true,false,false,51,add_experience|add_faq
+https://review.mssmileenglish.com/hub/ai-presentation/,general,0,false,true,true,true,false,false,53,add_experience|add_faq
+https://review.mssmileenglish.com/hub/ai-seo/,AI SEO tools,0,false,true,true,true,false,false,53,add_experience|add_faq
+https://review.mssmileenglish.com/hub/ai-video/,general,0,false,true,true,true,false,false,55,add_experience|add_faq
+https://review.mssmileenglish.com/hub/ai-voice/,general,0,false,true,true,true,false,false,52,add_experience|add_faq
+https://review.mssmileenglish.com/hub/ai-writing/,AI writing tools,0,false,true,true,true,false,false,62,add_experience|add_faq
+https://review.mssmileenglish.com/hub/crm/,general,0,false,true,true,true,false,false,55,add_experience|add_faq
+https://review.mssmileenglish.com/hub/email-marketing/,general,0,false,true,true,true,false,false,59,add_experience|add_faq
+https://review.mssmileenglish.com/hub/marketing/,general,0,false,true,true,true,false,false,64,add_experience|add_faq
+https://review.mssmileenglish.com/hub/productivity/,general,0,false,true,true,true,false,false,59,add_experience|add_faq
+https://review.mssmileenglish.com/hub/website-builders/,general,0,false,true,true,true,false,false,57,add_experience|add_faq
+https://review.mssmileenglish.com/jasper-pricing/,AI writing tools|pricing,0,false,true,true,true,true,false,49,add_experience|add_comparison_table
+https://review.mssmileenglish.com/make-pricing/,AI automation tools|pricing,0,false,true,true,true,true,false,46,add_experience|add_comparison_table
+https://review.mssmileenglish.com/marketing-software-review/,general,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/pricing/activecampaign/,pricing,18,true,true,true,true,true,true,47,ok
+https://review.mssmileenglish.com/pricing/canva/,pricing,18,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/pricing/cursor/,AI coding tools|pricing,18,true,true,true,true,true,true,47,ok
+https://review.mssmileenglish.com/pricing/github-copilot/,AI coding tools|pricing,18,true,true,true,true,true,true,47,ok
+https://review.mssmileenglish.com/pricing/grammarly/,pricing,18,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/pricing/,pricing,0,true,true,true,true,true,false,52,add_comparison_table
+https://review.mssmileenglish.com/pricing/mailchimp/,pricing,18,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/pricing/make/,AI automation tools|pricing,18,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/pricing/pictory/,pricing,18,true,true,true,true,true,true,50,ok
+https://review.mssmileenglish.com/pricing/semrush/,AI SEO tools|pricing,18,true,true,true,true,true,true,47,ok
+https://review.mssmileenglish.com/pricing/zapier/,AI automation tools|pricing,18,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/review/activecampaign/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/review/adcreative-ai/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/review/canva/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/review/copy-ai/,AI writing tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,52,ok
+https://review.mssmileenglish.com/review/cursor/,AI coding tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/review/descript/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/review/durable/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/review/elevenlabs/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/review/framer/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/review/gamma/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/review/github-copilot/,AI coding tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/review/hubspot/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/review/jasper/,AI writing tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/review/jasper-ai/,AI writing tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/review/make/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/review/notion/,AI writing tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,54,ok
+https://review.mssmileenglish.com/review/notion-ai/,AI writing tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,54,ok
+https://review.mssmileenglish.com/review/pipedrive/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/review/pipedrive-crm/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/review/reclaim-ai/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/review/runway/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/review/semrush/,AI SEO tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/review/surfer-seo/,AI SEO tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,50,ok
+https://review.mssmileenglish.com/review/synthesia/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/review/webflow/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/review/webflow-ai/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/review/zapier/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,50,ok
+https://review.mssmileenglish.com/reviews/activecampaign/,general,0,false,true,true,true,false,false,48,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/adcreative-ai/,general,0,false,true,true,true,false,false,48,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/canva/,general,0,false,true,true,true,false,false,49,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/copy-ai/,AI writing tools,0,false,true,true,true,false,false,52,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/cursor/,AI coding tools,0,false,true,true,true,false,false,50,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,AI coding tools,0,false,true,true,true,false,false,49,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/descript/,general,0,false,true,true,true,false,false,51,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/durable/,general,0,false,true,true,true,false,false,50,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/elevenlabs/,general,0,false,true,true,true,false,false,48,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/framer/,general,0,false,true,true,true,false,false,50,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/gamma/,general,0,false,true,true,true,false,false,49,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/github-copilot/,AI coding tools,0,false,true,true,true,false,false,48,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/hubspot/,general,0,false,true,true,true,false,false,50,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/,general,0,false,true,true,true,false,false,72,add_experience|add_faq
+https://review.mssmileenglish.com/reviews/jasper/,AI writing tools,0,false,true,true,true,false,false,52,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/jasper-ai/,AI writing tools,0,false,true,true,true,false,false,52,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/make/,AI automation tools,0,false,true,true,true,false,false,49,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/notion/,AI writing tools,0,false,true,true,true,false,false,52,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/notion-ai/,AI writing tools,0,false,true,true,true,false,false,52,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/pipedrive/,general,0,false,true,true,true,false,false,50,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/pipedrive-crm/,general,0,false,true,true,true,false,false,50,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/reclaim-ai/,general,0,false,true,true,true,false,false,49,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/runway/,general,0,false,true,true,true,false,false,51,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/semrush/,AI SEO tools,0,false,true,true,true,false,false,51,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/surfer-seo/,AI SEO tools,0,false,true,true,true,false,false,51,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/synthesia/,general,0,false,true,true,true,false,false,51,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/webflow/,general,0,false,true,true,true,false,false,50,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/webflow-ai/,general,0,false,true,true,true,false,false,50,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/windsurf/,AI coding tools,0,false,true,true,true,false,false,49,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/windsurf-review/,AI coding tools,0,false,true,true,true,false,false,49,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/reviews/zapier/,AI automation tools,0,false,true,true,true,false,false,49,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/semrush-pricing/,AI SEO tools|pricing,0,false,true,true,true,true,false,47,add_experience|add_comparison_table
+https://review.mssmileenglish.com/surfer-seo-pricing/,AI SEO tools|pricing,0,false,true,true,true,true,false,47,add_experience|add_comparison_table
+https://review.mssmileenglish.com/vi/ai-coding-software-review/,AI coding tools,0,true,true,true,true,true,true,52,ok
+https://review.mssmileenglish.com/vi/ai-meeting-software-review/,general,0,true,true,true,true,true,true,53,ok
+https://review.mssmileenglish.com/vi/ai-productivity-software-review/,general,0,true,true,true,true,true,true,54,ok
+https://review.mssmileenglish.com/vi/ai-seo-software-review/,AI SEO tools,0,true,true,true,true,true,true,55,ok
+https://review.mssmileenglish.com/vi/ai-voice-software-review/,general,0,true,true,true,true,true,true,53,ok
+https://review.mssmileenglish.com/vi/automation-software-review/,AI automation tools,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/vi/best-ai-automation-tools/,AI automation tools,36,true,true,false,true,true,true,54,add_opinion
+https://review.mssmileenglish.com/vi/best-ai-automation-tools-2026/,AI automation tools,0,false,true,true,true,true,true,58,add_experience
+https://review.mssmileenglish.com/vi/best-ai-coding-tools/,AI coding tools,36,true,true,false,true,true,true,51,add_opinion
+https://review.mssmileenglish.com/vi/best-ai-coding-tools-2026/,AI coding tools,54,true,true,true,true,true,true,53,too_generic
+https://review.mssmileenglish.com/vi/best-ai-presentation-tools/,general,36,true,true,false,true,true,true,53,add_opinion
+https://review.mssmileenglish.com/vi/best-ai-seo-tools/,AI SEO tools,36,true,true,false,true,true,true,55,add_opinion
+https://review.mssmileenglish.com/vi/best-ai-seo-tools-2026/,AI SEO tools,0,false,true,true,true,true,true,58,add_experience
+https://review.mssmileenglish.com/vi/best-ai-video-tools/,general,36,true,true,false,true,true,true,55,add_opinion
+https://review.mssmileenglish.com/vi/best-ai-video-tools-2026/,general,0,false,true,true,true,true,true,57,add_experience
+https://review.mssmileenglish.com/vi/best-ai-writing-tools/,AI writing tools,36,true,true,false,true,true,true,57,add_opinion
+https://review.mssmileenglish.com/vi/best-ai-writing-tools-2026/,AI writing tools,0,false,true,true,true,true,true,59,add_experience
+https://review.mssmileenglish.com/vi/best-crm-tools/,general,36,true,true,false,true,true,true,54,add_opinion
+https://review.mssmileenglish.com/vi/best-website-builders/,general,36,true,true,false,true,true,true,56,add_opinion
+https://review.mssmileenglish.com/vi/blog/ai-productivity-tools/,general,0,true,true,true,true,true,false,51,ok
+https://review.mssmileenglish.com/vi/blog/ai-tools-for-content-creators/,AI writing tools,0,true,true,true,true,true,false,50,ok
+https://review.mssmileenglish.com/vi/blog/ai-tools-for-marketers/,general,0,true,true,true,true,true,false,50,ok
+https://review.mssmileenglish.com/vi/blog/ai-tools-under-20-month/,general,0,true,true,true,true,true,false,50,ok
+https://review.mssmileenglish.com/vi/blog/ai-website-builders-comparison/,comparisons,0,true,true,true,true,true,false,51,ok
+https://review.mssmileenglish.com/vi/blog/automation-tools-for-beginners/,AI automation tools,0,true,true,true,true,true,false,51,ok
+https://review.mssmileenglish.com/vi/blog/best-ai-presentation-tools/,general,0,true,true,true,true,true,false,50,ok
+https://review.mssmileenglish.com/vi/blog/best-ai-tools-for-small-business/,general,54,true,true,true,true,true,false,50,too_generic
+https://review.mssmileenglish.com/vi/blog/best-ai-voice-generators/,general,0,true,true,true,true,true,false,52,ok
+https://review.mssmileenglish.com/vi/blog/best-alternatives-to-canva-ai/,alternatives,0,true,true,true,true,true,false,51,ok
+https://review.mssmileenglish.com/vi/blog/best-crm-for-startups/,general,0,true,true,true,true,true,false,51,ok
+https://review.mssmileenglish.com/vi/blog/how-to-choose-saas-tools-safely/,general,0,true,true,true,true,true,false,50,ok
+https://review.mssmileenglish.com/vi/blog/,general,18,false,true,false,true,false,false,58,add_experience|add_opinion|add_faq
+https://review.mssmileenglish.com/vi/category/ai-automation-tools/,AI automation tools,0,false,true,true,true,false,false,57,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/vi/category/ai-coding-tools/,AI coding tools,36,true,true,true,true,true,true,53,ok
+https://review.mssmileenglish.com/vi/category/ai-customer-support-tools/,general,0,false,true,true,true,false,false,57,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/vi/category/ai-presentation-tools/,general,0,false,true,true,true,false,false,57,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/vi/category/ai-seo-tools/,AI SEO tools,0,false,true,true,true,false,false,59,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/vi/category/ai-video-tools/,general,0,false,true,true,true,false,false,59,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/vi/category/ai-voice-tools/,general,0,false,true,true,true,false,false,57,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/vi/category/ai-writing/,AI writing tools,0,false,true,true,true,false,false,73,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/vi/category/ai-writing-tools/,AI writing tools,0,false,true,true,true,false,false,61,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/vi/category/automation/,AI automation tools,0,false,true,true,true,false,false,60,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/vi/category/automation-tools/,AI automation tools,36,true,true,true,true,true,true,56,ok
+https://review.mssmileenglish.com/vi/category/crm/,general,0,false,true,true,true,false,false,59,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/vi/category/crm-tools/,general,0,false,true,true,true,false,false,59,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/vi/category/design-tools/,general,36,true,true,true,true,true,true,56,ok
+https://review.mssmileenglish.com/vi/category/email-marketing-tools/,general,36,true,true,true,true,true,true,57,ok
+https://review.mssmileenglish.com/vi/category/seo-tools/,AI SEO tools,36,true,true,true,true,true,true,57,ok
+https://review.mssmileenglish.com/vi/category/video-tools/,general,36,true,true,true,true,true,true,58,ok
+https://review.mssmileenglish.com/vi/category/website-builder-tools/,general,36,true,true,true,true,true,true,56,ok
+https://review.mssmileenglish.com/vi/category/website-builders/,general,0,false,true,true,true,false,false,61,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/vi/category/writing-tools/,AI writing tools,36,true,true,true,true,true,true,57,ok
+https://review.mssmileenglish.com/vi/compare/activecampaign-vs-mailchimp/,comparisons,0,true,true,true,true,true,true,52,ok
+https://review.mssmileenglish.com/vi/compare/canva-vs-adcreative-ai/,comparisons,0,true,true,true,true,true,true,50,ok
+https://review.mssmileenglish.com/vi/compare/cursor-vs-github-copilot/,AI coding tools|comparisons,0,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/vi/compare/cursor-vs-windsurf/,AI coding tools|comparisons,0,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/vi/compare/github-copilot-vs-codeium/,AI coding tools|comparisons,0,true,true,true,true,true,true,47,ok
+https://review.mssmileenglish.com/vi/compare/grammarly-vs-quillbot/,comparisons,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/vi/compare/jasper-vs-copy-ai/,AI writing tools|comparisons,0,true,true,true,true,true,true,52,ok
+https://review.mssmileenglish.com/vi/compare/make-vs-zapier/,AI automation tools|comparisons,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/vi/compare/semrush-vs-ahrefs/,AI SEO tools|comparisons,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/vi/compare/synthesia-vs-pictory/,comparisons,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/vi/comparisons/canva-vs-adobe-express/,comparisons,0,false,true,true,true,true,true,50,add_experience
+https://review.mssmileenglish.com/vi/comparisons/canva-vs-gamma/,comparisons,0,true,true,false,true,true,true,51,add_opinion
+https://review.mssmileenglish.com/vi/comparisons/chatgpt-vs-claude/,comparisons,0,true,true,false,true,true,true,49,add_opinion
+https://review.mssmileenglish.com/vi/comparisons/chatgpt-vs-gemini/,comparisons,0,false,true,false,true,true,true,52,add_experience|add_opinion|add_cta
+https://review.mssmileenglish.com/vi/comparisons/copilot-vs-codex/,AI coding tools|comparisons,36,true,true,true,true,true,true,50,ok
+https://review.mssmileenglish.com/vi/comparisons/copilot-vs-cursor/,AI coding tools|comparisons,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/vi/comparisons/copilot-vs-tabnine/,AI coding tools|comparisons,0,false,true,false,true,true,true,47,add_experience|add_opinion|add_cta
+https://review.mssmileenglish.com/vi/comparisons/cursor-vs-copilot/,AI coding tools|comparisons,0,false,true,true,true,true,true,49,add_experience
+https://review.mssmileenglish.com/vi/comparisons/cursor-vs-github-copilot/,AI coding tools|comparisons,0,true,true,false,true,true,true,49,add_opinion
+https://review.mssmileenglish.com/vi/comparisons/cursor-vs-vscode/,AI coding tools|comparisons,0,false,true,false,true,true,true,50,add_experience|add_opinion|add_cta
+https://review.mssmileenglish.com/vi/comparisons/cursor-vs-windsurf/,AI coding tools|AI automation tools|comparisons,0,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/vi/comparisons/elevenlabs-vs-murf/,comparisons,0,true,true,false,true,true,true,51,add_opinion
+https://review.mssmileenglish.com/vi/comparisons/elevenlabs-vs-playht/,comparisons,0,false,true,false,true,true,true,50,add_experience|add_opinion|add_cta
+https://review.mssmileenglish.com/vi/comparisons/framer-vs-webflow/,comparisons,0,false,true,false,true,true,true,53,add_experience|add_opinion|add_cta
+https://review.mssmileenglish.com/vi/comparisons/gemini-vs-claude/,comparisons,0,false,true,false,true,true,true,51,add_experience|add_opinion|add_cta
+https://review.mssmileenglish.com/vi/comparisons/hubspot-vs-salesforce/,comparisons,0,false,true,false,true,true,true,51,add_experience|add_opinion|add_cta
+https://review.mssmileenglish.com/vi/comparisons/,general,0,false,true,true,true,false,true,78,add_experience|add_faq
+https://review.mssmileenglish.com/vi/comparisons/jasper-vs-copyai/,AI writing tools|comparisons,0,false,true,false,true,true,true,54,add_experience|add_opinion|add_cta
+https://review.mssmileenglish.com/vi/comparisons/make-vs-zapier/,AI automation tools|comparisons,0,true,true,false,true,true,true,53,add_opinion
+https://review.mssmileenglish.com/vi/comparisons/midjourney-vs-dalle/,comparisons,0,false,true,false,true,true,true,50,add_experience|add_opinion|add_cta
+https://review.mssmileenglish.com/vi/comparisons/notion-ai-vs-chatgpt/,AI writing tools|comparisons,0,false,true,false,true,true,true,53,add_experience|add_opinion|add_cta
+https://review.mssmileenglish.com/vi/comparisons/notion-ai-vs-clickup-ai/,AI writing tools|comparisons,0,true,true,false,true,true,true,52,add_opinion
+https://review.mssmileenglish.com/vi/comparisons/notion-vs-clickup/,AI writing tools|comparisons,0,false,true,false,true,true,true,53,add_experience|add_opinion|add_cta
+https://review.mssmileenglish.com/vi/comparisons/perplexity-vs-chatgpt/,comparisons,0,false,true,false,true,true,true,52,add_experience|add_opinion|add_cta
+https://review.mssmileenglish.com/vi/comparisons/runway-vs-pika/,comparisons,0,true,true,false,true,true,true,52,add_opinion
+https://review.mssmileenglish.com/vi/comparisons/semrush-vs-ahrefs/,AI SEO tools|comparisons,0,true,true,false,true,true,true,52,add_opinion
+https://review.mssmileenglish.com/vi/comparisons/synthesia-vs-heygen/,comparisons,0,false,true,false,true,true,true,51,add_experience|add_opinion|add_cta
+https://review.mssmileenglish.com/vi/comparisons/windsurf-vs-copilot/,AI coding tools|comparisons,0,false,true,true,true,true,true,50,add_experience
+https://review.mssmileenglish.com/vi/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,AI coding tools,0,true,true,true,true,true,false,49,ok
+https://review.mssmileenglish.com/vi/cursor-pricing/,AI coding tools|pricing,0,false,true,false,true,true,false,45,add_experience|add_opinion|add_comparison_table
+https://review.mssmileenglish.com/vi/elevenlabs-pricing/,pricing,0,false,true,false,true,true,false,47,add_experience|add_opinion|add_comparison_table
+https://review.mssmileenglish.com/vi/email-marketing-software-review/,general,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/vi/github-copilot-pricing/,AI coding tools|pricing,0,false,true,false,true,true,false,43,add_experience|add_opinion|add_comparison_table
+https://review.mssmileenglish.com/vi/how-we-review-tools/,general,0,false,true,false,true,false,false,47,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/hub/ai-automation/,AI automation tools,0,false,true,true,true,false,false,52,add_experience|add_faq
+https://review.mssmileenglish.com/vi/hub/ai-coding/,AI coding tools,0,false,true,true,true,false,false,51,add_experience|add_faq
+https://review.mssmileenglish.com/vi/hub/ai-presentation/,general,0,false,true,true,true,false,false,53,add_experience|add_faq
+https://review.mssmileenglish.com/vi/hub/ai-seo/,AI SEO tools,0,false,true,true,true,false,false,53,add_experience|add_faq
+https://review.mssmileenglish.com/vi/hub/ai-video/,general,0,false,true,true,true,false,false,55,add_experience|add_faq
+https://review.mssmileenglish.com/vi/hub/ai-voice/,general,0,false,true,true,true,false,false,52,add_experience|add_faq
+https://review.mssmileenglish.com/vi/hub/ai-writing/,AI writing tools,0,false,true,true,true,false,false,62,add_experience|add_faq
+https://review.mssmileenglish.com/vi/hub/crm/,general,0,false,true,true,true,false,false,55,add_experience|add_faq
+https://review.mssmileenglish.com/vi/hub/email-marketing/,general,0,false,true,true,true,false,false,59,add_experience|add_faq
+https://review.mssmileenglish.com/vi/hub/marketing/,general,0,false,true,true,true,false,false,64,add_experience|add_faq
+https://review.mssmileenglish.com/vi/hub/productivity/,general,0,false,true,true,true,false,false,59,add_experience|add_faq
+https://review.mssmileenglish.com/vi/hub/website-builders/,general,0,false,true,true,true,false,false,57,add_experience|add_faq
+https://review.mssmileenglish.com/vi/jasper-pricing/,AI writing tools|pricing,0,false,true,false,true,true,false,49,add_experience|add_opinion|add_comparison_table
+https://review.mssmileenglish.com/vi/make-pricing/,AI automation tools|pricing,0,false,true,false,true,true,false,46,add_experience|add_opinion|add_comparison_table
+https://review.mssmileenglish.com/vi/marketing-software-review/,general,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/vi/pricing/activecampaign/,pricing,18,true,true,true,true,true,true,47,ok
+https://review.mssmileenglish.com/vi/pricing/canva/,pricing,18,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/vi/pricing/cursor/,AI coding tools|pricing,18,true,true,true,true,true,true,47,ok
+https://review.mssmileenglish.com/vi/pricing/github-copilot/,AI coding tools|pricing,18,true,true,true,true,true,true,47,ok
+https://review.mssmileenglish.com/vi/pricing/grammarly/,pricing,18,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/vi/pricing/,pricing,0,true,true,true,true,true,false,52,add_comparison_table
+https://review.mssmileenglish.com/vi/pricing/mailchimp/,pricing,18,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/vi/pricing/make/,AI automation tools|pricing,18,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/vi/pricing/pictory/,pricing,18,true,true,true,true,true,true,50,ok
+https://review.mssmileenglish.com/vi/pricing/semrush/,AI SEO tools|pricing,18,true,true,true,true,true,true,47,ok
+https://review.mssmileenglish.com/vi/pricing/zapier/,AI automation tools|pricing,18,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/vi/review/activecampaign/,AI automation tools,0,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/vi/review/adcreative-ai/,AI automation tools,0,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/vi/review/canva/,AI automation tools,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/vi/review/copy-ai/,AI writing tools|AI automation tools,0,true,true,true,true,true,true,52,ok
+https://review.mssmileenglish.com/vi/review/cursor/,AI coding tools|AI automation tools,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/vi/review/descript/,AI automation tools,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/vi/review/durable/,AI automation tools,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/vi/review/elevenlabs/,AI automation tools,0,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/vi/review/framer/,AI automation tools,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/vi/review/gamma/,AI automation tools,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/vi/review/github-copilot/,AI coding tools|AI automation tools,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/vi/review/hubspot/,AI automation tools,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/vi/review/jasper/,AI writing tools|AI automation tools,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/vi/review/jasper-ai/,AI writing tools|AI automation tools,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/vi/review/make/,AI automation tools,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/vi/review/notion/,AI writing tools|AI automation tools,0,true,true,true,true,true,true,54,ok
+https://review.mssmileenglish.com/vi/review/notion-ai/,AI writing tools|AI automation tools,0,true,true,true,true,true,true,54,ok
+https://review.mssmileenglish.com/vi/review/pipedrive/,AI automation tools,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/vi/review/pipedrive-crm/,AI automation tools,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/vi/review/reclaim-ai/,AI automation tools,0,true,true,true,true,true,true,48,ok
+https://review.mssmileenglish.com/vi/review/runway/,AI automation tools,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/vi/review/semrush/,AI SEO tools|AI automation tools,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/vi/review/surfer-seo/,AI SEO tools|AI automation tools,0,true,true,true,true,true,true,50,ok
+https://review.mssmileenglish.com/vi/review/synthesia/,AI automation tools,0,true,true,true,true,true,true,51,ok
+https://review.mssmileenglish.com/vi/review/webflow/,AI automation tools,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/vi/review/webflow-ai/,AI automation tools,0,true,true,true,true,true,true,49,ok
+https://review.mssmileenglish.com/vi/review/zapier/,AI automation tools,0,true,true,true,true,true,true,50,ok
+https://review.mssmileenglish.com/vi/reviews/activecampaign/,general,0,false,true,false,true,false,false,48,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/adcreative-ai/,general,0,false,true,false,true,false,false,48,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/canva/,general,0,false,true,false,true,false,false,49,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/copy-ai/,AI writing tools,0,false,true,false,true,false,false,52,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/cursor/,AI coding tools,0,false,true,false,true,false,false,50,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,AI coding tools,0,false,true,false,true,false,false,49,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/descript/,general,0,false,true,false,true,false,false,51,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/durable/,general,0,false,true,false,true,false,false,50,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/elevenlabs/,general,0,false,true,false,true,false,false,48,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/framer/,general,0,false,true,false,true,false,false,50,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/gamma/,general,0,false,true,false,true,false,false,49,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/github-copilot/,AI coding tools,0,false,true,false,true,false,false,48,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/hubspot/,general,0,false,true,false,true,false,false,50,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/,general,0,false,true,true,true,false,false,72,add_experience|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/jasper/,AI writing tools,0,false,true,false,true,false,false,52,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/jasper-ai/,AI writing tools,0,false,true,false,true,false,false,52,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/make/,AI automation tools,0,false,true,false,true,false,false,49,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/notion/,AI writing tools,0,false,true,false,true,false,false,52,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/notion-ai/,AI writing tools,0,false,true,false,true,false,false,52,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/pipedrive/,general,0,false,true,false,true,false,false,50,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/pipedrive-crm/,general,0,false,true,false,true,false,false,50,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/reclaim-ai/,general,0,false,true,false,true,false,false,49,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/runway/,general,0,false,true,false,true,false,false,51,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/semrush/,AI SEO tools,0,false,true,false,true,false,false,51,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/surfer-seo/,AI SEO tools,0,false,true,false,true,false,false,51,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/synthesia/,general,0,false,true,false,true,false,false,51,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/webflow/,general,0,false,true,false,true,false,false,50,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/webflow-ai/,general,0,false,true,false,true,false,false,50,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/windsurf/,AI coding tools,0,false,true,false,true,false,false,49,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/windsurf-review/,AI coding tools,0,false,true,false,true,false,false,49,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/reviews/zapier/,AI automation tools,0,false,true,false,true,false,false,49,add_experience|add_opinion|add_cta|add_faq
+https://review.mssmileenglish.com/vi/semrush-pricing/,AI SEO tools|pricing,0,false,true,false,true,true,false,47,add_experience|add_opinion|add_comparison_table
+https://review.mssmileenglish.com/vi/surfer-seo-pricing/,AI SEO tools|pricing,0,false,true,false,true,true,false,47,add_experience|add_opinion|add_comparison_table
+https://review.mssmileenglish.com/vi/website-builder-software-review/,general,0,true,true,true,true,true,true,54,ok
+https://review.mssmileenglish.com/vi/windsurf-review/,AI coding tools|AI automation tools,72,true,true,true,true,true,true,49,too_generic
+https://review.mssmileenglish.com/vi/zapier-pricing/,AI automation tools|pricing,0,false,true,false,true,true,false,47,add_experience|add_opinion|add_comparison_table
+https://review.mssmileenglish.com/website-builder-software-review/,general,0,true,true,true,true,true,true,54,ok
+https://review.mssmileenglish.com/windsurf-review/,AI coding tools|AI automation tools|alternatives,72,true,true,true,true,true,true,49,too_generic
+https://review.mssmileenglish.com/zapier-pricing/,AI automation tools|pricing,0,false,true,true,true,true,false,47,add_experience|add_comparison_table
