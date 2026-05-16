@@ -472,8 +472,19 @@ def localize_html(text: str) -> str:
         "Đánh giá budget-friendly options": "Đánh giá các lựa chọn hợp ngân sách",
         "Cursor pros": "Ưu điểm của Cursor",
         "Cursor cons": "Hạn chế của Cursor",
+        "Pros of Cursor": "Ưu điểm của Cursor",
+        "Limitations of Cursor": "Hạn chế của Cursor",
+        "Cons of Cursor": "Hạn chế của Cursor",
         "Windsurf pros": "Ưu điểm của Windsurf",
         "Windsurf cons": "Hạn chế của Windsurf",
+        "Pros of Windsurf": "Ưu điểm của Windsurf",
+        "Limitations of Windsurf": "Hạn chế của Windsurf",
+        "Cons of Windsurf": "Hạn chế của Windsurf",
+        "GitHub Copilot pros": "Ưu điểm của GitHub Copilot",
+        "GitHub Copilot cons": "Hạn chế của GitHub Copilot",
+        "Pros of GitHub Copilot": "Ưu điểm của GitHub Copilot",
+        "Limitations of GitHub Copilot": "Hạn chế của GitHub Copilot",
+        "Cons of GitHub Copilot": "Hạn chế của GitHub Copilot",
         "Strong fit for developers who want AI inside the editor rather than in a separate chat tab.": "Phù hợp với developer muốn AI nằm ngay trong editor thay vì ở một tab chat riêng.",
         "Good option for codebase explanation, targeted edits, and iterative refactors.": "Hữu ích cho việc giải thích codebase, chỉnh sửa có mục tiêu và refactor lặp lại.",
         "Feels practical for solo builders who need speed but still want control.": "Thực tế với solo builder cần tốc độ nhưng vẫn muốn kiểm soát.",
@@ -514,4 +525,21 @@ def localize_html(text: str) -> str:
     text = text.replace('"itemĐánh giáed"', '"itemReviewed"')
     text = text.replace('"itemreviewed"', '"itemReviewed"')
     text = text.replace('"reviewRating"', '"reviewRating"')
+    # Protect product names and pros/cons headings from accidental literal
+    # translation. This also fixes older generated Vietnamese pages where
+    # translation reduced a card title to only "con trỏ".
+    text = re.sub(r"<h([1-6])>\s*con trỏ\s*</h\1>", r"<h\1>Hạn chế của Cursor</h\1>", text, flags=re.IGNORECASE)
+    text = re.sub(r"<h([1-6])>\s*lướt ván buồm\s*</h\1>", r"<h\1>Hạn chế của Windsurf</h\1>", text, flags=re.IGNORECASE)
+    text = text.replace("Ưu điểm của con trỏ", "Ưu điểm của Cursor")
+    text = text.replace("Hạn chế của con trỏ", "Hạn chế của Cursor")
+    text = text.replace("Nhược điểm của con trỏ", "Hạn chế của Cursor")
+    text = text.replace("Ưu điểm của lướt ván buồm", "Ưu điểm của Windsurf")
+    text = text.replace("Hạn chế của lướt ván buồm", "Hạn chế của Windsurf")
+    text = text.replace("Nhược điểm của lướt ván buồm", "Hạn chế của Windsurf")
+    text = text.replace("Ưu điểm of Cursor", "Ưu điểm của Cursor")
+    text = text.replace("Ưu điểm of Windsurf", "Ưu điểm của Windsurf")
+    text = text.replace("Ưu điểm of GitHub Copilot", "Ưu điểm của GitHub Copilot")
+    text = text.replace("Hạn chế of Cursor", "Hạn chế của Cursor")
+    text = text.replace("Hạn chế of Windsurf", "Hạn chế của Windsurf")
+    text = text.replace("Hạn chế of GitHub Copilot", "Hạn chế của GitHub Copilot")
     return text

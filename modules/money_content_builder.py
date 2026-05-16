@@ -373,13 +373,13 @@ def cursor_vs_windsurf_page() -> MoneyPage:
         (
             "Pros and cons",
             two_column(
-                "Cursor pros",
+                "Pros of Cursor",
                 [
                     "Strong fit for developers who want AI inside the editor rather than in a separate chat tab.",
                     "Good option for codebase explanation, targeted edits, and iterative refactors.",
                     "Feels practical for solo builders who need speed but still want control.",
                 ],
-                "Cursor cons",
+                "Limitations of Cursor",
                 [
                     "Moving editors can be a real adoption cost for teams.",
                     "The output still needs tests and careful code review.",
@@ -387,13 +387,13 @@ def cursor_vs_windsurf_page() -> MoneyPage:
                 ],
             )
             + two_column(
-                "Windsurf pros",
+                "Pros of Windsurf",
                 [
                     "Interesting for agent-style coding where the assistant helps with a sequence of steps.",
                     "Useful to test if Cursor feels too manual for larger workflow tasks.",
                     "A good benchmark when evaluating the next generation of AI coding editors.",
                 ],
-                "Windsurf cons",
+                "Limitations of Windsurf",
                 [
                     "Teams may need more time to judge maturity, policy, and workflow fit.",
                     "Developers who want a conservative IDE setup may resist another editor change.",
@@ -529,13 +529,13 @@ def copilot_vs_cursor_page() -> MoneyPage:
         (
             "Pros and cons",
             two_column(
-                "GitHub Copilot pros",
+                "Pros of GitHub Copilot",
                 [
                     "Good fit for teams already using GitHub and common IDEs.",
                     "Lower workflow disruption than switching to a new AI-first editor.",
                     "Easier to explain to procurement and engineering managers in many organizations.",
                 ],
-                "GitHub Copilot cons",
+                "Limitations of GitHub Copilot",
                 [
                     "May feel less transformative if you want the editor itself to be built around AI.",
                     "Context-heavy refactoring can still require careful manual setup and review.",
@@ -543,13 +543,13 @@ def copilot_vs_cursor_page() -> MoneyPage:
                 ],
             )
             + two_column(
-                "Cursor pros",
+                "Pros of Cursor",
                 [
                     "Strong AI-first editor experience for codebase explanation, editing, and iteration.",
                     "Good fit for developers who want chat, context, and multi-file changes close together.",
                     "Can feel faster for solo builders who are willing to change their workflow.",
                 ],
-                "Cursor cons",
+                "Limitations of Cursor",
                 [
                     "Editor migration is real friction for teams with established setups.",
                     "Enterprise buyers should evaluate security, policy, and admin controls carefully.",

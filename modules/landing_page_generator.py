@@ -136,8 +136,8 @@ LANDING_TEMPLATE = """<!doctype html>
       <p><a class="btn" href="{{ cta_url }}" rel="nofollow sponsored">Visit Official Website</a><a class="btn secondary" href="#pricing">Verify Current Pricing</a></p>
       {% if pending_note %}<p class="note">{{ pending_note }}</p>{% endif %}
     </div>
-    <aside class="card">
-      <div class="media-placeholder" role="img" aria-label="{{ brand }} featured image placeholder">Featured image placeholder<br>{{ brand }} research overview</div>
+      <aside class="card">
+        {{ screenshot_html }}
       <h2>Rating Summary</h2>
       <div class="score">{{ overall_score }}/100</div>
       <div class="rating-row"><span>Ease of use</span><strong>{{ ease_score }}/10</strong></div>
@@ -497,8 +497,8 @@ def related_comparisons_for(brand: str) -> list[dict[str, str]]:
 def screenshot_html(slug: str, brand: str) -> str:
     source = settings.base_dir / "assets" / "screenshots" / f"{slug}.png"
     if source.exists():
-        return f'<img class="screenshot" loading="lazy" src="../assets/screenshots/{html.escape(slug)}.png" alt="{html.escape(brand)} dashboard screenshot">'
-    return f'<div class="media-placeholder" role="img" aria-label="{html.escape(brand)} dashboard screenshot placeholder">Dashboard screenshot placeholder<br>Add image at assets/screenshots/{html.escape(slug)}.png</div>'
+        return f'<img class="screenshot" loading="lazy" src="/assets/screenshots/{html.escape(slug)}.png" alt="{html.escape(brand)} dashboard screenshot" width="1200" height="720">'
+    return f'<div class="media-placeholder" role="img" aria-label="{html.escape(brand)} research visual">Research visual<br>Add image at assets/screenshots/{html.escape(slug)}.png</div>'
 
 
 def canonical_url(slug: str) -> str:
