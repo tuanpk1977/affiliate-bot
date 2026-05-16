@@ -1,0 +1,4 @@
+﻿candidate_url,recommended_canonical,candidate_exists,canonical_exists,recommendation,note
+https://review.mssmileenglish.com/jasper-ai/,https://review.mssmileenglish.com/jasper/,yes,yes,merge_or_expand,Possible duplicate brand page. Prefer one canonical Jasper review unless the AI-specific page is expanded.
+https://review.mssmileenglish.com/pipedrive-crm/,https://review.mssmileenglish.com/pipedrive/,yes,yes,merge_or_expand,Possible duplicate CRM page. Prefer one canonical Pipedrive review unless CRM page has unique intent.
+https://review.mssmileenglish.com/notion-ai/,https://review.mssmileenglish.com/notion/,yes,yes,merge_or_expand,Keep both only if Notion AI has distinct AI workflow content and internal links.

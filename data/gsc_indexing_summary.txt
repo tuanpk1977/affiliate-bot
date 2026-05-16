@@ -1,0 +1,6 @@
+sitemap_urls=207
+index_keep_urls=207
+noindex_urls=7
+redirect_rules=1
+sitemap_missing_targets=0
+duplicate_review_recommendations=3

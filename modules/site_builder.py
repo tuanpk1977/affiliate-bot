@@ -22,6 +22,7 @@ from modules.pricing_page_builder import generate_pricing_pages
 from modules.review_page_builder import generate_review_pages
 from modules.seo_expansion_pages import generate_seo_expansion_pages
 from modules.sitemap_generator import generate_sitemap
+from modules.sitemap_generator import NOINDEX_EXACT_PATHS
 from modules.toplist_generator import generate_toplist_pages
 
 
@@ -170,6 +171,7 @@ def build_site_output(landing_index: pd.DataFrame | None = None, base_site_url: 
     write_rss(output, built_pages)
     write_media_kit(output)
     write_aeo_action_plan(output)
+    write_github_pages_files(output)
     go_pages = generate_go_pages(output)
     tracked_pages = rewrite_outbound_ctas(output)
     write_llms_txt(output, built_pages, base_site_url)
@@ -184,6 +186,14 @@ def build_site_output(landing_index: pd.DataFrame | None = None, base_site_url: 
         "go_pages": go_pages,
         "tracked_pages": tracked_pages,
     }
+
+
+def write_github_pages_files(output: Path) -> None:
+    domain = (settings.base_site_url or settings.site_domain or "").strip().rstrip("/")
+    domain = domain.replace("https://", "").replace("http://", "").strip("/")
+    if domain and "yourdomain.com" not in domain:
+        (output / "CNAME").write_text(f"{domain}\n", encoding="utf-8")
+    (output / ".nojekyll").write_text("", encoding="utf-8")
 
 
 def collect_landing_pages(landing_index: pd.DataFrame | None, landing_root: Path, offer_scores: pd.DataFrame | None = None) -> list[dict]:
@@ -684,7 +694,8 @@ def write_trust_pages(output: Path) -> None:
     for slug, (title, body) in pages.items():
         folder = output / slug
         folder.mkdir(parents=True, exist_ok=True)
-        (folder / "index.html").write_text(page_shell(title, f"{title} for AI Tool Review Hub.", body, f"/{slug}/"), encoding="utf-8")
+        robots = "noindex,follow" if slug in NOINDEX_EXACT_PATHS else "index,follow"
+        (folder / "index.html").write_text(page_shell(title, f"{title} for AI Tool Review Hub.", body, f"/{slug}/", robots=robots), encoding="utf-8")
 
 
 def copy_user_published_pages(output: Path) -> list[dict]:
@@ -714,7 +725,15 @@ def copy_user_published_pages(output: Path) -> list[dict]:
     return pages
 
 
-def page_shell(title: str, description: str, body: str, path: str | None = None, image_path: str = "/assets/og/site.svg", page_type: str = "article") -> str:
+def page_shell(
+    title: str,
+    description: str,
+    body: str,
+    path: str | None = None,
+    image_path: str = "/assets/og/site.svg",
+    page_type: str = "article",
+    robots: str = "index,follow",
+) -> str:
     base = (settings.base_site_url or settings.site_domain or "https://yourdomain.com").rstrip("/")
     canonical = base + (path or f"/{title.lower().replace(' ', '-')}/")
     schema_items = base_schemas(title, description, canonical)
@@ -727,7 +746,7 @@ def page_shell(title: str, description: str, body: str, path: str | None = None,
     )
     return f"""<!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{html.escape(title)} - {html.escape(settings.site_name)}</title><meta name="description" content="{html.escape(description)}"><link rel="canonical" href="{html.escape(canonical, quote=True)}"><link rel="alternate" type="application/rss+xml" title="{html.escape(settings.site_name)} RSS" href="{html.escape(site_url('/rss.xml'), quote=True)}"><meta property="og:title" content="{html.escape(title)} - {html.escape(settings.site_name)}"><meta property="og:description" content="{html.escape(description)}"><meta property="og:type" content="{html.escape(page_type)}"><meta property="og:image" content="{html.escape(site_url(image_path), quote=True)}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{html.escape(site_url(image_path), quote=True)}"><meta name="google-site-verification" content="{html.escape(settings.google_site_verification, quote=True)}">{analytics_snippet()}{schemas}<style>{base_css()}</style></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{html.escape(title)} - {html.escape(settings.site_name)}</title><meta name="description" content="{html.escape(description)}"><meta name="robots" content="{html.escape(robots, quote=True)}"><link rel="canonical" href="{html.escape(canonical, quote=True)}"><link rel="alternate" type="application/rss+xml" title="{html.escape(settings.site_name)} RSS" href="{html.escape(site_url('/rss.xml'), quote=True)}"><meta property="og:title" content="{html.escape(title)} - {html.escape(settings.site_name)}"><meta property="og:description" content="{html.escape(description)}"><meta property="og:type" content="{html.escape(page_type)}"><meta property="og:image" content="{html.escape(site_url(image_path), quote=True)}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{html.escape(site_url(image_path), quote=True)}"><meta name="google-site-verification" content="{html.escape(settings.google_site_verification, quote=True)}">{analytics_snippet()}{schemas}<style>{base_css()}</style></head>
 <body>{nav_html()}<main class="wrap legal">{body}</main>{footer_html()}</body></html>"""
 
 
@@ -735,7 +754,8 @@ def write_legal_pages(output: Path) -> None:
     for slug, (title, body) in legal_pages().items():
         folder = output / slug
         folder.mkdir(parents=True, exist_ok=True)
-        page = page_shell(title, f"{title} for {settings.site_name}.", f"<h1>{html.escape(title)}</h1>{body}", f"/{slug}/")
+        robots = "noindex,follow" if slug in NOINDEX_EXACT_PATHS else "index,follow"
+        page = page_shell(title, f"{title} for {settings.site_name}.", f"<h1>{html.escape(title)}</h1>{body}", f"/{slug}/", robots=robots)
         (folder / "index.html").write_text(page, encoding="utf-8")
 
 
@@ -770,7 +790,7 @@ def write_html_sitemap(output: Path, pages: list[dict]) -> None:
     blog_links = "".join(f"<li><a href='/blog/{html.escape(slug)}/'>{html.escape(title)}</a></li>" for slug, title, _ in BLOG_POSTS)
     static_links = "".join(f"<li><a href='/{html.escape(slug)}/'>/{html.escape(slug)}/</a></li>" for slug in CONTENT_SLUGS + CATEGORY_SLUGS + COMPARISON_SLUGS + LEGAL_SLUGS + ["blog", "media-kit"])
     body = f"<section class='card'><h1>HTML Sitemap</h1><h2>Reviews</h2><ul>{review_links}</ul><h2>Blog</h2><ul>{blog_links}</ul><h2>Site pages</h2><ul>{static_links}</ul></section>"
-    (folder / "index.html").write_text(page_shell("Sitemap", "Human-readable sitemap for AI Tool Review Hub.", body, "/sitemap/"), encoding="utf-8")
+    (folder / "index.html").write_text(page_shell("Sitemap", "Human-readable sitemap for AI Tool Review Hub.", body, "/sitemap/", robots="noindex,follow"), encoding="utf-8")
 
 
 def write_rss(output: Path, pages: list[dict] | None = None) -> None:
@@ -797,7 +817,7 @@ def write_media_kit(output: Path) -> None:
     folder.mkdir(parents=True, exist_ok=True)
     body = f"""<section class='card'><h1>Media Kit</h1><p><strong>{html.escape(settings.site_name)}</strong> is an independent-style AI and SaaS review hub focused on research, comparisons, and transparent affiliate disclosure.</p><p>Contact: <a href='mailto:{html.escape(settings.contact_email)}'>{html.escape(settings.contact_email)}</a></p></section>
     <section class='grid'><div class='card'><h2>Categories</h2><ul><li>AI Tools</li><li>Marketing</li><li>CRM</li><li>Website Builders</li><li>Productivity</li></ul></div><div class='card'><h2>Social preview</h2><img loading='lazy' src='/assets/og/home.svg' alt='AI Tool Review Hub social preview' style='width:100%;border-radius:8px'></div></section>"""
-    (folder / "index.html").write_text(page_shell("Media Kit", "Brand, category, contact, and social preview information.", body, "/media-kit/"), encoding="utf-8")
+    (folder / "index.html").write_text(page_shell("Media Kit", "Brand, category, contact, and social preview information.", body, "/media-kit/", robots="noindex,follow"), encoding="utf-8")
 
 
 def write_aeo_action_plan(output: Path) -> None:
@@ -941,6 +961,13 @@ def write_robots(output: Path, base_site_url: str) -> None:
         "Disallow: /data/\n"
         "Disallow: /config/\n"
         "Disallow: /logs/\n"
+        "Disallow: /rss.xml\n"
+        "Disallow: /sitemap/\n"
+        "Disallow: /media-kit/\n"
+        "Disallow: /about-author/\n"
+        "Disallow: /author-profile/\n"
+        "Disallow: /affiliate-disclosure/\n"
+        "Disallow: /editorial-policy/\n"
         f"{sitemap}"
     )
     (output / "robots.txt").write_text(robots, encoding="utf-8")
@@ -951,10 +978,56 @@ def write_sitemap(output: Path, pages: list[dict], base_site_url: str) -> None:
 
 
 def write_redirects(output: Path, pages: list[dict]) -> None:
+    redirect_map = legacy_redirects(pages)
     lines = ["/home / 301"]
+    lines.extend(f"{source} {target} 301" for source, target in redirect_map.items())
     for page in pages:
         lines.append(f"/{page['slug']} /{page['slug']}/ 301")
     (output / "_redirects").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    write_static_redirect_pages(output, redirect_map)
+
+
+def legacy_redirects(pages: list[dict]) -> dict[str, str]:
+    redirects = {
+        "/reviews/windsurf-review/": "/windsurf-review/",
+        "/reviews/windsurf-review": "/windsurf-review/",
+    }
+    for page in pages:
+        slug = str(page.get("slug", "")).strip("/")
+        if slug:
+            redirects.setdefault(f"/reviews/{slug}/", f"/{slug}/")
+            redirects.setdefault(f"/reviews/{slug}", f"/{slug}/")
+    return redirects
+
+
+def write_static_redirect_pages(output: Path, redirects: dict[str, str]) -> None:
+    for source, target in redirects.items():
+        source_path = source.strip("/")
+        if not source_path:
+            continue
+        folder = output / source_path
+        folder.mkdir(parents=True, exist_ok=True)
+        title = "Redirecting"
+        description = f"Redirecting to {target}"
+        target_url = site_url(target)
+        body = f"""
+<section class="card">
+  <h1>Redirecting</h1>
+  <p>This page has moved to <a href="{html.escape(target)}">{html.escape(target)}</a>.</p>
+  <p><a class="btn" href="{html.escape(target)}">Continue to the current page</a><a class="btn secondary" href="/">Home</a><a class="btn secondary" href="/reviews/">Reviews</a></p>
+</section>
+<script>window.location.replace("{html.escape(target, quote=True)}");</script>
+"""
+        page = page_shell(title, description, body, source if source.endswith("/") else f"{source}/", page_type="website", robots="noindex,follow")
+        page = page.replace(
+            f'<link rel="canonical" href="{html.escape(site_url(source if source.endswith("/") else f"{source}/"), quote=True)}">',
+            f'<link rel="canonical" href="{html.escape(target_url, quote=True)}">',
+        )
+        page = page.replace(
+            "<head><meta charset",
+            f'<head><meta http-equiv="refresh" content="0; url={html.escape(target, quote=True)}"><meta charset',
+        )
+        (folder / "index.html").write_text(page, encoding="utf-8")
 
 
 def short_description(brand: str, niche: str) -> str:

@@ -7,6 +7,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "site_output"
 TARGET = ROOT / "docs"
+PRESERVE_FILES = {
+    "click_tracking_setup.md",
+    "social_distribution_workflow.md",
+}
 
 
 def assert_inside_root(path: Path) -> Path:
@@ -26,6 +30,12 @@ def sync_site_output_to_docs() -> dict[str, int]:
         raise RuntimeError("Source and target folders must be different.")
 
     target.mkdir(parents=True, exist_ok=True)
+    preserved: dict[str, str] = {}
+    for name in PRESERVE_FILES:
+        path = target / name
+        if path.exists() and path.is_file():
+            preserved[name] = path.read_text(encoding="utf-8")
+
     removed = 0
     copied = 0
 
@@ -46,12 +56,18 @@ def sync_site_output_to_docs() -> dict[str, int]:
             shutil.copy2(item, destination)
         copied += 1
 
-    return {"removed": removed, "copied": copied}
+    for name, content in preserved.items():
+        (target / name).write_text(content, encoding="utf-8")
+
+    return {"removed": removed, "copied": copied, "preserved": len(preserved)}
 
 
 def main() -> None:
     result = sync_site_output_to_docs()
-    print(f"Synced site_output to docs: removed={result['removed']} copied={result['copied']}")
+    print(
+        "Synced site_output to docs: "
+        f"removed={result['removed']} copied={result['copied']} preserved={result['preserved']}"
+    )
 
 
 if __name__ == "__main__":

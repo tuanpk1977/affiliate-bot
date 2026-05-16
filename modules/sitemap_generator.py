@@ -6,6 +6,21 @@ from xml.sax.saxutils import escape
 
 from config import settings
 
+NOINDEX_EXACT_PATHS = {
+    "sitemap",
+    "media-kit",
+    "about-author",
+    "author-profile",
+    "affiliate-disclosure",
+    "editorial-policy",
+}
+
+NOINDEX_PREFIXES = {
+    "assets",
+    "__pycache__",
+    "go",
+}
+
 
 def generate_sitemap(output_dir: Path | None = None, base_url: str | None = None) -> Path:
     output = output_dir or settings.site_output_dir
@@ -45,7 +60,14 @@ def scan_index_pages(output: Path, base_url: str) -> list[dict[str, str]]:
 
 def should_skip(path: Path, output: Path) -> bool:
     rel_parts = path.relative_to(output).parts
-    return bool(rel_parts and rel_parts[0] in {"assets", "__pycache__", "go"})
+    if not rel_parts:
+        return False
+    if rel_parts[0] in NOINDEX_PREFIXES:
+        return True
+    if rel_parts[0] == "reviews" and len(rel_parts) > 2:
+        return True
+    url_path = "/".join(rel_parts[:-1]) if rel_parts[-1] == "index.html" else "/".join(rel_parts)
+    return url_path.strip("/") in NOINDEX_EXACT_PATHS
 
 
 def file_lastmod(path: Path) -> str:
