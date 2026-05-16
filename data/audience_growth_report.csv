@@ -1,2 +1,2 @@
-﻿about_page_created,lead_magnet_page_created,checklist_created,subscriber_capture_ready,social_plan_days,social_posts_created,internal_links_added,warnings
-True,True,True,True,30,480,16,Static GitHub Pages cannot write form submissions without a future provider/webhook.
+﻿about_page_created,lead_magnet_page_created,checklist_created,email_capture_setup_created,subscriber_capture_ready,social_plan_days,social_posts_created,internal_links_added,warnings
+True,True,True,True,True,30,480,16,Static GitHub Pages cannot write form submissions without a future provider/webhook.

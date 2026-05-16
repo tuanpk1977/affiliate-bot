@@ -6,6 +6,7 @@ import unittest
 from config import settings
 from modules.audience_growth import (
     checklist_items,
+    email_capture_setup_faq,
     ensure_email_capture_config,
     ensure_subscribers_csv,
     page_shell,
@@ -38,6 +39,13 @@ class AudienceGrowthTests(unittest.TestCase):
         self.assertIn('hreflang="en"', html)
         self.assertIn('hreflang="vi"', html)
         self.assertIn("Tiếng Việt", html)
+
+    def test_email_capture_setup_faq_is_static_honest(self) -> None:
+        faq = dict(email_capture_setup_faq("en"))
+        combined = " ".join(faq.values()).lower()
+        self.assertIn("static", combined)
+        self.assertIn("cannot write", combined)
+        self.assertIn("formspree", combined)
 
     def test_social_plan_has_no_fake_affiliate_link(self) -> None:
         content = social_plan_content("Cursor cleanup", "linkedin", "en", "story/comparison/case study")

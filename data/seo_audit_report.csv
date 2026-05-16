@@ -120,10 +120,11 @@ https://review.mssmileenglish.com/durable/,51,131,1,45,7,true,true,Answer|Articl
 https://review.mssmileenglish.com/editorial-policy/,41,40,1,46,12,true,true,Article|BreadcrumbList|ContactPoint|ListItem|Organization|Person|WebSite,meta_description_length_check
 https://review.mssmileenglish.com/elevenlabs/,54,134,1,42,7,true,true,Answer|Article|Brand|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/elevenlabs-pricing/,82,165,1,47,11,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check
+https://review.mssmileenglish.com/email-capture-setup/,44,107,1,14,0,true,true,Answer|Article|BreadcrumbList|FAQPage|ListItem|Organization|Question,
 https://review.mssmileenglish.com/email-marketing-alternatives/,67,170,1,49,16,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,
 https://review.mssmileenglish.com/email-marketing-software-review/,88,173,1,49,16,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check|meta_description_length_check
 https://review.mssmileenglish.com/framer/,50,130,1,45,7,true,true,Answer|Article|Brand|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
-https://review.mssmileenglish.com/free-ai-coding-workflow-checklist/,58,123,1,14,0,true,true,Answer|Article|BreadcrumbList|FAQPage|ListItem|Organization|Question,
+https://review.mssmileenglish.com/free-ai-coding-workflow-checklist/,58,123,1,15,0,true,true,Answer|Article|BreadcrumbList|FAQPage|ListItem|Organization|Question,
 https://review.mssmileenglish.com/gamma/,49,129,1,45,10,true,true,Answer|Article|Brand|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/github-copilot/,58,138,1,46,15,true,true,Answer|Article|Brand|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/github-copilot-pricing/,86,169,1,43,11,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check
@@ -358,10 +359,11 @@ https://review.mssmileenglish.com/vi/durable/,56,141,1,45,7,true,true,Answer|Art
 https://review.mssmileenglish.com/vi/editorial-policy/,44,47,1,46,12,true,true,Article|BreadcrumbList|ListItem|Liên hệPoint|Organization|Person|WebSite,meta_description_length_check
 https://review.mssmileenglish.com/vi/elevenlabs/,59,144,1,42,7,true,true,Answer|Article|Brand|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/vi/elevenlabs-pricing/,78,161,1,47,11,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check
+https://review.mssmileenglish.com/vi/email-capture-setup/,47,87,1,14,0,true,true,Answer|Article|BreadcrumbList|FAQPage|ListItem|Organization|Question,meta_description_length_check
 https://review.mssmileenglish.com/vi/email-marketing-alternatives/,72,170,1,49,16,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check
 https://review.mssmileenglish.com/vi/email-marketing-software-review/,97,173,1,49,16,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check|meta_description_length_check
 https://review.mssmileenglish.com/vi/framer/,55,140,1,45,7,true,true,Answer|Article|Brand|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
-https://review.mssmileenglish.com/vi/free-ai-coding-workflow-checklist/,62,98,1,14,0,true,true,Answer|Article|BreadcrumbList|FAQPage|ListItem|Organization|Question,
+https://review.mssmileenglish.com/vi/free-ai-coding-workflow-checklist/,62,98,1,15,0,true,true,Answer|Article|BreadcrumbList|FAQPage|ListItem|Organization|Question,
 https://review.mssmileenglish.com/vi/gamma/,54,139,1,45,10,true,true,Answer|Article|Brand|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/vi/github-copilot/,63,148,1,46,15,true,true,Answer|Article|Brand|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/vi/github-copilot-pricing/,82,165,1,43,11,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check

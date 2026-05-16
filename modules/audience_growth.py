@@ -14,6 +14,7 @@ SITE_NAME = "MS Smile AI Review Hub"
 CONTACT_EMAIL = "tuanpk1977@gmail.com"
 LEAD_SLUG = "free-ai-coding-workflow-checklist"
 DOWNLOAD_SLUG = "downloads/ai-coding-workflow-checklist"
+EMAIL_SETUP_SLUG = "email-capture-setup"
 SOCIAL_PLATFORMS = ["facebook", "linkedin", "twitter", "short_video"]
 
 
@@ -25,12 +26,14 @@ def run_audience_growth_system(output: Path | None = None) -> dict[str, int]:
     write_about_pages(root)
     write_lead_magnet_pages(root)
     write_checklist_pages(root)
+    write_email_capture_setup_pages(root)
     internal_links_added = add_build_in_public_links(root)
     social_posts = write_30_day_social_plan()
     report_rows = write_audience_growth_report(
         about_page_created=True,
         lead_magnet_page_created=True,
         checklist_created=True,
+        email_capture_setup_created=True,
         subscriber_capture_ready=True,
         social_plan_days=30,
         social_posts_created=social_posts,
@@ -41,6 +44,7 @@ def run_audience_growth_system(output: Path | None = None) -> dict[str, int]:
         "about_pages": 2,
         "lead_magnet_pages": 2,
         "checklist_pages": 4,
+        "email_capture_setup_pages": 2,
         "social_posts_created": social_posts,
         "internal_links_added": internal_links_added,
         "report_rows": report_rows,
@@ -291,13 +295,13 @@ def lead_form(lang: str) -> str:
   <input type="hidden" name="source_page" value="/vi/free-ai-coding-workflow-checklist/">
   <button type="submit">Nhận checklist</button>
 </form>
-<p class="note">GitHub Pages là static site nên form này dùng mailto/fallback. Không spam, có thể hủy đăng ký bất cứ lúc nào khi tích hợp email thật sau này.</p>"""
+<p class="note"><strong>Email capture hiện đang ở chế độ thiết lập.</strong> GitHub Pages là static site nên form này dùng mailto/fallback và chưa tự lưu email vào hệ thống. Không spam; khi tích hợp provider thật bạn có thể hủy đăng ký bất cứ lúc nào. <a href="/vi/email-capture-setup/">Xem cách cấu hình email capture</a>.</p>"""
     return """<form class="email-form" action="mailto:tuanpk1977@gmail.com" method="post" enctype="text/plain">
   <input type="email" name="email" placeholder="Your email" required>
   <input type="hidden" name="source_page" value="/free-ai-coding-workflow-checklist/">
   <button type="submit">Get the checklist</button>
 </form>
-<p class="note">This is a static GitHub Pages fallback form using mailto. No spam, unsubscribe anytime when a real email provider is connected.</p>"""
+<p class="note"><strong>Email capture is currently in setup mode.</strong> GitHub Pages is a static site, so this form uses a mailto fallback and does not automatically save emails yet. No spam; unsubscribe anytime when a real provider is connected. <a href="/email-capture-setup/">See email capture setup options</a>.</p>"""
 
 
 def faq_html(items: list[tuple[str, str]]) -> str:
@@ -379,6 +383,95 @@ def write_lead_magnet_pages(root: Path) -> None:
 """
     write_html(root, LEAD_SLUG, page_shell("Free AI Coding Workflow Checklist", "Download a practical AI coding workflow checklist for Windsurf, Codex, Cursor, SEO validation, and GitHub Pages deployment.", f"/{LEAD_SLUG}/", en_body, "en", en_faq))
     write_html(root, f"vi/{LEAD_SLUG}", page_shell("Checklist workflow AI coding miễn phí", "Checklist workflow AI coding với Windsurf, Codex, Cursor, kiểm tra SEO và triển khai GitHub Pages.", f"/vi/{LEAD_SLUG}/", vi_body, "vi", vi_faq))
+
+
+def email_capture_setup_faq(lang: str) -> list[tuple[str, str]]:
+    if lang == "vi":
+        return [
+            ("GitHub Pages có tự lưu email được không?", "Không. GitHub Pages chỉ phục vụ file static nên không thể ghi trực tiếp vào data/subscribers.csv nếu không có backend hoặc form provider."),
+            ("Hiện form trên site đang làm gì?", "Form đang ở chế độ thiết lập, dùng mailto/fallback để người đọc có thể liên hệ trong khi chờ tích hợp provider thật."),
+            ("Nên tích hợp gì sau này?", "Các lựa chọn đơn giản là Formspree, Google Forms, ConvertKit, Mailchimp hoặc Netlify Forms nếu sau này chuyển sang Netlify."),
+        ]
+    return [
+        ("Can GitHub Pages save emails directly?", "No. GitHub Pages serves static files, so it cannot write directly to data/subscribers.csv without a backend or form provider."),
+        ("What does the current form do?", "The form is in setup mode. It uses a mailto fallback so readers can contact you while a real provider is not connected yet."),
+        ("What should be integrated later?", "Simple options include Formspree, Google Forms, ConvertKit, Mailchimp, or Netlify Forms if the site later moves to Netlify."),
+    ]
+
+
+def write_email_capture_setup_pages(root: Path) -> None:
+    en_faq = email_capture_setup_faq("en")
+    vi_faq = email_capture_setup_faq("vi")
+    en_body = f"""
+<section class="hero">
+  <p class="note">Local-safe email capture</p>
+  <h1>Email Capture Setup</h1>
+  <p>This site is currently running on GitHub Pages, so the checklist form is intentionally in setup mode. It does not pretend to save subscribers until a real backend or form provider is connected.</p>
+</section>
+<section class="card trust">
+  <h2>Email capture is currently in setup mode</h2>
+  <p>GitHub Pages cannot write new form submissions into <code>data/subscribers.csv</code> on its own. The current form uses a mailto fallback and the local CSV is prepared for future imports or provider exports.</p>
+</section>
+<section class="grid">
+  <div class="card"><h2>Option A: Formspree</h2><p>Use Formspree for a simple hosted endpoint, then export subscribers into your local workflow. Do not hard-code private keys in the static site.</p></div>
+  <div class="card"><h2>Option B: Google Forms</h2><p>Embed or link to a Google Form if you want the lowest-maintenance setup. This is not as branded, but it is simple and reliable.</p></div>
+  <div class="card"><h2>Option C: Netlify Forms</h2><p>If the site later moves to Netlify, Netlify Forms can capture submissions without building a custom backend.</p></div>
+</section>
+<section class="card">
+  <h2>Recommended next step</h2>
+  <p>Keep the current local-safe mode until you choose a provider. Then update <code>config/email_capture.json</code> with the provider name and replace the mailto action with the provider endpoint.</p>
+  <a class="btn" href="/free-ai-coding-workflow-checklist/">Back to checklist signup</a>
+</section>
+{faq_html(en_faq)}
+<section class="card"><h2>CTA</h2><p>Use this page as the setup note before enabling real subscriber storage.</p><a class="btn" href="mailto:{CONTACT_EMAIL}">Contact the site owner</a></section>
+"""
+    vi_body = f"""
+<section class="hero">
+  <p class="note">Email capture an toàn ở chế độ local</p>
+  <h1>Cấu hình email capture</h1>
+  <p>Website hiện chạy trên GitHub Pages, vì vậy form nhận checklist đang ở chế độ thiết lập. Site không giả vờ lưu subscriber khi chưa có backend hoặc form provider thật.</p>
+</section>
+<section class="card trust">
+  <h2>Email capture hiện đang ở chế độ thiết lập</h2>
+  <p>GitHub Pages không thể tự ghi form submission mới vào <code>data/subscribers.csv</code>. Form hiện dùng mailto/fallback, còn CSV local được chuẩn bị để nhập dữ liệu thủ công hoặc import từ provider sau này.</p>
+</section>
+<section class="grid">
+  <div class="card"><h2>Lựa chọn A: Formspree</h2><p>Dùng Formspree nếu bạn muốn endpoint hosted đơn giản rồi export subscriber về workflow local. Không hard-code private key trong site static.</p></div>
+  <div class="card"><h2>Lựa chọn B: Google Forms</h2><p>Nhúng hoặc link tới Google Form nếu muốn cách ít bảo trì nhất. Không đẹp bằng form riêng, nhưng dễ kiểm soát và ổn định.</p></div>
+  <div class="card"><h2>Lựa chọn C: Netlify Forms</h2><p>Nếu sau này chuyển site sang Netlify, Netlify Forms có thể nhận submission mà không cần tự viết backend.</p></div>
+</section>
+<section class="card">
+  <h2>Bước tiếp theo nên làm</h2>
+  <p>Giữ chế độ local-safe hiện tại cho đến khi chọn provider. Sau đó cập nhật <code>config/email_capture.json</code> và thay mailto action bằng endpoint của provider.</p>
+  <a class="btn" href="/vi/free-ai-coding-workflow-checklist/">Quay lại trang nhận checklist</a>
+</section>
+{faq_html(vi_faq)}
+<section class="card"><h2>CTA</h2><p>Dùng trang này như ghi chú cấu hình trước khi bật lưu subscriber thật.</p><a class="btn" href="mailto:{CONTACT_EMAIL}">Liên hệ chủ site</a></section>
+"""
+    write_html(
+        root,
+        EMAIL_SETUP_SLUG,
+        page_shell(
+            "Email Capture Setup",
+            "How email capture works on this static GitHub Pages site and which provider options can be connected later.",
+            f"/{EMAIL_SETUP_SLUG}/",
+            en_body,
+            "en",
+            en_faq,
+        ),
+    )
+    write_html(
+        root,
+        f"vi/{EMAIL_SETUP_SLUG}",
+        page_shell(
+            "Cấu hình email capture",
+            "Cách email capture hoạt động trên GitHub Pages static và các lựa chọn tích hợp sau này.",
+            f"/vi/{EMAIL_SETUP_SLUG}/",
+            vi_body,
+            "vi",
+            vi_faq,
+        ),
+    )
 
 
 def checklist_items(lang: str) -> list[str]:
@@ -562,6 +655,7 @@ def write_audience_growth_report(**kwargs: object) -> int:
         "about_page_created",
         "lead_magnet_page_created",
         "checklist_created",
+        "email_capture_setup_created",
         "subscriber_capture_ready",
         "social_plan_days",
         "social_posts_created",

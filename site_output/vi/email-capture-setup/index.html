@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cấu hình email capture - MS Smile AI Review Hub</title>
+  <meta name="description" content="Cách email capture hoạt động trên GitHub Pages static và các lựa chọn tích hợp sau này.">
+  <link rel="canonical" href="https://review.mssmileenglish.com/vi/email-capture-setup/">
+  <link rel="alternate" hreflang="en" href="https://review.mssmileenglish.com/email-capture-setup/">
+  <link rel="alternate" hreflang="vi" href="https://review.mssmileenglish.com/vi/email-capture-setup/">
+  <link rel="alternate" hreflang="x-default" href="https://review.mssmileenglish.com/email-capture-setup/">
+  <meta property="og:title" content="Cấu hình email capture">
+  <meta property="og:description" content="Cách email capture hoạt động trên GitHub Pages static và các lựa chọn tích hợp sau này.">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://review.mssmileenglish.com/assets/og/site.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://review.mssmileenglish.com/assets/og/site.svg">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Cấu hình email capture", "description": "Cách email capture hoạt động trên GitHub Pages static và các lựa chọn tích hợp sau này.", "inLanguage": "vi", "url": "https://review.mssmileenglish.com/vi/email-capture-setup/", "publisher": {"@type": "Organization", "name": "MS Smile AI Review Hub"}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://review.mssmileenglish.com/vi/"}, {"@type": "ListItem", "position": 2, "name": "Cấu hình email capture", "item": "https://review.mssmileenglish.com/vi/email-capture-setup/"}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "GitHub Pages có tự lưu email được không?", "acceptedAnswer": {"@type": "Answer", "text": "Không. GitHub Pages chỉ phục vụ file static nên không thể ghi trực tiếp vào data/subscribers.csv nếu không có backend hoặc form provider."}}, {"@type": "Question", "name": "Hiện form trên site đang làm gì?", "acceptedAnswer": {"@type": "Answer", "text": "Form đang ở chế độ thiết lập, dùng mailto/fallback để người đọc có thể liên hệ trong khi chờ tích hợp provider thật."}}, {"@type": "Question", "name": "Nên tích hợp gì sau này?", "acceptedAnswer": {"@type": "Answer", "text": "Các lựa chọn đơn giản là Formspree, Google Forms, ConvertKit, Mailchimp hoặc Netlify Forms nếu sau này chuyển sang Netlify."}}]}</script>
+  <style>:root{--bg:#f7f9fc;--text:#17202a;--muted:#596579;--line:#dbe3ef;--card:#fff;--accent:#0f766e;--warn:#9a3412}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}.wrap{max-width:1120px;margin:0 auto;padding:0 20px}.nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}.nav-inner{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:18px}.logo{font-weight:800;color:#0f172a;text-decoration:none}.menu{display:flex;gap:18px;flex-wrap:wrap}.menu a{color:#475569;text-decoration:none;font-size:14px}.language-switcher{display:flex;gap:8px;align-items:center;border:1px solid #dbe3ef;border-radius:999px;padding:4px 8px;background:#f8fafc;font-size:13px;white-space:nowrap}.language-switcher span{font-weight:800;color:#0f766e}.language-switcher a{color:#475569;text-decoration:none}.language-switcher .active{font-weight:800}.hero{padding:46px 0 18px}.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:20px;margin:18px 0;box-shadow:0 1px 2px rgba(15,23,42,.04)}h1{font-size:42px;line-height:1.12;margin:10px 0}h2{font-size:26px;margin:0 0 12px}h3{font-size:18px;margin:0 0 8px}p,li{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:12px 16px;border-radius:6px;font-weight:800;margin:6px 8px 6px 0}.btn.secondary{background:#e2e8f0;color:#0f172a}.trust{border-left:4px solid var(--warn);background:#fff7ed}.note{font-size:14px;color:#7c2d12}.email-form input{padding:12px;border:1px solid var(--line);border-radius:6px;min-width:280px}.email-form button{padding:12px 16px;border:0;border-radius:6px;background:var(--accent);color:#fff;font-weight:800}footer{margin-top:36px;background:#0f172a;color:#cbd5e1;padding:28px 0}footer a{color:#e2e8f0;text-decoration:none;margin-right:14px}footer p{color:#cbd5e1}@media(max-width:760px){h1{font-size:32px}.nav-inner{align-items:flex-start;flex-direction:column;padding:14px 0}.language-switcher{margin-top:6px}.email-form input{min-width:100%;margin-bottom:8px}}</style>
+</head>
+<body>
+  <nav class='nav'><div class='wrap nav-inner'><a class='logo' href='/vi/'>MS Smile AI Review Hub</a><div class='menu'><a href='/vi/'>Trang chủ</a><a href='/vi/reviews/'>Đánh giá</a><a href='/vi/comparisons/'>So sánh</a><a href='/vi/pricing/'>Giá</a><a href='/vi/categories/'>Danh mục</a><a href='/vi/blog/'>Blog</a><a href='/vi/contact/'>Liên hệ</a></div><div class='language-switcher'><a class='' href='/email-capture-setup/'>English</a><span>|</span><a class='active' href='/vi/email-capture-setup/'>Tiếng Việt</a></div></div><div class='wrap'><p class='note'>Một số liên kết có thể là liên kết tiếp thị liên kết. Chúng tôi có thể nhận hoa hồng mà không phát sinh thêm chi phí nào cho bạn.</p></div></nav>
+  <main class="wrap">
+<section class="hero">
+  <p class="note">Email capture an toàn ở chế độ local</p>
+  <h1>Cấu hình email capture</h1>
+  <p>Website hiện chạy trên GitHub Pages, vì vậy form nhận checklist đang ở chế độ thiết lập. Site không giả vờ lưu subscriber khi chưa có backend hoặc form provider thật.</p>
+</section>
+<section class="card trust">
+  <h2>Email capture hiện đang ở chế độ thiết lập</h2>
+  <p>GitHub Pages không thể tự ghi form submission mới vào <code>data/subscribers.csv</code>. Form hiện dùng mailto/fallback, còn CSV local được chuẩn bị để nhập dữ liệu thủ công hoặc import từ provider sau này.</p>
+</section>
+<section class="grid">
+  <div class="card"><h2>Lựa chọn A: Formspree</h2><p>Dùng Formspree nếu bạn muốn endpoint hosted đơn giản rồi export subscriber về workflow local. Không hard-code private key trong site static.</p></div>
+  <div class="card"><h2>Lựa chọn B: Google Forms</h2><p>Nhúng hoặc link tới Google Form nếu muốn cách ít bảo trì nhất. Không đẹp bằng form riêng, nhưng dễ kiểm soát và ổn định.</p></div>
+  <div class="card"><h2>Lựa chọn C: Netlify Forms</h2><p>Nếu sau này chuyển site sang Netlify, Netlify Forms có thể nhận submission mà không cần tự viết backend.</p></div>
+</section>
+<section class="card">
+  <h2>Bước tiếp theo nên làm</h2>
+  <p>Giữ chế độ local-safe hiện tại cho đến khi chọn provider. Sau đó cập nhật <code>config/email_capture.json</code> và thay mailto action bằng endpoint của provider.</p>
+  <a class="btn" href="/vi/free-ai-coding-workflow-checklist/">Quay lại trang nhận checklist</a>
+</section>
+<section class='card'><h2>FAQ</h2><details><summary>GitHub Pages có tự lưu email được không?</summary><p>Không. GitHub Pages chỉ phục vụ file static nên không thể ghi trực tiếp vào data/subscribers.csv nếu không có backend hoặc form provider.</p></details><details><summary>Hiện form trên site đang làm gì?</summary><p>Form đang ở chế độ thiết lập, dùng mailto/fallback để người đọc có thể liên hệ trong khi chờ tích hợp provider thật.</p></details><details><summary>Nên tích hợp gì sau này?</summary><p>Các lựa chọn đơn giản là Formspree, Google Forms, ConvertKit, Mailchimp hoặc Netlify Forms nếu sau này chuyển sang Netlify.</p></details></section>
+<section class="card"><h2>CTA</h2><p>Dùng trang này như ghi chú cấu hình trước khi bật lưu subscriber thật.</p><a class="btn" href="mailto:tuanpk1977@gmail.com">Liên hệ chủ site</a></section>
+</main>
+  <footer><div class='wrap'><p><strong>MS Smile AI Review Hub</strong></p><p>Liên hệ: <a href='mailto:tuanpk1977@gmail.com'>tuanpk1977@gmail.com</a></p><p><a href='/vi/privacy/'>Chính sách bảo mật</a> <a href='/vi/terms/'>Điều khoản</a> <a href='/vi/disclosure/'>Tiết lộ liên kết</a> <a href='/vi/about/'>Giới thiệu</a> <a href='/vi/contact/'>Liên hệ</a></p><p>&copy; 2026 MS Smile AI Review Hub.</p><p>Một số liên kết có thể là liên kết tiếp thị liên kết. Chúng tôi có thể nhận hoa hồng mà không phát sinh thêm chi phí nào cho bạn.</p></div></footer>
+</body>
+</html>
