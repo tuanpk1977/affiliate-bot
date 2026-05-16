@@ -109,7 +109,7 @@ LANDING_TEMPLATE = """<!doctype html>
     .logo{font-weight:800;color:#0f172a;text-decoration:none}.menu{display:flex;gap:18px;flex-wrap:wrap}.menu a{color:#475569;text-decoration:none;font-size:14px}
     .hero{padding:52px 0 32px;background:linear-gradient(180deg,#ffffff,#f7f9fc)}
     .hero-grid{display:grid;grid-template-columns:1.5fr .9fr;gap:24px;align-items:start}
-    h1{font-size:44px;line-height:1.08;margin:12px 0 12px;letter-spacing:0}h2{font-size:26px;margin:0 0 12px}h3{font-size:18px;margin:0 0 8px}
+    h1{font-size:44px;line-height:1.08;margin:12px 0 12px;letter-spacing:0}h2{font-size:26px;line-height:1.25;margin:0 0 12px;white-space:normal;overflow:visible;text-overflow:clip;word-break:normal}h3{font-size:18px;margin:0 0 8px}
     p,li{color:var(--muted)}.badge{display:inline-block;border:1px solid #a7f3d0;background:#ecfdf5;color:#047857;border-radius:999px;padding:5px 10px;font-size:13px;font-weight:700;margin-right:6px}
     .btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:12px 16px;border-radius:6px;font-weight:800;margin-right:10px}.btn.secondary{background:#e2e8f0;color:#0f172a}
     .card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px;margin:16px 0;box-shadow:0 1px 2px rgba(15,23,42,.04)}
@@ -173,7 +173,7 @@ LANDING_TEMPLATE = """<!doctype html>
     </section>
     <section class="grid" id="pros-cons">
       <div class="card"><h2>Ưu điểm</h2><ul class="pros">{% for item in pros %}<li>{{ item }}</li>{% endfor %}</ul></div>
-      <div class="card"><h2>Hạn chế</h2><ul class="cons">{% for item in cons %}<li>{{ item }}</li>{% endfor %}</ul></div>
+      <div class="card"><h2>Nhược điểm / hạn chế</h2><ul class="cons">{% for item in cons %}<li>{{ item }}</li>{% endfor %}</ul></div>
     </section>
     <section class="card"><h2>Bảng ưu điểm / hạn chế</h2>
       <table><thead><tr><th>✓ Pros</th><th>⚠ Cons</th></tr></thead><tbody>{{ pros_cons_rows }}</tbody></table>
