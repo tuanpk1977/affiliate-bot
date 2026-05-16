@@ -313,6 +313,8 @@ def ensure_visible_breadcrumb(text: str, page: PageInfo) -> str:
 def ensure_sticky_toc(text: str, page: PageInfo) -> str:
     if page.kind not in {"review", "comparison", "pricing", "toplist", "category", "hub"}:
         return text
+    if has_existing_toc(text):
+        return text
     if "data-auto-toc=\"1\"" in text or "data-auto-toc='1'" in text:
         return text
     headings = re.findall(r"<h2[^>]*>(.*?)</h2>", text, flags=re.IGNORECASE | re.DOTALL)
@@ -328,14 +330,24 @@ def ensure_sticky_toc(text: str, page: PageInfo) -> str:
         if f'id="{anchor}"' not in updated and pattern.search(updated):
             updated = pattern.sub(rf'\1 id="{anchor}"\2\3', updated, count=1)
         links.append(f"<a href='#{html.escape(anchor)}'>{html.escape(heading)}</a>")
-    toc = "<aside class='card toc' data-auto-toc='1'><h2>Contents</h2>" + "".join(links) + "</aside>"
-    marker = "</nav>" if "data-auto-breadcrumb='1'" in updated else None
-    if marker:
-        return updated.replace(marker, marker + toc, 1)
+    toc = "<section class='card toc auto-toc-block' data-auto-toc='1'><h2>Contents</h2>" + "".join(links) + "</section>"
     main_match = re.search(r"(<main\b[^>]*>)", updated, flags=re.IGNORECASE)
     if main_match:
         return updated[: main_match.end()] + toc + updated[main_match.end() :]
     return toc + updated
+
+
+def has_existing_toc(text: str) -> bool:
+    toc_markers = [
+        "class=\"card toc\"",
+        "class='card toc'",
+        "class=\"toc card\"",
+        "class='toc card'",
+        "class=\"table-of-contents\"",
+        "class='table-of-contents'",
+        "review-layout",
+    ]
+    return any(marker in text for marker in toc_markers)
 
 
 def ensure_go_link_attributes(text: str) -> str:
