@@ -10,6 +10,7 @@ from jinja2 import Template
 
 from config import settings
 from modules.affiliate_links import link_for_brand, load_affiliate_links
+from modules.vietnamese_localizer import localize_html
 
 
 REVIEW_CONTENT = {
@@ -72,7 +73,7 @@ REVIEW_CONTENT = {
 
 
 LANDING_TEMPLATE = """<!doctype html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -218,7 +219,7 @@ def generate_landing_pages(offer_scores: pd.DataFrame, angles: dict[str, dict]) 
         out_dir = settings.landing_output_dir / slug
         out_dir.mkdir(parents=True, exist_ok=True)
         path = out_dir / "index.html"
-        html_text = template.render(**build_context(offer, affiliate_links))
+        html_text = localize_html(template.render(**build_context(offer, affiliate_links)))
         path.write_text(html_text, encoding="utf-8")
         rows.append(
             {

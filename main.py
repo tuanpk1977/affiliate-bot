@@ -20,6 +20,7 @@ from modules.geo_analyzer import suggest_geos
 from modules.keyword_analyzer import generate_keywords
 from modules.keyword_intelligence import run_keyword_intelligence, run_keyword_intelligence_report
 from modules.landing_page_generator import generate_landing_pages
+from modules.internal_linker import post_process_internal_links
 from modules.market_analyzer import analyze_market
 from modules.markdown_publisher import publish_markdown_articles
 from modules.offer_loader import load_offers
@@ -75,6 +76,7 @@ def main() -> None:
     landing_index = generate_landing_pages(offer_scores, angles)
     build_site_output(landing_index, settings.base_site_url, offer_scores)
     publish_markdown_articles()
+    post_process_internal_links(settings.site_output_dir)
     generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     google_ads, bing_ads = generate_ads(offer_scores, keywords, landing_index)
     validate_ads_csv(google_ads, "Google Ads")
@@ -106,6 +108,7 @@ def main() -> None:
     run_affiliate_tracking_engine(settings.site_output_dir)
     run_keyword_intelligence_report()
     run_action_priority_report()
+    post_process_internal_links(settings.site_output_dir)
     generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     print_keyword_summary(keyword_summary)
     LOGGER.info("Pipeline completed. Dashboard data is ready in %s", settings.data_dir)

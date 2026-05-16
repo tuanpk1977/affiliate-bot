@@ -81,9 +81,17 @@ def main() -> int:
         if is_content_page:
             if "FAQ" not in text and "<details" not in text:
                 errors.append(f"{rel}: missing FAQ")
-            if "Some links may be affiliate links" not in text:
+            if "Some links may be affiliate links" not in text and "Một số liên kết có thể là liên kết tiếp thị liên kết" not in text:
                 errors.append(f"{rel}: missing affiliate disclosure")
-            if "Visit Official Website" not in text and "Read review" not in text and "Read " not in text and "CTA" not in text:
+            if (
+                "Visit Official Website" not in text
+                and "Read review" not in text
+                and "Read " not in text
+                and "Truy cập website chính thức" not in text
+                and "Đọc đánh giá" not in text
+                and "Đọc " not in text
+                and "CTA" not in text
+            ):
                 errors.append(f"{rel}: missing CTA")
             if ("FAQ" in text or "<details" in text) and '"@type": "FAQPage"' not in text:
                 errors.append(f"{rel}: FAQ section present but FAQPage schema missing")
