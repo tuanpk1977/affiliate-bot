@@ -10,6 +10,7 @@ from modules.action_priority import run_action_priority_report
 from modules.affiliate_tracking import run_affiliate_tracking_engine
 from modules.affiliate_links import ensure_affiliate_links
 from modules.ai_angle_generator import generate_angles
+from modules.bilingual_site import add_bilingual_pages
 from modules.compliance_checker import build_compliance_report
 from modules.content_approval import ensure_content_drafts
 from modules.competitor_ads_spy import analyze_competitor_ads
@@ -109,6 +110,7 @@ def main() -> None:
     run_keyword_intelligence_report()
     run_action_priority_report()
     post_process_internal_links(settings.site_output_dir)
+    add_bilingual_pages(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     print_keyword_summary(keyword_summary)
     LOGGER.info("Pipeline completed. Dashboard data is ready in %s", settings.data_dir)

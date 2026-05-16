@@ -10,7 +10,6 @@ from jinja2 import Template
 
 from config import settings
 from modules.affiliate_links import link_for_brand, load_affiliate_links
-from modules.vietnamese_localizer import localize_html
 
 
 REVIEW_CONTENT = {
@@ -73,7 +72,7 @@ REVIEW_CONTENT = {
 
 
 LANDING_TEMPLATE = """<!doctype html>
-<html lang="vi">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,8 +105,8 @@ LANDING_TEMPLATE = """<!doctype html>
     *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
     .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
     .nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
-    .nav-inner{height:64px;display:flex;align-items:center;justify-content:space-between;gap:18px}
-    .logo{font-weight:800;color:#0f172a;text-decoration:none}.menu{display:flex;gap:18px;flex-wrap:wrap}.menu a{color:#475569;text-decoration:none;font-size:14px}
+    .nav-inner{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .logo{font-weight:800;color:#0f172a;text-decoration:none}.menu{display:flex;gap:18px;flex-wrap:wrap}.menu a{color:#475569;text-decoration:none;font-size:14px}.language-switcher{display:flex;gap:8px;align-items:center;border:1px solid #dbe3ef;border-radius:999px;padding:4px 8px;background:#f8fafc;font-size:13px;white-space:nowrap}.language-switcher span{font-weight:800;color:#0f766e}.language-switcher a{color:#475569;text-decoration:none}
     .hero{padding:52px 0 32px;background:linear-gradient(180deg,#ffffff,#f7f9fc)}
     .hero-grid{display:grid;grid-template-columns:1.5fr .9fr;gap:24px;align-items:start}
     h1{font-size:44px;line-height:1.08;margin:12px 0 12px;letter-spacing:0}h2{font-size:26px;line-height:1.25;margin:0 0 12px;white-space:normal;overflow:visible;text-overflow:clip;word-break:normal}h3{font-size:18px;margin:0 0 8px}
@@ -121,11 +120,11 @@ LANDING_TEMPLATE = """<!doctype html>
     table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden}th,td{text-align:left;border-bottom:1px solid #e6edf5;padding:12px;vertical-align:top}th{background:#f1f5f9;color:#334155}
     .review-layout{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:20px;align-items:start}.review-layout>.breadcrumb{grid-column:1/-1}.review-layout>.toc{grid-column:2;grid-row:2;position:sticky;top:84px;max-height:70vh;overflow-y:auto;z-index:1}.review-layout>div{grid-column:1;grid-row:2}.toc{position:relative;max-width:100%}.toc a{display:block;color:#475569;text-decoration:none;padding:6px 0;border-bottom:1px solid #edf2f7}.breadcrumb{font-size:14px;color:#64748b;margin-bottom:14px}.share a{display:inline-block;margin:0 8px 8px 0;color:#0f766e;font-weight:700}.author-box{display:grid;grid-template-columns:1fr;gap:8px}.related a{display:inline-block;margin:0 8px 8px 0;color:#0f766e;font-weight:700}.trust{border-left:4px solid var(--warn);background:#fff7ed}.pros{color:#166534}.cons{color:#991b1b}.note{font-size:14px;color:#7c2d12}.search{width:100%;padding:12px 14px;border:1px solid #cbd5e1;border-radius:8px;margin:8px 0 18px}details{border-top:1px solid #e6edf5;padding:12px 0}summary{cursor:pointer;font-weight:800;color:#334155}
     footer{margin-top:36px;background:#0f172a;color:#cbd5e1;padding:28px 0}footer a{color:#e2e8f0;text-decoration:none;margin-right:14px}footer p{color:#cbd5e1}
-    @media (max-width:900px){.review-layout{grid-template-columns:1fr}.review-layout>.breadcrumb,.review-layout>.toc,.review-layout>div{grid-column:1;grid-row:auto}.review-layout>.toc,.toc{position:relative;top:auto;max-height:none;overflow:visible}}@media (max-width:760px){.hero-grid{grid-template-columns:1fr}h1{font-size:34px}.nav-inner{height:auto;padding:14px 0;align-items:flex-start;flex-direction:column}}
+    @media (max-width:900px){.review-layout{grid-template-columns:1fr}.review-layout>.breadcrumb,.review-layout>.toc,.review-layout>div{grid-column:1;grid-row:auto}.review-layout>.toc,.toc{position:relative;top:auto;max-height:none;overflow:visible}}@media (max-width:760px){.hero-grid{grid-template-columns:1fr}h1{font-size:34px}.nav-inner{height:auto;padding:14px 0;align-items:flex-start;flex-direction:column}.language-switcher{margin-top:6px}}
   </style>
 </head>
 <body>
-  <nav class="nav"><div class="wrap nav-inner"><a class="logo" href="/">{{ site_name }}</a><div class="menu"><a href="/">Home</a><a href="/reviews/">Reviews</a><a href="/comparisons/">Comparisons</a><a href="/about/">About</a><a href="/contact/">Contact</a></div></div><div class="wrap"><p class="note">Some links may be affiliate links. We may earn a commission at no extra cost to you.</p></div></nav>
+  <nav class="nav"><div class="wrap nav-inner"><a class="logo" href="/">{{ site_name }}</a><div class="menu"><a href="/">Home</a><a href="/reviews/">Reviews</a><a href="/comparisons/">Comparisons</a><a href="/about/">About</a><a href="/contact/">Contact</a></div><div class="language-switcher" aria-label="Language switcher"><span>English</span><a href="/vi/">Ti?ng Vi?t</a></div></div><div class="wrap"><p class="note">Some links may be affiliate links. We may earn a commission at no extra cost to you.</p></div></nav>
   <header class="hero"><div class="wrap hero-grid">
     <div>
       <span class="badge">Review</span><span class="badge">AI Tool</span><span class="badge">SaaS</span>
@@ -155,37 +154,37 @@ LANDING_TEMPLATE = """<!doctype html>
     <section class="card trust"><strong>Affiliate disclosure:</strong> Some links may be affiliate links. We may earn a commission at no extra cost to you.</section>
     <section class="grid">
       <div class="card">{{ screenshot_html }}</div>
-      <div class="card"><h2>Phù hợp với</h2><ul>{% for item in best_for_bullets %}<li>{{ item }}</li>{% endfor %}</ul><h2>Không phù hợp nếu</h2><ul>{% for item in not_best_for_bullets %}<li>{{ item }}</li>{% endfor %}</ul></div>
+      <div class="card"><h2>Best for</h2><ul>{% for item in best_for_bullets %}<li>{{ item }}</li>{% endfor %}</ul><h2>Not best for</h2><ul>{% for item in not_best_for_bullets %}<li>{{ item }}</li>{% endfor %}</ul></div>
     </section>
     <section class="grid">
-      <div class="card"><h2>Khi nào nên dùng?</h2><p>{{ when_to_use }}</p></div>
-      <div class="card"><h2>Khi nào KHÔNG nên dùng?</h2><p>{{ when_not_to_use }}</p></div>
-      <div class="card"><h2>Workflow phù hợp</h2><p>{{ workflow_fit }}</p></div>
+      <div class="card"><h2>When to use it</h2><p>{{ when_to_use }}</p></div>
+      <div class="card"><h2>When not to use it</h2><p>{{ when_not_to_use }}</p></div>
+      <div class="card"><h2>Workflow fit</h2><p>{{ workflow_fit }}</p></div>
     </section>
-    <section class="card"><h2>Đối tượng phù hợp nhất</h2><p>{{ best_audience }}</p></section>
+    <section class="card"><h2>Best audience</h2><p>{{ best_audience }}</p></section>
     <section class="grid">
-      <div class="card"><h2>Công cụ này giải quyết việc gì?</h2><p>{{ what_is }}</p></div>
-      <div class="card" id="who"><h2>Ai nên cân nhắc?</h2><p>{{ who_for }}</p></div>
+      <div class="card"><h2>What problem does this tool solve?</h2><p>{{ what_is }}</p></div>
+      <div class="card" id="who"><h2>Who should consider it?</h2><p>{{ who_for }}</p></div>
     </section>
-    <section class="card" id="features"><h2>Tính năng đáng chú ý</h2><ul>{% for item in features %}<li>{{ item }}</li>{% endfor %}</ul></section>
+    <section class="card" id="features"><h2>Notable features</h2><ul>{% for item in features %}<li>{{ item }}</li>{% endfor %}</ul></section>
     <section class="grid">
-      <div class="card"><h2>Điểm mạnh nổi bật</h2><ul class="pros">{% for item in standout_strengths %}<li>{{ item }}</li>{% endfor %}</ul></div>
-      <div class="card"><h2>Điểm gây khó chịu</h2><ul class="cons">{% for item in friction_points %}<li>{{ item }}</li>{% endfor %}</ul></div>
+      <div class="card"><h2>Standout strengths</h2><ul class="pros">{% for item in standout_strengths %}<li>{{ item }}</li>{% endfor %}</ul></div>
+      <div class="card"><h2>Friction points</h2><ul class="cons">{% for item in friction_points %}<li>{{ item }}</li>{% endfor %}</ul></div>
     </section>
     <section class="grid" id="pros-cons">
-      <div class="card"><h2>Ưu điểm</h2><ul class="pros">{% for item in pros %}<li>{{ item }}</li>{% endfor %}</ul></div>
-      <div class="card"><h2>Nhược điểm / hạn chế</h2><ul class="cons">{% for item in cons %}<li>{{ item }}</li>{% endfor %}</ul></div>
+      <div class="card"><h2>Pros</h2><ul class="pros">{% for item in pros %}<li>{{ item }}</li>{% endfor %}</ul></div>
+      <div class="card"><h2>Cons / limitations</h2><ul class="cons">{% for item in cons %}<li>{{ item }}</li>{% endfor %}</ul></div>
     </section>
-    <section class="card"><h2>Bảng ưu điểm / hạn chế</h2>
-      <table><thead><tr><th>✓ Pros</th><th>⚠ Cons</th></tr></thead><tbody>{{ pros_cons_rows }}</tbody></table>
+    <section class="card"><h2>Pros and cons table</h2>
+      <table><thead><tr><th>Pros</th><th>Cons</th></tr></thead><tbody>{{ pros_cons_rows }}</tbody></table>
     </section>
-    <section class="card"><h2>Giải thích điểm số</h2><p>{{ score_explanation }}</p><table><tbody><tr><td>Usability</td><td>{{ usability_reason }}</td></tr><tr><td>Pricing</td><td>{{ pricing_reason }}</td></tr><tr><td>Workflow fit</td><td>{{ workflow_reason }}</td></tr><tr><td>Integrations</td><td>{{ integration_reason }}</td></tr></tbody></table></section>
-    <section class="card" id="pricing"><h2>Ghi chú pricing</h2><p><strong>Hãy xác minh giá hiện tại trên website chính thức.</strong> Pricing, trial, giới hạn plan và điều khoản hủy có thể thay đổi theo thời gian.</p></section>
-    <section class="card"><h2>Tóm tắt pricing</h2><p>{{ pricing_summary }}</p></section>
+    <section class="card"><h2>Score explanation</h2><p>{{ score_explanation }}</p><table><tbody><tr><td>Usability</td><td>{{ usability_reason }}</td></tr><tr><td>Pricing</td><td>{{ pricing_reason }}</td></tr><tr><td>Workflow fit</td><td>{{ workflow_reason }}</td></tr><tr><td>Integrations</td><td>{{ integration_reason }}</td></tr></tbody></table></section>
+    <section class="card" id="pricing"><h2>Pricing note</h2><p><strong>Verify current pricing on the official website.</strong> Pricing, trials, plan limits, and cancellation terms can change over time.</p></section>
+    <section class="card"><h2>Pricing summary</h2><p>{{ pricing_summary }}</p></section>
     <section class="card"><h2>Affiliate link field</h2><p><strong>Status:</strong> {{ affiliate_link_status }}</p><p><strong>CTA URL used now:</strong> <a href="{{ cta_url }}" rel="nofollow sponsored">{{ cta_url_label }}</a></p><p class="note">Replace this with an approved affiliate link only after the affiliate program approves your account. Do not use fake affiliate links.</p></section>
     <section class="card" id="comparisons"><h2>Comparison table</h2>
       <table><thead><tr><th>Tool</th><th>Best for</th><th>Pricing type</th><th>Pros</th><th>Cons</th></tr></thead><tbody>
-        <tr><td>{{ brand }}</td><td>{{ best_for }}</td><td>Xác minh ở website chính thức</td><td>{{ comparison_pro }}</td><td>{{ comparison_con }}</td></tr>
+        <tr><td>{{ brand }}</td><td>{{ best_for }}</td><td>Verify on the official website</td><td>{{ comparison_pro }}</td><td>{{ comparison_con }}</td></tr>
         <tr><td>Alternative 1</td><td>Teams comparing {{ niche }} options</td><td>Varies</td><td>May fit different workflows</td><td>Requires separate verification</td></tr>
         <tr><td>Alternative 2</td><td>Budget-sensitive buyers</td><td>Varies</td><td>May offer simpler entry plan</td><td>Feature depth may differ</td></tr>
       </tbody></table>
@@ -219,7 +218,7 @@ def generate_landing_pages(offer_scores: pd.DataFrame, angles: dict[str, dict]) 
         out_dir = settings.landing_output_dir / slug
         out_dir.mkdir(parents=True, exist_ok=True)
         path = out_dir / "index.html"
-        html_text = localize_html(template.render(**build_context(offer, affiliate_links)))
+        html_text = template.render(**build_context(offer, affiliate_links))
         path.write_text(html_text, encoding="utf-8")
         rows.append(
             {
@@ -244,7 +243,7 @@ def build_context(offer: pd.Series, affiliate_links: pd.DataFrame | None = None)
     content = review_content_for(brand, niche, offer)
     canonical = canonical_url(slug)
     faq_items = faq_items_for(brand, content)
-    meta_description = f"Review nghiên cứu về {brand}: workflow phù hợp, điểm mạnh, hạn chế, pricing note, alternatives, FAQ và affiliate disclosure."
+    meta_description = f"Research-style review of {brand}: workflow fit, strengths, limitations, pricing notes, alternatives, FAQ, and affiliate disclosure."
     return {
         "brand": html.escape(brand),
         "site_name": html.escape(settings.site_name),
@@ -323,13 +322,18 @@ def build_context(offer: pd.Series, affiliate_links: pd.DataFrame | None = None)
     }
 
 
+
 def review_content_for(brand: str, niche: str, offer: pd.Series) -> dict:
     content = REVIEW_CONTENT.get(slugify(brand))
     if content:
         return content
     return {
         "summary": short_description(brand, niche),
-        "what": f"{brand} nằm trong nhóm {niche}. Thay vì chỉ nhìn danh sách tính năng, bài review này đặt công cụ vào bối cảnh sử dụng thực tế: ai nên thử, workflow nào hợp, điểm nào cần kiểm tra trước khi trả tiền hoặc quảng bá affiliate.",
+        "what": (
+            f"{brand} belongs in the {niche} category. Instead of treating it as a feature checklist, "
+            "this review looks at where the tool may fit in a real workflow, who should test it first, "
+            "and which pricing, policy, and integration details need verification before buying or promoting it."
+        ),
         "features": features_for(niche),
         "pros": pros_for(offer),
         "cons": cons_for(offer),
@@ -364,37 +368,37 @@ def related_reviews_for(brand: str, niche: str) -> list[dict[str, str]]:
 
 def default_faq_questions(brand: str) -> list[str]:
     return [
-        f"{brand} pricing hiện nên kiểm tra ở đâu?",
-        f"{brand} có lựa chọn thay thế nào đáng so sánh?",
-        f"Người mới bắt đầu có nên dùng {brand} không?",
-        f"{brand} có chính sách refund hay trial không?",
-        f"{brand} tích hợp với những workflow nào?",
-        f"Team có nên dùng {brand} cho công việc chung không?",
+        f"Where should I verify current {brand} pricing?",
+        f"Which {brand} alternatives are worth comparing?",
+        f"Should beginners use {brand}?",
+        f"Does {brand} offer a refund policy or trial?",
+        f"Which workflows does {brand} integrate with?",
+        f"Should teams use {brand} for shared work?",
     ]
 
 
 def editorial_summary(brand: str, niche: str, score: int, risk: str) -> str:
     return (
-        f"Bài review này đánh giá {brand} theo hướng nghiên cứu thực tế: công cụ phù hợp với workflow nào, "
-        f"điểm nào đáng chú ý, điểm nào cần kiểm tra thêm và có nên đưa vào shortlist {niche} hay không. "
-        f"Với điểm hiện tại {score}/100 và mức rủi ro {risk}, cách hợp lý là đọc như một bản lọc ban đầu, "
-        "sau đó xác minh pricing, integrations và điều khoản chính thức trước khi mua hoặc quảng bá."
+        f"This review evaluates {brand} from a practical research angle: which {niche} workflow it may fit, "
+        f"which strengths matter, which limitations need checking, and whether it deserves a place on your shortlist. "
+        f"With a current score of {score}/100 and a {risk} risk signal, the responsible approach is to treat this as a first-pass filter, "
+        "then verify pricing, integrations, usage rights, and official terms before buying or promoting it."
     )
 
 
 def human_what_is(brand: str, niche: str) -> str:
     return (
-        f"{brand} là một lựa chọn trong nhóm {niche}. Giá trị thật của công cụ không nằm ở việc có nhiều tính năng, "
-        "mà ở chỗ nó có làm một quy trình cụ thể nhanh hơn, rõ hơn hoặc dễ lặp lại hơn hay không. Vì vậy, bài viết này "
-        "không chỉ liệt kê tính năng mà đặt công cụ vào bối cảnh sử dụng hằng ngày."
+        f"{brand} is an option in the {niche} category. The real value is not simply having many features; "
+        "it is whether the tool makes a specific workflow faster, clearer, or easier to repeat. This review therefore "
+        "places the product in a day-to-day usage context instead of only listing feature claims."
     )
 
 
 def editorial_features(brand: str, niche: str, content: dict) -> list[str]:
     base = [
-        f"Hỗ trợ một hoặc nhiều bước trong workflow {niche}.",
-        f"Có thể dùng để test nhanh một quy trình nhỏ trước khi triển khai {brand} rộng hơn.",
-        "Cần kiểm tra pricing, giới hạn plan, quyền sử dụng thương mại và integrations ở website chính thức.",
+        f"Supports one or more steps in a {niche} workflow.",
+        f"Can be tested on a small workflow before rolling {brand} out more broadly.",
+        "Pricing, plan limits, commercial usage rights, and integrations should be checked on the official website.",
     ]
     extras = list(content.get("features", []))[:3]
     return base + extras
@@ -402,44 +406,44 @@ def editorial_features(brand: str, niche: str, content: dict) -> list[str]:
 
 def faq_answer_map(brand: str) -> list[str]:
     return [
-        f"Giá, trial và giới hạn plan của {brand} có thể thay đổi. Hãy dùng website chính thức làm nguồn cuối cùng trước khi mua.",
-        "Nên so sánh ít nhất hai hoặc ba công cụ cùng nhóm để xem khác biệt về workflow, pricing, tích hợp và quyền sử dụng thương mại.",
-        "Người mới có thể thử nếu có use case rõ. Cách an toàn là test một workflow nhỏ trước thay vì chuyển toàn bộ quy trình sang công cụ mới.",
-        "Chính sách refund, hủy gói và trial cần được kiểm tra trong terms chính thức vì mỗi vendor có quy định khác nhau.",
-        "Tích hợp chỉ có giá trị khi khớp với công cụ bạn đang dùng hằng ngày. Hãy kiểm tra app integrations, API hoặc export/import trước khi triển khai.",
-        "Team nên dùng khi có owner rõ, quy trình review output và ngân sách phù hợp. Không nên mua chỉ vì công cụ đang nổi.",
-        "Với affiliate hoặc paid ads, cần kiểm tra disclosure, trademark bidding, direct linking và traffic policy trước khi quảng bá.",
-        "Bài viết này là nội dung nghiên cứu, không cam kết kết quả kinh doanh hoặc hiệu quả quảng cáo.",
+        f"Pricing, trial terms, and plan limits for {brand} can change. Use the official website as the final source before buying.",
+        "Compare at least two or three tools in the same category to understand workflow, pricing, integration, and commercial usage differences.",
+        "Beginners can test it if they have a clear use case. A safer approach is to try one small workflow before moving an entire process into a new tool.",
+        "Refund, cancellation, and trial policies should be checked in the official terms because every vendor handles them differently.",
+        "Integrations only matter if they match the tools you already use every day. Check app integrations, API support, or import/export options before rollout.",
+        "Teams should use it when there is a clear owner, an output review process, and a reasonable budget. Do not buy only because a tool is popular.",
+        "For affiliate or paid traffic, verify disclosure rules, trademark bidding, direct linking, and traffic policy before promotion.",
+        "This is research content, not a promise of business results or advertising performance.",
     ]
 
 
 def when_to_use(brand: str, niche: str) -> str:
-    return f"Nên cân nhắc {brand} khi bạn đã có một workflow {niche} cụ thể cần cải thiện, ví dụ tạo nội dung nhanh hơn, quản lý lead rõ hơn, tự động hóa bước lặp lại hoặc chuẩn hóa quy trình cho team."
+    return f"Consider {brand} when you already have a specific {niche} workflow to improve, such as speeding up content work, organizing leads, automating repeated steps, or standardizing a team process."
 
 
 def when_not_to_use(brand: str, niche: str) -> str:
-    return f"Không nên vội dùng {brand} nếu bạn chưa rõ vấn đề cần giải quyết, chưa kiểm tra pricing hiện tại, hoặc cần một khuyến nghị đã xác minh tuyệt đối cho mọi tình huống {niche}."
+    return f"Do not rush into {brand} if you have not defined the problem, have not checked current pricing, or need an absolutely verified recommendation for every {niche} situation."
 
 
 def workflow_fit(brand: str, niche: str) -> str:
-    return f"Workflow phù hợp nhất là bắt đầu bằng một tác vụ nhỏ: chọn một use case {niche}, tạo output mẫu bằng {brand}, so sánh với cách làm cũ, rồi mới quyết định có đưa vào quy trình chính hay không."
+    return f"The best workflow is to start small: choose one {niche} use case, produce a sample output with {brand}, compare it with your current process, and only then decide whether it belongs in the main workflow."
 
 
 def best_audience(brand: str, niche: str) -> str:
-    return f"{brand} phù hợp nhất với người đang chủ động so sánh công cụ {niche}, có ngân sách test nhỏ, và sẵn sàng kiểm tra lại pricing, giới hạn plan, integrations và terms chính thức."
+    return f"{brand} is best for people actively comparing {niche} tools, working with a small test budget, and willing to verify pricing, plan limits, integrations, and official terms before committing."
 
 
 def standout_strengths(brand: str, niche: str, content: dict) -> list[str]:
     items = list(content.get("pros", []))[:2]
-    items.append(f"Phù hợp để đưa vào shortlist khi bạn đang nghiên cứu nhóm {niche}.")
-    items.append(f"Có thể dùng như một điểm bắt đầu để so sánh {brand} với alternatives cùng nhóm.")
+    items.append(f"Useful as a shortlist candidate when researching the {niche} category.")
+    items.append(f"Can be a starting point for comparing {brand} with similar alternatives.")
     return items
 
 
 def friction_points(brand: str, niche: str, content: dict) -> list[str]:
     items = list(content.get("cons", []))[:2]
-    items.append("Cần tự kiểm tra pricing và điều khoản mới nhất trước khi ra quyết định.")
-    items.append("Nếu dùng cho affiliate hoặc ads, cần kiểm tra policy thay vì chỉ dựa vào nội dung review.")
+    items.append("Current pricing and official terms need to be checked before making a decision.")
+    items.append("Affiliate or ad use requires policy verification instead of relying only on review content.")
     return items
 
 
@@ -449,29 +453,28 @@ def pros_cons_rows(pros: list[str], cons: list[str]) -> str:
     for idx in range(size):
         left = html.escape(pros[idx]) if idx < len(pros) else ""
         right = html.escape(cons[idx]) if idx < len(cons) else ""
-        rows.append(f"<tr><td>✓ {left}</td><td>⚠ {right}</td></tr>")
+        rows.append(f"<tr><td>? {left}</td><td>? {right}</td></tr>")
     return "".join(rows)
 
 
 def score_explanation(brand: str, score: int, risk: str, competition: str) -> str:
-    return f"Điểm {score}/100 của {brand} không phải cam kết chất lượng tuyệt đối. Điểm này phản ánh tín hiệu usability, mức phù hợp workflow, pricing risk, competition và rủi ro policy hiện có. Nếu risk là {risk} hoặc competition là {competition}, nên test nhỏ và xác minh thủ công trước."
+    return f"The {score}/100 score for {brand} is not a quality guarantee. It reflects usability signals, workflow fit, pricing risk, competition, and current policy risk. With risk marked as {risk} and competition marked as {competition}, a small test and manual verification are still recommended."
 
 
 def usability_reason(score: int) -> str:
-    return "Tín hiệu usability khá tốt." if score >= 80 else "Cần kiểm tra trải nghiệm thực tế trước khi đưa vào workflow chính."
+    return "The usability signal looks relatively strong." if score >= 80 else "The real user experience should be checked before making it part of a core workflow."
 
 
 def pricing_reason(competition: str) -> str:
-    return "Pricing cần được xác minh; mức cạnh tranh cao có thể làm chi phí quảng bá tăng." if competition == "High" else "Pricing vẫn cần kiểm tra trên website chính thức trước khi mua."
+    return "Pricing needs verification; high competition can increase promotion costs." if competition == "High" else "Pricing still needs to be checked on the official website before buying."
 
 
 def workflow_reason(niche: str) -> str:
-    return f"Điểm workflow dựa trên mức độ công cụ có thể gắn vào tác vụ {niche} lặp lại thay vì chỉ là tính năng đẹp trên giấy."
+    return f"The workflow score is based on whether the tool can support repeatable {niche} tasks instead of only looking good on a feature list."
 
 
 def integration_reason(niche: str) -> str:
-    return f"Integrations nên được kiểm tra theo stack thật của bạn, đặc biệt nếu {niche} liên quan tới team workflow hoặc automation."
-
+    return f"Integrations should be checked against your real stack, especially if {niche} work involves team workflows or automation."
 
 def related_comparisons_for(brand: str) -> list[dict[str, str]]:
     key = slugify(brand)
@@ -640,19 +643,20 @@ def best_for(niche: str) -> str:
     return mapping.get(niche, "teams comparing SaaS tools")
 
 
+
 def best_for_bullets(brand: str, niche: str) -> list[str]:
     return [
-        f"Người đang so sánh {brand} với các công cụ {niche} cùng nhóm.",
-        "Team muốn đọc một bản review theo hướng nghiên cứu trước khi đăng ký.",
-        "Người sẵn sàng kiểm tra lại pricing và terms chính thức trước khi mua.",
+        f"Readers comparing {brand} with other {niche} tools in the same category.",
+        "Teams that want a research-style review before signing up.",
+        "Buyers willing to check current pricing and official terms before purchase.",
     ]
 
 
 def not_best_for_bullets(niche: str) -> list[str]:
     return [
-        f"Người cần một khuyến nghị {niche} đã xác minh tuyệt đối mà không muốn tự kiểm tra terms.",
-        "Người kỳ vọng kết quả hoặc ROI được đảm bảo.",
-        "Campaign paid ads chưa kiểm tra affiliate policy, trademark bidding và direct linking.",
+        f"Buyers who want a fully verified {niche} recommendation without checking vendor terms.",
+        "Anyone expecting guaranteed results or guaranteed ROI.",
+        "Paid campaigns that have not checked affiliate policy, trademark bidding, and direct linking rules.",
     ]
 
 
@@ -661,13 +665,13 @@ def article_for(text: str) -> str:
 
 
 def short_description(brand: str, niche: str) -> str:
-    return f"Review thực tế về {brand} cho người đang so sánh công cụ {niche}: điểm mạnh, hạn chế, alternatives, workflow phù hợp và các lưu ý policy cần kiểm tra."
+    return f"A practical review of {brand} for readers comparing {niche} tools: strengths, limitations, alternatives, workflow fit, and policy details to verify."
 
 
 def short_answer_for(brand: str, niche: str, score: int, risk: str) -> str:
     if score >= 82 and risk != "High":
-        return f"{brand} đáng đưa vào shortlist {niche} nếu pricing, integrations và policy chính thức khớp với workflow của bạn."
-    return f"{brand} nên được xem như một lựa chọn cần nghiên cứu thêm; hãy xác minh pricing, affiliate terms và workflow fit trước khi dựa vào nó."
+        return f"{brand} deserves a place on your {niche} shortlist if current pricing, integrations, and official policies match your workflow."
+    return f"{brand} should be treated as a research candidate; verify pricing, affiliate terms, and workflow fit before relying on it."
 
 
 def not_best_for(niche: str) -> str:
@@ -675,8 +679,7 @@ def not_best_for(niche: str) -> str:
 
 
 def who_for(niche: str) -> str:
-    return f"Phù hợp với người đang so sánh các lựa chọn {niche}, muốn hiểu rõ use case, hạn chế, pricing risk và alternatives trước khi đăng ký."
-
+    return f"Best for readers comparing {niche} options who want to understand use cases, limitations, pricing risk, and alternatives before signing up."
 
 def features_for(niche: str) -> list[str]:
     return [

@@ -7,6 +7,7 @@ from pathlib import Path
 
 from config import settings
 from modules.content_approval import publish_static_draft
+from modules.bilingual_site import add_bilingual_pages
 from modules.sitemap_generator import generate_sitemap
 
 
@@ -36,6 +37,7 @@ def sync_published_pages() -> dict[str, int]:
 def incremental_build() -> dict[str, object]:
     settings.site_output_dir.mkdir(parents=True, exist_ok=True)
     sync_stats = sync_published_pages()
+    add_bilingual_pages(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     sitemap_path = generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     return {
         "mode": "incremental",

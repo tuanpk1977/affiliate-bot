@@ -7,7 +7,6 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from config import settings
-from modules.vietnamese_localizer import localize_html
 
 
 TOOL_ALIASES = {
@@ -87,7 +86,6 @@ def post_process_internal_links(output: Path) -> dict[str, int]:
         text = ensure_visible_breadcrumb(text, page)
         text = ensure_sticky_toc(text, page)
         text = ensure_go_link_attributes(text)
-        text = localize_html(text)
         page.path.write_text(text, encoding="utf-8")
         pages_updated += 1
     return {"pages": pages_updated, "links_added": links_added}

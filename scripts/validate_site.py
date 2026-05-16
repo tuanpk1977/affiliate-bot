@@ -52,6 +52,7 @@ def main() -> int:
         text = file.read_text(encoding="utf-8", errors="ignore")
         parser = LinkParser()
         parser.feed(text)
+        is_vi_page = rel.startswith("vi/")
 
         if "<title>" not in text:
             errors.append(f"{rel}: missing title")
@@ -64,7 +65,16 @@ def main() -> int:
         if "yourdomain" in text:
             errors.append(f"{rel}: contains yourdomain")
 
-        is_content_page = is_review(rel) or is_comparison(rel) or is_pricing(rel) or is_toplist(rel) or (rel.startswith("blog/") and rel != "blog/index.html")
+        is_content_page = (
+            not is_vi_page
+            and (
+                is_review(rel)
+                or is_comparison(rel)
+                or is_pricing(rel)
+                or is_toplist(rel)
+                or (rel.startswith("blog/") and rel != "blog/index.html")
+            )
+        )
         internal_links = [link for link in parser.links if link.startswith("/") and not link.startswith("//")]
         if not rel.startswith("go/") and len(set(normalize_internal_link(link) for link in internal_links if normalize_internal_link(link))) < 3:
             errors.append(f"{rel}: fewer than 3 internal links")
@@ -74,9 +84,9 @@ def main() -> int:
             for link in re.findall(r"href=['\"]([^'\"]+)['\"]", block):
                 if normalize_internal_link(link) == current_url:
                     errors.append(f"{rel}: self-link loop in related content block")
-        if (is_comparison(rel) or is_pricing(rel) or is_toplist(rel)) and '"@type": "BreadcrumbList"' not in text:
+        if not is_vi_page and (is_comparison(rel) or is_pricing(rel) or is_toplist(rel)) and '"@type": "BreadcrumbList"' not in text:
             errors.append(f"{rel}: missing BreadcrumbList schema")
-        if is_pricing(rel):
+        if not is_vi_page and is_pricing(rel):
             errors.extend(validate_pricing_page(rel, text))
         if is_content_page:
             if "FAQ" not in text and "<details" not in text:
