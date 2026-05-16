@@ -2,7 +2,7 @@
 
 - Platform: LinkedIn
 - Status: Pending Review
-- Suggested time: 2026-06-03 16:00
+- Suggested time: 2026-06-04 16:00
 - Target URL: https://review.mssmileenglish.com/windsurf-review/?utm_source=linkedin
 
 ## Copy

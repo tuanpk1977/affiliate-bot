@@ -2,7 +2,7 @@
 
 - Platform: LinkedIn
 - Status: Pending Review
-- Suggested time: 2026-05-19 10:00
+- Suggested time: 2026-05-20 10:00
 - Target URL: https://review.mssmileenglish.com/review/make/?utm_source=linkedin
 
 ## Copy

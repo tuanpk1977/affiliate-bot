@@ -2,7 +2,7 @@
 
 - Platform: LinkedIn
 - Status: Pending Review
-- Suggested time: 2026-06-01 14:30
+- Suggested time: 2026-06-02 14:30
 - Target URL: https://review.mssmileenglish.com/review/cursor/?utm_source=linkedin
 
 ## Copy

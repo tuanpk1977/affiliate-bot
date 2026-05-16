@@ -6,4 +6,11 @@ Disallow: /draft_output/
 Disallow: /data/
 Disallow: /config/
 Disallow: /logs/
+Disallow: /rss.xml
+Disallow: /sitemap/
+Disallow: /media-kit/
+Disallow: /about-author/
+Disallow: /author-profile/
+Disallow: /affiliate-disclosure/
+Disallow: /editorial-policy/
 Sitemap: https://review.mssmileenglish.com/sitemap.xml

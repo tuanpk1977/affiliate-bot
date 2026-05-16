@@ -2,7 +2,7 @@
 
 - Platform: X/Twitter
 - Status: Pending Review
-- Suggested time: 2026-06-05 21:00
+- Suggested time: 2026-06-06 21:00
 - Target URL: https://review.mssmileenglish.com/review/cursor/?utm_source=twitter
 
 ## Copy
