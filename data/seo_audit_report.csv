@@ -1,5 +1,5 @@
 ﻿page_url,title_length,meta_description_length,h1_count,internal_links_count,related_posts_count,canonical_ok,hreflang_ok,schema_types,warnings
-https://review.mssmileenglish.com/about/,30,73,1,46,12,true,true,Article|BreadcrumbList|ContactPoint|ListItem|Organization|Person|WebSite,title_length_check|meta_description_length_check
+https://review.mssmileenglish.com/about/,53,108,1,13,0,true,true,Article|BreadcrumbList|ListItem|Organization,
 https://review.mssmileenglish.com/about-author/,37,36,1,47,12,true,true,Article|BreadcrumbList|ContactPoint|ListItem|Organization|Person|WebSite,meta_description_length_check
 https://review.mssmileenglish.com/activecampaign/,58,138,1,39,4,true,true,Answer|Article|Brand|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/adcreative-ai/,57,137,1,40,3,true,true,Answer|Article|Brand|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
@@ -50,7 +50,7 @@ https://review.mssmileenglish.com/blog/,29,58,1,58,12,true,true,Article|Breadcru
 https://review.mssmileenglish.com/canva/,49,129,1,44,10,true,true,Answer|Article|Brand|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/categories/,35,107,1,54,16,true,true,Answer|Article|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Question|WebSite,
 https://review.mssmileenglish.com/category/ai-automation-tools/,44,61,1,57,24,true,true,Article|BreadcrumbList|ContactPoint|ListItem|Organization|Person|WebSite,meta_description_length_check
-https://review.mssmileenglish.com/category/ai-coding-tools/,72,160,1,53,24,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check
+https://review.mssmileenglish.com/category/ai-coding-tools/,72,160,1,54,24,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check
 https://review.mssmileenglish.com/category/ai-customer-support-tools/,50,67,1,57,24,true,true,Article|BreadcrumbList|ContactPoint|ListItem|Organization|Person|WebSite,meta_description_length_check
 https://review.mssmileenglish.com/category/ai-presentation-tools/,46,63,1,57,24,true,true,Article|BreadcrumbList|ContactPoint|ListItem|Organization|Person|WebSite,meta_description_length_check
 https://review.mssmileenglish.com/category/ai-seo-tools/,37,54,1,59,24,true,true,Article|BreadcrumbList|ContactPoint|ListItem|Organization|Person|WebSite,meta_description_length_check
@@ -95,7 +95,7 @@ https://review.mssmileenglish.com/comparisons/elevenlabs-vs-playht/,45,118,1,50,
 https://review.mssmileenglish.com/comparisons/framer-vs-webflow/,42,115,1,53,16,true,true,Answer|Article|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Question|Review|SoftwareApplication|WebSite,review_schema_without_rating_data
 https://review.mssmileenglish.com/comparisons/gemini-vs-claude/,41,114,1,51,16,true,true,Answer|Article|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Question|Review|SoftwareApplication|WebSite,review_schema_without_rating_data
 https://review.mssmileenglish.com/comparisons/hubspot-vs-salesforce/,46,119,1,51,16,true,true,Answer|Article|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Question|Review|SoftwareApplication|WebSite,review_schema_without_rating_data
-https://review.mssmileenglish.com/comparisons/,36,71,1,78,12,true,true,Article|BreadcrumbList|ContactPoint|ListItem|Organization|Person|WebSite,meta_description_length_check
+https://review.mssmileenglish.com/comparisons/,36,71,1,79,12,true,true,Article|BreadcrumbList|ContactPoint|ListItem|Organization|Person|WebSite,meta_description_length_check
 https://review.mssmileenglish.com/comparisons/jasper-vs-copyai/,42,115,1,54,16,true,true,Answer|Article|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Question|Review|SoftwareApplication|WebSite,review_schema_without_rating_data
 https://review.mssmileenglish.com/comparisons/make-vs-zapier/,86,130,1,53,16,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check
 https://review.mssmileenglish.com/comparisons/midjourney-vs-dalle/,45,118,1,50,16,true,true,Answer|Article|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Question|Review|SoftwareApplication|WebSite,review_schema_without_rating_data
@@ -115,6 +115,7 @@ https://review.mssmileenglish.com/cursor-ai-review-a-practical-guide-for-develop
 https://review.mssmileenglish.com/cursor-pricing/,78,161,1,45,11,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check
 https://review.mssmileenglish.com/descript/,52,132,1,48,10,true,true,Answer|Article|Brand|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/disclosure/,35,38,1,46,16,true,true,Answer|Article|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Question|WebSite,meta_description_length_check
+https://review.mssmileenglish.com/downloads/ai-coding-workflow-checklist/,53,104,1,14,0,true,true,Answer|Article|BreadcrumbList|FAQPage|ListItem|Organization|Question,
 https://review.mssmileenglish.com/durable/,51,131,1,45,7,true,true,Answer|Article|Brand|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/editorial-policy/,41,40,1,46,12,true,true,Article|BreadcrumbList|ContactPoint|ListItem|Organization|Person|WebSite,meta_description_length_check
 https://review.mssmileenglish.com/elevenlabs/,54,134,1,42,7,true,true,Answer|Article|Brand|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
@@ -122,6 +123,7 @@ https://review.mssmileenglish.com/elevenlabs-pricing/,82,165,1,47,11,true,true,A
 https://review.mssmileenglish.com/email-marketing-alternatives/,67,170,1,49,16,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,
 https://review.mssmileenglish.com/email-marketing-software-review/,88,173,1,49,16,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check|meta_description_length_check
 https://review.mssmileenglish.com/framer/,50,130,1,45,7,true,true,Answer|Article|Brand|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
+https://review.mssmileenglish.com/free-ai-coding-workflow-checklist/,58,123,1,14,0,true,true,Answer|Article|BreadcrumbList|FAQPage|ListItem|Organization|Question,
 https://review.mssmileenglish.com/gamma/,49,129,1,45,10,true,true,Answer|Article|Brand|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/github-copilot/,58,138,1,46,15,true,true,Answer|Article|Brand|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/github-copilot-pricing/,86,169,1,43,11,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check
@@ -140,7 +142,7 @@ https://review.mssmileenglish.com/hub/productivity/,50,102,1,59,17,true,true,Bre
 https://review.mssmileenglish.com/hub/website-builders/,45,106,1,57,17,true,true,BreadcrumbList|ItemList|ListItem,
 https://review.mssmileenglish.com/hubs/,29,109,1,56,17,true,true,Answer|Article|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Question|WebSite,title_length_check
 https://review.mssmileenglish.com/hubspot/,51,131,1,44,7,true,true,Answer|Article|Brand|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
-https://review.mssmileenglish.com/,46,141,1,101,12,true,true,Answer|Article|ContactPoint|FAQPage|Organization|Person|Question|WebSite,
+https://review.mssmileenglish.com/,46,141,1,102,12,true,true,Answer|Article|ContactPoint|FAQPage|Organization|Person|Question|WebSite,
 https://review.mssmileenglish.com/jasper/,50,130,1,49,13,true,true,Answer|Article|Brand|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/jasper-ai/,53,133,1,49,13,true,true,Answer|Article|Brand|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/jasper-pricing/,78,161,1,49,11,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check
@@ -208,7 +210,7 @@ https://review.mssmileenglish.com/reviews/framer/,36,23,1,50,16,true,true,Articl
 https://review.mssmileenglish.com/reviews/gamma/,36,22,1,49,16,true,true,Article|BreadcrumbList|ContactPoint|ListItem|Organization|Person|WebSite,meta_description_length_check
 https://review.mssmileenglish.com/reviews/github-copilot/,36,31,1,48,16,true,true,Article|BreadcrumbList|ContactPoint|ListItem|Organization|Person|WebSite,meta_description_length_check
 https://review.mssmileenglish.com/reviews/hubspot/,36,24,1,50,16,true,true,Article|BreadcrumbList|ContactPoint|ListItem|Organization|Person|WebSite,meta_description_length_check
-https://review.mssmileenglish.com/reviews/,32,71,1,72,12,true,true,Article|BreadcrumbList|ContactPoint|ListItem|Organization|Person|WebSite,title_length_check|meta_description_length_check
+https://review.mssmileenglish.com/reviews/,32,71,1,73,12,true,true,Article|BreadcrumbList|ContactPoint|ListItem|Organization|Person|WebSite,title_length_check|meta_description_length_check
 https://review.mssmileenglish.com/reviews/jasper/,36,23,1,52,16,true,true,Article|BreadcrumbList|ContactPoint|ListItem|Organization|Person|WebSite,meta_description_length_check
 https://review.mssmileenglish.com/reviews/jasper-ai/,36,26,1,52,16,true,true,Article|BreadcrumbList|ContactPoint|ListItem|Organization|Person|WebSite,meta_description_length_check
 https://review.mssmileenglish.com/reviews/make/,36,21,1,49,16,true,true,Article|BreadcrumbList|ContactPoint|ListItem|Organization|Person|WebSite,meta_description_length_check
@@ -235,7 +237,7 @@ https://review.mssmileenglish.com/surfer-seo-pricing/,82,165,1,47,11,true,true,A
 https://review.mssmileenglish.com/synthesia/,53,133,1,48,10,true,true,Answer|Article|Brand|BreadcrumbList|ContactPoint|FAQPage|ListItem|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/terms/,30,33,1,46,12,true,true,Article|BreadcrumbList|ContactPoint|ListItem|Organization|Person|WebSite,title_length_check|meta_description_length_check
 https://review.mssmileenglish.com/testing-methodology/,44,43,1,47,12,true,true,Article|BreadcrumbList|ContactPoint|ListItem|Organization|Person|WebSite,meta_description_length_check
-https://review.mssmileenglish.com/vi/about/,35,78,1,46,12,true,true,Article|BreadcrumbList|ListItem|Liên hệPoint|Organization|Person|WebSite,meta_description_length_check
+https://review.mssmileenglish.com/vi/about/,58,96,1,13,0,true,true,Article|BreadcrumbList|ListItem|Organization,
 https://review.mssmileenglish.com/vi/about-author/,43,46,1,47,12,true,true,Article|BreadcrumbList|ListItem|Liên hệPoint|Organization|Person|WebSite,meta_description_length_check
 https://review.mssmileenglish.com/vi/activecampaign/,63,148,1,39,4,true,true,Answer|Article|Brand|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/vi/adcreative-ai/,62,147,1,40,3,true,true,Answer|Article|Brand|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
@@ -286,7 +288,7 @@ https://review.mssmileenglish.com/vi/blog/,29,58,1,58,12,true,true,Article|Bread
 https://review.mssmileenglish.com/vi/canva/,54,139,1,44,10,true,true,Answer|Article|Brand|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/vi/categories/,33,107,1,54,16,true,true,Answer|Article|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Question|WebSite,title_length_check
 https://review.mssmileenglish.com/vi/category/ai-automation-tools/,47,64,1,57,24,true,true,Article|BreadcrumbList|ListItem|Liên hệPoint|Organization|Person|WebSite,meta_description_length_check
-https://review.mssmileenglish.com/vi/category/ai-coding-tools/,80,155,1,53,24,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check
+https://review.mssmileenglish.com/vi/category/ai-coding-tools/,80,155,1,54,24,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check
 https://review.mssmileenglish.com/vi/category/ai-customer-support-tools/,53,70,1,57,24,true,true,Article|BreadcrumbList|ListItem|Liên hệPoint|Organization|Person|WebSite,meta_description_length_check
 https://review.mssmileenglish.com/vi/category/ai-presentation-tools/,49,66,1,57,24,true,true,Article|BreadcrumbList|ListItem|Liên hệPoint|Organization|Person|WebSite,meta_description_length_check
 https://review.mssmileenglish.com/vi/category/ai-seo-tools/,40,57,1,59,24,true,true,Article|BreadcrumbList|ListItem|Liên hệPoint|Organization|Person|WebSite,meta_description_length_check
@@ -331,7 +333,7 @@ https://review.mssmileenglish.com/vi/comparisons/elevenlabs-vs-playht/,45,129,1,
 https://review.mssmileenglish.com/vi/comparisons/framer-vs-webflow/,42,126,1,53,16,true,true,Answer|Article|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Question|Review|SoftwareApplication|WebSite,review_schema_without_rating_data
 https://review.mssmileenglish.com/vi/comparisons/gemini-vs-claude/,41,125,1,51,16,true,true,Answer|Article|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Question|Review|SoftwareApplication|WebSite,review_schema_without_rating_data
 https://review.mssmileenglish.com/vi/comparisons/hubspot-vs-salesforce/,46,130,1,51,16,true,true,Answer|Article|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Question|Review|SoftwareApplication|WebSite,review_schema_without_rating_data
-https://review.mssmileenglish.com/vi/comparisons/,32,71,1,78,12,true,true,Article|BreadcrumbList|ListItem|Liên hệPoint|Organization|Person|WebSite,title_length_check|meta_description_length_check
+https://review.mssmileenglish.com/vi/comparisons/,32,71,1,79,12,true,true,Article|BreadcrumbList|ListItem|Liên hệPoint|Organization|Person|WebSite,title_length_check|meta_description_length_check
 https://review.mssmileenglish.com/vi/comparisons/jasper-vs-copyai/,42,126,1,54,16,true,true,Answer|Article|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Question|Review|SoftwareApplication|WebSite,review_schema_without_rating_data
 https://review.mssmileenglish.com/vi/comparisons/make-vs-zapier/,86,140,1,53,16,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check
 https://review.mssmileenglish.com/vi/comparisons/midjourney-vs-dalle/,45,129,1,50,16,true,true,Answer|Article|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Question|Review|SoftwareApplication|WebSite,review_schema_without_rating_data
@@ -351,6 +353,7 @@ https://review.mssmileenglish.com/vi/cursor-ai-review-a-practical-guide-for-deve
 https://review.mssmileenglish.com/vi/cursor-pricing/,74,157,1,45,11,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check
 https://review.mssmileenglish.com/vi/descript/,57,142,1,48,10,true,true,Answer|Article|Brand|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/vi/disclosure/,41,44,1,46,16,true,true,Answer|Article|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Question|WebSite,meta_description_length_check
+https://review.mssmileenglish.com/vi/downloads/ai-coding-workflow-checklist/,53,77,1,14,0,true,true,Answer|Article|BreadcrumbList|FAQPage|ListItem|Organization|Question,meta_description_length_check
 https://review.mssmileenglish.com/vi/durable/,56,141,1,45,7,true,true,Answer|Article|Brand|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/vi/editorial-policy/,44,47,1,46,12,true,true,Article|BreadcrumbList|ListItem|Liên hệPoint|Organization|Person|WebSite,meta_description_length_check
 https://review.mssmileenglish.com/vi/elevenlabs/,59,144,1,42,7,true,true,Answer|Article|Brand|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
@@ -358,6 +361,7 @@ https://review.mssmileenglish.com/vi/elevenlabs-pricing/,78,161,1,47,11,true,tru
 https://review.mssmileenglish.com/vi/email-marketing-alternatives/,72,170,1,49,16,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check
 https://review.mssmileenglish.com/vi/email-marketing-software-review/,97,173,1,49,16,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check|meta_description_length_check
 https://review.mssmileenglish.com/vi/framer/,55,140,1,45,7,true,true,Answer|Article|Brand|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
+https://review.mssmileenglish.com/vi/free-ai-coding-workflow-checklist/,62,98,1,14,0,true,true,Answer|Article|BreadcrumbList|FAQPage|ListItem|Organization|Question,
 https://review.mssmileenglish.com/vi/gamma/,54,139,1,45,10,true,true,Answer|Article|Brand|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/vi/github-copilot/,63,148,1,46,15,true,true,Answer|Article|Brand|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/vi/github-copilot-pricing/,82,165,1,43,11,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check
@@ -376,7 +380,7 @@ https://review.mssmileenglish.com/vi/hub/productivity/,53,102,1,59,17,true,true,
 https://review.mssmileenglish.com/vi/hub/website-builders/,45,106,1,57,17,true,true,BreadcrumbList|ItemList|ListItem,
 https://review.mssmileenglish.com/vi/hubs/,34,109,1,56,17,true,true,Answer|Article|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Question|WebSite,title_length_check
 https://review.mssmileenglish.com/vi/hubspot/,56,141,1,44,7,true,true,Answer|Article|Brand|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
-https://review.mssmileenglish.com/vi/,54,145,1,101,12,true,true,Answer|Article|FAQPage|Liên hệPoint|Organization|Person|Question|WebSite,
+https://review.mssmileenglish.com/vi/,54,145,1,102,12,true,true,Answer|Article|FAQPage|Liên hệPoint|Organization|Person|Question|WebSite,
 https://review.mssmileenglish.com/vi/jasper/,55,140,1,49,13,true,true,Answer|Article|Brand|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/vi/jasper-ai/,58,143,1,49,13,true,true,Answer|Article|Brand|BreadcrumbList|FAQPage|ListItem|Liên hệPoint|Organization|Person|Product|Question|Rating|Review|SearchAction|SoftwareApplication|WebSite,
 https://review.mssmileenglish.com/vi/jasper-pricing/,74,157,1,49,11,true,true,Answer|BreadcrumbList|FAQPage|ItemList|ListItem|Question,title_length_check
@@ -444,7 +448,7 @@ https://review.mssmileenglish.com/vi/reviews/framer/,36,23,1,50,16,true,true,Art
 https://review.mssmileenglish.com/vi/reviews/gamma/,36,22,1,49,16,true,true,Article|BreadcrumbList|ListItem|Liên hệPoint|Organization|Person|WebSite,meta_description_length_check
 https://review.mssmileenglish.com/vi/reviews/github-copilot/,36,31,1,48,16,true,true,Article|BreadcrumbList|ListItem|Liên hệPoint|Organization|Person|WebSite,meta_description_length_check
 https://review.mssmileenglish.com/vi/reviews/hubspot/,36,24,1,50,16,true,true,Article|BreadcrumbList|ListItem|Liên hệPoint|Organization|Person|WebSite,meta_description_length_check
-https://review.mssmileenglish.com/vi/reviews/,33,71,1,72,12,true,true,Article|BreadcrumbList|ListItem|Liên hệPoint|Organization|Person|WebSite,title_length_check|meta_description_length_check
+https://review.mssmileenglish.com/vi/reviews/,33,71,1,73,12,true,true,Article|BreadcrumbList|ListItem|Liên hệPoint|Organization|Person|WebSite,title_length_check|meta_description_length_check
 https://review.mssmileenglish.com/vi/reviews/jasper/,36,23,1,52,16,true,true,Article|BreadcrumbList|ListItem|Liên hệPoint|Organization|Person|WebSite,meta_description_length_check
 https://review.mssmileenglish.com/vi/reviews/jasper-ai/,36,26,1,52,16,true,true,Article|BreadcrumbList|ListItem|Liên hệPoint|Organization|Person|WebSite,meta_description_length_check
 https://review.mssmileenglish.com/vi/reviews/make/,36,21,1,49,16,true,true,Article|BreadcrumbList|ListItem|Liên hệPoint|Organization|Person|WebSite,meta_description_length_check

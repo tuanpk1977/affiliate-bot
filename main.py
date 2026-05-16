@@ -10,6 +10,7 @@ from modules.action_priority import run_action_priority_report
 from modules.affiliate_tracking import run_affiliate_tracking_engine
 from modules.affiliate_links import ensure_affiliate_links
 from modules.ai_angle_generator import generate_angles
+from modules.audience_growth import run_audience_growth_system
 from modules.bilingual_site import add_bilingual_pages
 from modules.compliance_checker import build_compliance_report
 from modules.content_approval import ensure_content_drafts
@@ -112,6 +113,7 @@ def main() -> None:
     run_action_priority_report()
     post_process_internal_links(settings.site_output_dir)
     add_bilingual_pages(settings.site_output_dir, settings.base_site_url or settings.site_domain)
+    run_audience_growth_system(settings.site_output_dir)
     generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     run_seo_system()
     generate_social_seo_assets()

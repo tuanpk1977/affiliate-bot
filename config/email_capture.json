@@ -1,0 +1,6 @@
+{
+  "enabled": false,
+  "provider": "",
+  "storage": "csv",
+  "double_opt_in": false
+}

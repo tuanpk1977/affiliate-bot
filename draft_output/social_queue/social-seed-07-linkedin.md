@@ -2,7 +2,7 @@
 
 - Platform: LinkedIn
 - Status: Pending Review
-- Suggested time: 2026-05-19 14:00
+- Suggested time: 2026-05-20 14:00
 - Target URL: https://review.mssmileenglish.com/comparisons/canva-vs-adobe-express/?utm_source=linkedin
 
 ## Copy

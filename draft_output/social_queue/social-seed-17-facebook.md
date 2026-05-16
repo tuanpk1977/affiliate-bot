@@ -2,7 +2,7 @@
 
 - Platform: Facebook
 - Status: Pending Review
-- Suggested time: 2026-05-24 19:30
+- Suggested time: 2026-05-25 19:30
 - Target URL: https://review.mssmileenglish.com/comparisons/canva-vs-adobe-express/?utm_source=facebook
 
 ## Copy

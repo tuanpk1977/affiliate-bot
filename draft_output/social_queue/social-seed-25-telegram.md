@@ -2,7 +2,7 @@
 
 - Platform: Telegram
 - Status: Pending Review
-- Suggested time: 2026-05-28 09:00
+- Suggested time: 2026-05-29 09:00
 - Target URL: https://review.mssmileenglish.com/review/cursor/?utm_source=telegram
 
 ## Copy

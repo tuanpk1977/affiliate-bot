@@ -1,5 +1,5 @@
 ﻿page_url,page_type,title,meta_description_status,title_status,canonical_status,hreflang_status,internal_links_count,cta_links_count,cta_links,sitemap_included
-https://review.mssmileenglish.com/about/,static,About - MS Smile AI Review Hub,ok,ok,ok,ok,46,0,,yes
+https://review.mssmileenglish.com/about/,static,About MS Smile AI Review Hub - MS Smile AI Review Hub,ok,ok,ok,ok,13,0,,yes
 https://review.mssmileenglish.com/about-author/,static,About Author - MS Smile AI Review Hub,ok,ok,ok,ok,47,0,,no
 https://review.mssmileenglish.com/activecampaign/,static,"ActiveCampaign Review: Features, Pros, Cons, Pricing Notes",ok,ok,ok,ok,39,1,/go/activecampaign/?src=/activecampaign/&amp;cta=official_site,yes
 https://review.mssmileenglish.com/adcreative-ai/,static,"AdCreative AI Review: Features, Pros, Cons, Pricing Notes",ok,ok,ok,ok,40,1,/go/adcreative-ai/?src=/adcreative-ai/&amp;cta=official_site,yes
@@ -50,7 +50,7 @@ https://review.mssmileenglish.com/blog/,blog,Blog - MS Smile AI Review Hub,ok,ok
 https://review.mssmileenglish.com/canva/,static,"Canva Review: Features, Pros, Cons, Pricing Notes",ok,ok,ok,ok,44,1,/go/canva/?src=/canva/&amp;cta=official_site,yes
 https://review.mssmileenglish.com/categories/,static,Categories - MS Smile AI Review Hub,ok,ok,ok,ok,54,0,,yes
 https://review.mssmileenglish.com/category/ai-automation-tools/,category,AI Automation Tools - MS Smile AI Review Hub,ok,ok,ok,ok,57,0,,yes
-https://review.mssmileenglish.com/category/ai-coding-tools/,category,Best AI Coding Tools to Research Before You Buy - MS Smile AI Review Hub,ok,ok,ok,ok,53,4,/go/codeium/?src=category/ai-coding-tools&cta=category_page | /go/cursor/?src=category/ai-coding-tools&cta=category_page | /go/github-copilot/?src=category/ai-coding-tools&cta=category_page | /go/windsurf/?src=category/ai-coding-tools&cta=category_page,yes
+https://review.mssmileenglish.com/category/ai-coding-tools/,category,Best AI Coding Tools to Research Before You Buy - MS Smile AI Review Hub,ok,ok,ok,ok,54,4,/go/codeium/?src=category/ai-coding-tools&cta=category_page | /go/cursor/?src=category/ai-coding-tools&cta=category_page | /go/github-copilot/?src=category/ai-coding-tools&cta=category_page | /go/windsurf/?src=category/ai-coding-tools&cta=category_page,yes
 https://review.mssmileenglish.com/category/ai-customer-support-tools/,category,AI Customer Support Tools - MS Smile AI Review Hub,ok,ok,ok,ok,57,0,,yes
 https://review.mssmileenglish.com/category/ai-presentation-tools/,category,AI Presentation Tools - MS Smile AI Review Hub,ok,ok,ok,ok,57,0,,yes
 https://review.mssmileenglish.com/category/ai-seo-tools/,category,AI SEO Tools - MS Smile AI Review Hub,ok,ok,ok,ok,59,0,,yes
@@ -95,7 +95,7 @@ https://review.mssmileenglish.com/comparisons/elevenlabs-vs-playht/,comparison,E
 https://review.mssmileenglish.com/comparisons/framer-vs-webflow/,comparison,Framer vs Webflow - MS Smile AI Review Hub,ok,ok,ok,ok,53,0,,yes
 https://review.mssmileenglish.com/comparisons/gemini-vs-claude/,comparison,Gemini vs Claude - MS Smile AI Review Hub,ok,ok,ok,ok,51,0,,yes
 https://review.mssmileenglish.com/comparisons/hubspot-vs-salesforce/,comparison,HubSpot vs Salesforce - MS Smile AI Review Hub,ok,ok,ok,ok,51,0,,yes
-https://review.mssmileenglish.com/comparisons/,comparison,Comparisons - MS Smile AI Review Hub,ok,ok,ok,ok,78,0,,yes
+https://review.mssmileenglish.com/comparisons/,comparison,Comparisons - MS Smile AI Review Hub,ok,ok,ok,ok,79,0,,yes
 https://review.mssmileenglish.com/comparisons/jasper-vs-copyai/,comparison,Jasper vs Copy.ai - MS Smile AI Review Hub,ok,ok,ok,ok,54,0,,yes
 https://review.mssmileenglish.com/comparisons/make-vs-zapier/,comparison,Make vs Zapier: Which automation platforms should you choose? - MS Smile AI Review Hub,ok,ok,ok,ok,53,2,/go/make/?src=/comparisons/make-vs-zapier/&amp;cta=official_site | /go/zapier/?src=/comparisons/make-vs-zapier/&amp;cta=official_site,yes
 https://review.mssmileenglish.com/comparisons/midjourney-vs-dalle/,comparison,Midjourney vs DALL-E - MS Smile AI Review Hub,ok,ok,ok,ok,50,0,,yes
@@ -115,6 +115,7 @@ https://review.mssmileenglish.com/cursor-ai-review-a-practical-guide-for-develop
 https://review.mssmileenglish.com/cursor-pricing/,pricing,Pricing Cursor: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,ok,ok,ok,ok,45,1,/go/cursor/?src=/cursor-pricing/&amp;cta=official_site,yes
 https://review.mssmileenglish.com/descript/,static,"Descript Review: Features, Pros, Cons, Pricing Notes",ok,ok,ok,ok,48,1,/go/descript/?src=/descript/&amp;cta=official_site,yes
 https://review.mssmileenglish.com/disclosure/,static,Disclosure - MS Smile AI Review Hub,ok,ok,ok,ok,46,0,,yes
+https://review.mssmileenglish.com/downloads/ai-coding-workflow-checklist/,static,AI Coding Workflow Checklist - MS Smile AI Review Hub,ok,ok,ok,ok,14,0,,yes
 https://review.mssmileenglish.com/durable/,static,"Durable Review: Features, Pros, Cons, Pricing Notes",ok,ok,ok,ok,45,1,/go/durable/?src=/durable/&amp;cta=official_site,yes
 https://review.mssmileenglish.com/editorial-policy/,static,Editorial Policy - MS Smile AI Review Hub,ok,ok,ok,ok,46,0,,no
 https://review.mssmileenglish.com/elevenlabs/,static,"ElevenLabs Review: Features, Pros, Cons, Pricing Notes",ok,ok,ok,ok,42,1,/go/elevenlabs/?src=/elevenlabs/&amp;cta=official_site,yes
@@ -122,6 +123,7 @@ https://review.mssmileenglish.com/elevenlabs-pricing/,pricing,Pricing ElevenLabs
 https://review.mssmileenglish.com/email-marketing-alternatives/,static,Best Email Marketing Alternatives for 2026 - MS Smile AI Review Hub,ok,ok,ok,ok,49,2,/go/activecampaign/?src=/email-marketing-alternatives/&cta=priority_page | /go/adcreative-ai/?src=/email-marketing-alternatives/&cta=priority_page,yes
 https://review.mssmileenglish.com/email-marketing-software-review/,review,Email Marketing Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,ok,ok,ok,ok,49,2,/go/activecampaign/?src=/email-marketing-software-review/&cta=priority_page | /go/adcreative-ai/?src=/email-marketing-software-review/&cta=priority_page,yes
 https://review.mssmileenglish.com/framer/,static,"Framer Review: Features, Pros, Cons, Pricing Notes",ok,ok,ok,ok,45,1,/go/framer/?src=/framer/&amp;cta=official_site,yes
+https://review.mssmileenglish.com/free-ai-coding-workflow-checklist/,static,Free AI Coding Workflow Checklist - MS Smile AI Review Hub,ok,ok,ok,ok,14,0,,yes
 https://review.mssmileenglish.com/gamma/,static,"Gamma Review: Features, Pros, Cons, Pricing Notes",ok,ok,ok,ok,45,1,/go/gamma/?src=/gamma/&amp;cta=official_site,yes
 https://review.mssmileenglish.com/github-copilot/,static,"GitHub Copilot Review: Features, Pros, Cons, Pricing Notes",ok,ok,ok,ok,46,1,/go/github-copilot/?src=/github-copilot/&amp;cta=official_site,yes
 https://review.mssmileenglish.com/github-copilot-pricing/,pricing,Pricing GitHub Copilot: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,ok,ok,ok,ok,43,1,/go/github-copilot/?src=/github-copilot-pricing/&amp;cta=official_site,yes
@@ -140,7 +142,7 @@ https://review.mssmileenglish.com/hub/productivity/,hub,AI Productivity Tools Hu
 https://review.mssmileenglish.com/hub/website-builders/,hub,Website Builders Hub - MS Smile AI Review Hub,ok,ok,ok,ok,57,4,/go/durable/?src=/hubs/&cta=hub_page | /go/framer/?src=/hubs/&cta=hub_page | /go/webflow-ai/?src=/hubs/&cta=hub_page | /go/webflow/?src=/hubs/&cta=hub_page,yes
 https://review.mssmileenglish.com/hubs/,static,Hubs - MS Smile AI Review Hub,ok,ok,ok,ok,56,0,,yes
 https://review.mssmileenglish.com/hubspot/,static,"HubSpot Review: Features, Pros, Cons, Pricing Notes",ok,ok,ok,ok,44,1,/go/hubspot/?src=/hubspot/&amp;cta=official_site,yes
-https://review.mssmileenglish.com/,home,AI Tool Review Center - MS Smile AI Review Hub,ok,ok,ok,ok,101,0,,yes
+https://review.mssmileenglish.com/,home,AI Tool Review Center - MS Smile AI Review Hub,ok,ok,ok,ok,102,0,,yes
 https://review.mssmileenglish.com/jasper/,static,"Jasper Review: Features, Pros, Cons, Pricing Notes",ok,ok,ok,ok,49,1,/go/jasper-ai/?src=/jasper/&amp;cta=official_site,yes
 https://review.mssmileenglish.com/jasper-ai/,static,"Jasper AI Review: Features, Pros, Cons, Pricing Notes",ok,ok,ok,ok,49,1,/go/jasper-ai/?src=/jasper-ai/&amp;cta=official_site,yes
 https://review.mssmileenglish.com/jasper-pricing/,pricing,Pricing Jasper: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,ok,ok,ok,ok,49,1,/go/jasper-ai/?src=/jasper-pricing/&amp;cta=official_site,yes
@@ -208,7 +210,7 @@ https://review.mssmileenglish.com/reviews/framer/,review,Redirecting - MS Smile 
 https://review.mssmileenglish.com/reviews/gamma/,review,Redirecting - MS Smile AI Review Hub,ok,ok,ok,ok,49,0,,no
 https://review.mssmileenglish.com/reviews/github-copilot/,review,Redirecting - MS Smile AI Review Hub,ok,ok,ok,ok,48,0,,no
 https://review.mssmileenglish.com/reviews/hubspot/,review,Redirecting - MS Smile AI Review Hub,ok,ok,ok,ok,50,0,,no
-https://review.mssmileenglish.com/reviews/,review,Reviews - MS Smile AI Review Hub,ok,ok,ok,ok,72,0,,yes
+https://review.mssmileenglish.com/reviews/,review,Reviews - MS Smile AI Review Hub,ok,ok,ok,ok,73,0,,yes
 https://review.mssmileenglish.com/reviews/jasper/,review,Redirecting - MS Smile AI Review Hub,ok,ok,ok,ok,52,0,,no
 https://review.mssmileenglish.com/reviews/jasper-ai/,review,Redirecting - MS Smile AI Review Hub,ok,ok,ok,ok,52,0,,no
 https://review.mssmileenglish.com/reviews/make/,review,Redirecting - MS Smile AI Review Hub,ok,ok,ok,ok,49,0,,no
@@ -235,7 +237,7 @@ https://review.mssmileenglish.com/surfer-seo-pricing/,pricing,Pricing Surfer SEO
 https://review.mssmileenglish.com/synthesia/,static,"Synthesia Review: Features, Pros, Cons, Pricing Notes",ok,ok,ok,ok,48,1,/go/synthesia/?src=/synthesia/&amp;cta=official_site,yes
 https://review.mssmileenglish.com/terms/,static,Terms - MS Smile AI Review Hub,ok,ok,ok,ok,46,0,,yes
 https://review.mssmileenglish.com/testing-methodology/,static,Testing Methodology - MS Smile AI Review Hub,ok,ok,ok,ok,47,0,,yes
-https://review.mssmileenglish.com/vi/about/,static,Giới thiệu - MS Smile AI Review Hub,ok,ok,ok,ok,46,0,,yes
+https://review.mssmileenglish.com/vi/about/,static,Giới thiệu MS Smile AI Review Hub - MS Smile AI Review Hub,ok,ok,ok,ok,13,0,,yes
 https://review.mssmileenglish.com/vi/about-author/,static,Giới thiệu tác giả - MS Smile AI Review Hub,ok,ok,ok,ok,47,0,,yes
 https://review.mssmileenglish.com/vi/activecampaign/,static,"ActiveCampaign Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",ok,ok,ok,ok,39,1,/go/activecampaign/?src=/activecampaign/&amp;cta=official_site,yes
 https://review.mssmileenglish.com/vi/adcreative-ai/,static,"AdCreative AI Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",ok,ok,ok,ok,40,1,/go/adcreative-ai/?src=/adcreative-ai/&amp;cta=official_site,yes
@@ -286,7 +288,7 @@ https://review.mssmileenglish.com/vi/blog/,blog,Blog - MS Smile AI Review Hub,ok
 https://review.mssmileenglish.com/vi/canva/,static,"Canva Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",ok,ok,ok,ok,44,1,/go/canva/?src=/canva/&amp;cta=official_site,yes
 https://review.mssmileenglish.com/vi/categories/,static,Danh mục - MS Smile AI Review Hub,ok,ok,ok,ok,54,0,,yes
 https://review.mssmileenglish.com/vi/category/ai-automation-tools/,category,Công cụ tự động hóa AI - MS Smile AI Review Hub,ok,ok,ok,ok,57,0,,yes
-https://review.mssmileenglish.com/vi/category/ai-coding-tools/,category,Công cụ AI coding tốt nhất cần nghiên cứu trước khi mua - MS Smile AI Review Hub,ok,ok,ok,ok,53,4,/go/codeium/?src=category/ai-coding-tools&cta=category_page | /go/cursor/?src=category/ai-coding-tools&cta=category_page | /go/github-copilot/?src=category/ai-coding-tools&cta=category_page | /go/windsurf/?src=category/ai-coding-tools&cta=category_page,yes
+https://review.mssmileenglish.com/vi/category/ai-coding-tools/,category,Công cụ AI coding tốt nhất cần nghiên cứu trước khi mua - MS Smile AI Review Hub,ok,ok,ok,ok,54,4,/go/codeium/?src=category/ai-coding-tools&cta=category_page | /go/cursor/?src=category/ai-coding-tools&cta=category_page | /go/github-copilot/?src=category/ai-coding-tools&cta=category_page | /go/windsurf/?src=category/ai-coding-tools&cta=category_page,yes
 https://review.mssmileenglish.com/vi/category/ai-customer-support-tools/,category,AI Customer Support Công cụs - MS Smile AI Review Hub,ok,ok,ok,ok,57,0,,yes
 https://review.mssmileenglish.com/vi/category/ai-presentation-tools/,category,AI Presentation Công cụs - MS Smile AI Review Hub,ok,ok,ok,ok,57,0,,yes
 https://review.mssmileenglish.com/vi/category/ai-seo-tools/,category,AI SEO Công cụs - MS Smile AI Review Hub,ok,ok,ok,ok,59,0,,yes
@@ -331,7 +333,7 @@ https://review.mssmileenglish.com/vi/comparisons/elevenlabs-vs-playht/,compariso
 https://review.mssmileenglish.com/vi/comparisons/framer-vs-webflow/,comparison,Framer vs Webflow - MS Smile AI Review Hub,ok,ok,ok,ok,53,0,,yes
 https://review.mssmileenglish.com/vi/comparisons/gemini-vs-claude/,comparison,Gemini vs Claude - MS Smile AI Review Hub,ok,ok,ok,ok,51,0,,yes
 https://review.mssmileenglish.com/vi/comparisons/hubspot-vs-salesforce/,comparison,HubSpot vs Salesforce - MS Smile AI Review Hub,ok,ok,ok,ok,51,0,,yes
-https://review.mssmileenglish.com/vi/comparisons/,comparison,So sánh - MS Smile AI Review Hub,ok,ok,ok,ok,78,0,,yes
+https://review.mssmileenglish.com/vi/comparisons/,comparison,So sánh - MS Smile AI Review Hub,ok,ok,ok,ok,79,0,,yes
 https://review.mssmileenglish.com/vi/comparisons/jasper-vs-copyai/,comparison,Jasper vs Copy.ai - MS Smile AI Review Hub,ok,ok,ok,ok,54,0,,yes
 https://review.mssmileenglish.com/vi/comparisons/make-vs-zapier/,comparison,Make vs Zapier: Which automation platforms should you choose? - MS Smile AI Review Hub,ok,ok,ok,ok,53,2,/go/make/?src=/comparisons/make-vs-zapier/&amp;cta=official_site | /go/zapier/?src=/comparisons/make-vs-zapier/&amp;cta=official_site,yes
 https://review.mssmileenglish.com/vi/comparisons/midjourney-vs-dalle/,comparison,Midjourney vs DALL-E - MS Smile AI Review Hub,ok,ok,ok,ok,50,0,,yes
@@ -351,6 +353,7 @@ https://review.mssmileenglish.com/vi/cursor-ai-review-a-practical-guide-for-deve
 https://review.mssmileenglish.com/vi/cursor-pricing/,pricing,Giá Cursor: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,ok,ok,ok,ok,45,1,/go/cursor/?src=/cursor-pricing/&amp;cta=official_site,yes
 https://review.mssmileenglish.com/vi/descript/,static,"Descript Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",ok,ok,ok,ok,48,1,/go/descript/?src=/descript/&amp;cta=official_site,yes
 https://review.mssmileenglish.com/vi/disclosure/,static,Tiết lộ liên kết - MS Smile AI Review Hub,ok,ok,ok,ok,46,0,,yes
+https://review.mssmileenglish.com/vi/downloads/ai-coding-workflow-checklist/,static,Checklist workflow AI coding - MS Smile AI Review Hub,ok,ok,ok,ok,14,0,,yes
 https://review.mssmileenglish.com/vi/durable/,static,"Durable Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",ok,ok,ok,ok,45,1,/go/durable/?src=/durable/&amp;cta=official_site,yes
 https://review.mssmileenglish.com/vi/editorial-policy/,static,Chính sách biên tập - MS Smile AI Review Hub,ok,ok,ok,ok,46,0,,yes
 https://review.mssmileenglish.com/vi/elevenlabs/,static,"ElevenLabs Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",ok,ok,ok,ok,42,1,/go/elevenlabs/?src=/elevenlabs/&amp;cta=official_site,yes
@@ -358,6 +361,7 @@ https://review.mssmileenglish.com/vi/elevenlabs-pricing/,pricing,Giá ElevenLabs
 https://review.mssmileenglish.com/vi/email-marketing-alternatives/,static,Best Email Marketing Lựa chọn thay thế for 2026 - MS Smile AI Review Hub,ok,ok,ok,ok,49,2,/go/activecampaign/?src=/email-marketing-alternatives/&cta=priority_page | /go/adcreative-ai/?src=/email-marketing-alternatives/&cta=priority_page,yes
 https://review.mssmileenglish.com/vi/email-marketing-software-review/,review,Email Marketing Software Đánh giá: review theo hướng nghiên cứu for 2026 - MS Smile AI Review Hub,ok,ok,ok,ok,49,2,/go/activecampaign/?src=/email-marketing-software-review/&cta=priority_page | /go/adcreative-ai/?src=/email-marketing-software-review/&cta=priority_page,yes
 https://review.mssmileenglish.com/vi/framer/,static,"Framer Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",ok,ok,ok,ok,45,1,/go/framer/?src=/framer/&amp;cta=official_site,yes
+https://review.mssmileenglish.com/vi/free-ai-coding-workflow-checklist/,static,Checklist workflow AI coding miễn phí - MS Smile AI Review Hub,ok,ok,ok,ok,14,0,,yes
 https://review.mssmileenglish.com/vi/gamma/,static,"Gamma Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",ok,ok,ok,ok,45,1,/go/gamma/?src=/gamma/&amp;cta=official_site,yes
 https://review.mssmileenglish.com/vi/github-copilot/,static,"GitHub Copilot Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",ok,ok,ok,ok,46,1,/go/github-copilot/?src=/github-copilot/&amp;cta=official_site,yes
 https://review.mssmileenglish.com/vi/github-copilot-pricing/,pricing,Giá GitHub Copilot: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,ok,ok,ok,ok,43,1,/go/github-copilot/?src=/github-copilot-pricing/&amp;cta=official_site,yes
@@ -376,7 +380,7 @@ https://review.mssmileenglish.com/vi/hub/productivity/,hub,AI Productivity Công
 https://review.mssmileenglish.com/vi/hub/website-builders/,hub,Website Builders Hub - MS Smile AI Review Hub,ok,ok,ok,ok,57,4,/go/durable/?src=/hubs/&cta=hub_page | /go/framer/?src=/hubs/&cta=hub_page | /go/webflow-ai/?src=/hubs/&cta=hub_page | /go/webflow/?src=/hubs/&cta=hub_page,yes
 https://review.mssmileenglish.com/vi/hubs/,static,Trung tâm - MS Smile AI Review Hub,ok,ok,ok,ok,56,0,,yes
 https://review.mssmileenglish.com/vi/hubspot/,static,"HubSpot Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",ok,ok,ok,ok,44,1,/go/hubspot/?src=/hubspot/&amp;cta=official_site,yes
-https://review.mssmileenglish.com/vi/,home,Trung tâm đánh giá công cụ AI - MS Smile AI Review Hub,ok,ok,ok,ok,101,0,,yes
+https://review.mssmileenglish.com/vi/,home,Trung tâm đánh giá công cụ AI - MS Smile AI Review Hub,ok,ok,ok,ok,102,0,,yes
 https://review.mssmileenglish.com/vi/jasper/,static,"Jasper Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",ok,ok,ok,ok,49,1,/go/jasper-ai/?src=/jasper/&amp;cta=official_site,yes
 https://review.mssmileenglish.com/vi/jasper-ai/,static,"Jasper AI Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",ok,ok,ok,ok,49,1,/go/jasper-ai/?src=/jasper-ai/&amp;cta=official_site,yes
 https://review.mssmileenglish.com/vi/jasper-pricing/,pricing,Giá Jasper: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,ok,ok,ok,ok,49,1,/go/jasper-ai/?src=/jasper-pricing/&amp;cta=official_site,yes
@@ -444,7 +448,7 @@ https://review.mssmileenglish.com/vi/reviews/framer/,review,Redirecting - MS Smi
 https://review.mssmileenglish.com/vi/reviews/gamma/,review,Redirecting - MS Smile AI Review Hub,ok,ok,ok,ok,49,0,,yes
 https://review.mssmileenglish.com/vi/reviews/github-copilot/,review,Redirecting - MS Smile AI Review Hub,ok,ok,ok,ok,48,0,,yes
 https://review.mssmileenglish.com/vi/reviews/hubspot/,review,Redirecting - MS Smile AI Review Hub,ok,ok,ok,ok,50,0,,yes
-https://review.mssmileenglish.com/vi/reviews/,review,Đánh giá - MS Smile AI Review Hub,ok,ok,ok,ok,72,0,,yes
+https://review.mssmileenglish.com/vi/reviews/,review,Đánh giá - MS Smile AI Review Hub,ok,ok,ok,ok,73,0,,yes
 https://review.mssmileenglish.com/vi/reviews/jasper/,review,Redirecting - MS Smile AI Review Hub,ok,ok,ok,ok,52,0,,yes
 https://review.mssmileenglish.com/vi/reviews/jasper-ai/,review,Redirecting - MS Smile AI Review Hub,ok,ok,ok,ok,52,0,,yes
 https://review.mssmileenglish.com/vi/reviews/make/,review,Redirecting - MS Smile AI Review Hub,ok,ok,ok,ok,49,0,,yes
