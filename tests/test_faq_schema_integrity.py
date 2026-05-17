@@ -78,8 +78,14 @@ class FAQSchemaIntegrityTest(unittest.TestCase):
         return schema
 
     def test_all_site_output_pages_have_no_duplicate_or_invalid_faqpage_schema(self):
-        for page in sorted(settings.site_output_dir.rglob("*.html")):
-            rel = page.relative_to(settings.site_output_dir).as_posix()
+        self.assert_faq_integrity_for_tree(settings.site_output_dir)
+
+    def test_all_docs_pages_have_no_duplicate_or_invalid_faqpage_schema(self):
+        self.assert_faq_integrity_for_tree(Path("docs"))
+
+    def assert_faq_integrity_for_tree(self, root: Path):
+        for page in sorted(root.rglob("*.html")):
+            rel = page.relative_to(root).as_posix()
             with self.subTest(path=rel):
                 html = page.read_text(encoding="utf-8")
                 schemas = faq_schemas(html)

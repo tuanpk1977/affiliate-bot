@@ -65,7 +65,9 @@ def should_skip(path: Path, output: Path) -> bool:
     if rel_parts[0] == "reviews" and len(rel_parts) > 2:
         return True
     url_path = "/".join(rel_parts[:-1]) if rel_parts[-1] == "index.html" else "/".join(rel_parts)
-    return url_path.strip("/") in NOINDEX_EXACT_PATHS
+    clean_path = url_path.strip("/")
+    localized_path = clean_path[3:] if clean_path.startswith("vi/") else clean_path
+    return clean_path in NOINDEX_EXACT_PATHS or localized_path in NOINDEX_EXACT_PATHS
 
 
 def file_lastmod(path: Path) -> str:
