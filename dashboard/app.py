@@ -1465,6 +1465,70 @@ def render_seo_system_page() -> None:
         )
 
 
+def render_performance_intelligence_page() -> None:
+    st.header("Performance Intelligence")
+    st.caption("Local-safe performance view. Import Google Search Console exports manually; no Google API is called.")
+
+    traffic = read_csv(settings.data_dir / "traffic_performance_report.csv")
+    gsc_pages = read_csv(settings.data_dir / "gsc_page_performance_report.csv")
+    gsc_queries = read_csv(settings.data_dir / "gsc_query_performance_report.csv")
+    go_clicks = read_csv(settings.data_dir / "go_click_performance_report.csv")
+    actions = read_csv(settings.data_dir / "action_priority_report.csv")
+
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Tracked pages", len(traffic))
+    total_clicks = int(pd.to_numeric(traffic.get("clicks", pd.Series(dtype=float)), errors="coerce").fillna(0).sum()) if not traffic.empty else 0
+    total_impressions = int(pd.to_numeric(traffic.get("impressions", pd.Series(dtype=float)), errors="coerce").fillna(0).sum()) if not traffic.empty else 0
+    c2.metric("GSC clicks", total_clicks)
+    c3.metric("GSC impressions", total_impressions)
+    go_total = int(pd.to_numeric(go_clicks.get("clicks", pd.Series(dtype=float)), errors="coerce").fillna(0).sum()) if not go_clicks.empty else 0
+    c4.metric("/go clicks", go_total)
+
+    if traffic.empty:
+        st.info("No traffic_performance_report.csv yet. Run python main.py or python scripts/import_gsc_export.py.")
+    else:
+        st.markdown("### Top Pages")
+        sort_cols = [col for col in ["priority_score", "clicks", "impressions"] if col in traffic.columns]
+        top_pages = traffic.sort_values(sort_cols, ascending=False) if sort_cols else traffic
+        display_cols = [col for col in ["page", "title_or_slug", "impressions", "clicks", "ctr", "avg_position", "cta_clicks", "internal_links_count", "priority_score", "recommended_action"] if col in top_pages.columns]
+        st.dataframe(top_pages[display_cols].head(50), use_container_width=True, hide_index=True)
+        st.download_button("Download traffic_performance_report.csv", traffic.to_csv(index=False).encode("utf-8-sig"), "traffic_performance_report.csv", "text/csv")
+
+    st.markdown("### Top Queries")
+    if gsc_queries.empty:
+        st.info("No GSC query data yet. Export queries from Google Search Console and save them as data/gsc_performance_import.csv.")
+    else:
+        sort_cols = [col for col in ["clicks", "impressions"] if col in gsc_queries.columns]
+        top_queries = gsc_queries.sort_values(sort_cols, ascending=False) if sort_cols else gsc_queries
+        st.dataframe(top_queries.head(50), use_container_width=True, hide_index=True)
+        st.download_button("Download gsc_query_performance_report.csv", gsc_queries.to_csv(index=False).encode("utf-8-sig"), "gsc_query_performance_report.csv", "text/csv")
+
+    st.markdown("### CTA / Go Clicks")
+    if go_clicks.empty:
+        st.info("No go_click_performance_report.csv yet. The report is still safe when no click data exists.")
+    else:
+        st.dataframe(go_clicks.head(80), use_container_width=True, hide_index=True)
+        st.download_button("Download go_click_performance_report.csv", go_clicks.to_csv(index=False).encode("utf-8-sig"), "go_click_performance_report.csv", "text/csv")
+
+    st.markdown("### Next Best Actions")
+    if traffic.empty and actions.empty:
+        st.info("No action data yet. Run python main.py.")
+    else:
+        if not traffic.empty and "recommended_action" in traffic.columns:
+            st.caption("Performance-based actions")
+            action_view = traffic[traffic["recommended_action"].astype(str) != "monitor"] if "recommended_action" in traffic.columns else traffic
+            st.dataframe(action_view.head(30), use_container_width=True, hide_index=True)
+        if not actions.empty:
+            st.caption("Existing action priority report")
+            cols = [col for col in ["priority_rank", "action_type", "topic", "keyword", "page_url", "reason", "expected_impact", "next_action"] if col in actions.columns]
+            st.dataframe(actions[cols].head(20), use_container_width=True, hide_index=True)
+
+    st.markdown("### Manual GSC Import")
+    st.write("1. Export page/query data from Google Search Console.")
+    st.write("2. Save it as `data/gsc_performance_import.csv` with columns from `data/gsc_performance_import_template.csv`.")
+    st.write("3. Run `python scripts/import_gsc_export.py` or `python main.py`.")
+
+
 def to_bool(value: object) -> bool:
     if isinstance(value, bool):
         return value
@@ -1741,6 +1805,7 @@ sidebar_page = st.sidebar.radio(
         "Phân phối xã hội",
         "Post Deploy Kit",
         "SEO System",
+        "Performance Intelligence",
         "Reports",
     ],
     index=0,
@@ -1781,6 +1846,9 @@ elif sidebar_page == "Post Deploy Kit":
     st.stop()
 elif sidebar_page == "SEO System":
     render_seo_system_page()
+    st.stop()
+elif sidebar_page == "Performance Intelligence":
+    render_performance_intelligence_page()
     st.stop()
 elif sidebar_page == "Review Queue":
     st.info("Review Queue is available in the Content Review tab below. Use the sidebar Social Distribution item for the dedicated social workflow.")

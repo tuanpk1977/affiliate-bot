@@ -1,5 +1,13 @@
 {
   "ENABLE_TRACKING": false,
   "GA4_MEASUREMENT_ID": "",
-  "GOOGLE_SITE_VERIFICATION": ""
+  "GOOGLE_SITE_VERIFICATION": "",
+  "ga4_measurement_id": "",
+  "gsc_site_url": "https://review.mssmileenglish.com/",
+  "tracking_mode": "local_safe",
+  "click_collection_mode": "static_go_pages",
+  "webhook_url": "",
+  "enable_go_tracking": true,
+  "enable_utm_tracking": true,
+  "notes": "Leave IDs and webhook empty until real accounts are configured. No secrets are required for local builds."
 }

@@ -19,6 +19,7 @@ from modules.csv_exporter import export_csv
 from modules.data_sources import attach_data_confidence, load_data_sources
 from modules.decision_engine import decide_campaigns, decide_offers
 from modules.geo_analyzer import suggest_geos
+from modules.gsc_performance import run_performance_intelligence
 from modules.keyword_analyzer import generate_keywords
 from modules.keyword_intelligence import run_keyword_intelligence, run_keyword_intelligence_report
 from modules.landing_page_generator import generate_landing_pages
@@ -117,6 +118,7 @@ def main() -> None:
     generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     run_seo_system()
     generate_social_seo_assets()
+    run_performance_intelligence()
     print_keyword_summary(keyword_summary)
     LOGGER.info("Pipeline completed. Dashboard data is ready in %s", settings.data_dir)
 
