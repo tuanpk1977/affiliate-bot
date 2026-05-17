@@ -95,6 +95,7 @@ NAV_INDEX_SLUGS = ["reviews", "comparisons", "pricing", "categories", "hubs"]
 
 BLOG_POSTS = [
     ("chatgpt-windsurf-codex-workflow", "ChatGPT Windsurf Codex Workflow", "My real AI building process using ChatGPT for thinking and prompts, Windsurf for the first build, and Codex for debugging, refactoring, and polishing."),
+    ("chatgpt-prompts-for-windsurf", "ChatGPT Prompts for Windsurf", "How I use ChatGPT to turn a rough project idea into clearer Windsurf prompts before building, testing, and sending focused fixes to Codex."),
     ("best-ai-tools-for-small-business", "Best AI Tools for Small Business", "AI tools can help small teams document work, produce content, manage customers, and automate repetitive operations without hiring a large specialist team."),
     ("best-ai-presentation-tools", "Best AI Presentation Tools", "AI presentation tools help turn ideas, outlines, and research notes into clearer decks, pitch pages, and visual explanations."),
     ("best-ai-voice-generators", "Best AI Voice Generators", "AI voice generators are useful for creators and teams that need narration, learning content, and repeatable audio workflows."),
@@ -483,6 +484,8 @@ def blog_card(slug: str, title: str, summary: str) -> str:
 def blog_article_html(slug: str, title: str, summary: str, pages: list[dict]) -> str:
     if slug == "chatgpt-windsurf-codex-workflow":
         return ai_workflow_article_html(slug, title)
+    if slug == "chatgpt-prompts-for-windsurf":
+        return chatgpt_prompts_for_windsurf_article_html(slug, title)
     related = related_links_for_blog(slug, pages)
     sections = [
         ("overview", "Overview", summary),
@@ -517,6 +520,150 @@ def related_links_for_blog(slug: str, pages: list[dict]) -> str:
     elif "website" in slug or "presentation" in slug or "canva" in slug:
         picks = [p for p in pages if p["slug"] in {"gamma", "webflow-ai", "canva", "adcreative-ai"}][:4] or picks
     return "".join(f"<a href='/{html.escape(page['slug'])}/'>{html.escape(page['brand_name'])}</a> " for page in picks)
+
+
+def chatgpt_prompts_for_windsurf_article_html(slug: str, title: str) -> str:
+    toc_items = [
+        ("why-prompts-matter", "Why ChatGPT prompts matter before Windsurf"),
+        ("workflow", "My practical AI coding prompt workflow"),
+        ("before-writing", "What I prepare before asking Windsurf"),
+        ("prompt-landing-page", "Prompt example 1 - Build a landing page"),
+        ("prompt-language", "Prompt example 2 - Fix a mixed language issue"),
+        ("prompt-seo", "Prompt example 3 - Add SEO metadata"),
+        ("prompt-internal-links", "Prompt example 4 - Create internal links"),
+        ("prompt-404", "Prompt example 5 - Fix a broken route or 404"),
+        ("how-i-test", "How I test the Windsurf output"),
+        ("codex-handoff", "When I hand the task to Codex"),
+        ("mistakes", "Prompt mistakes I try to avoid"),
+        ("checklist", "My reusable Windsurf prompt checklist"),
+        ("faq", "FAQ"),
+    ]
+    toc = "".join(f"<a href='#{sid}'>{html.escape(label)}</a>" for sid, label in toc_items)
+    prompt_landing = """I want you to build a clean static landing page for my AI workflow checklist. Keep the current site style. Add a clear headline, short intro, 5 benefit bullets, an email setup-mode notice, and CTA buttons linking to /free-ai-coding-workflow-checklist/ and /blog/chatgpt-windsurf-codex-workflow/. Do not add external APIs, fake claims, or affiliate links. After editing, tell me which files changed and what command I should run to test."""
+    prompt_language = """Inspect the generated English and Vietnamese pages for mixed language UI. English pages should use English labels. Vietnamese pages should use natural Vietnamese labels. Fix the source generator, not only docs output. Preserve product names like ChatGPT, Windsurf, Codex, Cursor, and GitHub Copilot. Rebuild the site and confirm language integrity passes."""
+    prompt_seo = """Add or verify SEO metadata for this page: unique title, meta description, canonical URL, Open Graph title/description/image, Twitter card, and one H1. Do not change the domain. Do not add fake analytics IDs. If the config is empty, the build should still work. Update sitemap through the normal pipeline."""
+    prompt_links = """Add natural internal links from this article to the main ChatGPT Windsurf Codex workflow article, Windsurf review, Cursor vs Windsurf comparison, and AI coding workflow checklist. Keep link density moderate. Use descriptive anchors. Do not create broken URLs. Do not add fake affiliate links."""
+    prompt_404 = """The URL /blog/chatgpt-windsurf-codex-workflow/ returns 404 on GitHub Pages. Check whether the route exists in site_output and docs, whether sitemap includes it, and whether the source blog routing list includes the slug. Fix the source pipeline, rebuild, sync docs, and report the exact files that need to be committed."""
+    return f"""<nav class='breadcrumb'><a href='/'>Home</a> / <a href='/blog/'>Blog</a> / {html.escape(title)}</nav>
+    <article class='review-layout'>
+      <aside class='card toc'><h2>Contents</h2>{toc}</aside>
+      <div>
+        <section class='card hero-section'>
+          <p class='muted'>AI coding prompt workflow | Windsurf examples | Last updated {date.today().isoformat()}</p>
+          <h1>How to Use ChatGPT to Write Better Prompts for Windsurf</h1>
+          <p>I do not send rough ideas directly to Windsurf anymore. When I do, the first build usually moves fast, but the output can miss important details: the wrong route, a weak layout, mixed language labels, missing SEO metadata, or a feature that looks finished but does not survive testing.</p>
+          <p>My current workflow is more deliberate. I start with the idea, use ChatGPT to turn that idea into a clearer coding prompt, send the prompt to Windsurf for the first build, test the result myself, then use ChatGPT again to understand errors before handing focused repair work to Codex. This article explains that middle step: how I use ChatGPT prompts for Windsurf so the first build starts cleaner.</p>
+          <div class='cta-row'><a class='btn' href='/blog/chatgpt-windsurf-codex-workflow/'>Read the full workflow</a><a class='btn secondary' href='/free-ai-coding-workflow-checklist/'>Get the workflow checklist</a></div>
+          {share_buttons(f'/blog/{slug}/', "ChatGPT Prompts for Windsurf")}
+        </section>
+
+        <section class='card' id='why-prompts-matter'>
+          <h2>Why ChatGPT prompts matter before Windsurf</h2>
+          <p>Windsurf is useful when I need to move from an idea to a working first version. It can create files, adjust UI, connect routes, and make a project feel alive quickly. But Windsurf is not a mind reader. If I give it a vague instruction, the first version usually reflects that vagueness.</p>
+          <p>A better prompt does not make the tool perfect. It makes the first build easier to inspect. It gives Windsurf the boundaries: what to change, what to preserve, what not to invent, what files matter, what validation commands should run, and how the final answer should be reported.</p>
+          <p>That is why I use ChatGPT before Windsurf. ChatGPT helps me slow down for a few minutes and turn a messy request into a practical implementation brief. In real projects, those few minutes often save more time than trying to fix a chaotic first draft later.</p>
+        </section>
+
+        <section class='card' id='workflow'>
+          <h2>My practical AI coding prompt workflow</h2>
+          <p>The flow I use is simple:</p>
+          <p><strong>Idea -> ChatGPT prompt -> Windsurf first build -> test -> ChatGPT review -> Codex fix</strong></p>
+          <p>For example, if I want to add a new article to this AI tool review site, I do not ask Windsurf to "write a blog post and fix SEO." That is too broad. I first ask ChatGPT to help define the article purpose, internal links, CTA, sitemap behavior, language requirements, and validation steps.</p>
+          <p>After Windsurf builds the first version, I test the page in the browser and through local scripts. If the output has broken links, strange Vietnamese labels, layout overlap, or a GitHub Pages route problem, I take screenshots or copy the error. Then ChatGPT helps me write a focused prompt for Codex. Codex is better when the problem is specific.</p>
+          <p>This is the same workflow I described in my main article, <a href='/blog/chatgpt-windsurf-codex-workflow/'>How I Use ChatGPT, Windsurf and Codex to Build Real AI Projects</a>. This supporting guide zooms in on the prompt-writing part.</p>
+        </section>
+
+        <section class='card' id='before-writing'>
+          <h2>What I prepare before asking Windsurf</h2>
+          <p>Before I write a Windsurf prompt, I try to collect four things. First, I write the user goal in plain language. Second, I list the files, folders, or pages that are likely involved. Third, I define the safety rules, such as no external API calls, no fake affiliate links, no auto-posting, and no manual edits inside generated docs unless the build pipeline handles it. Fourth, I specify the tests or validation scripts that should run afterward.</p>
+          <p>This makes the prompt more like a short engineering ticket than a wish. It also makes it easier to review the result. If the task says "update sitemap through the pipeline," then I know to check `sitemap.xml`. If the task says "do not break the language switcher," then I know to check English and Vietnamese versions.</p>
+          <p>For beginners, this matters because you do not need to know every line of code. You need to know how to describe the result and how to test whether the result actually works.</p>
+        </section>
+
+        <section class='card' id='prompt-landing-page'>
+          <h2>Prompt example 1 - Build a landing page</h2>
+          <p>When I want Windsurf to create a first version of a landing page, I include the purpose, page structure, internal links, and constraints.</p>
+          <pre><code>{html.escape(prompt_landing)}</code></pre>
+          <p>This prompt works better than "build a landing page" because it tells Windsurf what page to support, what style to keep, which CTA links to use, and what not to do. It also protects the project from fake claims or accidental external integrations.</p>
+        </section>
+
+        <section class='card' id='prompt-language'>
+          <h2>Prompt example 2 - Fix a mixed language issue</h2>
+          <p>Mixed language is a real issue I have had to fix on this site. A page might have Vietnamese navigation but English table headings, or an English page might accidentally contain Vietnamese UI text. The prompt needs to mention both source and generated output.</p>
+          <pre><code>{html.escape(prompt_language)}</code></pre>
+          <p>The important part is "fix the source generator, not only docs output." If a tool only edits the generated HTML, the problem comes back the next time I run the build. A good Windsurf prompt should push the fix upstream.</p>
+        </section>
+
+        <section class='card' id='prompt-seo'>
+          <h2>Prompt example 3 - Add SEO metadata</h2>
+          <p>SEO tasks are easy to make messy because there are many small pieces: title, description, canonical, Open Graph, Twitter card, schema, sitemap, and internal links. I try to keep the prompt specific.</p>
+          <pre><code>{html.escape(prompt_seo)}</code></pre>
+          <p>This is useful for a static site because a page can look fine visually and still be weak for Google Search Console. I want Windsurf to update the right source path and keep the build safe when tracking IDs or verification fields are empty.</p>
+        </section>
+
+        <section class='card' id='prompt-internal-links'>
+          <h2>Prompt example 4 - Create internal links</h2>
+          <p>Internal links should help the reader move through the topic, not just fill the page with anchors. For this article, the most useful supporting links are the main workflow article, the <a href='/windsurf-review/'>Windsurf review</a>, the <a href='/comparisons/cursor-vs-windsurf/'>Cursor vs Windsurf comparison</a>, and the <a href='/free-ai-coding-workflow-checklist/'>AI coding workflow checklist</a>.</p>
+          <pre><code>{html.escape(prompt_links)}</code></pre>
+          <p>I like prompts that say "keep link density moderate" because AI tools can overdo internal linking. A few useful links are better than a page that feels like a navigation dump.</p>
+        </section>
+
+        <section class='card' id='prompt-404'>
+          <h2>Prompt example 5 - Fix a broken route or 404</h2>
+          <p>Broken routes are common in static sites when the source generated the page locally but the committed `docs/` folder did not include the new output. This is exactly the kind of issue where a focused prompt helps.</p>
+          <pre><code>{html.escape(prompt_404)}</code></pre>
+          <p>This prompt tells Windsurf where to look: source routing, `site_output`, `docs`, sitemap, and the commit list. Without that detail, the tool might patch the wrong place or assume the problem is hosting when it is actually a missing generated folder.</p>
+        </section>
+
+        <section class='card' id='how-i-test'>
+          <h2>How I test the Windsurf output</h2>
+          <p>After Windsurf creates the first build, I do not assume it is ready. I open the page, click internal links, check the CTA, inspect the sitemap, and run the local validation scripts. I look for obvious human issues too: does the page read naturally, does the Vietnamese text make sense, does the heading match the search intent, and does the first screen explain why the article exists?</p>
+          <p>For AI coding content, I especially check whether the article links back to the main workflow. A supporting post should not live alone. It should help readers discover the bigger system: <a href='/blog/chatgpt-windsurf-codex-workflow/'>ChatGPT for planning, Windsurf for the first build, Codex for fixing</a>.</p>
+          <p>If the page passes local validation but still feels robotic, I revise the prompt. Practical content needs examples from real work: broken routes, mixed language bugs, SEO metadata, internal linking, layout issues, and screenshots. Those details make the article useful.</p>
+        </section>
+
+        <section class='card' id='codex-handoff'>
+          <h2>When I hand the task to Codex</h2>
+          <p>I usually hand the task to Codex when the issue is no longer about creating a first draft. If Windsurf generated the page but the route is missing in `docs`, or the FAQ schema is duplicated, or the language switcher needs source-level changes, Codex is a better fit.</p>
+          <p>The Codex prompt is more surgical. I include the exact failing URL, the expected behavior, the source files to inspect, the validation commands, and what not to change. This prevents broad refactors and keeps the project stable.</p>
+          <p>In practice, Windsurf gives me speed and Codex gives me repair quality. ChatGPT connects both by helping me write clearer prompts.</p>
+        </section>
+
+        <section class='card' id='mistakes'>
+          <h2>Prompt mistakes I try to avoid</h2>
+          <p>The first mistake is asking for too much at once. "Improve the website" can mean SEO, design, content, routing, language, tracking, and social distribution. That is too broad for one pass.</p>
+          <p>The second mistake is leaving out constraints. If I do not say "do not call external APIs" or "do not create fake affiliate links," the tool might suggest something that does not fit the project. Constraints are not negative. They keep the work aligned with the real goal.</p>
+          <p>The third mistake is failing to define the test. A useful prompt should end with something like: run the build, sync docs, validate site, check language integrity, and report the files changed. That makes the result easier to trust.</p>
+        </section>
+
+        <section class='card' id='checklist'>
+          <h2>My reusable Windsurf prompt checklist</h2>
+          <ul>
+            <li>State the exact page, feature, or bug.</li>
+            <li>Explain the reader or user goal.</li>
+            <li>List required internal links and CTA destinations.</li>
+            <li>Tell Windsurf what not to invent or change.</li>
+            <li>Ask it to fix source generator files, not only generated output.</li>
+            <li>Specify the build and validation commands.</li>
+            <li>Ask for a short report with files changed and test results.</li>
+          </ul>
+          <p>If you want a broader version of this process, use the <a href='/free-ai-coding-workflow-checklist/'>free AI coding workflow checklist</a>. It covers the full loop from idea to ChatGPT, Windsurf, Codex, GitHub Pages, SEO checks, and social drafts.</p>
+          <div class='cta-row'><a class='btn' href='/free-ai-coding-workflow-checklist/'>Download the workflow checklist</a><a class='btn secondary' href='/windsurf-review/'>Read the Windsurf review</a></div>
+        </section>
+
+        <section class='card' id='faq'>
+          <h2>FAQ</h2>
+          <details><summary>What are good ChatGPT prompts for Windsurf?</summary><p>Good prompts explain the goal, files involved, constraints, expected output, and validation steps. The best prompts are specific enough for Windsurf to build a useful first version without guessing too much.</p></details>
+          <details><summary>Should beginners use ChatGPT before Windsurf?</summary><p>Yes. ChatGPT helps beginners organize the idea before asking Windsurf to create files or UI. This reduces vague output and makes the first build easier to test.</p></details>
+          <details><summary>Can Windsurf build apps from a prompt?</summary><p>Windsurf can create first versions quickly, especially for pages, UI, routes, and project structure. The output still needs testing, cleanup, and sometimes Codex repair.</p></details>
+          <details><summary>When should I use Codex instead of Windsurf?</summary><p>I use Codex when the project already exists and needs focused fixes: bugs, refactors, SEO corrections, routing issues, language switching problems, or production-readiness checks.</p></details>
+          <details><summary>What is the safest AI coding workflow for beginners?</summary><p>Start with a real idea, use ChatGPT to write a clear prompt, let Windsurf create the first version, test the result, then use ChatGPT and Codex to fix specific issues.</p></details>
+        </section>
+
+        <section class='card related'><h2>Related reading</h2><p><a href='/blog/chatgpt-windsurf-codex-workflow/'>Full ChatGPT + Windsurf + Codex workflow</a> <a href='/windsurf-review/'>Windsurf review</a> <a href='/comparisons/cursor-vs-windsurf/'>Cursor vs Windsurf</a> <a href='/free-ai-coding-workflow-checklist/'>AI coding workflow checklist</a></p></section>
+        {newsletter_html()}
+      </div>
+    </article>"""
 
 
 def ai_workflow_article_html(slug: str, title: str) -> str:
