@@ -12,6 +12,10 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site_output"
+FAQ_SCHEMA_DISABLED = {
+    "comparisons/framer-vs-webflow/index.html",
+    "vi/comparisons/framer-vs-webflow/index.html",
+}
 CONTENT_DRAFTS = ROOT / "data" / "content_drafts.csv"
 CLICK_EVENTS = ROOT / "data" / "click_events.csv"
 AFFILIATE_LINKS = ROOT / "data" / "affiliate_links.csv"
@@ -103,7 +107,7 @@ def main() -> int:
                 and "CTA" not in text
             ):
                 errors.append(f"{rel}: missing CTA")
-            if ("FAQ" in text or "<details" in text) and '"@type": "FAQPage"' not in text:
+            if ("FAQ" in text or "<details" in text) and '"@type": "FAQPage"' not in text and rel not in FAQ_SCHEMA_DISABLED:
                 errors.append(f"{rel}: FAQ section present but FAQPage schema missing")
             errors.extend(validate_json_ld(rel, text))
 

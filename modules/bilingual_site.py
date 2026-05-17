@@ -15,6 +15,11 @@ BASE_URL = (settings.base_site_url or settings.site_domain or "https://review.ms
 
 SKIP_PREFIXES = {"assets", "go", "vi", "__pycache__"}
 
+FAQ_SCHEMA_DISABLED_URLS = {
+    "/comparisons/framer-vs-webflow/",
+    "/vi/comparisons/framer-vs-webflow/",
+}
+
 
 def add_bilingual_pages(output: Path | None = None, base_url: str | None = None) -> dict[str, int]:
     """Create static Vietnamese copies under /vi/ and add hreflang links.
@@ -38,7 +43,7 @@ def add_bilingual_pages(output: Path | None = None, base_url: str | None = None)
         html = set_language_switcher(html, rel_url, "en")
         html = set_seo_language_tags(html, rel_url, "en", base)
         html = set_html_lang(html, "en")
-        html = normalize_faq_schema_to_visible_faq(html)
+        html = normalize_faq_schema_to_visible_faq(html, rel_url)
         page.write_text(html, encoding="utf-8")
 
         vi_page = root / "vi" / page.relative_to(root)
@@ -48,7 +53,7 @@ def add_bilingual_pages(output: Path | None = None, base_url: str | None = None)
         vi_html = set_language_switcher(vi_html, rel_url, "vi")
         vi_html = set_seo_language_tags(vi_html, rel_url, "vi", base)
         vi_html = set_html_lang(vi_html, "vi")
-        vi_html = normalize_faq_schema_to_visible_faq(vi_html)
+        vi_html = normalize_faq_schema_to_visible_faq(vi_html, vi_url_for(rel_url))
         vi_page.write_text(vi_html, encoding="utf-8")
 
     return {"english_pages": len(english_pages), "vietnamese_pages": len(english_pages)}
@@ -187,8 +192,10 @@ def ensure_english_ui(html: str) -> str:
     return html
 
 
-def normalize_faq_schema_to_visible_faq(html: str) -> str:
+def normalize_faq_schema_to_visible_faq(html: str, url_path: str | None = None) -> str:
     """Keep one FAQPage JSON-LD block and align it with visible FAQ details."""
+    if url_path in FAQ_SCHEMA_DISABLED_URLS:
+        return remove_faqpage_jsonld(html)
     faq_items = extract_visible_faq_items(html)
     if not faq_items:
         return html

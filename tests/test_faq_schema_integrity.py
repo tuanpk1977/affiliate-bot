@@ -13,11 +13,15 @@ JSON_LD_RE = re.compile(
 
 
 COMPARISON_PATHS = [
-    "comparisons/framer-vs-webflow",
     "comparisons/cursor-vs-windsurf",
     "comparisons/copilot-vs-cursor",
     "comparisons/make-vs-zapier",
     "comparisons/semrush-vs-ahrefs",
+]
+
+FAQ_SCHEMA_DISABLED_PATHS = [
+    "comparisons/framer-vs-webflow",
+    "vi/comparisons/framer-vs-webflow",
 ]
 
 
@@ -107,6 +111,11 @@ class FAQSchemaIntegrityTest(unittest.TestCase):
         for path in COMPARISON_PATHS:
             with self.subTest(path=path):
                 self.assert_valid_single_faq_schema(read_page(path))
+
+    def test_framer_vs_webflow_has_no_faqpage_schema_to_clear_gsc_enhancement_issue(self):
+        for path in FAQ_SCHEMA_DISABLED_PATHS:
+            with self.subTest(path=path):
+                self.assertEqual(faq_schemas(read_page(path)), [])
 
     def test_vietnamese_comparison_pages_have_one_valid_faqpage_schema(self):
         for path in COMPARISON_PATHS:

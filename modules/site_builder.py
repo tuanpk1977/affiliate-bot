@@ -27,6 +27,11 @@ from modules.toplist_generator import generate_toplist_pages
 from modules.tracking_config import analytics_snippet
 
 
+FAQ_SCHEMA_DISABLED_PATHS = {
+    "/comparisons/framer-vs-webflow/",
+    "/vi/comparisons/framer-vs-webflow/",
+}
+
 LEGAL_SLUGS = ["privacy-policy", "terms", "contact", "affiliate-disclosure"]
 CONTENT_SLUGS = [
     "reviews",
@@ -649,21 +654,6 @@ def review_url_for(brand: str) -> str:
 def comparison_schemas(title: str, slug: str, left: str, right: str, category: str, recommendation: str, faq_questions: list[str]) -> str:
     base = (settings.base_site_url or settings.site_domain or "https://yourdomain.com").rstrip("/")
     url = f"{base}/comparisons/{slug}/"
-    faq_schema = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": question,
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Use this page as a research starting point, then verify pricing, terms, policy, and workflow fit on the official website before buying or promoting either tool.",
-                },
-            }
-            for question in faq_questions
-        ],
-    }
     review_schema = {
         "@context": "https://schema.org",
         "@type": "Review",
@@ -678,10 +668,28 @@ def comparison_schemas(title: str, slug: str, left: str, right: str, category: s
         "author": {"@type": "Person", "name": "Nguyen Quoc Tuan"},
         "publisher": {"@type": "Organization", "name": settings.site_name},
     }
-    return (
-        f'<script type="application/ld+json">{json.dumps(faq_schema, ensure_ascii=False)}</script>'
-        f'<script type="application/ld+json">{json.dumps(review_schema, ensure_ascii=False)}</script>'
-    )
+    scripts = []
+    if slug != "framer-vs-webflow":
+        faq_schema = {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": question,
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Use this page as a research starting point, then verify pricing, terms, policy, and workflow fit on the official website before buying or promoting either tool.",
+                    },
+                }
+                for question in faq_questions
+                if str(question).strip()
+            ],
+        }
+        if faq_schema["mainEntity"]:
+            scripts.append(f'<script type="application/ld+json">{json.dumps(faq_schema, ensure_ascii=False)}</script>')
+    scripts.append(f'<script type="application/ld+json">{json.dumps(review_schema, ensure_ascii=False)}</script>')
+    return "".join(scripts)
 
 
 def write_trust_pages(output: Path) -> None:
@@ -739,7 +747,7 @@ def page_shell(
     canonical = base + (path or f"/{title.lower().replace(' ', '-')}/")
     schema_items = base_schemas(title, description, canonical)
     schema_items.append(json.dumps({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": f"{base}/"}, {"@type": "ListItem", "position": 2, "name": title, "item": canonical}]}, ensure_ascii=False))
-    if "FAQ" in body or "<details" in body:
+    if (path or "") not in FAQ_SCHEMA_DISABLED_PATHS and ("FAQ" in body or "<details" in body):
         schema_items.append(json.dumps({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": f"What should I verify before using {title}?", "acceptedAnswer": {"@type": "Answer", "text": "Verify current pricing, terms, integrations, limitations, and official vendor policy before buying or promoting any tool."}}]}, ensure_ascii=False))
     schemas = "\n".join(
         f'<script type="application/ld+json">{schema}</script>'
