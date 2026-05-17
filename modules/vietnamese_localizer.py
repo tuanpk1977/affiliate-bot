@@ -316,6 +316,20 @@ PAGE_TEXT_REPLACEMENTS = {
     "If you are evaluating affiliate content, do not quote old prices as if they are permanent.": "Nếu bạn đang đánh giá nội dung affiliate, đừng trích giá cũ như thể nó luôn đúng.",
     "A safer page says pricing may change and directs the reader to verify current pricing on the official site through a tracked CTA.": "Cách an toàn hơn là nói rõ giá có thể thay đổi và dẫn người đọc kiểm tra giá hiện tại trên website chính thức qua CTA có tracking.",
     "Is Cursor better than Windsurf?": "Cursor có tốt hơn Windsurf không?",
+    "Is Copilot better than Cursor for companies?": "Copilot có phù hợp hơn Cursor cho doanh nghiệp không?",
+    "Is Cursor better for solo developers?": "Cursor có phù hợp hơn cho developer làm một mình không?",
+    "Which tool has better context awareness?": "Công cụ nào hiểu ngữ cảnh tốt hơn?",
+    "Should companies replace Copilot with Cursor?": "Doanh nghiệp có nên thay Copilot bằng Cursor không?",
+    "What is the safest way to test both tools?": "Cách an toàn nhất để thử cả hai công cụ là gì?",
+    "Who should use Framer?": "Ai nên dùng Framer?",
+    "Who should use Webflow?": "Ai nên dùng Webflow?",
+    "Framer vs Webflow: which tool should you choose?": "Framer vs Webflow: nên chọn công cụ nào?",
+    "Who should use Cursor?": "Ai nên dùng Cursor?",
+    "Who should use Windsurf?": "Ai nên dùng Windsurf?",
+    "Cursor vs Windsurf: which tool should you choose?": "Cursor vs Windsurf: nên chọn công cụ nào?",
+    "How should you compare pricing?": "Nên so sánh giá như thế nào?",
+    "Does this page use affiliate links?": "Trang này có dùng liên kết affiliate không?",
+    "Use this page as a research starting point, then verify pricing, terms, policy, and workflow fit on the official website before buying or promoting either tool.": "Hãy dùng trang này như điểm bắt đầu nghiên cứu, sau đó xác minh giá, điều khoản, chính sách và mức phù hợp workflow trên website chính thức trước khi mua hoặc quảng bá bất kỳ công cụ nào.",
     "Which is better for multi-file editing?": "Công cụ nào tốt hơn cho chỉnh sửa nhiều file?",
     "Which tool is easier to onboard?": "Công cụ nào dễ làm quen hơn?",
     "Should teams switch from Copilot to Cursor or Windsurf?": "Team có nên chuyển từ Copilot sang Cursor hoặc Windsurf không?",
@@ -373,6 +387,20 @@ def localize_html(text: str) -> str:
         text = text.replace(source, target)
     for source, target in PAGE_TEXT_REPLACEMENTS.items():
         text = text.replace(source, target)
+    text = re.sub(
+        r"Is ([A-Za-z0-9 .+&-]+) better than ([A-Za-z0-9 .+&-]+)\?",
+        lambda match: f"{match.group(1).strip()} có tốt hơn {match.group(2).strip()} không?",
+        text,
+    )
+    text = re.sub(
+        r"How should teams compare ([A-Za-z0-9 .+&-]+) and ([A-Za-z0-9 .+&-]+) pricing\?",
+        lambda match: f"Team nên so sánh giá {match.group(1).strip()} và {match.group(2).strip()} như thế nào?",
+        text,
+    )
+    text = text.replace("Which tool is easier for beginners?", "Công cụ nào dễ hơn cho người mới?")
+    text = text.replace("What should I verify before buying either tool?", "Tôi nên xác minh gì trước khi mua một trong hai công cụ?")
+    text = text.replace("Can I promote these tools as an affiliate?", "Tôi có thể quảng bá các công cụ này theo affiliate không?")
+    text = text.replace("Should I read individual reviews before choosing?", "Tôi có nên đọc từng bài review trước khi chọn không?")
     # Replace longer UI strings before short words to avoid partial conflicts.
     for source, target in sorted(UI_REPLACEMENTS.items(), key=lambda item: len(item[0]), reverse=True):
         text = text.replace(source, target)

@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import re
 import shutil
+import html as html_lib
+import json
 from pathlib import Path
 
 from config import settings
@@ -36,6 +38,7 @@ def add_bilingual_pages(output: Path | None = None, base_url: str | None = None)
         html = set_language_switcher(html, rel_url, "en")
         html = set_seo_language_tags(html, rel_url, "en", base)
         html = set_html_lang(html, "en")
+        html = normalize_faq_schema_to_visible_faq(html)
         page.write_text(html, encoding="utf-8")
 
         vi_page = root / "vi" / page.relative_to(root)
@@ -45,6 +48,7 @@ def add_bilingual_pages(output: Path | None = None, base_url: str | None = None)
         vi_html = set_language_switcher(vi_html, rel_url, "vi")
         vi_html = set_seo_language_tags(vi_html, rel_url, "vi", base)
         vi_html = set_html_lang(vi_html, "vi")
+        vi_html = normalize_faq_schema_to_visible_faq(vi_html)
         vi_page.write_text(vi_html, encoding="utf-8")
 
     return {"english_pages": len(english_pages), "vietnamese_pages": len(english_pages)}
@@ -169,9 +173,77 @@ def ensure_english_ui(html: str) -> str:
         "Chính sách bảo mật": "Privacy Policy",
         "Điều khoản": "Terms",
         "Giới thiệu": "About",
+        "nên chọn công cụ nào?": "which tool should you choose?",
+        "Nên chọn công cụ nào?": "Which tool should you choose?",
+        "phù hợp với ai?": "who is it for?",
+        "Phù hợp với ai?": "Who is it for?",
+        "Nên so sánh pricing như thế nào?": "How should you compare pricing?",
+        "Trang này có affiliate link không?": "Does this page use affiliate links?",
     }
     for src, dst in replacements.items():
         html = html.replace(src, dst)
     html = html.replace("MS Smile AI Đánh giá Hub", "MS Smile AI Review Hub")
     html = html.replace("Trung tâm đánh giá MS Smile AI", "MS Smile AI Review Hub")
     return html
+
+
+def normalize_faq_schema_to_visible_faq(html: str) -> str:
+    """Keep one FAQPage JSON-LD block and align it with visible FAQ details."""
+    faq_items = extract_visible_faq_items(html)
+    if not faq_items:
+        return html
+    html = remove_faqpage_jsonld(html)
+    entities = [
+        {
+            "@type": "Question",
+            "name": question,
+            "acceptedAnswer": {"@type": "Answer", "text": answer},
+        }
+        for question, answer in faq_items
+        if question.strip() and answer.strip()
+    ]
+    if not entities:
+        return html
+    schema = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": entities}
+    script = f'<script type="application/ld+json">{json.dumps(schema, ensure_ascii=False)}</script>'
+    if "</head>" in html:
+        return html.replace("</head>", f"  {script}\n</head>", 1)
+    return script + "\n" + html
+
+
+def extract_visible_faq_items(html: str) -> list[tuple[str, str]]:
+    items: list[tuple[str, str]] = []
+    for match in re.finditer(r"<details\b[^>]*>\s*<summary[^>]*>(.*?)</summary>(.*?)</details>", html, flags=re.I | re.S):
+        question = clean_html_text(match.group(1))
+        body = match.group(2)
+        paragraph = re.search(r"<p[^>]*>(.*?)</p>", body, flags=re.I | re.S)
+        answer = clean_html_text(paragraph.group(1) if paragraph else body)
+        if question and answer:
+            items.append((question, answer))
+    return items
+
+
+def clean_html_text(value: str) -> str:
+    text = re.sub(r"<[^>]+>", " ", value or "")
+    text = html_lib.unescape(text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def remove_faqpage_jsonld(html: str) -> str:
+    def repl(match: re.Match[str]) -> str:
+        content = match.group(1)
+        try:
+            payload = json.loads(content)
+        except Exception:
+            return match.group(0)
+        payloads = payload if isinstance(payload, list) else [payload]
+        if any(isinstance(item, dict) and item.get("@type") == "FAQPage" for item in payloads):
+            return ""
+        return match.group(0)
+
+    return re.sub(
+        r"<script\s+type=['\"]application/ld\+json['\"]\s*>(.*?)</script>\s*",
+        repl,
+        html,
+        flags=re.I | re.S,
+    )

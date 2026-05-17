@@ -588,11 +588,11 @@ def write_comparison_detail_pages(output: Path) -> None:
         left_url = review_url_for(left)
         right_url = review_url_for(right)
         faq_questions = [
-            f"{left} vs {right}: nên chọn công cụ nào?",
-            f"{left} phù hợp với ai?",
-            f"{right} phù hợp với ai?",
-            "Nên so sánh pricing như thế nào?",
-            "Trang này có affiliate link không?",
+            f"{left} vs {right}: which tool should you choose?",
+            f"Who should use {left}?",
+            f"Who should use {right}?",
+            "How should you compare pricing?",
+            "Does this page use affiliate links?",
         ]
         faq = faq_html(faq_questions)
         left_pros = [left_strength, "Phù hợp khi nhu cầu chính trùng với thế mạnh của công cụ.", "Đáng đưa vào shortlist nếu pricing và policy phù hợp."]
@@ -658,7 +658,7 @@ def comparison_schemas(title: str, slug: str, left: str, right: str, category: s
                 "name": question,
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Hãy dùng trang này như điểm bắt đầu nghiên cứu, sau đó kiểm tra pricing, terms, policy và workflow fit trên website chính thức trước khi mua hoặc quảng bá.",
+                    "text": "Use this page as a research starting point, then verify pricing, terms, policy, and workflow fit on the official website before buying or promoting either tool.",
                 },
             }
             for question in faq_questions
