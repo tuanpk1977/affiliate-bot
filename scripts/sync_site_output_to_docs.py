@@ -11,6 +11,7 @@ PRESERVE_FILES = {
     "click_tracking_setup.md",
     "social_distribution_workflow.md",
 }
+PRESERVE_DIRS = {".git"}
 
 
 def assert_inside_root(path: Path) -> Path:
@@ -39,19 +40,26 @@ def sync_site_output_to_docs() -> dict[str, int]:
     removed = 0
     copied = 0
 
+    skipped_locked = 0
+
     for child in target.iterdir():
-        if child.name == ".git":
+        if child.name in PRESERVE_DIRS:
             continue
-        if child.is_dir():
-            shutil.rmtree(child)
-        else:
-            child.unlink()
-        removed += 1
+        try:
+            if child.is_dir():
+                shutil.rmtree(child)
+            else:
+                child.unlink()
+            removed += 1
+        except PermissionError:
+            # Browsers/editors on Windows may temporarily lock a generated HTML file.
+            # Keep going and copy over the current build with dirs_exist_ok below.
+            skipped_locked += 1
 
     for item in source.iterdir():
         destination = target / item.name
         if item.is_dir():
-            shutil.copytree(item, destination)
+            shutil.copytree(item, destination, dirs_exist_ok=True)
         else:
             shutil.copy2(item, destination)
         copied += 1
@@ -59,14 +67,15 @@ def sync_site_output_to_docs() -> dict[str, int]:
     for name, content in preserved.items():
         (target / name).write_text(content, encoding="utf-8")
 
-    return {"removed": removed, "copied": copied, "preserved": len(preserved)}
+    return {"removed": removed, "copied": copied, "preserved": len(preserved), "skipped_locked": skipped_locked}
 
 
 def main() -> None:
     result = sync_site_output_to_docs()
     print(
         "Synced site_output to docs: "
-        f"removed={result['removed']} copied={result['copied']} preserved={result['preserved']}"
+        f"removed={result['removed']} copied={result['copied']} preserved={result['preserved']} "
+        f"skipped_locked={result['skipped_locked']}"
     )
 
 

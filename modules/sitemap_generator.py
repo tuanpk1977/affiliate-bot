@@ -11,8 +11,6 @@ NOINDEX_EXACT_PATHS = {
     "media-kit",
     "about-author",
     "author-profile",
-    "affiliate-disclosure",
-    "editorial-policy",
 }
 
 NOINDEX_PREFIXES = {

@@ -5,7 +5,7 @@ sitemap.xml,PASS,D:\AFFILATE BOT\site_output\sitemap.xml
 robots.txt,PASS,D:\AFFILATE BOT\site_output\robots.txt
 sitemap_has_no_go,PASS,sitemap.xml must not include tracking URLs
 go_pages_exist,PASS,93 go tracking pages
-sitemap_targets_exist,PASS,458 sitemap URLs checked
+sitemap_targets_exist,PASS,460 sitemap URLs checked
 placeholder_scan,PASS,0 placeholder hits
 metadata_scan,PASS,0 canonical/meta issues
 internal_link_scan,PASS,0 broken internal links
@@ -19,5 +19,5 @@ category_pages,PASS,21
 hub_pages,PASS,13
 priority_pages,PASS,23
 go_tracking_pages,PASS,93
-total_sitemap_urls,PASS,458
+total_sitemap_urls,PASS,460
 total_html_files,PASS,589

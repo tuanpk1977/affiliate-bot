@@ -967,8 +967,6 @@ def write_robots(output: Path, base_site_url: str) -> None:
         "Disallow: /media-kit/\n"
         "Disallow: /about-author/\n"
         "Disallow: /author-profile/\n"
-        "Disallow: /affiliate-disclosure/\n"
-        "Disallow: /editorial-policy/\n"
         f"{sitemap}"
     )
     (output / "robots.txt").write_text(robots, encoding="utf-8")
@@ -1043,7 +1041,7 @@ def nav_html() -> str:
 
 def footer_html() -> str:
     contact = settings.contact_email or "tuanpk1977@gmail.com"
-    return f'<footer><div class="wrap"><p><strong>{html.escape(settings.site_name)}</strong></p><p>Contact: <a href="mailto:{html.escape(contact)}">{html.escape(contact)}</a></p><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms</a><a href="/disclosure/">Disclosure</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/reviews/">Reviews</a><a href="/comparisons/">Comparisons</a><a href="/pricing/">Pricing</a><a href="/categories/">Categories</a><a href="/hubs/">Hubs</a><p>&copy; 2026 {html.escape(settings.site_name)}.</p><p>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p><p>Reviews are for research purposes only.</p></div></footer>'
+    return f'<footer><div class="wrap"><p><strong>{html.escape(settings.site_name)}</strong></p><p>Contact: <a href="mailto:{html.escape(contact)}">{html.escape(contact)}</a></p><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms</a><a href="/editorial-policy/">Editorial Policy</a><a href="/affiliate-disclosure/">Affiliate Disclosure</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/reviews/">Reviews</a><a href="/comparisons/">Comparisons</a><a href="/pricing/">Pricing</a><a href="/categories/">Categories</a><a href="/hubs/">Hubs</a><p>&copy; 2026 {html.escape(settings.site_name)}.</p><p>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p><p>Reviews are for research purposes only.</p></div></footer>'
 
 
 def newsletter_html() -> str:

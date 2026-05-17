@@ -11,6 +11,4 @@ Disallow: /sitemap/
 Disallow: /media-kit/
 Disallow: /about-author/
 Disallow: /author-profile/
-Disallow: /affiliate-disclosure/
-Disallow: /editorial-policy/
 Sitemap: https://review.mssmileenglish.com/sitemap.xml

@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import html
 import json
+import re
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -29,6 +30,10 @@ def run_audience_growth_system(output: Path | None = None) -> dict[str, int]:
     write_checklist_pages(root)
     write_email_capture_setup_pages(root)
     write_formspree_setup_pages(root)
+    write_partnerstack_trust_pages(root)
+    write_partnerstack_reapply_pack()
+    write_affiliate_program_tracker()
+    write_go_links_status(root)
     write_formspree_setup_checklist()
     internal_links_added = add_build_in_public_links(root)
     social_posts = write_30_day_social_plan()
@@ -38,6 +43,7 @@ def run_audience_growth_system(output: Path | None = None) -> dict[str, int]:
         checklist_created=True,
         email_capture_setup_created=True,
         formspree_setup_created=True,
+        partnerstack_trust_pages_created=True,
         subscriber_capture_ready=True,
         social_plan_days=30,
         social_posts_created=social_posts,
@@ -50,6 +56,7 @@ def run_audience_growth_system(output: Path | None = None) -> dict[str, int]:
         "checklist_pages": 4,
         "email_capture_setup_pages": 2,
         "formspree_setup_pages": 2,
+        "partnerstack_trust_pages": 4,
         "social_posts_created": social_posts,
         "internal_links_added": internal_links_added,
         "report_rows": report_rows,
@@ -243,7 +250,8 @@ def footer_html(lang: str) -> str:
     links = [
         ("/privacy/", "Privacy Policy", "/vi/privacy/", "Chính sách bảo mật"),
         ("/terms/", "Terms", "/vi/terms/", "Điều khoản"),
-        ("/disclosure/", "Disclosure", "/vi/disclosure/", "Tiết lộ liên kết"),
+        ("/editorial-policy/", "Editorial Policy", "/vi/editorial-policy/", "Chính sách biên tập"),
+        ("/affiliate-disclosure/", "Affiliate Disclosure", "/vi/affiliate-disclosure/", "Tiết lộ affiliate"),
         ("/about/", "About", "/vi/about/", "Giới thiệu"),
         ("/contact/", "Contact", "/vi/contact/", "Liên hệ"),
     ]
@@ -289,10 +297,16 @@ def write_about_pages(root: Path) -> None:
   <h2>Why this site exists</h2>
   <p>I am using Windsurf, Codex, Cursor, and GitHub Copilot while building this very review site. The goal is to document what actually helps: scaffolding, debugging, refactoring, SEO checks, language integrity, GitHub Pages deployment, and the cleanup work that demos rarely show.</p>
   <p>The reviews are written from a builder workflow perspective. A tool can be fast and still create cleanup debt. Another tool can feel slower but be better when the repository is already messy. That tradeoff is what this site tracks.</p>
+  <p>The audience is beginners, small builders, indie makers, and non-technical founders who want to understand AI-assisted website, SEO, and code workflows without pretending every tool is perfect.</p>
 </section>
 <section class="grid">
   <div class="card"><h2>What I track</h2><ul><li>Which tools speed up real project work.</li><li>Where AI coding tools break or repeat mistakes.</li><li>How SEO, hreflang, sitemap, and deployment checks behave in practice.</li><li>How social drafts and tracking can support affiliate research without spam.</li></ul></div>
   <div class="card"><h2>Follow the journey</h2><p>If you want practical notes on AI coding workflows, start with the free checklist and follow the build process.</p><a class="btn" href="/free-ai-coding-workflow-checklist/">Get the workflow checklist</a></div>
+</section>
+<section class="card">
+  <h2>Editorial and affiliate transparency</h2>
+  <p>MS Smile AI Review Hub documents a real build-in-public workflow. The site itself is built, improved, and tested using AI coding tools and GitHub Pages. Reviews focus on practical workflows, limitations, buying checks, and clear disclosure rather than feature lists alone.</p>
+  <p><a href="/editorial-policy/">Read the editorial policy</a> · <a href="/affiliate-disclosure/">Read the affiliate disclosure</a> · <a href="/free-ai-coding-workflow-checklist/">Download the AI coding workflow checklist</a></p>
 </section>
 <section class="card trust"><h2>Disclosure</h2><p>Some links may be affiliate links. Reviews are research notes and practical observations, not guaranteed results.</p></section>
 """
@@ -306,10 +320,16 @@ def write_about_pages(root: Path) -> None:
   <h2>Vì sao có website này?</h2>
   <p>Mình đang dùng Windsurf, Codex, Cursor và GitHub Copilot để xây chính website review này. Mục tiêu là ghi lại công cụ nào giúp dựng nhanh, công cụ nào sửa lỗi tốt, lỗi nào hay gặp, cách kiểm tra SEO, hreflang, sitemap và cách triển khai lên GitHub Pages.</p>
   <p>Góc nhìn ở đây là workflow của người đang build thật. Một công cụ có thể tạo rất nhanh nhưng tạo thêm nợ cleanup. Một công cụ khác có thể chậm hơn nhưng xử lý repo đang lỗi tốt hơn. Những khác biệt đó là phần mình muốn ghi lại.</p>
+  <p>Đối tượng chính là người mới, small builders, indie makers và founder không chuyên kỹ thuật muốn hiểu cách dùng AI để làm website, SEO và code workflow mà không xem công cụ nào là hoàn hảo tuyệt đối.</p>
 </section>
 <section class="grid">
   <div class="card"><h2>Mình theo dõi điều gì?</h2><ul><li>Công cụ nào giúp tăng tốc khi làm dự án thật.</li><li>AI coding tool thường lỗi ở đâu hoặc lặp sai như thế nào.</li><li>SEO, hreflang, sitemap và deploy hoạt động ra sao trong thực tế.</li><li>Cách tạo social draft và tracking mà không spam.</li></ul></div>
   <div class="card"><h2>Theo dõi hành trình</h2><p>Nếu bạn muốn xem workflow AI coding thực chiến, hãy bắt đầu bằng checklist miễn phí.</p><a class="btn" href="/vi/free-ai-coding-workflow-checklist/">Nhận checklist workflow</a></div>
+</section>
+<section class="card">
+  <h2>Minh bạch biên tập và affiliate</h2>
+  <p>MS Smile AI Review Hub ghi lại một workflow build-in-public thật. Chính website này được xây, cải thiện và kiểm tra bằng AI coding tools và GitHub Pages. Các bài review tập trung vào workflow thực tế, giới hạn, điểm cần kiểm tra trước khi mua và disclosure rõ ràng, không chỉ liệt kê tính năng.</p>
+  <p><a href="/vi/editorial-policy/">Đọc chính sách biên tập</a> · <a href="/vi/affiliate-disclosure/">Đọc tiết lộ affiliate</a> · <a href="/vi/free-ai-coding-workflow-checklist/">Tải checklist AI coding workflow</a></p>
 </section>
 <section class="card trust"><h2>Tiết lộ</h2><p>Một số liên kết có thể là liên kết tiếp thị liên kết. Nội dung là ghi chú nghiên cứu và trải nghiệm thực tế, không phải cam kết kết quả.</p></section>
 """
@@ -648,6 +668,191 @@ def write_formspree_setup_checklist() -> None:
         writer.writeheader()
         for step_id, task, status in rows:
             writer.writerow({"step_id": step_id, "task": task, "status": status})
+
+
+def write_partnerstack_trust_pages(root: Path) -> None:
+    en_editorial = """
+<section class="hero">
+  <p class="note">Editorial standards</p>
+  <h1>Editorial Policy</h1>
+  <p>MS Smile AI Review Hub publishes practical AI coding tool reviews based on real builder use cases, not paid praise or generic feature summaries.</p>
+</section>
+<section class="card">
+  <h2>How we approach reviews</h2>
+  <p>Reviews focus on AI coding tools, AI-assisted workflow, SEO checks, GitHub Pages deployment, and small builder use cases. The goal is to help beginners, indie builders, small business owners, and non-technical founders understand how a tool behaves in realistic work.</p>
+  <p>We may use AI tools to help draft outlines, compare structure, or check consistency, but pages are reviewed before publishing. We check for mixed language, broken links, canonical tags, hreflang, sitemap inclusion, disclosure, and whether the content gives a practical recommendation.</p>
+</section>
+<section class="card">
+  <h2>Independence and sponsored content</h2>
+  <p>We do not accept payment to write fake positive reviews. Affiliate commission does not control editorial opinions, rankings, or final recommendations. If sponsored content is ever published in the future, it must be disclosed clearly near the beginning of the page.</p>
+  <p>Current content prioritizes practical usefulness over hype: where a tool helps, where it fails, what should be verified, and what a reader should test before adopting it.</p>
+</section>
+<section class="card trust"><h2>Related pages</h2><p><a href="/affiliate-disclosure/">Affiliate Disclosure</a> · <a href="/about/">About MS Smile AI Review Hub</a> · <a href="/free-ai-coding-workflow-checklist/">AI Coding Workflow Checklist</a></p></section>
+"""
+    vi_editorial = """
+<section class="hero">
+  <p class="note">Tiêu chuẩn biên tập</p>
+  <h1>Chính sách biên tập</h1>
+  <p>MS Smile AI Review Hub xuất bản review công cụ AI coding dựa trên use case thực tế của người đang build, không viết đánh giá giả hoặc nội dung chỉ liệt kê tính năng.</p>
+</section>
+<section class="card">
+  <h2>Cách chúng tôi làm review</h2>
+  <p>Nội dung tập trung vào AI coding tools, workflow có AI hỗ trợ, kiểm tra SEO, triển khai GitHub Pages và use case của small builders. Mục tiêu là giúp người mới, indie builders, chủ doanh nghiệp nhỏ và founder không chuyên kỹ thuật hiểu công cụ hoạt động ra sao trong công việc thật.</p>
+  <p>Chúng tôi có thể dùng AI để hỗ trợ tạo outline, so sánh cấu trúc hoặc kiểm tra tính nhất quán, nhưng nội dung phải được xem lại trước khi publish. Các bước kiểm tra gồm mixed language, broken links, canonical, hreflang, sitemap, disclosure và tính thực dụng của khuyến nghị.</p>
+</section>
+<section class="card">
+  <h2>Tính độc lập và nội dung tài trợ</h2>
+  <p>Chúng tôi không nhận tiền để viết đánh giá tích cực giả. Hoa hồng affiliate không kiểm soát quan điểm biên tập, thứ tự ưu tiên hoặc kết luận cuối. Nếu sau này có nội dung được tài trợ, phần đó phải được tiết lộ rõ ràng ở đầu trang.</p>
+  <p>Nội dung hiện ưu tiên tính hữu ích: công cụ giúp ở đâu, lỗi ở đâu, điều gì cần xác minh và người đọc nên test gì trước khi dùng lâu dài.</p>
+</section>
+<section class="card trust"><h2>Trang liên quan</h2><p><a href="/vi/affiliate-disclosure/">Tiết lộ affiliate</a> · <a href="/vi/about/">Giới thiệu MS Smile AI Review Hub</a> · <a href="/vi/free-ai-coding-workflow-checklist/">Checklist AI Coding Workflow</a></p></section>
+"""
+    en_affiliate = """
+<section class="hero">
+  <p class="note">Affiliate transparency</p>
+  <h1>Affiliate Disclosure</h1>
+  <p>Some links on MS Smile AI Review Hub may be affiliate links. We may earn a commission at no extra cost to the reader.</p>
+</section>
+<section class="card">
+  <h2>How affiliate links work</h2>
+  <p>Affiliate links help support the site when a reader chooses to visit or purchase through a tracked link. The reader does not pay extra because of that commission. We only place affiliate-style CTAs where the tool is relevant to the content and the reader has enough context to evaluate it.</p>
+  <p>Affiliate relationships do not control editorial opinions. A tool can be mentioned as useful, limited, risky, pending approval, or not recommended depending on the content and use case.</p>
+</section>
+<section class="card">
+  <h2>Current approval status</h2>
+  <p>Some outbound links may currently be normal official-site links while affiliate approval is pending. We do not claim to be an official partner unless that approval exists. When a program is approved, links can be updated through the tracking system without changing the editorial recommendation.</p>
+</section>
+<section class="card trust"><h2>Related pages</h2><p><a href="/editorial-policy/">Editorial Policy</a> · <a href="/about/">About MS Smile AI Review Hub</a> · <a href="/free-ai-coding-workflow-checklist/">AI Coding Workflow Checklist</a></p></section>
+"""
+    vi_affiliate = """
+<section class="hero">
+  <p class="note">Minh bạch affiliate</p>
+  <h1>Tiết lộ affiliate</h1>
+  <p>Một số liên kết trên MS Smile AI Review Hub có thể là liên kết affiliate. Chúng tôi có thể nhận hoa hồng mà không làm người đọc phát sinh thêm chi phí.</p>
+</section>
+<section class="card">
+  <h2>Liên kết affiliate hoạt động như thế nào?</h2>
+  <p>Liên kết affiliate giúp duy trì website khi người đọc chọn truy cập hoặc mua qua liên kết có tracking. Người đọc không trả thêm chi phí vì khoản hoa hồng đó. Chúng tôi chỉ đặt CTA theo hướng affiliate khi công cụ liên quan đến nội dung và người đọc đã có đủ ngữ cảnh để đánh giá.</p>
+  <p>Quan hệ affiliate không kiểm soát quan điểm biên tập. Một công cụ có thể được mô tả là hữu ích, có giới hạn, cần kiểm tra thêm, đang chờ duyệt affiliate hoặc không phù hợp tùy theo use case.</p>
+</section>
+<section class="card">
+  <h2>Trạng thái hiện tại</h2>
+  <p>Một số liên kết outbound hiện có thể chỉ là link website chính thức trong khi chờ phê duyệt affiliate. Chúng tôi không tự nhận là official partner nếu chưa được duyệt. Khi chương trình được duyệt, link có thể được cập nhật qua hệ thống tracking mà không thay đổi kết luận biên tập.</p>
+</section>
+<section class="card trust"><h2>Trang liên quan</h2><p><a href="/vi/editorial-policy/">Chính sách biên tập</a> · <a href="/vi/about/">Giới thiệu MS Smile AI Review Hub</a> · <a href="/vi/free-ai-coding-workflow-checklist/">Checklist AI Coding Workflow</a></p></section>
+"""
+    write_html(root, "editorial-policy", page_shell("Editorial Policy", "How MS Smile AI Review Hub reviews AI coding tools, sponsored content, affiliate disclosure, and practical builder workflows.", "/editorial-policy/", en_editorial, "en"))
+    write_html(root, "vi/editorial-policy", page_shell("Chính sách biên tập", "Cách MS Smile AI Review Hub review công cụ AI coding, nội dung tài trợ, affiliate disclosure và workflow thực tế.", "/vi/editorial-policy/", vi_editorial, "vi"))
+    write_html(root, "affiliate-disclosure", page_shell("Affiliate Disclosure", "Affiliate disclosure for MS Smile AI Review Hub, including pending affiliate approval and normal official outbound links.", "/affiliate-disclosure/", en_affiliate, "en"))
+    write_html(root, "vi/affiliate-disclosure", page_shell("Tiết lộ affiliate", "Tiết lộ affiliate của MS Smile AI Review Hub, bao gồm link official trong khi chờ duyệt chương trình affiliate.", "/vi/affiliate-disclosure/", vi_affiliate, "vi"))
+
+
+def write_partnerstack_reapply_pack() -> None:
+    path = settings.data_dir / "partnerstack_reapply_pack.md"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    content = f"""# PartnerStack Reapply Pack
+
+## A. Short application message
+
+Hello PartnerStack team,
+
+I run MS Smile AI Review Hub at {BASE_URL}. The site publishes practical AI coding tool reviews and comparisons for beginners, indie builders, small business owners, and non-technical founders learning AI-assisted website and code workflows. The content focuses on real workflow use cases, limitations, pricing checks, and transparent affiliate disclosure.
+
+I would like to reapply for relevant AI coding and SaaS affiliate programs when applications reopen. I will only use approved links after acceptance and will keep editorial opinions independent from affiliate commissions.
+
+## B. Long application message
+
+MS Smile AI Review Hub is a practical review site focused on AI coding tools, AI-assisted SEO workflows, GitHub Pages publishing, and small builder use cases. The site documents how tools such as Cursor, Windsurf, GitHub Copilot, and Codex-style workflows fit into real project building: scaffolding, debugging, refactoring, checking language integrity, validating sitemap/canonical/hreflang, and preparing content for search and social distribution.
+
+The site is built in public using the same AI coding workflows it reviews. This gives the content a practical angle beyond feature lists. Articles compare where tools help, where they fail, what needs manual verification, and how a reader should test a tool before adopting it.
+
+## C. Traffic sources description
+
+- Organic search through English and Vietnamese SEO pages.
+- Google Search Console indexing for reviews, comparisons, workflow guides, and lead magnet pages.
+- Manual social distribution on LinkedIn, Facebook, X/Twitter, and Telegram.
+- Internal linking between reviews, comparisons, category pages, pricing checks, and workflow content.
+- Email capture is prepared through Formspree setup but remains opt-in and provider-based.
+
+## D. Content strategy description
+
+The content strategy prioritizes high-intent AI coding and SaaS research topics:
+
+- Product reviews for AI coding tools and SaaS tools.
+- Practical comparisons such as Cursor vs Windsurf and Copilot vs Cursor.
+- Workflow guides showing how builders use multiple tools together.
+- Pricing and policy verification notes.
+- Build-in-public notes that document real site development and quality checks.
+
+## E. Compliance/disclosure statement
+
+The site clearly discloses that some links may be affiliate links and that commissions do not change the reader's price. Affiliate relationships do not control editorial opinions. The site does not claim official partner status unless approval exists. Sponsored content, if any appears later, will be disclosed clearly.
+
+## F. Why this site is a good fit for AI coding tool affiliate programs
+
+This site is a good fit because it targets readers who are actively evaluating AI coding tools for real workflows. The audience includes beginners, solo builders, small teams, indie makers, and non-technical founders who need practical guidance before choosing a tool. The content is educational, comparison-driven, and transparent about limitations, making it suitable for responsible affiliate referrals.
+
+## G. Notes to update before reapplying
+
+- Monthly visitors:
+- GSC clicks:
+- GSC impressions:
+- Email subscribers:
+- Social followers:
+- Top performing pages:
+- Most clicked CTA pages:
+- Approved affiliate programs:
+- Programs still pending:
+"""
+    path.write_text(content, encoding="utf-8")
+
+
+def write_affiliate_program_tracker() -> None:
+    path = settings.data_dir / "affiliate_program_tracker.csv"
+    rows = [
+        ("Cursor", "AI coding", "https://cursor.com", "to_research", "to_research", "2026-05-26", "to_research", "to_research", "Do not claim official partner until approved.", "high"),
+        ("Windsurf", "AI coding", "https://windsurf.com", "to_research", "to_research", "2026-05-26", "to_research", "to_research", "Track official program availability.", "high"),
+        ("GitHub Copilot", "AI coding", "https://github.com/features/copilot", "to_research", "to_research", "2026-05-26", "to_research", "to_research", "Microsoft/GitHub affiliate availability must be verified.", "high"),
+        ("Hostinger", "hosting", "https://www.hostinger.com", "to_research", "to_research", "2026-05-26", "to_research", "to_research", "Relevant for website deployment guides.", "medium"),
+        ("Namecheap", "domain", "https://www.namecheap.com", "to_research", "to_research", "2026-05-26", "to_research", "to_research", "Relevant for domain setup content.", "medium"),
+        ("Canva", "design", "https://www.canva.com", "to_research", "to_research", "2026-05-26", "to_research", "to_research", "Verify official creator/affiliate options.", "medium"),
+        ("InVideo", "video", "https://invideo.io", "to_research", "to_research", "2026-05-26", "to_research", "to_research", "Potential video content fallback.", "medium"),
+        ("Pictory", "video", "https://pictory.ai", "to_research", "to_research", "2026-05-26", "to_research", "to_research", "Potential video content fallback.", "medium"),
+        ("MailerLite", "email marketing", "https://www.mailerlite.com", "to_research", "to_research", "2026-05-26", "to_research", "to_research", "Relevant for email capture growth.", "medium"),
+        ("GetResponse", "email marketing", "https://www.getresponse.com", "to_research", "to_research", "2026-05-26", "to_research", "to_research", "Relevant for email capture growth.", "medium"),
+        ("Notion", "productivity", "https://www.notion.so", "to_research", "to_research", "2026-05-26", "to_research", "to_research", "Verify current affiliate options.", "low"),
+        ("Framer", "website builder", "https://www.framer.com", "to_research", "to_research", "2026-05-26", "to_research", "to_research", "Useful for website builder content.", "medium"),
+        ("Webflow", "website builder", "https://webflow.com", "to_research", "to_research", "2026-05-26", "to_research", "to_research", "Useful for website builder content.", "medium"),
+    ]
+    fields = ["tool_name", "category", "official_site", "affiliate_network", "application_status", "reapply_date", "commission_type", "cookie_window", "notes", "priority"]
+    with path.open("w", newline="", encoding="utf-8-sig") as handle:
+        writer = csv.writer(handle)
+        writer.writerow(fields)
+        writer.writerows(rows)
+
+
+def write_go_links_status(root: Path) -> None:
+    path = settings.data_dir / "go_links_status.csv"
+    rows: list[dict[str, str]] = []
+    go_root = root / "go"
+    if go_root.exists():
+        for index_file in sorted(go_root.glob("*/index.html")):
+            slug = index_file.parent.name
+            text = index_file.read_text(encoding="utf-8", errors="ignore")
+            target = ""
+            match = re.search(r'"target_url"\s*:\s*"([^"]+)"', text) or re.search(r"targetUrl\s*=\s*['\"]([^'\"]+)['\"]", text)
+            if match:
+                target = match.group(1)
+            status = "normal_outbound"
+            note = "Replace with approved affiliate destination only after program approval."
+            if "affiliate_click" in text:
+                status = "approved_or_configured_affiliate"
+                note = "Review current affiliate link source before claiming partner status."
+            rows.append({"go_slug": slug, "current_destination": target, "affiliate_status": status, "notes": note})
+    with path.open("w", newline="", encoding="utf-8-sig") as handle:
+        writer = csv.DictWriter(handle, fieldnames=["go_slug", "current_destination", "affiliate_status", "notes"])
+        writer.writeheader()
+        writer.writerows(rows)
 
 
 def checklist_items(lang: str) -> list[str]:
