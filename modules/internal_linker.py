@@ -283,6 +283,8 @@ def ensure_visible_breadcrumb(text: str, page: PageInfo) -> str:
         return text
     if "data-auto-breadcrumb=\"1\"" in text or "data-auto-breadcrumb='1'" in text:
         return text
+    if re.search(r"<nav\b[^>]*class=['\"][^'\"]*\bbreadcrumb\b[^'\"]*['\"]", text, flags=re.IGNORECASE):
+        return text
     parent_label = {
         "review": "Reviews",
         "comparison": "Comparisons",
