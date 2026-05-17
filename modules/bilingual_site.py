@@ -237,7 +237,7 @@ def remove_faqpage_jsonld(html: str) -> str:
         except Exception:
             return match.group(0)
         payloads = payload if isinstance(payload, list) else [payload]
-        if any(isinstance(item, dict) and item.get("@type") == "FAQPage" for item in payloads):
+        if any(contains_faqpage_schema(item) for item in payloads):
             return ""
         return match.group(0)
 
@@ -247,3 +247,13 @@ def remove_faqpage_jsonld(html: str) -> str:
         html,
         flags=re.I | re.S,
     )
+
+
+def contains_faqpage_schema(value) -> bool:
+    if isinstance(value, dict):
+        if value.get("@type") == "FAQPage":
+            return True
+        return any(contains_faqpage_schema(child) for child in value.values())
+    if isinstance(value, list):
+        return any(contains_faqpage_schema(child) for child in value)
+    return False

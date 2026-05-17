@@ -29,10 +29,20 @@ def json_ld_payloads(html: str) -> list[dict]:
     payloads: list[dict] = []
     for match in JSON_LD_RE.finditer(html):
         data = json.loads(match.group(1))
-        if isinstance(data, list):
-            payloads.extend(item for item in data if isinstance(item, dict))
-        elif isinstance(data, dict):
-            payloads.append(data)
+        payloads.extend(flatten_json_ld(data))
+    return payloads
+
+
+def flatten_json_ld(value) -> list[dict]:
+    payloads: list[dict] = []
+    if isinstance(value, dict):
+        payloads.append(value)
+        for child in value.values():
+            if isinstance(child, (dict, list)):
+                payloads.extend(flatten_json_ld(child))
+    elif isinstance(value, list):
+        for child in value:
+            payloads.extend(flatten_json_ld(child))
     return payloads
 
 
@@ -66,6 +76,26 @@ class FAQSchemaIntegrityTest(unittest.TestCase):
             self.assertEqual(answer.get("@type"), "Answer")
             self.assertTrue(str(answer.get("text", "")).strip())
         return schema
+
+    def test_all_site_output_pages_have_no_duplicate_or_invalid_faqpage_schema(self):
+        for page in sorted(settings.site_output_dir.rglob("*.html")):
+            rel = page.relative_to(settings.site_output_dir).as_posix()
+            with self.subTest(path=rel):
+                html = page.read_text(encoding="utf-8")
+                schemas = faq_schemas(html)
+                self.assertLessEqual(len(schemas), 1, "page must not render duplicate FAQPage JSON-LD")
+                for schema in schemas:
+                    self.assertIsInstance(schema.get("mainEntity"), list)
+                    valid_count = 0
+                    for item in schema["mainEntity"]:
+                        self.assertEqual(item.get("@type"), "Question")
+                        self.assertTrue(str(item.get("name", "")).strip(), "FAQ item name must not be empty")
+                        answer = item.get("acceptedAnswer")
+                        self.assertIsInstance(answer, dict)
+                        self.assertEqual(answer.get("@type"), "Answer")
+                        self.assertTrue(str(answer.get("text", "")).strip(), "FAQ answer text must not be empty")
+                        valid_count += 1
+                    self.assertGreater(valid_count, 0, "FAQPage must contain at least one valid Question")
 
     def test_comparison_pages_have_one_valid_faqpage_schema(self):
         for path in COMPARISON_PATHS:

@@ -330,6 +330,7 @@ PAGE_TEXT_REPLACEMENTS = {
     "How should you compare pricing?": "Nên so sánh giá như thế nào?",
     "Does this page use affiliate links?": "Trang này có dùng liên kết affiliate không?",
     "Use this page as a research starting point, then verify pricing, terms, policy, and workflow fit on the official website before buying or promoting either tool.": "Hãy dùng trang này như điểm bắt đầu nghiên cứu, sau đó xác minh giá, điều khoản, chính sách và mức phù hợp workflow trên website chính thức trước khi mua hoặc quảng bá bất kỳ công cụ nào.",
+    "Use this guide as a research starting point, then verify pricing, terms, policy, and workflow fit on the official vendor website before buying or promoting a tool.": "Hãy dùng hướng dẫn này như điểm bắt đầu nghiên cứu, sau đó xác minh giá, điều khoản, chính sách và mức phù hợp workflow trên website chính thức của vendor trước khi mua hoặc quảng bá công cụ.",
     "Which is better for multi-file editing?": "Công cụ nào tốt hơn cho chỉnh sửa nhiều file?",
     "Which tool is easier to onboard?": "Công cụ nào dễ làm quen hơn?",
     "Should teams switch from Copilot to Cursor or Windsurf?": "Team có nên chuyển từ Copilot sang Cursor hoặc Windsurf không?",
