@@ -94,6 +94,7 @@ NAV_INDEX_SLUGS = ["reviews", "comparisons", "pricing", "categories", "hubs"]
 
 
 BLOG_POSTS = [
+    ("chatgpt-windsurf-codex-workflow", "ChatGPT Windsurf Codex Workflow", "My real AI building process using ChatGPT for thinking and prompts, Windsurf for the first build, and Codex for debugging, refactoring, and polishing."),
     ("best-ai-tools-for-small-business", "Best AI Tools for Small Business", "AI tools can help small teams document work, produce content, manage customers, and automate repetitive operations without hiring a large specialist team."),
     ("best-ai-presentation-tools", "Best AI Presentation Tools", "AI presentation tools help turn ideas, outlines, and research notes into clearer decks, pitch pages, and visual explanations."),
     ("best-ai-voice-generators", "Best AI Voice Generators", "AI voice generators are useful for creators and teams that need narration, learning content, and repeatable audio workflows."),
@@ -290,7 +291,8 @@ def write_index(output: Path, pages: list[dict]) -> None:
     ]
     faq_schema_text = json.dumps({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": "Use this site as a research starting point. Verify official pricing, terms, product limits, affiliate rules, and workflow fit before buying or promoting any tool."}} for q in homepage_faq]}, ensure_ascii=False)
     sections = section_html("AI Tools", [p for p in pages if "AI" in p["niche"]]) + section_html("Marketing", [p for p in pages if "Marketing" in p["niche"] or "SEO" in p["niche"] or "Design" in p["niche"]]) + section_html("CRM", [p for p in pages if "CRM" in p["niche"]]) + section_html("Website Builder", [p for p in pages if "Website" in p["niche"]]) + section_html("Productivity", [p for p in pages if "Productivity" in p["niche"] or "Meeting" in p["niche"] or "Automation" in p["niche"]])
-    recent = "\n".join(f"<li><a href='/{html.escape(page['slug'])}/'>{html.escape(page['brand_name'])}</a> <span>{date.today().isoformat()}</span></li>" for page in pages[:6])
+    updated_label = date.today().strftime("%d/%m/%Y")
+    recent = "\n".join(f"<li><a href='/{html.escape(page['slug'])}/'><span translate='no'>{html.escape(page['brand_name'])}</span></a> <span>Updated: {updated_label}</span></li>" for page in pages[:6])
     popular = section_html("Popular Reviews", pages[:6])
     html_text = f"""<!doctype html>
 <html lang="en">
@@ -345,7 +347,7 @@ def card_html(page: dict, extra_class: str = "") -> str:
     brand = str(page.get("brand_name", "")).strip()
     category = str(page.get("niche", "SaaS")).strip()
     return f"""<article class="{class_name}">
-  <h3>{html.escape(brand)}</h3>
+  <h3 translate="no">{html.escape(brand)}</h3>
   <p class="muted"><strong>Category:</strong> {html.escape(category)}</p>
   <p>{html.escape(page['description'])}</p>
   <p><strong>Score:</strong> {html.escape(page['score'])} | <strong>Risk:</strong> {html.escape(page['risk'])}</p>
@@ -357,7 +359,7 @@ def section_html(title: str, pages: list[dict]) -> str:
     shown = pages[:6]
     if not shown:
         return ""
-    items = "\n".join(f'<li><a href="/{html.escape(page["slug"])}/">{html.escape(page["brand_name"])}</a> <span>{html.escape(page["niche"])}</span></li>' for page in shown)
+    items = "\n".join(f'<li><a href="/{html.escape(page["slug"])}/"><span translate="no">{html.escape(page["brand_name"])}</span></a> <span>{html.escape(page["niche"])}</span></li>' for page in shown)
     return f'<section class="list-section"><h2>{html.escape(title)}</h2><ul>{items}</ul></section>'
 
 
@@ -479,6 +481,8 @@ def blog_card(slug: str, title: str, summary: str) -> str:
 
 
 def blog_article_html(slug: str, title: str, summary: str, pages: list[dict]) -> str:
+    if slug == "chatgpt-windsurf-codex-workflow":
+        return ai_workflow_article_html(slug, title)
     related = related_links_for_blog(slug, pages)
     sections = [
         ("overview", "Overview", summary),
@@ -513,6 +517,149 @@ def related_links_for_blog(slug: str, pages: list[dict]) -> str:
     elif "website" in slug or "presentation" in slug or "canva" in slug:
         picks = [p for p in pages if p["slug"] in {"gamma", "webflow-ai", "canva", "adcreative-ai"}][:4] or picks
     return "".join(f"<a href='/{html.escape(page['slug'])}/'>{html.escape(page['brand_name'])}</a> " for page in picks)
+
+
+def ai_workflow_article_html(slug: str, title: str) -> str:
+    toc_items = [
+        ("why-not-one-tool", "Why I Do Not Use Only One AI Tool"),
+        ("real-workflow", "My Real Workflow"),
+        ("step-1", "Step 1 - I Start With a Real Idea"),
+        ("step-2", "Step 2 - ChatGPT Turns the Idea Into a Clear Prompt"),
+        ("step-3", "Step 3 - Windsurf Builds the First Version"),
+        ("step-4", "Step 4 - I Test and Collect Real Problems"),
+        ("step-5", "Step 5 - ChatGPT Reviews the Problem"),
+        ("step-6", "Step 6 - Codex Fixes and Improves the Project"),
+        ("real-example", "Real Example"),
+        ("comparison-table", "Comparison Table"),
+        ("non-developers", "Why This Workflow Helps Non-Developers"),
+        ("where-site-fits", "Where My Bot/Website Fits In"),
+        ("final-recommendation", "Final Recommendation"),
+        ("faq", "FAQ"),
+    ]
+    toc = "".join(f"<a href='#{sid}'>{html.escape(label)}</a>" for sid, label in toc_items)
+    return f"""<nav class='breadcrumb'><a href='/'>Home</a> / <a href='/blog/'>Blog</a> / {html.escape(title)}</nav>
+    <article class='review-layout'>
+      <aside class='card toc'><h2>Contents</h2>{toc}</aside>
+      <div>
+        <section class='card hero-section'>
+          <p class='muted'>AI coding workflow | Builder story | Last updated {date.today().isoformat()}</p>
+          <h1>How I Use ChatGPT, Windsurf and Codex to Build Real AI Projects</h1>
+          <p>Many people ask which AI coding tool is the best. In my real work, that question is too simple. I do not use only one tool. I combine ChatGPT, Windsurf, and Codex in one workflow, then I test the output myself until the project becomes usable.</p>
+          <p>This is not theory. This is the process I use while building websites, SEO pages, automation systems, review pages, and app ideas. The important part is not pretending AI can do everything in one click. The important part is knowing which tool should think, which tool should build, and which tool should fix.</p>
+          <div class='cta-row'><a class='btn' href='/about/'>Explore My AI Workflow Bot</a><a class='btn secondary' href='/category/ai-coding-tools/'>See My AI Coding Tools Reviews</a></div>
+          {share_buttons(f'/blog/{slug}/', "ChatGPT Windsurf Codex Workflow")}
+        </section>
+
+        <section class='card' id='why-not-one-tool'>
+          <h2>Why I Do Not Use Only One AI Tool</h2>
+          <p>When I started using AI for real projects, I made the same mistake many beginners make: I expected one tool to understand the whole idea, create the first version, debug the mistakes, improve the design, fix SEO, and prepare the project for publishing. That is not how it works reliably.</p>
+          <p>ChatGPT is strong at thinking. I use it to explain my idea, organize messy notes, ask better questions, and turn a vague plan into a detailed prompt. It helps me see what the project needs before I ask any coding tool to touch the files.</p>
+          <p>Windsurf is strong when I need momentum. If I want a first version of a website, dashboard, landing page, or app structure, Windsurf helps me move faster than writing every file manually. It can create pages, connect routes, generate UI, and give me something I can test.</p>
+          <p>Codex is where I usually go when the project becomes real enough to break. When there are bugs, layout issues, language switching problems, SEO mistakes, broken links, or messy code, Codex is better when I give it a focused task and real context. The real power is the workflow, not one single tool.</p>
+        </section>
+
+        <section class='card' id='real-workflow'>
+          <h2>My Real Workflow</h2>
+          <p>My usual AI coding workflow looks like this:</p>
+          <p><strong>Idea -> ChatGPT -> Prompt -> Windsurf -> First Version -> Test -> Screenshot/Error -> ChatGPT Review -> Codex Prompt -> Codex Fix -> Test Again</strong></p>
+          <p>I repeat this loop until the project is stable enough to use. Sometimes the first version is surprisingly good. Sometimes it looks good on the surface but breaks when I test routes, mobile layout, SEO metadata, language switching, or generated content. That is normal. AI building is still building. You still need to inspect the result.</p>
+          <p>The workflow matters because every step has a clear purpose. ChatGPT helps me think. Windsurf helps me create. Codex helps me repair and polish. Testing is the part that keeps the project honest.</p>
+        </section>
+
+        <section class='card' id='step-1'>
+          <h2>Step 1 - I Start With a Real Idea</h2>
+          <p>I do not start by asking AI to build a random app. I start with a real problem I want to solve. Sometimes it is a website I want to publish. Sometimes it is a bot I want to improve. Sometimes it is an SEO page, a dashboard feature, a parent-child connection app idea, or a video creation tool idea.</p>
+          <p>For example, this project started as an AI coding tools review website and became a bigger workflow system. I needed review pages, comparison pages, bilingual pages, sitemap checks, social drafts, content quality validation, and a local dashboard. That is too much to ask one tool to do perfectly in one command.</p>
+          <p>So I describe the idea in plain language first. I explain what the user should see, what data should be stored, what should not happen, and which parts must remain safe. This is especially important when I am building local-first systems that should not auto-post, should not create fake affiliate links, and should not break the static site.</p>
+        </section>
+
+        <section class='card' id='step-2'>
+          <h2>Step 2 - ChatGPT Turns the Idea Into a Clear Prompt</h2>
+          <p>ChatGPT helps me turn the idea into a better instruction. I use it to organize requirements, define features, split the work into phases, and write prompts that Windsurf or Codex can actually follow.</p>
+          <p>This step is more important than it looks. A weak prompt usually creates weak code. A clear prompt tells the coding tool what to build, what not to touch, which files are important, which tests to run, and which behavior must stay unchanged.</p>
+          <p>For example, if I want to improve a page, I do not simply say, "make it better." I ask ChatGPT to help me define what better means: add a real workflow section, improve internal links, keep CTA links local, preserve canonical tags, update sitemap, and run validation. That gives the coding tool a focused task instead of a vague wish.</p>
+        </section>
+
+        <section class='card' id='step-3'>
+          <h2>Step 3 - Windsurf Builds the First Version</h2>
+          <p>After the prompt is clear, I send it to Windsurf when I need a first working version. Windsurf is useful for creating files, building pages, generating UI, connecting routes, and moving from idea to something I can open in the browser.</p>
+          <p>I like using Windsurf when the project is still early. It is fast for rough structure. It can scaffold a feature, produce a dashboard section, or create static pages quickly. That speed is valuable because a visible version gives me something concrete to test.</p>
+          <p>But I do not expect the first version to be perfect. Sometimes Windsurf creates duplicated logic. Sometimes it gets the layout close but misses a responsive detail. Sometimes it writes content that feels too generic. That is not a failure. It is the first draft of the project.</p>
+        </section>
+
+        <section class='card' id='step-4'>
+          <h2>Step 4 - I Test and Collect Real Problems</h2>
+          <p>This is the step many people skip. I test the result myself. I click links. I open pages on desktop and mobile. I check whether the button goes to the right route. I inspect SEO title, meta description, canonical URL, hreflang, sitemap, and robots.txt. I look for mixed language issues, broken internal links, layout overlap, and pages that look like placeholders.</p>
+          <p>When something breaks, I collect evidence. Screenshots are useful because they show the exact visual issue. Error logs are useful because they show what the program actually said. A broken page URL is useful because it gives the tool a concrete target.</p>
+          <p>For this site, I have used this approach for issues like mixed English and Vietnamese text, a table of contents blocking the article, duplicate FAQ schema, footer identity problems, GitHub Pages docs sync, and pages that needed better internal links. The project improved because the bugs were real, not imagined.</p>
+        </section>
+
+        <section class='card' id='step-5'>
+          <h2>Step 5 - ChatGPT Reviews the Problem</h2>
+          <p>When I find a problem, I often send the screenshot or error back to ChatGPT first. I do this because the first question is not always "what code should change?" The first question is usually "what is actually wrong?"</p>
+          <p>ChatGPT helps me interpret the issue and create a debugging prompt. If a page has mixed language, the prompt should mention source content, templates, generated docs, language switcher, hreflang, and validation. If a layout block overlaps content, the prompt should mention CSS classes, sticky behavior, mobile behavior, and where the generated HTML lives.</p>
+          <p>This turns a messy bug report into a focused task for Codex. Instead of asking Codex to "fix the site," I ask it to inspect specific files, identify the generator, patch the source, rebuild, sync docs, and run tests.</p>
+        </section>
+
+        <section class='card' id='step-6'>
+          <h2>Step 6 - Codex Fixes and Improves the Project</h2>
+          <p>I use Codex when the project needs careful repair. Codex is good for fixing bugs, cleaning code, refactoring logic, improving SEO output, fixing routes, adjusting language switching, and making the project more production-ready.</p>
+          <p>The key is context. Codex performs much better when I give it a clear problem, the expected behavior, the files to inspect, and the commands to run. It is not magic. It still needs a target. But when the target is clear, it can move through the codebase, patch the right source files, rebuild the static output, and check whether the result passes validation.</p>
+          <p>In my workflow, Codex is the final fixer. It is not always the fastest tool for creating a first screen from nothing, but it is strong when the project already exists and needs to become stable.</p>
+        </section>
+
+        <section class='card' id='real-example'>
+          <h2>Real Example</h2>
+          <p>A practical example is this AI coding tools review website. At first, the site had many moving parts: review pages, comparison pages, pricing pages, bilingual English and Vietnamese output, sitemap generation, FAQ schema, internal links, CTA tracking, and a dashboard for content workflow.</p>
+          <p>Some pages had mixed English and Vietnamese content. Some comparison pages needed better internal links. Some pages needed cleaner SEO metadata. A few layout issues only became obvious after opening the live page in the browser. I did not treat those problems as proof that AI failed. I treated them as input for the next loop.</p>
+          <p>I used ChatGPT to describe the problem clearly. Then I used Windsurf or Codex to update the code. Then I tested again. Over time, the site became more useful: it now includes pages such as the <a href='/category/ai-coding-tools/'>AI coding tools category</a>, <a href='/cursor/'>Cursor review</a>, <a href='/windsurf-review/'>Windsurf review</a>, <a href='/comparisons/cursor-vs-windsurf/'>Cursor vs Windsurf comparison</a>, <a href='/comparisons/copilot-vs-cursor/'>Copilot vs Cursor comparison</a>, and <a href='/best-ai-coding-tools-2026/'>Best AI Coding Tools 2026</a>.</p>
+          <p>The same workflow also applies to other ideas I am exploring, including the MsSmileEnglish website/app, an SEO content system, an AI workflow bot, a parent-child connection app idea, and a video creation tool idea. The pattern is the same: explain the idea, build a first version, test the result, then fix what is real.</p>
+        </section>
+
+        <section class='card' id='comparison-table'>
+          <h2>Comparison Table</h2>
+          <div class='table-wrap'><table><thead><tr><th>Tool</th><th>My Role for This Tool</th><th>Best Use</th><th>Weakness</th></tr></thead><tbody>
+            <tr><td>ChatGPT</td><td>Planner and prompt writer</td><td>Ideas, structure, debugging prompts</td><td>Does not automatically fix the whole project unless connected to files</td></tr>
+            <tr><td>Windsurf</td><td>First builder</td><td>Fast project generation and UI</td><td>First version may need cleanup</td></tr>
+            <tr><td>Codex</td><td>Final fixer</td><td>Debugging, refactoring, polishing</td><td>Needs clear context and focused prompts</td></tr>
+          </tbody></table></div>
+        </section>
+
+        <section class='card' id='non-developers'>
+          <h2>Why This Workflow Helps Non-Developers</h2>
+          <p>If you are not a professional developer, the biggest advantage of this workflow is that you do not need to know everything before starting. You need to know what you are trying to build and how to describe the problem clearly.</p>
+          <p>You can start with a plain idea: "I want a page that explains my AI workflow and links to my review site." ChatGPT can help you turn that into requirements. Windsurf can create a first version. Codex can fix problems after you test it. Each round teaches you more about the project.</p>
+          <p>Screenshots, logs, and clear prompts become your practical language. You do not have to understand every line of code at the beginning, but you do need to inspect the result. AI tools are much better when each one has a clear role and when you give them real feedback from the project.</p>
+        </section>
+
+        <section class='card' id='where-site-fits'>
+          <h2>Where My Bot/Website Fits In</h2>
+          <p>My bot and website are where I organize this AI building workflow. Instead of keeping every experiment inside private chat history, I use the site to document what I learn, publish practical comparisons, and share the mistakes that happen when building real projects with AI.</p>
+          <p>The site is not only a review site. It is also a record of the process: how I create SEO pages, how I compare tools, how I fix language problems, how I prepare social drafts, how I check sitemap and structured data, and how I keep the workflow safe before publishing.</p>
+          <p>If you want to follow the same process, start with the <a href='/about/'>build-in-public story</a>, read the <a href='/reviews/'>AI tool reviews</a>, compare tools in the <a href='/comparisons/'>comparison hub</a>, or download the <a href='/free-ai-coding-workflow-checklist/'>AI coding workflow checklist</a>.</p>
+          <div class='cta-row'><a class='btn' href='/free-ai-coding-workflow-checklist/'>Learn How I Build Projects With AI</a><a class='btn secondary' href='/reviews/'>See My AI Coding Tools Reviews</a></div>
+        </section>
+
+        <section class='card' id='final-recommendation'>
+          <h2>Final Recommendation</h2>
+          <p>If you are trying to build a website, app, bot, or automation project with AI, do not ask which single tool is the best. That question usually leads to shallow answers.</p>
+          <p>Build a workflow instead: ChatGPT for thinking and prompts. Windsurf for the first build. Codex for fixing and polishing. Then test, document, and improve the process step by step.</p>
+          <p>This approach is slower than believing in a one-click demo, but it is much closer to how real projects become usable.</p>
+        </section>
+
+        <section class='card' id='faq'>
+          <h2>FAQ</h2>
+          <details><summary>Can I build apps with AI if I am not a developer?</summary><p>Yes, but you should start with small, testable projects. AI can help you plan, create a first version, and fix problems, but you still need to review the output and test the workflow carefully.</p></details>
+          <details><summary>Why use ChatGPT before Windsurf?</summary><p>ChatGPT helps turn a rough idea into a clearer plan. That makes the prompt stronger before Windsurf starts creating files, pages, routes, or UI.</p></details>
+          <details><summary>Why not use Windsurf alone?</summary><p>Windsurf is fast for a first build, but first versions often need cleanup. I prefer using ChatGPT for planning and Codex for focused debugging after I test the project.</p></details>
+          <details><summary>What is Codex best for?</summary><p>Codex is strongest when I give it a clear issue inside an existing project: fixing bugs, refactoring logic, improving SEO output, adjusting routes, or cleaning production problems.</p></details>
+          <details><summary>What is the best workflow for building AI projects?</summary><p>My current workflow is: idea, ChatGPT prompt, Windsurf first version, manual testing, screenshot or error review, Codex fix, and another test cycle.</p></details>
+        </section>
+
+        <section class='card related'><h2>Related pages</h2><p><a href='/cursor/'>Cursor review</a> <a href='/windsurf-review/'>Windsurf review</a> <a href='/github-copilot/'>GitHub Copilot review</a> <a href='/comparisons/copilot-vs-cursor/'>Copilot vs Cursor</a> <a href='/best-ai-coding-tools-2026/'>Best AI Coding Tools 2026</a></p></section>
+        {newsletter_html()}
+      </div>
+    </article>"""
 
 
 def write_reviews_page(output: Path, pages: list[dict]) -> None:

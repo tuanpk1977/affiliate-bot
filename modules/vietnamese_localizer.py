@@ -34,6 +34,15 @@ MOJIBAKE_REPLACEMENTS = {
 
 
 UI_REPLACEMENTS = {
+    "Recently Updated Reviews": "Đánh giá được cập nhật gần đây",
+    "Latest Reviews": "Đánh giá mới nhất",
+    "Popular Reviews": "Đánh giá phổ biến",
+    "Best AI tools by category": "Công cụ AI nổi bật theo danh mục",
+    "Top priority pages": "Trang ưu tiên",
+    "Review pages": "Trang đánh giá",
+    "Hub pages": "Trang trung tâm",
+    "Updated:": "Cập nhật:",
+    "Category:": "Danh mục:",
     "AI Tool Review Center": "Trung tâm đánh giá công cụ AI",
     "AI Tool": "Công cụ AI",
     "Review": "Đánh giá",
