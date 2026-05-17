@@ -1,0 +1,9 @@
+﻿step_id,task,status
+create_formspree_account,Create or log in to Formspree,pending
+create_form,Create a form for AI Coding Workflow Checklist,pending
+copy_endpoint,Copy the Formspree endpoint URL,pending
+update_config_provider,Set provider=formspree in config/email_capture.json,pending
+update_config_endpoint,Paste endpoint into form_endpoint,pending
+enable_capture,Set enabled=true only after endpoint is real,pending
+rebuild_site,Run python main.py and sync docs,pending
+test_live_submission,Submit a real email from the live checklist page,pending

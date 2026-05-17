@@ -9,6 +9,8 @@ from modules.audience_growth import (
     email_capture_setup_faq,
     ensure_email_capture_config,
     ensure_subscribers_csv,
+    formspree_setup_faq,
+    lead_form,
     page_shell,
     social_plan_content,
 )
@@ -19,6 +21,9 @@ class AudienceGrowthTests(unittest.TestCase):
         ensure_email_capture_config()
         payload = json.loads((settings.base_dir / "config" / "email_capture.json").read_text(encoding="utf-8"))
         self.assertFalse(payload["enabled"])
+        self.assertEqual(payload["provider"], "formspree")
+        self.assertEqual(payload["form_endpoint"], "")
+        self.assertEqual(payload["honeypot_field"], "_gotcha")
         self.assertEqual(payload["storage"], "csv")
         self.assertNotIn("api_key", payload)
 
@@ -46,6 +51,22 @@ class AudienceGrowthTests(unittest.TestCase):
         self.assertIn("static", combined)
         self.assertIn("cannot write", combined)
         self.assertIn("formspree", combined)
+
+    def test_formspree_setup_faq_mentions_no_api_key(self) -> None:
+        combined = " ".join(dict(formspree_setup_faq("en")).values()).lower()
+        self.assertIn("api key", combined)
+        self.assertIn("endpoint", combined)
+
+    def test_lead_form_setup_mode_does_not_post(self) -> None:
+        form = lead_form("en")
+        self.assertIn('data-email-capture-mode="setup"', form)
+        self.assertIn('name="email"', form)
+        self.assertIn('name="source_page"', form)
+        self.assertIn('name="language"', form)
+        self.assertIn('name="lead_magnet"', form)
+        self.assertIn('name="_gotcha"', form)
+        self.assertNotIn("https://formspree.io", form)
+        self.assertNotIn('method="POST"', form)
 
     def test_social_plan_has_no_fake_affiliate_link(self) -> None:
         content = social_plan_content("Cursor cleanup", "linkedin", "en", "story/comparison/case study")

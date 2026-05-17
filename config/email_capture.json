@@ -1,6 +1,10 @@
 {
   "enabled": false,
-  "provider": "",
+  "provider": "formspree",
   "storage": "csv",
-  "double_opt_in": false
+  "double_opt_in": false,
+  "form_endpoint": "",
+  "success_message": "Thanks. Please check your inbox if confirmation is enabled.",
+  "error_message": "The form could not be submitted. Please try again or contact the site owner.",
+  "honeypot_field": "_gotcha"
 }

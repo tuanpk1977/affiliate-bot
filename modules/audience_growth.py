@@ -15,6 +15,7 @@ CONTACT_EMAIL = "tuanpk1977@gmail.com"
 LEAD_SLUG = "free-ai-coding-workflow-checklist"
 DOWNLOAD_SLUG = "downloads/ai-coding-workflow-checklist"
 EMAIL_SETUP_SLUG = "email-capture-setup"
+FORMSPREE_SETUP_SLUG = "formspree-setup"
 SOCIAL_PLATFORMS = ["facebook", "linkedin", "twitter", "short_video"]
 
 
@@ -27,6 +28,8 @@ def run_audience_growth_system(output: Path | None = None) -> dict[str, int]:
     write_lead_magnet_pages(root)
     write_checklist_pages(root)
     write_email_capture_setup_pages(root)
+    write_formspree_setup_pages(root)
+    write_formspree_setup_checklist()
     internal_links_added = add_build_in_public_links(root)
     social_posts = write_30_day_social_plan()
     report_rows = write_audience_growth_report(
@@ -34,6 +37,7 @@ def run_audience_growth_system(output: Path | None = None) -> dict[str, int]:
         lead_magnet_page_created=True,
         checklist_created=True,
         email_capture_setup_created=True,
+        formspree_setup_created=True,
         subscriber_capture_ready=True,
         social_plan_days=30,
         social_posts_created=social_posts,
@@ -45,6 +49,7 @@ def run_audience_growth_system(output: Path | None = None) -> dict[str, int]:
         "lead_magnet_pages": 2,
         "checklist_pages": 4,
         "email_capture_setup_pages": 2,
+        "formspree_setup_pages": 2,
         "social_posts_created": social_posts,
         "internal_links_added": internal_links_added,
         "report_rows": report_rows,
@@ -62,10 +67,34 @@ def ensure_email_capture_config() -> None:
     else:
         payload = {}
     payload.setdefault("enabled", False)
-    payload.setdefault("provider", "")
+    if not payload.get("provider"):
+        payload["provider"] = "formspree"
+    payload.setdefault("form_endpoint", "")
+    payload.setdefault("success_message", "Thanks. Please check your inbox if confirmation is enabled.")
+    payload.setdefault("error_message", "The form could not be submitted. Please try again or contact the site owner.")
+    payload.setdefault("honeypot_field", "_gotcha")
     payload.setdefault("storage", "csv")
     payload.setdefault("double_opt_in", False)
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
+def load_email_capture_config() -> dict[str, object]:
+    ensure_email_capture_config()
+    path = settings.base_dir / "config" / "email_capture.json"
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        payload = {}
+    return {
+        "enabled": bool(payload.get("enabled")),
+        "provider": str(payload.get("provider") or "formspree"),
+        "form_endpoint": str(payload.get("form_endpoint") or "").strip(),
+        "success_message": str(payload.get("success_message") or ""),
+        "error_message": str(payload.get("error_message") or ""),
+        "honeypot_field": str(payload.get("honeypot_field") or "_gotcha"),
+        "storage": str(payload.get("storage") or "csv"),
+        "double_opt_in": bool(payload.get("double_opt_in")),
+    }
 
 
 def ensure_subscribers_csv() -> None:
@@ -289,19 +318,47 @@ def write_about_pages(root: Path) -> None:
 
 
 def lead_form(lang: str) -> str:
+    capture = load_email_capture_config()
+    enabled = bool(capture["enabled"]) and bool(capture["form_endpoint"])
+    endpoint = html.escape(str(capture["form_endpoint"]), quote=True)
+    honeypot = html.escape(str(capture["honeypot_field"]), quote=True)
+    source_page = "/vi/free-ai-coding-workflow-checklist/" if lang == "vi" else "/free-ai-coding-workflow-checklist/"
+    if enabled:
+        button = "Nhận checklist" if lang == "vi" else "Get the checklist"
+        placeholder = "Email của bạn" if lang == "vi" else "Your email"
+        note = (
+            "Form này sẽ gửi email đến Formspree theo endpoint bạn đã cấu hình. Không hard-code API key trong HTML."
+            if lang == "vi"
+            else "This form submits to your configured Formspree endpoint. No API key is hard-coded in the HTML."
+        )
+        return f"""<form class="email-form" action="{endpoint}" method="POST" data-email-capture-provider="formspree">
+  <input type="email" name="email" placeholder="{placeholder}" required>
+  <input type="hidden" name="source_page" value="{source_page}">
+  <input type="hidden" name="language" value="{lang}">
+  <input type="hidden" name="lead_magnet" value="ai-coding-workflow-checklist">
+  <input type="text" name="{honeypot}" tabindex="-1" autocomplete="off" style="display:none">
+  <button type="submit">{button}</button>
+</form>
+<p class="note">{note}</p>"""
     if lang == "vi":
-        return """<form class="email-form" action="mailto:tuanpk1977@gmail.com" method="post" enctype="text/plain">
+        return """<form class="email-form" data-email-capture-mode="setup" onsubmit="return false;">
   <input type="email" name="email" placeholder="Email của bạn" required>
   <input type="hidden" name="source_page" value="/vi/free-ai-coding-workflow-checklist/">
-  <button type="submit">Nhận checklist</button>
+  <input type="hidden" name="language" value="vi">
+  <input type="hidden" name="lead_magnet" value="ai-coding-workflow-checklist">
+  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none">
+  <button type="button">Nhận checklist</button>
 </form>
-<p class="note"><strong>Email capture hiện đang ở chế độ thiết lập.</strong> GitHub Pages là static site nên form này dùng mailto/fallback và chưa tự lưu email vào hệ thống. Không spam; khi tích hợp provider thật bạn có thể hủy đăng ký bất cứ lúc nào. <a href="/vi/email-capture-setup/">Xem cách cấu hình email capture</a>.</p>"""
-    return """<form class="email-form" action="mailto:tuanpk1977@gmail.com" method="post" enctype="text/plain">
+<p class="note"><strong>Email capture hiện đang ở chế độ thiết lập.</strong> Form này chưa gửi dữ liệu đi đâu và chưa tự lưu email vào hệ thống. Để thu email thật, hãy cấu hình Formspree rồi bật <code>enabled</code>. <a href="/vi/formspree-setup/">Xem hướng dẫn Formspree</a>.</p>"""
+    return """<form class="email-form" data-email-capture-mode="setup" onsubmit="return false;">
   <input type="email" name="email" placeholder="Your email" required>
   <input type="hidden" name="source_page" value="/free-ai-coding-workflow-checklist/">
-  <button type="submit">Get the checklist</button>
+  <input type="hidden" name="language" value="en">
+  <input type="hidden" name="lead_magnet" value="ai-coding-workflow-checklist">
+  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none">
+  <button type="button">Get the checklist</button>
 </form>
-<p class="note"><strong>Email capture is currently in setup mode.</strong> GitHub Pages is a static site, so this form uses a mailto fallback and does not automatically save emails yet. No spam; unsubscribe anytime when a real provider is connected. <a href="/email-capture-setup/">See email capture setup options</a>.</p>"""
+<p class="note"><strong>Email capture is currently in setup mode.</strong> This form does not submit anywhere and does not save emails yet. To collect real subscribers, add your Formspree endpoint and set <code>enabled</code> to true. <a href="/formspree-setup/">See the Formspree setup guide</a>.</p>"""
 
 
 def faq_html(items: list[tuple[str, str]]) -> str:
@@ -472,6 +529,125 @@ def write_email_capture_setup_pages(root: Path) -> None:
             vi_faq,
         ),
     )
+
+
+def formspree_setup_faq(lang: str) -> list[tuple[str, str]]:
+    if lang == "vi":
+        return [
+            ("Có cần API key trong HTML không?", "Không. Với Formspree, site static chỉ cần form endpoint công khai. Không đưa API key hoặc token riêng vào HTML."),
+            ("Khi nào form bắt đầu gửi email thật?", "Chỉ khi config/email_capture.json có enabled=true và form_endpoint là endpoint Formspree thật."),
+            ("Nếu endpoint trống thì sao?", "Form vẫn ở chế độ thiết lập, không POST đi đâu và không giả vờ lưu subscriber."),
+        ]
+    return [
+        ("Do I need an API key in the HTML?", "No. With Formspree, the static site only needs the public form endpoint. Do not put private API keys or tokens into HTML."),
+        ("When does the form start collecting real emails?", "Only when config/email_capture.json has enabled=true and form_endpoint contains your real Formspree endpoint."),
+        ("What happens when the endpoint is empty?", "The form stays in setup mode, does not POST anywhere, and does not pretend to save subscribers."),
+    ]
+
+
+def write_formspree_setup_pages(root: Path) -> None:
+    en_faq = formspree_setup_faq("en")
+    vi_faq = formspree_setup_faq("vi")
+    en_body = f"""
+<section class="hero">
+  <p class="note">Real email capture integration</p>
+  <h1>Formspree Setup for the AI Coding Checklist</h1>
+  <p>This guide explains how to connect the checklist form to Formspree while keeping the static GitHub Pages site safe when no endpoint is configured.</p>
+</section>
+<section class="card">
+  <h2>Setup steps</h2>
+  <ol>
+    <li>Create or log in to a Formspree account.</li>
+    <li>Create a new form for the AI Coding Workflow Checklist.</li>
+    <li>Copy the Formspree endpoint URL.</li>
+    <li>Open <code>config/email_capture.json</code>.</li>
+    <li>Set <code>provider</code> to <code>formspree</code>.</li>
+    <li>Paste the endpoint into <code>form_endpoint</code>.</li>
+    <li>Change <code>enabled</code> to <code>true</code>.</li>
+    <li>Run <code>python main.py</code> and <code>python scripts/sync_site_output_to_docs.py</code>.</li>
+    <li>Commit and push the updated static files.</li>
+    <li>Test a real email submission from the live checklist page.</li>
+  </ol>
+</section>
+<section class="card trust">
+  <h2>Current safety rule</h2>
+  <p>If <code>enabled=false</code> or <code>form_endpoint</code> is empty, the form remains in setup mode and does not submit anywhere.</p>
+</section>
+{faq_html(en_faq)}
+<section class="card"><h2>CTA</h2><p>After adding a real endpoint, rebuild the static site before testing.</p><a class="btn" href="/free-ai-coding-workflow-checklist/">Open the checklist form</a></section>
+"""
+    vi_body = f"""
+<section class="hero">
+  <p class="note">Tích hợp email capture thật</p>
+  <h1>Hướng dẫn cấu hình Formspree cho checklist AI Coding</h1>
+  <p>Trang này giải thích cách kết nối form checklist với Formspree, đồng thời giữ site GitHub Pages an toàn khi chưa cấu hình endpoint thật.</p>
+</section>
+<section class="card">
+  <h2>Các bước cấu hình</h2>
+  <ol>
+    <li>Tạo hoặc đăng nhập tài khoản Formspree.</li>
+    <li>Tạo form mới cho AI Coding Workflow Checklist.</li>
+    <li>Copy URL endpoint của Formspree.</li>
+    <li>Mở <code>config/email_capture.json</code>.</li>
+    <li>Đặt <code>provider</code> là <code>formspree</code>.</li>
+    <li>Dán endpoint vào <code>form_endpoint</code>.</li>
+    <li>Đổi <code>enabled</code> thành <code>true</code>.</li>
+    <li>Chạy <code>python main.py</code> và <code>python scripts/sync_site_output_to_docs.py</code>.</li>
+    <li>Commit và push static files đã cập nhật.</li>
+    <li>Test gửi email thật từ trang checklist live.</li>
+  </ol>
+</section>
+<section class="card trust">
+  <h2>Quy tắc an toàn hiện tại</h2>
+  <p>Nếu <code>enabled=false</code> hoặc <code>form_endpoint</code> trống, form vẫn ở chế độ thiết lập và không gửi dữ liệu đi đâu.</p>
+</section>
+{faq_html(vi_faq)}
+<section class="card"><h2>CTA</h2><p>Sau khi thêm endpoint thật, hãy rebuild static site trước khi test.</p><a class="btn" href="/vi/free-ai-coding-workflow-checklist/">Mở form checklist</a></section>
+"""
+    write_html(
+        root,
+        FORMSPREE_SETUP_SLUG,
+        page_shell(
+            "Formspree Setup for Email Capture",
+            "Step-by-step Formspree setup for the AI Coding Workflow Checklist email form on GitHub Pages.",
+            f"/{FORMSPREE_SETUP_SLUG}/",
+            en_body,
+            "en",
+            en_faq,
+        ),
+    )
+    write_html(
+        root,
+        f"vi/{FORMSPREE_SETUP_SLUG}",
+        page_shell(
+            "Hướng dẫn cấu hình Formspree",
+            "Các bước cấu hình Formspree cho form checklist AI Coding trên GitHub Pages.",
+            f"/vi/{FORMSPREE_SETUP_SLUG}/",
+            vi_body,
+            "vi",
+            vi_faq,
+        ),
+    )
+
+
+def write_formspree_setup_checklist() -> None:
+    path = settings.data_dir / "formspree_setup_checklist.csv"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    rows = [
+        ("create_formspree_account", "Create or log in to Formspree", "pending"),
+        ("create_form", "Create a form for AI Coding Workflow Checklist", "pending"),
+        ("copy_endpoint", "Copy the Formspree endpoint URL", "pending"),
+        ("update_config_provider", "Set provider=formspree in config/email_capture.json", "pending"),
+        ("update_config_endpoint", "Paste endpoint into form_endpoint", "pending"),
+        ("enable_capture", "Set enabled=true only after endpoint is real", "pending"),
+        ("rebuild_site", "Run python main.py and sync docs", "pending"),
+        ("test_live_submission", "Submit a real email from the live checklist page", "pending"),
+    ]
+    with path.open("w", newline="", encoding="utf-8-sig") as handle:
+        writer = csv.DictWriter(handle, fieldnames=["step_id", "task", "status"])
+        writer.writeheader()
+        for step_id, task, status in rows:
+            writer.writerow({"step_id": step_id, "task": task, "status": status})
 
 
 def checklist_items(lang: str) -> list[str]:
@@ -656,6 +832,7 @@ def write_audience_growth_report(**kwargs: object) -> int:
         "lead_magnet_page_created",
         "checklist_created",
         "email_capture_setup_created",
+        "formspree_setup_created",
         "subscriber_capture_ready",
         "social_plan_days",
         "social_posts_created",

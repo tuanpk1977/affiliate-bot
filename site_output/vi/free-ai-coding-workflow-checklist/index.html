@@ -43,12 +43,15 @@
 </section>
 <section class="card">
   <h2>Nhận checklist</h2>
-  <form class="email-form" action="mailto:tuanpk1977@gmail.com" method="post" enctype="text/plain">
+  <form class="email-form" data-email-capture-mode="setup" onsubmit="return false;">
   <input type="email" name="email" placeholder="Email của bạn" required>
   <input type="hidden" name="source_page" value="/vi/free-ai-coding-workflow-checklist/">
-  <button type="submit">Nhận checklist</button>
+  <input type="hidden" name="language" value="vi">
+  <input type="hidden" name="lead_magnet" value="ai-coding-workflow-checklist">
+  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none">
+  <button type="button">Nhận checklist</button>
 </form>
-<p class="note"><strong>Email capture hiện đang ở chế độ thiết lập.</strong> GitHub Pages là static site nên form này dùng mailto/fallback và chưa tự lưu email vào hệ thống. Không spam; khi tích hợp provider thật bạn có thể hủy đăng ký bất cứ lúc nào. <a href="/vi/email-capture-setup/">Xem cách cấu hình email capture</a>.</p>
+<p class="note"><strong>Email capture hiện đang ở chế độ thiết lập.</strong> Form này chưa gửi dữ liệu đi đâu và chưa tự lưu email vào hệ thống. Để thu email thật, hãy cấu hình Formspree rồi bật <code>enabled</code>. <a href="/vi/formspree-setup/">Xem hướng dẫn Formspree</a>.</p>
 </section>
 <section class='card'><h2>FAQ</h2><details><summary>Checklist này có miễn phí không?</summary><p>Có. Đây là tài liệu miễn phí để bạn tự kiểm tra workflow AI coding trước khi publish.</p></details><details><summary>Form có gửi dữ liệu vào hệ thống tự động không?</summary><p>Chưa. Website đang chạy static trên GitHub Pages nên hiện dùng mailto/fallback và chuẩn bị sẵn file subscribers.csv cho tích hợp sau.</p></details><details><summary>Checklist có thay thế review thủ công không?</summary><p>Không. Checklist giúp bạn nhớ các bước cần kiểm tra, nhưng vẫn cần tự xem lại code, SEO, sitemap và nội dung.</p></details></section>
 <section class="card"><h2>CTA</h2><p>Dùng checklist trước khi publish trang AI-assisted tiếp theo.</p><a class="btn" href="/vi/downloads/ai-coding-workflow-checklist.html">Tải checklist</a></section>
