@@ -884,13 +884,33 @@ def write_reviews_page(output: Path, pages: list[dict]) -> None:
 def write_comparisons_page(output: Path, pages: list[dict]) -> None:
     folder = output / "comparisons"
     folder.mkdir(parents=True, exist_ok=True)
+    english_intro = (
+        "A list of high-intent comparison pages written for pre-purchase research. "
+        "Content helps readers compare tools by use case, workflow, pricing notes, and vendor fit."
+    )
+
     def comparison_anchor(slug: str, left: str, right: str) -> str:
         if slug == "synthesia-vs-runway":
             return "Synthesia vs Runway comparison"
         return f"{left} vs {right}"
 
+    def english_quick_recommendation(slug: str, left: str, right: str, category: str) -> str:
+        english_recommendations = {
+            "chatgpt-vs-gemini": "Choose ChatGPT for flexible general AI assistance; choose Gemini if your workflow is heavily tied to Google Workspace.",
+            "chatgpt-vs-claude": "Choose ChatGPT for broad daily workflows; choose Claude if long-document reading, summarization, and careful analysis matter more.",
+            "cursor-vs-windsurf": "Choose Cursor for an established AI coding editor; test Windsurf if you want to compare newer agent-style coding workflows.",
+            "cursor-vs-vscode": "Choose Cursor when AI is central to the coding workflow; choose VS Code when extension depth and familiar setup matter more.",
+            "framer-vs-webflow": "Choose Framer for fast landing pages and visual iteration; choose Webflow for CMS-heavy sites and structured website operations.",
+            "synthesia-vs-runway": "Choose Synthesia for presenter-style product videos; choose Runway for generative video experiments and creative editing workflows.",
+        }
+        if slug in english_recommendations:
+            return english_recommendations[slug]
+        if slug == "synthesia-vs-runway":
+            return "Choose Synthesia for presenter-style product videos; choose Runway for generative video experiments and creative editing workflows."
+        return f"Compare {left} and {right} by use case, workflow fit, pricing notes, and vendor fit before choosing a {category}."
+
     topic_rows = "\n".join(
-        f"<tr><td><a href='/comparisons/{html.escape(slug)}/'>{html.escape(comparison_anchor(slug, left, right))}</a></td><td>{html.escape(category)}</td><td>{html.escape(recommendation)}</td></tr>"
+        f"<tr><td><a href='/comparisons/{html.escape(slug)}/'>{html.escape(comparison_anchor(slug, left, right))}</a></td><td>{html.escape(category)}</td><td>{html.escape(english_quick_recommendation(slug, left, right, category))}</td></tr>"
         for slug, left, right, category, _, _, recommendation in COMPARISON_TOPICS
     )
     review_rows = "\n".join(
@@ -898,8 +918,8 @@ def write_comparisons_page(output: Path, pages: list[dict]) -> None:
         for page in pages[:12]
     )
     body = f"""<nav class='breadcrumb'><a href='/'>Home</a> / Comparisons</nav>
-    <section class='card'><h1>So sánh AI/SaaS tools</h1><p>Danh sách các trang so sánh có intent cao, viết theo hướng nghiên cứu trước khi mua. Nội dung không thay thế thông tin chính thức từ vendor.</p></section>
-    <section class='card'><h2>High-intent comparison pages</h2><table><thead><tr><th>Comparison keyword</th><th>Category</th><th>Khuyến nghị nhanh</th></tr></thead><tbody>{topic_rows}</tbody></table></section>
+    <section class='card'><h1>Comparisons AI/SaaS tools</h1><p>{english_intro}</p></section>
+    <section class='card'><h2>High-intent comparison pages</h2><table><thead><tr><th>Comparison keyword</th><th>Category</th><th>Quick recommendation</th></tr></thead><tbody>{topic_rows}</tbody></table></section>
     <section class='card'><h2>Related reviews</h2><table><thead><tr><th>Tool</th><th>Category</th><th>Score</th><th>Risk</th></tr></thead><tbody>{review_rows}</tbody></table></section>"""
     (folder / "index.html").write_text(page_shell("Comparisons", "Compare AI and SaaS tools by category, score, risk, and research notes.", body, "/comparisons/"), encoding="utf-8")
 

@@ -921,6 +921,32 @@ def localize_html(text: str) -> str:
         lambda m: f"Review {m.group(1).strip()}: tính năng, ưu điểm, hạn chế và ghi chú giá",
         text,
     )
+    comparison_index_pairs = {
+        "Comparisons AI/SaaS tools": "So sánh công cụ AI/SaaS",
+        "A list of high-intent comparison pages written for pre-purchase research. Content helps readers compare tools by use case, workflow, pricing notes, and vendor fit.": "Danh sách các trang so sánh có intent cao, viết theo hướng nghiên cứu trước khi mua. Nội dung giúp bạn so sánh công cụ theo use case, workflow, ghi chú giá và mức phù hợp với vendor.",
+        "Quick recommendation": "Khuyến nghị nhanh",
+        "Choose ChatGPT for flexible general AI assistance; choose Gemini if your workflow is heavily tied to Google Workspace.": "Chọn ChatGPT nếu bạn cần trợ lý AI tổng quát linh hoạt; chọn Gemini nếu workflow của bạn gắn chặt với Google Workspace.",
+        "Choose ChatGPT for broad daily workflows; choose Claude if long-document reading, summarization, and careful analysis matter more.": "Chọn ChatGPT cho workflow hằng ngày đa năng; chọn Claude nếu ưu tiên đọc tài liệu dài, tóm tắt và phân tích cẩn thận.",
+        "Choose Cursor for an established AI coding editor; test Windsurf if you want to compare newer agent-style coding workflows.": "Chọn Cursor nếu bạn cần editor AI coding đã quen thuộc; thử Windsurf nếu bạn muốn so sánh workflow agent coding mới hơn.",
+        "Choose Cursor when AI is central to the coding workflow; choose VS Code when extension depth and familiar setup matter more.": "Chọn Cursor khi AI là trung tâm workflow lập trình; chọn VS Code khi hệ sinh thái extension và môi trường quen thuộc quan trọng hơn.",
+        "Choose Framer for fast landing pages and visual iteration; choose Webflow for CMS-heavy sites and structured website operations.": "Chọn Framer cho landing page nhanh và lặp thiết kế trực quan; chọn Webflow cho website nặng CMS và vận hành có cấu trúc.",
+        "Choose Synthesia for presenter-style product videos; choose Runway for generative video experiments and creative editing workflows.": "Chọn Synthesia cho video sản phẩm dạng người dẫn; chọn Runway cho thử nghiệm video tạo bằng AI và workflow chỉnh sửa sáng tạo.",
+    }
+    for source, target in comparison_index_pairs.items():
+        text = text.replace(source, target)
+    text = text.replace("So sánh AI/SaaS tools", "So sánh công cụ AI/SaaS")
+    text = text.replace(
+        "A list of high-intent comparison pages written for pre-purchase research. Content helps readers compare tools by use case, workflow, ghi chú giás, and vendor fit.",
+        "Danh sách các trang so sánh có intent cao, viết theo hướng nghiên cứu trước khi mua. Nội dung giúp bạn so sánh công cụ theo use case, workflow, ghi chú giá và mức phù hợp với vendor.",
+    )
+    text = text.replace("High-intent comparison pages", "Các trang so sánh có intent cao")
+    text = text.replace("Comparison keyword", "Từ khóa so sánh")
+    text = text.replace("<th>Category</th>", "<th>Danh mục</th>")
+    text = re.sub(
+        r"Compare ([^<]+?) and ([^<]+?) by use case, workflow fit, (?:pricing notes|ghi chú giás), and vendor fit before choosing a ([^<.]+)\.",
+        r"So sánh \1 và \2 theo use case, mức phù hợp workflow, ghi chú giá và mức phù hợp vendor trước khi chọn \3.",
+        text,
+    )
     text = localize_synthesia_runway_comparison(text)
 
     # Some visible-label replacements can accidentally touch JSON-LD property
