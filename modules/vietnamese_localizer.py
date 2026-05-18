@@ -749,6 +749,7 @@ def localize_html(text: str) -> str:
     # Protect product names and pros/cons headings from accidental literal
     # translation. This also fixes older generated Vietnamese pages where
     # translation reduced a card title to only "con trỏ".
+    text = text.replace("Hạn chếolas", "Consolas")
     text = re.sub(r"<h([1-6])>\s*con trỏ\s*</h\1>", r"<h\1>Hạn chế của Cursor</h\1>", text, flags=re.IGNORECASE)
     text = re.sub(r"<h([1-6])>\s*lướt ván buồm\s*</h\1>", r"<h\1>Hạn chế của Windsurf</h\1>", text, flags=re.IGNORECASE)
     text = text.replace("Ưu điểm của con trỏ", "Ưu điểm của Cursor")
