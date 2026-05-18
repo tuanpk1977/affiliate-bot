@@ -884,8 +884,13 @@ def write_reviews_page(output: Path, pages: list[dict]) -> None:
 def write_comparisons_page(output: Path, pages: list[dict]) -> None:
     folder = output / "comparisons"
     folder.mkdir(parents=True, exist_ok=True)
+    def comparison_anchor(slug: str, left: str, right: str) -> str:
+        if slug == "synthesia-vs-runway":
+            return "Synthesia vs Runway comparison"
+        return f"{left} vs {right}"
+
     topic_rows = "\n".join(
-        f"<tr><td><a href='/comparisons/{html.escape(slug)}/'>{html.escape(left)} vs {html.escape(right)}</a></td><td>{html.escape(category)}</td><td>{html.escape(recommendation)}</td></tr>"
+        f"<tr><td><a href='/comparisons/{html.escape(slug)}/'>{html.escape(comparison_anchor(slug, left, right))}</a></td><td>{html.escape(category)}</td><td>{html.escape(recommendation)}</td></tr>"
         for slug, left, right, category, _, _, recommendation in COMPARISON_TOPICS
     )
     review_rows = "\n".join(
@@ -932,7 +937,11 @@ def write_category_pages(output: Path, pages: list[dict]) -> None:
         folder = category_root / slug
         folder.mkdir(parents=True, exist_ok=True)
         selected = [page for page in pages if predicate(page)]
-        body = f'<section><h1>{html.escape(title)}</h1><p>Reviews and comparisons for {html.escape(title.lower())} tools.</p><div class="cards">{"".join(card_html(page) for page in selected)}</div></section>'
+        related = ""
+        if slug == "ai-video-tools":
+            related = """<section class="card"><h2>Related AI video comparisons</h2>
+            <p>For avatar-led product explainers versus generative video workflows, read the <a href="/comparisons/synthesia-vs-runway/">Synthesia vs Runway comparison</a>. You can also compare <a href="/comparisons/runway-vs-pika/">Runway vs Pika</a> and <a href="/comparisons/synthesia-vs-heygen/">Synthesia vs HeyGen</a> before choosing a video workflow.</p></section>"""
+        body = f'<section><h1>{html.escape(title)}</h1><p>Reviews and comparisons for {html.escape(title.lower())} tools.</p><div class="cards">{"".join(card_html(page) for page in selected)}</div></section>{related}'
         (folder / "index.html").write_text(page_shell(title, f"Browse {title} reviews and SaaS comparison notes.", body, f"/category/{slug}/"), encoding="utf-8")
 
 

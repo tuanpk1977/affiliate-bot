@@ -696,6 +696,12 @@ def localize_synthesia_runway_comparison(text: str) -> str:
         "Synthesia vs HeyGen": "Synthesia vs HeyGen",
         "Visit Synthesia official site": "Truy cập website chính thức của Synthesia",
         "Visit Runway official site": "Truy cập website chính thức của Runway",
+        "Synthesia vs Runway comparison": "So sánh Synthesia và Runway",
+        "Related AI video comparisons": "Các bài so sánh AI video liên quan",
+        "For avatar-led product explainers versus generative video workflows, read the": "Để so sánh video giải thích sản phẩm bằng avatar với workflow tạo video bằng AI, hãy đọc",
+        "You can also compare": "Bạn cũng có thể so sánh",
+        "and <a href=\"/vi/comparisons/synthesia-vs-heygen/\">Synthesia vs HeyGen</a> before choosing a video workflow.": "và <a href=\"/vi/comparisons/synthesia-vs-heygen/\">Synthesia vs HeyGen</a> trước khi chọn workflow video.",
+        "</a> and <a href=\"/vi/comparisons/synthesia-vs-heygen/\">Synthesia vs HeyGen</a> before choosing a video workflow.": "</a> và <a href=\"/vi/comparisons/synthesia-vs-heygen/\">Synthesia vs HeyGen</a> trước khi chọn workflow video.",
         "AI video tool": "Công cụ AI video",
         "Choose Synthesia for presenter-style videos and product demos with a controlled script; choose Runway for creative generative video, visual exploration, and editing-heavy workflows.": "Chọn Synthesia cho video có người dẫn và demo sản phẩm theo kịch bản kiểm soát; chọn Runway cho video tạo bằng AI, khám phá hình ảnh và workflow chỉnh sửa sáng tạo.",
     }
@@ -720,6 +726,8 @@ def localize_synthesia_runway_comparison(text: str) -> str:
         "Best Video Công cụs cần nghiên cứu trước khi mua": "Công cụ video nên nghiên cứu trước khi mua",
         "Runway vs Pika: Which AI video tools should you choose?": "Runway vs Pika: nên chọn công cụ AI video nào?",
         "Synthesia vs Pictory: Which AI video tools should you choose?": "Synthesia vs Pictory: nên chọn công cụ AI video nào?",
+        "and <a href=\"/comparisons/synthesia-vs-heygen/\">Synthesia vs HeyGen</a> before choosing a video workflow.": "và <a href=\"/comparisons/synthesia-vs-heygen/\">Synthesia vs HeyGen</a> trước khi chọn workflow video.",
+        "</a> and <a href=\"/comparisons/synthesia-vs-heygen/\">Synthesia vs HeyGen</a> before choosing a video workflow.": "</a> và <a href=\"/comparisons/synthesia-vs-heygen/\">Synthesia vs HeyGen</a> trước khi chọn workflow video.",
         ", and <a href='/comparisons/synthesia-vs-heygen/'>Synthesia vs HeyGen</a>": ", và <a href='/comparisons/synthesia-vs-heygen/'>Synthesia vs HeyGen</a>",
         "</a>, and <a href='/comparisons/synthesia-vs-heygen/'>": "</a>, và <a href='/comparisons/synthesia-vs-heygen/'>",
         ", and <a href='/vi/comparisons/synthesia-vs-heygen/'>Synthesia vs HeyGen</a>": ", và <a href='/vi/comparisons/synthesia-vs-heygen/'>Synthesia vs HeyGen</a>",
@@ -938,4 +946,8 @@ def localize_html(text: str) -> str:
     text = text.replace("Hạn chế of Cursor", "Hạn chế của Cursor")
     text = text.replace("Hạn chế of Windsurf", "Hạn chế của Windsurf")
     text = text.replace("Hạn chế of GitHub Copilot", "Hạn chế của GitHub Copilot")
+    text = text.replace(
+        '<a href="/vi/comparisons/runway-vs-pika/">Runway vs Pika</a> and <a href="/vi/comparisons/synthesia-vs-heygen/">Synthesia vs HeyGen</a> before choosing a video workflow.',
+        '<a href="/vi/comparisons/runway-vs-pika/">Runway vs Pika</a> và <a href="/vi/comparisons/synthesia-vs-heygen/">Synthesia vs HeyGen</a> trước khi chọn workflow video.',
+    )
     return text
