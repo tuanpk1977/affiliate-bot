@@ -451,6 +451,10 @@ def localize_blog_article_pages(text: str) -> str:
         "When I hand the task to Codex": "Khi nào tôi chuyển việc sang Codex",
         "Prompt mistakes I try to avoid": "Những lỗi prompt tôi cố tránh",
         "My reusable Windsurf prompt checklist": "Checklist prompt Windsurf tôi thường dùng lại",
+        "Related guides": "Hướng dẫn hỗ trợ bài này",
+        "Windsurf prompt checklist": "Checklist prompt Windsurf trước khi giao việc",
+        "Fix mixed-language Windsurf output": "Cách sửa lỗi lẫn tiếng Anh và tiếng Việt khi dùng Windsurf",
+        "Windsurf to Codex workflow": "Quy trình chuyển từ Windsurf sang Codex để sửa lỗi khó",
         "Read the full workflow": "Xem toàn bộ quy trình",
         "Get the workflow checklist": "Nhận checklist quy trình",
         "Download the workflow checklist": "Tải checklist quy trình",
@@ -597,6 +601,20 @@ def localize_blog_article_pages(text: str) -> str:
     if "chatgpt-prompts-for-windsurf" in text:
         for source, target in sorted(prompt_article_replacements.items(), key=lambda item: len(item[0]), reverse=True):
             text = text.replace(source, target)
+        # Keep this main guide's supporting links explicit after the broader
+        # blog-link localization pass shortens some shared anchors.
+        text = text.replace(
+            "checklist prompt Windsurf</a>",
+            "Checklist prompt Windsurf trước khi giao việc</a>",
+        )
+        text = text.replace(
+            "Hướng dẫn liên quan</h2>",
+            "Hướng dẫn hỗ trợ bài này</h2>",
+        )
+        text = text.replace(
+            "workflow Windsurf sang Codex</a>",
+            "Quy trình chuyển từ Windsurf sang Codex để sửa lỗi khó</a>",
+        )
     if "chatgpt-windsurf-codex-workflow" in text:
         for source, target in sorted(workflow_article_replacements.items(), key=lambda item: len(item[0]), reverse=True):
             text = text.replace(source, target)

@@ -666,7 +666,13 @@ def chatgpt_prompts_for_windsurf_article_html(slug: str, title: str) -> str:
           <details><summary>What is the safest AI coding workflow for beginners?</summary><p>Start with a real idea, use ChatGPT to write a clear prompt, let Windsurf create the first version, test the result, then use ChatGPT and Codex to fix specific issues.</p></details>
         </section>
 
-        <section class='card related'><h2>Related guides</h2><p><a href='/blog/windsurf-prompt-checklist/'>Windsurf prompt checklist</a> <a href='/blog/fix-windsurf-mixed-language/'>Fix mixed-language Windsurf output</a> <a href='/blog/windsurf-to-codex-workflow/'>Windsurf to Codex workflow</a></p></section>
+        <section class='card related'><h2>Related guides</h2>
+          <ul>
+            <li><a href='/blog/windsurf-prompt-checklist/'>Windsurf prompt checklist</a></li>
+            <li><a href='/blog/fix-windsurf-mixed-language/'>Fix mixed-language Windsurf output</a></li>
+            <li><a href='/blog/windsurf-to-codex-workflow/'>Windsurf to Codex workflow</a></li>
+          </ul>
+        </section>
         <section class='card related'><h2>Related reading</h2><p><a href='/blog/chatgpt-windsurf-codex-workflow/'>Full ChatGPT + Windsurf + Codex workflow</a> <a href='/windsurf-review/'>Windsurf review</a> <a href='/comparisons/cursor-vs-windsurf/'>Cursor vs Windsurf</a> <a href='/free-ai-coding-workflow-checklist/'>AI coding workflow checklist</a></p></section>
         {newsletter_html()}
       </div>
