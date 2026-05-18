@@ -10,6 +10,7 @@ import pandas as pd
 
 from config import settings
 from modules.affiliate_tracking import generate_go_pages, rewrite_outbound_ctas
+from modules.blog_article_data import SUPPORTING_BLOG_ARTICLES, SUPPORTING_BLOG_RELATED
 from modules.category_page_builder import generate_category_pages
 from modules.comparison_page_builder import generate_comparison_review_pages
 from modules.comparison_generator import generate_comparison_pages
@@ -96,6 +97,9 @@ NAV_INDEX_SLUGS = ["reviews", "comparisons", "pricing", "categories", "hubs"]
 BLOG_POSTS = [
     ("chatgpt-windsurf-codex-workflow", "ChatGPT Windsurf Codex Workflow", "My real AI building process using ChatGPT for thinking and prompts, Windsurf for the first build, and Codex for debugging, refactoring, and polishing."),
     ("chatgpt-prompts-for-windsurf", "ChatGPT Prompts for Windsurf", "How I use ChatGPT to turn a rough project idea into clearer Windsurf prompts before building, testing, and sending focused fixes to Codex."),
+    ("windsurf-prompt-checklist", "Windsurf Prompt Checklist", "A practical checklist I use before sending a coding prompt to Windsurf, with examples for safer first builds."),
+    ("fix-windsurf-mixed-language", "Fix Windsurf Mixed Language Issues", "How I fix mixed English and Vietnamese UI or content when Windsurf generates static site pages."),
+    ("windsurf-to-codex-workflow", "Windsurf to Codex Workflow", "My practical workflow for using Windsurf to build the first version, then Codex to repair, validate, and clean up the project."),
     ("best-ai-tools-for-small-business", "Best AI Tools for Small Business", "AI tools can help small teams document work, produce content, manage customers, and automate repetitive operations without hiring a large specialist team."),
     ("best-ai-presentation-tools", "Best AI Presentation Tools", "AI presentation tools help turn ideas, outlines, and research notes into clearer decks, pitch pages, and visual explanations."),
     ("best-ai-voice-generators", "Best AI Voice Generators", "AI voice generators are useful for creators and teams that need narration, learning content, and repeatable audio workflows."),
@@ -486,6 +490,8 @@ def blog_article_html(slug: str, title: str, summary: str, pages: list[dict]) ->
         return ai_workflow_article_html(slug, title)
     if slug == "chatgpt-prompts-for-windsurf":
         return chatgpt_prompts_for_windsurf_article_html(slug, title)
+    if slug in SUPPORTING_BLOG_ARTICLES:
+        return supporting_blog_article_html(slug)
     related = related_links_for_blog(slug, pages)
     sections = [
         ("overview", "Overview", summary),
@@ -660,7 +666,52 @@ def chatgpt_prompts_for_windsurf_article_html(slug: str, title: str) -> str:
           <details><summary>What is the safest AI coding workflow for beginners?</summary><p>Start with a real idea, use ChatGPT to write a clear prompt, let Windsurf create the first version, test the result, then use ChatGPT and Codex to fix specific issues.</p></details>
         </section>
 
+        <section class='card related'><h2>Related guides</h2><p><a href='/blog/windsurf-prompt-checklist/'>Windsurf prompt checklist</a> <a href='/blog/fix-windsurf-mixed-language/'>Fix mixed-language Windsurf output</a> <a href='/blog/windsurf-to-codex-workflow/'>Windsurf to Codex workflow</a></p></section>
         <section class='card related'><h2>Related reading</h2><p><a href='/blog/chatgpt-windsurf-codex-workflow/'>Full ChatGPT + Windsurf + Codex workflow</a> <a href='/windsurf-review/'>Windsurf review</a> <a href='/comparisons/cursor-vs-windsurf/'>Cursor vs Windsurf</a> <a href='/free-ai-coding-workflow-checklist/'>AI coding workflow checklist</a></p></section>
+        {newsletter_html()}
+      </div>
+    </article>"""
+
+
+def supporting_blog_article_html(slug: str) -> str:
+    article = SUPPORTING_BLOG_ARTICLES[slug]
+    title = article["title"]
+    toc_items = [(section["id"], section["heading"]) for section in article["sections"]] + [("faq", "FAQ"), ("cta", "Next step")]
+    toc = "".join(f"<a href='#{html.escape(sid)}'>{html.escape(label)}</a>" for sid, label in toc_items)
+    intro = "".join(f"<p>{html.escape(paragraph)}</p>" for paragraph in article["intro"])
+    sections_html: list[str] = []
+    for section in article["sections"]:
+        paragraphs = "".join(f"<p>{html.escape(paragraph)}</p>" for paragraph in section.get("paragraphs", []))
+        code = ""
+        if section.get("code"):
+            code = f"<pre><code>{html.escape(section['code'])}</code></pre>"
+        sections_html.append(
+            f"<section class='card' id='{html.escape(section['id'])}'><h2>{html.escape(section['heading'])}</h2>{paragraphs}{code}</section>"
+        )
+    faq = "\n".join(
+        f"<details><summary>{html.escape(question)}</summary><p>{html.escape(answer)}</p></details>"
+        for question, answer in article["faq"]
+    )
+    related = " ".join(
+        f"<a href='/blog/{html.escape(link_slug)}/'>{html.escape(en_anchor)}</a>"
+        for link_slug, en_anchor, _ in SUPPORTING_BLOG_RELATED
+        if link_slug != slug
+    )
+    return f"""<nav class='breadcrumb'><a href='/'>Home</a> / <a href='/blog/'>Blog</a> / {html.escape(title)}</nav>
+    <article class='review-layout'>
+      <aside class='card toc'><h2>Contents</h2>{toc}</aside>
+      <div>
+        <section class='card hero-section'>
+          <p class='muted'>{html.escape(article['eyebrow'])} {date.today().isoformat()}</p>
+          <h1>{html.escape(article['h1'])}</h1>
+          {intro}
+          <div class='cta-row'><a class='btn' href='/blog/chatgpt-prompts-for-windsurf/'>Read ChatGPT prompts for Windsurf</a><a class='btn secondary' href='/free-ai-coding-workflow-checklist/'>Get the workflow checklist</a></div>
+          {share_buttons(f'/blog/{slug}/', title)}
+        </section>
+        {''.join(sections_html)}
+        <section class='card' id='faq'><h2>FAQ</h2>{faq}</section>
+        <section class='card related'><h2>Related links</h2><p><a href='/blog/chatgpt-prompts-for-windsurf/'>ChatGPT prompts for Windsurf</a> <a href='/blog/chatgpt-windsurf-codex-workflow/'>My full ChatGPT-to-Windsurf workflow</a> <a href='/windsurf-review/'>Windsurf review</a> <a href='/comparisons/cursor-vs-windsurf/'>Cursor vs Windsurf</a> <a href='/free-ai-coding-workflow-checklist/'>Workflow checklist</a></p><p>{related}</p></section>
+        <section class='card' id='cta'><h2>Next step</h2><p>If you want to use this process on your own static site or app idea, start with the main workflow article, then use the checklist before sending your next prompt to Windsurf.</p><a class='btn' href='/blog/chatgpt-prompts-for-windsurf/'>Read the main prompt workflow</a><a class='btn secondary' href='/free-ai-coding-workflow-checklist/'>Download the checklist</a></section>
         {newsletter_html()}
       </div>
     </article>"""

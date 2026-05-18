@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import html as html_lib
 import re
+
+from modules.blog_article_data import SUPPORTING_BLOG_ARTICLES, SUPPORTING_BLOG_RELATED
 
 
 MOJIBAKE_REPLACEMENTS = {
@@ -389,6 +392,48 @@ PAGE_TEXT_REPLACEMENTS = {
 
 def localize_blog_article_pages(text: str) -> str:
     """Translate hand-written AI workflow blog pages beyond shared UI labels."""
+    for slug, article in SUPPORTING_BLOG_ARTICLES.items():
+        if slug in text:
+            replacements = {
+                article["title"]: article["vi_title"],
+                article["summary"]: article["vi_summary"],
+                article["eyebrow"]: article["vi_eyebrow"],
+                article["h1"]: article["vi_h1"],
+                "Read ChatGPT prompts for Windsurf": "Đọc bài prompt ChatGPT cho Windsurf",
+                "Get the workflow checklist": "Nhận checklist workflow",
+                "Read the main prompt workflow": "Đọc quy trình prompt chính",
+                "Download the checklist": "Tải checklist",
+                "Next step": "Bước tiếp theo",
+                "If you want to use this process on your own static site or app idea, start with the main workflow article, then use the checklist before sending your next prompt to Windsurf.": "Nếu bạn muốn áp dụng quy trình này cho static site hoặc ý tưởng app của mình, hãy bắt đầu với bài workflow chính rồi dùng checklist trước khi gửi prompt tiếp theo cho Windsurf.",
+                "Related links": "Liên kết liên quan",
+                "ChatGPT prompts for Windsurf": "prompt ChatGPT cho Windsurf",
+                "My full ChatGPT-to-Windsurf workflow": "quy trình dùng ChatGPT với Windsurf đầy đủ",
+                "Windsurf review": "đánh giá Windsurf",
+                "Cursor vs Windsurf": "Cursor so với Windsurf",
+                "Workflow checklist": "checklist workflow",
+            }
+            for paragraph, vi_paragraph in zip(article["intro"], article["vi_intro"]):
+                replacements[paragraph] = vi_paragraph
+            for section in article["sections"]:
+                replacements[section["heading"]] = section["vi_heading"]
+                for paragraph, vi_paragraph in zip(section.get("paragraphs", []), section.get("vi_paragraphs", [])):
+                    replacements[paragraph] = vi_paragraph
+            for (question, answer), (vi_question, vi_answer) in zip(article["faq"], article["vi_faq"]):
+                replacements[question] = vi_question
+                replacements[answer] = vi_answer
+            for link_slug, en_anchor, vi_anchor in SUPPORTING_BLOG_RELATED:
+                replacements[en_anchor] = vi_anchor
+            escaped_replacements = {
+                html_lib.escape(source): html_lib.escape(target)
+                for source, target in replacements.items()
+                if html_lib.escape(source) != source
+            }
+            replacements.update(escaped_replacements)
+            replacements[
+                "For the broader prompt-writing process, read the main guide on prompt ChatGPT cho Windsurf. If you want a quick preparation list before sending the task, use the checklist prompt Windsurf. If the first build works but still needs careful cleanup, continue with the Windsurf-to-Codex workflow."
+            ] = "Để xem quy trình viết prompt đầy đủ hơn, hãy đọc bài chính về prompt ChatGPT cho Windsurf. Nếu bạn muốn danh sách chuẩn bị nhanh trước khi gửi task, dùng checklist prompt Windsurf. Nếu bản build đầu đã chạy nhưng vẫn cần cleanup kỹ, đọc tiếp workflow Windsurf sang Codex."
+            for source, target in sorted(replacements.items(), key=lambda item: len(item[0]), reverse=True):
+                text = text.replace(source, target)
     prompt_article_replacements = {
         "ChatGPT Prompts for Windsurf": "Prompt ChatGPT cho Windsurf",
         "How I use ChatGPT to turn a rough project idea into clearer Windsurf prompts before building, testing, and sending focused fixes to Codex.": "Cách tôi dùng ChatGPT để biến ý tưởng dự án còn thô thành prompt rõ hơn cho Windsurf trước khi build, test và gửi lỗi cụ thể cho Codex.",
