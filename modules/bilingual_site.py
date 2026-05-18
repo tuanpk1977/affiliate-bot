@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import re
 import shutil
@@ -264,3 +264,4 @@ def contains_faqpage_schema(value) -> bool:
     if isinstance(value, list):
         return any(contains_faqpage_schema(child) for child in value)
     return False
+
