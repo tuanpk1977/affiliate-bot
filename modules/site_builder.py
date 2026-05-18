@@ -80,6 +80,7 @@ COMPARISON_SLUGS = [
     "comparisons/jasper-vs-copyai",
     "comparisons/runway-vs-pika",
     "comparisons/synthesia-vs-heygen",
+    "comparisons/synthesia-vs-runway",
     "comparisons/copilot-vs-tabnine",
     "comparisons/perplexity-vs-chatgpt",
     "comparisons/gemini-vs-claude",
@@ -131,6 +132,7 @@ COMPARISON_TOPICS = [
     ("jasper-vs-copyai", "Jasper", "Copy.ai", "AI writing tool", "Jasper thường phù hợp với marketing team cần brand voice và content workflow.", "Copy.ai thường được so sánh cho GTM, sales copy và workflow tạo nội dung nhanh.", "Chọn theo workflow nội dung, khả năng cộng tác, output quality và giá hiện tại."),
     ("runway-vs-pika", "Runway", "Pika", "AI video generator", "Runway mạnh ở AI video generation và creative editing workflow.", "Pika là lựa chọn đáng so sánh cho tạo video AI ngắn, ý tưởng nhanh và creative testing.", "Hãy test bằng cùng một prompt, kiểm tra chất lượng output, quyền sử dụng và chi phí."),
     ("synthesia-vs-heygen", "Synthesia", "HeyGen", "AI avatar video", "Synthesia thường được cân nhắc cho video doanh nghiệp, training và avatar workflow.", "HeyGen thường được so sánh cho avatar video, localization và creator/business video.", "Chọn dựa trên avatar quality, ngôn ngữ, quyền thương mại và workflow team."),
+    ("synthesia-vs-runway", "Synthesia", "Runway", "AI video tool", "Synthesia is stronger when the job is structured avatar-led video for training, explainers, onboarding, and repeatable business messages.", "Runway is stronger when the job needs generative video experiments, creative editing, visual iteration, and short-form production tests.", "Choose Synthesia for presenter-style videos and product demos with a controlled script; choose Runway for creative generative video, visual exploration, and editing-heavy workflows."),
     ("copilot-vs-tabnine", "GitHub Copilot", "Tabnine", "AI coding assistant", "GitHub Copilot mạnh nhờ tích hợp hệ sinh thái GitHub và IDE phổ biến.", "Tabnine thường được cân nhắc khi team quan tâm đến coding assistant và kiểm soát môi trường.", "Chọn GitHub Copilot nếu team dùng GitHub sâu; so sánh Tabnine nếu cần tiêu chí privacy/deployment khác."),
     ("perplexity-vs-chatgpt", "Perplexity", "ChatGPT", "AI search assistant", "Perplexity phù hợp khi trọng tâm là AI search, nguồn tham khảo và research nhanh.", "ChatGPT mạnh ở trợ lý tổng quát, viết, phân tích, lập kế hoạch và xử lý đa tác vụ.", "Chọn Perplexity cho research có nguồn; chọn ChatGPT cho workflow sản xuất nội dung và phân tích rộng."),
     ("gemini-vs-claude", "Gemini", "Claude", "AI assistant", "Gemini phù hợp với người dùng trong hệ sinh thái Google.", "Claude phù hợp khi cần xử lý văn bản dài, reasoning và biên tập cẩn thận.", "Chọn theo hệ sinh thái và loại tài liệu bạn xử lý thường xuyên."),
@@ -940,6 +942,9 @@ def write_comparison_detail_pages(output: Path) -> None:
     for slug, left, right, category, left_strength, right_strength, recommendation in COMPARISON_TOPICS:
         folder = root / slug
         folder.mkdir(parents=True, exist_ok=True)
+        if slug == "synthesia-vs-runway":
+            (folder / "index.html").write_text(render_synthesia_runway_comparison_page(slug), encoding="utf-8")
+            continue
         title = f"{left} vs {right}"
         left_url = review_url_for(left)
         right_url = review_url_for(right)
@@ -974,6 +979,83 @@ def write_comparison_detail_pages(output: Path) -> None:
         <section class="card trust"><h2>Affiliate disclosure</h2><p>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p></section>
         <section class="card" id="verdict"><h2>Final recommendation</h2><p>{html.escape(recommendation)}</p><p>Đây là trang nghiên cứu, không phải cam kết kết quả. Trước khi mua hoặc quảng bá affiliate, hãy kiểm tra pricing, terms, privacy, traffic policy và quyền dùng thương mại trên website chính thức.</p><p><a class='btn' href='{html.escape(left_url)}'>Đọc review {html.escape(left)}</a><a class='btn secondary' href='{html.escape(right_url)}'>Đọc review {html.escape(right)}</a></p></section>{newsletter_html()}</div></article>"""
         (folder / "index.html").write_text(page_shell(title, f"So sánh {left} vs {right}: overview, feature comparison, pricing, best for, pros/cons, FAQ và khuyến nghị cuối.", body, f"/comparisons/{slug}/"), encoding="utf-8")
+
+
+def render_synthesia_runway_comparison_page(slug: str) -> str:
+    title = "Synthesia vs Runway"
+    path = f"/comparisons/{slug}/"
+    description = "Synthesia vs Runway comparison for marketers, creators, and product demos. Compare avatar videos, generative video workflows, pricing checks, pros, cons, and use cases."
+    faq_questions = [
+        "Is Synthesia better than Runway for product demos?",
+        "Is Runway better for creators and visual experiments?",
+        "How should I compare Synthesia and Runway pricing?",
+        "Can I use these AI video tools for marketing content?",
+        "Which AI video tool should a small team try first?",
+    ]
+    body = f"""<nav class='breadcrumb'><a href='/'>Home</a> / <a href='/comparisons/'>Comparisons</a> / Synthesia vs Runway</nav>
+<article class='review-layout'>
+  <aside class='card toc'><h2>Contents</h2><a href='#overview'>Overview</a><a href='#verdict'>Quick verdict</a><a href='#best-for'>Best for table</a><a href='#features'>Feature comparison</a><a href='#workflow'>Video workflow comparison</a><a href='#pricing'>Pricing and usage considerations</a><a href='#pros-cons'>Pros and cons</a><a href='#choose'>Which should you choose?</a><a href='#faq'>FAQ</a></aside>
+  <div>
+    <section class='card' id='overview'>
+      <h1>Synthesia vs Runway</h1>
+      <p><strong>Synthesia vs Runway is not a simple AI video generator comparison.</strong> Synthesia is built around controlled presenter-style videos with avatars, scripts, and repeatable business messaging. Runway is built around generative video creation, visual experimentation, editing, and creative iteration.</p>
+      <p>If you are a marketer creating training videos, onboarding explainers, or product demo narration, Synthesia is usually easier to evaluate first. If you are a creator, designer, or product marketer testing visual concepts, motion ideas, or short-form creative scenes, Runway is usually the more flexible creative tool.</p>
+      <p class='muted'>7 min read | Last updated {date.today().isoformat()}</p>{share_buttons(path, title)}
+    </section>
+    <section class='card trust'><strong>Affiliate disclosure:</strong> Some links may be affiliate links. We may earn a commission at no extra cost to you. Current CTA routes use official or approved destinations only; no fake affiliate link is created here.</section>
+    <section class='card' id='verdict'>
+      <h2>Quick verdict</h2>
+      <p>Choose <strong>Synthesia</strong> if you need structured avatar videos, product explainers, training clips, sales enablement videos, or repeatable messaging where the script is more important than cinematic experimentation.</p>
+      <p>Choose <strong>Runway</strong> if you need generative video experiments, visual exploration, social creative, concept testing, editing workflows, or a tool that helps you create and refine scenes rather than present a script through an avatar.</p>
+      <p>The safest workflow is to test one real asset in both tools: one product demo script for Synthesia and one visual concept or short scene for Runway. Then compare review time, output quality, export constraints, and how much manual editing remains.</p>
+    </section>
+    <section class='card' id='best-for'>
+      <h2>Best for table</h2>
+      <table><thead><tr><th>Use case</th><th>Synthesia</th><th>Runway</th></tr></thead><tbody>
+        <tr><td>Product demos</td><td>Strong when the demo is script-led, presenter-style, and needs a consistent voice or avatar.</td><td>Better when the demo needs visual concept shots, dynamic scenes, or creative video transitions.</td></tr>
+        <tr><td>Marketing teams</td><td>Good for repeatable explainers, training, internal enablement, and localized business messaging.</td><td>Good for campaign visuals, short-form creative tests, and experimental assets for social or ads.</td></tr>
+        <tr><td>Creators</td><td>Useful if the creator wants a controlled spokesperson-style format.</td><td>More flexible for creators who want to iterate on style, movement, mood, and visual storytelling.</td></tr>
+        <tr><td>Review friction</td><td>Review focuses on script, avatar, pronunciation, branding, and compliance.</td><td>Review focuses on visual consistency, prompt quality, scene quality, rights, and editability.</td></tr>
+      </tbody></table>
+    </section>
+    <section class='card' id='features'>
+      <h2>Feature comparison</h2>
+      <p>Synthesia is easier to understand as a business video system: start with a script, choose an avatar or presentation style, review the spoken result, and export a polished explainer. That makes it practical for teams that want predictable output more than experimental visuals.</p>
+      <p>Runway is closer to a creative video lab. The workflow is less about a talking-head script and more about generating, editing, extending, and refining visual assets. It can be more powerful for creative work, but it may also require more review time and stronger visual direction.</p>
+      <table><thead><tr><th>Feature area</th><th>Synthesia</th><th>Runway</th></tr></thead><tbody>
+        <tr><td>Avatar / presenter workflow</td><td>Core strength.</td><td>Not the main reason to choose it.</td></tr>
+        <tr><td>Generative video</td><td>Secondary compared with script-led production.</td><td>Core strength.</td></tr>
+        <tr><td>Editing flexibility</td><td>Good for structured business video revisions.</td><td>Stronger for visual iteration and creative edits.</td></tr>
+        <tr><td>Team review</td><td>Usually easier when stakeholders review a script and presenter output.</td><td>Better when stakeholders can review visual direction and creative variants.</td></tr>
+      </tbody></table>
+    </section>
+    <section class='card' id='workflow'>
+      <h2>Video generation workflow comparison</h2>
+      <p>For Synthesia, I would start with a short product demo script, define the audience, decide whether the tone should be educational or sales-oriented, and check whether the avatar delivery feels natural enough for the brand. The key question is whether the output saves presenter recording time without making the demo feel artificial.</p>
+      <p>For Runway, I would start with a visual brief instead of a script. The prompt should describe scene style, motion, mood, camera feel, and intended use. The key question is whether the generated clips are good enough to support the campaign after editing, not whether the first output is perfect.</p>
+      <p>This is why the comparison matters: Synthesia helps turn words into structured video communication, while Runway helps turn visual ideas into experimental video assets.</p>
+    </section>
+    <section class='card' id='pricing'>
+      <h2>Pricing and usage considerations</h2>
+      <p>Do not rely on old pricing screenshots for either tool. Check official pricing before buying, including plan limits, video minutes or credits, export quality, watermark rules, commercial usage rights, team seats, cancellation terms, and whether the workflow you need is included in the plan.</p>
+      <p>For marketing and product teams, usage limits matter as much as the monthly price. One tool may look cheaper until you need more exports, more seats, higher quality output, or different commercial rights.</p>
+      <p><a class='btn' href='/go/synthesia/?src=comparisons/synthesia-vs-runway&cta=pricing_check' rel='nofollow sponsored'>Check Synthesia official pricing</a><a class='btn secondary' href='/go/runway/?src=comparisons/synthesia-vs-runway&cta=pricing_check' rel='nofollow sponsored'>Check Runway official pricing</a></p>
+    </section>
+    <section class='grid' id='pros-cons'>
+      <div class='card'><h2>Pros and cons of Synthesia</h2><h3>Pros</h3><ul><li>Strong fit for presenter-style training, onboarding, and product explainers.</li><li>More predictable when the message is script-led.</li><li>Easier for teams that need repeatable business video formats.</li></ul><h3>Cons</h3><ul><li>Less flexible for cinematic or experimental visual concepts.</li><li>Avatar delivery still needs human review for tone and trust.</li><li>Plan limits and commercial usage terms should be verified before scaling.</li></ul></div>
+      <div class='card'><h2>Pros and cons of Runway</h2><h3>Pros</h3><ul><li>Strong fit for generative video, visual experiments, and creative iteration.</li><li>Useful for campaign concepts, social creative, and product mood videos.</li><li>Better when the goal is visual exploration rather than a fixed presenter script.</li></ul><h3>Cons</h3><ul><li>Outputs may need more review and editing before they are client-ready.</li><li>Prompt quality and creative direction matter a lot.</li><li>Usage credits, export rights, and consistency should be checked carefully.</li></ul></div>
+    </section>
+    <section class='card' id='choose'>
+      <h2>Which should you choose?</h2>
+      <p>Choose Synthesia if your team needs a repeatable way to explain products, train users, onboard customers, or turn a script into a polished business video. Choose Runway if your team needs a creative engine for visual testing, generative clips, social concepts, or product mood pieces.</p>
+      <p>If neither feels like a perfect fit, compare the broader AI video category before buying. Useful next pages include <a href='/best-ai-video-tools-2026/'>Best AI Video Tools 2026</a>, <a href='/category/video-tools/'>Video Tools category</a>, <a href='/comparisons/runway-vs-pika/'>Runway vs Pika</a>, and <a href='/comparisons/synthesia-vs-heygen/'>Synthesia vs HeyGen</a>.</p>
+      <p><a class='btn' href='/go/synthesia/?src=comparisons/synthesia-vs-runway&cta=comparison_page' rel='nofollow sponsored'>Visit Synthesia official site</a><a class='btn secondary' href='/go/runway/?src=comparisons/synthesia-vs-runway&cta=comparison_page' rel='nofollow sponsored'>Visit Runway official site</a></p>
+    </section>
+    <section class='card' id='faq'><h2>FAQ</h2>{faq_html(faq_questions)}</section>
+    {newsletter_html()}
+  </div>
+</article>"""
+    return page_shell(title, description, body, path)
 
 
 def review_url_for(brand: str) -> str:

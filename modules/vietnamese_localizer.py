@@ -621,6 +621,115 @@ def localize_blog_article_pages(text: str) -> str:
     return text
 
 
+def localize_synthesia_runway_comparison(text: str) -> str:
+    if "synthesia-vs-runway" not in text and "Synthesia vs Runway" not in text:
+        return text
+    replacements = {
+        "Synthesia vs Runway comparison for marketers, creators, and product demos. Compare avatar videos, generative video workflows, pricing checks, pros, cons, and use cases.": "So sánh Synthesia và Runway cho marketer, creator và demo sản phẩm. Xem khác biệt về avatar video, video tạo bằng AI, kiểm tra giá, ưu nhược điểm và use case.",
+        "Synthesia vs Runway is not a simple AI video generator comparison.": "Synthesia và Runway không phải là một phép so sánh AI video đơn giản.",
+        "Synthesia is built around controlled presenter-style videos with avatars, scripts, and repeatable business messaging. Runway is built around generative video creation, visual experimentation, editing, and creative iteration.": "Synthesia phù hợp với video dạng người dẫn, avatar, kịch bản và thông điệp doanh nghiệp có thể lặp lại. Runway thiên về tạo video bằng AI, thử nghiệm hình ảnh, chỉnh sửa và lặp ý tưởng sáng tạo.",
+        "If you are a marketer creating training videos, onboarding explainers, or product demo narration, Synthesia is usually easier to evaluate first. If you are a creator, designer, or product marketer testing visual concepts, motion ideas, or short-form creative scenes, Runway is usually the more flexible creative tool.": "Nếu bạn là marketer cần làm video đào tạo, hướng dẫn onboarding hoặc demo sản phẩm có lời dẫn, Synthesia thường dễ đánh giá trước hơn. Nếu bạn là creator, designer hoặc product marketer đang thử concept hình ảnh, chuyển động hoặc video ngắn, Runway thường linh hoạt hơn.",
+        "Affiliate disclosure:": "Tiết lộ liên kết:",
+        "Some links may be affiliate links. We may earn a commission at no extra cost to you. Current CTA routes use official or approved destinations only; no fake affiliate link is created here.": "Một số liên kết có thể là liên kết tiếp thị liên kết. Chúng tôi có thể nhận hoa hồng mà không phát sinh thêm chi phí cho bạn. Các CTA hiện chỉ đi tới trang chính thức hoặc đích đã được duyệt; không tạo affiliate link giả.",
+        "Quick verdict": "Khuyến nghị nhanh",
+        "Choose Synthesia if you need structured avatar videos, product explainers, training clips, sales enablement videos, or repeatable messaging where the script is more important than cinematic experimentation.": "Chọn Synthesia nếu bạn cần video avatar có cấu trúc, video giải thích sản phẩm, clip đào tạo, nội dung hỗ trợ bán hàng hoặc thông điệp lặp lại nơi kịch bản quan trọng hơn thử nghiệm điện ảnh.",
+        "Choose Runway if you need generative video experiments, visual exploration, social creative, concept testing, editing workflows, or a tool that helps you create and refine scenes rather than present a script through an avatar.": "Chọn Runway nếu bạn cần thử nghiệm video tạo bằng AI, khám phá hình ảnh, social creative, kiểm tra concept, workflow chỉnh sửa hoặc một công cụ giúp tạo và tinh chỉnh cảnh thay vì chỉ trình bày kịch bản qua avatar.",
+        "The safest workflow is to test one real asset in both tools: one product demo script for Synthesia and one visual concept or short scene for Runway. Then compare review time, output quality, export constraints, and how much manual editing remains.": "Cách an toàn nhất là test một tài sản thật trên cả hai công cụ: một kịch bản demo sản phẩm cho Synthesia và một concept hình ảnh hoặc cảnh ngắn cho Runway. Sau đó so sánh thời gian review, chất lượng output, giới hạn export và lượng chỉnh tay còn lại.",
+        "Best for table": "Bảng phù hợp nhất",
+        "Use case": "Use case",
+        "Product demos": "Demo sản phẩm",
+        "Strong when the demo is script-led, presenter-style, and needs a consistent voice or avatar.": "Mạnh khi demo đi theo kịch bản, dạng người dẫn và cần giọng hoặc avatar nhất quán.",
+        "Better when the demo needs visual concept shots, dynamic scenes, or creative video transitions.": "Phù hợp hơn khi demo cần cảnh concept, chuyển động hoặc chuyển cảnh video sáng tạo.",
+        "Marketing teams": "Team marketing",
+        "Good for repeatable explainers, training, internal enablement, and localized business messaging.": "Tốt cho video giải thích lặp lại, đào tạo, enablement nội bộ và thông điệp doanh nghiệp bản địa hóa.",
+        "Good for campaign visuals, short-form creative tests, and experimental assets for social or ads.": "Tốt cho hình ảnh chiến dịch, thử nghiệm creative ngắn và tài sản thử nghiệm cho social hoặc ads.",
+        "Creators": "Creator",
+        "Useful if the creator wants a controlled spokesperson-style format.": "Hữu ích nếu creator muốn định dạng người phát ngôn có kiểm soát.",
+        "More flexible for creators who want to iterate on style, movement, mood, and visual storytelling.": "Linh hoạt hơn cho creator muốn lặp ý tưởng về phong cách, chuyển động, mood và kể chuyện bằng hình ảnh.",
+        "Review friction": "Điểm cần review",
+        "Review focuses on script, avatar, pronunciation, branding, and compliance.": "Review tập trung vào kịch bản, avatar, phát âm, thương hiệu và tuân thủ.",
+        "Review focuses on visual consistency, prompt quality, scene quality, rights, and editability.": "Review tập trung vào độ nhất quán hình ảnh, chất lượng prompt, chất lượng cảnh, quyền sử dụng và khả năng chỉnh sửa.",
+        "Feature comparison": "So sánh tính năng",
+        "Synthesia is easier to understand as a business video system: start with a script, choose an avatar or presentation style, review the spoken result, and export a polished explainer. That makes it practical for teams that want predictable output more than experimental visuals.": "Synthesia dễ hiểu hơn như một hệ thống video doanh nghiệp: bắt đầu bằng kịch bản, chọn avatar hoặc phong cách trình bày, review phần nói và export video giải thích đã hoàn thiện. Điều này thực tế với team cần output dự đoán được hơn là thử nghiệm hình ảnh.",
+        "Runway is closer to a creative video lab. The workflow is less about a talking-head script and more about generating, editing, extending, and refining visual assets. It can be more powerful for creative work, but it may also require more review time and stronger visual direction.": "Runway giống một phòng lab video sáng tạo hơn. Workflow không xoay quanh kịch bản talking-head mà tập trung vào tạo, chỉnh sửa, mở rộng và tinh chỉnh tài sản hình ảnh. Nó mạnh hơn cho việc sáng tạo, nhưng cũng có thể cần nhiều thời gian review và định hướng hình ảnh rõ hơn.",
+        "Feature area": "Nhóm tính năng",
+        "Avatar / presenter workflow": "Workflow avatar / người dẫn",
+        "Core strength.": "Thế mạnh chính.",
+        "Not the main reason to choose it.": "Không phải lý do chính để chọn.",
+        "Generative video": "Video tạo bằng AI",
+        "Secondary compared with script-led production.": "Phụ hơn so với sản xuất theo kịch bản.",
+        "Editing flexibility": "Độ linh hoạt khi chỉnh sửa",
+        "Good for structured business video revisions.": "Tốt cho việc sửa video doanh nghiệp có cấu trúc.",
+        "Stronger for visual iteration and creative edits.": "Mạnh hơn cho lặp ý tưởng hình ảnh và chỉnh sửa sáng tạo.",
+        "Team review": "Review trong team",
+        "Usually easier when stakeholders review a script and presenter output.": "Thường dễ hơn khi stakeholder review kịch bản và phần trình bày.",
+        "Better when stakeholders can review visual direction and creative variants.": "Tốt hơn khi stakeholder có thể review hướng hình ảnh và các biến thể creative.",
+        "Video workflow comparison": "So sánh workflow tạo video",
+        "For Synthesia, I would start with a short product demo script, define the audience, decide whether the tone should be educational or sales-oriented, and check whether the avatar delivery feels natural enough for the brand. The key question is whether the output saves presenter recording time without making the demo feel artificial.": "Với Synthesia, tôi sẽ bắt đầu bằng một kịch bản demo sản phẩm ngắn, xác định người xem, chọn giọng điệu giáo dục hay bán hàng, rồi kiểm tra avatar có truyền tải đủ tự nhiên cho thương hiệu không. Câu hỏi chính là output có tiết kiệm thời gian quay người dẫn mà không làm demo bị giả hay không.",
+        "For Runway, I would start with a visual brief instead of a script. The prompt should describe scene style, motion, mood, camera feel, and intended use. The key question is whether the generated clips are good enough to support the campaign after editing, not whether the first output is perfect.": "Với Runway, tôi sẽ bắt đầu bằng brief hình ảnh thay vì kịch bản. Prompt nên mô tả phong cách cảnh, chuyển động, mood, cảm giác camera và mục đích sử dụng. Câu hỏi chính là clip tạo ra có đủ tốt để hỗ trợ chiến dịch sau khi chỉnh sửa không, chứ không phải output đầu tiên có hoàn hảo hay không.",
+        "This is why the comparison matters: Synthesia helps turn words into structured video communication, while Runway helps turn visual ideas into experimental video assets.": "Đó là lý do phép so sánh này quan trọng: Synthesia giúp biến lời nói thành video truyền thông có cấu trúc, còn Runway giúp biến ý tưởng hình ảnh thành tài sản video thử nghiệm.",
+        "Pricing and usage considerations": "Lưu ý về giá và mức sử dụng",
+        "Do not rely on old pricing screenshots for either tool. Check official pricing before buying, including plan limits, video minutes or credits, export quality, watermark rules, commercial usage rights, team seats, cancellation terms, and whether the workflow you need is included in the plan.": "Đừng dựa vào ảnh chụp giá cũ của bất kỳ công cụ nào. Hãy kiểm tra giá chính thức trước khi mua, gồm giới hạn gói, phút video hoặc credit, chất lượng export, watermark, quyền dùng thương mại, seat team, điều khoản hủy và workflow bạn cần có nằm trong gói hay không.",
+        "For marketing and product teams, usage limits matter as much as the monthly price. One tool may look cheaper until you need more exports, more seats, higher quality output, or different commercial rights.": "Với team marketing và product, giới hạn sử dụng quan trọng không kém giá tháng. Một công cụ có thể trông rẻ hơn cho đến khi bạn cần nhiều export hơn, nhiều seat hơn, output chất lượng cao hơn hoặc quyền thương mại khác.",
+        "Check Synthesia official pricing": "Kiểm tra giá chính thức của Synthesia",
+        "Check Runway official pricing": "Kiểm tra giá chính thức của Runway",
+        "Pros and cons of Synthesia": "Ưu điểm và hạn chế của Synthesia",
+        "Pros and cons of Runway": "Ưu điểm và hạn chế của Runway",
+        "Strong fit for presenter-style training, onboarding, and product explainers.": "Phù hợp với video đào tạo, onboarding và giải thích sản phẩm dạng người dẫn.",
+        "More predictable when the message is script-led.": "Dễ dự đoán hơn khi thông điệp đi theo kịch bản.",
+        "Easier for teams that need repeatable business video formats.": "Dễ dùng hơn cho team cần format video doanh nghiệp lặp lại.",
+        "Less flexible for cinematic or experimental visual concepts.": "Kém linh hoạt hơn với concept hình ảnh điện ảnh hoặc thử nghiệm.",
+        "Avatar delivery still needs human review for tone and trust.": "Phần trình bày avatar vẫn cần người review về giọng điệu và độ tin cậy.",
+        "Plan limits and commercial usage terms should be verified before scaling.": "Cần xác minh giới hạn gói và quyền dùng thương mại trước khi mở rộng.",
+        "Strong fit for generative video, visual experiments, and creative iteration.": "Phù hợp với video tạo bằng AI, thử nghiệm hình ảnh và lặp ý tưởng sáng tạo.",
+        "Useful for campaign concepts, social creative, and product mood videos.": "Hữu ích cho concept chiến dịch, social creative và video mood sản phẩm.",
+        "Better when the goal is visual exploration rather than a fixed presenter script.": "Tốt hơn khi mục tiêu là khám phá hình ảnh thay vì kịch bản người dẫn cố định.",
+        "Outputs may need more review and editing before they are client-ready.": "Output có thể cần review và chỉnh sửa nhiều hơn trước khi dùng cho khách hàng.",
+        "Prompt quality and creative direction matter a lot.": "Chất lượng prompt và định hướng sáng tạo rất quan trọng.",
+        "Usage credits, export rights, and consistency should be checked carefully.": "Cần kiểm tra kỹ credit sử dụng, quyền export và độ nhất quán.",
+        "Which should you choose?": "Nên chọn công cụ nào?",
+        "Choose Synthesia if your team needs a repeatable way to explain products, train users, onboard customers, or turn a script into a polished business video. Choose Runway if your team needs a creative engine for visual testing, generative clips, social concepts, or product mood pieces.": "Chọn Synthesia nếu team cần cách lặp lại để giải thích sản phẩm, đào tạo người dùng, onboarding khách hàng hoặc biến kịch bản thành video doanh nghiệp hoàn chỉnh. Chọn Runway nếu team cần công cụ sáng tạo để thử hình ảnh, tạo clip AI, concept social hoặc video mood sản phẩm.",
+        "If neither feels like a perfect fit, compare the broader AI video category before buying. Useful next pages include": "Nếu chưa công cụ nào thật sự phù hợp, hãy so sánh thêm nhóm AI video trước khi mua. Các trang nên đọc tiếp gồm",
+        "Best AI Video Tools 2026": "Công cụ AI video tốt nhất 2026",
+        "Video Tools category": "danh mục công cụ video",
+        "Runway vs Pika": "Runway vs Pika",
+        "Synthesia vs HeyGen": "Synthesia vs HeyGen",
+        "Visit Synthesia official site": "Truy cập website chính thức của Synthesia",
+        "Visit Runway official site": "Truy cập website chính thức của Runway",
+        "AI video tool": "Công cụ AI video",
+        "Choose Synthesia for presenter-style videos and product demos with a controlled script; choose Runway for creative generative video, visual exploration, and editing-heavy workflows.": "Chọn Synthesia cho video có người dẫn và demo sản phẩm theo kịch bản kiểm soát; chọn Runway cho video tạo bằng AI, khám phá hình ảnh và workflow chỉnh sửa sáng tạo.",
+    }
+    for source, target in sorted(replacements.items(), key=lambda item: len(item[0]), reverse=True):
+        text = text.replace(source, target)
+    # Cleanup fragments left after earlier broad UI substitutions and HTML tags
+    # split the original English sentence.
+    final_cleanup = {
+        "Phù hợp nhất table": "Bảng phù hợp nhất",
+        "Giá and usage considerations": "Lưu ý về giá và mức sử dụng",
+        "Use case": "Trường hợp sử dụng",
+        "Choose <strong>Synthesia</strong> if you need structured avatar videos, product explainers, training clips, sales enablement videos, or repeatable messaging where the script is more important than cinematic experimentation.": "Chọn <strong>Synthesia</strong> nếu bạn cần video avatar có cấu trúc, video giải thích sản phẩm, clip đào tạo, nội dung hỗ trợ bán hàng hoặc thông điệp lặp lại nơi kịch bản quan trọng hơn thử nghiệm điện ảnh.",
+        "Choose <strong>Runway</strong> if you need generative video experiments, visual exploration, social creative, concept testing, editing workflows, or a tool that helps you create and refine scenes rather than present a script through an avatar.": "Chọn <strong>Runway</strong> nếu bạn cần thử nghiệm video tạo bằng AI, khám phá hình ảnh, social creative, kiểm tra concept, workflow chỉnh sửa hoặc một công cụ giúp tạo và tinh chỉnh cảnh thay vì chỉ trình bày kịch bản qua avatar.",
+        "Do not rely on old pricing screenshots for either tool. Kiểm tra giá chính thức before buying, including plan limits, video minutes or credits, export quality, watermark rules, commercial usage rights, team seats, cancellation terms, and whether the workflow you need is included in the plan.": "Đừng dựa vào ảnh chụp giá cũ của bất kỳ công cụ nào. Hãy kiểm tra giá chính thức trước khi mua, gồm giới hạn gói, phút video hoặc credit, chất lượng export, watermark, quyền dùng thương mại, seat team, điều khoản hủy và workflow bạn cần có nằm trong gói hay không.",
+        "Best AI Video Công cụs 2026": "Công cụ AI video tốt nhất 2026",
+        "Best AI Video Công cụs": "Công cụ AI video tốt nhất",
+        "Video Công cụs category": "danh mục công cụ video",
+        ">Redirecting</a>": ">Trang liên quan</a>",
+        "Runway Đánh giá for AI Video Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế": "Review Runway cho người mua công cụ AI video: mức phù hợp workflow, kiểm tra giá và lựa chọn thay thế",
+        "Synthesia Đánh giá for AI Video Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế": "Review Synthesia cho người mua công cụ AI video: mức phù hợp workflow, kiểm tra giá và lựa chọn thay thế",
+        "AI Video Công cụs": "Công cụ AI video",
+        "Best Video Công cụs cần nghiên cứu trước khi mua": "Công cụ video nên nghiên cứu trước khi mua",
+        "Runway vs Pika: Which AI video tools should you choose?": "Runway vs Pika: nên chọn công cụ AI video nào?",
+        "Synthesia vs Pictory: Which AI video tools should you choose?": "Synthesia vs Pictory: nên chọn công cụ AI video nào?",
+        ", and <a href='/comparisons/synthesia-vs-heygen/'>Synthesia vs HeyGen</a>": ", và <a href='/comparisons/synthesia-vs-heygen/'>Synthesia vs HeyGen</a>",
+        "</a>, and <a href='/comparisons/synthesia-vs-heygen/'>": "</a>, và <a href='/comparisons/synthesia-vs-heygen/'>",
+        ", and <a href='/vi/comparisons/synthesia-vs-heygen/'>Synthesia vs HeyGen</a>": ", và <a href='/vi/comparisons/synthesia-vs-heygen/'>Synthesia vs HeyGen</a>",
+        "</a>, and <a href='/vi/comparisons/synthesia-vs-heygen/'>": "</a>, và <a href='/vi/comparisons/synthesia-vs-heygen/'>",
+    }
+    for source, target in final_cleanup.items():
+        text = text.replace(source, target)
+    return text
+
+
 def localize_html(text: str) -> str:
     """Normalize common generated UI labels to Vietnamese.
 
@@ -804,6 +913,8 @@ def localize_html(text: str) -> str:
         lambda m: f"Review {m.group(1).strip()}: tính năng, ưu điểm, hạn chế và ghi chú giá",
         text,
     )
+    text = localize_synthesia_runway_comparison(text)
+
     # Some visible-label replacements can accidentally touch JSON-LD property
     # names. Restore schema keys so structured data remains valid.
     text = text.replace('"itemĐánh giáed"', '"itemReviewed"')
