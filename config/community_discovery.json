@@ -1,0 +1,12 @@
+{
+  "enabled": true,
+  "auto_join_enabled": false,
+  "auto_post_external_groups": false,
+  "review_windows": [
+    "09:00",
+    "20:00"
+  ],
+  "owned_channels_auto_publish": false,
+  "max_groups_per_campaign": 6,
+  "max_posts_per_group": 6
+}

@@ -1,0 +1,183 @@
+﻿platform,community_id,community_name,posts_created,published_posts,clicks,impressions,ctr,recommendation
+Facebook Groups,en-c40b9a7e31,AI coding - Facebook group search,33,0,0,0,0.0,high_priority_test
+Facebook Groups,vi-0488d8e894,Codex - Facebook group search,33,0,0,0,0.0,high_priority_test
+Facebook Groups,en-abef01b5eb,Codex - Facebook group search,33,0,0,0,0.0,high_priority_test
+Facebook Groups,vi-4072afedd2,Cursor AI - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,en-b8e3ec6834,Cursor AI - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,en-280c1e1ea5,Developer tools - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,vi-515a54355e,GitHub Copilot - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,en-0b97f896fe,GitHub Copilot - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,vi-3d6212125f,Lập trình viên Việt Nam - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,vi-d6211b068f,Windsurf AI - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,en-9570601454,Windsurf AI - Facebook group search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,en-2cd907889a,AI coding - LinkedIn community search,33,0,0,0,0.0,high_priority_test
+LinkedIn Groups/Pages,vi-51ba01be1a,Codex - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,en-11d3645dc5,Codex - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,vi-dec68dca3a,Cursor AI - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,en-39e0e1d305,Cursor AI - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,en-986f6a1104,Developer tools - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,vi-a3416a03e8,GitHub Copilot - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,en-d794f54b76,GitHub Copilot - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,vi-e13f366717,Lập trình viên Việt Nam - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,vi-7945e7623f,Windsurf AI - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,en-097e4af168,Windsurf AI - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+Reddit,en-b0d007522b,AI coding - Reddit subreddit search,33,0,0,0,0.0,high_priority_test
+Reddit,en-e18b9d7c5b,Codex - Reddit subreddit search,0,0,0,0,0.0,prepare_first_post
+Reddit,en-3bb1fa278d,Cursor AI - Reddit subreddit search,0,0,0,0,0.0,prepare_first_post
+Reddit,en-780113698d,Developer tools - Reddit subreddit search,0,0,0,0,0.0,prepare_first_post
+Reddit,en-ec46a65ade,GitHub Copilot - Reddit subreddit search,0,0,0,0,0.0,prepare_first_post
+Reddit,en-d75fd3d40a,Windsurf AI - Reddit subreddit search,0,0,0,0,0.0,prepare_first_post
+Telegram,en-044d9f1cda,AI coding - Telegram channel/group search,41,0,0,0,0.0,high_priority_test
+Telegram,vi-3235679b66,Codex - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,en-afd231b9a6,Codex - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,vi-01ee7c2761,Cursor AI - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,en-22431083ff,Cursor AI - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,en-7bcfe8d66d,Developer tools - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,vi-be5b841877,GitHub Copilot - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,en-daccdca331,GitHub Copilot - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,vi-38f6c623a7,Lập trình viên Việt Nam - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,vi-8e225b9258,Windsurf AI - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,en-ceb5bd9160,Windsurf AI - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,en-59819fef95,AI coding - X hashtag/account search,41,0,0,0,0.0,high_priority_test
+X/Twitter,vi-7790a68055,Codex - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,en-de84eb37d5,Codex - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,vi-d262a82c87,Cursor AI - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,en-c62a3d0c07,Cursor AI - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,en-72fea95d64,Developer tools - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,vi-faf672dc43,GitHub Copilot - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,en-e2b288560d,GitHub Copilot - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,vi-aea22df44d,Lập trình viên Việt Nam - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,vi-9828644980,Windsurf AI - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,en-1daf3a52e5,Windsurf AI - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,vi-71958f5828,AI Việt Nam - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,en-0311a92b18,AI tools - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,vi-e0bfe220b6,AI tools Việt Nam - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,en-779b3910e2,ChatGPT - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,vi-7c9ad1e01f,ChatGPT Việt Nam - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,vi-cd6c09c56b,Công cụ AI - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,vi-8280309891,Cộng đồng AI - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,en-d09dbb5fec,Generative AI - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,en-b7585a21c4,Indie hackers - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,vi-04c5203672,SaaS Việt Nam - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,en-ac4dcab3ae,SaaS growth - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,vi-f96fb5de84,Startup Việt Nam - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,en-fe34ffa357,Startup founders - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+Quora,en-d97ae28833,AI coding - Quora space/topic search,33,0,0,0,0.0,monitor
+Quora,en-4ff311da77,Codex - Quora space/topic search,0,0,0,0,0.0,prepare_first_post
+Quora,en-9223d6c7e2,Cursor AI - Quora space/topic search,0,0,0,0,0.0,prepare_first_post
+Quora,en-c3f6100f74,Developer tools - Quora space/topic search,0,0,0,0,0.0,prepare_first_post
+Quora,en-d70b6a07d7,GitHub Copilot - Quora space/topic search,0,0,0,0,0.0,prepare_first_post
+Quora,en-21f0f07e33,Windsurf AI - Quora space/topic search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,vi-56289b1d79,AI Việt Nam - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,en-53a17c0c29,AI tools - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,vi-28b0bca9b2,AI tools Việt Nam - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,en-94daa10abe,ChatGPT - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,vi-a2e025001b,ChatGPT Việt Nam - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,vi-b275b09fd6,Công cụ AI - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,vi-b40b160f9d,Cộng đồng AI - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,en-a8e2cb8142,Generative AI - Facebook group search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,vi-fc62f20986,AI Việt Nam - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,en-7eabdabce7,AI tools - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,vi-b9b554b71d,AI tools Việt Nam - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,en-d0477ff2f1,ChatGPT - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,vi-51b7c7b349,ChatGPT Việt Nam - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,vi-646adbeb60,Công cụ AI - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,vi-e46bb945b1,Cộng đồng AI - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,en-daa5eba203,Generative AI - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+Quora,en-95ac63412f,AI tools - Quora space/topic search,0,0,0,0,0.0,prepare_first_post
+Quora,en-455a8fc3dc,ChatGPT - Quora space/topic search,0,0,0,0,0.0,prepare_first_post
+Quora,en-92d98c0cc7,Generative AI - Quora space/topic search,0,0,0,0,0.0,prepare_first_post
+Reddit,en-0e3ba9c29d,AI tools - Reddit subreddit search,0,0,0,0,0.0,prepare_first_post
+Reddit,en-7157c9d932,ChatGPT - Reddit subreddit search,0,0,0,0,0.0,prepare_first_post
+Reddit,en-0bad50ef23,Generative AI - Reddit subreddit search,0,0,0,0,0.0,prepare_first_post
+Telegram,vi-fe1bd75297,AI Việt Nam - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,en-cf46c5e37a,AI tools - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,vi-f5ff6f4257,AI tools Việt Nam - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,en-aa46021b65,ChatGPT - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,vi-cb9b2cc0d1,ChatGPT Việt Nam - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,vi-8dd649586a,Công cụ AI - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,vi-8efa9f21a1,Cộng đồng AI - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,en-edb29db3a6,Generative AI - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,vi-df47f1e444,Automation Việt Nam - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,en-dd47d60554,Indie hackers - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,en-68e7d34c22,Marketing automation - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,vi-8ef0acc94f,No-code Việt Nam - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,en-c105b1ebd5,No-code automation - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,vi-11baf7db22,SaaS Việt Nam - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,en-65bf245f17,SaaS growth - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,vi-086c2b2477,Startup Việt Nam - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,en-f40f5ef10c,Startup founders - Facebook group search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,vi-f7093e0253,Automation Việt Nam - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,en-08987de692,Indie hackers - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,en-51ff381ce1,Marketing automation - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,vi-eec16a30e6,No-code Việt Nam - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,en-2d2e343ee4,No-code automation - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,vi-666ee7478d,SEO Việt Nam - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,en-f28e2fc286,SEO tools - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,vi-310847f7dc,SaaS Việt Nam - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,en-b814dac2d7,SaaS growth - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,vi-264c05f8b3,Startup Việt Nam - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,en-885920a439,Startup founders - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+Reddit,en-1f37798120,Indie hackers - Reddit subreddit search,0,0,0,0,0.0,prepare_first_post
+Reddit,en-96a9dbe9e7,Marketing automation - Reddit subreddit search,0,0,0,0,0.0,prepare_first_post
+Reddit,en-12e8bffa28,No-code automation - Reddit subreddit search,0,0,0,0,0.0,prepare_first_post
+Reddit,en-10758e76c0,SEO tools - Reddit subreddit search,0,0,0,0,0.0,prepare_first_post
+Reddit,en-903ef15f09,SaaS growth - Reddit subreddit search,0,0,0,0,0.0,prepare_first_post
+Reddit,en-1fc961feaa,Startup founders - Reddit subreddit search,0,0,0,0,0.0,prepare_first_post
+Telegram,vi-2b967c5cff,Automation Việt Nam - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,en-3edc2f9a00,Indie hackers - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,en-e05e60109a,Marketing automation - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,vi-0a7704a506,No-code Việt Nam - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,en-3d4ee0f038,No-code automation - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,vi-8cd06e4aab,SEO Việt Nam - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,en-e91ab5db9f,SEO tools - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,vi-50088cfe2a,SaaS Việt Nam - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,en-3da7e6b715,SaaS growth - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,vi-7bb66f4b54,Startup Việt Nam - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,en-94b1c8eacc,Startup founders - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,vi-a1bafa03b4,Automation Việt Nam - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,en-dc530c41fc,Marketing automation - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,vi-66d55b9529,No-code Việt Nam - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,en-4ef2374052,No-code automation - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,vi-31a17f24df,SEO Việt Nam - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,en-11af5ae3ea,SEO tools - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,en-3a11a2d40f,Build in public - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,vi-1c9a597103,Freelancer Việt Nam - Facebook group search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,vi-778eb2eb3b,Trí tuệ nhân tạo Việt Nam - Facebook group search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,en-14855bf488,Build in public - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,vi-0fd10971bc,Freelancer Việt Nam - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+LinkedIn Groups/Pages,vi-1bd65ad846,Trí tuệ nhân tạo Việt Nam - LinkedIn community search,0,0,0,0,0.0,prepare_first_post
+Reddit,en-74342c0493,Build in public - Reddit subreddit search,0,0,0,0,0.0,prepare_first_post
+Telegram,en-aebe2457f8,Build in public - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,vi-d0310426f8,Digital Marketing Việt Nam - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,vi-a47474b51d,Freelancer Việt Nam - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+Telegram,vi-32f01fc28a,Trí tuệ nhân tạo Việt Nam - Telegram channel/group search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,en-ba1705b580,Build in public - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,vi-a34842daa9,Digital Marketing Việt Nam - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,vi-c8f44525c8,Freelancer Việt Nam - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+X/Twitter,vi-c327394ed7,Trí tuệ nhân tạo Việt Nam - X hashtag/account search,0,0,0,0,0.0,prepare_first_post
+Facebook Groups,vi-7aff6ec1e3,SEO Việt Nam - Facebook group search,0,0,0,0,0.0,monitor
+Facebook Groups,en-f1f0065e16,SEO tools - Facebook group search,0,0,0,0,0.0,monitor
+Quora,en-46606bfb7d,Indie hackers - Quora space/topic search,0,0,0,0,0.0,monitor
+Quora,en-ee86a72cd5,Marketing automation - Quora space/topic search,0,0,0,0,0.0,monitor
+Quora,en-7024342872,No-code automation - Quora space/topic search,0,0,0,0,0.0,monitor
+Quora,en-82b61a0ee8,SEO tools - Quora space/topic search,0,0,0,0,0.0,monitor
+Quora,en-a74372e158,SaaS growth - Quora space/topic search,0,0,0,0,0.0,monitor
+Quora,en-c201e00a3c,Startup founders - Quora space/topic search,0,0,0,0,0.0,monitor
+Facebook Groups,vi-7469bd9165,Affiliate Marketing Việt Nam - Facebook group search,0,0,0,0,0.0,monitor
+Facebook Groups,en-a7d2df0e11,Affiliate marketing - Facebook group search,0,0,0,0,0.0,monitor
+Facebook Groups,vi-28fbb3f802,Digital Marketing Việt Nam - Facebook group search,0,0,0,0,0.0,monitor
+Facebook Groups,vi-35a37cd467,MMO Việt Nam - Facebook group search,0,0,0,0,0.0,monitor
+LinkedIn Groups/Pages,vi-a5cfec8122,Affiliate Marketing Việt Nam - LinkedIn community search,0,0,0,0,0.0,monitor
+LinkedIn Groups/Pages,en-17b86018bf,Affiliate marketing - LinkedIn community search,0,0,0,0,0.0,monitor
+LinkedIn Groups/Pages,vi-5c920e38ea,Digital Marketing Việt Nam - LinkedIn community search,0,0,0,0,0.0,monitor
+LinkedIn Groups/Pages,vi-f4b5f1486e,MMO Việt Nam - LinkedIn community search,0,0,0,0,0.0,monitor
+Quora,en-6f0acff39f,Affiliate marketing - Quora space/topic search,0,0,0,0,0.0,monitor
+Quora,en-93abc9cf84,Build in public - Quora space/topic search,0,0,0,0,0.0,monitor
+Reddit,en-10d559c44b,Affiliate marketing - Reddit subreddit search,0,0,0,0,0.0,monitor
+Telegram,vi-d7d76b1641,Affiliate Marketing Việt Nam - Telegram channel/group search,0,0,0,0,0.0,monitor
+Telegram,en-0cfd201498,Affiliate marketing - Telegram channel/group search,0,0,0,0,0.0,monitor
+Telegram,vi-b435335f89,MMO Việt Nam - Telegram channel/group search,0,0,0,0,0.0,monitor
+X/Twitter,vi-0d0848b014,Affiliate Marketing Việt Nam - X hashtag/account search,0,0,0,0,0.0,monitor
+X/Twitter,en-8591bcb745,Affiliate marketing - X hashtag/account search,0,0,0,0,0.0,monitor
+X/Twitter,vi-031cdd29d1,MMO Việt Nam - X hashtag/account search,0,0,0,0,0.0,monitor

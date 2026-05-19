@@ -47,6 +47,15 @@ from modules.action_priority import (
     generate_social_pack as generate_action_social_pack,
     mark_action_status,
 )
+from modules.community_discovery import (
+    ensure_community_discovery_assets,
+    load_communities,
+    load_join_checklist,
+    load_performance_report as load_community_performance_report,
+    load_posts as load_community_posts,
+    update_community_status,
+    update_post_status,
+)
 from modules.distribution_boost import save_distribution_boost
 from modules.profit_simulator import simulate_offer_profit, simulate_scenarios
 from modules.post_deploy_kit import (
@@ -764,6 +773,167 @@ def render_manual_social_distribution_page() -> None:
         mime="text/csv",
     )
     st.caption("Markdown copy files are saved in `draft_output/social_queue/`.")
+
+
+def render_community_discovery_page() -> None:
+    st.header("Community Discovery")
+    st.warning("Local-safe workflow: no auto-join, no external group auto-posting, no scraping/API calls. Every join/post action requires human approval.")
+    stats = ensure_community_discovery_assets()
+    communities = load_communities()
+    posts = load_community_posts()
+    checklist = load_join_checklist()
+    performance = load_community_performance_report()
+
+    m1, m2, m3, m4, m5 = st.columns(5)
+    m1.metric("Discovered", stats.get("communities", 0))
+    m2.metric("Recommended", stats.get("recommended", 0))
+    m3.metric("Post drafts", stats.get("drafts", 0))
+    m4.metric("Pending review", stats.get("pending_review", 0))
+    m5.metric("Invalid X posts", stats.get("invalid_x_posts", 0))
+
+    st.markdown("### Community recommendations")
+    if communities.empty:
+        st.info("No community recommendations yet. Run `python main.py` to generate local discovery targets.")
+    else:
+        c1, c2, c3, c4 = st.columns(4)
+        platform_filter = c1.selectbox("Platform", ["All"] + sorted(communities["platform"].astype(str).unique().tolist()), key="community_platform_filter")
+        priority_filter = c2.selectbox("Join priority", ["All", "A", "B", "C", "D"], key="community_priority_filter")
+        status_filter = c3.selectbox("Status", ["All"] + sorted(communities["status"].astype(str).unique().tolist()), key="community_status_filter")
+        language_filter = c4.selectbox("Language", ["All"] + sorted(communities["language"].astype(str).unique().tolist()), key="community_language_filter")
+        view = communities.copy()
+        if platform_filter != "All":
+            view = view[view["platform"].astype(str) == platform_filter]
+        if priority_filter != "All":
+            view = view[view["join_priority"].astype(str) == priority_filter]
+        if status_filter != "All":
+            view = view[view["status"].astype(str) == status_filter]
+        if language_filter != "All":
+            view = view[view["language"].astype(str) == language_filter]
+        st.dataframe(
+            view[[
+                "community_id",
+                "platform",
+                "community_name",
+                "language",
+                "topic_category",
+                "audience_type",
+                "join_priority",
+                "recommended_action",
+                "link_allowed",
+                "spam_risk",
+                "status",
+            ]],
+            use_container_width=True,
+            hide_index=True,
+        )
+        if not view.empty:
+            selected_id = st.selectbox("Select community", view["community_id"].astype(str).tolist(), key="selected_community_id")
+            selected = communities[communities["community_id"].astype(str) == selected_id].iloc[0].to_dict()
+            st.markdown(f"**{selected.get('community_name', '')}**")
+            st.write(f"URL: {selected.get('community_url', '')}")
+            st.write(f"Rules: {selected.get('posting_rules_summary', '')}")
+            st.write(f"Suggested angle: {selected.get('suggested_angle', '')}")
+            notes = st.text_input("Notes", value=str(selected.get("notes", "")), key=f"community_notes_{selected_id}")
+            a1, a2, a3, a4 = st.columns(4)
+            if a1.button("Approve to join", key=f"approve_join_{selected_id}"):
+                update_community_status(selected_id, "join_requested", notes)
+                st.success("Saved as join_requested. The bot did not auto-join.")
+                st.rerun()
+            if a2.button("Mark as joined", key=f"joined_{selected_id}"):
+                update_community_status(selected_id, "joined", notes)
+                st.success("Marked joined locally.")
+                st.rerun()
+            if a3.button("Reject", key=f"reject_community_{selected_id}"):
+                update_community_status(selected_id, "rejected", notes)
+                st.success("Rejected locally.")
+                st.rerun()
+            if a4.button("Avoid", key=f"avoid_community_{selected_id}"):
+                update_community_status(selected_id, "blocked", notes)
+                st.success("Marked avoid/blocked locally.")
+                st.rerun()
+
+    st.markdown("### Join checklist")
+    if checklist.empty:
+        st.info("No join checklist rows yet.")
+    else:
+        st.dataframe(checklist, use_container_width=True, hide_index=True)
+
+    st.markdown("### Daily Posting Review")
+    st.caption("Default review windows: 09:00 and 20:00. External groups stay copy/manual unless explicitly approved.")
+    if posts.empty:
+        st.info("No community post drafts yet.")
+    else:
+        pending = posts[posts["status"].astype(str).isin(["draft", "pending_review", "approved", "scheduled"])]
+        risk_count = int((posts["estimated_risk"].astype(str).isin(["medium", "high"])).sum()) if "estimated_risk" in posts.columns else 0
+        missing_utm = int((~posts["tracked_url"].astype(str).str.contains("utm_source=", na=False)).sum()) if "tracked_url" in posts.columns else 0
+        x_invalid = int(((posts["platform"].astype(str) == "X/Twitter") & (posts["content"].astype(str).str.len() > 260)).sum()) if {"platform", "content"}.issubset(posts.columns) else 0
+        p1, p2, p3, p4 = st.columns(4)
+        p1.metric("Review queue", len(pending))
+        p2.metric("Risk warnings", risk_count)
+        p3.metric("Missing UTM", missing_utm)
+        p4.metric("X > 260 chars", x_invalid)
+
+        pc1, pc2, pc3 = st.columns(3)
+        post_platform = pc1.selectbox("Post platform", ["All"] + sorted(posts["platform"].astype(str).unique().tolist()), key="community_post_platform")
+        post_status = pc2.selectbox("Post status", ["All"] + sorted(posts["status"].astype(str).unique().tolist()), key="community_post_status")
+        post_risk = pc3.selectbox("Risk", ["All"] + sorted(posts["estimated_risk"].astype(str).unique().tolist()), key="community_post_risk")
+        post_view = posts.copy()
+        if post_platform != "All":
+            post_view = post_view[post_view["platform"].astype(str) == post_platform]
+        if post_status != "All":
+            post_view = post_view[post_view["status"].astype(str) == post_status]
+        if post_risk != "All":
+            post_view = post_view[post_view["estimated_risk"].astype(str) == post_risk]
+        st.dataframe(
+            post_view[["post_id", "platform", "community_name", "language", "content_variant", "estimated_risk", "status", "schedule_time"]],
+            use_container_width=True,
+            hide_index=True,
+        )
+        if not post_view.empty:
+            selected_post_id = st.selectbox("Select post draft", post_view["post_id"].astype(str).tolist(), key="selected_community_post_id")
+            post = posts[posts["post_id"].astype(str) == selected_post_id].iloc[0].to_dict()
+            st.text_area("Post content", value=str(post.get("content", "")), height=220, key=f"community_post_content_{selected_post_id}")
+            st.code(str(post.get("tracked_url", "")))
+            st.caption(f"CTA: {post.get('cta', '')} | Hashtags: {post.get('hashtags', '')} | Risk: {post.get('estimated_risk', '')}")
+            schedule_time = st.text_input("Schedule time ISO", value=str(post.get("schedule_time", "")), key=f"community_schedule_{selected_post_id}")
+            note = st.text_input("Post notes", value=str(post.get("notes", "")), key=f"community_post_note_{selected_post_id}")
+            b1, b2, b3, b4, b5 = st.columns(5)
+            if b1.button("Approve", key=f"approve_post_{selected_post_id}"):
+                update_post_status(selected_post_id, "approved", schedule_time, note)
+                st.success("Approved locally.")
+                st.rerun()
+            if b2.button("Reject", key=f"reject_post_{selected_post_id}"):
+                update_post_status(selected_post_id, "rejected", schedule_time, note)
+                st.success("Rejected locally.")
+                st.rerun()
+            if b3.button("Schedule", key=f"schedule_post_{selected_post_id}"):
+                update_post_status(selected_post_id, "scheduled", schedule_time, note)
+                st.success("Scheduled locally. No external group posting is performed.")
+                st.rerun()
+            if b4.button("Publish now", key=f"publish_post_{selected_post_id}"):
+                update_post_status(selected_post_id, "published", schedule_time, "Only use this for owned/approved channels. " + note)
+                st.success("Marked published locally. No API was called.")
+                st.rerun()
+            if b5.button("Mark manually posted", key=f"manual_posted_{selected_post_id}"):
+                update_post_status(selected_post_id, "published", schedule_time, "Manually posted. " + note)
+                st.success("Marked manually posted.")
+                st.rerun()
+            st.download_button(
+                "Copy/export selected post as .txt",
+                data=str(post.get("content", "") + "\n\n" + post.get("tracked_url", "")).encode("utf-8"),
+                file_name=f"{selected_post_id}.txt",
+                mime="text/plain",
+            )
+
+    st.markdown("### Community performance reports")
+    if performance.empty:
+        st.info("No performance report yet.")
+    else:
+        st.dataframe(performance, use_container_width=True, hide_index=True)
+    dl1, dl2, dl3 = st.columns(3)
+    dl1.download_button("Download communities CSV", data=load_communities().to_csv(index=False).encode("utf-8-sig"), file_name="community_recommendations.csv", mime="text/csv")
+    dl2.download_button("Download post drafts CSV", data=load_community_posts().to_csv(index=False).encode("utf-8-sig"), file_name="community_post_drafts.csv", mime="text/csv")
+    dl3.download_button("Download performance CSV", data=load_community_performance_report().to_csv(index=False).encode("utf-8-sig"), file_name="community_performance_report.csv", mime="text/csv")
 
 
 def clipboard_button(label: str, value: str, key: str, toast_text: str = "Copied social content") -> None:
@@ -1802,6 +1972,7 @@ sidebar_page = st.sidebar.radio(
         "Review Queue",
         "Content Approval",
         "Social Distribution",
+        "Community Discovery",
         "Phân phối xã hội",
         "Post Deploy Kit",
         "SEO System",
@@ -1840,6 +2011,9 @@ if sidebar_page == "Social Distribution":
     st.stop()
 elif sidebar_page == "Phân phối xã hội":
     render_manual_social_distribution_page()
+    st.stop()
+elif sidebar_page == "Community Discovery":
+    render_community_discovery_page()
     st.stop()
 elif sidebar_page == "Post Deploy Kit":
     render_post_deploy_page()

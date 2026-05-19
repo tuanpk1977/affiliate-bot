@@ -13,6 +13,7 @@ from modules.ai_angle_generator import generate_angles
 from modules.audience_growth import run_audience_growth_system
 from modules.bilingual_site import add_bilingual_pages
 from modules.compliance_checker import build_compliance_report
+from modules.community_discovery import run_community_discovery
 from modules.content_approval import ensure_content_drafts
 from modules.competitor_ads_spy import analyze_competitor_ads
 from modules.csv_exporter import export_csv
@@ -59,6 +60,7 @@ def main() -> None:
     ensure_content_drafts()
     ensure_social_post_report()
     ensure_social_distribution_assets()
+    run_community_discovery()
     social_queue = ensure_social_publish_queue()
 
     data_sources = load_data_sources(offers)
