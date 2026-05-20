@@ -98,6 +98,7 @@ Comparison pages:
 - https://review.mssmileenglish.com/comparisons/canva-vs-gamma/
 - https://review.mssmileenglish.com/comparisons/chatgpt-vs-claude/
 - https://review.mssmileenglish.com/comparisons/chatgpt-vs-gemini/
+- https://review.mssmileenglish.com/comparisons/codex-vs-openclaw/
 - https://review.mssmileenglish.com/comparisons/copilot-vs-cursor/
 - https://review.mssmileenglish.com/comparisons/copilot-vs-tabnine/
 - https://review.mssmileenglish.com/comparisons/cursor-vs-copilot/
