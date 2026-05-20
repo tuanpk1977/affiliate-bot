@@ -3,8 +3,10 @@ from __future__ import annotations
 import base64
 import json
 import os
+import re
 import sys
 import urllib.parse
+from datetime import datetime, timedelta
 from pathlib import Path
 
 import pandas as pd
@@ -101,6 +103,27 @@ from modules.social_draft_generator import (
     save_draft_record,
 )
 from modules.social_scheduler import schedule_approved_posts
+from modules.social_scheduler import schedule_approved_queue_posts
+from modules.social_publisher import (
+    build_account_status,
+    ensure_platform_utm as native_ensure_platform_utm,
+    ensure_social_publisher_assets,
+    load_queue as load_multi_platform_queue,
+    platform_source as native_platform_source,
+    rewrite_for_platform as native_rewrite_for_platform,
+    save_queue as save_multi_platform_queue,
+    update_queue_status as update_multi_platform_queue_status,
+)
+from modules.scheduler_runner import (
+    failed_count as telegram_failed_count,
+    process_due_telegram_posts,
+    published_count_today,
+    scheduler_status,
+    start_background_scheduler,
+)
+from modules.social_policy_checker import split_x_thread, validate_post
+from modules.telegram_publisher import send_message as send_telegram_message
+from modules.quick_reply_finder import quick_reply
 from modules.social_publish_queue import (
     clear_duplicate_scheduled_posts,
     enqueue_posts,
@@ -934,6 +957,445 @@ def render_community_discovery_page() -> None:
     dl1.download_button("Download communities CSV", data=load_communities().to_csv(index=False).encode("utf-8-sig"), file_name="community_recommendations.csv", mime="text/csv")
     dl2.download_button("Download post drafts CSV", data=load_community_posts().to_csv(index=False).encode("utf-8-sig"), file_name="community_post_drafts.csv", mime="text/csv")
     dl3.download_button("Download performance CSV", data=load_community_performance_report().to_csv(index=False).encode("utf-8-sig"), file_name="community_performance_report.csv", mime="text/csv")
+
+
+def render_social_accounts_page() -> None:
+    st.header("Account Setup / Social Accounts")
+    stats = ensure_social_publisher_assets()
+    accounts = build_account_status()
+    st.caption("Local-safe setup. Tokens stay in `.env`; this page only shows whether a platform is configured.")
+    c1, c2, c3 = st.columns(3)
+    c1.metric("Platforms", len(accounts))
+    c2.metric("Token configured", int((accounts["status"].astype(str) == "token_configured").sum()) if not accounts.empty else 0)
+    c3.metric("Queue rows", stats.get("queue_rows", 0))
+    if accounts.empty:
+        st.info("No social account status yet. Run `python main.py`.")
+        return
+    st.dataframe(accounts, use_container_width=True, hide_index=True)
+    st.markdown("### Platform notes")
+    st.write("- Telegram can auto-post only after approval when `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` exist in `.env`.")
+    st.write("- LinkedIn, Reddit, X/Twitter, Facebook and Quora stay manual/export unless a legitimate API integration is explicitly configured later.")
+    st.write("- External groups require explicit approval per community and per post.")
+    st.download_button(
+        "Download social_account_status.csv",
+        data=accounts.to_csv(index=False).encode("utf-8-sig"),
+        file_name="social_account_status.csv",
+        mime="text/csv",
+    )
+
+
+def _queue_status(value: object) -> str:
+    return str(value or "").strip().lower().replace(" ", "_")
+
+
+def _queue_time(value: object) -> datetime | None:
+    raw = str(value or "").strip()
+    if not raw:
+        return None
+    try:
+        return datetime.fromisoformat(raw.replace("Z", "+00:00")).replace(tzinfo=None)
+    except ValueError:
+        return None
+
+
+def _row_link(row: dict[str, object]) -> str:
+    for key in ("tracked_url", "short_url", "target_url", "article_url"):
+        value = str(row.get(key, "") or "").strip()
+        if value:
+            return value
+    return ""
+
+
+def _platform_source(platform: str) -> str:
+    return native_platform_source(platform)
+
+
+def _rewrite_platform_name(platform: str) -> str:
+    platform = platform.lower().strip()
+    if platform.startswith("facebook"):
+        return "facebook"
+    if platform in {"x", "twitter", "x_twitter"}:
+        return "twitter"
+    if platform in {"telegram", "linkedin", "quora"}:
+        return platform
+    return "telegram"
+
+
+def _slugish(value: object, fallback: str = "social_post") -> str:
+    text = str(value or "").strip().lower()
+    text = re.sub(r"[^a-z0-9]+", "_", text)
+    return text.strip("_") or fallback
+
+
+def _tracked_url_for_platform(row: dict[str, object], platform: str) -> str:
+    base = _row_link(row)
+    if not base:
+        return ""
+    return native_ensure_platform_utm(
+        base,
+        platform,
+        campaign=row.get("utm_campaign") or row.get("title") or row.get("post_id"),
+        content=row.get("queue_id") or row.get("post_id"),
+    )
+
+
+def _queue_image_path(row: dict[str, object]) -> str:
+    explicit = str(row.get("image_path", "") or "").strip()
+    if explicit:
+        return explicit
+    for key in ("queue_id", "post_id", "draft_id"):
+        value = str(row.get(key, "") or "").strip()
+        if not value:
+            continue
+        for suffix in (".png", ".jpg", ".jpeg"):
+            candidate = Path("social_assets") / f"{value}{suffix}"
+            if candidate.exists():
+                return str(candidate)
+    return ""
+
+
+def _platform_hashtags(platform: str, content: str) -> str:
+    text = f"{platform} {content}".lower()
+    tags = []
+    if "coding" in text or "codex" in text or "windsurf" in text or "cursor" in text:
+        tags.extend(["#AICoding", "#BuildInPublic"])
+    elif "seo" in text:
+        tags.extend(["#SEO", "#AITools"])
+    else:
+        tags.extend(["#AIWorkflow", "#AITools"])
+    if platform in {"facebook", "facebook_page", "facebook_group"}:
+        return " ".join((tags + ["#AIWorkflow"])[:3])
+    if platform == "telegram":
+        return " ".join(tags[:2])
+    if platform == "linkedin":
+        return " ".join((tags + ["#FounderWorkflow"])[:3])
+    if platform == "quora":
+        return ""
+    return " ".join(tags[:2])
+
+
+def _rewrite_payload_for_platform(row: dict[str, object], requested_platform: str) -> dict[str, str]:
+    platform = requested_platform.lower().strip()
+    title = str(row.get("title", "") or "AI workflow note").strip()
+    original = str(row.get("content", "") or "").strip()
+    link = _tracked_url_for_platform(row, platform)
+    campaign = str(row.get("utm_campaign", "") or "").replace("_", " ").strip()
+    topic = campaign or title
+    result = native_rewrite_for_platform(
+        base_content=original,
+        platform=platform,
+        title=title,
+        tracked_url=link,
+        keyword=str(row.get("utm_content", "") or ""),
+        topic=topic,
+    )
+    return result
+
+
+def _rewrite_for_platform(row: dict[str, object], requested_platform: str) -> tuple[str, str]:
+    result = _rewrite_payload_for_platform(row, requested_platform)
+    return result["content"], result["hashtags"]
+
+
+def _copy_package(row: dict[str, object], content: str, hashtags: str, image_path: str, tracked_url: str) -> str:
+    return (
+        f"Platform: {row.get('platform', '')}\n"
+        f"Post ID: {row.get('queue_id', row.get('post_id', ''))}\n\n"
+        f"{content.strip()}\n\n"
+        f"Hashtags: {hashtags}\n"
+        f"Image: {image_path or 'none'}\n"
+        f"Tracked URL: {tracked_url}"
+    )
+
+
+def _clean_post_package(content: str, hashtags: str, tracked_url: str) -> str:
+    parts = [content.strip()]
+    if tracked_url and tracked_url not in content:
+        parts.append(tracked_url)
+    if hashtags and hashtags not in content:
+        parts.append(hashtags)
+    return "\n\n".join(part for part in parts if part)
+
+
+def _default_today_slot(index: int) -> str:
+    today = datetime.now().date()
+    slots = ["09:00", "09:30", "20:00", "20:30"]
+    hour, minute = slots[min(index, len(slots) - 1)].split(":")
+    return datetime(today.year, today.month, today.day, int(hour), int(minute)).isoformat(timespec="seconds")
+
+
+def _queue_scope_view(queue: pd.DataFrame, scope: str) -> pd.DataFrame:
+    if queue.empty:
+        return queue.copy()
+    df = queue.copy()
+    statuses = df["status"].map(_queue_status) if "status" in df.columns else pd.Series([""] * len(df), index=df.index)
+    times = df["scheduled_time"].map(_queue_time) if "scheduled_time" in df.columns else pd.Series([None] * len(df), index=df.index)
+    today = datetime.now().date()
+    if scope == "Archive":
+        return df[statuses.isin({"published", "posted", "rejected", "cancelled", "failed", "manual_required", "exported"})].tail(50)
+    if scope == "This Week":
+        week_end = today + timedelta(days=7)
+        mask = times.map(lambda item: bool(item and today <= item.date() <= week_end))
+        return df[mask & ~statuses.isin({"published", "posted", "rejected", "cancelled"})].head(40)
+
+    today_mask = times.map(lambda item: bool(item and item.date() == today))
+    today_rows = df[today_mask & ~statuses.isin({"published", "posted", "rejected", "cancelled"})]
+    if len(today_rows) >= 4:
+        return today_rows.head(4)
+    fill_statuses = {"pending_review", "draft", "approved", "scheduled", ""}
+    fill = df[statuses.isin(fill_statuses) & ~df.index.isin(today_rows.index)]
+    return pd.concat([today_rows, fill]).head(4)
+
+
+def render_publishing_queue_page() -> None:
+    st.header("Today Queue")
+    st.caption("Lightweight workflow: Today Queue -> Rewrite -> Approve -> Copy -> Publish Log.")
+    ensure_social_publisher_assets()
+    queue = load_multi_platform_queue()
+    if queue.empty:
+        st.info("No publishing queue rows yet. Run `python main.py` to convert approved social/community drafts into the queue.")
+        return
+
+    status = scheduler_status()
+    telegram_published = int(
+        (
+            queue["platform"].astype(str).str.lower().eq("telegram")
+            & queue["status"].map(_queue_status).eq("published")
+            & queue.get("published_at", pd.Series([""] * len(queue))).astype(str).ne("")
+        ).sum()
+    )
+    exported_manual = int(queue["status"].map(_queue_status).isin({"manual_required", "exported", "ready_to_post"}).sum())
+    scheduled_count = int(queue["status"].map(_queue_status).isin({"approved", "scheduled"}).sum())
+
+    auto_cols = st.columns(5)
+    auto_cols[0].metric("Scheduler", "running" if status.get("running") else "stopped")
+    auto_cols[1].metric("Scheduled", scheduled_count)
+    auto_cols[2].metric("Exported/manual", exported_manual)
+    auto_cols[3].metric("Telegram published", telegram_published)
+    auto_cols[4].metric("Failed", telegram_failed_count())
+
+    ctl1, ctl2 = st.columns(2)
+    if ctl1.button("Start Telegram Scheduler", key="start_telegram_scheduler"):
+        started = start_background_scheduler(interval_seconds=30)
+        st.success("Telegram auto-post scheduler started." if started else "Scheduler is already running.")
+        st.rerun()
+    if ctl2.button("Test Telegram Post", key="test_telegram_post"):
+        result = send_telegram_message("MS Smile AI Review Hub Telegram test post.", post_id="dashboard-test")
+        if result.get("ok"):
+            st.success(f"Telegram test sent. message_ids={result.get('message_ids')}")
+        else:
+            st.error(f"Telegram test failed: {result.get('error')}")
+
+    if hasattr(st, "segmented_control"):
+        scope = st.segmented_control("Queue tabs", ["Today", "This Week", "Archive"], default="Today", key="publisher_queue_scope")
+    else:
+        scope = st.radio("Queue tabs", ["Today", "This Week", "Archive"], horizontal=True, key="publisher_queue_scope")
+    platform_options = ["All"] + sorted(queue["platform"].astype(str).unique().tolist())
+    c1, c2 = st.columns(2)
+    platform_filter = c1.selectbox("Platform", platform_options, key="publisher_platform_filter")
+    hide_bulk = c2.checkbox("Hide bulk queue", value=True, key="publisher_hide_bulk")
+
+    view = _queue_scope_view(queue, scope)
+    if platform_filter != "All":
+        view = view[view["platform"].astype(str) == platform_filter]
+    if hide_bulk and scope == "Today":
+        view = view.head(4)
+
+    if view.empty:
+        st.info("No posts in this view. Switch to This Week or Archive if you need older rows.")
+        return
+
+    display_columns = [col for col in ["queue_id", "platform", "title", "status", "scheduled_time", "policy_warnings"] if col in view.columns]
+    st.dataframe(view[display_columns], use_container_width=True, hide_index=True)
+
+    selected_id = st.selectbox("Choose post", view["queue_id"].astype(str).tolist(), key="publisher_selected_queue_id")
+    row = queue[queue["queue_id"].astype(str) == selected_id].iloc[0].to_dict()
+    current_platform = str(row.get("platform", "") or "telegram").strip().lower()
+    tracked_url = _tracked_url_for_platform(row, current_platform)
+    row["tracked_url"] = tracked_url
+    image_path = _queue_image_path(row)
+
+    st.markdown(f"**Platform:** {current_platform}  |  **Status:** {row.get('status', '')}")
+    st.caption(f"Tracked URL: {tracked_url or 'missing'}")
+    policy = validate_post(row, queue=queue)
+    if policy.errors:
+        st.error("Policy errors: " + ", ".join(policy.errors))
+    if policy.warnings:
+        st.warning("Policy warnings: " + ", ".join(policy.warnings))
+
+    st.markdown("### Preview by Platform")
+    preview_tabs = st.tabs(["Facebook", "Telegram", "LinkedIn", "X/Twitter", "Quora", "Reddit"])
+    preview_platforms = ["facebook", "telegram", "linkedin", "twitter", "quora", "reddit"]
+    for tab, preview_platform in zip(preview_tabs, preview_platforms):
+        preview_payload = _rewrite_payload_for_platform(row, preview_platform)
+        preview_content = preview_payload["content"]
+        preview_tags = preview_payload["hashtags"]
+        preview_link = _tracked_url_for_platform(row, preview_platform)
+        preview_image = image_path
+        with tab:
+            meta_a, meta_b, meta_c = st.columns(3)
+            meta_a.caption(f"Hook style: {preview_payload.get('hook_style', '-')}")
+            meta_b.caption(f"CTA style: {preview_payload.get('cta_style', '-')}")
+            meta_c.caption(f"Tone: {preview_payload.get('tone_profile', '-')}")
+            if preview_platform == "twitter":
+                st.caption(f"Character count: {len(preview_content)}/280")
+            st.text_area(
+                f"{preview_platform.title()} preview",
+                value=preview_content,
+                height=220 if preview_platform in {"facebook", "linkedin", "quora", "reddit"} else 150,
+                key=f"platform_preview_{selected_id}_{preview_platform}",
+                disabled=True,
+            )
+            st.info(preview_payload.get("why", "This rewrite is shaped for the selected platform."))
+            st.caption(f"Hashtags: {preview_tags or '-'}")
+            st.caption(f"Tracked URL: {preview_link or 'missing'}")
+            preview_package = _copy_package(row, preview_content, preview_tags, preview_image, preview_link)
+            clean_package = _clean_post_package(preview_content, preview_tags, preview_link)
+            p1, p2 = st.columns(2)
+            with p1:
+                clipboard_button(
+                    "Copy Full Package",
+                    preview_package,
+                    key=f"copy_full_{selected_id}_{preview_platform}",
+                    toast_text="Copied full package",
+                )
+            with p2:
+                clipboard_button(
+                    "Copy Clean Post",
+                    clean_package,
+                    key=f"copy_clean_{selected_id}_{preview_platform}",
+                    toast_text="Copied clean post",
+                )
+
+    st.markdown("### Rewrite Selected Platform")
+    rewrite_platform = st.selectbox(
+        "Platform rewrite",
+        ["facebook", "telegram", "linkedin", "twitter", "quora", "reddit"],
+        index=max(0, ["facebook", "telegram", "linkedin", "twitter", "quora", "reddit"].index(_rewrite_platform_name(current_platform))),
+        key=f"publisher_rewrite_platform_{selected_id}",
+    )
+    rewrite_payload = _rewrite_payload_for_platform(row, rewrite_platform)
+    rewritten = rewrite_payload["content"]
+    hashtags = rewrite_payload["hashtags"]
+    tracked_url = _tracked_url_for_platform(row, rewrite_platform)
+    meta_a, meta_b, meta_c = st.columns(3)
+    meta_a.caption(f"Hook style: {rewrite_payload.get('hook_style', '-')}")
+    meta_b.caption(f"CTA style: {rewrite_payload.get('cta_style', '-')}")
+    meta_c.caption(f"Tone profile: {rewrite_payload.get('tone_profile', '-')}")
+    st.info(rewrite_payload.get("why", "This rewrite is shaped for the selected platform."))
+    edited_content = st.text_area("Rewritten content", value=rewritten, height=240, key=f"publisher_rewrite_content_{selected_id}")
+    col_meta1, col_meta2 = st.columns(2)
+    hashtags = col_meta1.text_input("Hashtags", value=hashtags, key=f"publisher_hashtags_{selected_id}")
+    image_path = col_meta2.text_input("Image path", value=image_path, key=f"publisher_image_{selected_id}")
+    if rewrite_platform == "twitter":
+        st.caption(f"Character count: {len(edited_content)}/280")
+        if len(edited_content) > 280:
+            st.warning("This X/Twitter rewrite is over 280 characters. The generator normally compresses it automatically; edit before posting.")
+        thread = split_x_thread(edited_content)
+        st.markdown("#### X/Twitter preview")
+        for index, post in enumerate(thread, start=1):
+            over = len(post) > 260
+            label = f"Post {index} ({len(post)}/260)" + (" - too long" if over else "")
+            st.text_area(label, value=post, height=90, key=f"publisher_thread_{selected_id}_{index}", disabled=True)
+
+    package = _copy_package(row, edited_content, hashtags, image_path, tracked_url)
+    clean_package = _clean_post_package(edited_content, hashtags, tracked_url)
+    copy_col, download_col = st.columns(2)
+    with copy_col:
+        clipboard_button("Copy Full Package", package, key=f"copy_full_package_{selected_id}", toast_text="Copied post package")
+        clipboard_button("Copy Clean Post", clean_package, key=f"copy_clean_package_{selected_id}", toast_text="Copied clean post")
+    download_col.download_button(
+        "Download TXT",
+        data=package.encode("utf-8"),
+        file_name=f"{selected_id}.txt",
+        mime="text/plain",
+        key=f"download_package_{selected_id}",
+    )
+
+    st.markdown("### Approve / Schedule")
+    default_schedule = str(row.get("scheduled_time", "") or "")
+    if not default_schedule and scope == "Today":
+        position = list(view["queue_id"].astype(str)).index(selected_id)
+        default_schedule = _default_today_slot(position)
+    schedule_time = st.text_input("Schedule time ISO", value=default_schedule, key=f"publisher_schedule_{selected_id}")
+    note = st.text_input("Note", value=str(row.get("notes", "")), key=f"publisher_note_{selected_id}")
+
+    a1, a2, a3, a4 = st.columns(4)
+    if a1.button("Approve", key=f"publisher_approve_{selected_id}"):
+        updated = load_multi_platform_queue()
+        mask = updated["queue_id"].astype(str) == selected_id
+        updated.loc[mask, "content"] = edited_content
+        updated.loc[mask, "tracked_url"] = tracked_url
+        updated.loc[mask, "status"] = "approved"
+        updated.loc[mask, "approved_at"] = datetime.now().isoformat(timespec="seconds")
+        updated.loc[mask, "notes"] = note
+        save_multi_platform_queue(updated)
+        st.success("Approved. Non-Telegram platforms remain copy/manual mode.")
+        st.rerun()
+    if a2.button("Schedule", key=f"publisher_schedule_btn_{selected_id}"):
+        updated = load_multi_platform_queue()
+        mask = updated["queue_id"].astype(str) == selected_id
+        updated.loc[mask, "content"] = edited_content
+        updated.loc[mask, "tracked_url"] = tracked_url
+        updated.loc[mask, "scheduled_time"] = schedule_time
+        updated.loc[mask, "status"] = "approved"
+        updated.loc[mask, "approved_at"] = datetime.now().isoformat(timespec="seconds")
+        save_multi_platform_queue(updated)
+        st.success("Scheduled. Telegram will publish only after API success; other platforms stay manual/export.")
+        st.rerun()
+    if a3.button("Publish Now", key=f"publisher_now_{selected_id}"):
+        updated = load_multi_platform_queue()
+        mask = updated["queue_id"].astype(str) == selected_id
+        if current_platform == "telegram":
+            updated.loc[mask, "content"] = edited_content
+            updated.loc[mask, "tracked_url"] = tracked_url
+            updated.loc[mask, "status"] = "approved"
+            updated.loc[mask, "scheduled_time"] = datetime.now().isoformat(timespec="seconds")
+            save_multi_platform_queue(updated)
+            result = process_due_telegram_posts()
+            st.info(f"Telegram publish result: {result}")
+        else:
+            st.warning("Auto-publish is Telegram-only. Use Copy Full Post or export for this platform.")
+        st.rerun()
+    if a4.button("Reject", key=f"publisher_reject_{selected_id}"):
+        update_multi_platform_queue_status(selected_id, "rejected", note)
+        st.success("Rejected and logged.")
+        st.rerun()
+
+    b1, b2, b3 = st.columns(3)
+    if b1.button("Mark Manually Posted", key=f"publisher_manual_{selected_id}"):
+        if current_platform == "telegram":
+            st.warning("Telegram is only marked published after Telegram API success. Use Publish Now or the scheduler.")
+        else:
+            update_multi_platform_queue_status(selected_id, "manual_required", "manual post/export completed")
+            st.success("Marked as manual/exported. Not counted as real Telegram published.")
+            st.rerun()
+    if b2.button("Retry Failed", key=f"publisher_retry_{selected_id}"):
+        updated = load_multi_platform_queue()
+        mask = updated["queue_id"].astype(str) == selected_id
+        updated.loc[mask, "status"] = "approved"
+        updated.loc[mask, "scheduled_time"] = datetime.now().isoformat(timespec="seconds")
+        updated.loc[mask, "error"] = ""
+        save_multi_platform_queue(updated)
+        st.success("Failed row moved back to approved for retry.")
+        st.rerun()
+    if b3.button("Cancel Scheduled", key=f"publisher_cancel_{selected_id}"):
+        update_multi_platform_queue_status(selected_id, "cancelled", "cancelled from dashboard")
+        st.success("Scheduled post cancelled.")
+        st.rerun()
+
+    st.markdown("### Publish Log")
+    log_frames = []
+    for path in [Path("data/telegram_publish_log.csv"), Path("data/social_publish_log.csv")]:
+        if path.exists():
+            try:
+                log_frames.append(pd.read_csv(path, encoding="utf-8-sig").tail(20))
+            except Exception:
+                pass
+    if log_frames:
+        st.dataframe(pd.concat(log_frames, ignore_index=True).tail(30), use_container_width=True, hide_index=True)
+    else:
+        st.info("No publish log yet.")
 
 
 def clipboard_button(label: str, value: str, key: str, toast_text: str = "Copied social content") -> None:
@@ -1959,6 +2421,194 @@ def render_reports(offers_df: pd.DataFrame, market_df: pd.DataFrame, roi_df: pd.
         st.write(f"- {item}")
 
 
+def render_dashboard_center(offers_df: pd.DataFrame) -> None:
+    st.header("Dashboard")
+    st.caption("Operational snapshot: posts today, published posts, click signals, scheduler status, and Telegram readiness.")
+    metric_cards(offers_df)
+    st.divider()
+    render_performance_intelligence_page()
+
+
+def render_content_review_center() -> None:
+    st.header("Content Review")
+    st.caption("Draft list, approve/reject/edit, and schedule notes in one place.")
+    drafts = load_review_queue()
+
+    with st.expander("Create new draft", expanded=False):
+        with st.form("content_review_center_draft_form"):
+            c1, c2 = st.columns(2)
+            topic = c1.text_input("Topic", value="ChatGPT prompts for Windsurf")
+            main_keyword = c2.text_input("Main keyword", value="ChatGPT prompts for Windsurf")
+            target_tool = c1.text_input("Target tool", value="Windsurf")
+            target_audience = c2.text_input("Target audience", value="AI builders and non-technical founders")
+            content_type = c1.selectbox(
+                "Content type",
+                ["Blog article", "Review page", "Comparison page", "LinkedIn post", "Facebook post", "X thread", "Telegram post", "FAQ page"],
+            )
+            tone = c2.selectbox("Tone", ["practical", "professional", "technical", "storytelling", "soft CTA"])
+            submitted = st.form_submit_button("Generate draft")
+        if submitted:
+            content = generate_draft_content(topic, main_keyword, target_tool, content_type, target_audience, tone)
+            record = create_draft(
+                content_type=content_type,
+                target_channel=content_type,
+                title=topic,
+                slug=draft_slugify(topic),
+                topic=topic,
+                draft_content=content,
+                status="Pending Review",
+                notes=f"Generated from Content Review. Tone: {tone}.",
+            )
+            st.success(f"Created draft {record['draft_id']} in Pending Review.")
+            drafts = load_review_queue()
+
+    if drafts.empty:
+        st.info("No drafts yet.")
+        return
+
+    c1, c2, c3 = st.columns(3)
+    status_filter = c1.selectbox("Status", ["All", "Pending Review", "Approved", "Need Edit", "Rejected", "Published"])
+    channels = sorted([x for x in drafts.get("target_channel", pd.Series(dtype=str)).astype(str).unique().tolist() if x])
+    channel_filter = c2.selectbox("Channel", ["All"] + channels)
+    search = c3.text_input("Search", value="")
+
+    filtered = drafts.copy()
+    if status_filter != "All":
+        filtered = filtered[filtered["status"].astype(str) == status_filter]
+    if channel_filter != "All":
+        filtered = filtered[filtered["target_channel"].astype(str) == channel_filter]
+    if search.strip():
+        needle = search.strip().lower()
+        filtered = filtered[
+            filtered["title"].astype(str).str.lower().str.contains(needle, na=False)
+            | filtered["draft_id"].astype(str).str.lower().str.contains(needle, na=False)
+        ]
+
+    preview_cols = [c for c in ["draft_id", "title", "status", "created_at", "content_type"] if c in filtered.columns]
+    st.dataframe(filtered[preview_cols], use_container_width=True, hide_index=True)
+    if filtered.empty:
+        st.warning("No drafts match the current filters.")
+        return
+
+    selected_id = st.selectbox("Choose draft", filtered["draft_id"].astype(str).tolist())
+    row = drafts[drafts["draft_id"].astype(str) == selected_id].iloc[0].to_dict()
+
+    edited_title = st.text_input("Title", value=str(row.get("title", "")), key=f"center_title_{selected_id}")
+    edited_slug = st.text_input("Slug", value=str(row.get("slug", "")), key=f"center_slug_{selected_id}")
+    edited_notes = st.text_area("Notes", value=str(row.get("notes", "")), key=f"center_notes_{selected_id}", height=90)
+    edited_content = st.text_area("Draft content", value=str(row.get("draft_content", "")), key=f"center_content_{selected_id}", height=360)
+    schedule_note = st.text_input("Schedule note/time", value="", placeholder="Example: publish after review or 2026-05-20 09:00")
+
+    ok_to_approve, issues = can_approve(edited_content, edited_title)
+    if issues:
+        st.warning("Compliance check:")
+        for issue in issues:
+            st.write(f"- {issue}")
+    else:
+        st.success("Compliance check passed.")
+
+    c1, c2, c3, c4, c5 = st.columns(5)
+    if c1.button("Save edit", key=f"center_save_{selected_id}"):
+        update_draft(selected_id, title=edited_title, slug=edited_slug, notes=edited_notes, draft_content=edited_content)
+        st.success("Saved.")
+        st.rerun()
+    if c2.button("Approve", key=f"center_approve_{selected_id}"):
+        if not ok_to_approve:
+            st.error("Fix compliance issues before approving.")
+        else:
+            update_draft(selected_id, status="Approved", title=edited_title, slug=edited_slug, notes=edited_notes, draft_content=edited_content)
+            st.success("Approved.")
+            st.rerun()
+    if c3.button("Reject", key=f"center_reject_{selected_id}"):
+        update_draft(selected_id, status="Rejected", notes=edited_notes)
+        st.success("Rejected.")
+        st.rerun()
+    if c4.button("Need edit", key=f"center_need_edit_{selected_id}"):
+        update_draft(selected_id, status="Need Edit", notes=edited_notes)
+        st.success("Marked as Need Edit.")
+        st.rerun()
+    if c5.button("Save schedule", key=f"center_schedule_{selected_id}"):
+        note = f"{edited_notes} | Schedule: {schedule_note}".strip()
+        update_draft(selected_id, notes=note)
+        st.success("Schedule note saved.")
+        st.rerun()
+
+    if str(row.get("status", "")) in {"Approved", "Published"}:
+        overwrite = st.checkbox("Allow overwrite if slug exists", value=False)
+        if st.button("Publish to Site", key=f"center_publish_{selected_id}"):
+            update_draft(selected_id, title=edited_title, slug=edited_slug, notes=edited_notes, draft_content=edited_content)
+            ok, message = publish_static_draft(selected_id, overwrite=overwrite)
+            st.success(message) if ok else st.error(message)
+            st.rerun()
+
+    st.download_button(
+        "Export draft markdown",
+        data=export_markdown({**row, "title": edited_title, "draft_content": edited_content}),
+        file_name=f"{edited_slug or selected_id}.md",
+        mime="text/markdown",
+    )
+
+
+def render_social_discovery_center(review_queue: pd.DataFrame) -> None:
+    st.header("Social Discovery")
+    st.caption("Community discovery, social drafts, and social response workflow are grouped here.")
+    section = st.radio("View", ["Quick replies", "Communities", "Community posts", "Social drafts"], horizontal=True, key="social_discovery_center_view")
+    if section == "Quick replies":
+        render_quick_reply_finder()
+        return
+    if section == "Communities":
+        render_community_discovery_page()
+    elif section == "Community posts":
+        render_manual_social_distribution_page()
+    else:
+        render_social_distribution_page(review_queue)
+
+
+def render_quick_reply_finder() -> None:
+    st.subheader("Quick Reply Finder")
+    st.caption("Find related articles and copy short, natural replies for Facebook, LinkedIn, Telegram, Reddit, or Quora comments.")
+    query = st.text_input("Comment keyword", value="copilot vs codex", placeholder="codex vs copilot, cursor review, windsurf worth it")
+    if not query.strip():
+        st.info("Type a comment keyword to find related URLs.")
+        return
+    result = quick_reply(query.strip(), limit=3)
+    suggestions = result.get("results", [])
+    replies = result.get("replies", [])
+
+    st.markdown("### Suggested URLs")
+    if not suggestions:
+        st.warning("No strong related URL found yet.")
+    else:
+        for index, item in enumerate(suggestions, start=1):
+            st.markdown(f"{index}. **{item.title}**  \n`{item.url}`  \nTracked: `{item.tracked_url}`")
+
+    st.markdown("### Suggested replies")
+    for index, reply in enumerate(replies, start=1):
+        st.text_area(f"Reply {index}", value=reply, height=110, key=f"quick_reply_{index}_{query}")
+        clipboard_button(
+            f"Copy Reply {index}",
+            reply,
+            key=f"copy_quick_reply_{index}_{query}",
+            toast_text="Copied reply",
+        )
+
+
+def render_seo_center() -> None:
+    st.header("SEO Center")
+    st.caption("Keyword gaps, topical map, SEO warnings, social tracking, and next actions.")
+    render_seo_system_page()
+
+
+def render_settings_center() -> None:
+    st.header("Settings")
+    st.caption("Account setup, posting modes, limits, and post-deploy tools.")
+    section = st.radio("Settings section", ["Social accounts", "Post-deploy checklist"], horizontal=True, key="settings_center_section")
+    if section == "Social accounts":
+        render_social_accounts_page()
+    else:
+        render_post_deploy_page()
+
+
 st.set_page_config(page_title="AI Affiliate Intelligence Platform", layout="wide")
 inject_dashboard_css()
 st.title("AI Affiliate Intelligence Platform")
@@ -1969,15 +2619,11 @@ sidebar_page = st.sidebar.radio(
     "Navigation",
     [
         "Dashboard",
-        "Review Queue",
-        "Content Approval",
-        "Social Distribution",
-        "Community Discovery",
-        "Phân phối xã hội",
-        "Post Deploy Kit",
-        "SEO System",
-        "Performance Intelligence",
-        "Reports",
+        "Content Review",
+        "Publishing Queue",
+        "Social Discovery",
+        "SEO Center",
+        "Settings",
     ],
     index=0,
 )
@@ -2006,30 +2652,24 @@ scheduled_social_count = 0
 if not social_queue.empty and "status" in social_queue.columns:
     scheduled_social_count = int(social_queue["status"].astype(str).isin(["Scheduled", "Approved"]).sum())
 
-if sidebar_page == "Social Distribution":
-    render_social_distribution_page(review_queue)
+if sidebar_page == "Dashboard":
+    render_dashboard_center(offers)
     st.stop()
-elif sidebar_page == "Phân phối xã hội":
-    render_manual_social_distribution_page()
+elif sidebar_page == "Content Review":
+    render_content_review_center()
     st.stop()
-elif sidebar_page == "Community Discovery":
-    render_community_discovery_page()
+elif sidebar_page == "Publishing Queue":
+    render_publishing_queue_page()
     st.stop()
-elif sidebar_page == "Post Deploy Kit":
-    render_post_deploy_page()
+elif sidebar_page == "Social Discovery":
+    render_social_discovery_center(review_queue)
     st.stop()
-elif sidebar_page == "SEO System":
-    render_seo_system_page()
+elif sidebar_page == "SEO Center":
+    render_seo_center()
     st.stop()
-elif sidebar_page == "Performance Intelligence":
-    render_performance_intelligence_page()
+elif sidebar_page == "Settings":
+    render_settings_center()
     st.stop()
-elif sidebar_page == "Review Queue":
-    st.info("Review Queue is available in the Content Review tab below. Use the sidebar Social Distribution item for the dedicated social workflow.")
-elif sidebar_page == "Content Approval":
-    st.info("Content Approval is available in the Content Review tab below. Existing approval workflow is unchanged.")
-elif sidebar_page == "Reports":
-    st.info("Reports are available in the Reports tab below. Existing report workflow is unchanged.")
 
 metric_cards(offers)
 
