@@ -35,6 +35,21 @@ QUEUE_COLUMNS = [
     "last_attempt",
     "attempts",
     "error",
+    "channel_type",
+    "community_id",
+    "community_name",
+    "content",
+    "target_url",
+    "tracked_url",
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_content",
+    "policy_status",
+    "policy_warnings",
+    "manual_export_path",
+    "published_url",
+    "notes",
 ]
 
 PLATFORM_LIMITS = {

@@ -1,7 +1,7 @@
 ---
 id: day-07-2030-vi-twitter
 day: 7
-scheduled_date: 2026-05-23
+scheduled_date: 2026-05-27
 scheduled_time: 20:30
 language: vi
 platform: twitter

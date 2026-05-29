@@ -1,7 +1,7 @@
 ---
 id: day-02-2030-en-facebook
 day: 2
-scheduled_date: 2026-05-18
+scheduled_date: 2026-05-22
 scheduled_time: 20:30
 language: en
 platform: facebook

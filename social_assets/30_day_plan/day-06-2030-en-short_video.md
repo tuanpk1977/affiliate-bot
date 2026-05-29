@@ -1,7 +1,7 @@
 ---
 id: day-06-2030-en-short_video
 day: 6
-scheduled_date: 2026-05-22
+scheduled_date: 2026-05-26
 scheduled_time: 20:30
 language: en
 platform: short_video

@@ -5,19 +5,7 @@ from pathlib import Path
 from xml.sax.saxutils import escape
 
 from config import settings
-
-NOINDEX_EXACT_PATHS = {
-    "sitemap",
-    "media-kit",
-    "about-author",
-    "author-profile",
-}
-
-NOINDEX_PREFIXES = {
-    "assets",
-    "__pycache__",
-    "go",
-}
+from modules.indexing_policy import rel_path_for_html, should_include_in_sitemap
 
 
 def generate_sitemap(output_dir: Path | None = None, base_url: str | None = None) -> Path:
@@ -34,15 +22,13 @@ def generate_sitemap(output_dir: Path | None = None, base_url: str | None = None
 def scan_index_pages(output: Path, base_url: str) -> list[dict[str, str]]:
     pages: list[dict[str, str]] = []
     for index_file in sorted(output.rglob("index.html")):
-        if should_skip(index_file, output):
+        url_path = rel_path_for_html(index_file, output)
+        if not should_include_in_sitemap(url_path):
             continue
-        parent = index_file.parent
-        rel = parent.relative_to(output)
-        if str(rel) == ".":
+        if url_path == "/":
             loc = f"{base_url}/"
         else:
-            url_path = "/".join(rel.parts)
-            loc = f"{base_url}/{url_path}/"
+            loc = f"{base_url}{url_path}"
         pages.append({"loc": loc, "lastmod": file_lastmod(index_file)})
 
     seen = set()
@@ -54,21 +40,6 @@ def scan_index_pages(output: Path, base_url: str) -> list[dict[str, str]]:
         unique_pages.append(page)
     unique_pages.sort(key=lambda item: (item["loc"] != f"{base_url}/", item["loc"]))
     return unique_pages
-
-
-def should_skip(path: Path, output: Path) -> bool:
-    rel_parts = path.relative_to(output).parts
-    if not rel_parts:
-        return False
-    if rel_parts[0] in NOINDEX_PREFIXES:
-        return True
-    if rel_parts[0] == "reviews" and len(rel_parts) > 2:
-        return True
-    url_path = "/".join(rel_parts[:-1]) if rel_parts[-1] == "index.html" else "/".join(rel_parts)
-    clean_path = url_path.strip("/")
-    localized_path = clean_path[3:] if clean_path.startswith("vi/") else clean_path
-    return clean_path in NOINDEX_EXACT_PATHS or localized_path in NOINDEX_EXACT_PATHS
-
 
 def file_lastmod(path: Path) -> str:
     return datetime.fromtimestamp(path.stat().st_mtime).date().isoformat()

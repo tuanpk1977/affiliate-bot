@@ -10,6 +10,7 @@ from urllib.parse import parse_qs, quote, urlencode, urlparse, urlunparse
 import pandas as pd
 
 from config import settings
+from modules.indexing_policy import robots_meta_for_path
 from modules.affiliate_links import load_affiliate_links, save_affiliate_links, slugify, to_bool
 
 
@@ -286,6 +287,7 @@ def go_page_html(slug: str, name: str, target_url: str, event_type: str, note: s
     safe_target = html.escape(target_url, quote=True)
     safe_name = html.escape(name)
     safe_note = html.escape(note)
+    safe_robots = html.escape(robots_meta_for_path(f"/go/{slug}/"), quote=True)
     payload = {
         "tool_slug": slug,
         "tool_name": name,
@@ -489,7 +491,7 @@ def go_page_html(slug: str, name: str, target_url: str, event_type: str, note: s
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,follow">
+  <meta name="robots" content="{safe_robots}">
   <title>Redirect to {safe_name} - {html.escape(settings.site_name)}</title>
   <meta name="description" content="Safe outbound redirect page for {safe_name}.">
   <style>body{{font-family:Arial,Helvetica,sans-serif;background:#f7f9fc;color:#17202a;line-height:1.6;margin:0}}.wrap{{max-width:760px;margin:10vh auto;padding:24px}}.card{{background:#fff;border:1px solid #dbe3ef;border-radius:8px;padding:22px}}.btn{{display:inline-block;background:#0f766e;color:#fff;text-decoration:none;padding:11px 15px;border-radius:6px;font-weight:800}}</style>
@@ -618,12 +620,13 @@ def tracking_redirect_html(row: pd.Series | dict) -> str:
     tracked_url = str(row.get("tracked_url", "")).strip()
     safe_url = html.escape(tracked_url, quote=True)
     safe_id = html.escape(tracking_id)
+    safe_robots = html.escape(robots_meta_for_path(f"/go/{tracking_id}/"), quote=True)
     return f"""<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
+  <meta name="robots" content="{safe_robots}">
   <meta http-equiv="refresh" content="0; url={safe_url}">
   <title>Continue - {safe_id}</title>
   <meta name="description" content="Local-safe tracking redirect.">

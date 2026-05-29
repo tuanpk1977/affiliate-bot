@@ -525,7 +525,12 @@ def render_community_post(community: dict[str, str], source_url: str, tracked: s
             if vi else
             "If you are trying to build a site or app with AI, I documented my ChatGPT -> Windsurf -> Codex workflow in a practical, non-hype way."
         )
-        return f"{base}\n\n{tracked}" if link_allowed else f"{base}\n\nNếu cần mình gửi link checklist."
+        no_link_cta = (
+            "Nếu cần mình gửi link checklist."
+            if vi else
+            "If helpful, I can share the checklist link in the comments."
+        )
+        return f"{base}\n\n{tracked}" if link_allowed else f"{base}\n\n{no_link_cta}"
     if variant == "direct_link":
         base = (
             "Mình viết lại workflow thật khi dùng ChatGPT để tạo prompt cho Windsurf, sau đó dùng Codex để sửa lỗi và hoàn thiện project."

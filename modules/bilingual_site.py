@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 
 from config import settings
+from modules.indexing_policy import robots_meta_for_path
 from modules.vietnamese_localizer import localize_html
 
 
@@ -40,6 +41,7 @@ def add_bilingual_pages(output: Path | None = None, base_url: str | None = None)
         rel_url = url_for_page(page, root)
         html = page.read_text(encoding="utf-8", errors="ignore")
         html = ensure_english_ui(html)
+        html = ensure_robots_meta(html, robots_meta_for_path(rel_url))
         html = set_language_switcher(html, rel_url, "en")
         html = set_seo_language_tags(html, rel_url, "en", base)
         html = set_html_lang(html, "en")
@@ -50,6 +52,8 @@ def add_bilingual_pages(output: Path | None = None, base_url: str | None = None)
         vi_page.parent.mkdir(parents=True, exist_ok=True)
         vi_html = localize_html(html)
         vi_html = prefix_internal_links_for_vi(vi_html)
+        vi_html = cleanup_vietnamese_after_link_prefix(vi_html)
+        vi_html = ensure_robots_meta(vi_html, robots_meta_for_path(vi_url_for(rel_url)))
         vi_html = set_language_switcher(vi_html, rel_url, "vi")
         vi_html = set_seo_language_tags(vi_html, rel_url, "vi", base)
         vi_html = set_html_lang(vi_html, "vi")
@@ -142,6 +146,42 @@ def prefix_internal_links_for_vi(html: str) -> str:
         return f"href={quote}/vi{href}{quote}"
 
     return re.sub(r"href=(['\"])(/[^'\"]*)\1", repl, html)
+
+
+def cleanup_vietnamese_after_link_prefix(html: str) -> str:
+    """Clean phrases that only become matchable after /vi/ link prefixing."""
+    replacements = {
+        'Bạn cũng có thể so sánh <a href="/vi/comparisons/runway-vs-pika/">Runway vs Pika</a> and <a href="/vi/comparisons/synthesia-vs-heygen/">Synthesia vs HeyGen</a> before choosing a video quy trình.':
+            'Bạn cũng có thể so sánh <a href="/vi/comparisons/runway-vs-pika/">Runway vs Pika</a> và <a href="/vi/comparisons/synthesia-vs-heygen/">So sánh Synthesia và HeyGen</a> trước khi chọn quy trình video.',
+        '<a href="/vi/comparisons/synthesia-vs-heygen/">Synthesia vs HeyGen</a>':
+            '<a href="/vi/comparisons/synthesia-vs-heygen/">So sánh Synthesia và HeyGen</a>',
+        "<a href='/vi/comparisons/synthesia-vs-heygen/'>Synthesia vs HeyGen</a>":
+            "<a href='/vi/comparisons/synthesia-vs-heygen/'>So sánh Synthesia và HeyGen</a>",
+        "Which Công cụ AI videos should you choose?":
+            "Nên chọn công cụ AI video nào?",
+        "activechiến dịch":
+            "activecampaign",
+        "Activechiến dịch":
+            "ActiveCampaign",
+        "chatgpt-windsurf-codex-quy trình":
+            "chatgpt-windsurf-codex-workflow",
+        "windsurf-to-codex-quy trình":
+            "windsurf-to-codex-workflow",
+        "ai-tools-for-content-nhà sáng tạos":
+            "ai-tools-for-content-creators",
+    }
+    for source, target in replacements.items():
+        html = html.replace(source, target)
+    return html
+
+
+def ensure_robots_meta(html: str, value: str) -> str:
+    tag = f'<meta name="robots" content="{value}">'
+    if re.search(r"<meta\b(?=[^>]*\bname=['\"]robots['\"])[^>]*>", html, flags=re.I):
+        return re.sub(r"<meta\b(?=[^>]*\bname=['\"]robots['\"])[^>]*>", tag, html, count=1, flags=re.I)
+    if "</head>" in html:
+        return html.replace("</head>", f"{tag}\n</head>", 1)
+    return html
 
 
 def ensure_english_ui(html: str) -> str:

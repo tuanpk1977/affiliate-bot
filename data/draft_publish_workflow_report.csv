@@ -2,8 +2,8 @@ area,status,details,module_or_file
 draft_output,exists,Draft preview pages are written to draft_output/pages/ and are not included in sitemap.,modules/review_workflow.py
 review dashboard,exists,Static review dashboard is available at draft_output/admin_review.html and draft_output/review_dashboard/index.html.,modules/review_workflow.py
 streamlit review dashboard,exists,"Dashboard tab Duyệt nội dung can create, edit, approve, reject, and publish approved static drafts.",dashboard/app.py + modules/content_approval.py
-approval queue,exists,1 pending/edit drafts exported to data/approval_queue.csv.,data/approval_queue.csv
-approved pages,exists,1 approved/published drafts exported to data/approved_pages.csv.,data/approved_pages.csv
+approval queue,exists,0 pending/edit drafts exported to data/approval_queue.csv.,data/approval_queue.csv
+approved pages,exists,2 approved/published drafts exported to data/approved_pages.csv.,data/approved_pages.csv
 publish workflow,exists,Approved drafts can be published manually from dashboard only after quality guardrails pass; local static preview exists. Current generated site pages remain pipeline-managed.,modules/content_approval.py
 quality guardrails,exists,"Guardrails check screenshot, word count, CTA, internal links, duplicate title/meta, placeholders, and broken links for queue/reporting.",modules/review_workflow.py
 content drafts source,exists,2 rows loaded from data/content_drafts.csv and affiliate_os_drafts.json import layer.,data/content_drafts.csv

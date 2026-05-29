@@ -1,7 +1,7 @@
 ---
 id: day-07-0730-vi-linkedin
 day: 7
-scheduled_date: 2026-05-23
+scheduled_date: 2026-05-27
 scheduled_time: 07:30
 language: vi
 platform: linkedin

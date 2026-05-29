@@ -1,7 +1,7 @@
 ---
 id: day-10-0730-vi-short_video
 day: 10
-scheduled_date: 2026-05-26
+scheduled_date: 2026-05-30
 scheduled_time: 07:30
 language: vi
 platform: short_video

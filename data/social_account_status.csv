@@ -1,0 +1,9 @@
+﻿platform,status,posting_mode,daily_limit,scheduled_times,last_publish_status,error_message
+telegram,token_configured,approved_auto,6,"09:00, 20:00",,
+linkedin,manual_only,export_only,2,10:00,,
+reddit,manual_only,export_only,2,11:00,,
+quora,manual_only,manual,2,12:00,,
+twitter,manual_only,export_only,5,"09:15, 14:00, 20:15",,
+facebook_page,manual_only,manual,2,"09:30, 20:30",,
+facebook_profile,manual_only,manual,1,20:00,,
+facebook_group,manual_only,manual,2,19:30,,

@@ -1,7 +1,7 @@
 ---
 id: day-26-0730-en-short_video
 day: 26
-scheduled_date: 2026-06-11
+scheduled_date: 2026-06-15
 scheduled_time: 07:30
 language: en
 platform: short_video

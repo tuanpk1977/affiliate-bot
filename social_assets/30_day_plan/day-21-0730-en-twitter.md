@@ -1,7 +1,7 @@
 ---
 id: day-21-0730-en-twitter
 day: 21
-scheduled_date: 2026-06-06
+scheduled_date: 2026-06-10
 scheduled_time: 07:30
 language: en
 platform: twitter

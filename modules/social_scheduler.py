@@ -10,6 +10,7 @@ from modules.social_draft_generator import (
     move_draft_status,
     social_status_dir,
 )
+from modules.social_publisher import ensure_queue as ensure_publish_queue, save_queue as save_publish_queue
 
 
 DEFAULT_AUTOMATION_SCHEDULE = {
@@ -126,3 +127,33 @@ def schedule_approved_posts(limit: int | None = None, dry_run: bool = False) -> 
 def scheduled_count() -> int:
     path = social_status_dir("scheduled")
     return len(list(path.glob("*.json"))) if path.exists() else 0
+
+
+def schedule_approved_queue_posts(limit: int | None = None, dry_run: bool = False) -> list[dict[str, str]]:
+    """Schedule approved rows in data/social_publish_queue.csv without publishing.
+
+    This is the multi-platform queue scheduler used by the human-approved publisher.
+    It only moves approved rows to Scheduled and assigns a time; platform publishing is
+    handled later by modules.social_publisher in dry-run/manual-safe mode by default.
+    """
+    config = ensure_automation_schedule_config()
+    queue = ensure_publish_queue()
+    if queue.empty:
+        return []
+    mask = queue["status"].astype(str).str.lower().isin(["approved"])
+    approved = queue[mask].copy()
+    if limit is not None:
+        approved = approved.head(limit)
+    scheduled_times = next_schedule_times(len(approved), config=config)
+    scheduled_rows: list[dict[str, str]] = []
+    for (idx, row), scheduled_at in zip(approved.iterrows(), scheduled_times):
+        updated = row.to_dict()
+        updated["scheduled_time"] = scheduled_at
+        updated["status"] = "Scheduled"
+        scheduled_rows.append({key: str(value) for key, value in updated.items()})
+        if not dry_run:
+            queue.loc[idx, "scheduled_time"] = scheduled_at
+            queue.loc[idx, "status"] = "Scheduled"
+    if not dry_run:
+        save_publish_queue(queue)
+    return scheduled_rows

@@ -2,7 +2,7 @@
 
 - Platform: Telegram
 - Status: Pending Review
-- Suggested time: 2026-05-27 09:00
+- Suggested time: 2026-06-08 09:00
 - Target URL: https://review.mssmileenglish.com/comparisons/cursor-vs-copilot/?utm_source=telegram
 
 ## Copy

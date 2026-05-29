@@ -1,14 +1,3 @@
 User-agent: *
 Allow: /
-Disallow: /go/
-Disallow: /__pycache__/
-Disallow: /draft_output/
-Disallow: /data/
-Disallow: /config/
-Disallow: /logs/
-Disallow: /rss.xml
-Disallow: /sitemap/
-Disallow: /media-kit/
-Disallow: /about-author/
-Disallow: /author-profile/
 Sitemap: https://review.mssmileenglish.com/sitemap.xml

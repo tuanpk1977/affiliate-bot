@@ -1,1 +1,2 @@
 ﻿timestamp,actor,action,object_type,object_id,status,notes
+2026-05-19T14:06:16,dashboard,update_status,community_post,value-first-e6da826be2,approved,Requires human approval before publishing. External groups should be posted manually unless explicitly approved.

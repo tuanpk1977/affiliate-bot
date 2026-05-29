@@ -79,6 +79,7 @@ LANDING_TEMPLATE = """<!doctype html>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ seo_title }}</title>
   <meta name="description" content="{{ meta_description }}">
+  <meta name="robots" content="index,follow">
   <link rel="canonical" href="{{ canonical_url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site_name }} RSS" href="{{ rss_url }}">
   <meta property="og:type" content="article">

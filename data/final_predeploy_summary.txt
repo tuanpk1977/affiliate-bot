@@ -6,14 +6,14 @@ warnings: 0
 COUNTS
 - homepage: 1
 - review_pages: 27
-- comparison_pages: 37
+- comparison_pages: 39
 - pricing_pages: 10
 - category_pages: 21
 - hub_pages: 13
 - priority_pages: 23
 - go_tracking_pages: 93
-- total_sitemap_urls: 460
-- total_html_files: 589
+- total_sitemap_urls: 500
+- total_html_files: 603
 
 ERRORS
 - none

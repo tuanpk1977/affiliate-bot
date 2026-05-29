@@ -1,42 +1,93 @@
 {
   "telegram": {
     "enabled": true,
-    "bot_token": "",
-    "chat_id": "",
+    "posting_mode": "approved_auto",
+    "env_token": "TELEGRAM_BOT_TOKEN",
+    "env_chat_id": "TELEGRAM_CHAT_ID",
+    "daily_limit": 6,
+    "scheduled_times": [
+      "09:00",
+      "20:00"
+    ],
+    "note": "Do not store real tokens here. Put TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID in .env.",
     "telegram_bot_token": "",
-    "telegram_chat_id": "",
-    "note": "Do not commit real tokens. Prefer .env TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID."
+    "telegram_chat_id": ""
+  },
+  "linkedin": {
+    "enabled": true,
+    "posting_mode": "export_only",
+    "env_access_token": "LINKEDIN_ACCESS_TOKEN",
+    "daily_limit": 2,
+    "scheduled_times": [
+      "10:00"
+    ],
+    "note": "Manual/export mode unless a legitimate API integration is configured later."
+  },
+  "reddit": {
+    "enabled": true,
+    "posting_mode": "export_only",
+    "env_client_id": "REDDIT_CLIENT_ID",
+    "env_client_secret": "REDDIT_CLIENT_SECRET",
+    "env_username": "REDDIT_USERNAME",
+    "env_user_agent": "REDDIT_USER_AGENT",
+    "daily_limit": 2,
+    "scheduled_times": [
+      "11:00"
+    ],
+    "note": "Community-first, no spam. Export by default."
+  },
+  "quora": {
+    "enabled": true,
+    "posting_mode": "manual",
+    "daily_limit": 2,
+    "scheduled_times": [
+      "12:00"
+    ],
+    "note": "Manual/export only. No unofficial scraping or automation."
+  },
+  "twitter": {
+    "enabled": true,
+    "posting_mode": "export_only",
+    "env_api_key": "TWITTER_API_KEY",
+    "env_api_secret": "TWITTER_API_SECRET",
+    "env_access_token": "TWITTER_ACCESS_TOKEN",
+    "env_access_secret": "TWITTER_ACCESS_SECRET",
+    "daily_limit": 5,
+    "scheduled_times": [
+      "09:15",
+      "14:00",
+      "20:15"
+    ],
+    "note": "Validate character limits and export by default."
+  },
+  "facebook_page": {
+    "enabled": true,
+    "posting_mode": "manual",
+    "daily_limit": 2,
+    "scheduled_times": [
+      "09:30",
+      "20:30"
+    ]
+  },
+  "facebook_profile": {
+    "enabled": true,
+    "posting_mode": "manual",
+    "daily_limit": 1,
+    "scheduled_times": [
+      "20:00"
+    ]
+  },
+  "facebook_group": {
+    "enabled": true,
+    "posting_mode": "manual",
+    "daily_limit": 2,
+    "scheduled_times": [
+      "19:30"
+    ],
+    "note": "External groups require explicit human approval per group/post."
   },
   "facebook": {
     "enabled": false,
-    "page_name": "",
-    "login_method": "manual_cookie"
-  },
-  "linkedin": {
-    "enabled": false,
-    "email": "",
-    "password": ""
-  },
-  "twitter": {
-    "enabled": false,
-    "username": ""
-  },
-  "future_hooks": {
-    "n8n": {
-      "enabled": false,
-      "webhook_url": ""
-    },
-    "supabase": {
-      "enabled": false,
-      "project_url": ""
-    },
-    "playwright": {
-      "enabled": false,
-      "mode": "manual_review_only"
-    },
-    "rss_auto_distribution": {
-      "enabled": false,
-      "feed_url": ""
-    }
+    "mode": "copy_ready_only"
   }
 }

@@ -1,16 +1,16 @@
 REVIEW DASHBOARD SUMMARY
-pending: 1
-approved_or_published: 1
+pending: 0
+approved_or_published: 2
 missing_images: 10
-pending_pages_in_sitemap: 1
+pending_pages_in_sitemap: 0
 drafts_missing_cta_or_internal_links: 0
 
 Workflow:
 - draft_output: exists | Draft preview pages are written to draft_output/pages/ and are not included in sitemap.
 - review dashboard: exists | Static review dashboard is available at draft_output/admin_review.html and draft_output/review_dashboard/index.html.
 - streamlit review dashboard: exists | Dashboard tab Duyệt nội dung can create, edit, approve, reject, and publish approved static drafts.
-- approval queue: exists | 1 pending/edit drafts exported to data/approval_queue.csv.
-- approved pages: exists | 1 approved/published drafts exported to data/approved_pages.csv.
+- approval queue: exists | 0 pending/edit drafts exported to data/approval_queue.csv.
+- approved pages: exists | 2 approved/published drafts exported to data/approved_pages.csv.
 - publish workflow: exists | Approved drafts can be published manually from dashboard only after quality guardrails pass; local static preview exists. Current generated site pages remain pipeline-managed.
 - quality guardrails: exists | Guardrails check screenshot, word count, CTA, internal links, duplicate title/meta, placeholders, and broken links for queue/reporting.
 - content drafts source: exists | 2 rows loaded from data/content_drafts.csv and affiliate_os_drafts.json import layer.

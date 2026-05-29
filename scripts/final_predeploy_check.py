@@ -11,6 +11,10 @@ from xml.etree import ElementTree as ET
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from modules.indexing_policy import is_redirect_page, rel_path_for_html  # noqa: E402
+
 SITE = ROOT / "site_output"
 DATA = ROOT / "data"
 REPORT_CSV = DATA / "final_predeploy_report.csv"
@@ -93,6 +97,16 @@ def main() -> int:
         errors.append(item)
     add_row(rows, "metadata_scan", not metadata_errors, f"{len(metadata_errors)} canonical/meta issues")
 
+    robots_errors = validate_robots_policy(SITE / "robots.txt")
+    for item in robots_errors:
+        errors.append(item)
+    add_row(rows, "robots_indexing_policy", not robots_errors, f"{len(robots_errors)} robots policy issues")
+
+    robots_meta_errors = validate_robots_meta_policy(html_files)
+    for item in robots_meta_errors:
+        errors.append(item)
+    add_row(rows, "robots_meta_policy", not robots_meta_errors, f"{len(robots_meta_errors)} robots meta issues")
+
     broken_links = validate_internal_links(html_files)
     for item in broken_links:
         errors.append(item)
@@ -173,6 +187,41 @@ def validate_metadata(html_files: list[Path]) -> list[str]:
             errors.append(f"{rel}: missing canonical")
         if 'name="description"' not in text:
             errors.append(f"{rel}: missing meta description")
+    return errors
+
+
+def validate_robots_policy(path: Path) -> list[str]:
+    if not path.exists():
+        return ["robots.txt missing"]
+    text = path.read_text(encoding="utf-8", errors="ignore")
+    errors = []
+    if "User-agent: *" not in text:
+        errors.append("robots.txt missing User-agent: *")
+    if "Allow: /" not in text:
+        errors.append("robots.txt missing Allow: /")
+    if re.search(r"(?im)^\s*Disallow\s*:", text):
+        errors.append("robots.txt contains Disallow directive")
+    if f"Sitemap: {BASE_URL}/sitemap.xml" not in text:
+        errors.append("robots.txt missing canonical sitemap reference")
+    return errors
+
+
+def validate_robots_meta_policy(html_files: list[Path]) -> list[str]:
+    errors = []
+    for file in html_files:
+        text = file.read_text(encoding="utf-8", errors="ignore")
+        rel = file.relative_to(SITE).as_posix()
+        page_path = rel_path_for_html(file, SITE)
+        match = re.search(r"<meta[^>]+name=['\"]robots['\"][^>]+content=['\"]([^'\"]+)['\"]", text, flags=re.I)
+        robots = (match.group(1).strip().lower() if match else "")
+        if is_redirect_page(page_path):
+            if "noindex" not in robots or "follow" not in robots or "nofollow" in robots:
+                errors.append(f"{rel}: redirect page must use robots noindex,follow")
+            continue
+        if "noindex" in robots:
+            errors.append(f"{rel}: non-redirect page contains robots noindex")
+        if not robots:
+            errors.append(f"{rel}: missing robots meta")
     return errors
 
 

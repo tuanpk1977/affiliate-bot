@@ -181,6 +181,7 @@ def page_shell(
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{html.escape(title)} - {SITE_NAME}</title>
   <meta name="description" content="{html.escape(description)}">
+  <meta name="robots" content="index,follow">
   <link rel="canonical" href="{html.escape(canonical, quote=True)}">
   <link rel="alternate" hreflang="en" href="{html.escape(en_url, quote=True)}">
   <link rel="alternate" hreflang="vi" href="{html.escape(vi_url, quote=True)}">

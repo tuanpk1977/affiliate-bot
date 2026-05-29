@@ -1074,7 +1074,12 @@ def _platform_hashtags(platform: str, content: str) -> str:
     return " ".join(tags[:2])
 
 
-def _rewrite_payload_for_platform(row: dict[str, object], requested_platform: str) -> dict[str, str]:
+def _rewrite_payload_for_platform(
+    row: dict[str, object],
+    requested_platform: str,
+    include_link: bool = True,
+    facebook_variant: str = "experience",
+) -> dict[str, str]:
     platform = requested_platform.lower().strip()
     title = str(row.get("title", "") or "AI workflow note").strip()
     original = str(row.get("content", "") or "").strip()
@@ -1088,6 +1093,8 @@ def _rewrite_payload_for_platform(row: dict[str, object], requested_platform: st
         tracked_url=link,
         keyword=str(row.get("utm_content", "") or ""),
         topic=topic,
+        include_link=include_link,
+        facebook_variant=facebook_variant,
     )
     return result
 
@@ -1270,11 +1277,38 @@ def render_publishing_queue_page() -> None:
     st.markdown("### Rewrite Selected Platform")
     rewrite_platform = st.selectbox(
         "Platform rewrite",
-        ["facebook", "telegram", "linkedin", "twitter", "quora", "reddit"],
-        index=max(0, ["facebook", "telegram", "linkedin", "twitter", "quora", "reddit"].index(_rewrite_platform_name(current_platform))),
+        ["facebook_group", "facebook_page", "facebook_profile", "telegram", "linkedin", "twitter", "quora", "reddit"],
+        index=0 if _rewrite_platform_name(current_platform) == "facebook" else max(0, ["facebook_group", "facebook_page", "facebook_profile", "telegram", "linkedin", "twitter", "quora", "reddit"].index(_rewrite_platform_name(current_platform))),
         key=f"publisher_rewrite_platform_{selected_id}",
     )
-    rewrite_payload = _rewrite_payload_for_platform(row, rewrite_platform)
+    facebook_variant = "experience"
+    include_link = True
+    no_group_link = False
+    if native_platform_source(rewrite_platform) == "facebook":
+        variant_labels = {
+            "Bài chia sẻ trải nghiệm": "experience",
+            "Bài hỏi cộng đồng": "community_question",
+            "Bài so sánh 2 tool": "tool_comparison",
+            "Comment trả lời ngắn": "short_reply",
+        }
+        variant_label = st.selectbox(
+            "Facebook content style",
+            list(variant_labels.keys()),
+            key=f"facebook_variant_{selected_id}",
+        )
+        facebook_variant = variant_labels[variant_label]
+        no_group_link = st.checkbox(
+            "Không chèn link trong bài group",
+            value=True,
+            key=f"facebook_no_group_link_{selected_id}",
+        )
+        include_link = not (rewrite_platform == "facebook_group" and no_group_link)
+    rewrite_payload = _rewrite_payload_for_platform(
+        row,
+        rewrite_platform,
+        include_link=include_link,
+        facebook_variant=facebook_variant,
+    )
     rewritten = rewrite_payload["content"]
     hashtags = rewrite_payload["hashtags"]
     tracked_url = _tracked_url_for_platform(row, rewrite_platform)
@@ -1304,6 +1338,13 @@ def render_publishing_queue_page() -> None:
     with copy_col:
         clipboard_button("Copy Full Package", package, key=f"copy_full_package_{selected_id}", toast_text="Copied post package")
         clipboard_button("Copy Clean Post", clean_package, key=f"copy_clean_package_{selected_id}", toast_text="Copied clean post")
+        if native_platform_source(rewrite_platform) == "facebook":
+            clipboard_button(
+                "Copy Facebook Group Post",
+                edited_content.strip(),
+                key=f"copy_facebook_group_post_{selected_id}",
+                toast_text="Copied Facebook group post",
+            )
     download_col.download_button(
         "Download TXT",
         data=package.encode("utf-8"),

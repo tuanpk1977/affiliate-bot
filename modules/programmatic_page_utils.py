@@ -98,6 +98,7 @@ def shell(title: str, description: str, path: str, body: str, extra_schema: list
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{html.escape(title)} - {html.escape(settings.site_name)}</title>
   <meta name="description" content="{html.escape(description)}">
+  <meta name="robots" content="index,follow">
   <link rel="canonical" href="{html.escape(BASE + path, quote=True)}">
   <meta property="og:title" content="{html.escape(title)}">
   <meta property="og:description" content="{html.escape(description)}">

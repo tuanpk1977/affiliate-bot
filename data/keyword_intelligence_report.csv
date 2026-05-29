@@ -90,7 +90,6 @@ solve marketing workflow,AI automation tools,tutorial,,false,low,missing_page,bu
 solve productivity workflow,AI automation tools,tutorial,,false,low,missing_page,builder workflow / failure case,59,monitor
 when codex fixes what cursor breaks,AI coding tools,tutorial,,false,low,missing_page,practical review / use case,59,monitor
 which ai survives the second failed fix,general,tutorial,,false,low,missing_page,practical review / use case,59,monitor
-windsurf + codex workflow,AI coding tools,tutorial,,false,low,missing_page,builder workflow / failure case,59,monitor
 copilot vs codex practical comparison for real developers and ai builders ms smile ai hub,AI coding tools,comparison,/comparisons/copilot-vs-codex/,true,low,thin_content,comparison debate / practical tradeoff,58,expand_content_depth
 crack,general,review,,false,medium,missing_page,practical review / use case,57,monitor
 general,general,review,,false,medium,missing_page,practical review / use case,57,monitor
@@ -155,6 +154,8 @@ chatgpt vs claude,comparisons,comparison,/comparisons/chatgpt-vs-claude/,true,lo
 chatgpt vs claude which ai assistants should you choose,comparisons,comparison,/comparisons/chatgpt-vs-claude/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 chatgpt vs gemini,comparisons,comparison,/comparisons/chatgpt-vs-gemini/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 chatgpt vs gemini ms smile ai hub,comparisons,comparison,/comparisons/chatgpt-vs-gemini/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
+codex vs openclaw,AI coding tools,comparison,/comparisons/codex-vs-openclaw/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
+codex vs openclaw which ai coding tool fits real development workflows,AI coding tools,comparison,/comparisons/codex-vs-openclaw/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 copilot vs codex,AI coding tools,comparison,/comparisons/copilot-vs-codex/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 copilot vs tabnine,AI coding tools,comparison,/comparisons/copilot-vs-tabnine/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 cursor vs copilot,AI coding tools,comparison,/comparisons/cursor-vs-copilot/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
@@ -200,6 +201,8 @@ semrush vs ahrefs which seo platforms should you choose,AI SEO tools,comparison,
 synthesia vs heygen,comparisons,comparison,/comparisons/synthesia-vs-heygen/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 synthesia vs heygen ms smile ai hub,comparisons,comparison,/comparisons/synthesia-vs-heygen/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 synthesia vs pictory,comparisons,comparison,/compare/synthesia-vs-pictory/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
+synthesia vs runway,comparisons,comparison,/comparisons/synthesia-vs-runway/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
+synthesia vs runway ms smile ai hub,comparisons,comparison,/comparisons/synthesia-vs-runway/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 windsurf vs copilot,AI coding tools,comparison,/comparisons/windsurf-vs-copilot/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 windsurf vs copilot th c t,AI coding tools,comparison,/best-ai-coding-tools-2026/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 windsurf vs copilot workflow note,AI coding tools,comparison,/best-ai-coding-tools-2026/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
@@ -399,6 +402,10 @@ automation tool for business,AI automation tools,review,/blog/automation-tools-f
 blog ms smile ai hub,general,review,/blog/ai-productivity-tools/,true,low,thin_content,practical review / use case,37,expand_content_depth
 canva features pros cons notes,general,review,/canva/,true,low,thin_content,practical review / use case,37,expand_content_depth
 categories ms smile ai hub,general,review,/categories/,true,low,thin_content,practical review / use case,37,expand_content_depth
+chatgpt prompts for windsurf,AI coding tools,review,/blog/chatgpt-prompts-for-windsurf/,true,low,thin_content,practical review / use case,37,expand_content_depth
+chatgpt prompts for windsurf ms smile ai hub,AI coding tools,review,/blog/chatgpt-prompts-for-windsurf/,true,low,thin_content,practical review / use case,37,expand_content_depth
+chatgpt windsurf codex workflow,AI coding tools,tutorial,/blog/chatgpt-windsurf-codex-workflow/,true,low,thin_content,builder workflow / failure case,37,expand_content_depth
+chatgpt windsurf codex workflow ms smile ai hub,AI coding tools,tutorial,/blog/chatgpt-windsurf-codex-workflow/,true,low,thin_content,builder workflow / failure case,37,expand_content_depth
 contact ms smile ai hub,general,review,/contact/,true,low,thin_content,practical review / use case,37,expand_content_depth
 copy.ai features pros cons notes,AI writing tools,review,/copy-ai/,true,low,thin_content,practical review / use case,37,expand_content_depth
 crm ms smile ai hub,general,review,/best-crm-tools/,true,low,thin_content,practical review / use case,37,expand_content_depth
@@ -413,6 +420,8 @@ elevenlabs features pros cons notes,general,review,/elevenlabs/,true,low,thin_co
 email marketing software,general,review,/email-marketing-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
 email marketing software research style for ms smile ai hub,general,review,/email-marketing-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
 email marketing tool for business,general,review,/category/email-marketing-tools/,true,low,thin_content,practical review / use case,37,expand_content_depth
+fix windsurf mixed language,AI coding tools,tutorial,/blog/fix-windsurf-mixed-language/,true,low,thin_content,practical review / use case,37,expand_content_depth
+fix windsurf mixed language issues ms smile ai hub,AI coding tools,tutorial,/blog/fix-windsurf-mixed-language/,true,low,thin_content,practical review / use case,37,expand_content_depth
 framer features pros cons notes,general,review,/framer/,true,low,thin_content,practical review / use case,37,expand_content_depth
 gamma features pros cons notes,general,review,/gamma/,true,low,thin_content,practical review / use case,37,expand_content_depth
 gi cursor nh ng i m c n ki m tra tr c khi mua ms smile ai hub,AI coding tools,review,/cursor-pricing/,true,low,thin_content,practical review / use case,37,expand_content_depth
@@ -458,6 +467,11 @@ website builder software research style for ms smile ai hub,general,review,/webs
 website builder tool for business,general,review,/category/website-builder-tools/,true,low,thin_content,practical review / use case,37,expand_content_depth
 website builders hub ms smile ai hub,general,review,/best-website-builders/,true,low,thin_content,practical review / use case,37,expand_content_depth
 website builders ms smile ai hub,general,review,/best-website-builders/,true,low,thin_content,practical review / use case,37,expand_content_depth
+windsurf + codex workflow,AI coding tools,tutorial,/blog/chatgpt-windsurf-codex-workflow/,true,low,thin_content,builder workflow / failure case,37,expand_content_depth
+windsurf prompt checklist,AI coding tools,review,/blog/windsurf-prompt-checklist/,true,low,thin_content,practical review / use case,37,expand_content_depth
+windsurf prompt checklist ms smile ai hub,AI coding tools,review,/blog/windsurf-prompt-checklist/,true,low,thin_content,practical review / use case,37,expand_content_depth
+windsurf to codex workflow,AI coding tools,tutorial,/blog/windsurf-to-codex-workflow/,true,low,thin_content,builder workflow / failure case,37,expand_content_depth
+windsurf to codex workflow ms smile ai hub,AI coding tools,tutorial,/blog/chatgpt-windsurf-codex-workflow/,true,low,thin_content,builder workflow / failure case,37,expand_content_depth
 zapier features pros cons notes,AI automation tools,review,/zapier/,true,low,thin_content,practical review / use case,37,expand_content_depth
 about,general,review,/about/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 about author,general,review,/about-author/,true,medium,thin_content,practical review / use case,35,expand_content_depth

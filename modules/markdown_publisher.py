@@ -243,6 +243,7 @@ def page_shell(title: str, description: str, canonical: str, breadcrumb_name: st
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{html.escape(title)} - {html.escape(settings.site_name)}</title>
   <meta name="description" content="{html.escape(description)}">
+  <meta name="robots" content="index,follow">
   <link rel="canonical" href="{html.escape(canonical, quote=True)}">
   <meta property="og:title" content="{html.escape(title)} - {html.escape(settings.site_name)}">
   <meta property="og:description" content="{html.escape(description)}">

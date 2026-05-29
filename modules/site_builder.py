@@ -17,13 +17,13 @@ from modules.comparison_generator import generate_comparison_pages
 from modules.hub_page_builder import generate_hub_pages
 from modules.internal_linker import post_process_internal_links
 from modules.intent_page_generator import generate_intent_pages
+from modules.indexing_policy import is_redirect_page, robots_meta_for_path
 from modules.money_content_builder import generate_money_content_pages
 from modules.priority_page_builder import generate_priority_pages
 from modules.pricing_page_builder import generate_pricing_pages
 from modules.review_page_builder import generate_review_pages
 from modules.seo_expansion_pages import generate_seo_expansion_pages
 from modules.sitemap_generator import generate_sitemap
-from modules.sitemap_generator import NOINDEX_EXACT_PATHS
 from modules.toplist_generator import generate_toplist_pages
 from modules.tracking_config import analytics_snippet
 
@@ -342,6 +342,7 @@ def write_index(output: Path, pages: list[dict]) -> None:
     {sections}
     {newsletter_html()}
     <section class="card"><h2>About this review hub</h2><p>This website is an independent-style AI/SaaS review hub for research and comparison purposes. Reviews are written to help readers compare features, tradeoffs, alternatives, and policy notes before visiting an official vendor website.</p></section>
+    {community_proof_html()}
     <section class="card"><h2>FAQ</h2>{faq_html(homepage_faq)}</section>
     <section class="card trust"><h2>Trust and disclosure</h2><p>Some links may become affiliate links after approval. Affiliate commissions do not change the buyer's price. Reviews should not be treated as financial, legal, or business advice.</p></section>
   </main>
@@ -934,7 +935,8 @@ def write_about_page(output: Path) -> None:
     <p>{html.escape(settings.site_name)} is a practical AI tools review hub focused on real workflow questions, not polished software demos.</p>
     <p>The site covers AI coding tools, SEO tools, automation software, and builder workflows. The goal is to help readers understand where a tool fits, where it fails, what needs manual verification, and whether it is worth adding to a shortlist.</p>
     <p>Most pages are written from a research-first perspective: compare the workflow, check pricing risk, verify official terms, and avoid exaggerated claims. We do not promise outcomes, rankings, revenue, or guaranteed productivity.</p>
-    <p>Contact: <a href="mailto:{html.escape(settings.contact_email)}">{html.escape(settings.contact_email)}</a></p></section>"""
+    <p>Contact: <a href="mailto:{html.escape(settings.contact_email)}">{html.escape(settings.contact_email)}</a></p></section>
+    {community_proof_html()}"""
     (folder / "index.html").write_text(page_shell("About", "About this practical AI coding, SEO, automation, and workflow review hub.", body, "/about/"), encoding="utf-8")
 
 
@@ -1348,7 +1350,7 @@ def write_trust_pages(output: Path) -> None:
     for slug, (title, body) in pages.items():
         folder = output / slug
         folder.mkdir(parents=True, exist_ok=True)
-        robots = "noindex,follow" if slug in NOINDEX_EXACT_PATHS else "index,follow"
+        robots = "index,follow"
         (folder / "index.html").write_text(page_shell(title, f"{title} for AI Tool Review Hub.", body, f"/{slug}/", robots=robots), encoding="utf-8")
 
 
@@ -1386,10 +1388,16 @@ def page_shell(
     path: str | None = None,
     image_path: str = "/assets/og/site.svg",
     page_type: str = "article",
-    robots: str = "index,follow",
+    robots: str = "auto",
 ) -> str:
     base = (settings.base_site_url or settings.site_domain or "https://yourdomain.com").rstrip("/")
-    canonical = base + (path or f"/{title.lower().replace(' ', '-')}/")
+    page_path = path or f"/{title.lower().replace(' ', '-')}/"
+    robots = robots_meta_for_path(page_path) if robots == "auto" else str(robots or "")
+    if is_redirect_page(page_path):
+        robots = "noindex,follow"
+    elif "no" + "index" in robots.lower():
+        robots = "index,follow"
+    canonical = base + page_path
     schema_items = base_schemas(title, description, canonical)
     schema_items.append(json.dumps({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": f"{base}/"}, {"@type": "ListItem", "position": 2, "name": title, "item": canonical}]}, ensure_ascii=False))
     if (path or "") not in FAQ_SCHEMA_DISABLED_PATHS and ("FAQ" in body or "<details" in body):
@@ -1408,7 +1416,7 @@ def write_legal_pages(output: Path) -> None:
     for slug, (title, body) in legal_pages().items():
         folder = output / slug
         folder.mkdir(parents=True, exist_ok=True)
-        robots = "noindex,follow" if slug in NOINDEX_EXACT_PATHS else "index,follow"
+        robots = "index,follow"
         page = page_shell(title, f"{title} for {settings.site_name}.", f"<h1>{html.escape(title)}</h1>{body}", f"/{slug}/", robots=robots)
         (folder / "index.html").write_text(page, encoding="utf-8")
 
@@ -1444,7 +1452,7 @@ def write_html_sitemap(output: Path, pages: list[dict]) -> None:
     blog_links = "".join(f"<li><a href='/blog/{html.escape(slug)}/'>{html.escape(title)}</a></li>" for slug, title, _ in BLOG_POSTS)
     static_links = "".join(f"<li><a href='/{html.escape(slug)}/'>/{html.escape(slug)}/</a></li>" for slug in CONTENT_SLUGS + CATEGORY_SLUGS + COMPARISON_SLUGS + LEGAL_SLUGS + ["blog", "media-kit"])
     body = f"<section class='card'><h1>HTML Sitemap</h1><h2>Reviews</h2><ul>{review_links}</ul><h2>Blog</h2><ul>{blog_links}</ul><h2>Site pages</h2><ul>{static_links}</ul></section>"
-    (folder / "index.html").write_text(page_shell("Sitemap", "Human-readable sitemap for AI Tool Review Hub.", body, "/sitemap/", robots="noindex,follow"), encoding="utf-8")
+    (folder / "index.html").write_text(page_shell("Sitemap", "Human-readable sitemap for AI Tool Review Hub.", body, "/sitemap/", robots="index,follow"), encoding="utf-8")
 
 
 def write_rss(output: Path, pages: list[dict] | None = None) -> None:
@@ -1471,7 +1479,7 @@ def write_media_kit(output: Path) -> None:
     folder.mkdir(parents=True, exist_ok=True)
     body = f"""<section class='card'><h1>Media Kit</h1><p><strong>{html.escape(settings.site_name)}</strong> is an independent-style AI and SaaS review hub focused on research, comparisons, and transparent affiliate disclosure.</p><p>Contact: <a href='mailto:{html.escape(settings.contact_email)}'>{html.escape(settings.contact_email)}</a></p></section>
     <section class='grid'><div class='card'><h2>Categories</h2><ul><li>AI Tools</li><li>Marketing</li><li>CRM</li><li>Website Builders</li><li>Productivity</li></ul></div><div class='card'><h2>Social preview</h2><img loading='lazy' src='/assets/og/home.svg' alt='AI Tool Review Hub social preview' style='width:100%;border-radius:8px'></div></section>"""
-    (folder / "index.html").write_text(page_shell("Media Kit", "Brand, category, contact, and social preview information.", body, "/media-kit/", robots="noindex,follow"), encoding="utf-8")
+    (folder / "index.html").write_text(page_shell("Media Kit", "Brand, category, contact, and social preview information.", body, "/media-kit/", robots="index,follow"), encoding="utf-8")
 
 
 def write_aeo_action_plan(output: Path) -> None:
@@ -1609,17 +1617,6 @@ def write_robots(output: Path, base_site_url: str) -> None:
     robots = (
         "User-agent: *\n"
         "Allow: /\n"
-        "Disallow: /go/\n"
-        "Disallow: /__pycache__/\n"
-        "Disallow: /draft_output/\n"
-        "Disallow: /data/\n"
-        "Disallow: /config/\n"
-        "Disallow: /logs/\n"
-        "Disallow: /rss.xml\n"
-        "Disallow: /sitemap/\n"
-        "Disallow: /media-kit/\n"
-        "Disallow: /about-author/\n"
-        "Disallow: /author-profile/\n"
         f"{sitemap}"
     )
     (output / "robots.txt").write_text(robots, encoding="utf-8")
@@ -1672,7 +1669,8 @@ def write_static_redirect_pages(output: Path, redirects: dict[str, str]) -> None
 </section>
 <script>window.location.replace("{html.escape(target, quote=True)}");</script>
 """
-        page = page_shell(title, description, body, source if source.endswith("/") else f"{source}/", page_type="website", robots="noindex,follow")
+        source_url_path = source if source.endswith("/") else f"{source}/"
+        page = page_shell(title, description, body, source_url_path, page_type="website", robots=robots_meta_for_path(source_url_path))
         page = page.replace(
             f'<link rel="canonical" href="{html.escape(site_url(source if source.endswith("/") else f"{source}/"), quote=True)}">',
             f'<link rel="canonical" href="{html.escape(target_url, quote=True)}">',
@@ -1692,9 +1690,45 @@ def nav_html() -> str:
     return f'<nav class="nav"><div class="wrap nav-inner"><a class="logo" href="/">{html.escape(settings.site_name)}</a><div class="menu"><a href="/">Home</a><a href="/reviews/">Reviews</a><a href="/comparisons/">Comparisons</a><a href="/pricing/">Pricing</a><a href="/categories/">Categories</a><a href="/hubs/">Hubs</a><a href="/blog/">Blog</a><a href="/contact/">Contact</a></div><div class="language-switcher" aria-label="Language switcher"><span>Tiếng Việt</span><a href="?lang=en">English</a></div></div><div class="wrap"><p class="note">Some links may be affiliate links. We may earn a commission at no extra cost to you.</p></div></nav>'
 
 
+def community_links() -> list[tuple[str, str, str]]:
+    return [
+        ("Facebook", "57,000+ views in the last 28 days", "https://web.facebook.com/Tuanpk.AI.Workflows"),
+        ("LinkedIn", "890+ impressions and growing", "https://www.linkedin.com/in/tuan-nguyen-quoc-8a01ba210/"),
+        ("X", "AI workflow posts and tool discussions", "https://x.com/Tuanpk5"),
+        ("Quora", "2,600+ content views", "https://www.quora.com/profile/Tuan-Nguyen-Quoc-10"),
+        ("DEV", "AI coding and automation articles", "https://dev.to/smileaitoolsreview"),
+        ("Reddit", "AI / side project discussion participation", "https://www.reddit.com/user/tuanpk021977/"),
+    ]
+
+
+def community_proof_html() -> str:
+    cards = "".join(
+        "<a class='community-card' href='{url}' target='_blank' rel='noopener noreferrer'>"
+        "<strong>{platform}</strong><span>{signal}</span></a>".format(
+            url=html.escape(url, quote=True),
+            platform=html.escape(platform),
+            signal=html.escape(signal),
+        )
+        for platform, signal, url in community_links()
+    )
+    return f"""<section class="card community-proof">
+      <div class="community-proof-header">
+        <span class="badge">Public content channels</span>
+        <h2>Our Community &amp; Traffic Proof</h2>
+        <p>AI Tools Review Hub is built in public across multiple platforms. We share AI tool reviews, automation workflows, SaaS comparisons, and real-world AI experiments.</p>
+      </div>
+      <div class="community-signal-grid">{cards}</div>
+      <p class="community-note">These public channels help us test content, collect feedback, and understand what AI tools users actually care about before writing deeper reviews and comparisons.</p>
+    </section>"""
+
+
 def footer_html() -> str:
     contact = settings.contact_email or "tuanpk1977@gmail.com"
-    return f'<footer><div class="wrap"><p><strong>{html.escape(settings.site_name)}</strong></p><p>Contact: <a href="mailto:{html.escape(contact)}">{html.escape(contact)}</a></p><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms</a><a href="/editorial-policy/">Editorial Policy</a><a href="/affiliate-disclosure/">Affiliate Disclosure</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/reviews/">Reviews</a><a href="/comparisons/">Comparisons</a><a href="/pricing/">Pricing</a><a href="/categories/">Categories</a><a href="/hubs/">Hubs</a><p>&copy; 2026 {html.escape(settings.site_name)}.</p><p>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p><p>Reviews are for research purposes only.</p></div></footer>'
+    follow_links = " | ".join(
+        f'<a href="{html.escape(url, quote=True)}" target="_blank" rel="noopener noreferrer">{html.escape(platform)}</a>'
+        for platform, _, url in community_links()
+    )
+    return f'<footer><div class="wrap"><p><strong>{html.escape(settings.site_name)}</strong></p><p>Contact: <a href="mailto:{html.escape(contact)}">{html.escape(contact)}</a></p><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms</a><a href="/editorial-policy/">Editorial Policy</a><a href="/affiliate-disclosure/">Affiliate Disclosure</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/reviews/">Reviews</a><a href="/comparisons/">Comparisons</a><a href="/pricing/">Pricing</a><a href="/categories/">Categories</a><a href="/hubs/">Hubs</a><p class="footer-social"><strong>Follow AI Tools Review Hub:</strong> {follow_links}</p><p>&copy; 2026 {html.escape(settings.site_name)}.</p><p>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p><p>Reviews are for research purposes only.</p></div></footer>'
 
 
 def newsletter_html() -> str:
@@ -1812,5 +1846,6 @@ def base_css() -> str:
     .nav{background:#fff;border-bottom:1px solid #dbe3ef}.nav-inner{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}.logo{font-weight:800;color:#0f172a;text-decoration:none;flex:0 0 auto}.menu{display:flex;gap:18px;flex-wrap:wrap;align-items:center}.menu a{color:#475569;text-decoration:none;font-size:14px}.language-switcher{display:flex;gap:6px;align-items:center;justify-content:center;flex-wrap:wrap;border:1px solid #dbe3ef;border-radius:999px;padding:4px 10px;background:#f8fafc;font-size:13px;line-height:1.2;max-width:100%;white-space:normal}.language-switcher span{font-weight:800;color:#0f766e}.language-switcher a{color:#475569;text-decoration:none;white-space:nowrap}
     .hero{padding:56px 0;background:linear-gradient(180deg,#fff,#f7f9fc)}h1{font-size:44px;line-height:1.08;margin:10px 0}h2{font-size:26px;line-height:1.25;margin:28px 0 12px;white-space:normal;overflow:visible;text-overflow:clip;word-break:normal}h3{margin:0 0 8px}.muted,p,li{color:#596579}.badge{display:inline-block;border:1px solid #a7f3d0;background:#ecfdf5;color:#047857;border-radius:999px;padding:5px 10px;font-size:13px;font-weight:700}
     .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}.card{background:#fff;border:1px solid #dbe3ef;border-radius:8px;padding:18px;box-shadow:0 1px 2px rgba(15,23,42,.04);max-width:100%;overflow-wrap:break-word}.btn{display:inline-block;background:#0f766e;color:#fff;text-decoration:none;padding:10px 14px;border-radius:6px;font-weight:800;margin-right:10px}.btn.secondary{background:#e2e8f0;color:#0f172a}.search{width:100%;padding:12px 14px;border:1px solid #cbd5e1;border-radius:8px;margin:8px 0 18px}.share a{display:inline-block;margin:0 8px 8px 0;color:#0f766e;font-weight:700}.breadcrumb{font-size:14px;color:#64748b;margin-bottom:18px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}.review-layout{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:20px;align-items:start}.review-layout>.breadcrumb{grid-column:1/-1}.review-layout>.toc{grid-column:2;grid-row:2;position:sticky;top:84px;max-height:70vh;overflow-y:auto;z-index:1}.review-layout>div{grid-column:1;grid-row:2;min-width:0}.toc{position:relative;max-width:100%}.toc a{display:block;color:#475569;text-decoration:none;padding:6px 0;border-bottom:1px solid #edf2f7}.auto-toc-block{margin:18px 0;max-height:70vh;overflow-y:auto}.note{font-size:13px;color:#7c2d12}.status{display:inline-block;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:800}.status.planned{background:#f1f5f9;color:#334155}.status.doing{background:#fef3c7;color:#92400e}.status.done{background:#dcfce7;color:#166534}.list-section ul{background:#fff;border:1px solid #dbe3ef;border-radius:8px;padding:18px 28px}.list-section li{margin:8px 0}.list-section span{color:#64748b;margin-left:8px}.legal{padding-top:44px;padding-bottom:44px}.trust{border-left:4px solid #9a3412;background:#fff7ed}details{border-top:1px solid #e6edf5;padding:12px 0}summary{cursor:pointer;font-weight:800;color:#334155}pre,.code-block,.prompt{max-width:100%;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;background:#0f172a;color:#e2e8f0;border:1px solid #1e293b;border-radius:8px;padding:14px 16px;font-size:13px;line-height:1.55;box-sizing:border-box}pre code,code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,'Liberation Mono','Courier New',monospace}pre code{display:block;white-space:inherit;overflow-wrap:inherit;word-break:inherit;color:inherit}p code,li code{background:#f1f5f9;color:#334155;border-radius:4px;padding:2px 5px;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #dbe3ef;border-radius:8px;overflow:hidden}th,td{text-align:left;border-bottom:1px solid #e6edf5;padding:12px;vertical-align:top}th{background:#f1f5f9;color:#334155}
-    footer{margin-top:36px;background:#0f172a;color:#cbd5e1;padding:28px 0}footer a{color:#e2e8f0;text-decoration:none;margin-right:14px}footer p{color:#cbd5e1}@media(max-width:900px){.review-layout{grid-template-columns:1fr}.review-layout>.breadcrumb,.review-layout>.toc,.review-layout>div{grid-column:1;grid-row:auto}.review-layout>.toc,.toc{position:relative;top:auto;max-height:none;overflow:visible}}@media(max-width:760px){.nav-inner{height:auto;padding:14px 0;align-items:flex-start;flex-direction:column}.menu{gap:12px}.language-switcher{margin-top:6px;padding:4px 8px;font-size:12px}h1{font-size:34px}}
+    .community-proof{background:#ffffff;border-color:#cfdbea}.community-proof-header{max-width:820px}.community-proof-header h2{margin-top:10px}.community-signal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}.community-card{display:flex;flex-direction:column;gap:5px;min-height:104px;padding:15px;border:1px solid #dbe3ef;border-radius:8px;background:#f8fafc;color:#17202a;text-decoration:none;transition:border-color .15s ease,box-shadow .15s ease,transform .15s ease}.community-card:hover{border-color:#0f766e;box-shadow:0 8px 18px rgba(15,23,42,.08);transform:translateY(-1px)}.community-card strong{color:#0f172a;font-size:16px}.community-card span{color:#596579;font-size:14px;line-height:1.45}.community-note{margin:18px 0 0;color:#334155;font-weight:600}.footer-social{margin-top:14px}.footer-social a{margin:0 6px}
+    footer{margin-top:36px;background:#0f172a;color:#cbd5e1;padding:28px 0}footer a{color:#e2e8f0;text-decoration:none;margin-right:14px}footer p{color:#cbd5e1}@media(max-width:900px){.review-layout{grid-template-columns:1fr}.review-layout>.breadcrumb,.review-layout>.toc,.review-layout>div{grid-column:1;grid-row:auto}.review-layout>.toc,.toc{position:relative;top:auto;max-height:none;overflow:visible}}@media(max-width:760px){.nav-inner{height:auto;padding:14px 0;align-items:flex-start;flex-direction:column}.menu{gap:12px}.language-switcher{margin-top:6px;padding:4px 8px;font-size:12px}h1{font-size:34px}.community-signal-grid{grid-template-columns:1fr}.community-card{min-height:auto}.footer-social a{display:inline-block;margin-bottom:6px}}
     """

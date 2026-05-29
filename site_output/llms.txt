@@ -98,6 +98,7 @@ Comparison pages:
 - https://review.mssmileenglish.com/comparisons/canva-vs-gamma/
 - https://review.mssmileenglish.com/comparisons/chatgpt-vs-claude/
 - https://review.mssmileenglish.com/comparisons/chatgpt-vs-gemini/
+- https://review.mssmileenglish.com/comparisons/codex-vs-openclaw/
 - https://review.mssmileenglish.com/comparisons/copilot-vs-cursor/
 - https://review.mssmileenglish.com/comparisons/copilot-vs-tabnine/
 - https://review.mssmileenglish.com/comparisons/cursor-vs-copilot/
@@ -119,6 +120,7 @@ Comparison pages:
 - https://review.mssmileenglish.com/comparisons/runway-vs-pika/
 - https://review.mssmileenglish.com/comparisons/semrush-vs-ahrefs/
 - https://review.mssmileenglish.com/comparisons/synthesia-vs-heygen/
+- https://review.mssmileenglish.com/comparisons/synthesia-vs-runway/
 - https://review.mssmileenglish.com/comparisons/windsurf-vs-copilot/
 
 Decision comparison pages:

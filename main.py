@@ -42,6 +42,8 @@ from modules.social_content_generator import write_distribution_summary
 from modules.social_distribution import ensure_social_distribution_assets
 from modules.social_seo_exporter import generate_social_seo_assets
 from modules.social_publish_queue import ensure_queue as ensure_social_publish_queue
+from modules.social_publisher import ensure_social_publisher_assets
+from modules.scheduler_runner import start_background_scheduler
 
 
 LOGGER = logging.getLogger(__name__)
@@ -62,6 +64,9 @@ def main() -> None:
     ensure_social_distribution_assets()
     run_community_discovery()
     social_queue = ensure_social_publish_queue()
+    ensure_social_publisher_assets()
+    if start_background_scheduler(interval_seconds=30):
+        LOGGER.info("Telegram auto-post scheduler started")
 
     data_sources = load_data_sources(offers)
     market = analyze_market(offers)

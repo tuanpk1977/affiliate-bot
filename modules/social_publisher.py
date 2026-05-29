@@ -192,6 +192,8 @@ def platform_hashtags(platform: str, text: str) -> str:
             "twitter": ["#AITools"],
             "reddit": [],
         }
+    if str(platform or "").strip().lower() == "facebook_group":
+        return "#AI"
     return " ".join(base.get(platform_name, []))
 
 
@@ -223,27 +225,94 @@ def _context_label(title: str, topic: str, keyword: str = "") -> str:
     return "AI workflow"
 
 
-def build_facebook_style(title: str, topic_text: str, link: str, hashtags: str, base_content: str = "") -> dict[str, str]:
-    hook = f"I tested {topic_text} from the messy-project angle, not the demo angle."
-    cta = "I wrote the practical breakdown here:"
-    content = (
-        f"{hook}\n\n"
-        "The part that matters most is not whether the tool can create a clean first answer. "
-        "Most tools can do that when the task is small.\n\n"
-        "The useful question is what happens when the project has mixed context, a broken route, a rough prompt, "
-        "or a feature that needs cleanup before anyone can publish it.\n\n"
-        "My takeaway: choose the tool that helps you recover faster after the first mistake, not the one with the flashiest demo.\n\n"
-        f"{cta} {link}\n\n"
-        f"What have you seen in your own workflow?\n\n{hashtags}"
-    )
+def _facebook_topic_pair(title: str, topic_text: str) -> tuple[str, str, str]:
+    text = f"{title} {topic_text}".lower()
+    pairs = [
+        ("claude", "codex", "Claude vs Codex"),
+        ("codex", "openclaw", "Codex vs OpenClaw"),
+        ("copilot", "codex", "Copilot vs Codex"),
+        ("cursor", "windsurf", "Cursor vs Windsurf"),
+    ]
+    for left, right, label in pairs:
+        if left in text and right in text:
+            return label.split(" vs ")[0], label.split(" vs ")[1], label
+    if "no-code" in text or "ai builder" in text:
+        return "no-code builder", "AI builder", "no-code builder / AI builder"
+    return "Windsurf", "Codex", "AI coding workflow"
+
+
+def _facebook_hook(variant: str, label: str) -> str:
+    hooks = {
+        "experience": f"Chắc nhiều anh em cũng từng phân vân giữa {label}.",
+        "community_question": f"Mình muốn hỏi thật anh em đang dùng {label} trong project thật thế nào?",
+        "tool_comparison": f"Sau vài lần build project thật, mình mới thấy so sánh {label} không đơn giản như xem demo.",
+        "short_reply": f"Mình từng thử workflow liên quan {label}, cảm giác thực tế hơi khác kỳ vọng ban đầu.",
+    }
+    return hooks.get(variant, hooks["experience"])
+
+
+def build_facebook_style(
+    title: str,
+    topic_text: str,
+    link: str,
+    hashtags: str,
+    base_content: str = "",
+    *,
+    platform: str = "facebook",
+    include_link: bool = True,
+    variant: str = "experience",
+) -> dict[str, str]:
+    tool_a, tool_b, label = _facebook_topic_pair(title, topic_text)
+    is_group = str(platform or "").strip().lower() == "facebook_group"
+    tags = " ".join(hashtags.split()[:1 if is_group else 3])
+    hook = _facebook_hook(variant, label)
+    if variant == "short_reply":
+        cta = "Ai cần mình gửi link ở comment."
+        content = (
+            f"{hook}\n\n"
+            f"Nếu nói ngắn gọn, {tool_a} cho cảm giác hợp hơn khi cần một hướng xử lý rõ, còn {tool_b} đáng chú ý khi muốn thử nhanh workflow hoặc build bản đầu.\n\n"
+            "Điểm quan trọng vẫn là context và cách mình viết prompt, không phải tool nào thần thánh hơn.\n\n"
+            "Anh em dùng thực tế thấy bên nào ổn hơn?"
+        )
+    else:
+        cta = "Mình có ghi lại bản so sánh chi tiết hơn, ai cần mình gửi link ở comment."
+        content = (
+            f"{hook}\n\n"
+            "BỐI CẢNH:\n"
+            f"Mình đã dùng thử {tool_a} và {tool_b} trong project thật, không phải chỉ xem demo hay đọc review.\n\n"
+            "TRẢI NGHIỆM BAN ĐẦU:\n"
+            f"{tool_a} cho cảm giác ổn hơn khi task đã rõ và cần xử lý có kiểm soát.\n"
+            f"{tool_b} ban đầu khá thú vị khi muốn thử ý tưởng nhanh, nhưng nếu context chưa rõ thì vẫn dễ phải cleanup lại.\n\n"
+            "ĐIỂM MẠNH:\n"
+            f"{tool_a} mạnh ở:\n"
+            "- sửa lỗi có phạm vi rõ\n"
+            "- giữ workflow gọn khi đã có repo\n\n"
+            f"{tool_b} mạnh ở:\n"
+            "- thử hướng build nhanh\n"
+            "- giúp nhìn ra cấu trúc ban đầu của project\n\n"
+            "ĐIỂM YẾU / LƯU Ý:\n"
+            "- prompt mơ hồ thì output vẫn dễ lan man\n"
+            "- build nhanh chưa chắc deploy được ngay\n"
+            "- vẫn cần tự test, rollback khi cần và kiểm tra lại context\n\n"
+            "KẾT LUẬN CÁ NHÂN:\n"
+            f"Nếu cần sửa lỗi, refactor hoặc cleanup sau khi project đã chạy, mình nghiêng về {tool_a}.\n"
+            f"Nếu cần phác thảo bản đầu hoặc thử workflow mới, mình sẽ cho {tool_b} cơ hội trước.\n\n"
+            "Không biết anh em ở đây đang nghiêng về bên nào hơn? 🙂"
+        )
+    if include_link and not is_group:
+        content = f"{content}\n\n{cta}\n{link}"
+    elif include_link and is_group:
+        content = f"{content}\n\n{cta}"
+    if tags:
+        content = f"{content}\n\n{tags}"
     return {
         "content": content.strip(),
         "cta": cta,
         "hook": hook,
-        "hook_style": "community discussion",
-        "cta_style": "soft discussion link",
-        "tone_profile": "Conversational, value-first, comment-friendly",
-        "why": "Facebook works better when the post feels like a practical observation and invites replies instead of sounding like a polished announcement.",
+        "hook_style": "personal Vietnamese group hook",
+        "cta_style": "comment-first soft CTA" if is_group else "soft page/profile CTA",
+        "tone_profile": "Vietnamese, personal experience, community-first, non-promotional",
+        "why": "Facebook group posts work better when they read like a real builder sharing what happened, asking for opinions, and avoiding direct links by default.",
     }
 
 
@@ -372,8 +441,11 @@ def rewrite_for_platform(
     tracked_url: str,
     keyword: str = "",
     topic: str = "",
+    include_link: bool = True,
+    facebook_variant: str = "experience",
 ) -> dict[str, str]:
-    platform_name = platform_source(platform)
+    raw_platform = str(platform or "").strip().lower()
+    platform_name = platform_source(raw_platform)
     title = str(title or topic or keyword or "AI workflow note").strip()
     topic_text = _context_label(title, topic, keyword)
     link = ensure_platform_utm(
@@ -382,7 +454,7 @@ def rewrite_for_platform(
         campaign=topic_text or title,
         content=title,
     )
-    hashtags = platform_hashtags(platform_name, f"{title} {topic_text} {base_content}")
+    hashtags = platform_hashtags(raw_platform or platform_name, f"{title} {topic_text} {base_content}")
 
     builders = {
         "facebook": build_facebook_style,
@@ -392,7 +464,19 @@ def rewrite_for_platform(
         "quora": build_quora_style,
         "reddit": build_reddit_style,
     }
-    payload = builders.get(platform_name, build_telegram_style)(title, topic_text, link, hashtags, base_content)
+    if platform_name == "facebook":
+        payload = build_facebook_style(
+            title,
+            topic_text,
+            link,
+            hashtags,
+            base_content,
+            platform=raw_platform or platform_name,
+            include_link=include_link,
+            variant=facebook_variant,
+        )
+    else:
+        payload = builders.get(platform_name, build_telegram_style)(title, topic_text, link, hashtags, base_content)
     content = str(payload["content"]).strip()
     if platform_name == "twitter" and len(content) > 280:
         content = shorten_twitter_post(content, link, hashtags)

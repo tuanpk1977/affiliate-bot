@@ -2,7 +2,7 @@
 
 - Platform: Facebook
 - Status: Pending Review
-- Suggested time: 2026-05-26 19:00
+- Suggested time: 2026-06-07 19:00
 - Target URL: https://review.mssmileenglish.com/review/zapier/?utm_source=facebook
 
 ## Copy

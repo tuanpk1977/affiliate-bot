@@ -621,6 +621,150 @@ def localize_blog_article_pages(text: str) -> str:
     return text
 
 
+def localize_synthesia_heygen_comparison(text: str) -> str:
+    if "synthesia-vs-heygen" not in text and "Synthesia vs HeyGen" not in text:
+        return text
+    replacements = {
+        "Synthesia vs HeyGen comparison for avatar video, product demos, localization, team workflows, pricing checks, pros, cons, and buyer-fit research.": "So sánh Synthesia và HeyGen cho video avatar, demo sản phẩm, bản địa hóa, workflow nhóm, kiểm tra giá, ưu nhược điểm và mức phù hợp trước khi mua.",
+        "Synthesia vs HeyGen is a practical AI avatar video comparison for buyers who need more than a demo clip.": "Synthesia và HeyGen là bài so sánh AI avatar video thực tế cho người mua cần nhiều hơn một clip demo.",
+        "Both tools can help teams turn scripts into presenter-style videos, but they are not identical in workflow, review process, localization needs, and business fit.": "Cả hai công cụ đều có thể giúp team biến kịch bản thành video có người dẫn, nhưng khác nhau về workflow, quy trình duyệt, nhu cầu bản địa hóa và mức phù hợp với doanh nghiệp.",
+        "Use this page if you are comparing AI avatar tools for product demos, training videos, onboarding clips, sales enablement, multilingual explainers, or creator-led business content.": "Hãy dùng trang này nếu bạn đang so sánh công cụ AI avatar cho demo sản phẩm, video đào tạo, onboarding, sales enablement, video giải thích đa ngôn ngữ hoặc nội dung kinh doanh theo phong cách creator.",
+        "The goal is not to declare one tool universally better.": "Mục tiêu không phải khẳng định công cụ nào luôn tốt hơn.",
+        "The goal is to help you decide which tool deserves the first hands-on test for your actual workflow.": "Mục tiêu là giúp bạn quyết định công cụ nào đáng được thử trước trong workflow thật của bạn.",
+        "Quick verdict": "Khuyến nghị nhanh",
+        "Choose Synthesia if your team needs structured business videos, training content, onboarding explainers, and a repeatable script-to-avatar production process.": "Chọn Synthesia nếu team của bạn cần video doanh nghiệp có cấu trúc, nội dung đào tạo, video onboarding và quy trình biến kịch bản thành avatar có thể lặp lại.",
+        "Choose HeyGen if your priority is avatar-led creator content, localization experiments, fast multilingual versions, or a workflow that feels closer to lightweight campaign production.": "Chọn HeyGen nếu ưu tiên của bạn là nội dung creator có avatar, thử nghiệm bản địa hóa, tạo nhiều phiên bản ngôn ngữ nhanh hoặc workflow giống sản xuất campaign gọn nhẹ.",
+        "The safest test is to prepare one real script, one target language, and one brand review checklist.": "Cách kiểm tra an toàn nhất là chuẩn bị một kịch bản thật, một ngôn ngữ mục tiêu và một checklist duyệt thương hiệu.",
+        "Run the same scenario through both tools, then compare output quality, review time, usage limits, and how much cleanup remains before publishing.": "Hãy chạy cùng một tình huống trên cả hai công cụ, rồi so sánh chất lượng đầu ra, thời gian duyệt, giới hạn sử dụng và phần cần chỉnh trước khi xuất bản.",
+        "Best for": "Phù hợp nhất cho",
+        "Training and onboarding": "Đào tạo và onboarding",
+        "Strong fit when teams need repeatable training, HR, enablement, or customer education videos.": "Phù hợp khi team cần video đào tạo, HR, enablement hoặc giáo dục khách hàng có thể lặp lại.",
+        "Useful when onboarding content also needs quick localization or a more creator-style delivery.": "Hữu ích khi nội dung onboarding cũng cần bản địa hóa nhanh hoặc cách trình bày giống creator hơn.",
+        "Product demos": "Demo sản phẩm",
+        "Good when the demo is script-led and needs a controlled presenter format.": "Phù hợp khi demo đi theo kịch bản và cần định dạng người dẫn có kiểm soát.",
+        "Good when the demo needs avatar variation, short social cuts, or multilingual campaign versions.": "Phù hợp khi demo cần nhiều biến thể avatar, đoạn ngắn cho social hoặc phiên bản campaign đa ngôn ngữ.",
+        "Marketing teams": "Team marketing",
+        "Best when compliance, repeatability, and structured messaging matter.": "Tốt hơn khi compliance, khả năng lặp lại và thông điệp có cấu trúc là yếu tố quan trọng.",
+        "Best when speed, language versions, and creator-style testing matter.": "Tốt hơn khi tốc độ, nhiều phiên bản ngôn ngữ và thử nghiệm kiểu creator quan trọng hơn.",
+        "Small builders": "Người xây dựng nhỏ",
+        "Better if you want a business-video system with predictable review steps.": "Tốt hơn nếu bạn muốn một hệ thống video doanh nghiệp với các bước duyệt dễ dự đoán.",
+        "Better if you want faster experiments with avatar videos and localization ideas.": "Tốt hơn nếu bạn muốn thử nghiệm nhanh với video avatar và ý tưởng bản địa hóa.",
+        "Feature comparison table": "Bảng so sánh tính năng",
+        "Feature area": "Khu vực tính năng",
+        "Avatar video workflow": "Workflow video avatar",
+        "Designed around controlled presenter-style business videos.": "Được thiết kế quanh video doanh nghiệp dạng người dẫn có kiểm soát.",
+        "Designed around avatar videos with a strong focus on creator and localization use cases.": "Được thiết kế quanh video avatar, tập trung nhiều vào use case creator và bản địa hóa.",
+        "Script control": "Kiểm soát kịch bản",
+        "Strong for teams that review scripts, pronunciation, compliance, and repeatable formats.": "Mạnh với team cần duyệt kịch bản, phát âm, compliance và định dạng có thể lặp lại.",
+        "Strong when the team wants fast iteration across avatars, languages, and campaign variants.": "Mạnh khi team muốn lặp nhanh giữa avatar, ngôn ngữ và biến thể campaign.",
+        "Localization": "Bản địa hóa",
+        "Worth testing for multilingual business training and explainers.": "Đáng thử cho đào tạo doanh nghiệp và video giải thích đa ngôn ngữ.",
+        "Often attractive for teams testing multilingual creator-style or sales videos.": "Thường hấp dẫn với team thử video creator-style hoặc video bán hàng đa ngôn ngữ.",
+        "Review process": "Quy trình duyệt",
+        "Usually fits structured team review better.": "Thường phù hợp hơn với quy trình duyệt có cấu trúc.",
+        "Usually fits faster creative or localization review better.": "Thường phù hợp hơn với quy trình duyệt sáng tạo hoặc bản địa hóa nhanh.",
+        "Pricing and value comparison": "So sánh giá và giá trị",
+        "Do not rely on old pricing screenshots for Synthesia or HeyGen.": "Đừng dựa vào ảnh chụp giá cũ của Synthesia hoặc HeyGen.",
+        "Pricing, plan limits, video minutes, avatar access, export quality, watermark rules, seats, and commercial usage terms can change.": "Giá, giới hạn gói, số phút video, quyền truy cập avatar, chất lượng export, watermark, số seat và điều khoản thương mại có thể thay đổi.",
+        "Check the official pricing pages before buying or recommending either tool.": "Hãy kiểm tra trang giá chính thức trước khi mua hoặc giới thiệu bất kỳ công cụ nào.",
+        "Value depends on the workflow.": "Giá trị phụ thuộc vào workflow.",
+        "A tool that looks cheaper can become expensive if you need more video minutes, more languages, more team seats, higher export quality, or commercial permissions.": "Một công cụ nhìn có vẻ rẻ hơn có thể trở nên đắt nếu bạn cần nhiều phút video hơn, nhiều ngôn ngữ hơn, nhiều seat hơn, chất lượng export cao hơn hoặc quyền dùng thương mại.",
+        "For a real comparison, test one script and calculate the cost of producing a publish-ready video, not just the monthly price.": "Để so sánh thực tế, hãy thử một kịch bản và tính chi phí để tạo video sẵn sàng xuất bản, không chỉ nhìn giá tháng.",
+        "Check Synthesia official pricing": "Kiểm tra giá chính thức của Synthesia",
+        "Video avatar quality": "Chất lượng video avatar",
+        "Avatar quality should be judged by trust, clarity, and brand fit, not only by how impressive the demo looks.": "Chất lượng avatar nên được đánh giá theo độ tin cậy, độ rõ và mức phù hợp thương hiệu, không chỉ theo độ ấn tượng của demo.",
+        "Watch for lip sync, facial expression, hand movement, pronunciation, pacing, and whether the avatar feels appropriate for your market.": "Hãy kiểm tra khẩu hình, biểu cảm, cử động tay, phát âm, nhịp nói và avatar có phù hợp với thị trường của bạn hay không.",
+        "Synthesia is usually easier to evaluate when the goal is a polished presenter-style business video.": "Synthesia thường dễ đánh giá hơn khi mục tiêu là video doanh nghiệp dạng người dẫn được hoàn thiện tốt.",
+        "HeyGen is worth testing when you care about avatar variety, creator-style delivery, and multilingual campaign variants.": "HeyGen đáng thử khi bạn quan tâm đến nhiều kiểu avatar, cách trình bày kiểu creator và biến thể campaign đa ngôn ngữ.",
+        "Voice and language support": "Hỗ trợ giọng nói và ngôn ngữ",
+        "If your team needs multilingual video, test the exact languages and accents you plan to publish.": "Nếu team cần video đa ngôn ngữ, hãy thử đúng ngôn ngữ và giọng mà bạn định xuất bản.",
+        "Do not assume a tool is ready for your audience because a general language list looks broad.": "Đừng cho rằng một công cụ đã phù hợp với khán giả chỉ vì danh sách ngôn ngữ nhìn có vẻ rộng.",
+        "Review pronunciation, tone, subtitles, voice consistency, and whether the final video still feels natural.": "Hãy kiểm tra phát âm, giọng điệu, phụ đề, độ nhất quán của giọng và video cuối có còn tự nhiên hay không.",
+        "This is especially important for product demos, education, and sales content where a slightly unnatural voice can reduce trust.": "Điều này đặc biệt quan trọng với demo sản phẩm, giáo dục và nội dung bán hàng, nơi một giọng hơi thiếu tự nhiên có thể làm giảm niềm tin.",
+        "Ease of use": "Mức dễ sử dụng",
+        "Synthesia may feel more structured for business teams that want a clear script-to-video workflow.": "Synthesia có thể có cấu trúc rõ hơn với team doanh nghiệp muốn workflow từ kịch bản sang video.",
+        "HeyGen may feel faster for people testing avatar variations, short content, and localization ideas.": "HeyGen có thể nhanh hơn với người đang thử nhiều biến thể avatar, nội dung ngắn và ý tưởng bản địa hóa.",
+        "The easier tool is the one your team can review and publish from consistently.": "Công cụ dễ dùng hơn là công cụ mà team của bạn có thể duyệt và xuất bản ổn định.",
+        "Business and team use cases": "Use case cho doanh nghiệp và team",
+        "For a business team, the decision is not only about output quality.": "Với team doanh nghiệp, quyết định không chỉ nằm ở chất lượng đầu ra.",
+        "You should check team seats, approval workflow, brand controls, privacy, commercial rights, export limits, and whether the tool supports repeatable production without creating review chaos.": "Bạn nên kiểm tra số seat, workflow duyệt, kiểm soát thương hiệu, privacy, quyền thương mại, giới hạn export và liệu công cụ có hỗ trợ sản xuất lặp lại mà không gây rối quy trình duyệt hay không.",
+        "For solo creators or small builders, the practical question is simpler: which tool lets you publish a useful avatar video faster without creating a long cleanup process?": "Với creator cá nhân hoặc người xây dựng nhỏ, câu hỏi thực tế đơn giản hơn: công cụ nào giúp bạn xuất bản video avatar hữu ích nhanh hơn mà không tạo ra quá nhiều bước dọn dẹp?",
+        "Pros and cons of Synthesia": "Ưu điểm và hạn chế của Synthesia",
+        "Pros and cons of HeyGen": "Ưu điểm và hạn chế của HeyGen",
+        "Strong fit for business training, onboarding, and controlled product explainers.": "Phù hợp với đào tạo doanh nghiệp, onboarding và video giải thích sản phẩm có kiểm soát.",
+        "Good when the script and review process matter more than visual experimentation.": "Tốt khi kịch bản và quy trình duyệt quan trọng hơn thử nghiệm hình ảnh.",
+        "Useful for teams that need repeatable video formats.": "Hữu ích cho team cần định dạng video có thể lặp lại.",
+        "May feel less flexible for creator-style campaign experiments.": "Có thể kém linh hoạt hơn với thử nghiệm campaign kiểu creator.",
+        "Avatar delivery still needs human review for trust and tone.": "Phần trình bày avatar vẫn cần con người duyệt lại về độ tin cậy và giọng điệu.",
+        "Plan limits and commercial rights should be checked before scaling.": "Cần kiểm tra giới hạn gói và quyền thương mại trước khi mở rộng.",
+        "Strong fit for avatar-led marketing, creator videos, and localization experiments.": "Phù hợp với marketing bằng avatar, video creator và thử nghiệm bản địa hóa.",
+        "Useful when teams need multiple language or campaign variants quickly.": "Hữu ích khi team cần nhiều biến thể ngôn ngữ hoặc campaign nhanh.",
+        "Worth testing for short business videos and social-style explainers.": "Đáng thử cho video kinh doanh ngắn và video giải thích kiểu social.",
+        "Output still needs review for brand tone, pronunciation, and trust.": "Đầu ra vẫn cần duyệt lại về giọng thương hiệu, phát âm và độ tin cậy.",
+        "Fast generation can create more variants than the team can approve.": "Tạo nhanh có thể sinh ra nhiều biến thể hơn khả năng duyệt của team.",
+        "Pricing, usage limits, and commercial terms must be verified before publishing at scale.": "Cần xác minh giá, giới hạn sử dụng và điều khoản thương mại trước khi xuất bản ở quy mô lớn.",
+        "Final recommendation": "Đề xuất cuối cùng",
+        "Choose Synthesia first if you need structured business communication: training, onboarding, internal enablement, customer education, or product explanations.": "Hãy thử Synthesia trước nếu bạn cần truyền thông doanh nghiệp có cấu trúc: đào tạo, onboarding, enablement nội bộ, giáo dục khách hàng hoặc giải thích sản phẩm.",
+        "Choose HeyGen first if you need fast avatar content, localization tests, creator-style business videos, or multilingual campaign variants.": "Hãy thử HeyGen trước nếu bạn cần nội dung avatar nhanh, test bản địa hóa, video kinh doanh kiểu creator hoặc biến thể campaign đa ngôn ngữ.",
+        "If neither answer is obvious, compare them with a real script instead of a generic demo.": "Nếu chưa rõ nên chọn công cụ nào, hãy so sánh bằng một kịch bản thật thay vì demo chung chung.",
+        "Use the same script, language, brand tone, and publishing goal.": "Dùng cùng kịch bản, ngôn ngữ, giọng thương hiệu và mục tiêu xuất bản.",
+        "Then decide based on review time, output trust, language quality, and total production cost.": "Sau đó quyết định dựa trên thời gian duyệt, độ tin cậy đầu ra, chất lượng ngôn ngữ và tổng chi phí sản xuất.",
+        "Visit Synthesia official site": "Truy cập website chính thức của Synthesia",
+        "Related comparisons": "Các bài so sánh liên quan",
+        "For a broader AI video workflow, compare": "Để xem workflow AI video rộng hơn, hãy so sánh",
+        "You can also browse the": "Bạn cũng có thể xem",
+        "AI video tools category": "danh mục công cụ AI video",
+        "before choosing a platform.": "trước khi chọn nền tảng.",
+        "Is Synthesia better than HeyGen for business videos?": "Synthesia có tốt hơn HeyGen cho video doanh nghiệp không?",
+        "Is HeyGen better for creator and localization workflows?": "HeyGen có tốt hơn cho workflow creator và bản địa hóa không?",
+        "How should I compare Synthesia and HeyGen pricing?": "Nên so sánh giá Synthesia và HeyGen như thế nào?",
+        "Which tool is better for multilingual avatar videos?": "Công cụ nào tốt hơn cho video avatar đa ngôn ngữ?",
+        "Which AI avatar tool should a small team test first?": "Team nhỏ nên thử công cụ AI avatar nào trước?",
+        "Use this guide as a research starting point, then verify pricing, terms, policy, and workflow fit on the official vendor website before buying or promoting a tool.": "Hãy dùng hướng dẫn này làm điểm bắt đầu nghiên cứu, sau đó xác minh giá, điều khoản, chính sách và mức phù hợp workflow trên website chính thức trước khi mua hoặc quảng bá công cụ.",
+    }
+    for source, target in sorted(replacements.items(), key=lambda item: len(item[0]), reverse=True):
+        text = text.replace(source, target)
+    heygen_cleanup = {
+        "Giá and value comparison": "So sánh giá và giá trị",
+        "Synthesia có tốt hơn HeyGen for business videos không?": "Synthesia có tốt hơn HeyGen cho video doanh nghiệp không?",
+        "Hãy dùng hướng dẫn này như điểm bắt đầu nghiên cứu, sau đó xác minh giá, điều khoản, chính sách và mức phù hợp workflow trên website chính thức của vendor trước khi mua hoặc quảng bá công cụ.": "Hãy dùng hướng dẫn này làm điểm bắt đầu nghiên cứu, sau đó xác minh giá, điều khoản, chính sách và mức phù hợp workflow trên website chính thức trước khi mua hoặc quảng bá công cụ.",
+        "Use case</td>": "Trường hợp sử dụng</td>",
+        "Workflow video avatar": "Quy trình video avatar",
+        "use case creator": "trường hợp sử dụng cho creator",
+        "use case": "trường hợp sử dụng",
+        "Business and team use cases": "Use case cho doanh nghiệp và team",
+        "Use case cho doanh nghiệp và team": "Trường hợp sử dụng cho doanh nghiệp và team",
+        "Choose <strong>HeyGen</strong> if your priority is avatar-led creator content, localization experiments, fast multilingual versions, or a workflow that feels closer to lightweight campaign production.": "Chọn <strong>HeyGen</strong> nếu ưu tiên của bạn là nội dung creator có avatar, thử nghiệm bản địa hóa, tạo nhiều phiên bản ngôn ngữ nhanh hoặc workflow giống sản xuất campaign gọn nhẹ.",
+        "Giá, plan limits, video minutes, avatar access, export quality, watermark rules, seats, and commercial usage terms can change.": "Giá, giới hạn gói, số phút video, quyền truy cập avatar, chất lượng export, watermark, số seat và điều khoản thương mại có thể thay đổi.",
+        "privacy, quyền thương mại, giới hạn export": "quyền riêng tư, quyền thương mại, giới hạn export",
+        "giới hạn export": "giới hạn xuất file",
+        "workflow": "quy trình",
+        "creator-style": "phong cách creator",
+        "creator": "nhà sáng tạo",
+        "campaign": "chiến dịch",
+        "sales enablement": "hỗ trợ bán hàng",
+        "Ưu điểm và hạn chế of Synthesia": "Ưu điểm và hạn chế của Synthesia",
+        "Ưu điểm và hạn chế of HeyGen": "Ưu điểm và hạn chế của HeyGen",
+        "Giá, usage limits, and commercial terms must be verified before publishing at scale.": "Cần xác minh giá, giới hạn sử dụng và điều khoản thương mại trước khi xuất bản ở quy mô lớn.",
+        "Để xem workflow AI video rộng hơn, hãy so sánh <a href='/vi/comparisons/synthesia-vs-runway/'>Synthesia vs Runway</a>, <a href='/vi/comparisons/runway-vs-pika/'>Runway vs Pika</a>, and <a href='/vi/best-ai-video-tools-2026/'>Công cụ AI video tốt nhất 2026</a>.": "Để xem workflow AI video rộng hơn, hãy so sánh <a href='/vi/comparisons/synthesia-vs-runway/'>Synthesia vs Runway</a>, <a href='/vi/comparisons/runway-vs-pika/'>Runway vs Pika</a> và <a href='/vi/best-ai-video-tools-2026/'>Công cụ AI video tốt nhất 2026</a>.",
+        ", and <a href='/vi/best-ai-video-tools-2026/'>Công cụ AI video tốt nhất 2026</a>.": " và <a href='/vi/best-ai-video-tools-2026/'>Công cụ AI video tốt nhất 2026</a>.",
+        "</a>, and <a href='/vi/best-ai-video-tools-2026/'>": "</a> và <a href='/vi/best-ai-video-tools-2026/'>",
+        "Which Công cụ AI videos should you choose?": "Nên chọn công cụ AI video nào?",
+        "Which Công cụ AI video should you choose?": "Nên chọn công cụ AI video nào?",
+        "Tính năng, Ưu điểm, Hạn chế, Giá Notes": "Tính năng, ưu điểm, hạn chế và ghi chú giá",
+        "Best AI Video Lựa chọn thay thế for 2026": "Lựa chọn thay thế AI video tốt nhất năm 2026",
+        "Đánh giá for AI Video Buyers": "Review cho người mua công cụ AI video",
+        "Review cho người mua công cụ AI video: mức phù hợp quy trình, kiểm tra giá, and Lựa chọn thay thế": "Review cho người mua công cụ AI video: mức phù hợp quy trình, kiểm tra giá và lựa chọn thay thế",
+        "For a broader AI video workflow, compare": "Để xem workflow AI video rộng hơn, hãy so sánh",
+        "You can also browse the": "Bạn cũng có thể xem",
+        "AI video tools category": "danh mục công cụ AI video",
+        "before choosing a platform.": "trước khi chọn nền tảng.",
+    }
+    for source, target in heygen_cleanup.items():
+        text = text.replace(source, target)
+    return text
+
+
 def localize_synthesia_runway_comparison(text: str) -> str:
     if "synthesia-vs-runway" not in text and "Synthesia vs Runway" not in text:
         return text
@@ -734,6 +878,134 @@ def localize_synthesia_runway_comparison(text: str) -> str:
         "</a>, and <a href='/vi/comparisons/synthesia-vs-heygen/'>": "</a>, và <a href='/vi/comparisons/synthesia-vs-heygen/'>",
     }
     for source, target in final_cleanup.items():
+        text = text.replace(source, target)
+    return text
+
+
+def localize_codex_openclaw_comparison(text: str) -> str:
+    if "codex-vs-openclaw" not in text and "Codex vs OpenClaw" not in text:
+        return text
+    replacements = {
+        "Codex vs OpenClaw: Which AI Coding Tool Fits Real Development Workflows?": "Codex vs OpenClaw: công cụ lập trình AI nào hợp với workflow phát triển thực tế?",
+        "Compare Codex vs OpenClaw for real-world AI coding workflows, including debugging quality, context handling, repair workflows, and practical use cases.": "So sánh Codex và OpenClaw cho workflow lập trình AI thực tế, gồm chất lượng debug, khả năng giữ ngữ cảnh, quy trình sửa lỗi và các use case thực tế.",
+        "Use Codex for focused repair and production cleanup; evaluate OpenClaw for prototype exploration and early workflow testing.": "Dùng Codex cho sửa lỗi tập trung và cleanup production; đánh giá OpenClaw cho khám phá prototype và thử workflow giai đoạn đầu.",
+        "AI coding tool": "Công cụ lập trình AI",
+        "Home": "Trang chủ",
+        "Comparisons": "So sánh",
+        "Contents": "Nội dung",
+        "Overview": "Tổng quan",
+        "What is OpenClaw?": "OpenClaw là gì?",
+        "What is Codex?": "Codex là gì?",
+        "Core workflow differences": "Khác biệt cốt lõi về workflow",
+        "Prototype vs production workflow": "Workflow prototype và production",
+        "Debugging and repair quality": "Chất lượng debug và sửa lỗi",
+        "Context handling": "Khả năng giữ ngữ cảnh",
+        "Context handling on large projects": "Khả năng giữ ngữ cảnh trong dự án lớn",
+        "Prompting style": "Cách viết prompt",
+        "Prompting style differences": "Khác biệt về cách viết prompt",
+        "Speed vs cleanup": "Tốc độ và cleanup",
+        "Speed vs cleanup tradeoff": "Đánh đổi giữa tốc độ và cleanup",
+        "Best use cases": "Use case phù hợp nhất",
+        "Best use cases for Codex": "Use case phù hợp nhất cho Codex",
+        "Best use cases for OpenClaw": "Use case phù hợp nhất cho OpenClaw",
+        "When to combine both": "Khi nào nên kết hợp cả hai",
+        "FAQ": "Câu hỏi thường gặp",
+        "Final recommendation": "Khuyến nghị cuối cùng",
+        "Final practical recommendation": "Khuyến nghị thực tế cuối cùng",
+        "Codex vs OpenClaw is not a simple question of which AI coding tool looks more impressive in a demo.": "Codex vs OpenClaw không phải là câu hỏi đơn giản rằng công cụ lập trình AI nào trông ấn tượng hơn trong demo.",
+        "The better comparison is workflow fit: which tool helps you move from idea to working project, and which tool helps when the project starts to break under real testing.": "Cách so sánh đúng hơn là mức phù hợp với workflow: công cụ nào giúp bạn đi từ ý tưởng đến dự án chạy được, và công cụ nào giúp khi dự án bắt đầu lỗi trong quá trình test thật.",
+        "I look at AI coding tools through an operator lens. A good tool is not just fast at generating files. It should help clarify the task, work with real project context, repair mistakes without damaging unrelated code, and make validation easier before publishing. That is why this comparison focuses on prototype speed, debugging quality, context handling, prompting style, cleanup cost, and practical use cases.": "Tôi nhìn các công cụ lập trình AI theo góc độ người vận hành dự án. Một công cụ tốt không chỉ là tạo file nhanh. Nó cần giúp làm rõ nhiệm vụ, xử lý được ngữ cảnh dự án thật, sửa lỗi mà không phá phần code không liên quan, và làm cho bước kiểm tra trước khi publish dễ hơn. Vì vậy bài so sánh này tập trung vào tốc độ prototype, chất lượng debug, khả năng giữ ngữ cảnh, cách viết prompt, chi phí cleanup và các use case thực tế.",
+        "The short version: use": "Tóm lại: dùng",
+        "when you already have a project and need focused repair, refactoring, test fixes, routing cleanup, SEO validation, or production polish. Treat": "khi bạn đã có dự án và cần sửa lỗi tập trung, refactor, sửa test, dọn route, kiểm tra SEO hoặc hoàn thiện production. Hãy xem",
+        "as something to evaluate for rapid project exploration, first-pass scaffolding, and agent-style coding experiments where speed and iteration matter. Do not assume either tool is magic. The useful result comes from giving each tool the right job.": "như một công cụ đáng thử cho việc khám phá dự án nhanh, dựng khung bản đầu tiên và thử nghiệm kiểu agent coding khi tốc độ và vòng lặp quan trọng. Đừng mặc định công cụ nào là phép màu. Kết quả hữu ích đến từ việc giao đúng việc cho đúng công cụ.",
+        "10 min read | Last updated": "10 phút đọc | Cập nhật lần cuối",
+        "Affiliate disclosure:": "Thông báo tiếp thị liên kết:",
+        "Some links may be affiliate links. We may earn a commission at no extra cost to you. This page does not create fake affiliate claims. CTA routes use existing tracked /go/ links only where they already exist.": "Một số liên kết có thể là liên kết tiếp thị liên kết. Chúng tôi có thể nhận hoa hồng mà không phát sinh thêm chi phí cho bạn. Trang này không tạo tuyên bố affiliate giả. Các CTA chỉ dùng route /go/ đang được theo dõi nếu route đó đã tồn tại.",
+        "OpenClaw is best treated as an AI coding workspace or agent-style coding tool to evaluate for early project exploration. Because AI coding products change quickly, I would not judge it only by a marketing page or a single generated demo. The practical question is how it behaves when you give it a real project brief: can it create the first shape, keep the file structure understandable, and leave you with a project that another tool or a human can clean up?": "OpenClaw nên được xem như một workspace lập trình AI hoặc công cụ agent-style coding để đánh giá ở giai đoạn khám phá dự án sớm. Vì các sản phẩm AI coding thay đổi rất nhanh, tôi sẽ không đánh giá nó chỉ qua trang marketing hay một demo được tạo sẵn. Câu hỏi thực tế là nó xử lý thế nào khi bạn đưa một brief dự án thật: liệu nó có tạo được hình hài đầu tiên, giữ cấu trúc file dễ hiểu và để lại một dự án mà công cụ khác hoặc con người có thể cleanup tiếp không?",
+        "For a builder, the value of a tool like OpenClaw is usually the first-build loop. You start with a product idea, describe the user flow, ask for a static page, app feature, or automation script, and see how quickly the tool creates something testable. That can be useful when you are still learning what the project should become. The risk is that early speed can hide cleanup work. A first draft may include duplicated logic, shallow error handling, mixed UI language, weak SEO metadata, or routes that look correct but fail after build.": "Với người đang xây dự án, giá trị của một công cụ như OpenClaw thường nằm ở vòng lặp build bản đầu tiên. Bạn bắt đầu với một ý tưởng sản phẩm, mô tả user flow, yêu cầu một trang static, một tính năng app hoặc script automation, rồi xem công cụ tạo ra thứ có thể test nhanh đến đâu. Điều này hữu ích khi bạn vẫn đang tìm xem dự án nên trở thành gì. Rủi ro là tốc độ ban đầu có thể che giấu phần cleanup phía sau. Bản nháp đầu tiên có thể có logic lặp, xử lý lỗi nông, UI lẫn ngôn ngữ, metadata SEO yếu hoặc route nhìn đúng nhưng fail sau khi build.",
+        "So my starting position is cautious: OpenClaw may be useful if it helps you prototype and explore. But I would validate it by testing a small real project, not by asking it to produce a perfect production app on the first pass.": "Vì vậy quan điểm ban đầu của tôi là thận trọng: OpenClaw có thể hữu ích nếu nó giúp bạn prototype và khám phá ý tưởng. Nhưng tôi sẽ kiểm chứng bằng một dự án nhỏ thật, không phải yêu cầu nó tạo ngay một app production hoàn hảo ở lần đầu.",
+        "Codex is strongest for focused implementation work when the problem is already visible. In my workflow, the best use of Codex is not asking it to invent the entire product from nothing. It is giving it a clear repo state, a specific failure, and a narrow definition of done. That is where it becomes valuable for debugging, refactoring, validation, and cleanup.": "Codex mạnh nhất ở các việc triển khai tập trung khi vấn đề đã nhìn thấy rõ. Trong workflow của tôi, cách dùng Codex tốt nhất không phải là bảo nó nghĩ ra toàn bộ sản phẩm từ con số không. Cách hiệu quả hơn là đưa cho nó trạng thái repo rõ ràng, một lỗi cụ thể và định nghĩa hoàn thành đủ hẹp. Khi đó Codex có giá trị trong debug, refactor, validation và cleanup.",
+        "For example, if a static site has a broken route, duplicate schema, mixed English and Vietnamese content, an overflowing code block, or a dashboard function that crashes, Codex works best when the task is explicit: inspect these files, fix this behavior, preserve these routes, run these validations, and do not touch unrelated areas. That kind of prompt gives Codex a practical boundary.": "Ví dụ, nếu một static site bị route hỏng, schema trùng, nội dung lẫn tiếng Anh và tiếng Việt, code block tràn layout hoặc một hàm dashboard bị crash, Codex hoạt động tốt nhất khi nhiệm vụ thật rõ: kiểm tra các file này, sửa hành vi này, giữ nguyên các route này, chạy các lệnh validation này và không đụng vào phần không liên quan. Kiểu prompt đó tạo ranh giới thực tế cho Codex.",
+        "Codex is less about being the fastest generator and more about being the repair layer. It can be slower than a first-build tool because it reads context and changes files carefully, but that tradeoff is often worth it when the project is already complex.": "Codex không phải lớp tạo nhanh nhất, mà giống lớp sửa chữa hơn. Nó có thể chậm hơn công cụ build bản đầu vì cần đọc ngữ cảnh và sửa file cẩn thận, nhưng đánh đổi đó thường đáng giá khi dự án đã phức tạp.",
+        "The biggest difference is where each tool should sit in the build process. OpenClaw belongs earlier in the workflow if it helps you turn a rough idea into a testable shape. Codex belongs later when the project needs targeted repair and production readiness.": "Khác biệt lớn nhất nằm ở vị trí của từng công cụ trong quy trình build. OpenClaw phù hợp hơn ở giai đoạn đầu nếu nó giúp bạn biến ý tưởng thô thành thứ có thể test. Codex phù hợp hơn ở giai đoạn sau khi dự án cần sửa lỗi có mục tiêu và chuẩn bị cho production.",
+        "Workflow area": "Tiêu chí workflow",
+        "Best role": "Vai trò phù hợp nhất",
+        "Focused fixer, refactor assistant, validation partner, cleanup layer.": "Người sửa lỗi tập trung, trợ lý refactor, đối tác validation, lớp cleanup.",
+        "Prototype builder, early exploration workspace, first-pass project shaper.": "Công cụ dựng prototype, workspace khám phá sớm, tạo hình dự án bản đầu.",
+        "Best input": "Đầu vào phù hợp nhất",
+        "Specific bug reports, screenshots, logs, file paths, failing tests, acceptance criteria.": "Báo cáo lỗi cụ thể, ảnh chụp màn hình, log, đường dẫn file, test đang fail, tiêu chí chấp nhận.",
+        "Clear product brief, page structure, desired features, UI direction, initial workflow goals.": "Brief sản phẩm rõ, cấu trúc trang, tính năng mong muốn, định hướng UI, mục tiêu workflow ban đầu.",
+        "Best output": "Đầu ra phù hợp nhất",
+        "Smaller targeted changes that preserve the existing project.": "Các thay đổi nhỏ, đúng mục tiêu và giữ nguyên cấu trúc dự án hiện có.",
+        "First version or exploratory implementation to test the idea.": "Bản đầu tiên hoặc triển khai thử nghiệm để kiểm tra ý tưởng.",
+        "Main risk": "Rủi ro chính",
+        "Needs focused context; vague prompts can waste time.": "Cần ngữ cảnh tập trung; prompt mơ hồ dễ làm mất thời gian.",
+        "Fast output may require cleanup before production.": "Đầu ra nhanh có thể cần cleanup trước khi dùng production.",
+        "Operator test": "Bài kiểm tra thực tế",
+        "Can it fix the second failure without breaking something else?": "Nó có sửa được lỗi thứ hai mà không phá thứ khác không?",
+        "Can it create a useful first draft without creating a maintenance mess?": "Nó có tạo được bản nháp đầu hữu ích mà không gây rối bảo trì không?",
+        "Prototype work rewards speed. Production work rewards stability. That is the reason many AI coding comparisons become misleading. A tool that feels amazing during the first ten minutes may create more work during the next two hours if the file structure is unclear or the implementation is hard to validate.": "Prototype thưởng cho tốc độ. Production thưởng cho sự ổn định. Đó là lý do nhiều bài so sánh AI coding dễ gây hiểu nhầm. Một công cụ có thể rất ấn tượng trong mười phút đầu nhưng lại tạo thêm việc trong hai giờ tiếp theo nếu cấu trúc file không rõ hoặc phần triển khai khó validation.",
+        "For prototype work, I would use OpenClaw to test whether an idea deserves more attention. The prompt might describe a landing page, a dashboard view, a lead magnet, a comparison page, or a small automation. The output should be judged by whether it gives you something to inspect, not whether it is perfect.": "Với việc prototype, tôi sẽ dùng OpenClaw để kiểm tra liệu một ý tưởng có đáng đi tiếp hay không. Prompt có thể mô tả landing page, một màn hình dashboard, lead magnet, trang so sánh hoặc automation nhỏ. Đầu ra nên được đánh giá theo việc nó có tạo ra thứ để kiểm tra hay không, chứ không phải nó đã hoàn hảo chưa.",
+        "For production cleanup, I would move to Codex with a more precise prompt. Instead of saying â€œmake this better,â€ I would write: inspect the page, fix the route, preserve canonical and hreflang tags, make the CTA use existing /go/ routes, run validation, and report exactly what changed. This narrower prompt reduces the chance of broad rewrites.": "Với cleanup production, tôi sẽ chuyển sang Codex bằng một prompt chính xác hơn. Thay vì nói “làm cho tốt hơn”, tôi sẽ viết: kiểm tra trang, sửa route, giữ nguyên canonical và hreflang, để CTA dùng route /go/ hiện có, chạy validation và báo chính xác đã thay đổi gì. Prompt hẹp như vậy giảm nguy cơ rewrite quá rộng.",
+        "A practical workflow can therefore be: idea to OpenClaw for first build, manual testing for visible problems, then Codex for focused repair. If you already use Windsurf, the same principle applies: compare": "Vì vậy workflow thực tế có thể là: đưa ý tưởng cho OpenClaw để build bản đầu, tự test các lỗi nhìn thấy, rồi dùng Codex để sửa tập trung. Nếu bạn đang dùng Windsurf, nguyên tắc này cũng tương tự: hãy so sánh",
+        "and read the": "và đọc",
+        "to understand where first-build speed fits before handing cleanup to a repair-focused tool.": "để hiểu tốc độ build bản đầu phù hợp ở đâu trước khi giao phần cleanup cho một công cụ thiên về sửa lỗi.",
+        "Debugging quality is where Codex should have the stronger role. A real project rarely fails in one obvious place. A layout bug might come from CSS, generated HTML, or a template. A schema issue might come from both page content and a fallback JSON-LD block. A mixed-language issue might come from source content, localization logic, and generated output. A weak AI coding tool tries to patch the visible symptom. A stronger repair workflow traces the source and fixes the generator so the bug does not return after rebuild.": "Chất lượng debug là nơi Codex nên đóng vai trò mạnh hơn. Dự án thật hiếm khi lỗi ở một điểm rõ ràng duy nhất. Lỗi layout có thể đến từ CSS, HTML được sinh ra hoặc template. Lỗi schema có thể đến từ nội dung trang lẫn block JSON-LD dự phòng. Lỗi lẫn ngôn ngữ có thể đến từ content nguồn, logic localize và output đã generate. Một công cụ AI coding yếu thường vá triệu chứng nhìn thấy. Workflow sửa lỗi mạnh hơn sẽ lần về nguồn và sửa generator để lỗi không quay lại sau rebuild.",
+        "That is why I like Codex for repair tasks. It can inspect the source, understand which files generate the output, make a narrow change, and then run tests. It still needs a good prompt. Screenshots, exact URLs, failing commands, and expected behavior matter. But once the task is clear, Codex is better suited for production cleanup than broad, vague generation.": "Đó là lý do tôi thích Codex cho các việc sửa lỗi. Nó có thể kiểm tra source, hiểu file nào sinh ra output, sửa hẹp và chạy test. Nó vẫn cần prompt tốt. Ảnh chụp màn hình, URL chính xác, command đang fail và hành vi mong muốn đều quan trọng. Nhưng khi nhiệm vụ đã rõ, Codex phù hợp với cleanup production hơn là các yêu cầu generate rộng và mơ hồ.",
+        "OpenClaw may still be useful in debugging if it gives you a quick hypothesis or a new implementation attempt. But I would be careful with broad repair prompts in any first-build tool. If the tool rewrites too much, the project can become harder to reason about.": "OpenClaw vẫn có thể hữu ích khi debug nếu nó đưa ra giả thuyết nhanh hoặc thử một cách triển khai mới. Nhưng tôi sẽ cẩn thận với prompt sửa lỗi quá rộng trong bất kỳ công cụ build bản đầu nào. Nếu công cụ rewrite quá nhiều, dự án có thể khó hiểu hơn.",
+        "Context is the difference between a demo and a real workflow. On small examples, most AI coding tools can look good. On larger projects, the problem becomes file ownership, naming consistency, build pipeline, generated output, tests, SEO rules, and existing user changes.": "Ngữ cảnh là khác biệt giữa demo và workflow thật. Với ví dụ nhỏ, hầu hết công cụ AI coding đều có thể trông ổn. Với dự án lớn hơn, vấn đề chuyển thành quyền sở hữu file, tính nhất quán khi đặt tên, build pipeline, output được generate, test, luật SEO và các thay đổi hiện có của người dùng.",
+        "Codex works best when the repo context matters. If the project already has a build system, content generator, dashboard, validators, sitemap logic, and language switching, the safer move is to ask for a targeted patch. That helps avoid accidental rewrites. The prompt should explain what must stay unchanged: routes, domain, sitemap behavior, /vi/ pages, /go/ tracking, canonical tags, and existing validation.": "Codex hoạt động tốt nhất khi ngữ cảnh repo quan trọng. Nếu dự án đã có hệ thống build, content generator, dashboard, validator, logic sitemap và language switching, cách an toàn hơn là yêu cầu một patch có mục tiêu. Điều đó giúp tránh rewrite ngoài ý muốn. Prompt nên nói rõ những gì phải giữ nguyên: route, domain, hành vi sitemap, trang /vi/, tracking /go/, canonical tag và validation hiện có.",
+        "OpenClaw should be tested for how it handles context drift. If it creates a useful first version but ignores established patterns, that is acceptable for exploration but risky for production. If it can follow existing code structure and avoid unnecessary churn, it becomes more valuable.": "OpenClaw nên được kiểm tra ở khả năng tránh trôi ngữ cảnh. Nếu nó tạo bản đầu hữu ích nhưng bỏ qua pattern đang có, điều đó có thể chấp nhận ở giai đoạn khám phá nhưng rủi ro cho production. Nếu nó bám được cấu trúc code hiện có và tránh thay đổi không cần thiết, giá trị của nó sẽ cao hơn.",
+        "For OpenClaw, prompts should be product-shaped. Describe the page, workflow, sections, UI constraints, and desired first version. Include the goal and what â€œgood enough to testâ€ means. Do not overload the prompt with every possible future edge case if you are still exploring.": "Với OpenClaw, prompt nên có dạng sản phẩm. Hãy mô tả trang, workflow, các section, ràng buộc UI và bản đầu mong muốn. Thêm mục tiêu và định nghĩa “đủ tốt để test” là gì. Nếu bạn vẫn đang khám phá, đừng nhồi mọi edge case tương lai vào prompt.",
+        "For Codex, prompts should be repair-shaped. Give the exact failure, the files or modules likely involved, the commands to run, and the guardrails. A strong Codex prompt says what to change and what not to change. It also asks for validation and a concise report.": "Với Codex, prompt nên có dạng sửa lỗi. Hãy đưa lỗi cụ thể, file hoặc module có khả năng liên quan, command cần chạy và các guardrail. Một prompt Codex tốt nói rõ cần đổi gì và không được đổi gì. Nó cũng yêu cầu validation và báo cáo ngắn gọn.",
+        "Example OpenClaw-style prompt: â€œBuild a simple comparison page for Codex vs OpenClaw with a quick verdict, comparison table, FAQ, and internal links. Keep the layout lightweight and make it easy to review.â€": "Ví dụ prompt kiểu OpenClaw: “Build a simple comparison page for Codex vs OpenClaw with a quick verdict, comparison table, FAQ, and internal links. Keep the layout lightweight and make it easy to review.”",
+        "Example Codex-style prompt: â€œInspect the comparison page generator. Add the new Codex vs OpenClaw page from source, preserve sitemap and language switcher behavior, avoid fake affiliate links, run validation, and report changed files.â€": "Ví dụ prompt kiểu Codex: “Inspect the comparison page generator. Add the new Codex vs OpenClaw page from source, preserve sitemap and language switcher behavior, avoid fake affiliate links, run validation, and report changed files.”",
+        "Speed is useful, but it can be deceptive. If a tool creates a first draft in five minutes and you spend three hours cleaning routes, schema, layout, and language problems, it was not actually fast. The real metric is total time to a usable result.": "Tốc độ rất hữu ích, nhưng cũng dễ đánh lừa. Nếu một công cụ tạo bản nháp trong năm phút và bạn mất ba giờ để dọn route, schema, layout và lỗi ngôn ngữ, nó không thật sự nhanh. Chỉ số thực tế là tổng thời gian để có kết quả dùng được.",
+        "OpenClaw should be judged by how much cleanup remains after the first version. Codex should be judged by how safely it reduces that cleanup. A strong workflow does not ask one tool to do everything. It uses the faster tool when exploration matters, then switches to the more careful tool when correctness matters.": "OpenClaw nên được đánh giá theo lượng cleanup còn lại sau bản đầu. Codex nên được đánh giá theo mức độ an toàn khi giảm lượng cleanup đó. Một workflow mạnh không bắt một công cụ làm mọi thứ. Nó dùng công cụ nhanh hơn khi cần khám phá, rồi chuyển sang công cụ cẩn thận hơn khi cần độ đúng.",
+        "This is similar to the broader AI coding category. If you are still evaluating tools, start with": "Điều này giống với bức tranh rộng hơn của nhóm công cụ AI coding. Nếu bạn vẫn đang đánh giá các công cụ, hãy bắt đầu với",
+        "then compare specific workflows like": "rồi so sánh các workflow cụ thể như",
+        "The best choice depends on the stage of work.": "Lựa chọn tốt nhất phụ thuộc vào giai đoạn công việc.",
+        "Fixing bugs in an existing codebase after a test or build failure.": "Sửa bug trong codebase hiện có sau khi test hoặc build fail.",
+        "Refactoring logic without changing unrelated files.": "Refactor logic mà không đổi file không liên quan.",
+        "Cleaning SEO metadata, canonical tags, sitemap behavior, and schema output.": "Dọn metadata SEO, canonical tag, hành vi sitemap và schema output.",
+        "Improving a dashboard or static site generator while preserving existing routes.": "Cải thiện dashboard hoặc static site generator trong khi giữ nguyên route hiện có.",
+        "Turning screenshots and error logs into focused code changes.": "Biến ảnh chụp màn hình và error log thành thay đổi code có mục tiêu.",
+        "Review Codex official information": "Xem thông tin chính thức về Codex",
+        "Exploring a new app, website, or automation idea quickly.": "Khám phá nhanh một ý tưởng app, website hoặc automation mới.",
+        "Creating a first draft that helps you see the structure of a project.": "Tạo bản nháp đầu giúp bạn nhìn thấy cấu trúc dự án.",
+        "Testing agent behavior on early UI or workflow tasks.": "Kiểm tra hành vi agent trên các task UI hoặc workflow giai đoạn đầu.",
+        "Comparing prototype speed against other AI coding workspaces.": "So sánh tốc độ prototype với các workspace AI coding khác.",
+        "Learning whether the tool fits your style before adding it to production work.": "Tìm xem công cụ có hợp phong cách làm việc của bạn trước khi đưa vào production hay không.",
+        "No tracked /go/ route is added for OpenClaw until a real approved destination exists.": "Chưa thêm route /go/ được theo dõi cho OpenClaw cho đến khi có destination thật được duyệt.",
+        "The strongest workflow is often not choosing one tool forever. It is assigning a role to each tool. Use OpenClaw when you want to explore an idea and create an early version. Use Codex when the output needs repair, validation, and careful integration into an existing project.": "Workflow mạnh nhất thường không phải là chọn một công cụ mãi mãi. Nó là việc phân vai cho từng công cụ. Dùng OpenClaw khi bạn muốn khám phá ý tưởng và tạo bản đầu. Dùng Codex khi output cần sửa lỗi, validation và tích hợp cẩn thận vào dự án hiện có.",
+        "For example, imagine building an AI tools comparison page. OpenClaw could help sketch the sections: quick verdict, comparison table, pricing notes, workflow examples, and FAQ. After testing, you might find that the page needs better internal links, schema cleanup, responsive code blocks, and a safer CTA. That is where Codex becomes more useful: it can inspect the generator, add the page from source, and run local validation.": "Ví dụ, hãy tưởng tượng bạn đang xây một trang so sánh công cụ AI. OpenClaw có thể giúp phác thảo các section: khuyến nghị nhanh, bảng so sánh, ghi chú giá, ví dụ workflow và FAQ. Sau khi test, bạn có thể thấy trang cần internal link tốt hơn, cleanup schema, code block responsive và CTA an toàn hơn. Đây là lúc Codex hữu ích hơn: nó có thể kiểm tra generator, thêm trang từ source và chạy validation local.",
+        "This mirrors the workflow I use across this site: fast idea, generated first version, manual testing, screenshot or log review, then focused repair. The output becomes more reliable because each tool has a job.": "Điều này giống workflow tôi dùng trên toàn site này: ý tưởng nhanh, tạo bản đầu, test thủ công, xem lại screenshot hoặc log, rồi sửa tập trung. Output đáng tin hơn vì mỗi công cụ có một vai trò rõ.",
+        "If you are choosing between Codex and OpenClaw, do not start with â€œwhich tool is smarter?â€ Start with the stage of your project.": "Nếu bạn đang chọn giữa Codex và OpenClaw, đừng bắt đầu bằng câu “công cụ nào thông minh hơn?”. Hãy bắt đầu từ giai đoạn hiện tại của dự án.",
+        "Choose Codex when the project already exists and needs focused fixes, production cleanup, validation, SEO repair, or refactoring. It is especially useful when you can provide screenshots, logs, file paths, and a clear definition of done.": "Chọn Codex khi dự án đã tồn tại và cần sửa lỗi tập trung, cleanup production, validation, sửa SEO hoặc refactor. Nó đặc biệt hữu ích khi bạn có thể cung cấp screenshot, log, đường dẫn file và định nghĩa hoàn thành rõ ràng.",
+        "Evaluate OpenClaw when you want to test a new idea quickly and see whether the tool can create a useful first version. Treat the first result as a prototype, not a finished production asset.": "Đánh giá OpenClaw khi bạn muốn test nhanh một ý tưởng mới và xem công cụ có tạo được bản đầu hữu ích hay không. Hãy xem kết quả đầu tiên là prototype, không phải asset production hoàn chỉnh.",
+        "For most builders, the practical answer is a workflow: prototype quickly, test honestly, then repair carefully. That is more reliable than expecting one AI coding tool to handle every stage perfectly.": "Với đa số người xây dự án, câu trả lời thực tế là một workflow: prototype nhanh, test trung thực, rồi sửa cẩn thận. Cách này đáng tin hơn việc kỳ vọng một công cụ AI coding xử lý hoàn hảo mọi giai đoạn.",
+        "Compare AI coding workflows": "So sánh workflow lập trình AI",
+        "Read Cursor vs Windsurf": "Đọc Cursor vs Windsurf",
+        "Is Codex better than OpenClaw for production debugging?": "Codex có tốt hơn OpenClaw cho debug production không?",
+        "Is OpenClaw better for fast prototypes?": "OpenClaw có phù hợp hơn cho prototype nhanh không?",
+        "Can Codex and OpenClaw be used together?": "Có nên dùng Codex và OpenClaw cùng nhau không?",
+        "How should beginners compare Codex and OpenClaw?": "Người mới nên so sánh Codex và OpenClaw như thế nào?",
+        "Should I choose speed or cleanup quality first?": "Nên ưu tiên tốc độ hay chất lượng cleanup trước?",
+        "Use this guide as a research starting point, then verify pricing, terms, policy, and workflow fit on the official vendor website before buying or promoting a tool.": "Hãy xem bài này như điểm bắt đầu nghiên cứu, sau đó kiểm tra giá, điều khoản, chính sách và mức phù hợp workflow trên website chính thức trước khi mua hoặc quảng bá công cụ.",
+        "Get new AI tool reviews and comparisons.": "Nhận các bài review và so sánh công cụ AI mới.",
+        "Join the research list for practical AI tool reviews, comparison notes, and workflow checklists. No spam. Unsubscribe anytime.": "Tham gia danh sách nhận nội dung nghiên cứu thực tế về công cụ AI, ghi chú so sánh và checklist workflow. Không spam. Có thể hủy đăng ký bất kỳ lúc nào.",
+        "Notify me": "Thông báo cho tôi",
+    }
+    for source, target in sorted(replacements.items(), key=lambda item: len(item[0]), reverse=True):
+        text = text.replace(source, target)
+    cleanup = {
+        "Codex vs OpenClaw: công cụ lập trình AI nào hợp với workflow phát triển thực tế? - MS Smile AI Review Hub": "Codex vs OpenClaw: công cụ lập trình AI nào hợp với workflow phát triển thực tế? - MS Smile AI Review Hub",
+        "Đọc Cursor vs Windsurf</a> to understand": "Đọc Cursor vs Windsurf</a> để hiểu",
+        "và đọc the": "và đọc",
+        "Share:": "Chia sẻ:",
+        "Last updated": "Cập nhật lần cuối",
+    }
+    for source, target in cleanup.items():
         text = text.replace(source, target)
     return text
 
@@ -947,7 +1219,9 @@ def localize_html(text: str) -> str:
         r"So sánh \1 và \2 theo use case, mức phù hợp workflow, ghi chú giá và mức phù hợp vendor trước khi chọn \3.",
         text,
     )
+    text = localize_synthesia_heygen_comparison(text)
     text = localize_synthesia_runway_comparison(text)
+    text = localize_codex_openclaw_comparison(text)
 
     # Some visible-label replacements can accidentally touch JSON-LD property
     # names. Restore schema keys so structured data remains valid.
@@ -976,4 +1250,61 @@ def localize_html(text: str) -> str:
         '<a href="/vi/comparisons/runway-vs-pika/">Runway vs Pika</a> and <a href="/vi/comparisons/synthesia-vs-heygen/">Synthesia vs HeyGen</a> before choosing a video workflow.',
         '<a href="/vi/comparisons/runway-vs-pika/">Runway vs Pika</a> và <a href="/vi/comparisons/synthesia-vs-heygen/">Synthesia vs HeyGen</a> trước khi chọn workflow video.',
     )
+    text = text.replace(
+        "<a href='/vi/comparisons/runway-vs-pika/'>Runway vs Pika</a>, and <a href='/vi/best-ai-video-tools-2026/'>Công cụ AI video tốt nhất 2026</a>",
+        "<a href='/vi/comparisons/runway-vs-pika/'>Runway vs Pika</a> và <a href='/vi/best-ai-video-tools-2026/'>Công cụ AI video tốt nhất 2026</a>",
+    )
+    text = text.replace(
+        "</a>, and <a href='/best-ai-video-tools-2026/'>",
+        "</a> và <a href='/best-ai-video-tools-2026/'>",
+    )
+    text = text.replace(
+        "</a>, and <a href='/vi/best-ai-video-tools-2026/'>",
+        "</a> và <a href='/vi/best-ai-video-tools-2026/'>",
+    )
+    text = text.replace(
+        "For avatar-led product explainers versus generative video quy trìnhs, read the",
+        "Với video giải thích sản phẩm dạng avatar và quy trình tạo video bằng AI, hãy đọc",
+    )
+    text = text.replace(
+        "For avatar-led product explainers versus generative video workflows, read the",
+        "Với video giải thích sản phẩm dạng avatar và quy trình tạo video bằng AI, hãy đọc",
+    )
+    text = text.replace(
+        ' and <a href="/vi/comparisons/synthesia-vs-heygen/">Synthesia vs HeyGen</a> before choosing a video quy trình.',
+        ' và <a href="/vi/comparisons/synthesia-vs-heygen/">Synthesia vs HeyGen</a> trước khi chọn quy trình video.',
+    )
+    text = text.replace(
+        'Bạn cũng có thể so sánh <a href="/vi/comparisons/runway-vs-pika/">Runway vs Pika</a> and <a href="/vi/comparisons/synthesia-vs-heygen/">Synthesia vs HeyGen</a> before choosing a video quy trình.',
+        'Bạn cũng có thể so sánh <a href="/vi/comparisons/runway-vs-pika/">Runway vs Pika</a> và <a href="/vi/comparisons/synthesia-vs-heygen/">So sánh Synthesia và HeyGen</a> trước khi chọn quy trình video.',
+    )
+    text = text.replace(
+        '<a href="/vi/comparisons/synthesia-vs-heygen/">Synthesia vs HeyGen</a>',
+        '<a href="/vi/comparisons/synthesia-vs-heygen/">So sánh Synthesia và HeyGen</a>',
+    )
+    text = text.replace(
+        "<a href='/vi/comparisons/synthesia-vs-heygen/'>Synthesia vs HeyGen</a>",
+        "<a href='/vi/comparisons/synthesia-vs-heygen/'>So sánh Synthesia và HeyGen</a>",
+    )
+    text = text.replace('"@type": "Liên hệPoint"', '"@type": "ContactPoint"')
+    text = text.replace('"@type":"Liên hệPoint"', '"@type":"ContactPoint"')
+    if "codex-vs-openclaw" in text or "Codex vs OpenClaw" in text:
+        codex_cleanup = {
+            "Codex vs OpenClaw: Which AI Coding Công cụ Fits Real Development Workflows?": "Codex vs OpenClaw: công cụ lập trình AI nào hợp với workflow phát triển thực tế?",
+            "Câu hỏi thường gặpPage": "FAQPage",
+            "Codex có tốt hơn OpenClaw for production debugging không?": "Codex có tốt hơn OpenClaw cho debug production không?",
+            "Use case phù hợp nhấts": "Use case phù hợp nhất",
+            "Use case phù hợp nhất for Codex": "Use case phù hợp nhất cho Codex",
+            "Use case phù hợp nhất for OpenClaw": "Use case phù hợp nhất cho OpenClaw",
+            "Đánh giá Codex official information": "Xem thông tin chính thức về Codex",
+            "Khuyến nghị cuối</a>": "Khuyến nghị thực tế cuối cùng</a>",
+            "For production cleanup, I would move to Codex with a more precise prompt. Instead of saying “make this better,” I would write: inspect the page, fix the route, preserve canonical and hreflang tags, make the CTA use existing /go/ routes, run validation, and report exactly what changed. This narrower prompt reduces the chance of broad rewrites.": "Với cleanup production, tôi sẽ chuyển sang Codex bằng một prompt chính xác hơn. Thay vì nói “make this better”, tôi sẽ viết: kiểm tra trang, sửa route, giữ nguyên canonical và hreflang, để CTA dùng route /go/ hiện có, chạy validation và báo chính xác đã thay đổi gì. Prompt hẹp như vậy giảm nguy cơ rewrite quá rộng.",
+            "For OpenClaw, prompts should be product-shaped. Describe the page, workflow, sections, UI constraints, and desired first version. Include the goal and what “good enough to test” means. Do not overload the prompt with every possible future edge case if you are still exploring.": "Với OpenClaw, prompt nên có dạng sản phẩm. Hãy mô tả trang, workflow, các section, ràng buộc UI và bản đầu mong muốn. Thêm mục tiêu và định nghĩa “good enough to test” là gì. Nếu bạn vẫn đang khám phá, đừng nhồi mọi edge case tương lai vào prompt.",
+            "Example OpenClaw-style prompt: “Build a simple comparison page for Codex vs OpenClaw with a quick verdict, comparison table, Câu hỏi thường gặp, and internal links. Keep the layout lightweight and make it easy to review.”": "Ví dụ prompt kiểu OpenClaw: “Build a simple comparison page for Codex vs OpenClaw with a quick verdict, comparison table, FAQ, and internal links. Keep the layout lightweight and make it easy to review.”",
+            "Example Codex-style prompt: “Inspect the comparison page generator. Add the new Codex vs OpenClaw page from source, preserve sitemap and language switcher behavior, avoid fake affiliate links, run validation, and report changed files.”": "Ví dụ prompt kiểu Codex: “Inspect the comparison page generator. Add the new Codex vs OpenClaw page from source, preserve sitemap and language switcher behavior, avoid fake affiliate links, run validation, and report changed files.”",
+            "For example, imagine building an AI tools comparison page. OpenClaw could help sketch the sections: quick verdict, comparison table, ghi chú giás, workflow examples, and Câu hỏi thường gặp. After testing, you might find that the page needs better internal links, schema cleanup, responsive code blocks, and a safer CTA. That is where Codex becomes more useful: it can inspect the generator, add the page from source, and run local validation.": "Ví dụ, hãy tưởng tượng bạn đang xây một trang so sánh công cụ AI. OpenClaw có thể giúp phác thảo các phần chính: khuyến nghị nhanh, bảng so sánh, ghi chú giá, ví dụ workflow và FAQ. Sau khi test, bạn có thể thấy trang cần internal link tốt hơn, cleanup schema, code block responsive và CTA an toàn hơn. Đây là lúc Codex hữu ích hơn: nó có thể kiểm tra generator, thêm trang từ source và chạy validation local.",
+            "If you are choosing between Codex and OpenClaw, do not start with “which tool is smarter?” Start with the stage of your project.": "Nếu bạn đang chọn giữa Codex và OpenClaw, đừng bắt đầu bằng câu “công cụ nào thông minh hơn?”. Hãy bắt đầu từ giai đoạn hiện tại của dự án.",
+        }
+        for source, target in codex_cleanup.items():
+            text = text.replace(source, target)
     return text
