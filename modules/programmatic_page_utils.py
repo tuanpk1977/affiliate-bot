@@ -12,7 +12,7 @@ from modules.tracking_config import analytics_snippet
 
 
 BASE = (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
-IMPACT_SITE_VERIFICATION_ID = "1b82eced-5d2b-42b4-b996-d8f9760e3cc5"
+IMPACT_SITE_VERIFICATION_ID = "0cbaabeb-f6ce-4945-aafd-c1f6aabff129"
 
 
 def slugify(text: str) -> str:

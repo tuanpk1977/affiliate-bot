@@ -33,7 +33,7 @@ FAQ_SCHEMA_DISABLED_PATHS = {
     "/comparisons/framer-vs-webflow/",
     "/vi/comparisons/framer-vs-webflow/",
 }
-IMPACT_SITE_VERIFICATION_ID = "1b82eced-5d2b-42b4-b996-d8f9760e3cc5"
+IMPACT_SITE_VERIFICATION_ID = "0cbaabeb-f6ce-4945-aafd-c1f6aabff129"
 
 LEGAL_SLUGS = ["privacy-policy", "terms-of-service", "terms", "contact", "affiliate-disclosure"]
 CONTENT_SLUGS = [
