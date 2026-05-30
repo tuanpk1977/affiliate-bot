@@ -92,7 +92,7 @@ LANDING_TEMPLATE = """<!doctype html>
   <meta name="twitter:title" content="{{ seo_title }}">
   <meta name="twitter:description" content="{{ meta_description }}">
   <meta name="twitter:image" content="{{ og_image }}">
-  <meta name="google-site-verification" content="{{ google_site_verification }}">
+  <meta name="google-site-verification" content="{{ google_site_verification }}" />
   {{ analytics_snippet }}
   <script type="application/ld+json">{{ article_schema }}</script>
   <script type="application/ld+json">{{ review_schema }}</script>

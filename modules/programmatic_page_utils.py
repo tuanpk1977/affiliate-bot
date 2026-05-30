@@ -107,7 +107,7 @@ def shell(title: str, description: str, path: str, body: str, extra_schema: list
   <meta property="og:image" content="{html.escape(BASE + '/assets/og/site.svg', quote=True)}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="{html.escape(BASE + '/assets/og/site.svg', quote=True)}">
-  <meta name="google-site-verification" content="{html.escape(settings.google_site_verification, quote=True)}">
+  <meta name="google-site-verification" content="{html.escape(settings.google_site_verification, quote=True)}" />
   {impact_site_verification_meta()}
   {analytics_snippet()}
   {schema}

@@ -320,7 +320,7 @@ def write_index(output: Path, pages: list[dict]) -> None:
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:image" content="{html.escape(site_url('/assets/og/home.svg'), quote=True)}">
-  <meta name="google-site-verification" content="{html.escape(settings.google_site_verification, quote=True)}">
+  <meta name="google-site-verification" content="{html.escape(settings.google_site_verification, quote=True)}" />
   {impact_site_verification_meta()}
   {analytics_snippet()}
   {''.join(f'<script type="application/ld+json">{schema}</script>' for schema in base_schemas(settings.site_name, 'Independent-style AI and SaaS review hub.', (settings.base_site_url or settings.site_domain or 'https://yourdomain.com').rstrip('/') + '/'))}
@@ -1410,7 +1410,7 @@ def page_shell(
     )
     return f"""<!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{html.escape(title)} - {html.escape(settings.site_name)}</title><meta name="description" content="{html.escape(description)}"><meta name="robots" content="{html.escape(robots, quote=True)}"><link rel="canonical" href="{html.escape(canonical, quote=True)}"><link rel="alternate" type="application/rss+xml" title="{html.escape(settings.site_name)} RSS" href="{html.escape(site_url('/rss.xml'), quote=True)}"><meta property="og:title" content="{html.escape(title)} - {html.escape(settings.site_name)}"><meta property="og:description" content="{html.escape(description)}"><meta property="og:type" content="{html.escape(page_type)}"><meta property="og:image" content="{html.escape(site_url(image_path), quote=True)}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{html.escape(site_url(image_path), quote=True)}"><meta name="google-site-verification" content="{html.escape(settings.google_site_verification, quote=True)}">{impact_site_verification_meta()}{analytics_snippet()}{schemas}<style>{base_css()}</style></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{html.escape(title)} - {html.escape(settings.site_name)}</title><meta name="description" content="{html.escape(description)}"><meta name="robots" content="{html.escape(robots, quote=True)}"><link rel="canonical" href="{html.escape(canonical, quote=True)}"><link rel="alternate" type="application/rss+xml" title="{html.escape(settings.site_name)} RSS" href="{html.escape(site_url('/rss.xml'), quote=True)}"><meta property="og:title" content="{html.escape(title)} - {html.escape(settings.site_name)}"><meta property="og:description" content="{html.escape(description)}"><meta property="og:type" content="{html.escape(page_type)}"><meta property="og:image" content="{html.escape(site_url(image_path), quote=True)}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{html.escape(site_url(image_path), quote=True)}"><meta name="google-site-verification" content="{html.escape(settings.google_site_verification, quote=True)}" />{impact_site_verification_meta()}{analytics_snippet()}{schemas}<style>{base_css()}</style></head>
 <body>{nav_html()}<main class="wrap legal">{body}</main>{footer_html()}</body></html>"""
 
 

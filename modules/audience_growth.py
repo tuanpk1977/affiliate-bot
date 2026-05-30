@@ -193,6 +193,7 @@ def page_shell(
   <meta property="og:image" content="{BASE_URL}/assets/og/site.svg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="{BASE_URL}/assets/og/site.svg">
+  <meta name="google-site-verification" content="{html.escape(settings.google_site_verification, quote=True)}" />
   {impact_site_verification_meta()}
   {schema_html}
   <style>{css()}</style>
