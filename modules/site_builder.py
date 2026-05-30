@@ -34,7 +34,7 @@ FAQ_SCHEMA_DISABLED_PATHS = {
     "/vi/comparisons/framer-vs-webflow/",
 }
 
-LEGAL_SLUGS = ["privacy-policy", "terms", "contact", "affiliate-disclosure"]
+LEGAL_SLUGS = ["privacy-policy", "terms-of-service", "terms", "contact", "affiliate-disclosure"]
 CONTENT_SLUGS = [
     "reviews",
     "comparisons",
@@ -1728,7 +1728,7 @@ def footer_html() -> str:
         f'<a href="{html.escape(url, quote=True)}" target="_blank" rel="noopener noreferrer">{html.escape(platform)}</a>'
         for platform, _, url in community_links()
     )
-    return f'<footer><div class="wrap"><p><strong>{html.escape(settings.site_name)}</strong></p><p>Contact: <a href="mailto:{html.escape(contact)}">{html.escape(contact)}</a></p><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms</a><a href="/editorial-policy/">Editorial Policy</a><a href="/affiliate-disclosure/">Affiliate Disclosure</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/reviews/">Reviews</a><a href="/comparisons/">Comparisons</a><a href="/pricing/">Pricing</a><a href="/categories/">Categories</a><a href="/hubs/">Hubs</a><p class="footer-social"><strong>Follow AI Tools Review Hub:</strong> {follow_links}</p><p>&copy; 2026 {html.escape(settings.site_name)}.</p><p>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p><p>Reviews are for research purposes only.</p></div></footer>'
+    return f'<footer><div class="wrap"><p><strong>{html.escape(settings.site_name)}</strong></p><p>Contact: <a href="mailto:{html.escape(contact)}">{html.escape(contact)}</a></p><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy-policy/">Privacy Policy</a><a href="/terms-of-service/">Terms of Service</a><a href="/affiliate-disclosure/">Affiliate Disclosure</a><a href="/editorial-policy/">Editorial Policy</a><a href="/reviews/">Reviews</a><a href="/comparisons/">Comparisons</a><a href="/pricing/">Pricing</a><a href="/categories/">Categories</a><a href="/hubs/">Hubs</a><p class="footer-social"><strong>Follow AI Tools Review Hub:</strong> {follow_links}</p><p>&copy; 2026 {html.escape(settings.site_name)}.</p><p>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p><p>Reviews are for research purposes only.</p></div></footer>'
 
 
 def newsletter_html() -> str:
@@ -1800,6 +1800,17 @@ def legal_pages() -> dict[str, tuple[str, str]]:
             </section>
             """,
         ),
+        "terms-of-service": (
+            "Terms of Service",
+            f"""
+            <section class="card">
+              <p>Content on {site_name} is provided for research and comparison purposes only.</p>
+              <p>No result is promised. Software outcomes, pricing, availability, affiliate terms, payouts, and policies can change at any time.</p>
+              <p>Users should verify current pricing, product details, and official terms directly with each vendor before buying, promoting, or running ads.</p>
+              <p>By using this site, you agree that decisions based on the information here are your own responsibility.</p>
+            </section>
+            """,
+        ),
         "terms": (
             "Terms",
             f"""
@@ -1807,7 +1818,7 @@ def legal_pages() -> dict[str, tuple[str, str]]:
               <p>Content on {site_name} is provided for research and comparison purposes only.</p>
               <p>No result is promised. Software outcomes, pricing, availability, affiliate terms, payouts, and policies can change at any time.</p>
               <p>Users should verify current pricing, product details, and official terms directly with each vendor before buying, promoting, or running ads.</p>
-              <p>By using this site, you agree that decisions based on the information here are your own responsibility.</p>
+              <p>This legacy terms page is kept for older links. The current Terms of Service page is available at <a href="/terms-of-service/">/terms-of-service/</a>.</p>
             </section>
             """,
         ),
