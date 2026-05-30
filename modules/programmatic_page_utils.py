@@ -12,7 +12,7 @@ from modules.tracking_config import analytics_snippet
 
 
 BASE = (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
-IMPACT_SITE_VERIFICATION_ID = "0cbaabeb-f6ce-4945-aafd-c1f6aabff129"
+IMPACT_SITE_VERIFICATION_ID = "e41dba46-8780-4a26-8314-596af1e3980b"
 
 
 def slugify(text: str) -> str:
@@ -126,13 +126,22 @@ def impact_site_verification_meta() -> str:
     return f'<meta name="impact-site-verification" value="{html.escape(IMPACT_SITE_VERIFICATION_ID, quote=True)}">'
 
 
+def impact_site_verification_text() -> str:
+    text = f"Impact-Site-Verification: {IMPACT_SITE_VERIFICATION_ID}"
+    return (
+        "<p class='impact-site-verification-text' "
+        "style='position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;'>"
+        f"{html.escape(text)}</p>"
+    )
+
+
 def nav() -> str:
     return f"<nav class='nav'><div class='wrap nav-inner'><a class='logo' href='/'>{html.escape(settings.site_name)}</a><div class='menu'><a href='/'>Home</a><a href='/reviews/'>Reviews</a><a href='/comparisons/'>Comparisons</a><a href='/pricing/'>Pricing</a><a href='/categories/'>Categories</a><a href='/hubs/'>Hubs</a><a href='/blog/'>Blog</a><a href='/contact/'>Contact</a></div><div class='language-switcher' aria-label='Language switcher'><a class='active' href='/'>English</a><span>|</span><a href='/vi/'>Tiếng Việt</a></div></div><div class='wrap'><p class='note'>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p></div></nav>"
 
 
 def footer() -> str:
     contact = settings.contact_email or "tuanpk1977@gmail.com"
-    return f"<footer><div class='wrap'><p><strong>{html.escape(settings.site_name)}</strong></p><p>Contact: <a href='mailto:{html.escape(contact)}'>{html.escape(contact)}</a></p><a href='/privacy/'>Privacy Policy</a><a href='/terms/'>Terms</a><a href='/editorial-policy/'>Editorial Policy</a><a href='/affiliate-disclosure/'>Affiliate Disclosure</a><a href='/about/'>About</a><a href='/contact/'>Contact</a><p>&copy; 2026 {html.escape(settings.site_name)}.</p><p>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p></div></footer>"
+    return f"<footer><div class='wrap'><p><strong>{html.escape(settings.site_name)}</strong></p><p>Contact: <a href='mailto:{html.escape(contact)}'>{html.escape(contact)}</a></p><a href='/privacy/'>Privacy Policy</a><a href='/terms/'>Terms</a><a href='/editorial-policy/'>Editorial Policy</a><a href='/affiliate-disclosure/'>Affiliate Disclosure</a><a href='/about/'>About</a><a href='/contact/'>Contact</a><p>&copy; 2026 {html.escape(settings.site_name)}.</p><p>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p>{impact_site_verification_text()}</div></footer>"
 
 
 def css() -> str:

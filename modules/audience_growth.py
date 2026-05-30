@@ -18,6 +18,7 @@ DOWNLOAD_SLUG = "downloads/ai-coding-workflow-checklist"
 EMAIL_SETUP_SLUG = "email-capture-setup"
 FORMSPREE_SETUP_SLUG = "formspree-setup"
 SOCIAL_PLATFORMS = ["facebook", "linkedin", "twitter", "short_video"]
+IMPACT_SITE_VERIFICATION_ID = "e41dba46-8780-4a26-8314-596af1e3980b"
 
 
 def run_audience_growth_system(output: Path | None = None) -> dict[str, int]:
@@ -192,6 +193,7 @@ def page_shell(
   <meta property="og:image" content="{BASE_URL}/assets/og/site.svg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="{BASE_URL}/assets/og/site.svg">
+  {impact_site_verification_meta()}
   {schema_html}
   <style>{css()}</style>
 </head>
@@ -265,7 +267,20 @@ def footer_html(lang: str) -> str:
     rendered = []
     for en_href, en_text, vi_href, vi_text in links:
         rendered.append(f"<a href='{vi_href if lang == 'vi' else en_href}'>{vi_text if lang == 'vi' else en_text}</a>")
-    return f"<footer><div class='wrap'><p><strong>{SITE_NAME}</strong></p>{contact}<p>{' '.join(rendered)}</p><p>&copy; 2026 {SITE_NAME}.</p><p>{disclosure}</p></div></footer>"
+    return f"<footer><div class='wrap'><p><strong>{SITE_NAME}</strong></p>{contact}<p>{' '.join(rendered)}</p><p>&copy; 2026 {SITE_NAME}.</p><p>{disclosure}</p>{impact_site_verification_text()}</div></footer>"
+
+
+def impact_site_verification_meta() -> str:
+    return f'<meta name="impact-site-verification" value="{html.escape(IMPACT_SITE_VERIFICATION_ID, quote=True)}">'
+
+
+def impact_site_verification_text() -> str:
+    text = f"Impact-Site-Verification: {IMPACT_SITE_VERIFICATION_ID}"
+    return (
+        "<p class='impact-site-verification-text' "
+        "style='position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;'>"
+        f"{html.escape(text)}</p>"
+    )
 
 
 def css() -> str:

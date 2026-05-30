@@ -33,7 +33,7 @@ FAQ_SCHEMA_DISABLED_PATHS = {
     "/comparisons/framer-vs-webflow/",
     "/vi/comparisons/framer-vs-webflow/",
 }
-IMPACT_SITE_VERIFICATION_ID = "0cbaabeb-f6ce-4945-aafd-c1f6aabff129"
+IMPACT_SITE_VERIFICATION_ID = "e41dba46-8780-4a26-8314-596af1e3980b"
 
 LEGAL_SLUGS = ["privacy-policy", "terms-of-service", "terms", "contact", "affiliate-disclosure"]
 CONTENT_SLUGS = [
@@ -1427,6 +1427,15 @@ def impact_site_verification_meta() -> str:
     return f'<meta name="impact-site-verification" value="{html.escape(IMPACT_SITE_VERIFICATION_ID, quote=True)}">'
 
 
+def impact_site_verification_text() -> str:
+    text = f"Impact-Site-Verification: {IMPACT_SITE_VERIFICATION_ID}"
+    return (
+        '<p class="impact-site-verification-text" '
+        'style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">'
+        f"{html.escape(text)}</p>"
+    )
+
+
 def write_og_images(output: Path, pages: list[dict]) -> None:
     og_dir = output / "assets" / "og"
     og_dir.mkdir(parents=True, exist_ok=True)
@@ -1734,7 +1743,7 @@ def footer_html() -> str:
         f'<a href="{html.escape(url, quote=True)}" target="_blank" rel="noopener noreferrer">{html.escape(platform)}</a>'
         for platform, _, url in community_links()
     )
-    return f'<footer><div class="wrap"><p><strong>{html.escape(settings.site_name)}</strong></p><p>Contact: <a href="mailto:{html.escape(contact)}">{html.escape(contact)}</a></p><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy-policy/">Privacy Policy</a><a href="/terms-of-service/">Terms of Service</a><a href="/affiliate-disclosure/">Affiliate Disclosure</a><a href="/editorial-policy/">Editorial Policy</a><a href="/reviews/">Reviews</a><a href="/comparisons/">Comparisons</a><a href="/pricing/">Pricing</a><a href="/categories/">Categories</a><a href="/hubs/">Hubs</a><p class="footer-social"><strong>Follow AI Tools Review Hub:</strong> {follow_links}</p><p>&copy; 2026 {html.escape(settings.site_name)}.</p><p>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p><p>Reviews are for research purposes only.</p></div></footer>'
+    return f'<footer><div class="wrap"><p><strong>{html.escape(settings.site_name)}</strong></p><p>Contact: <a href="mailto:{html.escape(contact)}">{html.escape(contact)}</a></p><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy-policy/">Privacy Policy</a><a href="/terms-of-service/">Terms of Service</a><a href="/affiliate-disclosure/">Affiliate Disclosure</a><a href="/editorial-policy/">Editorial Policy</a><a href="/reviews/">Reviews</a><a href="/comparisons/">Comparisons</a><a href="/pricing/">Pricing</a><a href="/categories/">Categories</a><a href="/hubs/">Hubs</a><p class="footer-social"><strong>Follow AI Tools Review Hub:</strong> {follow_links}</p><p>&copy; 2026 {html.escape(settings.site_name)}.</p><p>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p><p>Reviews are for research purposes only.</p>{impact_site_verification_text()}</div></footer>'
 
 
 def newsletter_html() -> str:
