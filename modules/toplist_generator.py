@@ -9,6 +9,7 @@ from modules.programmatic_page_utils import affiliate_disclosure, breadcrumb_sch
 
 
 TOPLISTS = [
+    ("best-ai-tools", "Best AI Tools", ["ChatGPT", "Claude", "Gemini", "Perplexity", "Cursor", "Surfer SEO", "ElevenLabs", "Runway", "Jasper", "Notion AI"]),
     ("best-ai-writing-tools", "Best AI Writing Tools", ["Jasper", "Copy.ai", "Notion AI"]),
     ("best-ai-video-tools", "Best AI Video Tools", ["Runway", "Descript", "Synthesia"]),
     ("best-ai-coding-tools", "Best AI Coding Tools", ["Cursor", "GitHub Copilot"]),

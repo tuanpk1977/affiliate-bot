@@ -273,6 +273,7 @@ def write_index(output: Path, pages: list[dict]) -> None:
     cards = "\n".join(card_html(page) for page in pages)
     category_cards = nav_card_links(
         [
+            ("Best AI Tools", "/best-ai-tools/", "A broad shortlist of AI assistants, coding tools, SEO tools, voice tools, video tools, and writing tools."),
             ("AI Coding Tools", "/category/ai-coding-tools/", "Coding assistants, developer workflows, repository context, and team controls."),
             ("SEO Tools", "/category/seo-tools/", "Keyword research, competitor research, audits, and content planning."),
             ("Email Marketing Tools", "/category/email-marketing-tools/", "List growth, lifecycle automation, deliverability, and CRM-style follow-up."),
