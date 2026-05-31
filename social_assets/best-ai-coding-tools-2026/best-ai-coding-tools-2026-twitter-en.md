@@ -4,6 +4,6 @@
 
 3/ I wrote a practical breakdown of Best AI Coding Tools 2026 for builders comparing real repo workflows.
 
-4/ Read the research note: https://review.mssmileenglish.com/best-ai-coding-tools-2026/?utm_source=twitter&utm_medium=organic_social&utm_campaign=seo_content&utm_content=twitter_draft
+4/ Read the research note: https://smileaireviewhub.com/best-ai-coding-tools-2026/?utm_source=twitter&utm_medium=organic_social&utm_campaign=seo_content&utm_content=twitter_draft
 
 #AICoding #DevTools

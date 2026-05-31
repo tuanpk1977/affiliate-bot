@@ -374,7 +374,7 @@ def public_url_for_action(item: dict[str, str], slug: str) -> str:
     page_url = item.get("page_url", "")
     if page_url.startswith("http"):
         return page_url
-    base = (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
+    base = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
     if page_url.startswith("/"):
         return base + page_url
     return f"{base}/{slug}/"

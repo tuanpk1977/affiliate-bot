@@ -138,7 +138,7 @@ def ensure_google_indexing_checklist(indexing: pd.DataFrame | None = None) -> Pa
     lines = [
         "# Google Indexing Checklist",
         "",
-        "- Submit `https://review.mssmileenglish.com/sitemap.xml` in Google Search Console.",
+        "- Submit `https://smileaireviewhub.com/sitemap.xml` in Google Search Console.",
         "- Inspect 5-10 priority URLs with URL Inspection.",
         "- Request indexing for new or updated pages.",
         "- Check canonical tag on each inspected page.",
@@ -156,7 +156,7 @@ def ensure_google_indexing_checklist(indexing: pd.DataFrame | None = None) -> Pa
 
 
 def priority_index_urls(indexing: pd.DataFrame) -> list[str]:
-    base = (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
+    base = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
     desired_paths = [
         "/",
         "/sitemap.xml",
@@ -195,7 +195,7 @@ def priority_index_urls(indexing: pd.DataFrame) -> list[str]:
 
 
 def build_social_seed_content() -> pd.DataFrame:
-    base = (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
+    base = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
     seed_root = settings.base_dir / "draft_output" / "social_seed"
     seed_root.mkdir(parents=True, exist_ok=True)
     seeds = [
@@ -300,7 +300,7 @@ def read_social_posts() -> pd.DataFrame:
     rows.extend(df.to_dict("records") if not df.empty else [])
     known_paths = {str(row.get("output_path", "")) for row in rows}
     root = settings.base_dir / "draft_output" / "social_posts"
-    base = (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
+    base = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
     if root.exists():
         for file in sorted(root.glob("*/*.txt")):
             if str(file) in known_paths:

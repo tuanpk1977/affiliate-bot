@@ -3,7 +3,7 @@
 - Platform: X/Twitter
 - Status: Pending Review
 - Suggested time: 2026-06-21 10:15
-- Target URL: https://review.mssmileenglish.com/best-ai-coding-tools-2026/?utm_source=twitter
+- Target URL: https://smileaireviewhub.com/best-ai-coding-tools-2026/?utm_source=twitter
 
 ## Copy
 
@@ -15,4 +15,4 @@
 
 4/ Each stage of a real project breaks AI tools in a different way. This is where context, pricing, and team workflow start to matter.
 
-5/ Full practical note: https://review.mssmileenglish.com/best-ai-coding-tools-2026/?utm_source=twitter #AICoding #Codex #Cursor #Windsurf
+5/ Full practical note: https://smileaireviewhub.com/best-ai-coding-tools-2026/?utm_source=twitter #AICoding #Codex #Cursor #Windsurf

@@ -7,7 +7,7 @@ AI video tools nên test bằng workflow thật.
 - Đừng mua chỉ vì demo đẹp.
 
 Read here:
-https://review.mssmileenglish.com/best-ai-video-tools-2026/
+https://smileaireviewhub.com/best-ai-video-tools-2026/
 
 #AIVideo #SaaS
 

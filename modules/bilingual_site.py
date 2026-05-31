@@ -11,7 +11,7 @@ from modules.indexing_policy import robots_meta_for_path
 from modules.vietnamese_localizer import localize_html
 
 
-BASE_URL = (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
+BASE_URL = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
 
 
 SKIP_PREFIXES = {"assets", "go", "vi", "__pycache__"}

@@ -41,11 +41,11 @@ Do not upload the whole project folder when using Netlify Drop.
 
 After Netlify finishes the upload, test:
 
-- `https://review.mssmileenglish.com/`
-- `https://review.mssmileenglish.com/reviews/`
-- `https://review.mssmileenglish.com/comparisons/`
-- `https://review.mssmileenglish.com/pricing/`
-- `https://review.mssmileenglish.com/categories/`
+- `https://smileaireviewhub.com/`
+- `https://smileaireviewhub.com/reviews/`
+- `https://smileaireviewhub.com/comparisons/`
+- `https://smileaireviewhub.com/pricing/`
+- `https://smileaireviewhub.com/categories/`
 
 Each page should load with no 404.
 
@@ -54,7 +54,7 @@ Each page should load with no 404.
 Open:
 
 ```text
-https://review.mssmileenglish.com/go/cursor/?src=/cursor/&cta=official_site&debug=1
+https://smileaireviewhub.com/go/cursor/?src=/cursor/&cta=official_site&debug=1
 ```
 
 Confirm the debug page shows:

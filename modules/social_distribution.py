@@ -1496,7 +1496,7 @@ def run_daemon(interval_minutes: int = 5, dry_run: bool = False, max_cycles: int
 
 
 def full_url(path: str, platform: str = "") -> str:
-    base = (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
+    base = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
     url = f"{base}/{path.strip('/')}/"
     source = utm_source(platform)
     return f"{url}?utm_source={source}" if source else url
@@ -1645,7 +1645,7 @@ def render_social_asset(output: Path, seed: SocialSeed, theme: str = "dark") -> 
     for line in wrap(subtitle, 56)[:2]:
         draw.text((94, min(y + 12, 455)), line, font=font_mid, fill=sub_color)
         y += 38
-    draw.text((94, 526), "review.mssmileenglish.com", font=font_small, fill=foot_color)
+    draw.text((94, 526), "smileaireviewhub.com", font=font_small, fill=foot_color)
     draw.text((820, 526), "MS Smile AI Review Hub", font=font_small, fill=foot_color)
     output.parent.mkdir(parents=True, exist_ok=True)
     image.save(output)

@@ -9,6 +9,6 @@ I stopped treating Cursor like autocomplete. The real value is workflow speed du
 
 A good workflow is: scaffold fast, debug slowly, ship small trusted diffs.
 
-Full note: https://review.mssmileenglish.com/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/
+Full note: https://smileaireviewhub.com/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/
 
 Affiliate disclosure: some links may be affiliate links.

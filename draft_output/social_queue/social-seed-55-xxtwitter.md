@@ -3,7 +3,7 @@
 - Platform: X/Twitter
 - Status: Pending Review
 - Suggested time: 2026-06-25 16:45
-- Target URL: https://review.mssmileenglish.com/comparisons/cursor-vs-copilot/?utm_source=twitter
+- Target URL: https://smileaireviewhub.com/comparisons/cursor-vs-copilot/?utm_source=twitter
 
 ## Copy
 
@@ -15,4 +15,4 @@
 
 4/ The second attempt exposed whether the tool understood the repo or just patched symptoms. This is where context, pricing, and team workflow start to matter.
 
-5/ Full practical note: https://review.mssmileenglish.com/comparisons/cursor-vs-copilot/?utm_source=twitter #AICoding #Codex #Cursor #Windsurf
+5/ Full practical note: https://smileaireviewhub.com/comparisons/cursor-vs-copilot/?utm_source=twitter #AICoding #Codex #Cursor #Windsurf

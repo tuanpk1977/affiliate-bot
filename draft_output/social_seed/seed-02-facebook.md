@@ -7,7 +7,7 @@ Mình không còn đánh giá AI coding tool bằng demo đẹp nữa.
 - Dự án lớn vẫn cần review kỹ từng diff.
 
 Read here:
-https://review.mssmileenglish.com/comparisons/windsurf-vs-copilot/
+https://smileaireviewhub.com/comparisons/windsurf-vs-copilot/
 
 #AICoding #Windsurf #Copilot
 

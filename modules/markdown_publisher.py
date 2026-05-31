@@ -9,7 +9,7 @@ from config import settings
 from modules.site_builder import analytics_snippet, base_css, base_schemas, footer_html, nav_html, site_url
 
 
-BASE_URL = (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
+BASE_URL = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
 
 
 def publish_markdown_articles() -> list[Path]:

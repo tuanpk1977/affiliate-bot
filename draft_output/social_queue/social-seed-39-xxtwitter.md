@@ -3,7 +3,7 @@
 - Platform: X/Twitter
 - Status: Pending Review
 - Suggested time: 2026-06-17 19:15
-- Target URL: https://review.mssmileenglish.com/windsurf-review/?utm_source=twitter
+- Target URL: https://smileaireviewhub.com/windsurf-review/?utm_source=twitter
 
 ## Copy
 
@@ -15,4 +15,4 @@
 
 4/ Move messy logic and build failures into Codex with a clear task boundary. This is where context, pricing, and team workflow start to matter.
 
-5/ Full practical note: https://review.mssmileenglish.com/windsurf-review/?utm_source=twitter #AICoding #Codex #Cursor #Windsurf
+5/ Full practical note: https://smileaireviewhub.com/windsurf-review/?utm_source=twitter #AICoding #Codex #Cursor #Windsurf

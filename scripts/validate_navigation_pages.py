@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site_output"
 SITEMAP = SITE / "sitemap.xml"
-BASE = "https://review.mssmileenglish.com"
+BASE = "https://smileaireviewhub.com"
 INDEX_PAGES = {
     "reviews": "/reviews/",
     "comparisons": "/comparisons/",

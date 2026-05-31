@@ -580,7 +580,7 @@ def platform_specific_variant(platform: str) -> str:
 
 
 def tracked_url(path: str, platform: str, community_id: str, variant: str) -> str:
-    base = (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
+    base = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
     clean_path = "/" + str(path).strip("/") + "/"
     campaign = clean_path.strip("/").replace("/", "_") or "homepage"
     source = platform_source(platform)

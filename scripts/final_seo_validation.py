@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site_output"
 DATA = ROOT / "data"
 REPORT = DATA / "seo_indexing_report.txt"
-BASE_URL = "https://review.mssmileenglish.com"
+BASE_URL = "https://smileaireviewhub.com"
 
 sys.path.insert(0, str(ROOT))
 
@@ -114,7 +114,7 @@ def validate_sitemap(result: SeoResult) -> None:
         seen.add(url)
         parsed = urlparse(url)
         path = parsed.path or "/"
-        if parsed.netloc != "review.mssmileenglish.com":
+        if parsed.netloc != "smileaireviewhub.com":
             result.sitemap_errors.append(f"unexpected sitemap host: {url}")
         if any(fragment in url for fragment in blocked_fragments):
             result.sitemap_errors.append(f"non-indexable URL in sitemap: {url}")

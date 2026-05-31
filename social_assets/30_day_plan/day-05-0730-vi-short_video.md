@@ -17,7 +17,7 @@ Ghi chú hôm nay về GitHub Pages deployment:
 - Lỗi build/deploy thường cần prompt rõ hơn.
 - SEO và language integrity nên được kiểm tra trước khi publish.
 
-Checklist workflow: https://review.mssmileenglish.com/vi/free-ai-coding-workflow-checklist/
+Checklist workflow: https://smileaireviewhub.com/vi/free-ai-coding-workflow-checklist/
 #AICoding #BuildInPublic
 
 Video: mở bằng hook, nêu vấn đề, đưa checklist, kết thúc bằng link workflow.

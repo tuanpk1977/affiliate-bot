@@ -11,12 +11,12 @@ from modules.social_scheduler import next_schedule_times
 class SocialAutomationTests(unittest.TestCase):
     def test_social_draft_has_required_metadata(self) -> None:
         draft = create_social_draft(
-            "https://review.mssmileenglish.com/cursor/",
+            "https://smileaireviewhub.com/cursor/",
             "en",
             "linkedin",
             created_at="2026-05-16T07:00:00",
         )
-        self.assertEqual(draft["id"], build_draft_id("https://review.mssmileenglish.com/cursor/", "en", "linkedin"))
+        self.assertEqual(draft["id"], build_draft_id("https://smileaireviewhub.com/cursor/", "en", "linkedin"))
         self.assertEqual(draft["status"], "draft")
         self.assertTrue(draft["source_url"].endswith("/cursor/"))
         self.assertTrue(draft["cta_url"].endswith("/cursor/"))

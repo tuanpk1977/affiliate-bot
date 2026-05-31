@@ -14,7 +14,7 @@ from config import settings
 PLATFORMS = ["facebook", "linkedin", "twitter", "short_video"]
 LANGUAGES = ["en", "vi"]
 STATUS_DIRS = ["drafts", "approved", "rejected", "scheduled", "posted"]
-DEFAULT_DOMAIN = "https://review.mssmileenglish.com"
+DEFAULT_DOMAIN = "https://smileaireviewhub.com"
 PRIORITY_PATHS = [
     "/",
     "/cursor/",

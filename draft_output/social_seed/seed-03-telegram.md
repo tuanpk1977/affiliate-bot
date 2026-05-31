@@ -7,7 +7,7 @@ AI coding stack thực chiến:
 - Copilot cho autocomplete nhẹ.
 
 Read here:
-https://review.mssmileenglish.com/best-ai-coding-tools-2026/
+https://smileaireviewhub.com/best-ai-coding-tools-2026/
 
 #AICoding #SoloBuilder
 

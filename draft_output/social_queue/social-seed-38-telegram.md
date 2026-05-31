@@ -3,7 +3,7 @@
 - Platform: Telegram
 - Status: Pending Review
 - Suggested time: 2026-06-16 15:00
-- Target URL: https://review.mssmileenglish.com/review/cursor/?utm_source=telegram
+- Target URL: https://smileaireviewhub.com/review/cursor/?utm_source=telegram
 
 ## Copy
 
@@ -20,4 +20,4 @@ The useful question is not which tool looks impressive in a demo. It is which on
 My current filter: use the tool that reduces cleanup time. If it only creates faster first drafts but leaves more review work, I treat it carefully.
 
 Read more:
-https://review.mssmileenglish.com/review/cursor/?utm_source=telegram
+https://smileaireviewhub.com/review/cursor/?utm_source=telegram

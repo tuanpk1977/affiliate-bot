@@ -12,6 +12,6 @@ What I would check before choosing:
 
 This is not a hype post. It is a practical research note for builders comparing AI coding workflows.
 
-Read it here: https://review.mssmileenglish.com/windsurf-review/?utm_source=linkedin&utm_medium=organic_social&utm_campaign=seo_content&utm_content=linkedin_draft
+Read it here: https://smileaireviewhub.com/windsurf-review/?utm_source=linkedin&utm_medium=organic_social&utm_campaign=seo_content&utm_content=linkedin_draft
 
 #AICoding #DeveloperTools #Cursor #Windsurf #GitHubCopilot

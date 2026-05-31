@@ -110,12 +110,12 @@ Netlify will deploy automatically from GitHub.
 
 Check:
 
-- `https://review.mssmileenglish.com/`
-- `https://review.mssmileenglish.com/sitemap.xml`
+- `https://smileaireviewhub.com/`
+- `https://smileaireviewhub.com/sitemap.xml`
 - The new article URL, for example:
-  `https://review.mssmileenglish.com/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/`
+  `https://smileaireviewhub.com/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/`
 - One tracking link:
-  `https://review.mssmileenglish.com/go/cursor/?src=/cursor/&cta=official_site&debug=1`
+  `https://smileaireviewhub.com/go/cursor/?src=/cursor/&cta=official_site&debug=1`
 
 ## 6. What Not To Do
 

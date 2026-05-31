@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
-BASE_URL = "https://review.mssmileenglish.com"
+BASE_URL = "https://smileaireviewhub.com"
 
 PRIORITY_PATHS = [
     "/",

@@ -4,6 +4,6 @@
 
 3/ Mình viết bài Cursor vs Windsurf theo góc nhìn build project thật.
 
-4/ Xem tại: https://review.mssmileenglish.com/vi/comparisons/cursor-vs-windsurf/?utm_source=twitter&utm_medium=organic_social&utm_campaign=seo_content&utm_content=twitter_draft
+4/ Xem tại: https://smileaireviewhub.com/vi/comparisons/cursor-vs-windsurf/?utm_source=twitter&utm_medium=organic_social&utm_campaign=seo_content&utm_content=twitter_draft
 
 #AICoding #LapTrinh

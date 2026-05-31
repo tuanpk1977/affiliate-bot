@@ -3,7 +3,7 @@
 - Platform: X/Twitter
 - Status: Pending Review
 - Suggested time: 2026-06-23 13:30
-- Target URL: https://review.mssmileenglish.com/best-ai-coding-tools-2026/?utm_source=twitter
+- Target URL: https://smileaireviewhub.com/best-ai-coding-tools-2026/?utm_source=twitter
 
 ## Copy
 
@@ -15,4 +15,4 @@
 
 4/ Codex gives me deeper repair when the project is already messy. This is where context, pricing, and team workflow start to matter.
 
-5/ Full practical note: https://review.mssmileenglish.com/best-ai-coding-tools-2026/?utm_source=twitter #AICoding #Codex #Cursor #Windsurf
+5/ Full practical note: https://smileaireviewhub.com/best-ai-coding-tools-2026/?utm_source=twitter #AICoding #Codex #Cursor #Windsurf

@@ -11,7 +11,7 @@ from config import settings
 from modules.tracking_config import analytics_snippet
 
 
-BASE = (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
+BASE = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
 IMPACT_SITE_VERIFICATION_ID = "e41dba46-8780-4a26-8314-596af1e3980b"
 
 

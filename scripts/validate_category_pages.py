@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site_output"
 INDEX = ROOT / "data" / "category_pages_index.csv"
 SITEMAP = SITE / "sitemap.xml"
-BASE = "https://review.mssmileenglish.com"
+BASE = "https://smileaireviewhub.com"
 PLACEHOLDER_PATTERNS = ["placeholder", "todo", "lorem ipsum", "example.com", "yourdomain", "fake affiliate"]
 
 

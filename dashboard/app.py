@@ -217,7 +217,7 @@ def read_generated_social_posts_from_files() -> pd.DataFrame:
                     "article_slug": path.parent.name,
                     "platform": path.stem,
                     "title": path.parent.name.replace("-", " ").title(),
-                    "article_url": f"{(settings.base_site_url or settings.site_domain or 'https://review.mssmileenglish.com').rstrip('/')}/{path.parent.name}/",
+                    "article_url": f"{(settings.base_site_url or settings.site_domain or 'https://smileaireviewhub.com').rstrip('/')}/{path.parent.name}/",
                     "status": "Pending Review",
                     "output_path": str(path),
                     "created_at": "",
@@ -1715,7 +1715,7 @@ def extract_cta_link_hashtag(posts: list[str], target_url: str) -> str:
 def render_link_health(target_url: str) -> None:
     st.caption(f"Link đang dùng: {target_url or '(empty)'}")
     allowed_domains = (
-        "https://review.mssmileenglish.com",
+        "https://smileaireviewhub.com",
         "https://tuanpk1977.github.io/affiliate-bot",
     )
     if not target_url:
@@ -1725,7 +1725,7 @@ def render_link_health(target_url: str) -> None:
     elif target_url.startswith(allowed_domains):
         st.success("Target URL OK: dùng domain được phép.")
     else:
-        st.warning("Cảnh báo: link không thuộc review.mssmileenglish.com hoặc tuanpk1977.github.io/affiliate-bot.")
+        st.warning("Cảnh báo: link không thuộc smileaireviewhub.com hoặc tuanpk1977.github.io/affiliate-bot.")
 
 
 def save_uploaded_social_image(uploaded_file: object, output_path: Path) -> None:

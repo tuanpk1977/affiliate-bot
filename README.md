@@ -47,7 +47,7 @@ Kiểm tra priority pages sau khi upload `site_output/` lên Netlify:
 python scripts/live_qa_priority_pages.py
 ```
 
-Script sẽ kiểm tra 5-10 URL live mẫu trên `https://review.mssmileenglish.com/` và xuất kết quả vào:
+Script sẽ kiểm tra 5-10 URL live mẫu trên `https://smileaireviewhub.com/` và xuất kết quả vào:
 
 ```text
 data/live_priority_page_qa.csv

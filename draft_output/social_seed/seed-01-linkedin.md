@@ -7,7 +7,7 @@ Cursor vs Copilot is not just editor vs autocomplete.
 - Test both on a real bug, not a demo prompt.
 
 Read here:
-https://review.mssmileenglish.com/comparisons/cursor-vs-copilot/
+https://smileaireviewhub.com/comparisons/cursor-vs-copilot/
 
 #AICoding #Cursor #GitHubCopilot
 

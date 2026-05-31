@@ -191,7 +191,7 @@ def add_utm(url: str, platform: str) -> str:
 
 
 def full_url(path: str) -> str:
-    base = (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
+    base = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
     return base + path
 
 

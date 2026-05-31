@@ -67,7 +67,7 @@ def article_url_from_draft(row: dict[str, str]) -> str:
     target_url = str(row.get("target_url", "") or "").strip()
     if target_url:
         return target_url
-    base = (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
+    base = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
     slug = slugify(row.get("slug") or row.get("title") or "draft")
     return f"{base}/{slug}/"
 

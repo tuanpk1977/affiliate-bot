@@ -1,6 +1,6 @@
 # Google Indexing Checklist
 
-- Submit `https://review.mssmileenglish.com/sitemap.xml` in Google Search Console.
+- Submit `https://smileaireviewhub.com/sitemap.xml` in Google Search Console.
 - Inspect 5-10 priority URLs with URL Inspection.
 - Request indexing for new or updated pages.
 - Check canonical tag on each inspected page.
@@ -10,23 +10,23 @@
 - Share the highest-priority pages on social before requesting indexing if possible.
 
 ## 20 priority URLs to inspect first
-- https://review.mssmileenglish.com/
-- https://review.mssmileenglish.com/sitemap.xml
-- https://review.mssmileenglish.com/best-ai-coding-tools-2026/
-- https://review.mssmileenglish.com/best-ai-seo-tools-2026/
-- https://review.mssmileenglish.com/best-ai-writing-tools-2026/
-- https://review.mssmileenglish.com/best-ai-video-tools-2026/
-- https://review.mssmileenglish.com/best-ai-automation-tools-2026/
-- https://review.mssmileenglish.com/comparisons/cursor-vs-copilot/
-- https://review.mssmileenglish.com/comparisons/windsurf-vs-copilot/
-- https://review.mssmileenglish.com/comparisons/canva-vs-adobe-express/
-- https://review.mssmileenglish.com/comparisons/cursor-vs-windsurf/
-- https://review.mssmileenglish.com/review/cursor/
-- https://review.mssmileenglish.com/review/github-copilot/
-- https://review.mssmileenglish.com/review/surfer-seo/
-- https://review.mssmileenglish.com/review/semrush/
-- https://review.mssmileenglish.com/review/canva/
-- https://review.mssmileenglish.com/review/zapier/
-- https://review.mssmileenglish.com/review/make/
-- https://review.mssmileenglish.com/review/elevenlabs/
-- https://review.mssmileenglish.com/category/ai-coding-tools/
+- https://smileaireviewhub.com/
+- https://smileaireviewhub.com/sitemap.xml
+- https://smileaireviewhub.com/best-ai-coding-tools-2026/
+- https://smileaireviewhub.com/best-ai-seo-tools-2026/
+- https://smileaireviewhub.com/best-ai-writing-tools-2026/
+- https://smileaireviewhub.com/best-ai-video-tools-2026/
+- https://smileaireviewhub.com/best-ai-automation-tools-2026/
+- https://smileaireviewhub.com/comparisons/cursor-vs-copilot/
+- https://smileaireviewhub.com/comparisons/windsurf-vs-copilot/
+- https://smileaireviewhub.com/comparisons/canva-vs-adobe-express/
+- https://smileaireviewhub.com/comparisons/cursor-vs-windsurf/
+- https://smileaireviewhub.com/review/cursor/
+- https://smileaireviewhub.com/review/github-copilot/
+- https://smileaireviewhub.com/review/surfer-seo/
+- https://smileaireviewhub.com/review/semrush/
+- https://smileaireviewhub.com/review/canva/
+- https://smileaireviewhub.com/review/zapier/
+- https://smileaireviewhub.com/review/make/
+- https://smileaireviewhub.com/review/elevenlabs/
+- https://smileaireviewhub.com/category/ai-coding-tools/

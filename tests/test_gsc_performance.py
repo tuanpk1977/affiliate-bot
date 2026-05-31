@@ -15,7 +15,7 @@ from modules.gsc_performance import (
 
 class GSCPerformanceTests(unittest.TestCase):
     def test_normalize_page_path(self) -> None:
-        self.assertEqual(normalize_page_path("https://review.mssmileenglish.com/cursor/"), "/cursor/")
+        self.assertEqual(normalize_page_path("https://smileaireviewhub.com/cursor/"), "/cursor/")
         self.assertEqual(normalize_page_path("cursor"), "/cursor/")
         self.assertEqual(normalize_page_path("/comparisons/cursor-vs-windsurf"), "/comparisons/cursor-vs-windsurf/")
 

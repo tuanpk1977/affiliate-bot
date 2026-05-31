@@ -17,7 +17,7 @@ The useful part of AI coding is not generating code fast. It is knowing which st
 - Build/deploy bugs need clearer prompts.
 - SEO and language integrity should be checked before a page goes live.
 
-Workflow checklist: https://review.mssmileenglish.com/free-ai-coding-workflow-checklist/
+Workflow checklist: https://smileaireviewhub.com/free-ai-coding-workflow-checklist/
 #AICoding #BuildInPublic
 
 Video: hook, show the problem, show the checklist, close with the workflow link.

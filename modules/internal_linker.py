@@ -265,7 +265,7 @@ def inject_seo_footer(text: str, groups: dict[str, list[PageInfo]], current_url:
 def ensure_breadcrumb_schema(text: str, page: PageInfo) -> str:
     if page.kind not in {"review", "comparison", "pricing", "toplist", "category", "hub"} or '"@type": "BreadcrumbList"' in text:
         return text
-    base = (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
+    base = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
     schema = {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",

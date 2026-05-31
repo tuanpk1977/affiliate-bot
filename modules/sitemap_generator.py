@@ -10,7 +10,7 @@ from modules.indexing_policy import rel_path_for_html, should_include_in_sitemap
 
 def generate_sitemap(output_dir: Path | None = None, base_url: str | None = None) -> Path:
     output = output_dir or settings.site_output_dir
-    base = (base_url or settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
+    base = (base_url or settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
     output.mkdir(parents=True, exist_ok=True)
     urls = scan_index_pages(output, base)
     xml = build_sitemap_xml(urls)

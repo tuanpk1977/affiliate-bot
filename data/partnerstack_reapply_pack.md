@@ -4,7 +4,7 @@
 
 Hello PartnerStack team,
 
-I run MS Smile AI Review Hub at https://review.mssmileenglish.com. The site publishes practical AI coding tool reviews and comparisons for beginners, indie builders, small business owners, and non-technical founders learning AI-assisted website and code workflows. The content focuses on real workflow use cases, limitations, pricing checks, and transparent affiliate disclosure.
+I run MS Smile AI Review Hub at https://smileaireviewhub.com. The site publishes practical AI coding tool reviews and comparisons for beginners, indie builders, small business owners, and non-technical founders learning AI-assisted website and code workflows. The content focuses on real workflow use cases, limitations, pricing checks, and transparent affiliate disclosure.
 
 I would like to reapply for relevant AI coding and SaaS affiliate programs when applications reopen. I will only use approved links after acceptance and will keep editorial opinions independent from affiliate commissions.
 

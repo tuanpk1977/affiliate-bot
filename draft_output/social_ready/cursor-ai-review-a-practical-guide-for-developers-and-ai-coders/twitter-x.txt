@@ -5,4 +5,4 @@ AI coding tools only matter after the first draft breaks.
 
 1/ I stopped treating Cursor like autocomplete. The real value is workflow speed during debugging.
 2/ Fast code is not always cheaper if review time explodes.
-3/ Full note: https://review.mssmileenglish.com/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/
+3/ Full note: https://smileaireviewhub.com/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/

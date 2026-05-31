@@ -7,7 +7,7 @@ Semrush nên được xem như research suite, không chỉ keyword tool.
 - Đừng bỏ qua cost và team workflow.
 
 Read here:
-https://review.mssmileenglish.com/review/semrush/
+https://smileaireviewhub.com/review/semrush/
 
 #SEO #Semrush
 

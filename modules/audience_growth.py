@@ -10,7 +10,7 @@ from pathlib import Path
 from config import settings
 
 
-BASE_URL = (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
+BASE_URL = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
 SITE_NAME = "MS Smile AI Review Hub"
 CONTACT_EMAIL = "tuanpk1977@gmail.com"
 LEAD_SLUG = "free-ai-coding-workflow-checklist"

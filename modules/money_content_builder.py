@@ -134,7 +134,7 @@ def faq_section(page: MoneyPage) -> str:
 
 
 def article_schema(page: MoneyPage) -> str:
-    base = (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
+    base = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
     schema = {
         "@context": "https://schema.org",
         "@type": "Article",

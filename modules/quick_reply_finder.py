@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 
-SITE_BASE = "https://review.mssmileenglish.com"
+SITE_BASE = "https://smileaireviewhub.com"
 DATA_DIR = Path("data")
 SITEMAP_PATH = Path("docs/sitemap.xml")
 

@@ -3,7 +3,7 @@
 - Platform: X/Twitter
 - Status: Pending Review
 - Suggested time: 2026-06-11 20:15
-- Target URL: https://review.mssmileenglish.com/best-ai-seo-tools-2026/?utm_source=twitter
+- Target URL: https://smileaireviewhub.com/best-ai-seo-tools-2026/?utm_source=twitter
 
 ## Copy
 
@@ -15,4 +15,4 @@
 
 4/ Use judgment for publishing. This is where context, pricing, and team workflow start to matter.
 
-5/ Full practical note: https://review.mssmileenglish.com/best-ai-seo-tools-2026/?utm_source=twitter #SEO #AITools
+5/ Full practical note: https://smileaireviewhub.com/best-ai-seo-tools-2026/?utm_source=twitter #SEO #AITools

@@ -12,7 +12,7 @@ DATA_DIR = BASE_DIR / "data"
 SITE_OUTPUT = BASE_DIR / "site_output"
 INDEX_PATH = DATA_DIR / "comparison_pages_index.csv"
 SITEMAP_PATH = SITE_OUTPUT / "sitemap.xml"
-DOMAIN = "https://review.mssmileenglish.com"
+DOMAIN = "https://smileaireviewhub.com"
 
 REQUIRED_COLUMNS = [
     "comparison_slug",

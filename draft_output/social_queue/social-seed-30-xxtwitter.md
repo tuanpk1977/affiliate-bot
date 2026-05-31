@@ -3,7 +3,7 @@
 - Platform: X/Twitter
 - Status: Pending Review
 - Suggested time: 2026-06-12 14:00
-- Target URL: https://review.mssmileenglish.com/best-ai-writing-tools-2026/?utm_source=twitter
+- Target URL: https://smileaireviewhub.com/best-ai-writing-tools-2026/?utm_source=twitter
 
 ## Copy
 
@@ -15,4 +15,4 @@
 
 4/ They help repurpose. This is where context, pricing, and team workflow start to matter.
 
-5/ Full practical note: https://review.mssmileenglish.com/best-ai-writing-tools-2026/?utm_source=twitter #AIWriting #ContentMarketing
+5/ Full practical note: https://smileaireviewhub.com/best-ai-writing-tools-2026/?utm_source=twitter #AIWriting #ContentMarketing

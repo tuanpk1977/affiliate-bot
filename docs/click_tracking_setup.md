@@ -131,7 +131,7 @@ site_output/go/
 Mo debug URL:
 
 ```text
-https://review.mssmileenglish.com/go/cursor/?src=/cursor/&cta=official_site&debug=1
+https://smileaireviewhub.com/go/cursor/?src=/cursor/&cta=official_site&debug=1
 ```
 
 Can thay:
@@ -152,7 +152,7 @@ thi khong sao neu ban deploy bang Netlify Drop. Quan trong la `webhook_status: s
 Sau do test redirect that:
 
 ```text
-https://review.mssmileenglish.com/go/cursor/?src=/cursor/&cta=official_site
+https://smileaireviewhub.com/go/cursor/?src=/cursor/&cta=official_site
 ```
 
 ## Luu Y Rieng Tu

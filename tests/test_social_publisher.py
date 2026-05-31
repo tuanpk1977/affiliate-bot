@@ -26,7 +26,7 @@ class SocialPublisherSafetyTests(unittest.TestCase):
         row = {
             "platform": "linkedin",
             "content": "Useful workflow note",
-            "tracked_url": "https://review.mssmileenglish.com/blog/chatgpt-prompts-for-windsurf/",
+            "tracked_url": "https://smileaireviewhub.com/blog/chatgpt-prompts-for-windsurf/",
         }
         result = validate_post(row, queue=pd.DataFrame())
         self.assertFalse(result.valid)
@@ -44,7 +44,7 @@ class SocialPublisherSafetyTests(unittest.TestCase):
         kwargs = {
             "base_content": "I use ChatGPT to plan prompts, Windsurf for a first build, and Codex for repair.",
             "title": "ChatGPT prompts for Windsurf",
-            "tracked_url": "https://review.mssmileenglish.com/blog/chatgpt-prompts-for-windsurf/",
+            "tracked_url": "https://smileaireviewhub.com/blog/chatgpt-prompts-for-windsurf/",
             "keyword": "ChatGPT prompts for Windsurf",
             "topic": "ChatGPT Windsurf Codex workflow",
         }
@@ -75,7 +75,7 @@ class SocialPublisherSafetyTests(unittest.TestCase):
             base_content="Long practical note about AI coding workflow " * 20,
             platform="twitter",
             title="Cursor vs Windsurf workflow",
-            tracked_url="https://review.mssmileenglish.com/comparisons/cursor-vs-windsurf/",
+            tracked_url="https://smileaireviewhub.com/comparisons/cursor-vs-windsurf/",
             keyword="cursor vs windsurf",
             topic="AI coding workflow",
         )
@@ -86,7 +86,7 @@ class SocialPublisherSafetyTests(unittest.TestCase):
             base_content="A practical note about using ChatGPT before Windsurf.",
             platform="telegram",
             title="ChatGPT prompts for Windsurf",
-            tracked_url="https://review.mssmileenglish.com/blog/chatgpt-prompts-for-windsurf/",
+            tracked_url="https://smileaireviewhub.com/blog/chatgpt-prompts-for-windsurf/",
             keyword="ChatGPT prompts for Windsurf",
             topic="AI coding workflow",
         )
@@ -98,7 +98,7 @@ class SocialPublisherSafetyTests(unittest.TestCase):
         kwargs = {
             "base_content": "Codex is useful for cleanup and OpenClaw is useful for quick prototype exploration.",
             "title": "Codex vs OpenClaw",
-            "tracked_url": "https://review.mssmileenglish.com/comparisons/codex-vs-openclaw/",
+            "tracked_url": "https://smileaireviewhub.com/comparisons/codex-vs-openclaw/",
             "keyword": "Codex vs OpenClaw",
             "topic": "AI coding workflow",
         }
@@ -117,7 +117,7 @@ class SocialPublisherSafetyTests(unittest.TestCase):
         kwargs = {
             "base_content": "Codex is useful for cleanup and OpenClaw is useful for quick prototype exploration.",
             "title": "Codex vs OpenClaw",
-            "tracked_url": "https://review.mssmileenglish.com/comparisons/codex-vs-openclaw/",
+            "tracked_url": "https://smileaireviewhub.com/comparisons/codex-vs-openclaw/",
             "keyword": "Codex vs OpenClaw",
             "topic": "AI coding workflow",
         }
@@ -137,7 +137,7 @@ class SocialPublisherSafetyTests(unittest.TestCase):
             base_content="Codex vs OpenClaw workflow note",
             platform="facebook_group",
             title="Codex vs OpenClaw",
-            tracked_url="https://review.mssmileenglish.com/comparisons/codex-vs-openclaw/",
+            tracked_url="https://smileaireviewhub.com/comparisons/codex-vs-openclaw/",
             keyword="codex vs openclaw",
             topic="AI coding workflow",
             include_link=False,
@@ -156,7 +156,7 @@ class SocialPublisherSafetyTests(unittest.TestCase):
         kwargs = {
             "base_content": "I use ChatGPT to plan prompts, Windsurf for a first build, and Codex for repair.",
             "title": "Cursor vs Windsurf",
-            "tracked_url": "https://review.mssmileenglish.com/comparisons/cursor-vs-windsurf/",
+            "tracked_url": "https://smileaireviewhub.com/comparisons/cursor-vs-windsurf/",
             "keyword": "cursor vs windsurf",
             "topic": "AI coding workflow",
         }

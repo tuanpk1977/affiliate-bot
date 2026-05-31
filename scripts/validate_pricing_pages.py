@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site_output"
 INDEX = ROOT / "data" / "pricing_pages_index.csv"
 SITEMAP = SITE / "sitemap.xml"
-BASE = "https://review.mssmileenglish.com"
+BASE = "https://smileaireviewhub.com"
 REQUIRED_SECTIONS = [
     "Quick pricing verdict",
     "Pricing plan explanation",

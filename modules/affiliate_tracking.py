@@ -648,7 +648,7 @@ def normalize_tracked_url(url: str, platform: str, row: pd.Series | dict) -> str
         return ""
     parsed = urlparse(url)
     if not parsed.scheme and url.startswith("/"):
-        base = (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
+        base = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
         url = base + url
         parsed = urlparse(url)
     query = parse_qs(parsed.query, keep_blank_values=True)

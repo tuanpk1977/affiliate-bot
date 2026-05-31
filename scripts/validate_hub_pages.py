@@ -14,7 +14,7 @@ DATA = ROOT / "data"
 INDEX = DATA / "hub_pages_index.csv"
 OUTPUT = DATA / "hub_pages_qa.csv"
 SITEMAP = SITE / "sitemap.xml"
-DOMAIN = "https://review.mssmileenglish.com"
+DOMAIN = "https://smileaireviewhub.com"
 
 
 @dataclass

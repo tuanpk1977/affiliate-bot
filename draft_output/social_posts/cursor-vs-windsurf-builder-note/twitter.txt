@@ -4,6 +4,6 @@ I stopped comparing Cursor vs Windsurf by demos.
 2/ Fast code is not always cheaper if review time explodes.
 3/ My rule: scaffold fast, debug slowly, ship only small trusted diffs.
 4/ Full note:
-https://review.mssmileenglish.com/comparisons/cursor-vs-windsurf/
+https://smileaireviewhub.com/comparisons/cursor-vs-windsurf/
 
 #AITools #SaaS #AffiliateMarketing #AICoding

@@ -7,7 +7,7 @@ Cursor mạnh nhất khi repo đã có cấu trúc sạch.
 - Repo lộn xộn thì vẫn cần chia task nhỏ.
 
 Read here:
-https://review.mssmileenglish.com/review/cursor/
+https://smileaireviewhub.com/review/cursor/
 
 #Cursor #AICoding
 

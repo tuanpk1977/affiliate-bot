@@ -13,7 +13,7 @@ from modules.sitemap_generator import generate_sitemap, scan_index_pages
 
 def main() -> None:
     path = generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
-    urls = scan_index_pages(settings.site_output_dir, (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/"))
+    urls = scan_index_pages(settings.site_output_dir, (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/"))
     print(f"Generated {path}")
     print(f"URLs: {len(urls)}")
 

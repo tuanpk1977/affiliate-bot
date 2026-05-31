@@ -461,7 +461,7 @@ def faq_questions(brand: str) -> list[str]:
 def product_schema(tool: dict[str, str], path: str) -> str:
     import json
 
-    base = (settings.base_site_url or settings.site_domain or "https://review.mssmileenglish.com").rstrip("/")
+    base = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
     schema = {
         "@context": "https://schema.org",
         "@type": "Product",

@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data"
 INDEX_PATH = DATA_DIR / "priority_pages_index.csv"
 OUTPUT_PATH = DATA_DIR / "live_priority_page_qa.csv"
-DEFAULT_DOMAIN = "https://review.mssmileenglish.com"
+DEFAULT_DOMAIN = "https://smileaireviewhub.com"
 
 
 PLACEHOLDER_PATTERNS = [
@@ -52,7 +52,7 @@ class PageCheck:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Live QA for deployed priority money pages.")
-    parser.add_argument("--domain", default=DEFAULT_DOMAIN, help="Live site domain, default: https://review.mssmileenglish.com")
+    parser.add_argument("--domain", default=DEFAULT_DOMAIN, help="Live site domain, default: https://smileaireviewhub.com")
     parser.add_argument("--limit", type=int, default=10, help="Number of priority pages to check. Default: 10")
     parser.add_argument("--timeout", type=int, default=20, help="HTTP timeout seconds. Default: 20")
     return parser.parse_args()

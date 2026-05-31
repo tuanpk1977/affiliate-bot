@@ -19,7 +19,7 @@ SITE = ROOT / "site_output"
 DATA = ROOT / "data"
 REPORT_CSV = DATA / "final_predeploy_report.csv"
 SUMMARY_TXT = DATA / "final_predeploy_summary.txt"
-BASE_URL = "https://review.mssmileenglish.com"
+BASE_URL = "https://smileaireviewhub.com"
 PLACEHOLDER_PATTERNS = [
     r"\blorem\b",
     r"\btodo\b",
@@ -151,7 +151,7 @@ def validate_sitemap_targets(urls: list[str]) -> list[str]:
     errors = []
     for url in urls:
         parsed = urlparse(url)
-        if parsed.netloc and parsed.netloc != "review.mssmileenglish.com":
+        if parsed.netloc and parsed.netloc != "smileaireviewhub.com":
             errors.append(f"sitemap external/unexpected host: {url}")
             continue
         path = parsed.path or "/"

@@ -3,7 +3,7 @@
 - Platform: Telegram
 - Status: Pending Review
 - Suggested time: 2026-06-09 09:00
-- Target URL: https://review.mssmileenglish.com/best-ai-automation-tools-2026/?utm_source=telegram
+- Target URL: https://smileaireviewhub.com/best-ai-automation-tools-2026/?utm_source=telegram
 
 ## Copy
 
@@ -22,6 +22,6 @@ My current filter: use the tool that reduces cleanup time. If it only creates fa
 Before posting or recommending a tool, I check the same things every time: does it help with the second fix, does it reduce context switching, and does the pricing still make sense after the trial period ends?
 
 Read more:
-https://review.mssmileenglish.com/best-ai-automation-tools-2026/?utm_source=telegram
+https://smileaireviewhub.com/best-ai-automation-tools-2026/?utm_source=telegram
 
 #Automation #NoCode

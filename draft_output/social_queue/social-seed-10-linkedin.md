@@ -3,7 +3,7 @@
 - Platform: LinkedIn
 - Status: Pending Review
 - Suggested time: 2026-06-02 10:00
-- Target URL: https://review.mssmileenglish.com/review/make/?utm_source=linkedin
+- Target URL: https://smileaireviewhub.com/review/make/?utm_source=linkedin
 
 ## Copy
 
@@ -27,6 +27,6 @@ A few practical checks I now use before recommending any tool:
 
 I wrote the fuller practical breakdown here. It is not a hype piece; it is a workflow-first note for builders who care about speed, cleanup cost, and realistic adoption.
 
-https://review.mssmileenglish.com/review/make/?utm_source=linkedin
+https://smileaireviewhub.com/review/make/?utm_source=linkedin
 
 #Make #Automation #NoCode

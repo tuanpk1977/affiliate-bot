@@ -250,7 +250,7 @@ def validate_sitemap() -> list[str]:
         errors.append("sitemap.xml contains localhost")
     if "yourdomain" in text:
         errors.append("sitemap.xml contains yourdomain")
-    if "<loc>https://review.mssmileenglish.com/</loc>" not in text:
+    if "<loc>https://smileaireviewhub.com/</loc>" not in text:
         errors.append("sitemap.xml missing homepage")
     if "/comparisons/" not in text:
         errors.append("sitemap.xml missing comparison pages")

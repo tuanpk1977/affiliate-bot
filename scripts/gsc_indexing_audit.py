@@ -10,7 +10,7 @@ from xml.etree import ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site_output"
 DATA = ROOT / "data"
-BASE_URL = "https://review.mssmileenglish.com"
+BASE_URL = "https://smileaireviewhub.com"
 
 IMPORTANT_URLS = [
     "/",

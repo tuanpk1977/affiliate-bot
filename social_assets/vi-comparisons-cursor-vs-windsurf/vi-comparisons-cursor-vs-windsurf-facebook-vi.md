@@ -12,4 +12,4 @@ Lúc đó Cursor, Windsurf, Copilot... khác nhau khá rõ.
 
 Bài này viết theo hướng research, không hứa hẹn quá đà, không affiliate giả. Nếu bạn đang chọn AI coding tool cho workflow thật thì có thể dùng làm checklist ban đầu.
 
-Link bài: https://review.mssmileenglish.com/vi/comparisons/cursor-vs-windsurf/?utm_source=facebook&utm_medium=organic_social&utm_campaign=seo_content&utm_content=facebook_draft
+Link bài: https://smileaireviewhub.com/vi/comparisons/cursor-vs-windsurf/?utm_source=facebook&utm_medium=organic_social&utm_campaign=seo_content&utm_content=facebook_draft

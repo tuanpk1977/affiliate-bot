@@ -14,5 +14,5 @@ Ghi chú hôm nay về Build in public:
 - Dựng nhanh vẫn cần review.
 - Lỗi build/deploy thường cần prompt rõ hơn.
 - SEO và language integrity nên được kiểm tra trước khi publish.
-Checklist workflow: https://review.mssmileenglish.com/vi/free-ai-coding-workflow-checklist/
+Checklist workflow: https://smileaireviewhub.com/vi/free-ai-coding-workflow-checklist/
 #AICoding #BuildInPublic
