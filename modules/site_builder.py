@@ -71,7 +71,14 @@ CATEGORY_SLUGS = [
 COMPARISON_SLUGS = [
     "comparisons/chatgpt-vs-gemini",
     "comparisons/chatgpt-vs-claude",
+    "comparisons/claude-vs-gemini",
     "comparisons/cursor-vs-windsurf",
+    "comparisons/lovable-vs-bolt",
+    "comparisons/claude-vs-perplexity",
+    "comparisons/chatgpt-vs-perplexity",
+    "comparisons/replit-vs-cursor",
+    "comparisons/surfer-seo-vs-frase",
+    "comparisons/jasper-vs-copy-ai",
     "comparisons/cursor-vs-vscode",
     "comparisons/make-vs-zapier",
     "comparisons/notion-vs-clickup",
@@ -120,6 +127,13 @@ BLOG_POSTS = [
 
 
 COMPARISON_TOPICS = [
+    ("claude-vs-gemini", "Claude", "Gemini", "AI assistant", "Claude is strongest for long-document reading, careful editing, and structured reasoning.", "Gemini is strongest for Google Workspace users and Google-native productivity workflows.", "Choose Claude for document-heavy thinking; choose Gemini when Google ecosystem fit matters more."),
+    ("lovable-vs-bolt", "Lovable", "Bolt", "AI app builder", "Lovable is strongest when a product idea needs to become a full-stack app prototype through prompts.", "Bolt is strongest for browser-based app generation, fast front-end iteration, and web IDE experimentation.", "Choose Lovable for product-shaped app generation; choose Bolt for fast browser IDE iteration."),
+    ("claude-vs-perplexity", "Claude", "Perplexity", "AI research tool", "Claude is strongest when you already have documents to analyze, rewrite, and synthesize.", "Perplexity is strongest when the task starts with citation-led web research and source discovery.", "Choose Claude for deep document work; choose Perplexity for source-backed research."),
+    ("chatgpt-vs-perplexity", "ChatGPT", "Perplexity", "AI assistant", "ChatGPT is strongest for drafting, planning, coding help, and broad multi-step assistant workflows.", "Perplexity is strongest for citation-led search, source discovery, and research briefs.", "Choose ChatGPT for a flexible work assistant; choose Perplexity for source discovery."),
+    ("replit-vs-cursor", "Replit", "Cursor", "AI coding tool", "Replit is strongest for browser-based coding, hosted projects, quick deployment, and beginner-friendly app experiments.", "Cursor is strongest for local professional development, existing repositories, and codebase-aware AI editing.", "Choose Replit for hosted browser development; choose Cursor for serious local codebase work."),
+    ("surfer-seo-vs-frase", "Surfer SEO", "Frase", "AI SEO content tool", "Surfer SEO is strongest for content optimization, SERP-based term guidance, and on-page scoring.", "Frase is strongest for content briefs, research-driven outlines, and topic planning.", "Choose Surfer SEO for optimization and scoring; choose Frase for research briefs and planning."),
+    ("jasper-vs-copy-ai", "Jasper", "Copy.ai", "AI writing tool", "Jasper is strongest for brand voice, marketing campaigns, and team content governance.", "Copy.ai is strongest for GTM copy, sales sequences, quick drafts, and workflow automation.", "Choose Jasper for brand-led marketing content operations; choose Copy.ai for fast GTM drafting."),
     ("chatgpt-vs-gemini", "ChatGPT", "Gemini", "AI chatbot", "ChatGPT mạnh ở viết, phân tích, hỗ trợ công việc tổng quát và hệ sinh thái công cụ.", "Gemini phù hợp khi bạn dùng nhiều sản phẩm Google và cần kết nối với hệ sinh thái Google.", "Chọn ChatGPT nếu bạn cần trợ lý AI tổng quát linh hoạt; chọn Gemini nếu workflow của bạn nằm nhiều trong Google Workspace."),
     ("chatgpt-vs-claude", "ChatGPT", "Claude", "AI assistant", "ChatGPT phù hợp cho nhiều tác vụ đa dạng, từ viết nội dung đến phân tích và workflow hằng ngày.", "Claude thường được cân nhắc khi cần xử lý văn bản dài, biên tập và lập luận cẩn thận.", "Chọn ChatGPT cho workflow đa năng; chọn Claude nếu ưu tiên đọc, tóm tắt và phân tích tài liệu dài."),
     ("cursor-vs-windsurf", "Cursor", "Windsurf", "AI coding tool", "Cursor là editor AI-first phù hợp cho lập trình viên muốn code cùng AI ngay trong môi trường làm việc.", "Windsurf phù hợp để so sánh nếu bạn muốn một trải nghiệm coding agent/editor khác.", "Chọn Cursor nếu bạn cần AI coding editor phổ biến; thử Windsurf nếu bạn muốn so sánh workflow agent coding mới hơn."),
@@ -181,6 +195,7 @@ def build_site_output(landing_index: pd.DataFrame | None = None, base_site_url: 
     write_navigation_index_pages(output, built_pages)
     programmatic_pages.extend(generate_money_content_pages(output, offer_scores))
     programmatic_pages.extend(generate_seo_expansion_pages(output))
+    programmatic_pages.extend(generate_comparison_pages(output, offer_scores))
     write_legal_pages(output)
     built_pages.extend(copy_user_published_pages(output))
     write_robots(output, base_site_url)
