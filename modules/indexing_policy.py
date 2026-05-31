@@ -3,13 +3,6 @@ from __future__ import annotations
 from pathlib import Path
 
 
-SITEMAP_EXCLUDED_EXACT_PATHS = {
-    "sitemap",
-    "media-kit",
-    "about-author",
-    "author-profile",
-}
-
 SITEMAP_EXCLUDED_PREFIXES = {
     "assets",
     "__pycache__",
@@ -65,13 +58,10 @@ def robots_meta_for_path(path: str) -> str:
 
 
 def should_include_in_sitemap(path: str) -> bool:
+    if is_redirect_page(path):
+        return False
     clean = clean_url_path(path).strip("/")
-    localized_path = clean[3:] if clean.startswith("vi/") else clean
     first = clean.split("/", 1)[0] if clean else ""
     if first in SITEMAP_EXCLUDED_PREFIXES:
-        return False
-    if clean in SITEMAP_EXCLUDED_EXACT_PATHS or localized_path in SITEMAP_EXCLUDED_EXACT_PATHS:
-        return False
-    if clean.startswith("reviews/") and len(clean.split("/")) > 2:
         return False
     return True
