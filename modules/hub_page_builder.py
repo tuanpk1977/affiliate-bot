@@ -334,7 +334,7 @@ def render_review_cards(rows: list[pd.Series]) -> str:
         niche = str(row.get("niche", "SaaS")).strip()
         score = str(row.get("total_score", "Research")).strip()
         cards.append(
-            f"<article class='card'><h3>{html.escape(brand)}</h3><p>{html.escape(niche)} research and workflow review.</p><p><strong>Score:</strong> {html.escape(score)}</p><p><a class='btn secondary' href='/{html.escape(offer_id)}/'>Read review</a><a class='btn' href='/go/{html.escape(offer_id)}/?src=/hubs/&cta=hub_page'>Visit Official Website</a></p></article>"
+            f"<article class='card'><h3>{html.escape(brand)}</h3><p>{html.escape(niche)} research and workflow review.</p><p><strong>Score:</strong> {html.escape(score)}</p><p><a class='btn secondary' href='/review/{html.escape(offer_id)}/'>Read review</a><a class='btn' href='/go/{html.escape(offer_id)}/?src=/hubs/&cta=hub_page'>Visit Official Website</a></p></article>"
         )
     return "".join(cards)
 

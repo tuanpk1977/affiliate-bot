@@ -465,7 +465,7 @@ def tool_row(tool: pd.Series, source_slug: str) -> str:
     offer_id = str(tool.get("offer_id", "")).strip()
     niche = str(tool.get("niche", "SaaS")).strip()
     risk = str(tool.get("risk_level", "Need review")).strip()
-    return f"<tr><td><a href='/{html.escape(offer_id)}/'>{html.escape(brand)}</a></td><td>{html.escape(niche)} workflows and buyer research</td><td>{html.escape(risk)} - verify current affiliate policy.</td><td><a class='btn' href='/go/{html.escape(offer_id)}/?src=/{html.escape(source_slug)}/&cta=priority_page'>Visit Official Website</a><a class='btn secondary' href='/{html.escape(offer_id)}/'>Read review</a></td></tr>"
+    return f"<tr><td><a href='/review/{html.escape(offer_id)}/'>{html.escape(brand)}</a></td><td>{html.escape(niche)} workflows and buyer research</td><td>{html.escape(risk)} - verify current affiliate policy.</td><td><a class='btn' href='/go/{html.escape(offer_id)}/?src=/{html.escape(source_slug)}/&cta=priority_page'>Visit Official Website</a><a class='btn secondary' href='/review/{html.escape(offer_id)}/'>Read review</a></td></tr>"
 
 
 def tool_card(tool: pd.Series, source_slug: str) -> str:
@@ -473,7 +473,7 @@ def tool_card(tool: pd.Series, source_slug: str) -> str:
     offer_id = str(tool.get("offer_id", "")).strip()
     score = str(tool.get("total_score", "Research")).strip()
     recommendation = str(tool.get("recommendation", "Review the tool against your workflow before buying.")).strip()
-    return f"<article class='card'><h3>{html.escape(brand)}</h3><p><strong>Score:</strong> {html.escape(score)}</p><p>{html.escape(recommendation)}</p><p><a class='btn' href='/go/{html.escape(offer_id)}/?src=/{html.escape(source_slug)}/&cta=priority_page'>Visit Official Website</a><a class='btn secondary' href='/{html.escape(offer_id)}/'>Read review</a></p></article>"
+    return f"<article class='card'><h3>{html.escape(brand)}</h3><p><strong>Score:</strong> {html.escape(score)}</p><p>{html.escape(recommendation)}</p><p><a class='btn' href='/go/{html.escape(offer_id)}/?src=/{html.escape(source_slug)}/&cta=priority_page'>Visit Official Website</a><a class='btn secondary' href='/review/{html.escape(offer_id)}/'>Read review</a></p></article>"
 
 
 def priority_cta(tool: pd.Series, source_slug: str) -> str:

@@ -33,7 +33,7 @@ def offer_map(offer_scores: pd.DataFrame | None) -> dict[str, dict]:
 
 
 def review_url(tool: str) -> str:
-    return f"/{slugify(tool)}/"
+    return f"/review/{slugify(tool)}/"
 
 
 def official_url(tool: str, offers: dict[str, dict]) -> str:

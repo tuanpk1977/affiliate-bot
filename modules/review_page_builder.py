@@ -141,6 +141,7 @@ def render_review_page(tool: dict[str, str], related_tools: list[dict[str, str]]
             affiliate_disclosure(),
             quick_verdict_block(tool, profile),
             overview_block(tool, profile),
+            tool_specific_review_block(tool, profile),
             ai_coding_builder_block(tool) if is_ai_coding_tool(tool) else "",
             best_fit_block(tool, profile),
             feature_checklist_block(tool, profile),
@@ -240,10 +241,129 @@ def overview_block(tool: dict[str, str], profile: dict[str, str]) -> str:
 """
 
 
+TOOL_REVIEW_NOTES = {
+    "claude": {
+        "positioning": "Claude is best reviewed as a careful AI assistant for long-form reasoning, document work, structured writing, and analysis-heavy workflows where tone and context matter.",
+        "scenario": "A realistic test is to give Claude a long policy document, a messy brief, or a multi-step writing task, then compare whether the answer keeps the constraints, cites uncertainty, and produces a usable next draft.",
+        "strength": "Its strongest appeal is thoughtful drafting and analysis that can feel calmer and more editorial than a quick autocomplete-style assistant.",
+        "risk": "The main risk is assuming that polished language equals verified accuracy. Outputs still need source checks, fact checks, and review against the latest official product limits.",
+        "compare": [("ChatGPT", "/review/chatgpt/"), ("Gemini", "/review/gemini/"), ("Perplexity", "/review/perplexity/")],
+    },
+    "chatgpt": {
+        "positioning": "ChatGPT is best reviewed as a general AI workbench for writing, analysis, brainstorming, coding support, file work, and everyday assistant workflows.",
+        "scenario": "A useful test is to run the same task through planning, drafting, revising, and final QA to see whether ChatGPT helps move work from vague idea to publishable output without losing context.",
+        "strength": "Its advantage is breadth: one assistant can support content, research planning, code explanation, summarization, and workflow design.",
+        "risk": "Breadth can also create overuse. Teams should define where ChatGPT is allowed to help, where human approval is required, and which facts must be verified externally.",
+        "compare": [("Claude", "/review/claude/"), ("Gemini", "/review/gemini/"), ("Perplexity", "/review/perplexity/")],
+    },
+    "gemini": {
+        "positioning": "Gemini is best reviewed as an AI assistant for teams already close to the Google ecosystem, especially when search, documents, email, and workspace context affect the workflow.",
+        "scenario": "A practical evaluation is to test Gemini on a research brief, a document summary, and a Workspace-style task, then compare how much cleanup remains before another team member can use the result.",
+        "strength": "Its appeal is ecosystem fit for users who already organize work around Google products and want AI help close to that workflow.",
+        "risk": "The risk is choosing it only because the brand is familiar. Buyers should test whether the exact features they need are available in their region, plan, and workspace setup.",
+        "compare": [("ChatGPT", "/review/chatgpt/"), ("Claude", "/review/claude/"), ("Perplexity", "/review/perplexity/")],
+    },
+    "perplexity": {
+        "positioning": "Perplexity is best reviewed as an AI research and answer engine where source discovery, fast investigation, and question refinement matter more than long-form production.",
+        "scenario": "A good test is to research one buyer question, inspect the cited sources, check whether the answer distinguishes facts from interpretation, and decide whether it shortens the research process.",
+        "strength": "Its strongest use case is quick source-aware research that helps a user understand a topic before writing or deciding.",
+        "risk": "The risk is treating a sourced answer as final. Sources can be incomplete, pages can change, and commercial decisions still need vendor documentation.",
+        "compare": [("ChatGPT", "/review/chatgpt/"), ("Claude", "/review/claude/"), ("Gemini", "/review/gemini/")],
+    },
+    "lovable": {
+        "positioning": "Lovable is best reviewed as an AI app-building tool for turning product ideas into working web app drafts quickly.",
+        "scenario": "A fair test is to describe a small SaaS workflow, generate the first version, inspect the code and routes, then decide how much developer cleanup is needed before deployment.",
+        "strength": "Its appeal is speed from idea to prototype, especially for founders and builders who need a visible product draft before investing in a full build.",
+        "risk": "The risk is shipping a prototype as if it were production software. Auth, payments, data security, edge cases, and maintainability still require engineering review.",
+        "compare": [("Bolt", "/review/bolt/"), ("Replit", "/review/replit/"), ("Cursor", "/review/cursor/")],
+    },
+    "bolt": {
+        "positioning": "Bolt is best reviewed as an AI coding and app prototyping workspace for quickly creating, editing, and previewing software projects in the browser.",
+        "scenario": "A realistic evaluation is to build a small app, add one data flow, change a component, and check whether the generated structure is clear enough for a developer to maintain.",
+        "strength": "Its advantage is fast iteration for early app ideas, demos, and front-end experiments where seeing the result quickly is valuable.",
+        "risk": "The risk is letting a fast prototype hide architecture debt. Buyers should review package choices, environment assumptions, deployment path, and long-term ownership.",
+        "compare": [("Lovable", "/review/lovable/"), ("Replit", "/review/replit/"), ("Windsurf", "/review/windsurf/")],
+    },
+    "replit": {
+        "positioning": "Replit is best reviewed as a cloud development workspace with AI coding assistance, hosting-oriented workflows, and a low-friction path from idea to running project.",
+        "scenario": "A practical test is to start a small project, use AI to modify it, inspect the development environment, and confirm whether deployment and collaboration match the team's needs.",
+        "strength": "Its appeal is accessibility: users can code, preview, collaborate, and host without setting up a local environment first.",
+        "risk": "The risk is choosing convenience without checking portability, limits, pricing, and whether the project can move cleanly if requirements grow.",
+        "compare": [("Bolt", "/review/bolt/"), ("Lovable", "/review/lovable/"), ("GitHub Copilot", "/review/github-copilot/")],
+    },
+    "midjourney": {
+        "positioning": "Midjourney is best reviewed as an AI image generation tool for visual exploration, concept art, creative direction, and campaign asset ideation.",
+        "scenario": "A useful test is to create a small set of brand-relevant images, compare prompt control, revision effort, licensing clarity, and whether outputs can survive brand review.",
+        "strength": "Its strength is distinctive image style and fast creative exploration for users who can guide prompts and review outputs carefully.",
+        "risk": "The risk is assuming attractive images are automatically usable. Teams still need rights review, brand checks, accuracy checks, and sometimes manual design cleanup.",
+        "compare": [("Runway", "/review/runway/"), ("Canva", "/review/canva/"), ("Gamma", "/review/gamma/")],
+    },
+    "frase": {
+        "positioning": "Frase is best reviewed as an SEO content workflow tool for briefs, topic coverage, SERP research, and content optimization decisions.",
+        "scenario": "A fair test is to create one content brief, compare SERP suggestions against manual research, draft an outline, and decide whether the output improves editorial planning.",
+        "strength": "Its appeal is helping content teams turn SEO research into a clearer writing and optimization process.",
+        "risk": "The risk is writing to a score instead of writing for users. Content still needs original insight, fact checking, expert review, and natural internal linking.",
+        "compare": [("Surfer SEO", "/review/surfer-seo/"), ("Semrush", "/review/semrush/"), ("Ahrefs AI", "/review/ahrefs-ai/")],
+    },
+    "ahrefs-ai": {
+        "positioning": "Ahrefs AI should be reviewed through the broader Ahrefs SEO workflow: research, competitor analysis, content planning, and AI-assisted SEO decisions.",
+        "scenario": "A useful test is to research one topic, inspect keyword and competitor signals, use AI support for ideation, and verify whether the recommendation matches real SERP intent.",
+        "strength": "Its appeal is combining SEO data with AI-assisted planning so teams can move from research to decisions faster.",
+        "risk": "The risk is relying on generated suggestions without checking search results, links, content quality, and whether the page can offer something original.",
+        "compare": [("Semrush AI", "/review/semrush-ai/"), ("Surfer SEO", "/review/surfer-seo/"), ("Frase", "/review/frase/")],
+    },
+    "semrush-ai": {
+        "positioning": "Semrush AI should be reviewed as AI-assisted SEO and marketing workflow support inside the broader Semrush platform.",
+        "scenario": "A practical test is to plan one content cluster, compare keyword and competitor signals, generate a brief, and decide whether the AI help reduces research time without weakening judgment.",
+        "strength": "Its appeal is breadth for marketers who want SEO, competitive research, and AI-supported planning in one ecosystem.",
+        "risk": "The risk is paying for a broad suite when the team only needs one narrow workflow. Buyers should check plan limits and actual usage before committing.",
+        "compare": [("Ahrefs AI", "/review/ahrefs-ai/"), ("Surfer SEO", "/review/surfer-seo/"), ("Frase", "/review/frase/")],
+    },
+}
+
+
+def tool_specific_review_block(tool: dict[str, str], profile: dict[str, str]) -> str:
+    brand = html.escape(tool["brand_name"])
+    slug = tool["offer_id"]
+    note = TOOL_REVIEW_NOTES.get(slug, default_tool_note(tool, profile))
+    compare_links = "".join(
+        f"<li><a href='{html.escape(path, quote=True)}'>{html.escape(label)}</a></li>"
+        for label, path in note["compare"]
+    )
+    return f"""
+<section class='card'>
+  <h2>{brand} hands-on review notes</h2>
+  <p>{html.escape(note['positioning'])}</p>
+  <p>{html.escape(note['scenario'])}</p>
+  <p><strong>What stands out:</strong> {html.escape(note['strength'])}</p>
+  <p><strong>What to watch:</strong> {html.escape(note['risk'])}</p>
+  <p>The best way to evaluate {brand} is to use a real task rather than a demo prompt. Prepare one representative workflow, record the input, run the tool, then review the output for accuracy, time saved, cleanup required, and whether a teammate could repeat the same process. That gives a more honest answer than a feature checklist alone.</p>
+  <p>For buyer-intent SEO, this also matters because a useful review page should help readers make a decision without pretending that one tool is perfect for every team. The strongest pages explain the job-to-be-done, the tradeoffs, the pricing checks, the alternatives, and the human review step that still remains.</p>
+  <div class='grid'>
+    <div class='card'><h3>Evaluation task</h3><p>Test {brand} against one real workflow you already understand, then compare output quality and cleanup effort.</p></div>
+    <div class='card'><h3>Decision signal</h3><p>Shortlist the tool only if it saves time after review, not just during the first generated draft.</p></div>
+    <div class='card'><h3>Comparison path</h3><ul>{compare_links}</ul></div>
+  </div>
+</section>
+"""
+
+
+def default_tool_note(tool: dict[str, str], profile: dict[str, str]) -> dict[str, object]:
+    brand = tool["brand_name"]
+    niche = tool["niche"]
+    return {
+        "positioning": f"{brand} should be reviewed as a practical {niche} tool, with attention to workflow fit, output quality, team adoption, and current plan limits.",
+        "scenario": f"A useful test is to run one real {niche} workflow through {brand}, then compare the result against the team's current process and at least two alternatives.",
+        "strength": profile["pro"],
+        "risk": profile["con"],
+        "compare": [("All reviews", "/reviews/"), ("Comparisons", "/comparisons/"), ("Pricing pages", "/pricing/")],
+    }
+
+
 def is_ai_coding_tool(tool: dict[str, str]) -> bool:
     slug = str(tool.get("offer_id", "")).lower()
     niche = str(tool.get("niche", "")).lower()
-    return "coding" in niche or slug in {"cursor", "github-copilot", "windsurf", "codeium", "tabnine"}
+    return "coding" in niche or slug in {"cursor", "github-copilot", "windsurf", "codeium", "tabnine", "lovable", "bolt", "replit"}
 
 
 def ai_coding_builder_block(tool: dict[str, str]) -> str:
@@ -262,6 +382,18 @@ def ai_coding_builder_block(tool: dict[str, str]) -> str:
         verdict = "Windsurf is most interesting when I want a faster first pass through an agent-style workflow, then a stricter review pass before anything lands."
         failed = "The risk is speed without enough restraint. Agent-style edits can duplicate logic or touch more files than needed, so the review has to focus on diff size, shared helpers, and tests."
         shines = "rapid scaffolding, multi-step exploration, and workflow experiments where a normal autocomplete assistant feels too narrow"
+    elif tool["offer_id"] == "lovable":
+        verdict = "Lovable is strongest when the task starts as a product idea and needs to become a visible app draft quickly enough for real feedback."
+        failed = "The risk is treating the generated app as production-ready before reviewing data handling, authentication, edge cases, package choices, and deployment behavior."
+        shines = "rapid product prototyping, app scaffolding, and early UX exploration before a stricter engineering pass"
+    elif tool["offer_id"] == "bolt":
+        verdict = "Bolt is strongest when I want browser-based app generation, quick edits, and a live preview loop for early software ideas."
+        failed = "The risk is accepting a fast preview without checking whether the project structure, dependencies, and deployment path are maintainable."
+        shines = "browser-based prototyping, front-end experiments, and fast iteration on small app ideas"
+    elif tool["offer_id"] == "replit":
+        verdict = "Replit is strongest when convenience matters: coding, AI help, preview, collaboration, and hosting can happen without setting up a local machine first."
+        failed = "The risk is convenience lock-in. A project can start quickly but still needs portability checks, cost review, and a plan for growing beyond the initial workspace."
+        shines = "cloud development, beginner-friendly project setup, collaborative coding, and hosted prototypes"
     else:
         verdict = f"{name} should be tested inside a real repository, because AI coding tools only prove their value when they survive code review and build checks."
         failed = "The common failure is plausible code that ignores the existing project structure. A small repository test with failing checks is more useful than a polished demo prompt."
@@ -486,6 +618,42 @@ def product_schema(tool: dict[str, str], path: str) -> str:
 
 def category_profile(niche: str) -> dict:
     text = str(niche or "").lower()
+    if "assistant" in text or "chatbot" in text:
+        return {
+            "intro": "AI assistants should be judged by how reliably they support real knowledge work, not by whether one answer sounds impressive.",
+            "decision_signal": "reasoning quality, context handling, file or document workflow, accuracy checks, and team usage fit",
+            "workflow": "drafting, analyzing, summarizing, planning, and revising work while keeping human review in the loop",
+            "verdict": "broad assistant support with enough control to improve work without hiding uncertainty",
+            "scenario": "a user turning a messy brief into a plan, asking follow-up questions, checking assumptions, and revising the final output before sharing it",
+            "pro": "Useful across many writing, analysis, planning, and support workflows.",
+            "con": "Can sound confident even when details need verification against current sources.",
+            "recommendation": "Shortlist it when the assistant improves a repeated workflow and your team has a clear review process for facts, privacy, and final approval.",
+            "best_for": ["Knowledge workers comparing daily AI assistants.", "Teams that need drafting, analysis, and summarization support.", "Users who can review facts and outputs before publishing."],
+            "not_best_for": ["Users expecting fully autonomous decisions.", "Teams without privacy or data handling rules.", "Workflows requiring guaranteed accuracy without review."],
+            "features": [
+                ("Context handling", "Longer tasks need the assistant to keep instructions and constraints in view.", "Test with a real multi-step brief."),
+                ("Output review", "Polished answers still need verification.", "Check facts, sources, and assumptions."),
+                ("Workflow fit", "Assistants should reduce repeated work.", "Measure cleanup time, not only first-draft speed."),
+            ],
+        }
+    if "search" in text or "research" in text:
+        return {
+            "intro": "AI search tools should be evaluated by source quality, answer traceability, and whether they speed up research without replacing judgment.",
+            "decision_signal": "source discovery, citation usefulness, answer quality, and research workflow fit",
+            "workflow": "asking research questions, inspecting sources, comparing claims, and turning findings into decisions",
+            "verdict": "faster research with enough source visibility to support careful follow-up",
+            "scenario": "a researcher investigating a product category, checking cited sources, and using the answer to plan deeper manual verification",
+            "pro": "Helpful when the job is fast source-aware research and topic orientation.",
+            "con": "Still needs source inspection because citations can be incomplete, stale, or not decisive.",
+            "recommendation": "Shortlist it when it reduces research time while making source review easier, not when it simply produces a confident summary.",
+            "best_for": ["Researchers comparing topics quickly.", "Writers who need source discovery before drafting.", "Teams that verify citations before decisions."],
+            "not_best_for": ["Users who do not inspect sources.", "High-stakes decisions without primary documentation.", "Long-form production workflows that need a broader assistant."],
+            "features": [
+                ("Source visibility", "Research value depends on what can be checked.", "Open cited pages manually."),
+                ("Question refinement", "Good research often needs follow-up questions.", "Test multi-step investigations."),
+                ("Recency checks", "Search answers can age quickly.", "Confirm dates and vendor pages."),
+            ],
+        }
     if "coding" in text or "developer" in text:
         return {
             "intro": "AI coding tools are judged by how well they fit daily development work, not by how impressive a single demo looks.",
@@ -504,6 +672,24 @@ def category_profile(niche: str) -> dict:
                 ("Review safety", "AI suggestions still need human review.", "Keep normal code review active."),
             ],
         }
+    if "app builder" in text or "cloud development" in text:
+        return {
+            "intro": "AI app builders should be reviewed by how quickly they create a usable prototype and how cleanly that prototype can be reviewed, maintained, and deployed.",
+            "decision_signal": "prototype speed, code ownership, deployment path, maintainability, and production-readiness checks",
+            "workflow": "turning a product idea into a working app draft, then reviewing code, routes, data flows, and deployment assumptions",
+            "verdict": "fast app prototyping that still leaves a clear path to engineering review and maintainable ownership",
+            "scenario": "a founder or developer describing a small app, generating a first version, testing a change, and deciding whether the result is worth hardening",
+            "pro": "Excellent for shortening the distance between idea and visible prototype.",
+            "con": "A working preview can still hide security, data, architecture, and maintenance gaps.",
+            "recommendation": "Shortlist it for prototypes and early product exploration, then require code review before treating the output as production software.",
+            "best_for": ["Founders testing app ideas.", "Developers creating quick prototypes.", "Teams that can review generated code before launch."],
+            "not_best_for": ["Non-technical teams shipping sensitive apps without review.", "Projects with complex compliance needs.", "Buyers who need guaranteed production architecture."],
+            "features": [
+                ("Prototype speed", "The first value is how quickly the idea becomes testable.", "Build one small real app."),
+                ("Code ownership", "Generated projects still need maintainers.", "Inspect structure and dependencies."),
+                ("Deployment path", "A prototype must have a realistic route to launch.", "Check hosting, env vars, and rollback process."),
+            ],
+        }
     if "seo" in text:
         return {
             "intro": "SEO software should be reviewed by research depth, workflow clarity, and whether it helps decisions without encouraging spam.",
@@ -520,6 +706,24 @@ def category_profile(niche: str) -> dict:
                 ("Keyword research", "Search intent drives whether a page can convert.", "Check buyer-intent keyword coverage."),
                 ("Competitor analysis", "Comparable pages reveal realistic ranking difficulty.", "Review SERP examples manually."),
                 ("Content workflow", "Research has to become publishable briefs.", "Check export and collaboration options."),
+            ],
+        }
+    if "image" in text:
+        return {
+            "intro": "AI image tools should be reviewed by visual quality, prompt control, editing workflow, usage rights, and whether outputs can pass brand review.",
+            "decision_signal": "image quality, style control, revision workflow, commercial rights, and creative production fit",
+            "workflow": "turning visual ideas into draft assets, revising them, and checking whether they are safe and useful for publication",
+            "verdict": "visual exploration support that produces useful creative options while keeping rights and review clear",
+            "scenario": "a marketer generating campaign concepts, choosing promising directions, editing the strongest output, and checking usage rules before publishing",
+            "pro": "Strong for creative exploration and fast visual concept development.",
+            "con": "Attractive images still require brand, factual, legal, and rights review.",
+            "recommendation": "Shortlist it when visual exploration is a repeated workflow and your team can review rights and brand fit before publishing.",
+            "best_for": ["Creators testing visual concepts.", "Marketing teams exploring campaign directions.", "Designers using AI as an ideation layer."],
+            "not_best_for": ["Teams needing exact product imagery without editing.", "Users who cannot verify usage rights.", "Projects that require strict brand approval on every pixel."],
+            "features": [
+                ("Style control", "The tool must produce usable direction, not just random images.", "Test several brand-specific prompts."),
+                ("Revision workflow", "Final assets often need iteration.", "Check how edits and variations work."),
+                ("Rights review", "Commercial usage must be clear.", "Read the latest official terms."),
             ],
         }
     if "automation" in text:
@@ -630,6 +834,17 @@ def title_from_slug(slug: str) -> str:
         "notion-ai": "Notion AI",
         "elevenlabs": "ElevenLabs",
         "hubspot": "HubSpot",
+        "chatgpt": "ChatGPT",
+        "claude": "Claude",
+        "gemini": "Gemini",
+        "perplexity": "Perplexity",
+        "lovable": "Lovable",
+        "bolt": "Bolt",
+        "replit": "Replit",
+        "midjourney": "Midjourney",
+        "frase": "Frase",
+        "ahrefs-ai": "Ahrefs AI",
+        "semrush-ai": "Semrush AI",
     }
     return known.get(slug, slug.replace("-", " ").title())
 

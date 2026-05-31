@@ -189,7 +189,7 @@ def build_site_output(landing_index: pd.DataFrame | None = None, base_site_url: 
     write_rss(output, built_pages)
     write_media_kit(output)
     write_aeo_action_plan(output)
-    write_github_pages_files(output)
+    write_github_pages_files(output, base_site_url)
     go_pages = generate_go_pages(output)
     tracked_pages = rewrite_outbound_ctas(output)
     write_llms_txt(output, built_pages, base_site_url)
@@ -206,8 +206,8 @@ def build_site_output(landing_index: pd.DataFrame | None = None, base_site_url: 
     }
 
 
-def write_github_pages_files(output: Path) -> None:
-    domain = (settings.base_site_url or settings.site_domain or "").strip().rstrip("/")
+def write_github_pages_files(output: Path, base_site_url: str = "") -> None:
+    domain = (base_site_url or settings.base_site_url or settings.site_domain or "").strip().rstrip("/")
     domain = domain.replace("https://", "").replace("http://", "").strip("/")
     if domain and "yourdomain.com" not in domain:
         (output / "CNAME").write_text(f"{domain}\n", encoding="utf-8")
