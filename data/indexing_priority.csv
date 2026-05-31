@@ -1,142 +1,142 @@
-url,page_type,priority,reason,suggested_action
-https://review.mssmileenglish.com/blog/chatgpt-windsurf-codex-workflow/,workflow_problem,93,contains windsurf + contains codex + high-intent workflow_problem + problem/workflow intent,Submit in Google Search Console URL Inspection
-https://review.mssmileenglish.com/blog/windsurf-to-codex-workflow/,workflow_problem,93,contains windsurf + contains codex + high-intent workflow_problem + problem/workflow intent,Submit in Google Search Console URL Inspection
-https://review.mssmileenglish.com/compare/cursor-vs-github-copilot/,comparison,75,contains cursor + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection
-https://review.mssmileenglish.com/compare/cursor-vs-windsurf/,comparison,75,contains cursor + contains windsurf + high-intent comparison,Submit in Google Search Console URL Inspection
-https://review.mssmileenglish.com/comparisons/copilot-vs-codex/,comparison,75,contains codex + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection
-https://review.mssmileenglish.com/comparisons/copilot-vs-cursor/,comparison,75,contains cursor + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection
-https://review.mssmileenglish.com/comparisons/cursor-vs-copilot/,comparison,75,contains cursor + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection
-https://review.mssmileenglish.com/comparisons/cursor-vs-github-copilot/,comparison,75,contains cursor + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection
-https://review.mssmileenglish.com/comparisons/cursor-vs-windsurf/,comparison,75,contains cursor + contains windsurf + high-intent comparison,Submit in Google Search Console URL Inspection
-https://review.mssmileenglish.com/comparisons/windsurf-vs-copilot/,comparison,75,contains windsurf + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection
-https://review.mssmileenglish.com/category/ai-coding-tools/,category,62,contains ai-coding + contains coding-tools + supporting category,Add more internal links
-https://review.mssmileenglish.com/ai-coding-software-review/,review,50,contains ai-coding + high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/best-ai-coding-tools-2026/,seo_page,50,contains ai-coding + contains coding-tools,Include in sitemap
-https://review.mssmileenglish.com/best-ai-coding-tools/,seo_page,50,contains ai-coding + contains coding-tools,Include in sitemap
-https://review.mssmileenglish.com/compare/github-copilot-vs-codeium/,comparison,50,contains copilot + high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/codex-vs-openclaw/,comparison,50,contains codex + high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/copilot-vs-tabnine/,comparison,50,contains copilot + high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/cursor-vs-vscode/,comparison,50,contains cursor + high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/review/cursor/,review,50,contains cursor + high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/github-copilot/,review,50,contains copilot + high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/reviews/windsurf-review/,review,50,contains windsurf + high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/windsurf-review/,review,50,contains windsurf + high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/pricing/cursor/,pricing,37,contains cursor + supporting pricing,Include in sitemap
-https://review.mssmileenglish.com/pricing/github-copilot/,pricing,37,contains copilot + supporting pricing,Include in sitemap
-https://review.mssmileenglish.com/ai-coding-alternatives/,seo_page,25,contains ai-coding,Include in sitemap
-https://review.mssmileenglish.com/ai-meeting-software-review/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/ai-productivity-software-review/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/ai-seo-software-review/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/ai-voice-software-review/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/automation-software-review/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/blog/best-crm-for-startups/,workflow_problem,25,high-intent workflow_problem,Share on social before indexing
-https://review.mssmileenglish.com/blog/chatgpt-prompts-for-windsurf/,blog,25,contains windsurf,Include in sitemap
-https://review.mssmileenglish.com/blog/fix-windsurf-mixed-language/,blog,25,contains windsurf,Include in sitemap
-https://review.mssmileenglish.com/blog/windsurf-prompt-checklist/,blog,25,contains windsurf,Include in sitemap
-https://review.mssmileenglish.com/compare/activecampaign-vs-mailchimp/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/compare/canva-vs-adcreative-ai/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/compare/grammarly-vs-quillbot/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/compare/jasper-vs-copy-ai/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/compare/make-vs-zapier/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/compare/semrush-vs-ahrefs/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/compare/synthesia-vs-pictory/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/canva-vs-adobe-express/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/canva-vs-gamma/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/chatgpt-vs-claude/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/chatgpt-vs-gemini/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/elevenlabs-vs-murf/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/elevenlabs-vs-playht/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/framer-vs-webflow/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/gemini-vs-claude/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/hubspot-vs-salesforce/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/jasper-vs-copyai/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/make-vs-zapier/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/midjourney-vs-dalle/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/notion-ai-vs-chatgpt/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/notion-ai-vs-clickup-ai/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/notion-vs-clickup/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/perplexity-vs-chatgpt/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/runway-vs-pika/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/semrush-vs-ahrefs/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/synthesia-vs-heygen/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/comparisons/synthesia-vs-runway/,comparison,25,high-intent comparison,Share on social before indexing
-https://review.mssmileenglish.com/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,seo_page,25,contains cursor,Include in sitemap
-https://review.mssmileenglish.com/cursor-pricing/,seo_page,25,contains cursor,Include in sitemap
-https://review.mssmileenglish.com/cursor/,seo_page,25,contains cursor,Include in sitemap
-https://review.mssmileenglish.com/email-marketing-software-review/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/github-copilot-pricing/,seo_page,25,contains copilot,Include in sitemap
-https://review.mssmileenglish.com/github-copilot/,seo_page,25,contains copilot,Include in sitemap
-https://review.mssmileenglish.com/hub/ai-coding/,hub,25,contains ai-coding,Add more internal links
-https://review.mssmileenglish.com/marketing-software-review/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/activecampaign/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/adcreative-ai/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/canva/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/copy-ai/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/descript/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/durable/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/elevenlabs/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/framer/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/gamma/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/hubspot/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/jasper-ai/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/jasper/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/make/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/notion-ai/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/notion/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/pipedrive-crm/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/pipedrive/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/reclaim-ai/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/runway/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/semrush/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/surfer-seo/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/synthesia/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/webflow-ai/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/webflow/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/review/zapier/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/reviews/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,seo_page,25,contains cursor,Include in sitemap
-https://review.mssmileenglish.com/reviews/cursor/,seo_page,25,contains cursor,Include in sitemap
-https://review.mssmileenglish.com/reviews/github-copilot/,seo_page,25,contains copilot,Include in sitemap
-https://review.mssmileenglish.com/reviews/windsurf/,seo_page,25,contains windsurf,Include in sitemap
-https://review.mssmileenglish.com/website-builder-software-review/,review,25,high-intent review,Share on social before indexing
-https://review.mssmileenglish.com/,homepage,20,crawl support page,Include in sitemap
-https://review.mssmileenglish.com/hub/ai-automation/,hub,20,crawl support page,Add more internal links
-https://review.mssmileenglish.com/hub/ai-presentation/,hub,20,crawl support page,Add more internal links
-https://review.mssmileenglish.com/hub/ai-seo/,hub,20,crawl support page,Add more internal links
-https://review.mssmileenglish.com/hub/ai-video/,hub,20,crawl support page,Add more internal links
-https://review.mssmileenglish.com/hub/ai-voice/,hub,20,crawl support page,Add more internal links
-https://review.mssmileenglish.com/hub/ai-writing/,hub,20,crawl support page,Add more internal links
-https://review.mssmileenglish.com/hub/crm/,hub,20,crawl support page,Add more internal links
-https://review.mssmileenglish.com/hub/email-marketing/,hub,20,crawl support page,Add more internal links
-https://review.mssmileenglish.com/hub/marketing/,hub,20,crawl support page,Add more internal links
-https://review.mssmileenglish.com/hub/productivity/,hub,20,crawl support page,Add more internal links
-https://review.mssmileenglish.com/hub/website-builders/,hub,20,crawl support page,Add more internal links
-https://review.mssmileenglish.com/hubs/,hub,20,crawl support page,Add more internal links
-https://review.mssmileenglish.com/category/ai-automation-tools/,category,12,supporting category,Add more internal links
-https://review.mssmileenglish.com/category/ai-customer-support-tools/,category,12,supporting category,Add more internal links
-https://review.mssmileenglish.com/category/ai-presentation-tools/,category,12,supporting category,Add more internal links
-https://review.mssmileenglish.com/category/ai-seo-tools/,category,12,supporting category,Add more internal links
-https://review.mssmileenglish.com/category/ai-video-tools/,category,12,supporting category,Add more internal links
-https://review.mssmileenglish.com/category/ai-voice-tools/,category,12,supporting category,Add more internal links
-https://review.mssmileenglish.com/category/ai-writing-tools/,category,12,supporting category,Add more internal links
-https://review.mssmileenglish.com/category/ai-writing/,category,12,supporting category,Add more internal links
-https://review.mssmileenglish.com/category/automation-tools/,category,12,supporting category,Add more internal links
-https://review.mssmileenglish.com/category/automation/,category,12,supporting category,Add more internal links
-https://review.mssmileenglish.com/category/crm-tools/,category,12,supporting category,Add more internal links
-https://review.mssmileenglish.com/category/crm/,category,12,supporting category,Add more internal links
-https://review.mssmileenglish.com/category/design-tools/,category,12,supporting category,Add more internal links
-https://review.mssmileenglish.com/category/email-marketing-tools/,category,12,supporting category,Add more internal links
-https://review.mssmileenglish.com/category/seo-tools/,category,12,supporting category,Add more internal links
-https://review.mssmileenglish.com/category/video-tools/,category,12,supporting category,Add more internal links
-https://review.mssmileenglish.com/category/website-builder-tools/,category,12,supporting category,Add more internal links
-https://review.mssmileenglish.com/category/website-builders/,category,12,supporting category,Add more internal links
-https://review.mssmileenglish.com/category/writing-tools/,category,12,supporting category,Add more internal links
-https://review.mssmileenglish.com/pricing/,pricing,12,supporting pricing,Include in sitemap
-https://review.mssmileenglish.com/pricing/activecampaign/,pricing,12,supporting pricing,Include in sitemap
-https://review.mssmileenglish.com/pricing/canva/,pricing,12,supporting pricing,Include in sitemap
-https://review.mssmileenglish.com/pricing/grammarly/,pricing,12,supporting pricing,Include in sitemap
-https://review.mssmileenglish.com/pricing/mailchimp/,pricing,12,supporting pricing,Include in sitemap
-https://review.mssmileenglish.com/pricing/make/,pricing,12,supporting pricing,Include in sitemap
-https://review.mssmileenglish.com/pricing/pictory/,pricing,12,supporting pricing,Include in sitemap
-https://review.mssmileenglish.com/pricing/semrush/,pricing,12,supporting pricing,Include in sitemap
-https://review.mssmileenglish.com/pricing/zapier/,pricing,12,supporting pricing,Include in sitemap
+﻿url,page_type,priority,reason,suggested_action
+https://smileaireviewhub.com/blog/chatgpt-windsurf-codex-workflow/,workflow_problem,93,contains windsurf + contains codex + high-intent workflow_problem + problem/workflow intent,Submit in Google Search Console URL Inspection
+https://smileaireviewhub.com/blog/windsurf-to-codex-workflow/,workflow_problem,93,contains windsurf + contains codex + high-intent workflow_problem + problem/workflow intent,Submit in Google Search Console URL Inspection
+https://smileaireviewhub.com/compare/cursor-vs-github-copilot/,comparison,75,contains cursor + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection
+https://smileaireviewhub.com/compare/cursor-vs-windsurf/,comparison,75,contains cursor + contains windsurf + high-intent comparison,Submit in Google Search Console URL Inspection
+https://smileaireviewhub.com/comparisons/copilot-vs-codex/,comparison,75,contains codex + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection
+https://smileaireviewhub.com/comparisons/copilot-vs-cursor/,comparison,75,contains cursor + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection
+https://smileaireviewhub.com/comparisons/cursor-vs-copilot/,comparison,75,contains cursor + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection
+https://smileaireviewhub.com/comparisons/cursor-vs-github-copilot/,comparison,75,contains cursor + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection
+https://smileaireviewhub.com/comparisons/cursor-vs-windsurf/,comparison,75,contains cursor + contains windsurf + high-intent comparison,Submit in Google Search Console URL Inspection
+https://smileaireviewhub.com/comparisons/windsurf-vs-copilot/,comparison,75,contains windsurf + contains copilot + high-intent comparison,Submit in Google Search Console URL Inspection
+https://smileaireviewhub.com/category/ai-coding-tools/,category,62,contains ai-coding + contains coding-tools + supporting category,Add more internal links
+https://smileaireviewhub.com/ai-coding-software-review/,review,50,contains ai-coding + high-intent review,Share on social before indexing
+https://smileaireviewhub.com/best-ai-coding-tools-2026/,seo_page,50,contains ai-coding + contains coding-tools,Include in sitemap
+https://smileaireviewhub.com/best-ai-coding-tools/,seo_page,50,contains ai-coding + contains coding-tools,Include in sitemap
+https://smileaireviewhub.com/compare/github-copilot-vs-codeium/,comparison,50,contains copilot + high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/codex-vs-openclaw/,comparison,50,contains codex + high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/copilot-vs-tabnine/,comparison,50,contains copilot + high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/cursor-vs-vscode/,comparison,50,contains cursor + high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/review/cursor/,review,50,contains cursor + high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/github-copilot/,review,50,contains copilot + high-intent review,Share on social before indexing
+https://smileaireviewhub.com/reviews/windsurf-review/,review,50,contains windsurf + high-intent review,Share on social before indexing
+https://smileaireviewhub.com/windsurf-review/,review,50,contains windsurf + high-intent review,Share on social before indexing
+https://smileaireviewhub.com/pricing/cursor/,pricing,37,contains cursor + supporting pricing,Include in sitemap
+https://smileaireviewhub.com/pricing/github-copilot/,pricing,37,contains copilot + supporting pricing,Include in sitemap
+https://smileaireviewhub.com/ai-coding-alternatives/,seo_page,25,contains ai-coding,Include in sitemap
+https://smileaireviewhub.com/ai-meeting-software-review/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/ai-productivity-software-review/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/ai-seo-software-review/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/ai-voice-software-review/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/automation-software-review/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/blog/best-crm-for-startups/,workflow_problem,25,high-intent workflow_problem,Share on social before indexing
+https://smileaireviewhub.com/blog/chatgpt-prompts-for-windsurf/,blog,25,contains windsurf,Include in sitemap
+https://smileaireviewhub.com/blog/fix-windsurf-mixed-language/,blog,25,contains windsurf,Include in sitemap
+https://smileaireviewhub.com/blog/windsurf-prompt-checklist/,blog,25,contains windsurf,Include in sitemap
+https://smileaireviewhub.com/compare/activecampaign-vs-mailchimp/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/compare/canva-vs-adcreative-ai/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/compare/grammarly-vs-quillbot/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/compare/jasper-vs-copy-ai/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/compare/make-vs-zapier/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/compare/semrush-vs-ahrefs/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/compare/synthesia-vs-pictory/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/canva-vs-adobe-express/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/canva-vs-gamma/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/chatgpt-vs-claude/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/chatgpt-vs-gemini/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/elevenlabs-vs-murf/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/elevenlabs-vs-playht/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/framer-vs-webflow/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/gemini-vs-claude/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/hubspot-vs-salesforce/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/jasper-vs-copyai/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/make-vs-zapier/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/midjourney-vs-dalle/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/notion-ai-vs-chatgpt/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/notion-ai-vs-clickup-ai/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/notion-vs-clickup/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/perplexity-vs-chatgpt/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/runway-vs-pika/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/semrush-vs-ahrefs/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/synthesia-vs-heygen/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/comparisons/synthesia-vs-runway/,comparison,25,high-intent comparison,Share on social before indexing
+https://smileaireviewhub.com/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,seo_page,25,contains cursor,Include in sitemap
+https://smileaireviewhub.com/cursor-pricing/,seo_page,25,contains cursor,Include in sitemap
+https://smileaireviewhub.com/cursor/,seo_page,25,contains cursor,Include in sitemap
+https://smileaireviewhub.com/email-marketing-software-review/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/github-copilot-pricing/,seo_page,25,contains copilot,Include in sitemap
+https://smileaireviewhub.com/github-copilot/,seo_page,25,contains copilot,Include in sitemap
+https://smileaireviewhub.com/hub/ai-coding/,hub,25,contains ai-coding,Add more internal links
+https://smileaireviewhub.com/marketing-software-review/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/activecampaign/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/adcreative-ai/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/canva/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/copy-ai/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/descript/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/durable/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/elevenlabs/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/framer/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/gamma/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/hubspot/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/jasper-ai/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/jasper/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/make/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/notion-ai/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/notion/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/pipedrive-crm/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/pipedrive/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/reclaim-ai/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/runway/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/semrush/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/surfer-seo/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/synthesia/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/webflow-ai/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/webflow/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/review/zapier/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/reviews/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,seo_page,25,contains cursor,Include in sitemap
+https://smileaireviewhub.com/reviews/cursor/,seo_page,25,contains cursor,Include in sitemap
+https://smileaireviewhub.com/reviews/github-copilot/,seo_page,25,contains copilot,Include in sitemap
+https://smileaireviewhub.com/reviews/windsurf/,seo_page,25,contains windsurf,Include in sitemap
+https://smileaireviewhub.com/website-builder-software-review/,review,25,high-intent review,Share on social before indexing
+https://smileaireviewhub.com/,homepage,20,crawl support page,Include in sitemap
+https://smileaireviewhub.com/hub/ai-automation/,hub,20,crawl support page,Add more internal links
+https://smileaireviewhub.com/hub/ai-presentation/,hub,20,crawl support page,Add more internal links
+https://smileaireviewhub.com/hub/ai-seo/,hub,20,crawl support page,Add more internal links
+https://smileaireviewhub.com/hub/ai-video/,hub,20,crawl support page,Add more internal links
+https://smileaireviewhub.com/hub/ai-voice/,hub,20,crawl support page,Add more internal links
+https://smileaireviewhub.com/hub/ai-writing/,hub,20,crawl support page,Add more internal links
+https://smileaireviewhub.com/hub/crm/,hub,20,crawl support page,Add more internal links
+https://smileaireviewhub.com/hub/email-marketing/,hub,20,crawl support page,Add more internal links
+https://smileaireviewhub.com/hub/marketing/,hub,20,crawl support page,Add more internal links
+https://smileaireviewhub.com/hub/productivity/,hub,20,crawl support page,Add more internal links
+https://smileaireviewhub.com/hub/website-builders/,hub,20,crawl support page,Add more internal links
+https://smileaireviewhub.com/hubs/,hub,20,crawl support page,Add more internal links
+https://smileaireviewhub.com/category/ai-automation-tools/,category,12,supporting category,Add more internal links
+https://smileaireviewhub.com/category/ai-customer-support-tools/,category,12,supporting category,Add more internal links
+https://smileaireviewhub.com/category/ai-presentation-tools/,category,12,supporting category,Add more internal links
+https://smileaireviewhub.com/category/ai-seo-tools/,category,12,supporting category,Add more internal links
+https://smileaireviewhub.com/category/ai-video-tools/,category,12,supporting category,Add more internal links
+https://smileaireviewhub.com/category/ai-voice-tools/,category,12,supporting category,Add more internal links
+https://smileaireviewhub.com/category/ai-writing-tools/,category,12,supporting category,Add more internal links
+https://smileaireviewhub.com/category/ai-writing/,category,12,supporting category,Add more internal links
+https://smileaireviewhub.com/category/automation-tools/,category,12,supporting category,Add more internal links
+https://smileaireviewhub.com/category/automation/,category,12,supporting category,Add more internal links
+https://smileaireviewhub.com/category/crm-tools/,category,12,supporting category,Add more internal links
+https://smileaireviewhub.com/category/crm/,category,12,supporting category,Add more internal links
+https://smileaireviewhub.com/category/design-tools/,category,12,supporting category,Add more internal links
+https://smileaireviewhub.com/category/email-marketing-tools/,category,12,supporting category,Add more internal links
+https://smileaireviewhub.com/category/seo-tools/,category,12,supporting category,Add more internal links
+https://smileaireviewhub.com/category/video-tools/,category,12,supporting category,Add more internal links
+https://smileaireviewhub.com/category/website-builder-tools/,category,12,supporting category,Add more internal links
+https://smileaireviewhub.com/category/website-builders/,category,12,supporting category,Add more internal links
+https://smileaireviewhub.com/category/writing-tools/,category,12,supporting category,Add more internal links
+https://smileaireviewhub.com/pricing/,pricing,12,supporting pricing,Include in sitemap
+https://smileaireviewhub.com/pricing/activecampaign/,pricing,12,supporting pricing,Include in sitemap
+https://smileaireviewhub.com/pricing/canva/,pricing,12,supporting pricing,Include in sitemap
+https://smileaireviewhub.com/pricing/grammarly/,pricing,12,supporting pricing,Include in sitemap
+https://smileaireviewhub.com/pricing/mailchimp/,pricing,12,supporting pricing,Include in sitemap
+https://smileaireviewhub.com/pricing/make/,pricing,12,supporting pricing,Include in sitemap
+https://smileaireviewhub.com/pricing/pictory/,pricing,12,supporting pricing,Include in sitemap
+https://smileaireviewhub.com/pricing/semrush/,pricing,12,supporting pricing,Include in sitemap
+https://smileaireviewhub.com/pricing/zapier/,pricing,12,supporting pricing,Include in sitemap
