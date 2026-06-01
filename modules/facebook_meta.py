@@ -12,6 +12,7 @@ from config import settings
 BASE_URL = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
 OG_IMAGE_PATH = "/assets/og/site.png"
 OG_IMAGE_URL = f"{BASE_URL}{OG_IMAGE_PATH}"
+OG_ASSET_VERSION = "20260601"
 OG_WIDTH = 1200
 OG_HEIGHT = 630
 
@@ -36,7 +37,7 @@ def post_process_facebook_meta(output: Path, base_url: str | None = None) -> dic
             image_path = og_image_path_for_page(output, page)
             if not image_path.exists():
                 write_dynamic_og_image(image_path, title, description)
-            image_url = f"{base}/{image_path.relative_to(output).as_posix()}"
+            image_url = versioned_url(f"{base}/{image_path.relative_to(output).as_posix()}")
             images += 1
         updated = ensure_open_graph_tags(text, url, title, description, image_url, page_type)
         if updated != text:
@@ -58,7 +59,7 @@ def ensure_open_graph_tags(text: str, url: str, title: str | None = None, descri
     fallback_title, fallback_description = page_title_and_description(text)
     title = title or fallback_title
     description = description or fallback_description
-    image_url = image_url or OG_IMAGE_URL
+    image_url = image_url or versioned_url(OG_IMAGE_URL)
     page_type = page_type or ("website" if url.rstrip("/") == BASE_URL else "article")
 
     text = upsert_meta_property(text, "og:title", title)
@@ -92,6 +93,11 @@ def og_image_path_for_page(output: Path, page: Path) -> Path:
     else:
         slug = rel.with_suffix("").as_posix().strip("/").replace("/", "--") or "page"
     return output / "assets" / "og" / "pages" / f"{slug}.png"
+
+
+def versioned_url(url: str) -> str:
+    separator = "&" if "?" in url else "?"
+    return f"{url}{separator}v={OG_ASSET_VERSION}"
 
 
 def write_dynamic_og_image(path: Path, title: str, description: str) -> None:
