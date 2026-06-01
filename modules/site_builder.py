@@ -14,6 +14,7 @@ from modules.blog_article_data import SUPPORTING_BLOG_ARTICLES, SUPPORTING_BLOG_
 from modules.category_page_builder import generate_category_pages
 from modules.comparison_page_builder import generate_comparison_review_pages
 from modules.comparison_generator import generate_comparison_pages
+from modules.facebook_meta import post_process_facebook_meta
 from modules.hub_page_builder import generate_hub_pages
 from modules.internal_linker import post_process_internal_links
 from modules.intent_page_generator import generate_intent_pages
@@ -210,12 +211,15 @@ def build_site_output(landing_index: pd.DataFrame | None = None, base_site_url: 
     write_llms_txt(output, built_pages, base_site_url)
     write_redirects(output, built_pages)
     link_stats = post_process_internal_links(output)
+    facebook_meta_stats = post_process_facebook_meta(output, base_site_url)
     return {
         "site_output": str(output.resolve()),
         "pages": len(built_pages),
         "base_site_url": base_site_url,
         "internal_links_added": link_stats.get("links_added", 0),
         "internal_linked_pages": link_stats.get("pages", 0),
+        "facebook_meta_pages": facebook_meta_stats.get("pages", 0),
+        "facebook_meta_changed": facebook_meta_stats.get("changed", 0),
         "go_pages": go_pages,
         "tracked_pages": tracked_pages,
     }
