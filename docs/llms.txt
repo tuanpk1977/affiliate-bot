@@ -34,7 +34,46 @@ Categories:
 - https://smileaireviewhub.com/category/website-builder-tools/
 
 Review pages:
-
+- ActiveCampaign Review: https://smileaireviewhub.com/activecampaign/
+- Make Review: https://smileaireviewhub.com/make/
+- Surfer SEO Review: https://smileaireviewhub.com/surfer-seo/
+- Semrush Review: https://smileaireviewhub.com/semrush/
+- GitHub Copilot Review: https://smileaireviewhub.com/github-copilot/
+- Zapier Review: https://smileaireviewhub.com/zapier/
+- ElevenLabs Review: https://smileaireviewhub.com/elevenlabs/
+- Claude Review: https://smileaireviewhub.com/claude/
+- ChatGPT Review: https://smileaireviewhub.com/chatgpt/
+- Bolt Review: https://smileaireviewhub.com/bolt/
+- HubSpot Review: https://smileaireviewhub.com/hubspot/
+- Semrush AI Review: https://smileaireviewhub.com/semrush-ai/
+- Ahrefs AI Review: https://smileaireviewhub.com/ahrefs-ai/
+- Webflow AI Review: https://smileaireviewhub.com/webflow-ai/
+- Reclaim AI Review: https://smileaireviewhub.com/reclaim-ai/
+- Windsurf Review: https://smileaireviewhub.com/windsurf/
+- Perplexity Review: https://smileaireviewhub.com/perplexity/
+- Cursor Review: https://smileaireviewhub.com/cursor/
+- Gemini Review: https://smileaireviewhub.com/gemini/
+- Notion AI Review: https://smileaireviewhub.com/notion-ai/
+- Webflow Review: https://smileaireviewhub.com/webflow/
+- Lovable Review: https://smileaireviewhub.com/lovable/
+- Midjourney Review: https://smileaireviewhub.com/midjourney/
+- Replit Review: https://smileaireviewhub.com/replit/
+- Frase Review: https://smileaireviewhub.com/frase/
+- Framer Review: https://smileaireviewhub.com/framer/
+- Gamma Review: https://smileaireviewhub.com/gamma/
+- Durable Review: https://smileaireviewhub.com/durable/
+- AdCreative AI Review: https://smileaireviewhub.com/adcreative-ai/
+- Jasper AI Review: https://smileaireviewhub.com/jasper-ai/
+- Jasper Review: https://smileaireviewhub.com/jasper/
+- Notion Review: https://smileaireviewhub.com/notion/
+- Synthesia Review: https://smileaireviewhub.com/synthesia/
+- Pipedrive CRM Review: https://smileaireviewhub.com/pipedrive-crm/
+- Canva Review: https://smileaireviewhub.com/canva/
+- Pipedrive Review: https://smileaireviewhub.com/pipedrive/
+- Runway Review: https://smileaireviewhub.com/runway/
+- Copy.ai Review: https://smileaireviewhub.com/copy-ai/
+- Descript Review: https://smileaireviewhub.com/descript/
+- Cursor Ai Review A Practical Guide For Developers And Ai Coders Review: https://smileaireviewhub.com/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/
 
 Tool review engine pages:
 - https://smileaireviewhub.com/review/activecampaign/
@@ -135,6 +174,7 @@ Top list pages:
 - https://smileaireviewhub.com/best-ai-presentation-tools/
 - https://smileaireviewhub.com/best-ai-seo-tools/
 - https://smileaireviewhub.com/best-ai-seo-tools-2026/
+- https://smileaireviewhub.com/best-ai-tools/
 - https://smileaireviewhub.com/best-ai-video-tools/
 - https://smileaireviewhub.com/best-ai-video-tools-2026/
 - https://smileaireviewhub.com/best-ai-writing-tools/

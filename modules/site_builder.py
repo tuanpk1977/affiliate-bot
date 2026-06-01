@@ -205,6 +205,7 @@ def build_site_output(landing_index: pd.DataFrame | None = None, base_site_url: 
     write_rss(output, built_pages)
     write_media_kit(output)
     write_aeo_action_plan(output)
+    write_facebook_test_page(output)
     write_github_pages_files(output, base_site_url)
     go_pages = generate_go_pages(output)
     tracked_pages = rewrite_outbound_ctas(output)
@@ -1652,9 +1653,63 @@ def write_robots(output: Path, base_site_url: str) -> None:
     robots = (
         "User-agent: *\n"
         "Allow: /\n"
+        "\n"
+        "User-agent: facebookexternalhit\n"
+        "Allow: /\n"
+        "\n"
+        "User-agent: Facebot\n"
+        "Allow: /\n"
+        "\n"
+        "User-agent: meta-externalagent\n"
+        "Allow: /\n"
+        "\n"
         f"{sitemap}"
     )
     (output / "robots.txt").write_text(robots, encoding="utf-8")
+
+
+def write_facebook_test_page(output: Path) -> None:
+    folder = output / "facebook-test"
+    folder.mkdir(parents=True, exist_ok=True)
+    canonical = site_url("/facebook-test/")
+    og_image = site_url("/assets/og/site.png")
+    page = f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Facebook Browser Test - {html.escape(settings.site_name)}</title>
+  <meta name="description" content="No-JavaScript Facebook in-app browser compatibility test page for {html.escape(settings.site_name)}.">
+  <link rel="canonical" href="{html.escape(canonical, quote=True)}">
+  <meta property="og:title" content="Facebook Browser Test - {html.escape(settings.site_name)}">
+  <meta property="og:description" content="A minimal no-JavaScript page used to verify Facebook in-app browser access.">
+  <meta property="og:image" content="{html.escape(og_image, quote=True)}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{html.escape(canonical, quote=True)}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Facebook Browser Test - {html.escape(settings.site_name)}">
+  <meta name="twitter:description" content="A minimal no-JavaScript page used to verify Facebook in-app browser access.">
+  <meta name="twitter:image" content="{html.escape(og_image, quote=True)}">
+  <meta name="robots" content="index,follow">
+  <style>
+    body {{ margin: 0; font-family: Arial, Helvetica, sans-serif; background: #ffffff; color: #17202a; line-height: 1.6; }}
+    main {{ max-width: 720px; margin: 0 auto; padding: 40px 20px; }}
+    h1 {{ font-size: 32px; line-height: 1.2; margin: 0 0 16px; }}
+    .status {{ border: 1px solid #cbd5e1; border-radius: 8px; padding: 16px; background: #f8fafc; }}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Facebook Browser Test</h1>
+    <div class="status">
+      <p>This page intentionally uses minimal HTML and CSS only.</p>
+      <p>No JavaScript, redirects, third-party assets, forms, trackers, or iframes are required to render it.</p>
+      <p>If this page does not load in the Facebook in-app browser, the failure is at the network, DNS, TLS, Cloudflare, or hosting layer.</p>
+    </div>
+  </main>
+</body>
+</html>"""
+    (folder / "index.html").write_text(page, encoding="utf-8")
 
 
 def write_sitemap(output: Path, pages: list[dict], base_site_url: str) -> None:

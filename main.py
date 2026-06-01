@@ -19,6 +19,7 @@ from modules.competitor_ads_spy import analyze_competitor_ads
 from modules.csv_exporter import export_csv
 from modules.data_sources import attach_data_confidence, load_data_sources
 from modules.decision_engine import decide_campaigns, decide_offers
+from modules.facebook_meta import post_process_facebook_meta
 from modules.geo_analyzer import suggest_geos
 from modules.gsc_performance import run_performance_intelligence
 from modules.keyword_analyzer import generate_keywords
@@ -122,6 +123,7 @@ def main() -> None:
     post_process_internal_links(settings.site_output_dir)
     add_bilingual_pages(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     run_audience_growth_system(settings.site_output_dir)
+    post_process_facebook_meta(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     run_seo_system()
     generate_social_seo_assets()

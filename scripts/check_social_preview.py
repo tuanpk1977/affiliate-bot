@@ -39,7 +39,17 @@ def check_page(path: Path) -> dict[str, str]:
     html = path.read_text(encoding="utf-8", errors="ignore")
     parser = MetaParser()
     parser.feed(html)
-    required = ["og:title", "og:description", "og:image", "twitter:card", "twitter:image"]
+    required = [
+        "og:title",
+        "og:description",
+        "og:image",
+        "og:url",
+        "og:type",
+        "twitter:card",
+        "twitter:title",
+        "twitter:description",
+        "twitter:image",
+    ]
     missing = [key for key in required if not parser.meta.get(key)]
     return {
         "url": page_url(path),
@@ -48,7 +58,11 @@ def check_page(path: Path) -> dict[str, str]:
         "og_title": parser.meta.get("og:title", ""),
         "og_description": parser.meta.get("og:description", ""),
         "og_image": parser.meta.get("og:image", ""),
+        "og_url": parser.meta.get("og:url", ""),
+        "og_type": parser.meta.get("og:type", ""),
         "twitter_card": parser.meta.get("twitter:card", ""),
+        "twitter_title": parser.meta.get("twitter:title", ""),
+        "twitter_description": parser.meta.get("twitter:description", ""),
         "twitter_image": parser.meta.get("twitter:image", ""),
     }
 
@@ -74,7 +88,11 @@ def main() -> int:
                 "og_title",
                 "og_description",
                 "og_image",
+                "og_url",
+                "og_type",
                 "twitter_card",
+                "twitter_title",
+                "twitter_description",
                 "twitter_image",
             ],
         )
