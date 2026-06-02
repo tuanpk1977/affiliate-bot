@@ -1,0 +1,21 @@
+page,viewport_px,wrap_width_px,content_width_px,max_screenshot_width_px,grid_behavior,screenshots_found,overflow_risk
+runway,1366,1120,1080,768,single content column; rating image/text split only above 900px,2,no
+runway,1440,1120,1080,768,single content column; rating image/text split only above 900px,2,no
+runway,1920,1120,1080,768,single content column; rating image/text split only above 900px,2,no
+runway,375,375,335,299,single content column; rating image/text split only above 900px,2,no
+runway,768,768,728,692,single content column; rating image/text split only above 900px,2,no
+review_chatgpt,1366,1120,1080,515,single content column; visual cards split only above 760px,0,no
+review_chatgpt,1440,1120,1080,515,single content column; visual cards split only above 760px,0,no
+review_chatgpt,1920,1120,1080,515,single content column; visual cards split only above 760px,0,no
+review_chatgpt,375,375,335,299,single content column; visual cards split only above 760px,0,no
+review_chatgpt,768,768,728,339,single content column; visual cards split only above 760px,0,no
+review_cursor,1366,1120,1080,515,single content column; visual cards split only above 760px,0,no
+review_cursor,1440,1120,1080,515,single content column; visual cards split only above 760px,0,no
+review_cursor,1920,1120,1080,515,single content column; visual cards split only above 760px,0,no
+review_cursor,375,375,335,299,single content column; visual cards split only above 760px,0,no
+review_cursor,768,768,728,339,single content column; visual cards split only above 760px,0,no
+review_zapier,1366,1120,1080,515,single content column; visual cards split only above 760px,0,no
+review_zapier,1440,1120,1080,515,single content column; visual cards split only above 760px,0,no
+review_zapier,1920,1120,1080,515,single content column; visual cards split only above 760px,0,no
+review_zapier,375,375,335,299,single content column; visual cards split only above 760px,0,no
+review_zapier,768,768,728,339,single content column; visual cards split only above 760px,0,no

@@ -34,20 +34,20 @@
     .nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
     .nav-inner{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:18px}
     .logo{font-weight:800;color:#0f172a;text-decoration:none}.menu{display:flex;gap:18px;flex-wrap:wrap}.menu a{color:#475569;text-decoration:none;font-size:14px}.language-switcher{display:flex;gap:8px;align-items:center;border:1px solid #dbe3ef;border-radius:999px;padding:4px 8px;background:#f8fafc;font-size:13px;white-space:nowrap}.language-switcher span{font-weight:800;color:#0f766e}.language-switcher a{color:#475569;text-decoration:none}
-    .hero{padding:52px 0 32px;background:linear-gradient(180deg,#ffffff,#f7f9fc)}
-    .hero-grid{display:grid;grid-template-columns:1.5fr .9fr;gap:24px;align-items:start}
+    .hero{padding:46px 0 18px;background:linear-gradient(180deg,#ffffff,#f7f9fc)}
+    .hero-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
     h1{font-size:44px;line-height:1.08;margin:12px 0 12px;letter-spacing:0}h2{font-size:26px;line-height:1.25;margin:0 0 12px;white-space:normal;overflow:visible;text-overflow:clip;word-break:normal}h3{font-size:18px;margin:0 0 8px}
     p,li{color:var(--muted)}.badge{display:inline-block;border:1px solid #a7f3d0;background:#ecfdf5;color:#047857;border-radius:999px;padding:5px 10px;font-size:13px;font-weight:700;margin-right:6px}
     .btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:12px 16px;border-radius:6px;font-weight:800;margin-right:10px}.btn.secondary{background:#e2e8f0;color:#0f172a}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px;margin:16px 0;box-shadow:0 1px 2px rgba(15,23,42,.04)}
-    .media-placeholder{min-height:170px;border:1px dashed #94a3b8;border-radius:8px;background:linear-gradient(135deg,#ecfeff,#f8fafc);display:flex;align-items:center;justify-content:center;text-align:center;color:#475569;font-weight:800;padding:18px}.screenshot{width:100%;border:1px solid var(--line);border-radius:8px;display:block}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px;margin:16px 0;box-shadow:0 1px 2px rgba(15,23,42,.04);max-width:100%;min-width:0;overflow-wrap:break-word}
+    .media-placeholder{min-height:170px;border:1px dashed #94a3b8;border-radius:8px;background:linear-gradient(135deg,#ecfeff,#f8fafc);display:flex;align-items:center;justify-content:center;text-align:center;color:#475569;font-weight:800;padding:18px}.screenshot{width:100%;max-width:100%;height:auto;aspect-ratio:5/3;object-fit:contain;border:1px solid var(--line);border-radius:8px;display:block;background:#fff}
     .logo-placeholder{width:74px;height:74px;border-radius:16px;background:#0f766e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;margin-bottom:12px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}.score{font-size:42px;font-weight:800;color:var(--accent)}
-    .rating-row{display:flex;justify-content:space-between;border-top:1px solid #edf2f7;padding:9px 0;color:#475569}.rating-row:first-of-type{border-top:0}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;min-width:0}.score{font-size:42px;font-weight:800;color:var(--accent);line-height:1}
+    .rating-summary{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:16px;align-items:start}.rating-summary h2{margin-top:0}.rating-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:start;border-top:1px solid #edf2f7;padding:9px 0;color:#475569}.rating-row:first-of-type{border-top:0}.rating-row strong{text-align:right;overflow-wrap:anywhere}
     table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden}th,td{text-align:left;border-bottom:1px solid #e6edf5;padding:12px;vertical-align:top}th{background:#f1f5f9;color:#334155}
-    .review-layout{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:20px;align-items:start}.review-layout>.breadcrumb{grid-column:1/-1}.review-layout>.toc{grid-column:2;grid-row:2;position:sticky;top:84px;max-height:70vh;overflow-y:auto;z-index:1}.review-layout>div{grid-column:1;grid-row:2}.toc{position:relative;max-width:100%}.toc a{display:block;color:#475569;text-decoration:none;padding:6px 0;border-bottom:1px solid #edf2f7}.breadcrumb{font-size:14px;color:#64748b;margin-bottom:14px}.share a{display:inline-block;margin:0 8px 8px 0;color:#0f766e;font-weight:700}.author-box{display:grid;grid-template-columns:1fr;gap:8px}.related a{display:inline-block;margin:0 8px 8px 0;color:#0f766e;font-weight:700}.trust{border-left:4px solid var(--warn);background:#fff7ed}.pros{color:#166534}.cons{color:#991b1b}.note{font-size:14px;color:#7c2d12}.search{width:100%;padding:12px 14px;border:1px solid #cbd5e1;border-radius:8px;margin:8px 0 18px}details{border-top:1px solid #e6edf5;padding:12px 0}summary{cursor:pointer;font-weight:800;color:#334155}
+    .review-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}.review-layout>.breadcrumb{grid-column:1}.review-layout>.toc{grid-column:1;grid-row:auto;position:relative;top:auto;max-height:none;overflow:visible;z-index:1}.review-layout>div{grid-column:1;grid-row:auto;min-width:0}.toc{position:relative;max-width:100%}.toc a{display:block;color:#475569;text-decoration:none;padding:8px 0;border-bottom:1px solid #edf2f7;line-height:1.35;overflow-wrap:anywhere}.breadcrumb{font-size:14px;color:#64748b;margin-bottom:14px}.share a{display:inline-block;margin:0 8px 8px 0;color:#0f766e;font-weight:700}.author-box{display:grid;grid-template-columns:1fr;gap:8px}.related a{display:inline-block;margin:0 8px 8px 0;color:#0f766e;font-weight:700}.trust{border-left:4px solid var(--warn);background:#fff7ed}.pros{color:#166534}.cons{color:#991b1b}.note{font-size:14px;color:#7c2d12}.search{width:100%;padding:12px 14px;border:1px solid #cbd5e1;border-radius:8px;margin:8px 0 18px}details{border-top:1px solid #e6edf5;padding:12px 0}summary{cursor:pointer;font-weight:800;color:#334155}
     footer{margin-top:36px;background:#0f172a;color:#cbd5e1;padding:28px 0}footer a{color:#e2e8f0;text-decoration:none;margin-right:14px}footer p{color:#cbd5e1}
-    @media (max-width:900px){.review-layout{grid-template-columns:1fr}.review-layout>.breadcrumb,.review-layout>.toc,.review-layout>div{grid-column:1;grid-row:auto}.review-layout>.toc,.toc{position:relative;top:auto;max-height:none;overflow:visible}}@media (max-width:760px){.hero-grid{grid-template-columns:1fr}h1{font-size:34px}.nav-inner{height:auto;padding:14px 0;align-items:flex-start;flex-direction:column}.language-switcher{margin-top:6px}}
+    @media (max-width:900px){.rating-summary{grid-template-columns:1fr}.review-layout{grid-template-columns:1fr}.review-layout>.breadcrumb,.review-layout>.toc,.review-layout>div{grid-column:1;grid-row:auto}.review-layout>.toc,.toc{position:relative;top:auto;max-height:none;overflow:visible}}@media (max-width:760px){h1{font-size:34px}.nav-inner{height:auto;padding:14px 0;align-items:flex-start;flex-direction:column}.language-switcher{margin-top:6px}.btn{display:block;text-align:center;margin:8px 0}.grid{grid-template-columns:1fr}.rating-row{grid-template-columns:1fr}.rating-row strong{text-align:left}}
   </style>
   <meta property="og:image:secure_url" content="https://smileaireviewhub.com/assets/og/pages/perplexity.png?v=20260601">
   <meta property="og:image:type" content="image/png">
@@ -70,14 +70,16 @@
       <p><a class="btn" href="/go/perplexity/?src=/perplexity/&amp;cta=official_site" rel="nofollow sponsored">Visit Official Website</a><a class="btn secondary" href="#pricing">Verify Current Pricing</a></p>
       <p class="note">Affiliate link pending approval.</p>
     </div>
-      <aside class="card">
-        <div class="media-placeholder" role="img" aria-label="Perplexity research visual">Research visual<br>Add image at assets/screenshots/perplexity.png</div>
-      <h2>Rating Summary</h2>
-      <div class="score">86/100</div>
-      <div class="rating-row"><span>Ease of use</span><strong>9.0/10</strong></div>
-      <div class="rating-row"><span>Pricing</span><strong>8.4/10</strong></div>
-      <div class="rating-row"><span>Features</span><strong>8.8/10</strong></div>
-      <div class="rating-row"><span>Best for</span><strong>teams comparing SaaS tools</strong></div>
+    <aside class="card rating-summary">
+      <div><div class="media-placeholder" role="img" aria-label="Perplexity research visual">Research visual<br>Add image at assets/screenshots/perplexity.png</div></div>
+      <div>
+        <h2>Rating Summary</h2>
+        <div class="score">86/100</div>
+        <div class="rating-row"><span>Ease of use</span><strong>9.0/10</strong></div>
+        <div class="rating-row"><span>Pricing</span><strong>8.4/10</strong></div>
+        <div class="rating-row"><span>Features</span><strong>8.8/10</strong></div>
+        <div class="rating-row"><span>Best for</span><strong>teams comparing SaaS tools</strong></div>
+      </div>
     </aside>
   </div></header>
   <main class="wrap review-layout" id="review">
