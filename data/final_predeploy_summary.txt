@@ -5,15 +5,15 @@ warnings: 0
 
 COUNTS
 - homepage: 1
-- review_pages: 27
-- comparison_pages: 39
+- review_pages: 39
+- comparison_pages: 46
 - pricing_pages: 10
 - category_pages: 21
 - hub_pages: 13
-- priority_pages: 23
-- go_tracking_pages: 93
-- total_sitemap_urls: 500
-- total_html_files: 603
+- priority_pages: 30
+- go_tracking_pages: 104
+- total_sitemap_urls: 530
+- total_html_files: 718
 
 ERRORS
 - none

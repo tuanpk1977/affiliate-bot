@@ -416,7 +416,7 @@ def social_proof_html(site_stats: dict) -> str:
             cards.append(f"<article class='social-proof-card'><span class='social-proof-icon' aria-hidden='true'>{marker}</span><strong>{value}</strong><span>{label}</span></article>")
     if not cards:
         return ""
-    return f"<div class='social-proof-grid' aria-label='Site trust signals'>{''.join(cards)}</div><p class='social-proof-note'>Real audience signals from our public content and weekly AI review updates.</p>"
+    return f"<div class='social-proof-grid' aria-label='Site trust signals'>{''.join(cards)}</div><p class='social-proof-note'>Real audience signals from our public content and weekly AI review updates. Metrics are based on public content activity and are updated monthly. They are not website visitor claims.</p>"
 
 
 def popular_tools_this_week_html(site_stats: dict) -> str:
@@ -1815,14 +1815,16 @@ def nav_html() -> str:
 
 
 def community_links() -> list[tuple[str, str, str]]:
-    return [
-        ("Facebook", "57,000+ views in the last 28 days", "https://web.facebook.com/Tuanpk.AI.Workflows"),
-        ("LinkedIn", "890+ impressions and growing", "https://www.linkedin.com/in/tuan-nguyen-quoc-8a01ba210/"),
-        ("X", "AI workflow posts and tool discussions", "https://x.com/Tuanpk5"),
-        ("Quora", "2,600+ content views", "https://www.quora.com/profile/Tuan-Nguyen-Quoc-10"),
-        ("DEV", "AI coding and automation articles", "https://dev.to/smileaitoolsreview"),
-        ("Reddit", "AI / side project discussion participation", "https://www.reddit.com/user/tuanpk021977/"),
-    ]
+    links: list[tuple[str, str, str]] = []
+    for item in load_site_stats().get("communityChannels", []):
+        if not isinstance(item, dict):
+            continue
+        name = str(item.get("name") or "").strip()
+        label = str(item.get("label") or "").strip()
+        url = str(item.get("url") or "").strip()
+        if name and label and url:
+            links.append((name, label, url))
+    return links
 
 
 def community_proof_html() -> str:
@@ -1838,11 +1840,11 @@ def community_proof_html() -> str:
     return f"""<section class="card community-proof">
       <div class="community-proof-header">
         <span class="badge">Public content channels</span>
-        <h2>Our Community &amp; Traffic Proof</h2>
+        <h2>Our Community Signals</h2>
         <p>AI Tools Review Hub is built in public across multiple platforms. We share AI tool reviews, automation workflows, SaaS comparisons, and real-world AI experiments.</p>
       </div>
       <div class="community-signal-grid">{cards}</div>
-      <p class="community-note">These public channels help us test content, collect feedback, and understand what AI tools users actually care about before writing deeper reviews and comparisons.</p>
+      <p class="community-note">Metrics are based on public content activity and are updated monthly. They are not website visitor claims.</p>
     </section>"""
 
 

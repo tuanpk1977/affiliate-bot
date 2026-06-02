@@ -4,8 +4,8 @@ index.html,PASS,D:\AFFILATE BOT\site_output\index.html
 sitemap.xml,PASS,D:\AFFILATE BOT\site_output\sitemap.xml
 robots.txt,PASS,D:\AFFILATE BOT\site_output\robots.txt
 sitemap_has_no_go,PASS,sitemap.xml must not include tracking URLs
-go_pages_exist,PASS,93 go tracking pages
-sitemap_targets_exist,PASS,500 sitemap URLs checked
+go_pages_exist,PASS,104 go tracking pages
+sitemap_targets_exist,PASS,530 sitemap URLs checked
 placeholder_scan,PASS,0 placeholder hits
 metadata_scan,PASS,0 canonical/meta issues
 robots_indexing_policy,PASS,0 robots policy issues
@@ -14,12 +14,12 @@ internal_link_scan,PASS,0 broken internal links
 affiliate_tracking_outputs,PASS,0 tracking report issues
 keyword_intelligence_report,PASS,0 keyword report issues
 homepage,PASS,1
-review_pages,PASS,27
-comparison_pages,PASS,39
+review_pages,PASS,39
+comparison_pages,PASS,46
 pricing_pages,PASS,10
 category_pages,PASS,21
 hub_pages,PASS,13
-priority_pages,PASS,23
-go_tracking_pages,PASS,93
-total_sitemap_urls,PASS,500
-total_html_files,PASS,603
+priority_pages,PASS,30
+go_tracking_pages,PASS,104
+total_sitemap_urls,PASS,530
+total_html_files,PASS,718

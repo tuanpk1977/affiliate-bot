@@ -63,6 +63,53 @@
       "url": "/pricing/grammarly/"
     }
   ],
+  "communityChannels": [
+    {
+      "name": "Facebook",
+      "label": "75,000+ Facebook Views",
+      "url": "https://web.facebook.com/Tuanpk.AI.Workflows"
+    },
+    {
+      "name": "LinkedIn",
+      "label": "Public AI review updates",
+      "url": "https://www.linkedin.com/in/tuan-nguyen-quoc-8a01ba210/"
+    },
+    {
+      "name": "X",
+      "label": "AI workflow posts",
+      "url": "https://x.com/Tuanpk5"
+    },
+    {
+      "name": "Quora",
+      "label": "Public answer views",
+      "url": "https://www.quora.com/profile/Tuan-Nguyen-Quoc-10"
+    },
+    {
+      "name": "DEV",
+      "label": "AI builder articles",
+      "url": "https://dev.to/smileaitoolsreview"
+    },
+    {
+      "name": "Reddit",
+      "label": "Community discussions",
+      "url": "https://www.reddit.com/user/tuanpk021977/?screen_view_count=2"
+    },
+    {
+      "name": "Qiita",
+      "label": "Technical notes",
+      "url": "https://qiita.com/tuanpk1977"
+    },
+    {
+      "name": "Hashnode",
+      "label": "Build notes",
+      "url": ""
+    },
+    {
+      "name": "Velog",
+      "label": "Developer notes",
+      "url": ""
+    }
+  ],
   "reviewComparisonDefaults": {
     "startingPrice": "Check official pricing",
     "freeTrial": "Check current trial terms",

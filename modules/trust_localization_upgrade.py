@@ -4,6 +4,7 @@ import csv
 import html
 import re
 from pathlib import Path
+from urllib.parse import urlparse
 
 from config import settings
 from modules.site_stats import load_site_stats
@@ -215,12 +216,31 @@ def should_skip(page: Path, root: Path) -> bool:
 def enhance_html(html_text: str, rel_path: str, scores: dict[str, str]) -> str:
     lang = "vi" if rel_path.startswith("vi/") else "en"
     text = ensure_upgrade_css(html_text)
+    text = ensure_favicon(text)
+    text = insert_homepage_sections(text, rel_path, lang)
+    text = strengthen_review_page(text, rel_path, lang)
     text = replace_footer(text, lang)
     text = insert_comparison_scorecard(text, rel_path, lang, scores)
     text = insert_trust_blocks(text, lang)
     if lang == "vi":
         text = cleanup_vietnamese_text(text)
     return text
+
+
+def ensure_favicon(html_text: str) -> str:
+    if re.search(r"<link\b[^>]*rel=['\"](?:shortcut icon|icon)['\"]", html_text, flags=re.I):
+        return html_text
+    svg = (
+        "data:image/svg+xml,"
+        "%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E"
+        "%3Crect width='64' height='64' rx='12' fill='%230f766e'/%3E"
+        "%3Ctext x='32' y='39' text-anchor='middle' font-family='Arial' font-size='22' font-weight='700' fill='white'%3EMS%3C/text%3E"
+        "%3C/svg%3E"
+    )
+    tag = f'  <link rel="icon" href="{svg}">'
+    if "</head>" in html_text:
+        return html_text.replace("</head>", tag + "\n</head>", 1)
+    return tag + "\n" + html_text
 
 
 def ensure_upgrade_css(html_text: str) -> str:
@@ -242,8 +262,11 @@ def ensure_upgrade_css(html_text: str) -> str:
     .author-trust-card a{font-weight:800;color:#0f766e;text-decoration:none;white-space:nowrap}
     .community-channel-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px}
     .community-channel-list a{display:block;border:1px solid rgba(148,163,184,.35);border-radius:8px;padding:10px;text-decoration:none;background:rgba(255,255,255,.04);min-width:0}
+    .community-channel-list .community-channel-disabled{display:block;border:1px solid rgba(148,163,184,.35);border-radius:8px;padding:10px;background:rgba(255,255,255,.03);min-width:0;opacity:.82}
     .community-channel-list strong{display:block;color:inherit;overflow-wrap:anywhere}
     .community-channel-list span{display:block;color:inherit;opacity:.75;font-size:12px;margin-top:3px;line-height:1.35}
+    .external-link-mark{font-size:12px;opacity:.8;margin-left:4px}
+    .coming-soon-label{display:inline-block;margin-top:6px;border:1px solid rgba(226,232,240,.45);border-radius:999px;padding:2px 8px;font-size:11px;color:inherit}
     .comparison-scorecard .score-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:12px}
     .comparison-scorecard .score-value{font-size:28px;font-weight:900;color:#0f766e;line-height:1.1}
     .comparison-scorecard table{width:100%;border-collapse:collapse}
@@ -282,10 +305,7 @@ def footer_html(lang: str) -> str:
         note = "Public community channels and audience signals we can point readers to."
         links = [("Privacy Policy", "/privacy/"), ("Terms", "/terms/"), ("Editorial Policy", "/editorial-policy/"), ("Affiliate Disclosure", "/affiliate-disclosure/"), ("About", "/about/"), ("Contact", "/contact/")]
         disclosure = "Some links may be affiliate links. We may earn a commission at no extra cost to you."
-    channel_links = "".join(
-        f"<a href='{html.escape(url, quote=True)}' rel='me noopener' target='_blank'><strong>{html.escape(name)}</strong><span>{html.escape(metric_vi if lang == 'vi' else metric_en)}</span></a>"
-        for name, url, metric_en, metric_vi in CHANNELS
-    )
+    channel_links = "".join(channel_card_html(channel, lang) for channel in community_channels())
     legal = "".join(f"<a href='{href}'>{html.escape(label)}</a>" for label, href in links)
     return f"""
 <footer class="community-footer">
@@ -295,12 +315,240 @@ def footer_html(lang: str) -> str:
     <h2>{html.escape(heading)}</h2>
     <p>{html.escape(note)}</p>
     <div class="community-channel-list">{channel_links}</div>
+    <p class="community-monthly-note">{html.escape(monthly_note_for_lang(lang))}</p>
     <div class="community-footer-links">{legal}</div>
     <p>&copy; 2026 {html.escape(settings.site_name)}.</p>
     <p>{html.escape(disclosure)}</p>
     <p class="impact-site-verification-text">Impact-Site-Verification: {IMPACT_SITE_VERIFICATION_ID}</p>
   </div>
 </footer>"""
+
+
+def monthly_note_for_lang(lang: str) -> str:
+    if lang == "vi":
+        return "Cac chi so la tin hieu doc gia cong khai va duoc cap nhat hang thang."
+    return "Metrics are public audience signals and are updated monthly."
+
+
+def community_channels() -> list[dict[str, str]]:
+    configured = load_site_stats().get("communityChannels") or []
+    fallback = [{"name": name, "label": metric_en, "url": url} for name, url, metric_en, _ in CHANNELS]
+    channels = configured if isinstance(configured, list) and configured else fallback
+    result: list[dict[str, str]] = []
+    for item in channels:
+        if not isinstance(item, dict):
+            continue
+        name = str(item.get("name") or "").strip()
+        if not name:
+            continue
+        result.append(
+            {
+                "name": name,
+                "label": str(item.get("label") or "").strip(),
+                "url": str(item.get("url") or "").strip(),
+            }
+        )
+    return result
+
+
+def is_valid_external_url(url: str) -> bool:
+    if not url:
+        return False
+    lowered = url.lower()
+    if any(token in lowered for token in ["unavailable", "example.com", "paste_real", "localhost"]):
+        return False
+    parsed = urlparse(url)
+    return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
+
+
+def channel_card_html(channel: dict[str, str], lang: str) -> str:
+    name = channel["name"]
+    label = channel.get("label") or ("Coming soon" if lang == "en" else "Sap cap nhat")
+    url = channel.get("url", "")
+    if is_valid_external_url(url):
+        return (
+            f"<a href='{html.escape(url, quote=True)}' rel='noopener noreferrer' target='_blank'>"
+            f"<strong>{html.escape(name)}<span class='external-link-mark' aria-hidden='true'>&nearr;</span></strong>"
+            f"<span>{html.escape(label)}</span></a>"
+        )
+    coming = "Coming soon" if lang == "en" else "Sap cap nhat"
+    return (
+        f"<div class='community-channel-disabled' aria-disabled='true'>"
+        f"<strong>{html.escape(name)}</strong><span>{html.escape(label)}</span>"
+        f"<span class='coming-soon-label'>{html.escape(coming)}</span></div>"
+    )
+
+
+def insert_homepage_sections(html_text: str, rel_path: str, lang: str) -> str:
+    if rel_path not in {"index.html", "vi/index.html"}:
+        return html_text
+    if "featured-homepage-sections" in html_text:
+        return html_text
+    block = homepage_feature_sections(lang)
+    match = re.search(r"<section class=['\"]popular-tools['\"][\s\S]*?</section>", html_text, flags=re.I)
+    if match:
+        return html_text[: match.end()] + block + html_text[match.end() :]
+    if "</header>" in html_text:
+        return html_text.replace("</header>", block + "\n</header>", 1)
+    return html_text
+
+
+def homepage_feature_sections(lang: str) -> str:
+    if lang == "vi":
+        headings = ("Review nổi bật", "So sánh nổi bật", "Bài mới nhất")
+    else:
+        headings = ("Featured Reviews", "Featured Comparisons", "Latest Articles")
+    reviews = [
+        ("ChatGPT Review", "/review/chatgpt/", "AI assistant research page.", "Review"),
+        ("Claude Review", "/review/claude/", "Long-form AI assistant notes.", "Review"),
+        ("Cursor Review", "/review/cursor/", "AI coding workflow review.", "Review"),
+        ("Zapier Review", "/review/zapier/", "Automation platform buying notes.", "Review"),
+        ("SEMrush Review", "/review/semrush/", "SEO platform research notes.", "Review"),
+        ("Copy.ai Review", "/review/copy-ai/", "AI writing workflow review.", "Review"),
+    ]
+    comparisons = [
+        ("ChatGPT vs Claude", "/comparisons/chatgpt-vs-claude/", "Compare AI assistant fit.", "Comparison"),
+        ("Cursor vs GitHub Copilot", "/compare/cursor-vs-github-copilot/", "Compare AI coding assistants.", "Comparison"),
+        ("Cursor vs Windsurf", "/compare/cursor-vs-windsurf/", "Compare AI coding editors.", "Comparison"),
+        ("SEMrush vs Ahrefs", "/compare/semrush-vs-ahrefs/", "Compare SEO research platforms.", "Comparison"),
+        ("Grammarly vs QuillBot", "/compare/grammarly-vs-quillbot/", "Compare writing assistants.", "Comparison"),
+        ("Canva vs Adobe Express", "/comparisons/canva-vs-adobe-express/", "Compare design workflows.", "Comparison"),
+    ]
+    latest = [
+        ("Best AI Tools", "/best-ai-tools/", "Updated AI tool shortlist.", "Guide"),
+        ("Best AI Coding Tools 2026", "/best-ai-coding-tools-2026/", "Coding tool workflow research.", "Guide"),
+        ("ChatGPT Prompts for Windsurf", "/blog/chatgpt-prompts-for-windsurf/", "Prompt workflow article.", "Article"),
+        ("Windsurf to Codex Workflow", "/blog/windsurf-to-codex-workflow/", "Build and repair workflow article.", "Article"),
+        ("Make Pricing", "/pricing/make/", "Automation pricing checks.", "Pricing"),
+        ("Cursor Pricing", "/pricing/cursor/", "AI coding pricing checks.", "Pricing"),
+    ]
+    return (
+        "<section class='featured-homepage-sections'>"
+        f"{homepage_card_section(headings[0], reviews)}"
+        f"{homepage_card_section(headings[1], comparisons)}"
+        f"{homepage_card_section(headings[2], latest)}"
+        "</section>"
+    )
+
+
+def homepage_card_section(title: str, items: list[tuple[str, str, str, str]]) -> str:
+    cards = "".join(
+        "<article class='card'>"
+        f"<p class='badge'>{html.escape(category)}</p>"
+        f"<h3>{html.escape(name)}</h3>"
+        f"<p>{html.escape(description)}</p>"
+        f"<a class='btn secondary' href='{html.escape(url, quote=True)}'>Read</a>"
+        "</article>"
+        for name, url, description, category in items
+    )
+    return f"<section><h2>{html.escape(title)}</h2><div class='cards'>{cards}</div></section>"
+
+
+def strengthen_review_page(html_text: str, rel_path: str, lang: str) -> str:
+    clean_rel = rel_path.removeprefix("vi/")
+    if not is_review_like_page(html_text, clean_rel):
+        return html_text
+    missing = review_sections_missing(html_text)
+    if not missing:
+        return html_text
+    title = page_h1(html_text)
+    tool = tool_name_from_title(title, clean_rel)
+    block = "".join(review_support_section(section, tool, lang) for section in missing)
+    faq_match = re.search(r"<section\b[^>]*>\s*<h2[^>]*>\s*(?:FAQ|Câu hỏi thường gặp|CÃ¢u há»i thÆ°á»ng gáº·p)\s*</h2>", html_text, flags=re.I)
+    if faq_match:
+        return html_text[: faq_match.start()] + block + html_text[faq_match.start() :]
+    if "</main>" in html_text:
+        return html_text.replace("</main>", block + "\n</main>", 1)
+    return html_text + block
+
+
+def is_review_like_page(html_text: str, clean_rel: str) -> bool:
+    if clean_rel.startswith(("review/", "reviews/")) and clean_rel != "reviews/index.html":
+        return True
+    if clean_rel.startswith(("comparisons/", "compare/", "pricing/", "category/", "blog/", "hub/")):
+        return False
+    title = page_h1(html_text).lower()
+    return "review" in title or "đánh giá" in title
+
+
+def page_h1(html_text: str) -> str:
+    match = re.search(r"<h1[^>]*>(.*?)</h1>", html_text, flags=re.I | re.S)
+    if not match:
+        return "this tool"
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", match.group(1)))).strip()
+
+
+def tool_name_from_title(title: str, rel_path: str) -> str:
+    cleaned = re.sub(r"\b(review|pricing|guide|features|pros|cons|notes)\b", " ", title, flags=re.I)
+    cleaned = re.split(r":|-|\|", cleaned)[0].strip()
+    if cleaned:
+        return cleaned
+    parts = rel_path.strip("/").split("/")
+    slug = parts[-2] if parts and parts[-1] == "index.html" else parts[-1]
+    return slug.replace("-", " ").title()
+
+
+def review_sections_missing(html_text: str) -> list[str]:
+    required = {
+        "short-answer": ["Short answer", "Quick verdict"],
+        "rating-summary": ["Rating summary", "Our Rating"],
+        "pros": ["Pros", "Ưu điểm"],
+        "cons": ["Cons", "Hạn chế", "Nhược điểm"],
+        "best-for": ["Best for", "Phù hợp nhất"],
+        "not-best-for": ["Not best for", "Not for"],
+        "pricing-notes": ["Pricing notes", "Pricing", "Giá"],
+        "alternatives": ["Alternatives", "Lựa chọn thay thế"],
+        "use-cases": ["Use cases", "Use case"],
+        "final-verdict": ["Final verdict", "Final recommendation"],
+        "faq": ["FAQ", "Câu hỏi thường gặp"],
+        "related-research": ["Related Research", "Related reviews"],
+    }
+    text = re.sub(r"<script\b.*?</script>|<style\b.*?</style>", " ", html_text, flags=re.I | re.S)
+    visible = re.sub(r"<[^>]+>", " ", text)
+    missing = []
+    for key, phrases in required.items():
+        if not any(phrase.lower() in visible.lower() for phrase in phrases):
+            missing.append(key)
+    return missing
+
+
+def review_support_section(section: str, tool: str, lang: str) -> str:
+    content = {
+        "short-answer": ("Short answer", f"Use {tool} as a research starting point when the workflow fit is clear. Verify current pricing, product limits, and official terms before buying."),
+        "rating-summary": ("Rating summary", f"The rating is an editorial research signal for {tool}, not a guarantee. Compare it with alternatives and test it with real tasks."),
+        "pros": ("Pros", f"{tool} may be useful when it saves time on repeated work, supports a clear workflow, and still allows human review before publishing or buying."),
+        "cons": ("Cons", f"{tool} may be a poor fit if pricing, privacy, integrations, or policy details are not confirmed on the official website."),
+        "best-for": ("Best for", f"Best for readers who already know the job they want {tool} to improve and can verify results before relying on them."),
+        "not-best-for": ("Not best for", f"Not best for teams expecting guaranteed outcomes, fixed prices, or fully autonomous decisions without review."),
+        "pricing-notes": ("Pricing notes", "Verify current pricing on the official website. Plans, limits, trials, cancellation terms, and affiliate rules can change."),
+        "alternatives": ("Alternatives", f"Compare {tool} with at least two alternatives before committing budget. Use this page as a research starting point."),
+        "use-cases": ("Use cases", f"Test {tool} against one real workflow: planning, drafting, review, export, team handoff, or ongoing maintenance."),
+        "final-verdict": ("Final verdict", f"{tool} is worth shortlisting only when its workflow fit, pricing, and policy details match your actual use case."),
+        "faq": ("FAQ", "What should I verify first? Verify pricing, limits, official terms, privacy needs, and whether an affiliate link is approved before promoting the tool."),
+        "related-research": ("Related research", "Read related reviews, comparisons, pricing notes, and category guides before making a final decision."),
+    }
+    heading, body = content[section]
+    if lang == "vi":
+        # Keep product names intact; use conservative Vietnamese support copy.
+        vi_heading = {
+            "short-answer": "Câu trả lời ngắn",
+            "rating-summary": "Tóm tắt điểm đánh giá",
+            "pros": "Ưu điểm",
+            "cons": "Hạn chế",
+            "best-for": "Phù hợp nhất",
+            "not-best-for": "Không phù hợp nếu",
+            "pricing-notes": "Ghi chú giá",
+            "alternatives": "Lựa chọn thay thế",
+            "use-cases": "Use case",
+            "final-verdict": "Kết luận cuối cùng",
+            "faq": "Câu hỏi thường gặp",
+            "related-research": "Nghiên cứu liên quan",
+        }.get(section, heading)
+        body = f"Hãy dùng {tool} như điểm bắt đầu nghiên cứu. Kiểm tra giá hiện tại, giới hạn sản phẩm, điều khoản chính thức và lựa chọn thay thế trước khi mua hoặc quảng bá."
+        heading = vi_heading
+    if section == "faq":
+        return f"<section class='card review-structure-fallback'><h2>{html.escape(heading)}</h2><details><summary>What should I verify first?</summary><p>{html.escape(body)}</p></details></section>"
+    return f"<section class='card review-structure-fallback'><h2>{html.escape(heading)}</h2><p>{html.escape(body)}</p></section>"
 
 
 def insert_trust_blocks(html_text: str, lang: str) -> str:
@@ -361,6 +609,7 @@ def research_methodology(lang: str) -> str:
 
 
 def community_proof(lang: str) -> str:
+    note = "Metrics are based on public content activity and are updated monthly. They are not website visitor claims."
     if lang == "vi":
         heading = "Tín hiệu cộng đồng của chúng tôi"
         items = [("75,000+", "Lượt xem Facebook"), ("Public", "Hiển thị LinkedIn"), ("Public", "Lượt xem Quora"), ("Active", "Bài viết DEV"), ("Public", "Thảo luận Reddit")]
@@ -372,6 +621,7 @@ def community_proof(lang: str) -> str:
 <section class="trust-upgrade-section community-signals">
   <h2>{html.escape(heading)}</h2>
   <div class="trust-upgrade-grid">{cards}</div>
+  <p>{html.escape(note)}</p>
 </section>"""
 
 
