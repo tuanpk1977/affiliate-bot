@@ -24,6 +24,7 @@ from modules.priority_page_builder import generate_priority_pages
 from modules.pricing_page_builder import generate_pricing_pages
 from modules.review_page_builder import generate_review_pages
 from modules.seo_expansion_pages import generate_seo_expansion_pages
+from modules.site_stats import load_site_stats
 from modules.sitemap_generator import generate_sitemap
 from modules.toplist_generator import generate_toplist_pages
 from modules.tracking_config import analytics_snippet
@@ -275,6 +276,7 @@ def copy_screenshot_assets(output: Path) -> None:
 
 
 def write_index(output: Path, pages: list[dict]) -> None:
+    site_stats = load_site_stats()
     cards = "\n".join(card_html(page) for page in pages)
     category_cards = nav_card_links(
         [
@@ -326,6 +328,8 @@ def write_index(output: Path, pages: list[dict]) -> None:
     updated_label = date.today().strftime("%d/%m/%Y")
     recent = "\n".join(f"<li><a href='/{html.escape(page['slug'])}/'><span translate='no'>{html.escape(page['brand_name'])}</span></a> <span>Updated: {updated_label}</span></li>" for page in pages[:6])
     popular = section_html("Popular Reviews", pages[:6])
+    social_proof = social_proof_html(site_stats)
+    popular_tools = popular_tools_this_week_html(site_stats)
     html_text = f"""<!doctype html>
 <html lang="en">
   <head>
@@ -350,9 +354,10 @@ def write_index(output: Path, pages: list[dict]) -> None:
 </head>
 <body>
   {nav_html()}
-  <header class="hero"><div class="wrap"><span class="badge">Independent-style reviews</span><h1>AI Tool Review Center</h1><p>{html.escape(settings.site_name)} helps readers navigate AI and SaaS tools with review pages, comparison guides, pricing research, category hubs, and transparent affiliate disclosure. The focus is practical workflow fit, not hype.</p><p><a class="btn" href="/reviews/">Browse reviews</a><a class="btn secondary" href="/comparisons/">Compare tools</a><a class="btn secondary" href="/pricing/">Pricing guides</a></p></div></header>
+  <header class="hero"><div class="wrap"><span class="badge">Independent-style reviews</span><h1>AI Tool Review Center</h1>{social_proof}<p>{html.escape(settings.site_name)} helps readers navigate AI and SaaS tools with review pages, comparison guides, pricing research, category hubs, and transparent affiliate disclosure. The focus is practical workflow fit, not hype.</p><p><a class="btn" href="/reviews/">Browse reviews</a><a class="btn secondary" href="/comparisons/">Compare tools</a><a class="btn secondary" href="/pricing/">Pricing guides</a></p></div></header>
   <main class="wrap" id="reviews">
     <section class="card trust"><h2>Affiliate disclosure</h2><p>Some links may be affiliate links. We may earn a commission at no extra cost to you. Reviews and comparisons are research-style content, not guaranteed results.</p></section>
+    {popular_tools}
     <section><h2>Best AI tools by category</h2><div class="cards">{category_cards}</div></section>
     <section><h2>Top priority pages</h2><div class="cards">{priority_links}</div></section>
     <section><h2>Review pages</h2><div class="cards">{review_links}</div></section>
@@ -395,6 +400,30 @@ def section_html(title: str, pages: list[dict]) -> str:
         return ""
     items = "\n".join(f'<li><a href="/{html.escape(page["slug"])}/"><span translate="no">{html.escape(page["brand_name"])}</span></a> <span>{html.escape(page["niche"])}</span></li>' for page in shown)
     return f'<section class="list-section"><h2>{html.escape(title)}</h2><ul>{items}</ul></section>'
+
+
+def social_proof_html(site_stats: dict) -> str:
+    cards = []
+    for item in site_stats.get("socialProof", [])[:4]:
+        value = html.escape(str(item.get("value", "")).strip())
+        label = html.escape(str(item.get("label", "")).strip())
+        if value and label:
+            cards.append(f"<article class='social-proof-card'><strong>{value}</strong><span>{label}</span></article>")
+    if not cards:
+        return ""
+    return f"<div class='social-proof-grid' aria-label='Site trust signals'>{''.join(cards)}</div>"
+
+
+def popular_tools_this_week_html(site_stats: dict) -> str:
+    tools = []
+    for item in site_stats.get("popularToolsThisWeek", []):
+        name = html.escape(str(item.get("name", "")).strip())
+        url = html.escape(str(item.get("url", "#")).strip() or "#", quote=True)
+        if name:
+            tools.append(f"<li><a href='{url}'><span translate='no'>{name}</span></a></li>")
+    if not tools:
+        return ""
+    return f"<section class='card popular-tools'><h2>Most Popular AI Tools This Week</h2><ul class='popular-tools-list'>{''.join(tools)}</ul></section>"
 
 
 def nav_card_links(items: list[tuple[str, str, str]]) -> str:
@@ -1946,7 +1975,8 @@ def base_css() -> str:
     *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f7f9fc;color:#17202a;line-height:1.6}.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
     .nav{background:#fff;border-bottom:1px solid #dbe3ef}.nav-inner{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}.logo{font-weight:800;color:#0f172a;text-decoration:none;flex:0 0 auto}.menu{display:flex;gap:18px;flex-wrap:wrap;align-items:center}.menu a{color:#475569;text-decoration:none;font-size:14px}.language-switcher{display:flex;gap:6px;align-items:center;justify-content:center;flex-wrap:wrap;border:1px solid #dbe3ef;border-radius:999px;padding:4px 10px;background:#f8fafc;font-size:13px;line-height:1.2;max-width:100%;white-space:normal}.language-switcher span{font-weight:800;color:#0f766e}.language-switcher a{color:#475569;text-decoration:none;white-space:nowrap}
     .hero{padding:56px 0;background:linear-gradient(180deg,#fff,#f7f9fc)}h1{font-size:44px;line-height:1.08;margin:10px 0}h2{font-size:26px;line-height:1.25;margin:28px 0 12px;white-space:normal;overflow:visible;text-overflow:clip;word-break:normal}h3{margin:0 0 8px}.muted,p,li{color:#596579}.badge{display:inline-block;border:1px solid #a7f3d0;background:#ecfdf5;color:#047857;border-radius:999px;padding:5px 10px;font-size:13px;font-weight:700}
+    .social-proof-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:22px 0 18px;max-width:920px}.social-proof-card{background:#fff;border:1px solid #dbeafe;border-radius:8px;padding:14px 16px;box-shadow:0 6px 18px rgba(15,23,42,.05)}.social-proof-card strong{display:block;color:#0f172a;font-size:20px;line-height:1.2}.social-proof-card span{display:block;color:#64748b;font-size:13px;margin-top:4px}.popular-tools{border-color:#cfe0f3;background:#fbfdff}.popular-tools-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;list-style:none;margin:14px 0 0;padding:0}.popular-tools-list li{margin:0}.popular-tools-list a{display:block;border:1px solid #dbeafe;border-radius:8px;background:#fff;color:#0f172a;text-decoration:none;font-weight:800;padding:12px 14px}.popular-tools-list a:hover{border-color:#93c5fd;box-shadow:0 6px 16px rgba(15,23,42,.06)}
     .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}.card{background:#fff;border:1px solid #dbe3ef;border-radius:8px;padding:18px;box-shadow:0 1px 2px rgba(15,23,42,.04);max-width:100%;overflow-wrap:break-word}.btn{display:inline-block;background:#0f766e;color:#fff;text-decoration:none;padding:10px 14px;border-radius:6px;font-weight:800;margin-right:10px}.btn.secondary{background:#e2e8f0;color:#0f172a}.search{width:100%;padding:12px 14px;border:1px solid #cbd5e1;border-radius:8px;margin:8px 0 18px}.share a{display:inline-block;margin:0 8px 8px 0;color:#0f766e;font-weight:700}.breadcrumb{font-size:14px;color:#64748b;margin-bottom:18px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}.review-layout{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:20px;align-items:start}.review-layout>.breadcrumb{grid-column:1/-1}.review-layout>.toc{grid-column:2;grid-row:2;position:sticky;top:84px;max-height:70vh;overflow-y:auto;z-index:1}.review-layout>div{grid-column:1;grid-row:2;min-width:0}.toc{position:relative;max-width:100%}.toc a{display:block;color:#475569;text-decoration:none;padding:6px 0;border-bottom:1px solid #edf2f7}.auto-toc-block{margin:18px 0;max-height:70vh;overflow-y:auto}.note{font-size:13px;color:#7c2d12}.status{display:inline-block;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:800}.status.planned{background:#f1f5f9;color:#334155}.status.doing{background:#fef3c7;color:#92400e}.status.done{background:#dcfce7;color:#166534}.list-section ul{background:#fff;border:1px solid #dbe3ef;border-radius:8px;padding:18px 28px}.list-section li{margin:8px 0}.list-section span{color:#64748b;margin-left:8px}.legal{padding-top:44px;padding-bottom:44px}.trust{border-left:4px solid #9a3412;background:#fff7ed}details{border-top:1px solid #e6edf5;padding:12px 0}summary{cursor:pointer;font-weight:800;color:#334155}pre,.code-block,.prompt{max-width:100%;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;background:#0f172a;color:#e2e8f0;border:1px solid #1e293b;border-radius:8px;padding:14px 16px;font-size:13px;line-height:1.55;box-sizing:border-box}pre code,code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,'Liberation Mono','Courier New',monospace}pre code{display:block;white-space:inherit;overflow-wrap:inherit;word-break:inherit;color:inherit}p code,li code{background:#f1f5f9;color:#334155;border-radius:4px;padding:2px 5px;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #dbe3ef;border-radius:8px;overflow:hidden}th,td{text-align:left;border-bottom:1px solid #e6edf5;padding:12px;vertical-align:top}th{background:#f1f5f9;color:#334155}
     .community-proof{background:#ffffff;border-color:#cfdbea}.community-proof-header{max-width:820px}.community-proof-header h2{margin-top:10px}.community-signal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}.community-card{display:flex;flex-direction:column;gap:5px;min-height:104px;padding:15px;border:1px solid #dbe3ef;border-radius:8px;background:#f8fafc;color:#17202a;text-decoration:none;transition:border-color .15s ease,box-shadow .15s ease,transform .15s ease}.community-card:hover{border-color:#0f766e;box-shadow:0 8px 18px rgba(15,23,42,.08);transform:translateY(-1px)}.community-card strong{color:#0f172a;font-size:16px}.community-card span{color:#596579;font-size:14px;line-height:1.45}.community-note{margin:18px 0 0;color:#334155;font-weight:600}.footer-social{margin-top:14px}.footer-social a{margin:0 6px}
-    footer{margin-top:36px;background:#0f172a;color:#cbd5e1;padding:28px 0}footer a{color:#e2e8f0;text-decoration:none;margin-right:14px}footer p{color:#cbd5e1}@media(max-width:900px){.review-layout{grid-template-columns:1fr}.review-layout>.breadcrumb,.review-layout>.toc,.review-layout>div{grid-column:1;grid-row:auto}.review-layout>.toc,.toc{position:relative;top:auto;max-height:none;overflow:visible}}@media(max-width:760px){.nav-inner{height:auto;padding:14px 0;align-items:flex-start;flex-direction:column}.menu{gap:12px}.language-switcher{margin-top:6px;padding:4px 8px;font-size:12px}h1{font-size:34px}.community-signal-grid{grid-template-columns:1fr}.community-card{min-height:auto}.footer-social a{display:inline-block;margin-bottom:6px}}
+    footer{margin-top:36px;background:#0f172a;color:#cbd5e1;padding:28px 0}footer a{color:#e2e8f0;text-decoration:none;margin-right:14px}footer p{color:#cbd5e1}@media(max-width:900px){.review-layout{grid-template-columns:1fr}.review-layout>.breadcrumb,.review-layout>.toc,.review-layout>div{grid-column:1;grid-row:auto}.review-layout>.toc,.toc{position:relative;top:auto;max-height:none;overflow:visible}}@media(max-width:760px){.nav-inner{height:auto;padding:14px 0;align-items:flex-start;flex-direction:column}.menu{gap:12px}.language-switcher{margin-top:6px;padding:4px 8px;font-size:12px}h1{font-size:34px}.social-proof-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.social-proof-card{padding:13px 12px}.community-signal-grid{grid-template-columns:1fr}.community-card{min-height:auto}.footer-social a{display:inline-block;margin-bottom:6px}}
     """

@@ -8,6 +8,7 @@ import pandas as pd
 
 from config import settings
 from modules.programmatic_page_utils import affiliate_disclosure, breadcrumb_schema, faq_html, faq_schema, shell, write_page
+from modules.site_stats import load_site_stats
 
 
 INDEX_COLUMNS = [
@@ -135,11 +136,14 @@ def render_review_page(tool: dict[str, str], related_tools: list[dict[str, str]]
     description = review_description(tool)
     questions = faq_questions(brand)
     profile = category_profile(niche)
+    site_stats = load_site_stats()
     body = "\n".join(
         [
             hero_block(tool, profile),
+            last_updated_block(site_stats),
             affiliate_disclosure(),
             quick_verdict_block(tool, profile),
+            comparison_table_block(tool, profile, site_stats),
             overview_block(tool, profile),
             tool_specific_review_block(tool, profile),
             ai_coding_builder_block(tool) if is_ai_coding_tool(tool) else "",
@@ -220,6 +224,40 @@ def quick_verdict_block(tool: dict[str, str], profile: dict[str, str]) -> str:
     <div class='card'><h3>Risk signal</h3><p>{risk}. The main risk is usually policy, pricing, or workflow mismatch rather than the brand name itself.</p></div>
     <div class='card'><h3>Market signal</h3><p>{competition} competition. Comparison and review pages are usually safer than broad claims.</p></div>
   </div>
+</section>
+"""
+
+
+def last_updated_block(site_stats: dict) -> str:
+    last_updated = html.escape(str(site_stats.get("lastUpdated") or "June 2, 2026"))
+    return f"""
+<section class='card review-update-note'>
+  <p><strong>Last Updated:</strong> {last_updated}</p>
+  <p>We regularly update pricing, features, pros, cons, and affiliate information.</p>
+</section>
+"""
+
+
+def comparison_table_block(tool: dict[str, str], profile: dict[str, str], site_stats: dict) -> str:
+    brand = html.escape(tool["brand_name"])
+    slug = html.escape(tool["offer_id"])
+    defaults = site_stats.get("reviewComparisonDefaults", {})
+    rows = [
+        ("Best for", html.escape(str(profile.get("best_for", [profile.get("workflow", "Workflow-focused buyers")])[0]))),
+        ("Starting price", html.escape(str(defaults.get("startingPrice") or "Check official pricing"))),
+        ("Free trial", html.escape(str(defaults.get("freeTrial") or "Check current trial terms"))),
+        ("Ease of use", html.escape(str(defaults.get("easeOfUse") or "Beginner-friendly after setup"))),
+        ("Value for money", html.escape(str(defaults.get("valueForMoney") or "Strong when the workflow fit is clear"))),
+        ("Our rating", html.escape(str(tool["score"]))),
+    ]
+    table_rows = "".join(f"<tr><th scope='row'>{label}</th><td>{value}</td></tr>" for label, value in rows)
+    return f"""
+<section class='card review-comparison'>
+  <h2>{brand} comparison snapshot</h2>
+  <div class='table-scroll'><table>
+    <tbody>{table_rows}</tbody>
+  </table></div>
+  <p class='review-table-ctas'><a class='btn' href='/go/{slug}/?src=review/{slug}&cta=comparison_table_pricing'>Check Pricing</a><a class='btn secondary' href='/go/{slug}/?src=review/{slug}&cta=comparison_table_trial'>Try Free Trial</a><a class='btn secondary' href='#full-review'>Read Full Review</a></p>
 </section>
 """
 
@@ -331,7 +369,7 @@ def tool_specific_review_block(tool: dict[str, str], profile: dict[str, str]) ->
         for label, path in note["compare"]
     )
     return f"""
-<section class='card'>
+<section class='card' id='full-review'>
   <h2>{brand} hands-on review notes</h2>
   <p>{html.escape(note['positioning'])}</p>
   <p>{html.escape(note['scenario'])}</p>

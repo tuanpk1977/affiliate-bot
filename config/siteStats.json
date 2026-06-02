@@ -1,0 +1,49 @@
+{
+  "lastUpdated": "June 2, 2026",
+  "socialProof": [
+    {
+      "value": "75,000+",
+      "label": "Facebook Views"
+    },
+    {
+      "value": "Weekly",
+      "label": "AI Reviews"
+    },
+    {
+      "value": "10+",
+      "label": "AI Tools Compared"
+    },
+    {
+      "value": "Updated",
+      "label": "Regularly"
+    }
+  ],
+  "popularToolsThisWeek": [
+    {
+      "name": "ChatGPT",
+      "url": "/review/chatgpt/"
+    },
+    {
+      "name": "SEMrush",
+      "url": "/review/semrush/"
+    },
+    {
+      "name": "Jasper AI",
+      "url": "/review/jasper-ai/"
+    },
+    {
+      "name": "Canva AI",
+      "url": "/review/canva/"
+    },
+    {
+      "name": "Grammarly",
+      "url": "/pricing/grammarly/"
+    }
+  ],
+  "reviewComparisonDefaults": {
+    "startingPrice": "Check official pricing",
+    "freeTrial": "Check current trial terms",
+    "easeOfUse": "Beginner-friendly after setup",
+    "valueForMoney": "Strong when the workflow fit is clear"
+  }
+}
