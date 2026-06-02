@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import html
 import re
+from decimal import Decimal, ROUND_FLOOR
 from pathlib import Path
 
 import pandas as pd
@@ -31,13 +32,14 @@ def generate_review_pages(output: Path, offer_scores: pd.DataFrame | None = None
     pages: list[dict[str, str]] = []
     index_rows: list[dict[str, str]] = []
     all_tools = tools.to_dict("records")
+    existing_slugs = {slugify(row.get("offer_id") or row.get("brand_name") or "") for row in all_tools}
     for _, row in tools.iterrows():
         tool = normalize_tool(row.to_dict())
         slug = tool["offer_id"]
         if not slug or not tool["brand_name"]:
             continue
         related = select_related_tools(tool, all_tools)
-        page_path = write_page(output, f"review/{slug}", render_review_page(tool, related))
+        page_path = write_page(output, f"review/{slug}", render_review_page(tool, related, existing_slugs))
         title = review_title(tool)
         affiliate_status = "approved" if tool.get("affiliate_url") else "official_only"
         pages.append({"slug": f"review/{slug}", "title": title, "type": "tool_review"})
@@ -126,8 +128,9 @@ def normalize_tool(row: dict) -> dict[str, str]:
     }
 
 
-def render_review_page(tool: dict[str, str], related_tools: list[dict[str, str]] | None = None) -> str:
+def render_review_page(tool: dict[str, str], related_tools: list[dict[str, str]] | None = None, existing_slugs: set[str] | None = None) -> str:
     related_tools = related_tools or []
+    existing_slugs = existing_slugs or set()
     brand = tool["brand_name"]
     slug = tool["offer_id"]
     niche = tool["niche"]
@@ -143,7 +146,9 @@ def render_review_page(tool: dict[str, str], related_tools: list[dict[str, str]]
             last_updated_block(site_stats),
             affiliate_disclosure(),
             quick_verdict_block(tool, profile),
+            visual_assets_block(tool),
             comparison_table_block(tool, profile, site_stats),
+            comparison_cta_block(tool, existing_slugs),
             overview_block(tool, profile),
             tool_specific_review_block(tool, profile),
             ai_coding_builder_block(tool) if is_ai_coding_tool(tool) else "",
@@ -155,7 +160,8 @@ def render_review_page(tool: dict[str, str], related_tools: list[dict[str, str]]
             pricing_block(tool, profile),
             alternatives_block(tool, related_tools),
             final_verdict_block(tool, profile),
-            cta_block(tool),
+            newsletter_block(site_stats),
+            cta_block(tool, site_stats),
             faq_block(questions),
         ]
     )
@@ -177,24 +183,29 @@ def review_description(tool: dict[str, str]) -> str:
 
 
 def hero_block(tool: dict[str, str], profile: dict[str, str]) -> str:
+    site_stats = load_site_stats()
     brand = html.escape(tool["brand_name"])
     niche = html.escape(tool["niche"])
     score = html.escape(str(tool["score"]))
     risk = html.escape(str(tool["risk"]))
     trend = html.escape(str(tool["trend"]))
-    slug = html.escape(tool["offer_id"])
     intro = html.escape(profile["intro"])
-    image = screenshot_html(tool["offer_id"], tool["brand_name"])
+    rating = rating_value(tool, site_stats)
+    rating_label = html.escape(f"{rating:.1f} / 5")
+    stars = html.escape(rating_stars(rating))
     return f"""
 <section class='hero card'>
   <p><a href='/'>Home</a> / <a href='/reviews/'>Reviews</a> / {brand}</p>
   <p><span class='badge'>Research review</span> <span class='badge'>{niche}</span> <span class='badge'>Score {score}</span></p>
   <h1>{brand} Review for {niche} Buyers</h1>
-  {image}
+  <div class='review-meta-row'>
+    <div class='rating-badge'><span>Our Rating</span><strong>{rating_label}</strong><em>{stars}</em></div>
+    <p><strong>Editorial score:</strong> {score} | <strong>Risk level:</strong> {risk} | <strong>Trend:</strong> {trend}</p>
+  </div>
+  {author_card(site_stats)}
   <p>{intro} This {brand} review is written for readers who want a practical decision page before they click through to the official website. The focus is not hype; it is whether {brand} fits a real workflow, what should be verified, and which alternatives deserve a look.</p>
-  <p><strong>Editorial score:</strong> {score} | <strong>Risk level:</strong> {risk} | <strong>Trend:</strong> {trend}</p>
   <p><strong>Pricing summary:</strong> verify current plan limits, usage caps, team seats, cancellation terms, and official pricing before buying or promoting {brand}.</p>
-  <p><a class='btn' href='/go/{slug}/?src=review/{slug}&cta=review_page'>Visit Official Website</a><a class='btn secondary' href='/go/{slug}/?src=review/{slug}&cta=pricing_check'>Check current pricing</a></p>
+  {review_cta_buttons(tool, site_stats, "top")}
   <p class='note'>CTA status: Official site / affiliate pending when no approved affiliate URL is available.</p>
 </section>
 """
@@ -206,6 +217,103 @@ def screenshot_html(slug: str, brand: str) -> str:
         return ""
     alt = f"{brand} dashboard screenshot"
     return f"<figure><img class='screenshot' src='/assets/screenshots/{html.escape(slug)}.png' alt='{html.escape(alt)}' width='1200' height='720' loading='lazy' style='width:100%;height:auto;border-radius:8px;border:1px solid #dbe3ef'><figcaption>{html.escape(alt)} used for local editorial review context.</figcaption></figure>"
+
+
+def visual_assets_block(tool: dict[str, str]) -> str:
+    brand = tool["brand_name"]
+    slug = tool["offer_id"]
+    cards = [
+        visual_asset_card(slug, brand, "Product logo", "logos", f"{brand} product logo placeholder", "logo"),
+        visual_asset_card(slug, brand, "Interface screenshot", "screenshots", f"{brand} interface screenshot placeholder", "interface"),
+        visual_asset_card(slug, brand, "Pricing screenshot", "pricing", f"{brand} pricing screenshot placeholder", "pricing"),
+        visual_asset_card(slug, brand, "Example workflow", "workflows", f"{brand} example workflow placeholder", "workflow"),
+    ]
+    return f"""
+<section class='card review-visuals'>
+  <h2>{html.escape(brand)} visuals and screenshots</h2>
+  <div class='visual-grid'>{"".join(cards)}</div>
+  <p class='note'>Real screenshots can be added later in /assets/ or /content/images/ without changing the page layout.</p>
+</section>
+"""
+
+
+def visual_asset_card(slug: str, brand: str, title: str, folder: str, placeholder: str, asset_type: str) -> str:
+    asset_path = settings.base_dir / "assets" / folder / f"{slug}.png"
+    content = ""
+    if asset_path.exists():
+        alt = f"{brand} {title.lower()}"
+        content = f"<img src='/assets/{html.escape(folder)}/{html.escape(slug)}.png' alt='{html.escape(alt)}' width='1200' height='720' loading='lazy'>"
+    else:
+        content = f"<div class='visual-placeholder' data-replace-path='/assets/{html.escape(folder)}/{html.escape(slug)}.png'><span>{html.escape(asset_type)}</span><strong>{html.escape(placeholder)}</strong></div>"
+    return f"<article class='visual-card'><h3>{html.escape(title)}</h3>{content}</article>"
+
+
+def author_card(site_stats: dict) -> str:
+    author = site_stats.get("author", {})
+    name = html.escape(str(author.get("name") or "Nguyen Quoc Tuan"))
+    title = html.escape(str(author.get("title") or "AI Tools Researcher & Builder of SmileAIReviewHub"))
+    updated = html.escape(str(author.get("lastUpdated") or site_stats.get("lastUpdated") or "June 2026"))
+    initials = html.escape(str(author.get("avatarInitials") or "NT")[:3])
+    avatar = str(author.get("avatarImage") or "").strip()
+    if avatar:
+        avatar_html = f"<img src='{html.escape(avatar, quote=True)}' alt='{name}' width='48' height='48' loading='lazy'>"
+    else:
+        avatar_html = f"<span>{initials}</span>"
+    return f"""
+<div class='author-card'>
+  <div class='author-avatar'>{avatar_html}</div>
+  <div>
+    <p><strong>Reviewed by {name}</strong></p>
+    <p>{title}</p>
+    <p class='author-updated'>Last updated: {updated}</p>
+  </div>
+</div>
+"""
+
+
+def review_cta_buttons(tool: dict[str, str], site_stats: dict, context: str) -> str:
+    ctas = site_stats.get("reviewCtas", {})
+    official_label = html.escape(str(ctas.get("officialLabel") or "Visit Official Website"))
+    pricing_label = html.escape(str(ctas.get("pricingLabel") or "Check Current Pricing"))
+    alternatives_label = html.escape(str(ctas.get("alternativesLabel") or "Compare Alternatives"))
+    official_url = html.escape(cta_url(tool, site_stats, "officialUrlTemplate", context), quote=True)
+    pricing_url = html.escape(cta_url(tool, site_stats, "pricingUrlTemplate", f"{context}_pricing"), quote=True)
+    alternatives_url = html.escape(str(ctas.get("alternativesUrl") or "#alternatives"), quote=True)
+    return (
+        "<p class='review-cta-row'>"
+        f"<a class='btn' href='{official_url}'>{official_label}</a>"
+        f"<a class='btn secondary' href='{pricing_url}'>{pricing_label}</a>"
+        f"<a class='btn secondary' href='{alternatives_url}'>{alternatives_label}</a>"
+        "</p>"
+    )
+
+
+def cta_url(tool: dict[str, str], site_stats: dict, template_key: str, context: str) -> str:
+    ctas = site_stats.get("reviewCtas", {})
+    template = str(ctas.get(template_key) or "/go/{slug}/?src=review/{slug}&cta=review_page")
+    slug = tool["offer_id"]
+    return template.format(slug=slug, context=context)
+
+
+def rating_value(tool: dict[str, str], site_stats: dict) -> float:
+    overrides = site_stats.get("ratingOverrides", {})
+    override = overrides.get(tool.get("offer_id", "")) if isinstance(overrides, dict) else None
+    if override not in ("", None):
+        try:
+            return float(override)
+        except (TypeError, ValueError):
+            pass
+    try:
+        score = Decimal(str(tool.get("score", "")).strip())
+    except Exception:
+        return 4.0
+    rating = (score / Decimal("20")).quantize(Decimal("0.1"), rounding=ROUND_FLOOR)
+    return float(min(max(rating, Decimal("1.0")), Decimal("5.0")))
+
+
+def rating_stars(rating: float) -> str:
+    full = max(0, min(5, int(rating)))
+    return "★" * full + "☆" * (5 - full)
 
 
 def quick_verdict_block(tool: dict[str, str], profile: dict[str, str]) -> str:
@@ -240,15 +348,15 @@ def last_updated_block(site_stats: dict) -> str:
 
 def comparison_table_block(tool: dict[str, str], profile: dict[str, str], site_stats: dict) -> str:
     brand = html.escape(tool["brand_name"])
-    slug = html.escape(tool["offer_id"])
     defaults = site_stats.get("reviewComparisonDefaults", {})
+    rating = rating_value(tool, site_stats)
     rows = [
         ("Best for", html.escape(str(profile.get("best_for", [profile.get("workflow", "Workflow-focused buyers")])[0]))),
         ("Starting price", html.escape(str(defaults.get("startingPrice") or "Check official pricing"))),
         ("Free trial", html.escape(str(defaults.get("freeTrial") or "Check current trial terms"))),
         ("Ease of use", html.escape(str(defaults.get("easeOfUse") or "Beginner-friendly after setup"))),
         ("Value for money", html.escape(str(defaults.get("valueForMoney") or "Strong when the workflow fit is clear"))),
-        ("Our rating", html.escape(str(tool["score"]))),
+        ("Our rating", html.escape(f"{rating:.1f} / 5")),
     ]
     table_rows = "".join(f"<tr><th scope='row'>{label}</th><td>{value}</td></tr>" for label, value in rows)
     return f"""
@@ -257,7 +365,7 @@ def comparison_table_block(tool: dict[str, str], profile: dict[str, str], site_s
   <div class='table-scroll'><table>
     <tbody>{table_rows}</tbody>
   </table></div>
-  <p class='review-table-ctas'><a class='btn' href='/go/{slug}/?src=review/{slug}&cta=comparison_table_pricing'>Check Pricing</a><a class='btn secondary' href='/go/{slug}/?src=review/{slug}&cta=comparison_table_trial'>Try Free Trial</a><a class='btn secondary' href='#full-review'>Read Full Review</a></p>
+  {review_cta_buttons(tool, site_stats, "comparison_table")}
 </section>
 """
 
@@ -577,13 +685,46 @@ def alternatives_block(tool: dict[str, str], related_tools: list[dict[str, str]]
     else:
         links = "<li><a href='/reviews/'>Browse all reviews</a> to compare related AI and SaaS tools.</li>"
     return f"""
-<section class='card'>
+<section class='card' id='alternatives'>
   <h2>Alternatives</h2>
   <p>{brand} should be compared against alternatives before a serious purchase or promotion decision. Alternatives help reveal whether the product is priced fairly for your workflow, whether a simpler tool would be enough, and whether a different category solves the same problem with less operational friction.</p>
   <ul>{links}</ul>
   <p>When comparing alternatives, avoid treating a higher score as automatic proof. Look at workflow fit, policy clarity, integrations, support expectations, cancellation terms, and whether the product solves the specific job that led you to search in the first place.</p>
 </section>
 """
+
+
+def comparison_cta_block(tool: dict[str, str], existing_slugs: set[str]) -> str:
+    targets = comparison_targets_for_tool(tool)
+    cards = []
+    for name, slug in targets:
+        if slug not in existing_slugs:
+            continue
+        cards.append(
+            "<a class='compare-tool-card' href='/review/{slug}/'>"
+            "<strong>{name}</strong><span>Compare workflow fit, pricing checks, and review notes.</span></a>".format(
+                slug=html.escape(slug, quote=True),
+                name=html.escape(name),
+            )
+        )
+    if not cards:
+        return ""
+    brand = html.escape(tool["brand_name"])
+    return f"""
+<section class='card compare-tools-box'>
+  <h2>Compare {brand} with</h2>
+  <div class='compare-tools-grid'>{"".join(cards)}</div>
+</section>
+"""
+
+
+def comparison_targets_for_tool(tool: dict[str, str]) -> list[tuple[str, str]]:
+    slug = tool["offer_id"]
+    text = f"{slug} {tool.get('niche', '')}".lower()
+    targets = [("Claude", "claude"), ("Gemini", "gemini"), ("Perplexity", "perplexity")]
+    if any(token in text for token in ["coding", "code", "developer", "builder", "app"]):
+        targets.extend([("Cursor", "cursor"), ("Windsurf", "windsurf")])
+    return [(name, target_slug) for name, target_slug in targets if target_slug != slug]
 
 
 def final_verdict_block(tool: dict[str, str], profile: dict[str, str]) -> str:
@@ -601,14 +742,33 @@ def final_verdict_block(tool: dict[str, str], profile: dict[str, str]) -> str:
 """
 
 
-def cta_block(tool: dict[str, str]) -> str:
-    slug = html.escape(tool["offer_id"])
+def newsletter_block(site_stats: dict) -> str:
+    newsletter = site_stats.get("newsletter", {})
+    heading = html.escape(str(newsletter.get("heading") or "Get Weekly AI Tool Updates"))
+    description = html.escape(str(newsletter.get("description") or "Practical AI reviews, pricing checks, comparison guides, and build-in-public notes."))
+    placeholder = html.escape(str(newsletter.get("emailPlaceholder") or "Email address"), quote=True)
+    button = html.escape(str(newsletter.get("buttonLabel") or "Subscribe"))
+    status = html.escape(str(newsletter.get("statusMessage") or "Newsletter integration coming soon."))
+    return f"""
+<section class='card newsletter-card'>
+  <h2>{heading}</h2>
+  <p>{description}</p>
+  <form class='newsletter-form'>
+    <input class='search' type='email' name='email' placeholder='{placeholder}' aria-label='Email address'>
+    <button class='btn' type='button'>{button}</button>
+  </form>
+  <p class='note'>{status}</p>
+</section>
+"""
+
+
+def cta_block(tool: dict[str, str], site_stats: dict) -> str:
     brand = html.escape(tool["brand_name"])
     return f"""
 <section class='card trust'>
   <h2>Next step</h2>
-  <p>If {brand} still looks relevant after this review, visit the official website through the tracking link below and verify the latest product details yourself. The link may route to an approved affiliate URL when available; otherwise it uses the Official site / affiliate pending destination.</p>
-  <p><a class='btn' href='/go/{slug}/?src=review/{slug}&cta=review_page'>Visit Official Website</a><a class='btn secondary' href='/comparisons/'>Compare more tools</a><a class='btn secondary' href='/reviews/'>Browse reviews</a></p>
+  <p>If {brand} still looks relevant after this review, visit the official website and verify the latest product details yourself. Some links may be affiliate links. We may earn a commission at no extra cost to you.</p>
+  {review_cta_buttons(tool, site_stats, "final")}
 </section>
 """
 
@@ -632,6 +792,8 @@ def product_schema(tool: dict[str, str], path: str) -> str:
     import json
 
     base = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
+    site_stats = load_site_stats()
+    author = site_stats.get("author", {})
     schema = {
         "@context": "https://schema.org",
         "@type": "Product",
@@ -640,7 +802,7 @@ def product_schema(tool: dict[str, str], path: str) -> str:
         "url": f"{base}{path}",
         "review": {
             "@type": "Review",
-            "author": {"@type": "Person", "name": "Nguyen Quoc Tuan"},
+            "author": {"@type": "Person", "name": str(author.get("name") or "Nguyen Quoc Tuan")},
             "reviewBody": f"Research-style review of {tool['brand_name']} for practical buyer comparison, pricing verification, alternatives, and affiliate disclosure.",
         },
     }
@@ -650,7 +812,7 @@ def product_schema(tool: dict[str, str], path: str) -> str:
     except ValueError:
         rating = 0
     if rating > 0:
-        schema["review"]["reviewRating"] = {"@type": "Rating", "ratingValue": min(max(rating / 20, 1), 5), "bestRating": 5, "worstRating": 1}
+        schema["review"]["reviewRating"] = {"@type": "Rating", "ratingValue": rating_value(tool, site_stats), "bestRating": 5, "worstRating": 1}
     return json.dumps(schema, ensure_ascii=False)
 
 

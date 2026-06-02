@@ -10,6 +10,29 @@ from config import settings
 
 DEFAULT_SITE_STATS: dict[str, Any] = {
     "lastUpdated": "June 2, 2026",
+    "author": {
+        "name": "Nguyen Quoc Tuan",
+        "title": "AI Tools Researcher & Builder of SmileAIReviewHub",
+        "lastUpdated": "June 2026",
+        "avatarInitials": "NT",
+        "avatarImage": "",
+    },
+    "newsletter": {
+        "heading": "Get Weekly AI Tool Updates",
+        "description": "Practical AI reviews, pricing checks, comparison guides, and build-in-public notes.",
+        "emailPlaceholder": "Email address",
+        "buttonLabel": "Subscribe",
+        "statusMessage": "Newsletter integration coming soon.",
+    },
+    "reviewCtas": {
+        "officialLabel": "Visit Official Website",
+        "pricingLabel": "Check Current Pricing",
+        "alternativesLabel": "Compare Alternatives",
+        "officialUrlTemplate": "/go/{slug}/?src=review/{slug}&cta=review_page",
+        "pricingUrlTemplate": "/go/{slug}/?src=review/{slug}&cta=pricing_check",
+        "alternativesUrl": "#alternatives",
+    },
+    "ratingOverrides": {},
     "socialProof": [
         {"value": "75,000+", "label": "Facebook Views"},
         {"value": "Weekly", "label": "AI Reviews"},
@@ -46,5 +69,14 @@ def load_site_stats() -> dict[str, Any]:
     except (OSError, json.JSONDecodeError):
         return stats
     if isinstance(loaded, dict):
-        stats.update({key: value for key, value in loaded.items() if value not in ("", None)})
+        deep_merge(stats, {key: value for key, value in loaded.items() if value not in ("", None)})
     return stats
+
+
+def deep_merge(base: dict[str, Any], updates: dict[str, Any]) -> dict[str, Any]:
+    for key, value in updates.items():
+        if isinstance(value, dict) and isinstance(base.get(key), dict):
+            deep_merge(base[key], {inner_key: inner_value for inner_key, inner_value in value.items() if inner_value not in ("", None)})
+        elif value not in ("", None):
+            base[key] = value
+    return base

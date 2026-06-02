@@ -1,5 +1,28 @@
 {
   "lastUpdated": "June 2, 2026",
+  "author": {
+    "name": "Nguyen Quoc Tuan",
+    "title": "AI Tools Researcher & Builder of SmileAIReviewHub",
+    "lastUpdated": "June 2026",
+    "avatarInitials": "NT",
+    "avatarImage": ""
+  },
+  "newsletter": {
+    "heading": "Get Weekly AI Tool Updates",
+    "description": "Practical AI reviews, pricing checks, comparison guides, and build-in-public notes.",
+    "emailPlaceholder": "Email address",
+    "buttonLabel": "Subscribe",
+    "statusMessage": "Newsletter integration coming soon."
+  },
+  "reviewCtas": {
+    "officialLabel": "Visit Official Website",
+    "pricingLabel": "Check Current Pricing",
+    "alternativesLabel": "Compare Alternatives",
+    "officialUrlTemplate": "/go/{slug}/?src=review/{slug}&cta=review_page",
+    "pricingUrlTemplate": "/go/{slug}/?src=review/{slug}&cta=pricing_check",
+    "alternativesUrl": "#alternatives"
+  },
+  "ratingOverrides": {},
   "socialProof": [
     {
       "value": "75,000+",

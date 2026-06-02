@@ -159,10 +159,9 @@ def related_for_page(page: PageInfo, pages: list[PageInfo]) -> dict[str, list[Pa
     candidates = [item for item in pages if item.url != page.url and item.kind not in {"asset", "home", "tracking"}]
     if page.kind == "review":
         return {
-            "Related comparisons": rank(page, candidates, {"comparison"}, 5),
-            "Pricing research": rank(page, candidates, {"pricing"}, 3),
-            "Top lists": rank(page, candidates, {"toplist"}, 3),
-            "Alternatives and related tools": rank(page, candidates, {"review"}, 5),
+            "Popular reviews": rank(page, candidates, {"review"}, 5),
+            "Popular comparisons": rank(page, candidates, {"comparison"}, 5),
+            "Top categories": rank(page, candidates, {"toplist", "category", "hub"}, 5),
         }
     if page.kind == "comparison":
         return {
@@ -232,12 +231,26 @@ def related_block(page: PageInfo, groups: dict[str, list[PageInfo]]) -> str:
             if item.url in seen:
                 continue
             seen.add(item.url)
-            links.append(f"<a href='{html.escape(item.url)}'>{html.escape(clean_title(item.title))}</a>")
+            title = html.escape(clean_title(item.title))
+            description = html.escape(related_description(item))
+            links.append(f"<article class='related-research-card'><h4>{title}</h4><p>{description}</p><a href='{html.escape(item.url)}'>Open guide</a></article>")
         if links:
-            sections.append(f"<h3>{html.escape(label)}</h3><p>{' '.join(links)}</p>")
+            sections.append(f"<div class='related-card-section'><h3>{html.escape(label)}</h3><div class='related-card-grid'>{''.join(links)}</div></div>")
     if not sections:
         return ""
-    return "\n<section class='card internal-links' data-auto-internal-links='1'><h2>Related research</h2>" + "".join(sections) + "</section>\n"
+    return "\n<section class='card internal-links related-research' data-auto-internal-links='1'><h2>Related research</h2>" + "".join(sections) + "</section>\n"
+
+
+def related_description(item: PageInfo) -> str:
+    if item.kind == "review":
+        return "Review notes, pricing checks, alternatives, and buyer-fit signals."
+    if item.kind == "comparison":
+        return "Side-by-side research to help shortlist tools before clicking out."
+    if item.kind == "pricing":
+        return "Pricing and plan checks to verify before buying or promoting."
+    if item.kind in {"toplist", "category", "hub"}:
+        return "Category research with practical tool options and buying checks."
+    return "Related AI tool research from SmileAIReviewHub."
 
 
 def seo_footer_links(pages: list[PageInfo]) -> dict[str, list[PageInfo]]:
@@ -381,7 +394,7 @@ def inject_before_footer(text: str, block: str) -> str:
 
 
 def remove_previous_block(text: str) -> str:
-    return re.sub(r"\n?<section class=['\"]card internal-links['\"] data-auto-internal-links=['\"]1['\"].*?</section>\n?", "", text, flags=re.DOTALL)
+    return re.sub(r"\n?<section class=['\"][^'\"]*\binternal-links\b[^'\"]*['\"] data-auto-internal-links=['\"]1['\"].*?</section>\n?", "", text, flags=re.DOTALL)
 
 
 def extract_title(text: str) -> str:
