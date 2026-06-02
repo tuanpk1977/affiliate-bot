@@ -54,8 +54,8 @@ DEFAULT_SITE_STATS: dict[str, Any] = {
         {"name": "DEV", "label": "AI builder articles", "url": "https://dev.to/smileaitoolsreview"},
         {"name": "Reddit", "label": "Community discussions", "url": "https://www.reddit.com/user/tuanpk021977/?screen_view_count=2"},
         {"name": "Qiita", "label": "Technical notes", "url": "https://qiita.com/tuanpk1977"},
-        {"name": "Hashnode", "label": "Build notes", "url": ""},
-        {"name": "Velog", "label": "Developer notes", "url": ""},
+        {"name": "Hashnode", "label": "Build notes", "url": "https://hashnode.com/@aitoolsreviewhub"},
+        {"name": "Velog", "label": "Developer notes", "url": "https://velog.io/@aitoolsreviewhub/posts"},
     ],
     "reviewComparisonDefaults": {
         "startingPrice": "Check official pricing",

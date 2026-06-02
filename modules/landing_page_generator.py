@@ -500,7 +500,7 @@ def related_comparisons_for(brand: str) -> list[dict[str, str]]:
 def screenshot_html(slug: str, brand: str) -> str:
     source = settings.base_dir / "assets" / "screenshots" / f"{slug}.png"
     if source.exists():
-        return f'<img class="screenshot" loading="lazy" src="/assets/screenshots/{html.escape(slug)}.png" alt="{html.escape(brand)} dashboard screenshot" width="1200" height="720">'
+        return f'<img class="screenshot" loading="lazy" src="/assets/screenshots/{html.escape(slug)}.png" alt="{html.escape(brand)} research visual with editorial score and review signals" width="1200" height="720">'
     return f'<div class="media-placeholder" role="img" aria-label="{html.escape(brand)} research visual">Research visual<br>Add image at assets/screenshots/{html.escape(slug)}.png</div>'
 
 
