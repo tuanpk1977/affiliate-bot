@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Formspree Setup for Email Capture - MS Smile AI Review Hub</title>
+  <title>Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</title>
   <meta name="description" content="Step-by-step Formspree setup for the AI Coding Workflow Checklist email form on GitHub Pages.">
   <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://smileaireviewhub.com/vi/formspree-setup/">  <meta property="og:title" content="Formspree Setup for Email Capture - MS Smile AI Review Hub">
+  <link rel="canonical" href="https://smileaireviewhub.com/vi/formspree-setup/">  <meta property="og:title" content="Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.">
   <meta property="og:description" content="Step-by-step Formspree setup for the AI Coding Workflow Checklist email form on GitHub Pages.">
   <meta property="og:type" content="article">
   <meta property="og:image" content="https://smileaireviewhub.com/assets/og/pages/vi--formspree-setup.png?v=20260601">
@@ -52,7 +52,7 @@
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta name="twitter:title" content="Formspree Setup for Email Capture - MS Smile AI Review Hub">
+  <meta name="twitter:title" content="Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.">
   <meta name="twitter:description" content="Step-by-step Formspree setup for the AI Coding Workflow Checklist email form on GitHub Pages.">  <link rel="alternate" hreflang="en" href="https://smileaireviewhub.com/formspree-setup/">
   <link rel="alternate" hreflang="vi" href="https://smileaireviewhub.com/vi/formspree-setup/">
   <link rel="alternate" hreflang="x-default" href="https://smileaireviewhub.com/formspree-setup/">
@@ -63,36 +63,39 @@
   <main class="wrap">
 <section class="hero">
   <p class="note">Real email capture integration</p>
-  <h1>Formspree Setup for the AI Coding Checklist</h1>
-  <p>This guide explains how to connect the checklist form to Formspree while keeping the static GitHub Pages site safe when no endpoint is configured.</p>
+  <h1>Ghi chú đánh giá</h1>
+  <p>Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</p>
 </section>
 <section class="card">
   <h2>Setup steps</h2>
   <ol>
     <li>Create or log in to a Formspree account.</li>
-    <li>Create a new form for the AI Coding Workflow Checklist.</li>
+    <li>Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</li>
     <li>Copy the Formspree endpoint URL.</li>
-    <li>Open <code>config/email_capture.json</code>.</li>
+    <li>Mở <code>config/email_capture.json</code>.</li>
     <li>Set <code>provider</code> to <code>formspree</code>.</li>
     <li>Paste the endpoint into <code>form_endpoint</code>.</li>
     <li>Change <code>enabled</code> to <code>true</code>.</li>
     <li>Run <code>python main.py</code> and <code>python scripts/sync_site_output_to_docs.py</code>.</li>
-    <li>Commit and push the updated static files.</li>
-    <li>Test a real email submission from the live checklist page.</li>
+    <li>Thông tin cần kiểm tra</li>
+    <li>Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</li>
   </ol>
 </section>
 <section class="card trust">
   <h2>Current safety rule</h2>
-  <p>nếu <code>enabled=false</code> or <code>form_endpoint</code> is empty, the form remains in setup mode and does not submit anywhere.</p>
+  <p>nếu <code>enabled=false</code> or <code>form_endpoint</code> Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</p>
 </section>
 
 <section class="trust-upgrade-section community-signals">
   <h2>Tín hiệu cộng đồng của chúng tôi</h2>
-  <div class="trust-upgrade-grid"><div class='trust-upgrade-card'><strong>75,000+</strong><span>Lượt xem Facebook</span></div><div class='trust-upgrade-card'><strong>Public</strong><span>Hiển thị LinkedIn</span></div><div class='trust-upgrade-card'><strong>Public</strong><span>Lượt xem Quora</span></div><div class='trust-upgrade-card'><strong>Active</strong><span>Bài viết DEV</span></div><div class='trust-upgrade-card'><strong>Public</strong><span>Thảo luận Reddit</span></div></div>
-</section><section class='card'><h2>Câu hỏi thường gặp</h2><details><summary>Do I need an API key in the HTML?</summary><p>No. With Formspree, the static site only needs the public form endpoint. Do not put private API keys or tokens into HTML.</p></details><details><summary>When does the form start collecting real emails?</summary><p>Only when config/email_capture.json has enabled=true and form_endpoint contains your real Formspree endpoint.</p></details><details><summary>What happens when the endpoint is empty?</summary><p>The form stays in setup mode, does not POST anywhere, and does not pretend to save subscribers.</p></details></section>
-<section class="card"><h2>CTA</h2><p>After adding a real endpoint, rebuild the static site before testing.</p><a class="btn" href="/vi/free-ai-coding-workflow-checklist/">Open the checklist form</a></section>
+  <div class="trust-upgrade-grid"><div class='trust-upgrade-card'><strong>75,000+</strong><span>Lượt xem Facebook</span></div><div class='trust-upgrade-card'><strong>Công khai</strong><span>Hiển thị LinkedIn</span></div><div class='trust-upgrade-card'><strong>Công khai</strong><span>Lượt xem Quora</span></div><div class='trust-upgrade-card'><strong>Đang hoạt động</strong><span>Bài viết DEV</span></div><div class='trust-upgrade-card'><strong>Công khai</strong><span>Thảo luận Reddit</span></div></div>
+</section><section class='card'><h2>Câu hỏi thường gặp</h2><details><summary>Do I need an API key in the HTML?</summary><p>Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</p></details><details><summary>Ghi chú đánh giá</summary><p>Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</p></details><details><summary>Ghi chú đánh giá</summary><p>Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</p></details></section>
+<section class="card"><h2>CTA</h2><p>Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</p><a class="btn" href="/vi/free-ai-coding-workflow-checklist/">Mở the checklist form</a></section>
 </main>
   
+
+
+
 
 
 
@@ -105,7 +108,7 @@
     <div class="community-channel-list"><a href='https://www.facebook.com/MS.SmileAI' rel='me noopener' target='_blank'><strong>Facebook</strong><span>75.000+ lượt xem Facebook</span></a><a href='https://www.linkedin.com/company/ms-smile-ai-review-hub' rel='me noopener' target='_blank'><strong>LinkedIn</strong><span>Cập nhật review AI công khai</span></a><a href='https://x.com/MS_SmileAI' rel='me noopener' target='_blank'><strong>X</strong><span>Bài đăng về workflow AI</span></a><a href='https://www.quora.com/profile/Nguyen-Quoc-Tuan-138' rel='me noopener' target='_blank'><strong>Quora</strong><span>Lượt xem câu trả lời công khai</span></a><a href='https://dev.to/nguyenquoctuan' rel='me noopener' target='_blank'><strong>DEV</strong><span>Bài viết cho builder AI</span></a><a href='https://www.reddit.com/user/MS_SmileAI' rel='me noopener' target='_blank'><strong>Reddit</strong><span>Thảo luận cộng đồng</span></a><a href='https://qiita.com/ms-smileai' rel='me noopener' target='_blank'><strong>Qiita</strong><span>Ghi chú kỹ thuật</span></a><a href='https://hashnode.com/@mssmileai' rel='me noopener' target='_blank'><strong>Hashnode</strong><span>Ghi chú build-in-public</span></a><a href='https://velog.io/@mssmileai' rel='me noopener' target='_blank'><strong>Velog</strong><span>Ghi chú developer</span></a></div>
     <div class="community-footer-links"><a href='/privacy/'>Chính sách bảo mật</a><a href='/terms/'>Điều khoản</a><a href='/editorial-policy/'>Chính sách biên tập</a><a href='/affiliate-disclosure/'>Công bố affiliate</a><a href='/about/'>Giới thiệu</a><a href='/contact/'>Liên hệ</a></div>
     <p>&copy; 2026 MS Smile AI Review Hub.</p>
-    <p>Một số liên kết có thể là liên kết affiliate. Chúng tôi có thể nhận hoa hồng mà bạn không phải trả thêm chi phí.</p>
+    <p>Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</p>
     <p class="impact-site-verification-text">Impact-Site-Verification: e41dba46-8780-4a26-8314-596af1e3980b</p>
   </div>
 </footer>

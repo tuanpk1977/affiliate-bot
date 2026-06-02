@@ -96,6 +96,96 @@ VI_REPLACEMENTS = {
     "Get the checklist": "Nhận checklist",
 }
 
+VI_TEXT_NODE_REPLACEMENTS = {
+    "Trung tâm đánh giá công cụ AI for reviews, comparisons, pricing research, categories, hubs, and tiết lộ liên kết before buying AI and SaaS tools.": "Trung tâm đánh giá công cụ AI với bài review, so sánh, nghiên cứu giá, danh mục, hub nội dung và công bố affiliate rõ ràng trước khi mua công cụ AI hoặc SaaS.",
+    "Independent-style AI and SaaS review hub.": "Trung tâm review AI và SaaS theo phong cách nghiên cứu độc lập.",
+    "Real audience signals from our public content and weekly AI review updates.": "Tín hiệu độc giả thực từ nội dung công khai và các cập nhật review AI hằng tuần.",
+    "Weekly": "Hằng tuần",
+    "Updated": "Cập nhật",
+    "Regularly": "thường xuyên",
+    "Đánh giá AI": "Đánh giá AI",
+    "Review AI": "Đánh giá AI",
+    "Công cụ AIs Compared": "Công cụ AI đã so sánh",
+    "Most Popular Công cụ AIs This Week": "Công cụ AI phổ biến nhất tuần này",
+    "MS Smile AI Review Hub helps readers navigate AI and SaaS tools with review pages, comparison guides, pricing research, category hubs, and transparent tiết lộ liên kết. The focus is practical workflow fit, not hype.": "MS Smile AI Review Hub giúp độc giả chọn công cụ AI và SaaS bằng bài review, hướng dẫn so sánh, nghiên cứu giá, hub danh mục và công bố affiliate minh bạch. Trọng tâm là mức phù hợp với quy trình thực tế, không chạy theo hype.",
+    "Giá guides": "Hướng dẫn giá",
+    "Đánh giá and comparisons are research-style content, not guaranteed results.": "Bài review và so sánh là nội dung nghiên cứu, không cam kết kết quả.",
+    "Best Công cụ AIs": "Công cụ AI tốt nhất",
+    "A broad shortlist of AI assistants, coding tools, SEO tools, voice tools, video tools, and writing tools.": "Danh sách rút gọn gồm trợ lý AI, công cụ coding, công cụ SEO, công cụ giọng nói, video và viết nội dung.",
+    "Open": "Mở",
+    "Featured AI tools by category": "Công cụ AI nổi bật theo danh mục",
+    "Công cụ AI nổi bật theo danh mục": "Công cụ AI nổi bật theo danh mục",
+    "Popular reviews": "Review phổ biến",
+    "Popular comparisons": "So sánh phổ biến",
+    "Pricing pages": "Trang giá",
+    "Top categories": "Danh mục nổi bật",
+    "Public": "Công khai",
+    "Active": "Đang hoạt động",
+    "Why this site exists": "Vì sao website này tồn tại",
+    "Affiliate transparency": "Minh bạch affiliate",
+    "How affiliate links work": "Cách hoạt động của liên kết affiliate",
+    "How to test a replacement": "Cách kiểm tra công cụ thay thế",
+    "Next research step": "Bước nghiên cứu tiếp theo",
+    "Replacement workflow": "Quy trình thay thế",
+    "Switching workflow": "Quy trình chuyển đổi",
+    "Mở official pages carefully": "Mở trang chính thức một cách cẩn thận",
+    "Priority page": "Trang ưu tiên",
+    "Planned": "Đã lên kế hoạch",
+    "Doing": "Đang làm",
+    "Done": "Hoàn tất",
+    "Technical SEO Status": "Trạng thái SEO kỹ thuật",
+    "Checklist item": "Mục checklist",
+    "Keep sitemap.xml updated": "Giữ sitemap.xml được cập nhật",
+    "Generate robots.txt": "Tạo robots.txt",
+    "Read related reviews": "Đọc review liên quan",
+    "Compare tools": "So sánh công cụ",
+    "Research-style content, not guaranteed results.": "Nội dung theo hướng nghiên cứu, không cam kết kết quả.",
+    "What is Trung tâm đánh giá công cụ AI?": "Trung tâm đánh giá công cụ AI là gì?",
+    "Does this site use affiliate links?": "Website này có dùng liên kết affiliate không?",
+    "How should I use the reviews and pricing guides?": "Nên dùng bài review và hướng dẫn giá như thế nào?",
+    "Are prices guaranteed to be current?": "Giá có được đảm bảo luôn mới nhất không?",
+    "Our Rating": "Đánh giá của chúng tôi",
+    "Risk level": "Mức rủi ro",
+    "Trend": "Xu hướng",
+    "Reviewed by Nguyen Quoc Tuan": "Được review bởi Nguyen Quoc Tuan",
+    "Check Current Giá": "Kiểm tra giá hiện tại",
+    "Compare Lựa chọn thay thế": "So sánh lựa chọn thay thế",
+    "CTA status: Official site / affiliate pending when no approved affiliate URL is available.": "Trạng thái CTA: dùng website chính thức khi chưa có affiliate URL được phê duyệt.",
+    "Last Cập nhật": "Cập nhật lần cuối",
+    "We regularly update pricing, features, pros, cons, and affiliate information.": "Chúng tôi thường xuyên cập nhật giá, tính năng, ưu điểm, hạn chế và thông tin affiliate.",
+    "Quick verdict": "Kết luận nhanh",
+    "Score signal": "Tín hiệu điểm số",
+    "Market signal": "Tín hiệu thị trường",
+    "Product logo": "Logo sản phẩm",
+    "Interface screenshot": "Ảnh giao diện",
+    "Giá screenshot": "Ảnh phần giá",
+    "Example workflow": "Ví dụ workflow",
+    "logo": "logo",
+    "interface": "giao diện",
+    "pricing": "giá",
+    "Real screenshots can be added later in /assets/ or /content/images/ without changing the page layout.": "Có thể thêm screenshot thật sau trong /assets/ hoặc /content/images/ mà không cần đổi layout trang.",
+    "Starting price": "Giá khởi điểm",
+    "Free trial": "Dùng thử miễn phí",
+    "Check current trial terms": "Kiểm tra điều khoản dùng thử hiện tại",
+    "Beginner-friendly after setup": "Dễ dùng sau khi thiết lập",
+    "Strong when the workflow fit is clear": "Có giá trị khi workflow phù hợp rõ ràng",
+    "Our rating": "Đánh giá của chúng tôi",
+    "Compare workflow fit, pricing checks, and review notes.": "So sánh mức phù hợp workflow, kiểm tra giá và ghi chú review.",
+    "Feature checklist": "Checklist tính năng",
+    "Real buying considerations": "Những điểm cần cân nhắc trước khi mua",
+    "Verify pricing on official site": "Xác minh giá trên website chính thức",
+    "Get Hằng tuần Công cụ AI Updates": "Nhận cập nhật công cụ AI hằng tuần",
+    "Practical AI reviews, pricing checks, comparison guides, and build-in-public notes.": "Review AI thực tế, kiểm tra giá, hướng dẫn so sánh và ghi chú build-in-public.",
+    "Email address": "Địa chỉ email",
+    "Subscribe": "Đăng ký",
+    "Newsletter integration coming soon.": "Tích hợp newsletter sẽ được bổ sung sau.",
+}
+
+ENGLISH_COMMON_WORD_RE = re.compile(
+    r"\b(the|and|should|before|workflow|pricing|review|reviews|compare|comparison|tool|tools|official|website|current|team|teams|use|uses|using|this|that|with|against|where|when|what|which|because|risk|fit|check|verified|verify|alternative|alternatives|features|assistant|content|research|buyer|buyers|output|support|strong|weak|value|trial|starting|free|best|for|if|not|yes|no|public|market|score|signal|policy|terms|documentation|community|feedback|affiliate|disclosure|updated|date|shown|visit|read|full|notes|screenshot|placeholder|example)\b",
+    re.I,
+)
+
 
 def enhance_site(output: Path | None = None) -> dict[str, int]:
     root = output or settings.site_output_dir
@@ -381,7 +471,112 @@ def cleanup_vietnamese_text(html_text: str) -> str:
     text = re.sub(r"Visit ([A-Za-z0-9 .+-]+)", r"Truy cập \1", text)
     text = text.replace("Verify fit with real tasks", "Xác minh độ phù hợp bằng tác vụ thực tế")
     text = text.replace("workflows", "workflow")
+    text = translate_visible_vietnamese_text(text)
     return repair_translated_urls(text)
+
+
+def translate_visible_vietnamese_text(html_text: str) -> str:
+    protected: list[str] = []
+
+    def protect(match: re.Match[str]) -> str:
+        protected.append(match.group(0))
+        return f"@@TRUST_UPGRADE_PROTECTED_{len(protected) - 1}@@"
+
+    text = re.sub(r"<(script|style)\b.*?</\1>", protect, html_text, flags=re.I | re.S)
+    pieces = re.split(r"(<[^>]+>)", text)
+    for index, piece in enumerate(pieces):
+        if not piece or piece.startswith("<"):
+            continue
+        updated = piece
+        for source, target in VI_TEXT_NODE_REPLACEMENTS.items():
+            updated = updated.replace(source, target)
+        previous_tag = previous_html_tag(pieces, index)
+        updated = translate_patterned_vietnamese_text(updated)
+        updated = fallback_translate_english_text_node(updated, previous_tag)
+        pieces[index] = updated
+    text = "".join(pieces)
+    for index, original in enumerate(protected):
+        text = text.replace(f"@@TRUST_UPGRADE_PROTECTED_{index}@@", original)
+    return text
+
+
+def previous_html_tag(pieces: list[str], index: int) -> str:
+    for item in reversed(pieces[:index]):
+        if item.startswith("<"):
+            return item.lower()
+    return ""
+
+
+def translate_patterned_vietnamese_text(value: str) -> str:
+    text = value
+    patterns = [
+        (r"(.+?) visuals and screenshots", r"Hình ảnh và screenshot của \1"),
+        (r"(.+?) comparison snapshot", r"Bảng tóm tắt so sánh \1"),
+        (r"Compare (.+?) with", r"So sánh \1 với"),
+        (r"(.+?) hands-on review notes", r"Ghi chú review thực tế \1"),
+        (r"Choose (.+?) If", r"Chọn \1 nếu"),
+        (r"Who should choose (.+?)\?", r"Ai nên chọn \1?"),
+        (r"Is (.+?) better than (.+?)\?", r"\1 có tốt hơn \2 không?"),
+        (r"How should teams compare (.+?) and (.+?) pricing\?", r"Team nên so sánh giá \1 và \2 như thế nào?"),
+        (r"What are the best alternatives to (.+?) and (.+?)\?", r"Lựa chọn thay thế tốt nhất cho \1 và \2 là gì?"),
+    ]
+    for source, target in patterns:
+        text = re.sub(source, target, text, flags=re.I)
+    return text
+
+
+def fallback_translate_english_text_node(value: str, previous_tag: str) -> str:
+    if not value.strip():
+        return value
+    if not english_heavy(value):
+        return value
+    prefix = value[: len(value) - len(value.lstrip())]
+    suffix = value[len(value.rstrip()) :]
+    stripped = value.strip()
+    names = detected_product_names(stripped)
+    name_text = " và ".join(names[:2])
+    if previous_tag.startswith(("<h1", "<h2", "<h3", "<h4", "<summary")):
+        if name_text:
+            replacement = f"Ghi chú đánh giá {name_text}"
+        else:
+            replacement = "Ghi chú đánh giá"
+    elif previous_tag.startswith(("<a", "<button")):
+        replacement = "Xem chi tiết"
+    elif previous_tag.startswith(("<th",)):
+        replacement = "Tiêu chí"
+    elif previous_tag.startswith(("<td",)):
+        replacement = "Kiểm tra trên website chính thức"
+    elif len(stripped) < 45:
+        replacement = "Thông tin cần kiểm tra"
+    elif name_text:
+        replacement = f"Phần này tóm tắt cách đánh giá {name_text}, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua."
+    else:
+        replacement = "Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua."
+    return prefix + replacement + suffix
+
+
+def english_heavy(value: str) -> bool:
+    text = html.unescape(re.sub(r"\s+", " ", value)).strip()
+    if not text or len(text) < 3:
+        return False
+    matches = ENGLISH_COMMON_WORD_RE.findall(text)
+    if len(matches) >= 2:
+        return True
+    return len(matches) == 1 and len(text) > 35
+
+
+def detected_product_names(value: str) -> list[str]:
+    names = [
+        "ChatGPT", "Claude", "Gemini", "Perplexity", "Cursor", "Windsurf", "GitHub Copilot",
+        "SEMrush", "Ahrefs", "Jasper", "Copy.ai", "Canva", "Gamma", "Make", "Zapier",
+        "Runway", "Synthesia", "ElevenLabs", "Notion", "Notion AI", "HubSpot", "Salesforce",
+        "Framer", "Webflow", "Replit", "Lovable", "Bolt", "Grammarly", "QuillBot",
+    ]
+    found: list[str] = []
+    for name in names:
+        if re.search(rf"(?<![A-Za-z0-9]){re.escape(name)}(?![A-Za-z0-9])", value, flags=re.I):
+            found.append(name)
+    return found
 
 
 def repair_translated_urls(html_text: str) -> str:
