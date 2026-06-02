@@ -50,6 +50,8 @@ def is_content_page(path: Path) -> bool:
 
 def is_comparison_page(path: Path) -> bool:
     rel = path.relative_to(SITE).as_posix().removeprefix("vi/")
+    if rel in {"comparisons/index.html", "compare/index.html"}:
+        return False
     return rel.startswith(("comparisons/", "compare/"))
 
 
@@ -71,13 +73,13 @@ def main() -> None:
         for channel in CHANNELS:
             if channel not in html:
                 errors.append(f"{rel}: footer missing {channel}")
-        if "author-trust-card" not in html:
+        if not re.search(r"<section\b[^>]*\bauthor-trust-card\b", html, flags=re.I):
             errors.append(f"{rel}: missing author box")
-        if "research-methodology" not in html:
+        if not re.search(r"<section\b[^>]*\bresearch-methodology\b", html, flags=re.I):
             errors.append(f"{rel}: missing research methodology")
-        if "community-signals" not in html:
+        if not re.search(r"<section\b[^>]*\bcommunity-signals\b", html, flags=re.I):
             errors.append(f"{rel}: missing community proof")
-        if is_comparison_page(page) and "comparison-scorecard" not in html:
+        if is_comparison_page(page) and not re.search(r"<section\b[^>]*\bcomparison-scorecard\b", html, flags=re.I):
             errors.append(f"{rel}: missing comparison scorecard")
         if rel.startswith("vi/"):
             for phrase in COMMON_ENGLISH_UI:

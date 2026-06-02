@@ -305,11 +305,11 @@ def footer_html(lang: str) -> str:
 
 def insert_trust_blocks(html_text: str, lang: str) -> str:
     blocks = ""
-    if "author-trust-card" not in html_text:
+    if not re.search(r"<section\b[^>]*\bauthor-trust-card\b", html_text, flags=re.I):
         blocks += author_box(lang)
-    if "community-signals" not in html_text:
+    if not re.search(r"<section\b[^>]*\bcommunity-signals\b", html_text, flags=re.I):
         blocks += community_proof(lang)
-    if "research-methodology" not in html_text:
+    if not re.search(r"<section\b[^>]*\bresearch-methodology\b", html_text, flags=re.I):
         blocks += research_methodology(lang)
     if not blocks:
         return html_text
@@ -379,7 +379,7 @@ def insert_comparison_scorecard(html_text: str, rel_path: str, lang: str, scores
     clean_rel = rel_path.removeprefix("vi/")
     if not (clean_rel.startswith("comparisons/") or clean_rel.startswith("compare/")):
         return html_text
-    if "comparison-scorecard" in html_text:
+    if re.search(r"<section\b[^>]*\bcomparison-scorecard\b", html_text, flags=re.I):
         return html_text
     names = comparison_names(html_text)
     if not names:
