@@ -8,7 +8,9 @@ from pathlib import Path
 from config import settings
 from modules.content_approval import publish_static_draft
 from modules.bilingual_site import add_bilingual_pages
+from modules.facebook_meta import post_process_facebook_meta
 from modules.sitemap_generator import generate_sitemap
+from modules.trust_localization_upgrade import enhance_site
 
 
 def copy_if_changed(source: Path, target: Path) -> bool:
@@ -38,12 +40,16 @@ def incremental_build() -> dict[str, object]:
     settings.site_output_dir.mkdir(parents=True, exist_ok=True)
     sync_stats = sync_published_pages()
     add_bilingual_pages(settings.site_output_dir, settings.base_site_url or settings.site_domain)
+    enhance_site(settings.site_output_dir)
+    facebook_stats = post_process_facebook_meta(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     sitemap_path = generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     return {
         "mode": "incremental",
         "published_pages_scanned": sync_stats["scanned"],
         "published_pages_changed": sync_stats["changed"],
         "sitemap": str(sitemap_path),
+        "facebook_meta_pages": facebook_stats.get("pages", 0),
+        "facebook_meta_changed": facebook_stats.get("changed", 0),
     }
 
 

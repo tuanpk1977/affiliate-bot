@@ -140,6 +140,7 @@ def prefix_internal_links_for_vi(html: str) -> str:
             or href.startswith("/vi/")
             or href.startswith("/go/")
             or href.startswith("/assets/")
+            or href.startswith("/downloads/")
             or href.startswith("//")
         ):
             return match.group(0)

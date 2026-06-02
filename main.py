@@ -38,6 +38,7 @@ from modules.roi_tracker import build_roi_report
 from modules.site_builder import build_site_output
 from modules.sitemap_generator import generate_sitemap
 from modules.seo_system import run_seo_system
+from modules.trust_localization_upgrade import enhance_site
 from modules.social_content_generator import ensure_report as ensure_social_post_report
 from modules.social_content_generator import write_distribution_summary
 from modules.social_distribution import ensure_social_distribution_assets
@@ -123,6 +124,7 @@ def main() -> None:
     post_process_internal_links(settings.site_output_dir)
     add_bilingual_pages(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     run_audience_growth_system(settings.site_output_dir)
+    enhance_site(settings.site_output_dir)
     post_process_facebook_meta(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     run_seo_system()

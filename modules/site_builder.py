@@ -28,6 +28,7 @@ from modules.site_stats import load_site_stats
 from modules.sitemap_generator import generate_sitemap
 from modules.toplist_generator import generate_toplist_pages
 from modules.tracking_config import analytics_snippet
+from modules.trust_localization_upgrade import enhance_site
 
 
 FAQ_SCHEMA_DISABLED_PATHS = {
@@ -214,6 +215,7 @@ def build_site_output(landing_index: pd.DataFrame | None = None, base_site_url: 
     write_redirects(output, built_pages)
     link_stats = post_process_internal_links(output)
     facebook_meta_stats = post_process_facebook_meta(output, base_site_url)
+    trust_stats = enhance_site(output)
     return {
         "site_output": str(output.resolve()),
         "pages": len(built_pages),
@@ -222,6 +224,8 @@ def build_site_output(landing_index: pd.DataFrame | None = None, base_site_url: 
         "internal_linked_pages": link_stats.get("pages", 0),
         "facebook_meta_pages": facebook_meta_stats.get("pages", 0),
         "facebook_meta_changed": facebook_meta_stats.get("changed", 0),
+        "trust_upgrade_pages": trust_stats.get("pages", 0),
+        "trust_upgrade_changed": trust_stats.get("changed", 0),
         "go_pages": go_pages,
         "tracked_pages": tracked_pages,
     }
