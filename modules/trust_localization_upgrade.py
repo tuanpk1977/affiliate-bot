@@ -248,8 +248,6 @@ def ensure_favicon(html_text: str) -> str:
 
 
 def ensure_upgrade_css(html_text: str) -> str:
-    if "trust-upgrade-css" in html_text:
-        return html_text
     css = """
   <style id="trust-upgrade-css">
     .trust-upgrade-section{background:#fff;border:1px solid #dbe3ef;border-radius:8px;padding:18px;margin:18px 0;box-shadow:0 1px 2px rgba(15,23,42,.04)}
@@ -260,7 +258,7 @@ def ensure_upgrade_css(html_text: str) -> str:
     .trust-upgrade-card span,.trust-upgrade-card p{display:block;color:#64748b;font-size:13px;margin:3px 0 0;line-height:1.45}
     .research-methodology ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
     .research-methodology li{margin:0;color:#334155;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px}
-    .youtube-review-card .youtube-review-links{display:flex;gap:14px;flex-wrap:wrap;margin:14px 0 4px;align-items:center}
+    .youtube-review-card .youtube-review-links{display:flex;gap:42px;flex-wrap:wrap;margin:16px 0 4px;align-items:center}
     .youtube-review-card a{font-weight:800;color:#0f766e;text-decoration:none;overflow-wrap:anywhere}
     .youtube-review-card .youtube-review-links a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:8px;padding:11px 16px;line-height:1.2;text-align:center}
     .youtube-review-card .youtube-review-links .youtube-watch-link{border:1px solid #0f766e;background:#0f766e;color:#fff;box-shadow:0 1px 2px rgba(15,23,42,.08)}
@@ -292,6 +290,14 @@ def ensure_upgrade_css(html_text: str) -> str:
     .community-footer .impact-site-verification-text{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
     @media(max-width:720px){.author-trust-card{grid-template-columns:52px minmax(0,1fr)}.author-trust-card a{grid-column:1/-1}.comparison-scorecard .score-row{grid-template-columns:1fr}.trust-upgrade-section{padding:14px}.youtube-review-card .youtube-review-links{display:grid;grid-template-columns:1fr;gap:10px}.youtube-review-card .youtube-review-links a{width:100%}.community-footer{padding:24px 0}}
   </style>"""
+    if re.search(r"<style\b[^>]*\bid=[\"']trust-upgrade-css[\"'][^>]*>[\s\S]*?</style>", html_text, flags=re.I):
+        return re.sub(
+            r"<style\b[^>]*\bid=[\"']trust-upgrade-css[\"'][^>]*>[\s\S]*?</style>",
+            css,
+            html_text,
+            count=1,
+            flags=re.I,
+        )
     if "</head>" in html_text:
         return html_text.replace("</head>", css + "\n</head>", 1)
     return css + "\n" + html_text
