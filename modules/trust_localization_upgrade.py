@@ -2,9 +2,10 @@ from __future__ import annotations
 
 import csv
 import html
+import json
 import re
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlparse
 
 from config import settings
 from modules.site_stats import load_site_stats
@@ -12,6 +13,9 @@ from modules.site_stats import load_site_stats
 
 IMPACT_SITE_VERIFICATION_ID = "e41dba46-8780-4a26-8314-596af1e3980b"
 BASE_URL = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
+YOUTUBE_CHANNEL_URL = "https://youtube.com/@SmileAIReviewHub"
+VIDEO_OUTPUT_DIR = settings.base_dir / "video_output"
+RENDER_STATUS_CSV = VIDEO_OUTPUT_DIR / "render_status.csv"
 
 
 CHANNELS = [
@@ -221,7 +225,7 @@ def enhance_html(html_text: str, rel_path: str, scores: dict[str, str]) -> str:
     text = strengthen_review_page(text, rel_path, lang)
     text = replace_footer(text, lang)
     text = insert_comparison_scorecard(text, rel_path, lang, scores)
-    text = insert_trust_blocks(text, lang)
+    text = insert_trust_blocks(text, lang, rel_path)
     if lang == "vi":
         text = cleanup_vietnamese_text(text)
     return text
@@ -256,6 +260,12 @@ def ensure_upgrade_css(html_text: str) -> str:
     .trust-upgrade-card span,.trust-upgrade-card p{display:block;color:#64748b;font-size:13px;margin:3px 0 0;line-height:1.45}
     .research-methodology ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
     .research-methodology li{margin:0;color:#334155;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px}
+    .youtube-review-card .youtube-review-links{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+    .youtube-review-card a{font-weight:800;color:#0f766e;text-decoration:none;overflow-wrap:anywhere}
+    .youtube-review-card .youtube-review-links a{border:1px solid #99f6e4;background:#f0fdfa;border-radius:8px;padding:10px 12px}
+    .youtube-review-card p{color:#475569;margin:8px 0}
+    .youtube-embed{position:relative;width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;border:1px solid #dbeafe;background:#0f172a;margin-top:12px}
+    .youtube-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
     .author-trust-card{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:12px;align-items:center}
     .author-trust-avatar{width:52px;height:52px;border-radius:999px;background:#0f766e;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
     .author-trust-card p{margin:0;color:#64748b}
@@ -551,7 +561,8 @@ def review_support_section(section: str, tool: str, lang: str) -> str:
     return f"<section class='card review-structure-fallback'><h2>{html.escape(heading)}</h2><p>{html.escape(body)}</p></section>"
 
 
-def insert_trust_blocks(html_text: str, lang: str) -> str:
+def insert_trust_blocks(html_text: str, lang: str, rel_path: str) -> str:
+    html_text = ensure_youtube_before_author(html_text, lang, rel_path)
     blocks = ""
     if not re.search(r"<section\b[^>]*\bauthor-trust-card\b", html_text, flags=re.I):
         blocks += author_box(lang)
@@ -567,6 +578,211 @@ def insert_trust_blocks(html_text: str, lang: str) -> str:
     if "</main>" in html_text:
         return html_text.replace("</main>", blocks + "\n</main>", 1)
     return html_text + blocks
+
+
+def ensure_youtube_before_author(html_text: str, lang: str, rel_path: str) -> str:
+    youtube_pattern = re.compile(
+        r"\s*<section\b[^>]*\byoutube-review-card\b[\s\S]*?</section>",
+        flags=re.I,
+    )
+    youtube_match = youtube_pattern.search(html_text)
+    youtube_block = youtube_review_section(lang, rel_path).strip()
+    if youtube_match:
+        html_text = html_text[: youtube_match.start()] + html_text[youtube_match.end() :]
+    if not youtube_block:
+        return html_text
+    hero_match = re.search(r"<section\b[^>]*\bclass=['\"][^'\"]*\bhero\b[^'\"]*['\"][\s\S]*?</section>", html_text, flags=re.I)
+    if hero_match:
+        return html_text[: hero_match.end()] + "\n" + youtube_block + html_text[hero_match.end() :]
+    main_match = re.search(r"<main\b[^>]*>", html_text, flags=re.I)
+    if main_match:
+        return html_text[: main_match.end()] + "\n" + youtube_block + html_text[main_match.end() :]
+    return youtube_block + "\n" + html_text
+
+
+def youtube_review_section(lang: str, rel_path: str) -> str:
+    heading = "Watch This Review On YouTube"
+    subscribe = "Subscribe"
+    watch_more = "Watch more AI reviews"
+    if lang == "vi":
+        heading = "Xem bài review này trên YouTube"
+        subscribe = "Đăng ký"
+        watch_more = "Xem thêm review AI"
+    embed = youtube_embed_html(rel_path)
+    return f"""
+<section class="trust-upgrade-section youtube-review-card" aria-label="YouTube review">
+  <h2>{html.escape(heading)}</h2>
+  <p><strong>{html.escape(subscribe)}:</strong><br><a href="{YOUTUBE_CHANNEL_URL}" rel="noopener noreferrer" target="_blank">{YOUTUBE_CHANNEL_URL}</a></p>
+  <p><strong>{html.escape(watch_more)}:</strong><br><a href="{YOUTUBE_CHANNEL_URL}" rel="noopener noreferrer" target="_blank">{YOUTUBE_CHANNEL_URL}</a></p>
+  <div class="youtube-review-links">
+    <a href="{YOUTUBE_CHANNEL_URL}" rel="noopener noreferrer" target="_blank">{html.escape(subscribe)}</a>
+    <a href="{YOUTUBE_CHANNEL_URL}" rel="noopener noreferrer" target="_blank">{html.escape(watch_more)}</a>
+  </div>
+  {embed}
+</section>"""
+
+
+def youtube_embed_html(rel_path: str) -> str:
+    video_id = youtube_video_id_for_page(rel_path)
+    if not video_id:
+        return ""
+    src = f"https://www.youtube.com/embed/{html.escape(video_id, quote=True)}"
+    return (
+        '<div class="youtube-embed">'
+        f'<iframe src="{src}" title="Smile AI Review Hub YouTube review" '
+        'loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" '
+        'allowfullscreen></iframe></div>'
+    )
+
+
+def youtube_video_id_for_page(rel_path: str) -> str:
+    for slug in video_package_slug_candidates(rel_path):
+        metadata_path = VIDEO_OUTPUT_DIR / slug / "metadata.json"
+        if not metadata_path.exists():
+            continue
+        try:
+            metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        for key in ("youtube_video_id", "youtube_id", "video_id"):
+            value = str(metadata.get(key) or "").strip()
+            if is_youtube_video_id(value):
+                return value
+        for key in ("youtube_video_url", "youtube_url", "published_youtube_url", "video_url"):
+            video_id = extract_youtube_video_id(str(metadata.get(key) or ""))
+            if video_id:
+                return video_id
+    return ""
+
+
+def video_package_slug_candidates(rel_path: str) -> list[str]:
+    clean = rel_path.removeprefix("vi/").removesuffix("/index.html").removesuffix("index.html").strip("/")
+    if not clean:
+        return []
+    parts = clean.split("/")
+    leaf = parts[-1]
+    candidates = [clean.replace("/", "-"), leaf]
+    if parts[0] == "review":
+        candidates.extend([f"review-{leaf}", leaf])
+    elif parts[0] in {"compare", "comparisons"}:
+        candidates.extend([f"compare-{leaf}", leaf])
+    elif parts[0] == "pricing":
+        candidates.extend([f"pricing-{leaf}", leaf])
+    elif parts[0] == "category":
+        candidates.extend([f"category-{leaf}", leaf])
+    else:
+        candidates.extend([f"review-{leaf}", f"compare-{leaf}", f"pricing-{leaf}", f"category-{leaf}"])
+    return list(dict.fromkeys(candidate for candidate in candidates if candidate))
+
+
+def is_youtube_video_id(value: str) -> bool:
+    return bool(re.fullmatch(r"[A-Za-z0-9_-]{11}", value or ""))
+
+
+def extract_youtube_video_id(url: str) -> str:
+    value = str(url or "").strip()
+    if is_youtube_video_id(value):
+        return value
+    if not value:
+        return ""
+    parsed = urlparse(value)
+    host = parsed.netloc.lower()
+    if "youtu.be" in host:
+        candidate = parsed.path.strip("/").split("/", 1)[0]
+        return candidate if is_youtube_video_id(candidate) else ""
+    if "youtube.com" in host:
+        query_id = parse_qs(parsed.query).get("v", [""])[0]
+        if is_youtube_video_id(query_id):
+            return query_id
+        match = re.search(r"/(?:embed|shorts)/([A-Za-z0-9_-]{11})", parsed.path)
+        if match:
+            return match.group(1)
+    return ""
+
+
+def youtube_review_section(lang: str, rel_path: str) -> str:
+    video_url = youtube_video_url_for_page(rel_path)
+    video_id = extract_youtube_video_id(video_url)
+    if not video_url or not video_id:
+        return ""
+    heading = "Watch This Review On YouTube"
+    subscribe = "Subscribe to Smile AI Review Hub"
+    watch_button = "Watch on YouTube"
+    if lang == "vi":
+        heading = "Xem bài review này trên YouTube"
+        subscribe = "Đăng ký Smile AI Review Hub"
+        watch_button = "Xem trên YouTube"
+    embed = youtube_embed_html_from_id(video_id)
+    return f"""
+<section class="trust-upgrade-section youtube-review-card" aria-label="YouTube review">
+  <h2>{html.escape(heading)}</h2>
+  {embed}
+  <div class="youtube-review-links">
+    <a href="{html.escape(video_url, quote=True)}" rel="noopener noreferrer" target="_blank">{html.escape(watch_button)}</a>
+    <a href="{YOUTUBE_CHANNEL_URL}" rel="noopener noreferrer" target="_blank">{html.escape(subscribe)}</a>
+  </div>
+</section>"""
+
+
+def youtube_embed_html(rel_path: str) -> str:
+    video_id = extract_youtube_video_id(youtube_video_url_for_page(rel_path))
+    if not video_id:
+        return ""
+    return youtube_embed_html_from_id(video_id)
+
+
+def youtube_embed_html_from_id(video_id: str) -> str:
+    src = f"https://www.youtube.com/embed/{html.escape(video_id, quote=True)}"
+    return (
+        '<div class="youtube-embed">'
+        f'<iframe src="{src}" title="Smile AI Review Hub YouTube review" '
+        'loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" '
+        'allowfullscreen></iframe></div>'
+    )
+
+
+def youtube_video_url_for_page(rel_path: str) -> str:
+    for slug in video_package_slug_candidates(rel_path):
+        value = youtube_video_url_from_render_status(slug)
+        if value:
+            return value
+    for slug in video_package_slug_candidates(rel_path):
+        metadata_path = VIDEO_OUTPUT_DIR / slug / "metadata.json"
+        if not metadata_path.exists():
+            continue
+        try:
+            metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        for key in ("youtube_video_url", "youtube_url", "published_youtube_url", "video_url"):
+            value = str(metadata.get(key) or "").strip()
+            if extract_youtube_video_id(value):
+                return value
+        for key in ("youtube_video_id", "youtube_id", "video_id"):
+            value = str(metadata.get(key) or "").strip()
+            if is_youtube_video_id(value):
+                return f"https://www.youtube.com/watch?v={value}"
+    return ""
+
+
+def youtube_video_url_from_render_status(folder_name: str) -> str:
+    if not RENDER_STATUS_CSV.exists():
+        return ""
+    try:
+        with RENDER_STATUS_CSV.open("r", encoding="utf-8", newline="") as handle:
+            for row in csv.DictReader(handle):
+                if str(row.get("FolderName") or "").strip() != folder_name:
+                    continue
+                value = str(row.get("YoutubeVideoUrl") or "").strip()
+                if extract_youtube_video_id(value):
+                    return value
+    except Exception:
+        return ""
+    return ""
+
+
+def youtube_video_id_for_page(rel_path: str) -> str:
+    return extract_youtube_video_id(youtube_video_url_for_page(rel_path))
 
 
 def author_box(lang: str) -> str:

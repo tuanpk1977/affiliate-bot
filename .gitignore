@@ -9,6 +9,54 @@ data/output/
 *.tmp
 *.bak
 
+# Generated video packages
+video_output/**
+!video_output/
+!video_output/render_status.csv
+!video_output/render_summary.md
+!video_output/upload_queue.md
+!video_output/archive/
+!video_output/archive/uploaded/
+!video_output/archive/failed/
+!video_output/archive/manual_review/
+!video_output/archive/uploaded/.gitkeep
+!video_output/archive/failed/.gitkeep
+!video_output/archive/manual_review/.gitkeep
+
+# Generated review output
+video_output/**/audio/
+video_output/**/exports/
+video_output/**/render_assets/
+video_output/**/shorts/
+
+# Generated media
+video_output/**/*.mp4
+video_output/**/*.mp3
+video_output/**/*.wav
+video_output/**/*.png
+video_output/**/*.jpg
+video_output/**/*.jpeg
+
+# Generated subtitles
+video_output/**/*.srt
+
+# Logs
+video_output/**/*.log
+logs/
+*.log
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# VS Code
+.vscode/settings.json
+
 # Keep these tracked for GitHub + Netlify static deploy:
 # site_output/
 # data/published_static_pages/
