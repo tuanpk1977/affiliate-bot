@@ -260,9 +260,12 @@ def ensure_upgrade_css(html_text: str) -> str:
     .trust-upgrade-card span,.trust-upgrade-card p{display:block;color:#64748b;font-size:13px;margin:3px 0 0;line-height:1.45}
     .research-methodology ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
     .research-methodology li{margin:0;color:#334155;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px}
-    .youtube-review-card .youtube-review-links{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+    .youtube-review-card .youtube-review-links{display:flex;gap:14px;flex-wrap:wrap;margin:14px 0 4px;align-items:center}
     .youtube-review-card a{font-weight:800;color:#0f766e;text-decoration:none;overflow-wrap:anywhere}
-    .youtube-review-card .youtube-review-links a{border:1px solid #99f6e4;background:#f0fdfa;border-radius:8px;padding:10px 12px}
+    .youtube-review-card .youtube-review-links a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:8px;padding:11px 16px;line-height:1.2;text-align:center}
+    .youtube-review-card .youtube-review-links .youtube-watch-link{border:1px solid #0f766e;background:#0f766e;color:#fff;box-shadow:0 1px 2px rgba(15,23,42,.08)}
+    .youtube-review-card .youtube-review-links .youtube-channel-link{border:1px solid #cbd5e1;background:#fff;color:#0f172a}
+    .youtube-review-card .youtube-review-link-note{font-size:13px;color:#64748b;margin:6px 0 0}
     .youtube-review-card p{color:#475569;margin:8px 0}
     .youtube-embed{position:relative;width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;border:1px solid #dbeafe;background:#0f172a;margin-top:12px}
     .youtube-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
@@ -287,7 +290,7 @@ def ensure_upgrade_css(html_text: str) -> str:
     .community-footer p{color:#cbd5e1}
     .community-footer-links{display:flex;gap:14px;flex-wrap:wrap;margin:14px 0}
     .community-footer .impact-site-verification-text{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-    @media(max-width:720px){.author-trust-card{grid-template-columns:52px minmax(0,1fr)}.author-trust-card a{grid-column:1/-1}.comparison-scorecard .score-row{grid-template-columns:1fr}.trust-upgrade-section{padding:14px}.community-footer{padding:24px 0}}
+    @media(max-width:720px){.author-trust-card{grid-template-columns:52px minmax(0,1fr)}.author-trust-card a{grid-column:1/-1}.comparison-scorecard .score-row{grid-template-columns:1fr}.trust-upgrade-section{padding:14px}.youtube-review-card .youtube-review-links{display:grid;grid-template-columns:1fr;gap:10px}.youtube-review-card .youtube-review-links a{width:100%}.community-footer{padding:24px 0}}
   </style>"""
     if "</head>" in html_text:
         return html_text.replace("</head>", css + "\n</head>", 1)
@@ -706,8 +709,9 @@ def youtube_review_section(lang: str, rel_path: str) -> str:
     if not video_url or not video_id:
         return ""
     heading = "Watch This Review On YouTube"
-    subscribe = "Subscribe to Smile AI Review Hub"
-    watch_button = "Watch on YouTube"
+    subscribe = "Visit YouTube channel"
+    watch_button = "Watch this video"
+    note = "Left button opens this video. Right button opens the main YouTube channel."
     if lang == "vi":
         heading = "Xem bài review này trên YouTube"
         subscribe = "Đăng ký Smile AI Review Hub"
@@ -718,9 +722,10 @@ def youtube_review_section(lang: str, rel_path: str) -> str:
   <h2>{html.escape(heading)}</h2>
   {embed}
   <div class="youtube-review-links">
-    <a href="{html.escape(video_url, quote=True)}" rel="noopener noreferrer" target="_blank">{html.escape(watch_button)}</a>
-    <a href="{YOUTUBE_CHANNEL_URL}" rel="noopener noreferrer" target="_blank">{html.escape(subscribe)}</a>
+    <a class="youtube-watch-link" href="{html.escape(video_url, quote=True)}" rel="noopener noreferrer" target="_blank">{html.escape(watch_button)}</a>
+    <a class="youtube-channel-link" href="{YOUTUBE_CHANNEL_URL}" rel="noopener noreferrer" target="_blank">{html.escape(subscribe)}</a>
   </div>
+  <p class="youtube-review-link-note">{html.escape(note)}</p>
 </section>"""
 
 
