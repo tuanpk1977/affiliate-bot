@@ -15,6 +15,8 @@ video_output/**
 !video_output/render_status.csv
 !video_output/render_summary.md
 !video_output/upload_queue.md
+!video_output/upload_links.csv
+!video_output/bulk_upload_update_report.md
 !video_output/archive/
 !video_output/archive/uploaded/
 !video_output/archive/failed/
