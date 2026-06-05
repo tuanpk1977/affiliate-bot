@@ -714,6 +714,7 @@ def youtube_review_section(lang: str, rel_path: str) -> str:
     video_id = extract_youtube_video_id(video_url)
     if not video_url or not video_id:
         return ""
+    watch_url = youtube_watch_url_with_vietnamese_captions(video_id)
     heading = "Watch This Review On YouTube"
     subscribe = "Visit YouTube channel"
     watch_button = "Watch this video"
@@ -728,7 +729,7 @@ def youtube_review_section(lang: str, rel_path: str) -> str:
   <h2>{html.escape(heading)}</h2>
   {embed}
   <div class="youtube-review-links">
-    <a class="youtube-watch-link" href="{html.escape(video_url, quote=True)}" rel="noopener noreferrer" target="_blank">{html.escape(watch_button)}</a>
+    <a class="youtube-watch-link" href="{html.escape(watch_url, quote=True)}" rel="noopener noreferrer" target="_blank">{html.escape(watch_button)}</a>
     <a class="youtube-channel-link" href="{YOUTUBE_CHANNEL_URL}" rel="noopener noreferrer" target="_blank">{html.escape(subscribe)}</a>
   </div>
   <p class="youtube-review-link-note">{html.escape(note)}</p>
@@ -743,13 +744,18 @@ def youtube_embed_html(rel_path: str) -> str:
 
 
 def youtube_embed_html_from_id(video_id: str) -> str:
-    src = f"https://www.youtube.com/embed/{html.escape(video_id, quote=True)}"
+    src = f"https://www.youtube.com/embed/{html.escape(video_id, quote=True)}?cc_load_policy=1&cc_lang_pref=vi&hl=vi"
     return (
         '<div class="youtube-embed">'
         f'<iframe src="{src}" title="Smile AI Review Hub YouTube review" '
         'loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" '
         'allowfullscreen></iframe></div>'
     )
+
+
+def youtube_watch_url_with_vietnamese_captions(video_id: str) -> str:
+    safe_id = html.escape(video_id, quote=True)
+    return f"https://www.youtube.com/watch?v={safe_id}&cc_load_policy=1&cc_lang_pref=vi&hl=vi"
 
 
 def youtube_video_url_for_page(rel_path: str) -> str:
