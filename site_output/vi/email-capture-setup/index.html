@@ -3,26 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</title>
-  <meta name="description" content="Cách email capture hoạt động trên GitHub Pages static và các lựa chọn tích hợp sau này.">
+  <title>Thông tin cần kiểm tra</title>
+  <meta name="description" content="How email capture works on this static GitHub Pages site and which provider options can be connected later.">
   <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://smileaireviewhub.com/vi/email-capture-setup/">
-  <link rel="alternate" hreflang="en" href="https://smileaireviewhub.com/email-capture-setup/">
-  <link rel="alternate" hreflang="vi" href="https://smileaireviewhub.com/vi/email-capture-setup/">
-  <link rel="alternate" hreflang="x-default" href="https://smileaireviewhub.com/email-capture-setup/">
-  <meta property="og:title" content="Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.">
-  <meta property="og:description" content="Cách email capture hoạt động trên GitHub Pages static và các lựa chọn tích hợp sau này.">
+  <link rel="canonical" href="https://smileaireviewhub.com/vi/email-capture-setup/">  <meta property="og:title" content="Thông tin cần kiểm tra">
+  <meta property="og:description" content="How email capture works on this static GitHub Pages site and which provider options can be connected later.">
   <meta property="og:type" content="article">
   <meta property="og:image" content="https://smileaireviewhub.com/assets/og/pages/vi--email-capture-setup.png?v=20260601">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://smileaireviewhub.com/assets/og/pages/vi--email-capture-setup.png?v=20260601">
   <meta name="google-site-verification" content="ZVPi5mu92YV4-VBahmdx4UFIkilsylGm1dbUA5_kYps" />
   <meta name="impact-site-verification" value="e41dba46-8780-4a26-8314-596af1e3980b">
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Cấu hình email capture", "description": "Cách email capture hoạt động trên GitHub Pages static và các lựa chọn tích hợp sau này.", "inLanguage": "vi", "url": "https://smileaireviewhub.com/vi/email-capture-setup/", "publisher": {"@type": "Organization", "name": "MS Smile AI Review Hub"}}</script>
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://smileaireviewhub.com/vi/"}, {"@type": "ListItem", "position": 2, "name": "Cấu hình email capture", "item": "https://smileaireviewhub.com/vi/email-capture-setup/"}]}</script>
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Câu hỏi thường gặpPage", "mainEntity": [{"@type": "Question", "name": "GitHub Pages có tự lưu email được không?", "acceptedAnswer": {"@type": "Answer", "text": "Không. GitHub Pages chỉ phục vụ file static nên không thể ghi trực tiếp vào data/subscribers.csv nếu không có backend hoặc form provider."}}, {"@type": "Question", "name": "Hiện form trên site đang làm gì?", "acceptedAnswer": {"@type": "Answer", "text": "Form đang ở chế độ thiết lập, dùng mailto/fallback để người đọc có thể liên hệ trong khi chờ tích hợp provider thật."}}, {"@type": "Question", "name": "Nên tích hợp gì sau này?", "acceptedAnswer": {"@type": "Answer", "text": "Các lựa chọn đơn giản là Formspree, Google Forms, ConvertKit, Mailchimp hoặc Netlify Forms nếu sau này chuyển sang Netlify."}}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Email Capture Setup", "description": "How email capture works on this static GitHub Pages site and which provider options can be connected later.", "inLanguage": "en", "url": "https://smileaireviewhub.com/email-capture-setup/", "publisher": {"@type": "Organization", "name": "MS Smile AI Review Hub"}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://smileaireviewhub.com/"}, {"@type": "ListItem", "position": 2, "name": "Email Capture Setup", "item": "https://smileaireviewhub.com/email-capture-setup/"}]}</script>
   <style>:root{--bg:#f7f9fc;--text:#17202a;--muted:#596579;--line:#dbe3ef;--card:#fff;--accent:#0f766e;--warn:#9a3412}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}.wrap{max-width:1120px;margin:0 auto;padding:0 20px}.nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}.nav-inner{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:18px}.logo{font-weight:800;color:#0f172a;text-decoration:none}.menu{display:flex;gap:18px;flex-wrap:wrap}.menu a{color:#475569;text-decoration:none;font-size:14px}.language-switcher{display:flex;gap:8px;align-items:center;border:1px solid #dbe3ef;border-radius:999px;padding:4px 8px;background:#f8fafc;font-size:13px;white-space:nowrap}.language-switcher span{font-weight:800;color:#0f766e}.language-switcher a{color:#475569;text-decoration:none}.language-switcher .active{font-weight:800}.hero{padding:46px 0 18px}.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:20px;margin:18px 0;box-shadow:0 1px 2px rgba(15,23,42,.04)}h1{font-size:42px;line-height:1.12;margin:10px 0}h2{font-size:26px;margin:0 0 12px}h3{font-size:18px;margin:0 0 8px}p,li{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:12px 16px;border-radius:6px;font-weight:800;margin:6px 8px 6px 0}.btn.secondary{background:#e2e8f0;color:#0f172a}.trust{border-left:4px solid var(--warn);background:#fff7ed}.note{font-size:14px;color:#7c2d12}.email-form input{padding:12px;border:1px solid var(--line);border-radius:6px;min-width:280px}.email-form button{padding:12px 16px;border:0;border-radius:6px;background:var(--accent);color:#fff;font-weight:800}footer{margin-top:36px;background:#0f172a;color:#cbd5e1;padding:28px 0}footer a{color:#e2e8f0;text-decoration:none;margin-right:14px}footer p{color:#cbd5e1}@media(max-width:760px){h1{font-size:32px}.nav-inner{align-items:flex-start;flex-direction:column;padding:14px 0}.language-switcher{margin-top:6px}.email-form input{min-width:100%;margin-bottom:8px}}</style>
 
+  
   <style id="trust-upgrade-css">
     .trust-upgrade-section{background:#fff;border:1px solid #dbe3ef;border-radius:8px;padding:18px;margin:18px 0;box-shadow:0 1px 2px rgba(15,23,42,.04)}
     .trust-upgrade-section h2{margin:0 0 12px;color:#0f172a}
@@ -32,6 +28,15 @@
     .trust-upgrade-card span,.trust-upgrade-card p{display:block;color:#64748b;font-size:13px;margin:3px 0 0;line-height:1.45}
     .research-methodology ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
     .research-methodology li{margin:0;color:#334155;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px}
+    .youtube-review-card .youtube-review-links{display:flex;gap:42px;flex-wrap:wrap;margin:16px 0 4px;align-items:center}
+    .youtube-review-card a{font-weight:800;color:#0f766e;text-decoration:none;overflow-wrap:anywhere}
+    .youtube-review-card .youtube-review-links a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:8px;padding:11px 16px;line-height:1.2;text-align:center}
+    .youtube-review-card .youtube-review-links .youtube-watch-link{border:1px solid #0f766e;background:#0f766e;color:#fff;box-shadow:0 1px 2px rgba(15,23,42,.08)}
+    .youtube-review-card .youtube-review-links .youtube-channel-link{border:1px solid #cbd5e1;background:#fff;color:#0f172a}
+    .youtube-review-card .youtube-review-link-note{font-size:13px;color:#64748b;margin:6px 0 0}
+    .youtube-review-card p{color:#475569;margin:8px 0}
+    .youtube-embed{position:relative;width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;border:1px solid #dbeafe;background:#0f172a;margin-top:12px}
+    .youtube-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
     .author-trust-card{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:12px;align-items:center}
     .author-trust-avatar{width:52px;height:52px;border-radius:999px;background:#0f766e;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
     .author-trust-card p{margin:0;color:#64748b}
@@ -53,7 +58,7 @@
     .community-footer p{color:#cbd5e1}
     .community-footer-links{display:flex;gap:14px;flex-wrap:wrap;margin:14px 0}
     .community-footer .impact-site-verification-text{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-    @media(max-width:720px){.author-trust-card{grid-template-columns:52px minmax(0,1fr)}.author-trust-card a{grid-column:1/-1}.comparison-scorecard .score-row{grid-template-columns:1fr}.trust-upgrade-section{padding:14px}.community-footer{padding:24px 0}}
+    @media(max-width:720px){.author-trust-card{grid-template-columns:52px minmax(0,1fr)}.author-trust-card a{grid-column:1/-1}.comparison-scorecard .score-row{grid-template-columns:1fr}.trust-upgrade-section{padding:14px}.youtube-review-card .youtube-review-links{display:grid;grid-template-columns:1fr;gap:10px}.youtube-review-card .youtube-review-links a{width:100%}.community-footer{padding:24px 0}}
   </style>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230f766e'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-family='Arial' font-size='22' font-weight='700' fill='white'%3EMS%3C/text%3E%3C/svg%3E">
   <meta property="og:url" content="https://smileaireviewhub.com/vi/email-capture-setup/">
@@ -61,40 +66,42 @@
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta name="twitter:title" content="Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.">
-  <meta name="twitter:description" content="Cách email capture hoạt động trên GitHub Pages static và các lựa chọn tích hợp sau này.">
+  <meta name="twitter:title" content="Thông tin cần kiểm tra">
+  <meta name="twitter:description" content="How email capture works on this static GitHub Pages site and which provider options can be connected later.">  <link rel="alternate" hreflang="en" href="https://smileaireviewhub.com/email-capture-setup/">
+  <link rel="alternate" hreflang="vi" href="https://smileaireviewhub.com/vi/email-capture-setup/">
+  <link rel="alternate" hreflang="x-default" href="https://smileaireviewhub.com/email-capture-setup/">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Câu hỏi thường gặpPage", "mainEntity": [{"@type": "Question", "name": "Can GitHub Pages save emails directly?", "acceptedAnswer": {"@type": "Answer", "text": "No. GitHub Pages serves static files, so it cannot write directly to data/subscribers.csv without a backend or form provider."}}, {"@type": "Question", "name": "What does the current form do?", "acceptedAnswer": {"@type": "Answer", "text": "The form is in setup mode. It uses a mailto fallback so readers can contact you while a real provider is not connected yet."}}, {"@type": "Question", "name": "What should be integrated later?", "acceptedAnswer": {"@type": "Answer", "text": "Simple options include Formspree, Google Forms, ConvertKit, Mailchimp, or Netlify Forms if the site later moves to Netlify."}}]}</script>
 </head>
 <body>
-  <nav class='nav'><div class='wrap nav-inner'><a class='logo' href='/vi/'>MS Smile AI Review Hub</a><div class='menu'><a href='/vi/'>Trang chủ</a><a href='/vi/reviews/'>Đánh giá</a><a href='/vi/comparisons/'>So sánh</a><a href='/vi/pricing/'>Giá</a><a href='/vi/categories/'>Danh mục</a><a href='/vi/blog/'>Blog</a><a href='/vi/contact/'>Liên hệ</a></div><div class='language-switcher'><a class='' href='/email-capture-setup/'>English</a><span>|</span><a class='active' href='/vi/email-capture-setup/'>Tiếng Việt</a></div></div><div class='wrap'><p class='note'>Một số liên kết có thể là liên kết tiếp thị liên kết. Chúng tôi có thể nhận hoa hồng mà không phát sinh thêm chi phí nào cho bạn.</p></div></nav>
+  <nav class='nav'><div class='wrap nav-inner'><a class='logo' href='/vi/'>MS Smile AI Review Hub</a><div class='menu'><a href='/vi/'>Trang chủ</a><a href='/vi/reviews/'>Đánh giá</a><a href='/vi/comparisons/'>So sánh</a><a href='/vi/pricing/'>Giá</a><a href='/vi/categories/'>Danh mục</a><a href='/vi/blog/'>Blog</a><a href='/vi/contact/'>Liên hệ</a></div><div class='language-switcher' aria-label='Language switcher'><a href='/email-capture-setup/'>English</a><span>|</span><a class='active' href='/vi/email-capture-setup/'>Tiếng Việt</a></div></div><div class='wrap'><p class='note'>Một số liên kết có thể là liên kết tiếp thị liên kết. Chúng tôi có thể nhận hoa hồng mà không phát sinh thêm chi phí cho bạn.</p></div></nav>
   <main class="wrap">
 <section class="hero">
-  <p class="note">Email capture an toàn ở chế độ local</p>
-  <h1>Cấu hình email capture</h1>
+  <p class="note">Local-safe email capture</p>
+  <h1>Email Capture Setup</h1>
   <p>Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</p>
 </section>
 <section class="card trust">
-  <h2>Email capture hiện đang ở chế độ thiết lập</h2>
-  <p>GitHub Pages không thể tự ghi form submission mới vào <code>data/subscribers.csv</code>. Form hiện dùng mailto/fallback, còn CSV local được chuẩn bị để nhập dữ liệu thủ công hoặc import từ provider sau này.</p>
+  <h2>Email capture is currently in setup mode</h2>
+  <p>GitHub Pages cannot write new form submissions into <code>data/subscribers.csv</code> Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</p>
 </section>
 <section class="grid">
-  <div class="card"><h2>Lựa chọn A: Formspree</h2><p>Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</p></div>
-  <div class="card"><h2>Lựa chọn B: Google Forms</h2><p>Nhúng hoặc link tới Google Form nếu muốn cách ít bảo trì nhất. Không đẹp bằng form riêng, nhưng dễ kiểm soát và ổn định.</p></div>
-  <div class="card"><h2>Lựa chọn C: Netlify Forms</h2><p>Nếu sau này chuyển site sang Netlify, Netlify Forms có thể nhận submission mà không cần tự viết backend.</p></div>
+  <div class="card"><h2>Option A: Formspree</h2><p>Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</p></div>
+  <div class="card"><h2>Option B: Google Forms</h2><p>Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</p></div>
+  <div class="card"><h2>Option C: Netlify Forms</h2><p>Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</p></div>
 </section>
 <section class="card">
-  <h2>Bước tiếp theo nên làm</h2>
-  <p>Giữ chế độ local-safe hiện tại cho đến khi chọn provider. Sau đó cập nhật <code>config/email_capture.json</code> và thay mailto action bằng endpoint của provider.</p>
-  <a class="btn" href="/vi/free-ai-coding-workflow-checklist/">Quay lại trang nhận checklist</a>
+  <h2>Recommended next step</h2>
+  <p>Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua. <code>config/email_capture.json</code> Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</p>
+  <a class="btn" href="/vi/free-ai-coding-workflow-checklist/">Back to checklist signup</a>
 </section>
-
-<section class="trust-upgrade-section author-trust-card" aria-label="Author">
+<section class="trust-upgrade-section author-trust-card" aria-label="Tác giả">
   <div class="author-trust-avatar">NT</div>
   <div>
     <strong>Nguyen Quoc Tuan</strong>
     <p>Founder - MS Smile AI Review Hub</p>
     <p>Cập nhật lần cuối: June 2026</p>
   </div>
-  <a href="/about/">Giới thiệu</a>
+  <a href="/vi/about/">Giới thiệu</a>
 </section>
 <section class="trust-upgrade-section community-signals">
   <h2>Tín hiệu cộng đồng của chúng tôi</h2>
@@ -103,11 +110,25 @@
 </section>
 <section class="trust-upgrade-section research-methodology">
   <h2>Phương pháp nghiên cứu</h2>
-  <ul><li>✓ Đã kiểm tra giá</li><li>✓ Đã xem tài liệu chính thức</li><li>✓ Đã xem phản hồi cộng đồng</li><li>✓ Đã xác minh công bố affiliate</li><li>✓ Đã hiển thị ngày cập nhật</li></ul>
-</section><section class='card'><h2>Câu hỏi thường gặp</h2><details><summary>GitHub Pages có tự lưu email được không?</summary><p>Không. GitHub Pages chỉ phục vụ file static nên không thể ghi trực tiếp vào data/subscribers.csv nếu không có backend hoặc form provider.</p></details><details><summary>Hiện form trên site đang làm gì?</summary><p>Form đang ở chế độ thiết lập, dùng mailto/fallback để người đọc có thể liên hệ trong khi chờ tích hợp provider thật.</p></details><details><summary>Nên tích hợp gì sau này?</summary><p>Các lựa chọn đơn giản là Formspree, Google Forms, ConvertKit, Mailchimp hoặc Netlify Forms nếu sau này chuyển sang Netlify.</p></details></section>
-<section class="card"><h2>CTA</h2><p>Dùng trang này như ghi chú cấu hình trước khi bật lưu subscriber thật.</p><a class="btn" href="mailto:tuanpk1977@gmail.com">Liên hệ chủ site</a></section>
+  <ul><li>✓ Giá checked</li><li>✓ Đã xem tài liệu chính thức</li><li>✓ Đã xem phản hồi cộng đồng</li><li>✓ Tiết lộ liên kết verified</li><li>✓ Đã hiển thị ngày cập nhật</li></ul>
+</section><section class='card'><h2>Câu hỏi thường gặp</h2><details><summary>Can GitHub Pages save emails directly?</summary><p>Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</p></details><details><summary>Ghi chú đánh giá</summary><p>Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</p></details><details><summary>Ghi chú đánh giá</summary><p>Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</p></details></section>
+<section class="card"><h2>CTA</h2><p>Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.</p><a class="btn" href="mailto:tuanpk1977@gmail.com">Liên hệ the site owner</a></section>
 </main>
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <footer class="community-footer">
   <div class="wrap">
     <p><strong>MS Smile AI Review Hub</strong></p>

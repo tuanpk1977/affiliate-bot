@@ -27,6 +27,7 @@
   <meta name="twitter:title" content="CRM Tools Hub - MS Smile AI Review Hub">
   <meta name="twitter:description" content="Research hub for CRM software, sales workflow tools, customer management, and startup CRM comparisons.">
 
+  
   <style id="trust-upgrade-css">
     .trust-upgrade-section{background:#fff;border:1px solid #dbe3ef;border-radius:8px;padding:18px;margin:18px 0;box-shadow:0 1px 2px rgba(15,23,42,.04)}
     .trust-upgrade-section h2{margin:0 0 12px;color:#0f172a}
@@ -36,6 +37,15 @@
     .trust-upgrade-card span,.trust-upgrade-card p{display:block;color:#64748b;font-size:13px;margin:3px 0 0;line-height:1.45}
     .research-methodology ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
     .research-methodology li{margin:0;color:#334155;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px}
+    .youtube-review-card .youtube-review-links{display:flex;gap:42px;flex-wrap:wrap;margin:16px 0 4px;align-items:center}
+    .youtube-review-card a{font-weight:800;color:#0f766e;text-decoration:none;overflow-wrap:anywhere}
+    .youtube-review-card .youtube-review-links a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:8px;padding:11px 16px;line-height:1.2;text-align:center}
+    .youtube-review-card .youtube-review-links .youtube-watch-link{border:1px solid #0f766e;background:#0f766e;color:#fff;box-shadow:0 1px 2px rgba(15,23,42,.08)}
+    .youtube-review-card .youtube-review-links .youtube-channel-link{border:1px solid #cbd5e1;background:#fff;color:#0f172a}
+    .youtube-review-card .youtube-review-link-note{font-size:13px;color:#64748b;margin:6px 0 0}
+    .youtube-review-card p{color:#475569;margin:8px 0}
+    .youtube-embed{position:relative;width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;border:1px solid #dbeafe;background:#0f172a;margin-top:12px}
+    .youtube-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
     .author-trust-card{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:12px;align-items:center}
     .author-trust-avatar{width:52px;height:52px;border-radius:999px;background:#0f766e;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
     .author-trust-card p{margin:0;color:#64748b}
@@ -57,10 +67,9 @@
     .community-footer p{color:#cbd5e1}
     .community-footer-links{display:flex;gap:14px;flex-wrap:wrap;margin:14px 0}
     .community-footer .impact-site-verification-text{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-    @media(max-width:720px){.author-trust-card{grid-template-columns:52px minmax(0,1fr)}.author-trust-card a{grid-column:1/-1}.comparison-scorecard .score-row{grid-template-columns:1fr}.trust-upgrade-section{padding:14px}.community-footer{padding:24px 0}}
+    @media(max-width:720px){.author-trust-card{grid-template-columns:52px minmax(0,1fr)}.author-trust-card a{grid-column:1/-1}.comparison-scorecard .score-row{grid-template-columns:1fr}.trust-upgrade-section{padding:14px}.youtube-review-card .youtube-review-links{display:grid;grid-template-columns:1fr;gap:10px}.youtube-review-card .youtube-review-links a{width:100%}.community-footer{padding:24px 0}}
   </style>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230f766e'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-family='Arial' font-size='22' font-weight='700' fill='white'%3EMS%3C/text%3E%3C/svg%3E">
-  <link rel="alternate" hreflang="en" href="https://smileaireviewhub.com/hub/crm/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230f766e'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-family='Arial' font-size='22' font-weight='700' fill='white'%3EMS%3C/text%3E%3C/svg%3E">  <link rel="alternate" hreflang="en" href="https://smileaireviewhub.com/hub/crm/">
   <link rel="alternate" hreflang="vi" href="https://smileaireviewhub.com/vi/hub/crm/">
   <link rel="alternate" hreflang="x-default" href="https://smileaireviewhub.com/hub/crm/">
 </head>
@@ -123,7 +132,6 @@
   <p>Do not choose a tool only because it appears near the top of a list. Open the relevant review, check current pricing on the official site, compare at least one alternative, and review policy restrictions if you plan to promote the product as an affiliate.</p>
   <p>If a page includes a tracked CTA, it routes through the local tracking page first. If no approved affiliate link exists, the system falls back to the official URL rather than inventing an affiliate link.</p>
 </section>
-
 <section class="trust-upgrade-section author-trust-card" aria-label="Author">
   <div class="author-trust-avatar">NT</div>
   <div>
@@ -149,6 +157,20 @@
 
 <section class='card internal-links related-research' data-auto-internal-links='1'><h2>Related research</h2><div class='related-card-section'><h3>Priority pages</h3><div class='related-card-grid'><article class='related-research-card'><h4>HubSpot Review for CRM Buyers: Workflow Fit, Pricing Checks, and Alternatives</h4><p>Review notes, pricing checks, alternatives, and buyer-fit signals.</p><a href='/review/hubspot/'>Open guide</a></article><article class='related-research-card'><h4>Pipedrive CRM Review for CRM Buyers: Workflow Fit, Pricing Checks, and Alternatives</h4><p>Review notes, pricing checks, alternatives, and buyer-fit signals.</p><a href='/review/pipedrive-crm/'>Open guide</a></article><article class='related-research-card'><h4>Pipedrive Review for CRM Buyers: Workflow Fit, Pricing Checks, and Alternatives</h4><p>Review notes, pricing checks, alternatives, and buyer-fit signals.</p><a href='/review/pipedrive/'>Open guide</a></article><article class='related-research-card'><h4>Redirecting</h4><p>Review notes, pricing checks, alternatives, and buyer-fit signals.</p><a href='/reviews/pipedrive-crm/'>Open guide</a></article></div></div><div class='related-card-section'><h3>Related comparisons</h3><div class='related-card-grid'><article class='related-research-card'><h4>HubSpot vs Salesforce</h4><p>Side-by-side research to help shortlist tools before clicking out.</p><a href='/comparisons/hubspot-vs-salesforce/'>Open guide</a></article><article class='related-research-card'><h4>ActiveCampaign vs Mailchimp: Which email marketing platforms should you choose?</h4><p>Side-by-side research to help shortlist tools before clicking out.</p><a href='/compare/activecampaign-vs-mailchimp/'>Open guide</a></article><article class='related-research-card'><h4>Canva vs AdCreative AI: Which AI design and ad creative tools should you choose?</h4><p>Side-by-side research to help shortlist tools before clicking out.</p><a href='/compare/canva-vs-adcreative-ai/'>Open guide</a></article><article class='related-research-card'><h4>Canva vs Adobe Express: Which Tool Should You Choose in 2026?</h4><p>Side-by-side research to help shortlist tools before clicking out.</p><a href='/comparisons/canva-vs-adobe-express/'>Open guide</a></article><article class='related-research-card'><h4>Canva vs Gamma: Which AI design and presentation tools should you choose?</h4><p>Side-by-side research to help shortlist tools before clicking out.</p><a href='/comparisons/canva-vs-gamma/'>Open guide</a></article></div></div><div class='related-card-section'><h3>Pricing research</h3><div class='related-card-grid'><article class='related-research-card'><h4>ActiveCampaign Pricing Guide: Plans, Trial Notes, and Buying Risks</h4><p>Pricing and plan checks to verify before buying or promoting.</p><a href='/pricing/activecampaign/'>Open guide</a></article><article class='related-research-card'><h4>Canva Pricing Guide: Plans, Trial Notes, and Buying Risks</h4><p>Pricing and plan checks to verify before buying or promoting.</p><a href='/pricing/canva/'>Open guide</a></article><article class='related-research-card'><h4>Cursor Pricing Guide: Plans, Trial Notes, and Buying Risks</h4><p>Pricing and plan checks to verify before buying or promoting.</p><a href='/pricing/cursor/'>Open guide</a></article><article class='related-research-card'><h4>GitHub Copilot Pricing Guide: Plans, Trial Notes, and Buying Risks</h4><p>Pricing and plan checks to verify before buying or promoting.</p><a href='/pricing/github-copilot/'>Open guide</a></article></div></div><div class='related-card-section'><h3>Top lists</h3><div class='related-card-grid'><article class='related-research-card'><h4>Best CRM Tools</h4><p>Category research with practical tool options and buying checks.</p><a href='/best-crm-tools/'>Open guide</a></article><article class='related-research-card'><h4>CRM</h4><p>Category research with practical tool options and buying checks.</p><a href='/category/crm/'>Open guide</a></article><article class='related-research-card'><h4>CRM Tools</h4><p>Category research with practical tool options and buying checks.</p><a href='/category/crm-tools/'>Open guide</a></article><article class='related-research-card'><h4>AI Automation Tools</h4><p>Category research with practical tool options and buying checks.</p><a href='/category/ai-automation-tools/'>Open guide</a></article></div></div></section>
 <section class='seo-footer-links'><div class='wrap grid'><div><h3>Popular reviews</h3><ul><li><a href='/activecampaign/'>ActiveCampaign Review: Features, Pros, Cons, Pricing Notes</a></li><li><a href='/adcreative-ai/'>AdCreative AI Review: Features, Pros, Cons, Pricing Notes</a></li><li><a href='/ahrefs-ai/'>Ahrefs AI Review: Features, Pros, Cons, Pricing Notes</a></li><li><a href='/ai-app-builder-alternatives/'>Best AI App Builder Alternatives for 2026</a></li><li><a href='/ai-app-builder-software-review/'>AI App Builder Software Review: Research-Style Review for 2026</a></li><li><a href='/ai-assistant-alternatives/'>Best AI Assistant Alternatives for 2026</a></li></ul></div><div><h3>Popular comparisons</h3><ul><li><a href='/compare/activecampaign-vs-mailchimp/'>ActiveCampaign vs Mailchimp: Which email marketing platforms should you choose?</a></li><li><a href='/compare/canva-vs-adcreative-ai/'>Canva vs AdCreative AI: Which AI design and ad creative tools should you choose?</a></li><li><a href='/compare/cursor-vs-github-copilot/'>Cursor vs GitHub Copilot: Which AI coding assistants should you choose?</a></li><li><a href='/compare/cursor-vs-windsurf/'>Cursor vs Windsurf: Which AI coding editors should you choose?</a></li><li><a href='/compare/github-copilot-vs-codeium/'>GitHub Copilot vs Codeium: Which AI coding assistants should you choose?</a></li><li><a href='/compare/grammarly-vs-quillbot/'>Grammarly vs QuillBot: Which AI writing assistants should you choose?</a></li></ul></div><div><h3>Pricing pages</h3><ul><li><a href='/cursor-pricing/'>Pricing Cursor: những điểm cần kiểm tra trước khi mua</a></li><li><a href='/elevenlabs-pricing/'>Pricing ElevenLabs: những điểm cần kiểm tra trước khi mua</a></li><li><a href='/github-copilot-pricing/'>Pricing GitHub Copilot: những điểm cần kiểm tra trước khi mua</a></li><li><a href='/jasper-pricing/'>Pricing Jasper: những điểm cần kiểm tra trước khi mua</a></li><li><a href='/make-pricing/'>Pricing Make: những điểm cần kiểm tra trước khi mua</a></li><li><a href='/pricing/activecampaign/'>ActiveCampaign Pricing Guide: Plans, Trial Notes, and Buying Risks</a></li></ul></div><div><h3>Top categories</h3><ul><li><a href='/best-ai-automation-tools/'>Best AI Automation Tools</a></li><li><a href='/best-ai-automation-tools-2026/'>Best AI Automation Tools 2026</a></li><li><a href='/best-ai-coding-tools/'>Best AI Coding Tools</a></li><li><a href='/best-ai-coding-tools-2026/'>Best AI Coding Tools 2026: Cursor, Windsurf, Copilot, and Practical Buying Advice</a></li><li><a href='/best-ai-presentation-tools/'>Best AI Presentation Tools</a></li><li><a href='/best-ai-seo-tools/'>Best AI SEO Tools</a></li></ul></div></div></section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <footer class="community-footer">
   <div class="wrap">
