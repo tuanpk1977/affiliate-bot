@@ -16,6 +16,7 @@ BASE_URL = (settings.base_site_url or settings.site_domain or "https://smileaire
 YOUTUBE_CHANNEL_URL = "https://youtube.com/@SmileAIReviewHub"
 VIDEO_OUTPUT_DIR = settings.base_dir / "video_output"
 RENDER_STATUS_CSV = VIDEO_OUTPUT_DIR / "render_status.csv"
+_YOUTUBE_RENDER_STATUS_CACHE: dict[str, str] | None = None
 
 
 CHANNELS = [
@@ -714,7 +715,7 @@ def youtube_review_section(lang: str, rel_path: str) -> str:
     video_id = extract_youtube_video_id(video_url)
     if not video_url or not video_id:
         return ""
-    watch_url = youtube_watch_url_with_vietnamese_captions(video_id)
+    watch_url = youtube_watch_url(video_id)
     heading = "Watch This Review On YouTube"
     subscribe = "Visit YouTube channel"
     watch_button = "Watch this video"
@@ -744,7 +745,9 @@ def youtube_embed_html(rel_path: str) -> str:
 
 
 def youtube_embed_html_from_id(video_id: str) -> str:
-    src = f"https://www.youtube.com/embed/{html.escape(video_id, quote=True)}?cc_load_policy=1&cc_lang_pref=vi&hl=vi"
+    # Videos already contain burned English and Vietnamese subtitles. Do not
+    # force YouTube captions, which would add a third overlapping text layer.
+    src = f"https://www.youtube.com/embed/{html.escape(video_id, quote=True)}"
     return (
         '<div class="youtube-embed">'
         f'<iframe src="{src}" title="Smile AI Review Hub YouTube review" '
@@ -753,9 +756,9 @@ def youtube_embed_html_from_id(video_id: str) -> str:
     )
 
 
-def youtube_watch_url_with_vietnamese_captions(video_id: str) -> str:
+def youtube_watch_url(video_id: str) -> str:
     safe_id = html.escape(video_id, quote=True)
-    return f"https://www.youtube.com/watch?v={safe_id}&cc_load_policy=1&cc_lang_pref=vi&hl=vi"
+    return f"https://www.youtube.com/watch?v={safe_id}"
 
 
 def youtube_video_url_for_page(rel_path: str) -> str:
@@ -783,8 +786,23 @@ def youtube_video_url_for_page(rel_path: str) -> str:
 
 
 def youtube_video_url_from_render_status(folder_name: str) -> str:
+    global _YOUTUBE_RENDER_STATUS_CACHE
     if not RENDER_STATUS_CSV.exists():
         return ""
+    if _YOUTUBE_RENDER_STATUS_CACHE is None:
+        _YOUTUBE_RENDER_STATUS_CACHE = {}
+        try:
+            with RENDER_STATUS_CSV.open("r", encoding="utf-8", newline="") as handle:
+                for row in csv.DictReader(handle):
+                    folder = str(row.get("FolderName") or "").strip()
+                    value = str(row.get("YoutubeVideoUrl") or "").strip()
+                    if folder and extract_youtube_video_id(value):
+                        _YOUTUBE_RENDER_STATUS_CACHE[folder] = value
+        except Exception:
+            _YOUTUBE_RENDER_STATUS_CACHE = {}
+    cached = _YOUTUBE_RENDER_STATUS_CACHE.get(folder_name, "")
+    if cached:
+        return cached
     try:
         with RENDER_STATUS_CSV.open("r", encoding="utf-8", newline="") as handle:
             for row in csv.DictReader(handle):
