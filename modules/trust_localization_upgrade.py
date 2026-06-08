@@ -266,8 +266,10 @@ def ensure_upgrade_css(html_text: str) -> str:
     .youtube-review-card .youtube-review-links .youtube-channel-link{border:1px solid #cbd5e1;background:#fff;color:#0f172a}
     .youtube-review-card .youtube-review-link-note{font-size:13px;color:#64748b;margin:6px 0 0}
     .youtube-review-card p{color:#475569;margin:8px 0}
-    .youtube-embed{position:relative;width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;border:1px solid #dbeafe;background:#0f172a;margin-top:12px}
-    .youtube-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+    .youtube-embed{display:block;position:relative;width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;border:1px solid #dbeafe;background:#0f172a;margin-top:12px;box-shadow:0 1px 2px rgba(15,23,42,.08)}
+    .youtube-embed img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0}
+    .youtube-embed .youtube-play-badge{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;width:76px;height:54px;border-radius:14px;background:#ef4444;color:#fff;font-size:30px;line-height:1;box-shadow:0 8px 24px rgba(15,23,42,.25)}
+    .youtube-embed .youtube-open-note{position:absolute;right:14px;bottom:12px;border-radius:999px;background:rgba(15,23,42,.86);color:#fff;padding:7px 11px;font-size:13px;font-weight:800;line-height:1}
     .author-trust-card{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:12px;align-items:center}
     .author-trust-avatar{width:52px;height:52px;border-radius:999px;background:#0f766e;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
     .author-trust-card p{margin:0;color:#64748b}
@@ -636,13 +638,7 @@ def youtube_embed_html(rel_path: str) -> str:
     video_id = youtube_video_id_for_page(rel_path)
     if not video_id:
         return ""
-    src = f"https://www.youtube.com/embed/{html.escape(video_id, quote=True)}"
-    return (
-        '<div class="youtube-embed">'
-        f'<iframe src="{src}" title="Smile AI Review Hub YouTube review" '
-        'loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" '
-        'allowfullscreen></iframe></div>'
-    )
+    return youtube_embed_html_from_id(video_id)
 
 
 def youtube_video_id_for_page(rel_path: str) -> str:
@@ -746,13 +742,18 @@ def youtube_embed_html(rel_path: str) -> str:
 
 def youtube_embed_html_from_id(video_id: str) -> str:
     # Videos already contain burned English and Vietnamese subtitles. Do not
-    # force YouTube captions, which would add a third overlapping text layer.
-    src = f"https://www.youtube.com/embed/{html.escape(video_id, quote=True)}"
+    # use an iframe here: embedded playback can start at a low resolution on
+    # article pages, while the source video is clear in the full YouTube player.
+    safe_id = html.escape(video_id, quote=True)
+    watch_url = html.escape(youtube_watch_url(video_id), quote=True)
+    thumbnail_url = f"https://i.ytimg.com/vi/{safe_id}/maxresdefault.jpg"
     return (
-        '<div class="youtube-embed">'
-        f'<iframe src="{src}" title="Smile AI Review Hub YouTube review" '
-        'loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" '
-        'allowfullscreen></iframe></div>'
+        f'<a class="youtube-embed" href="{watch_url}" rel="noopener noreferrer" target="_blank" '
+        'aria-label="Watch this review on YouTube">'
+        f'<img src="{thumbnail_url}" alt="Smile AI Review Hub YouTube review thumbnail" loading="lazy">'
+        '<span class="youtube-play-badge" aria-hidden="true">&#9658;</span>'
+        '<span class="youtube-open-note">Open on YouTube</span>'
+        '</a>'
     )
 
 
