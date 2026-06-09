@@ -1,33 +1,33 @@
 offer_id,brand_name,review_slug,title,output_path,status,affiliate_status
 activecampaign,ActiveCampaign,activecampaign,"ActiveCampaign Review for Email Marketing Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\activecampaign\index.html,built,approved
-chatgpt,ChatGPT,chatgpt,"ChatGPT Review for AI Assistant Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\chatgpt\index.html,built,official_only
-claude,Claude,claude,"Claude Review for AI Assistant Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\claude\index.html,built,official_only
 github-copilot,GitHub Copilot,github-copilot,"GitHub Copilot Review for AI Coding Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\github-copilot\index.html,built,official_only
 make,Make,make,"Make Review for Automation Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\make\index.html,built,approved
 semrush,Semrush,semrush,"Semrush Review for AI SEO Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\semrush\index.html,built,official_only
 surfer-seo,Surfer SEO,surfer-seo,"Surfer SEO Review for AI SEO Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\surfer-seo\index.html,built,approved
+chatgpt,ChatGPT,chatgpt,"ChatGPT Review for AI Assistant Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\chatgpt\index.html,built,official_only
+claude,Claude,claude,"Claude Review for AI Assistant Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\claude\index.html,built,official_only
 elevenlabs,ElevenLabs,elevenlabs,"ElevenLabs Review for AI Voice Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\elevenlabs\index.html,built,approved
 zapier,Zapier,zapier,"Zapier Review for Automation Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\zapier\index.html,built,official_only
 ahrefs-ai,Ahrefs AI,ahrefs-ai,"Ahrefs AI Review for AI SEO Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\ahrefs-ai\index.html,built,official_only
+bolt,Bolt,bolt,"Bolt Review for AI App Builder Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\bolt\index.html,built,official_only
 cursor,Cursor,cursor,"Cursor Review for AI Coding Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\cursor\index.html,built,official_only
 gemini,Gemini,gemini,"Gemini Review for AI Assistant Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\gemini\index.html,built,official_only
 hubspot,HubSpot,hubspot,"HubSpot Review for CRM Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\hubspot\index.html,built,approved
+lovable,Lovable,lovable,"Lovable Review for AI App Builder Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\lovable\index.html,built,official_only
+midjourney,Midjourney,midjourney,"Midjourney Review for AI Image Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\midjourney\index.html,built,official_only
 notion-ai,Notion AI,notion-ai,"Notion AI Review for AI Productivity Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\notion-ai\index.html,built,official_only
 perplexity,Perplexity,perplexity,"Perplexity Review for AI Search Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\perplexity\index.html,built,official_only
 reclaim-ai,Reclaim AI,reclaim-ai,"Reclaim AI Review for AI Meeting Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\reclaim-ai\index.html,built,approved
+replit,Replit,replit,"Replit Review for Cloud Development Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\replit\index.html,built,official_only
 semrush-ai,Semrush AI,semrush-ai,"Semrush AI Review for AI SEO Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\semrush-ai\index.html,built,official_only
 webflow,Webflow,webflow,"Webflow Review for Website Builder Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\webflow\index.html,built,official_only
 webflow-ai,Webflow AI,webflow-ai,"Webflow AI Review for Website Builder Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\webflow-ai\index.html,built,official_only
 windsurf,Windsurf,windsurf,"Windsurf Review for AI Coding Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\windsurf\index.html,built,official_only
 framer,Framer,framer,"Framer Review for Website Builder Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\framer\index.html,built,official_only
-bolt,Bolt,bolt,"Bolt Review for AI App Builder Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\bolt\index.html,built,official_only
-lovable,Lovable,lovable,"Lovable Review for AI App Builder Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\lovable\index.html,built,official_only
-midjourney,Midjourney,midjourney,"Midjourney Review for AI Image Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\midjourney\index.html,built,official_only
-replit,Replit,replit,"Replit Review for Cloud Development Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\replit\index.html,built,official_only
+frase,Frase,frase,"Frase Review for AI SEO Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\frase\index.html,built,official_only
 adcreative-ai,AdCreative AI,adcreative-ai,"AdCreative AI Review for Marketing Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\adcreative-ai\index.html,built,official_only
 durable,Durable,durable,"Durable Review for Website Builder Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\durable\index.html,built,official_only
 gamma,Gamma,gamma,"Gamma Review for AI Productivity Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\gamma\index.html,built,official_only
-frase,Frase,frase,"Frase Review for AI SEO Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\frase\index.html,built,official_only
 jasper,Jasper,jasper,"Jasper Review for AI Writing Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\jasper\index.html,built,approved
 jasper-ai,Jasper AI,jasper-ai,"Jasper AI Review for AI Writing Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\jasper-ai\index.html,built,approved
 canva,Canva,canva,"Canva Review for AI Design Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\canva\index.html,built,approved
@@ -38,3 +38,7 @@ synthesia,Synthesia,synthesia,"Synthesia Review for AI Video Buyers: Workflow Fi
 copy-ai,Copy.ai,copy-ai,"Copy.ai Review for AI Writing Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\copy-ai\index.html,built,official_only
 descript,Descript,descript,"Descript Review for AI Video Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\descript\index.html,built,official_only
 runway,Runway,runway,"Runway Review for AI Video Buyers: Workflow Fit, Pricing Checks, and Alternatives",D:\AFFILATE BOT\site_output\review\runway\index.html,built,official_only
+surfer-seo-alternatives,Surfer SEO alternatives,surfer-seo-alternatives,Surfer SEO Alternatives 2026: Best Tools to Compare Before Buying,D:\AFFILATE BOT\site_output\surfer-seo-alternatives\index.html,built,official_only
+bolt-ai-review-2026,Bolt AI,bolt-ai-review-2026,"Bolt AI Review 2026: Features, Pricing Checks, Pros, Cons, and Alternatives",D:\AFFILATE BOT\site_output\bolt-ai-review-2026\index.html,built,official_only
+windsurf-review-2026,Windsurf,windsurf-review-2026,"Windsurf Review 2026: AI Coding Workflow, Pricing Checks, Pros, Cons, and Alternatives",D:\AFFILATE BOT\site_output\windsurf-review-2026\index.html,built,official_only
+zapier-alternatives,Zapier alternatives,zapier-alternatives,Zapier Alternatives 2026: Best Automation Tools to Compare Before Buying,D:\AFFILATE BOT\site_output\zapier-alternatives\index.html,built,official_only
