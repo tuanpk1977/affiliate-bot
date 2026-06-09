@@ -133,7 +133,8 @@ def main() -> int:
             for url in urls
         ]
 
-    errors = [row for row in rows if row["StatusCode"] in {"404", "410", "ERROR"}]
+    errors = [row for row in rows if row["StatusCode"] in {"404", "410"}]
+    network_errors = [row for row in rows if row["StatusCode"] == "ERROR"]
     write_report(FULL_REPORT, rows)
     write_report(ERROR_REPORT, errors)
 
@@ -143,7 +144,8 @@ def main() -> int:
     print(f"Local missing targets: {len(local_404s)}")
     for url in local_404s:
         print(f"- {url}")
-    print(f"404/error rows: {len(errors)}")
+    print(f"404 rows: {len(errors)}")
+    print(f"Network error rows: {len(network_errors)}")
     print(f"Full report: {FULL_REPORT}")
     print(f"404 report: {ERROR_REPORT}")
     return 1 if errors else 0
