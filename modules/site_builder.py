@@ -1766,6 +1766,10 @@ def legacy_redirects(pages: list[dict]) -> dict[str, str]:
         "/reviews/windsurf": "/windsurf-review/",
         "/reviews/windsurf-review/": "/windsurf-review/",
         "/reviews/windsurf-review": "/windsurf-review/",
+        "/semrush-vs-ahrefs-2026/": "/compare/semrush-vs-ahrefs/",
+        "/semrush-vs-ahrefs-2026": "/compare/semrush-vs-ahrefs/",
+        "/vi/semrush-vs-ahrefs-2026/": "/vi/compare/semrush-vs-ahrefs/",
+        "/vi/semrush-vs-ahrefs-2026": "/vi/compare/semrush-vs-ahrefs/",
     }
     for page in pages:
         slug = str(page.get("slug", "")).strip("/")

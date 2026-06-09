@@ -9,6 +9,11 @@ SITEMAP_EXCLUDED_PREFIXES = {
     "go",
 }
 
+REDIRECT_PATHS = {
+    "/semrush-vs-ahrefs-2026/",
+    "/vi/semrush-vs-ahrefs-2026/",
+}
+
 
 def clean_url_path(path: str) -> str:
     value = str(path or "").split("#", 1)[0].split("?", 1)[0].strip()
@@ -37,6 +42,8 @@ def rel_path_for_html(path: Path, output: Path) -> str:
 def is_redirect_page(path: str) -> bool:
     clean = clean_url_path(path)
     localized = clean[3:] if clean.startswith("/vi/") else clean
+    if clean in REDIRECT_PATHS:
+        return True
     if clean.startswith("/go/"):
         return True
     if localized.startswith("/reviews/") and localized.count("/") >= 3:

@@ -168,6 +168,8 @@ def cleanup_vietnamese_after_link_prefix(html: str) -> str:
             "chatgpt-windsurf-codex-workflow",
         "windsurf-to-codex-quy trình":
             "windsurf-to-codex-workflow",
+        "free-ai-coding-quy trình-checklist":
+            "free-ai-coding-workflow-checklist",
         "ai-tools-for-content-nhà sáng tạos":
             "ai-tools-for-content-creators",
     }
