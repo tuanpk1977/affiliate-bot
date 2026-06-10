@@ -215,6 +215,7 @@ def main() -> int:
         if not run_required_command([sys.executable, "scripts/update_render_status.py"], errors):
             return 1
         updated, skipped, missing = apply_youtube_links(upload_rows)
+        write_csv(UPLOAD_LINKS_CSV, UPLOAD_FIELDS, upload_rows)
         write_validation_reports()
         run_required_command([sys.executable, "build_site.py"], errors)
         if not errors:

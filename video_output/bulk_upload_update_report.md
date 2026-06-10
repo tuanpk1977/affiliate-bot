@@ -1,8 +1,8 @@
 # Bulk Upload Update Report
 
-Generated: 2026-06-05T07:52:45.472932+00:00
+Generated: 2026-06-05T14:43:40.199364+00:00
 
-- Updated rows: 4
+- Updated rows: 5
 - Missing FolderName warnings: 0
 - Skipped incomplete rows: 0
 - Duplicate input rows: 0
@@ -13,6 +13,7 @@ Generated: 2026-06-05T07:52:45.472932+00:00
 - category-ai-coding-tools
 - review-surfer-seo
 - category-automation-tools
+- review-activecampaign
 
 ## Missing FolderName
 

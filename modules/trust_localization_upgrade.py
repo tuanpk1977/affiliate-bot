@@ -603,6 +603,12 @@ def ensure_youtube_before_author(html_text: str, lang: str, rel_path: str) -> st
         html_text = html_text[: youtube_match.start()] + html_text[youtube_match.end() :]
     if not youtube_block:
         return html_text
+    html_text = re.sub(
+        r"\s*<section\b[^>]*\byoutube-placeholder\b[\s\S]*?</section>",
+        "",
+        html_text,
+        flags=re.I,
+    )
     hero_match = re.search(r"<section\b[^>]*\bclass=['\"][^'\"]*\bhero\b[^'\"]*['\"][\s\S]*?</section>", html_text, flags=re.I)
     if hero_match:
         return html_text[: hero_match.end()] + "\n" + youtube_block + html_text[hero_match.end() :]
@@ -763,6 +769,9 @@ def youtube_watch_url(video_id: str) -> str:
 
 
 def youtube_video_url_for_page(rel_path: str) -> str:
+    value = youtube_video_url_from_article_path(rel_path)
+    if value:
+        return value
     for slug in video_package_slug_candidates(rel_path):
         value = youtube_video_url_from_render_status(slug)
         if value:
@@ -783,6 +792,25 @@ def youtube_video_url_for_page(rel_path: str) -> str:
             value = str(metadata.get(key) or "").strip()
             if is_youtube_video_id(value):
                 return f"https://www.youtube.com/watch?v={value}"
+    return ""
+
+
+def youtube_video_url_from_article_path(rel_path: str) -> str:
+    if not RENDER_STATUS_CSV.exists():
+        return ""
+    clean_path = "/" + rel_path.removeprefix("vi/").removesuffix("/index.html").removesuffix("index.html").strip("/") + "/"
+    try:
+        with RENDER_STATUS_CSV.open("r", encoding="utf-8", newline="") as handle:
+            for row in csv.DictReader(handle):
+                article_url = str(row.get("ArticleUrl") or "").strip()
+                article_path = urlparse(article_url).path
+                if article_path and not article_path.endswith("/"):
+                    article_path += "/"
+                value = str(row.get("YoutubeVideoUrl") or "").strip()
+                if article_path == clean_path and extract_youtube_video_id(value):
+                    return value
+    except Exception:
+        return ""
     return ""
 
 
