@@ -71,6 +71,7 @@ SECTION_LIMITS = {
     ],
     "pricing": ["Intro", "Overview", "Pricing Notes", "Plan Checks", "Best For", "Risks", "Alternatives", "Final Verdict"],
     "category": ["Intro", "Overview", "Top Tools", "How To Choose", "Pricing Checks", "Use Cases", "Alternatives", "Conclusion"],
+    "article": ["Introduction", "AI Infrastructure Layers", "Companies", "Why It Matters", "Final Takeaway"],
 }
 
 DEFAULT_VIDEO_RENDER_CONFIG = {
@@ -224,6 +225,21 @@ def discover_articles() -> list[Article]:
                 page_type="category",
                 output_path=path,
                 url=page_url_from_path(path),
+            )
+        )
+
+    for row in read_csv(DATA_DIR / "video_article_index.csv"):
+        path = safe_output_path(row.get("output_path", ""))
+        if not path:
+            continue
+        slug = row.get("slug") or path.parent.name
+        add(
+            Article(
+                slug=slugify(slug),
+                title=clean_text(row.get("title") or slug),
+                page_type="article",
+                output_path=path,
+                url=row.get("url") or page_url_from_path(path),
             )
         )
 
@@ -478,6 +494,8 @@ def voiceover_from_script(script: str) -> str:
 
 
 def build_youtube_voiceover(article: Article, page: ExtractedPage) -> str:
+    if article.slug == "hidden-ai-infrastructure-companies-2026":
+        return hidden_ai_infrastructure_voiceover()
     name = display_name(page.title or article.title).replace(" - MS Smile AI Review Hub", "")
     name = re.sub(r"\s+Review.*$", "", name).strip() or display_name(article.title)
     overview = trim_words(" ".join(section_source(article, page, "Overview")), 42)
@@ -500,6 +518,27 @@ def build_youtube_voiceover(article: Article, page: ExtractedPage) -> str:
         "Watch more AI tool reviews on the Smile AI Review Hub YouTube channel. Read the full review and affiliate links at smileaireviewhub.com.",
     ]
     return "\n\n".join(clean_text(line) for line in lines if clean_text(line)) + "\n"
+
+
+def hidden_ai_infrastructure_voiceover() -> str:
+    paragraphs = [
+        "Everyone knows OpenAI, Google, Microsoft, Amazon, and NVIDIA. But the AI boom depends on a much larger infrastructure layer. This video looks at eight companies supplying compute, chips, model hosting, observability, vector search, data pipelines, and developer infrastructure.",
+        "AI infrastructure is not just GPUs. A modern AI application may need specialized chips, cloud capacity, training data, model deployment, experiment tracking, serverless execution, vector retrieval, monitoring, security, and reliable data operations. The visible chatbot is only the final layer of a much larger stack.",
+        "CoreWeave sits in the accelerated cloud computing layer. It provides infrastructure for GPU-heavy workloads such as model training, inference, visual effects, and high-performance computing. Teams should evaluate performance, availability, and operational support.",
+        "Lambda also focuses on GPU computing for machine learning teams. It gives developers and researchers accelerated compute without requiring them to build and maintain every part of the hardware environment.",
+        "Cerebras works at the AI chip and computing systems layer. Its wafer-scale systems show that AI infrastructure is not limited to conventional GPU clusters. Different architectures may change training speed, model scale, and computing efficiency.",
+        "Together AI operates in the model platform and inference layer. It helps developers train, fine-tune, and serve open models, reducing the infrastructure engineering needed to test models and move toward production.",
+        "Weights and Biases supports experiment tracking, evaluation, and model development workflows. Teams use this layer to understand which experiments worked, compare results, document changes, and manage the path from research to production.",
+        "Modal provides serverless infrastructure for compute-intensive applications. It helps teams turn Python-based AI work into scalable jobs, endpoints, or scheduled processes without managing traditional server provisioning.",
+        "Pinecone operates in the vector database and retrieval layer. It helps applications search embeddings and retrieve relevant information for recommendation systems, semantic search, and retrieval-augmented generation.",
+        "Scale AI works in the data infrastructure and evaluation layer. Model performance is not only a compute problem. Data quality, structure, governance, testing, and evaluation can determine whether an AI system works reliably.",
+        "Why does this matter for startups and developers? Infrastructure choices affect cost, latency, reliability, vendor dependence, security, and how quickly a product can improve. A team may have a strong model idea but still fail if inference costs are too high, data pipelines are weak, or deployment cannot handle real usage.",
+        "Creators and software buyers should care too. Many AI tools are built on services supplied by infrastructure companies. Understanding the stack makes it easier to evaluate product claims, recognize operational risks, and ask better questions about data handling, performance, and long-term pricing.",
+        "For investors, the infrastructure layer shows that AI value is distributed across many categories. Compute providers, chip designers, model platforms, developer tools, databases, and data operations can all benefit from AI demand. But infrastructure businesses also face capital requirements, competition, changing technology, and customer concentration risks.",
+        "The final takeaway is simple. The AI boom is not powered by one model company or one chip company. It is supported by a connected stack of specialized infrastructure providers. CoreWeave, Lambda, Cerebras, Together AI, Weights and Biases, Modal, Pinecone, and Scale AI each illustrate a different part of that stack. Understanding these layers helps startups build better systems, helps buyers evaluate AI products, and helps investors see beyond the most famous names.",
+        "Read the full article and explore more AI tool research at smileaireviewhub.com.",
+    ]
+    return "\n\n".join(paragraphs) + "\n"
 
 
 def build_vietnamese_subtitles(article: Article, page: ExtractedPage) -> str:
@@ -1192,6 +1231,8 @@ def build_audio_aligned_scenes(
 
 
 def thumbnail_text(article: Article, page: ExtractedPage) -> str:
+    if article.slug == "hidden-ai-infrastructure-companies-2026":
+        return "Hidden AI Infrastructure Companies"
     title = page.title or article.title
     if article.page_type == "comparison":
         if article.tool_a and article.tool_b:
@@ -2639,6 +2680,18 @@ def read_file(path: Path) -> str:
 
 
 def build_metadata(article: Article, page: ExtractedPage, thumb_text: str) -> dict:
+    if article.slug == "hidden-ai-infrastructure-companies-2026":
+        return {
+            "title": "8 Hidden AI Infrastructure Companies Powering the AI Boom in 2026",
+            "description": "Everyone talks about OpenAI, Google, Microsoft, Amazon, and NVIDIA. But AI infrastructure is much bigger than the most famous names.\n\nIn this video, we look at 8 lesser-known companies helping power modern AI through cloud GPUs, model hosting, vector databases, data pipelines, AI chips, and developer infrastructure.\n\nCompanies covered:\nCoreWeave\nLambda\nCerebras\nTogether AI\nWeights & Biases\nModal\nPinecone\nScale AI\n\nWebsite:\nhttps://smileaireviewhub.com",
+            "tags": ["AI infrastructure", "AI companies", "artificial intelligence", "CoreWeave", "Lambda AI", "Cerebras", "Together AI", "Weights and Biases", "Modal", "Pinecone", "Scale AI", "machine learning infrastructure", "cloud GPU", "vector database", "AI startups"],
+            "category": "Science & Technology",
+            "source_url": article.url,
+            "youtube_channel_url": YOUTUBE_CHANNEL_URL,
+            "content_type": "educational_article",
+            "publish_status": "manual_review_required",
+            "youtube_upload": "disabled",
+        }
     title = youtube_title(article, page)
     tag_seed = [word for word in re.split(r"[^A-Za-z0-9]+", thumb_text) if len(word) > 2]
     tags = dedupe(tag_seed + ["AI Tools", "AI Review", "MS Smile AI Review Hub", article.page_type.title()])
