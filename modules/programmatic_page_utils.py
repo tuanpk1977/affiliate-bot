@@ -140,7 +140,7 @@ def nav() -> str:
 
 
 def footer() -> str:
-    contact = settings.contact_email or "tuanpk1977@gmail.com"
+    contact = settings.contact_email or "contact@smileaireviewhub.com"
     return f"<footer><div class='wrap'><p><strong>{html.escape(settings.site_name)}</strong></p><p>Contact: <a href='mailto:{html.escape(contact)}'>{html.escape(contact)}</a></p><a href='/privacy/'>Privacy Policy</a><a href='/terms/'>Terms</a><a href='/editorial-policy/'>Editorial Policy</a><a href='/affiliate-disclosure/'>Affiliate Disclosure</a><a href='/about/'>About</a><a href='/contact/'>Contact</a><p>&copy; 2026 {html.escape(settings.site_name)}.</p><p>Some links may be affiliate links. We may earn a commission at no extra cost to you.</p>{impact_site_verification_text()}</div></footer>"
 
 

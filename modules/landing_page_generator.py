@@ -251,7 +251,7 @@ def build_context(offer: pd.Series, affiliate_links: pd.DataFrame | None = None)
     return {
         "brand": html.escape(brand),
         "site_name": html.escape(settings.site_name),
-        "contact_email": html.escape(settings.contact_email or "tuanpk1977@gmail.com"),
+        "contact_email": html.escape(settings.contact_email or "contact@smileaireviewhub.com"),
         "rss_url": html.escape(f"{(settings.base_site_url or settings.site_domain or 'https://yourdomain.com').rstrip('/')}/rss.xml", quote=True),
         "google_site_verification": html.escape(settings.google_site_verification, quote=True),
         "analytics_snippet": analytics_snippet(),

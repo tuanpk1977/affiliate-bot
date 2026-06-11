@@ -992,7 +992,8 @@ def write_about_page(output: Path) -> None:
     <p>{html.escape(settings.site_name)} is a practical AI tools review hub focused on real workflow questions, not polished software demos.</p>
     <p>The site covers AI coding tools, SEO tools, automation software, and builder workflows. The goal is to help readers understand where a tool fits, where it fails, what needs manual verification, and whether it is worth adding to a shortlist.</p>
     <p>Most pages are written from a research-first perspective: compare the workflow, check pricing risk, verify official terms, and avoid exaggerated claims. We do not promise outcomes, rankings, revenue, or guaranteed productivity.</p>
-    <p>Contact: <a href="mailto:{html.escape(settings.contact_email)}">{html.escape(settings.contact_email)}</a></p></section>
+    <p>Contact: <a href="mailto:{html.escape(settings.contact_email)}">{html.escape(settings.contact_email)}</a></p>
+    <p>Administration: <a href="mailto:{html.escape(settings.admin_email)}">{html.escape(settings.admin_email)}</a></p></section>
     {community_proof_html()}"""
     (folder / "index.html").write_text(page_shell("About", "About this practical AI coding, SEO, automation, and workflow review hub.", body, "/about/"), encoding="utf-8")
 
@@ -1853,7 +1854,7 @@ def community_proof_html() -> str:
 
 
 def footer_html() -> str:
-    contact = settings.contact_email or "tuanpk1977@gmail.com"
+    contact = settings.contact_email or "contact@smileaireviewhub.com"
     follow_links = " | ".join(
         f'<a href="{html.escape(url, quote=True)}" target="_blank" rel="noopener noreferrer">{html.escape(platform)}</a>'
         for platform, _, url in community_links()
@@ -1891,7 +1892,8 @@ def site_url(path: str) -> str:
 def legal_pages() -> dict[str, tuple[str, str]]:
     site_name = html.escape(settings.site_name)
     owner = html.escape(settings.site_owner or "Site owner")
-    email = html.escape(settings.contact_email or "tuanpk1977@gmail.com")
+    email = html.escape(settings.contact_email or "contact@smileaireviewhub.com")
+    admin_email = html.escape(settings.admin_email or "admin@smileaireviewhub.com")
     domain = html.escape(settings.site_domain or settings.base_site_url or "")
     contact_link = f'<a href="mailto:{email}">{email}</a>'
     return {
@@ -1903,6 +1905,7 @@ def legal_pages() -> dict[str, tuple[str, str]]:
               <p><strong>Owner:</strong> {owner}</p>
               <p><strong>Website:</strong> {domain}</p>
               <p><strong>Contact email:</strong> {contact_link}</p>
+              <p><strong>Administrative email:</strong> <a href="mailto:{admin_email}">{admin_email}</a></p>
               <p>This website publishes practical AI/SaaS tool reviews for research and comparison purposes, with a strong focus on AI coding, SEO, automation, and real workflow decisions.</p>
               <p>If you want to suggest a tool, report an outdated pricing note, or ask about editorial/affiliate disclosure, email the address above.</p>
             </section>

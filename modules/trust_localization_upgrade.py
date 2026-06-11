@@ -200,7 +200,7 @@ def enhance_site(output: Path | None = None) -> dict[str, int]:
     scores = load_scores()
     pages = 0
     changed = 0
-    for page in sorted(root.rglob("index.html")):
+    for page in sorted(root.rglob("*.html")):
         if should_skip(page, root):
             continue
         pages += 1
@@ -222,6 +222,7 @@ def enhance_html(html_text: str, rel_path: str, scores: dict[str, str]) -> str:
     lang = "vi" if rel_path.startswith("vi/") else "en"
     text = ensure_upgrade_css(html_text)
     text = ensure_favicon(text)
+    text = normalize_business_emails(text, rel_path, lang)
     text = insert_homepage_sections(text, rel_path, lang)
     text = strengthen_review_page(text, rel_path, lang)
     text = replace_footer(text, lang)
@@ -230,6 +231,22 @@ def enhance_html(html_text: str, rel_path: str, scores: dict[str, str]) -> str:
     if lang == "vi":
         text = cleanup_vietnamese_text(text)
     return text
+
+
+def normalize_business_emails(html_text: str, rel_path: str, lang: str) -> str:
+    contact = settings.contact_email or "contact@smileaireviewhub.com"
+    admin = settings.admin_email or "admin@smileaireviewhub.com"
+    text = html_text.replace("tuanpk1977@gmail.com", contact)
+    normalized = rel_path.removeprefix("vi/").strip("/")
+    if normalized not in {"about/index.html", "contact/index.html"} or admin in text:
+        return text
+    label = "Email quản trị" if lang == "vi" else "Administrative email"
+    admin_line = f'<p><strong>{html.escape(label)}:</strong> <a href="mailto:{html.escape(admin, quote=True)}">{html.escape(admin)}</a></p>'
+    if "</main>" in text:
+        return text.replace("</main>", admin_line + "\n</main>", 1)
+    if "<footer" in text:
+        return text.replace("<footer", admin_line + "\n<footer", 1)
+    return text + admin_line
 
 
 def ensure_favicon(html_text: str) -> str:
@@ -316,7 +333,7 @@ def replace_footer(html_text: str, lang: str) -> str:
 
 
 def footer_html(lang: str) -> str:
-    contact = settings.contact_email or "tuanpk1977@gmail.com"
+    contact = settings.contact_email or "contact@smileaireviewhub.com"
     if lang == "vi":
         heading = "Kênh cộng đồng"
         note = "Các kênh cộng đồng công khai và tín hiệu độc giả mà người đọc có thể kiểm tra."

@@ -12,7 +12,7 @@ from config import settings
 
 BASE_URL = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
 SITE_NAME = "MS Smile AI Review Hub"
-CONTACT_EMAIL = "tuanpk1977@gmail.com"
+CONTACT_EMAIL = "contact@smileaireviewhub.com"
 LEAD_SLUG = "free-ai-coding-workflow-checklist"
 DOWNLOAD_SLUG = "downloads/ai-coding-workflow-checklist"
 EMAIL_SETUP_SLUG = "email-capture-setup"
