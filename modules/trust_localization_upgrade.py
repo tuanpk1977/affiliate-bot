@@ -233,7 +233,7 @@ def enhance_html(html_text: str, rel_path: str, scores: dict[str, str]) -> str:
     return text
 
 
-def normalize_business_emails(html_text: str, rel_path: str, lang: str) -> str:
+def _legacy_normalize_business_emails(html_text: str, rel_path: str, lang: str) -> str:
     contact = settings.contact_email or "contact@smileaireviewhub.com"
     admin = settings.admin_email or "admin@smileaireviewhub.com"
     text = html_text.replace("tuanpk1977@gmail.com", contact)
@@ -247,6 +247,71 @@ def normalize_business_emails(html_text: str, rel_path: str, lang: str) -> str:
     if "<footer" in text:
         return text.replace("<footer", admin_line + "\n<footer", 1)
     return text + admin_line
+
+
+def normalize_business_emails(html_text: str, rel_path: str, lang: str) -> str:
+    contact = settings.contact_email or "contact@smileaireviewhub.com"
+    admin = settings.admin_email or "admin@smileaireviewhub.com"
+    text = html_text.replace("tuanpk1977@gmail.com", contact)
+
+    schema_contact = json.dumps(
+        {
+            "email": contact,
+            "contactPoint": [
+                {"@type": "ContactPoint", "email": contact, "contactType": "business inquiries"},
+                {"@type": "ContactPoint", "email": admin, "contactType": "partnership requests"},
+            ],
+        },
+        ensure_ascii=False,
+    )[1:-1]
+    text = re.sub(
+        r'"contactPoint"\s*:\s*\{\s*"@type"\s*:\s*"ContactPoint"\s*,\s*"email"\s*:\s*"[^"]*"\s*,\s*"contactType"\s*:\s*"[^"]*"\s*\}',
+        schema_contact,
+        text,
+    )
+
+    normalized = rel_path.removeprefix("vi/").strip("/")
+    if normalized not in {"about/index.html", "contact/index.html", "media-kit/index.html"}:
+        return text
+
+    text = re.sub(
+        r'<section class="card business-verification-contact".*?</section>',
+        "",
+        text,
+        flags=re.I | re.S,
+    )
+    text = re.sub(
+        r'<p><strong>Administrative email:</strong>\s*<a href="mailto:[^"]+">[^<]+</a></p>',
+        "",
+        text,
+        flags=re.I,
+    )
+
+    if lang == "vi":
+        heading = "Lien he chinh thuc"
+        contact_label = "Lien he kinh doanh"
+        admin_label = "Yeu cau hop tac"
+    elif normalized == "about/index.html":
+        heading = "Official Contact"
+        contact_label = "Official Contact"
+        admin_label = "Partnership"
+    else:
+        heading = "Business Contact"
+        contact_label = "Business Inquiries"
+        admin_label = "Partnership Requests"
+
+    website = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
+    business_block = f"""<section class="card business-verification-contact" aria-labelledby="business-contact">
+<h2 id="business-contact">{html.escape(heading)}</h2>
+<p><strong>{html.escape(contact_label)}:</strong> <a href="mailto:{html.escape(contact, quote=True)}">{html.escape(contact)}</a></p>
+<p><strong>{html.escape(admin_label)}:</strong> <a href="mailto:{html.escape(admin, quote=True)}">{html.escape(admin)}</a></p>
+<p><strong>Website:</strong> <a href="{html.escape(website, quote=True)}">{html.escape(website)}</a></p>
+</section>"""
+    if "</main>" in text:
+        return text.replace("</main>", business_block + "\n</main>", 1)
+    if "<footer" in text:
+        return text.replace("<footer", business_block + "\n<footer", 1)
+    return text + business_block
 
 
 def ensure_favicon(html_text: str) -> str:

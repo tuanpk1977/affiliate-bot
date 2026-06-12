@@ -569,7 +569,11 @@ def organization_schema() -> dict:
         "@type": "Organization",
         "name": settings.site_name,
         "url": base.rstrip("/") + "/",
-        "contactPoint": {"@type": "ContactPoint", "email": settings.contact_email or "", "contactType": "editorial"},
+        "email": settings.contact_email or "",
+        "contactPoint": [
+            {"@type": "ContactPoint", "email": settings.contact_email or "", "contactType": "business inquiries"},
+            {"@type": "ContactPoint", "email": settings.admin_email or "", "contactType": "partnership requests"},
+        ],
     }
 
 

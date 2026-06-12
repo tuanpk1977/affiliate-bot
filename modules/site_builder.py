@@ -992,8 +992,9 @@ def write_about_page(output: Path) -> None:
     <p>{html.escape(settings.site_name)} is a practical AI tools review hub focused on real workflow questions, not polished software demos.</p>
     <p>The site covers AI coding tools, SEO tools, automation software, and builder workflows. The goal is to help readers understand where a tool fits, where it fails, what needs manual verification, and whether it is worth adding to a shortlist.</p>
     <p>Most pages are written from a research-first perspective: compare the workflow, check pricing risk, verify official terms, and avoid exaggerated claims. We do not promise outcomes, rankings, revenue, or guaranteed productivity.</p>
-    <p>Contact: <a href="mailto:{html.escape(settings.contact_email)}">{html.escape(settings.contact_email)}</a></p>
-    <p>Administration: <a href="mailto:{html.escape(settings.admin_email)}">{html.escape(settings.admin_email)}</a></p></section>
+    <section aria-labelledby="official-contact"><h2 id="official-contact">Official Contact</h2>
+    <p>Official Contact: <a href="mailto:{html.escape(settings.contact_email)}">{html.escape(settings.contact_email)}</a></p>
+    <p>Partnership: <a href="mailto:{html.escape(settings.admin_email)}">{html.escape(settings.admin_email)}</a></p></section></section>
     {community_proof_html()}"""
     (folder / "index.html").write_text(page_shell("About", "About this practical AI coding, SEO, automation, and workflow review hub.", body, "/about/"), encoding="utf-8")
 
@@ -1548,7 +1549,7 @@ def write_rss(output: Path, pages: list[dict] | None = None) -> None:
 def write_media_kit(output: Path) -> None:
     folder = output / "media-kit"
     folder.mkdir(parents=True, exist_ok=True)
-    body = f"""<section class='card'><h1>Media Kit</h1><p><strong>{html.escape(settings.site_name)}</strong> is an independent-style AI and SaaS review hub focused on research, comparisons, and transparent affiliate disclosure.</p><p>Contact: <a href='mailto:{html.escape(settings.contact_email)}'>{html.escape(settings.contact_email)}</a></p></section>
+    body = f"""<section class='card'><h1>Media Kit</h1><p><strong>{html.escape(settings.site_name)}</strong> is an independent-style AI and SaaS review hub focused on research, comparisons, and transparent affiliate disclosure.</p><h2>Business Contact</h2><p>Business Inquiries: <a href='mailto:{html.escape(settings.contact_email)}'>{html.escape(settings.contact_email)}</a></p><p>Partnership Requests: <a href='mailto:{html.escape(settings.admin_email)}'>{html.escape(settings.admin_email)}</a></p><p>Website: <a href='{html.escape(settings.base_site_url)}'>{html.escape(settings.base_site_url)}</a></p></section>
     <section class='grid'><div class='card'><h2>Categories</h2><ul><li>AI Tools</li><li>Marketing</li><li>CRM</li><li>Website Builders</li><li>Productivity</li></ul></div><div class='card'><h2>Social preview</h2><img loading='lazy' src='/assets/og/home.svg' alt='AI Tool Review Hub social preview' style='width:100%;border-radius:8px'></div></section>"""
     (folder / "index.html").write_text(page_shell("Media Kit", "Brand, category, contact, and social preview information.", body, "/media-kit/", robots="index,follow"), encoding="utf-8")
 
@@ -1654,7 +1655,11 @@ def base_schemas(title: str, description: str, canonical: str) -> list[str]:
             "@type": "Organization",
             "name": settings.site_name,
             "url": base + "/",
-            "contactPoint": {"@type": "ContactPoint", "email": settings.contact_email or "", "contactType": "editorial"},
+            "email": settings.contact_email or "",
+            "contactPoint": [
+                {"@type": "ContactPoint", "email": settings.contact_email or "", "contactType": "business inquiries"},
+                {"@type": "ContactPoint", "email": settings.admin_email or "", "contactType": "partnership requests"},
+            ],
         },
         {
             "@context": "https://schema.org",
@@ -1902,10 +1907,9 @@ def legal_pages() -> dict[str, tuple[str, str]]:
             f"""
             <section class="card">
               <h2>{site_name}</h2>
-              <p><strong>Owner:</strong> {owner}</p>
-              <p><strong>Website:</strong> {domain}</p>
-              <p><strong>Contact email:</strong> {contact_link}</p>
-              <p><strong>Administrative email:</strong> <a href="mailto:{admin_email}">{admin_email}</a></p>
+              <p><strong>Business Inquiries:</strong> {contact_link}</p>
+              <p><strong>Partnership Requests:</strong> <a href="mailto:{admin_email}">{admin_email}</a></p>
+              <p><strong>Website:</strong> <a href="{domain}">{domain}</a></p>
               <p>This website publishes practical AI/SaaS tool reviews for research and comparison purposes, with a strong focus on AI coding, SEO, automation, and real workflow decisions.</p>
               <p>If you want to suggest a tool, report an outdated pricing note, or ask about editorial/affiliate disclosure, email the address above.</p>
             </section>
