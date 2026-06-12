@@ -29,6 +29,7 @@ from modules.sitemap_generator import generate_sitemap
 from modules.toplist_generator import generate_toplist_pages
 from modules.tracking_config import analytics_snippet
 from modules.trust_localization_upgrade import enhance_site
+from modules.gsc_404_recovery import write_gsc_404_recovery_pages
 
 
 FAQ_SCHEMA_DISABLED_PATHS = {
@@ -201,6 +202,7 @@ def build_site_output(landing_index: pd.DataFrame | None = None, base_site_url: 
     programmatic_pages.extend(generate_comparison_pages(output, offer_scores))
     write_legal_pages(output)
     built_pages.extend(copy_user_published_pages(output))
+    write_gsc_404_recovery_pages(output)
     write_robots(output, base_site_url)
     write_sitemap(output, built_pages, base_site_url)
     write_html_sitemap(output, built_pages)
