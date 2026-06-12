@@ -226,10 +226,25 @@ def enhance_html(html_text: str, rel_path: str, scores: dict[str, str]) -> str:
     text = insert_homepage_sections(text, rel_path, lang)
     text = strengthen_review_page(text, rel_path, lang)
     text = replace_footer(text, lang)
+    text = preserve_business_mailto_links(text)
     text = insert_comparison_scorecard(text, rel_path, lang, scores)
     text = insert_trust_blocks(text, lang, rel_path)
     if lang == "vi":
         text = cleanup_vietnamese_text(text)
+    return text
+
+
+def preserve_business_mailto_links(html_text: str) -> str:
+    text = html_text.replace("<!--email_off-->", "").replace("<!--/email_off-->", "")
+    business_emails = ("contact@smileaireviewhub.com", "admin@smileaireviewhub.com")
+    for email_address in business_emails:
+        pattern = rf'(<a\b[^>]*href=["\']mailto:{re.escape(email_address)}["\'][^>]*>.*?</a>)'
+        text = re.sub(
+            pattern,
+            r"<!--email_off-->\1<!--/email_off-->",
+            text,
+            flags=re.I | re.S,
+        )
     return text
 
 
