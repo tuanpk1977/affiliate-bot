@@ -1,0 +1,39 @@
+{
+  "pages": 798,
+  "sitemap_urls": 610,
+  "robots_exists": true,
+  "llms_txt_exists": true,
+  "coverage": {
+    "canonical": 798,
+    "meta_description": 798,
+    "open_graph": 798,
+    "twitter_card": 798,
+    "h1": 798,
+    "index_follow": 610,
+    "organization_schema": 692,
+    "person_schema": 694,
+    "article_schema": 360,
+    "review_schema": 276,
+    "software_schema": 237,
+    "faq_schema": 565,
+    "breadcrumb_schema": 691,
+    "affiliate_disclosure_link": 694,
+    "author_visible": 694,
+    "updated_date_visible": 694,
+    "pros_cons": 459,
+    "pricing": 740,
+    "faq_visible": 614,
+    "noindex": 188
+  },
+  "internal_links": {
+    "minimum": 0,
+    "average": 44.3,
+    "pages_below_3": 104
+  },
+  "performance_static_signals": {
+    "average_html_kb": 37.2,
+    "largest_html_kb": 79.7,
+    "images_over_500kb": [],
+    "note": "Static-source audit only. Confirm Core Web Vitals with PageSpeed Insights or Search Console field data."
+  }
+}

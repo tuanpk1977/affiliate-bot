@@ -1,220 +1,32 @@
 # MS Smile AI Review Hub
 
-Purpose: independent-style AI and SaaS review website for research, comparison, affiliate disclosure, and safer software evaluation.
+> Independent research-focused reviews and comparisons of AI tools, SEO software, SaaS, email marketing tools, automation tools, and website builders.
 
-Important pages:
+## Editorial identity
+- Publisher: MS Smile AI Review Hub
+- Founder and author: Nguyen Quoc Tuan
+- Business contact: contact@smileaireviewhub.com
+- Partnership contact: admin@smileaireviewhub.com
+- Website: https://smileaireviewhub.com/
+
+## Content and citation guidance
+- Prefer the canonical URL shown on each page.
+- Reviews explain workflow fit, limitations, pricing checks, alternatives, and who should or should not use a tool.
+- Pricing and vendor terms can change; verify them on the official vendor website.
+- Affiliate relationships are disclosed and do not represent official vendor partnerships.
+- English is the primary editorial language; Vietnamese versions are available under /vi/.
+
+## Important URLs
 - Home: https://smileaireviewhub.com/
 - Reviews: https://smileaireviewhub.com/reviews/
 - Comparisons: https://smileaireviewhub.com/comparisons/
-- Editorial Policy: https://smileaireviewhub.com/editorial-policy/
-- Affiliate Disclosure: https://smileaireviewhub.com/affiliate-disclosure/
-- Testing Methodology: https://smileaireviewhub.com/testing-methodology/
+- AI SEO hub: https://smileaireviewhub.com/hub/ai-seo/
+- AI coding hub: https://smileaireviewhub.com/hub/ai-coding/
+- Website builders hub: https://smileaireviewhub.com/hub/website-builders/
+- Editorial policy: https://smileaireviewhub.com/editorial-policy/
+- Testing methodology: https://smileaireviewhub.com/testing-methodology/
+- Affiliate disclosure: https://smileaireviewhub.com/affiliate-disclosure/
+- About: https://smileaireviewhub.com/about/
+- Author: https://smileaireviewhub.com/about-author/
+- Contact: https://smileaireviewhub.com/contact/
 - Sitemap: https://smileaireviewhub.com/sitemap.xml
-
-Categories:
-- https://smileaireviewhub.com/category/ai-video-tools/
-- https://smileaireviewhub.com/category/ai-voice-tools/
-- https://smileaireviewhub.com/category/ai-coding-tools/
-- https://smileaireviewhub.com/category/ai-seo-tools/
-- https://smileaireviewhub.com/category/ai-automation-tools/
-- https://smileaireviewhub.com/category/crm-tools/
-- https://smileaireviewhub.com/category/website-builders/
-- https://smileaireviewhub.com/category/ai-presentation-tools/
-- https://smileaireviewhub.com/category/ai-writing-tools/
-- https://smileaireviewhub.com/category/ai-customer-support-tools/
-- https://smileaireviewhub.com/category/ai-writing/
-- https://smileaireviewhub.com/category/automation/
-- https://smileaireviewhub.com/category/crm/
-- https://smileaireviewhub.com/category/seo-tools/
-- https://smileaireviewhub.com/category/email-marketing-tools/
-- https://smileaireviewhub.com/category/automation-tools/
-- https://smileaireviewhub.com/category/design-tools/
-- https://smileaireviewhub.com/category/video-tools/
-- https://smileaireviewhub.com/category/writing-tools/
-- https://smileaireviewhub.com/category/website-builder-tools/
-
-Review pages:
-- ActiveCampaign Review: https://smileaireviewhub.com/activecampaign/
-- Make Review: https://smileaireviewhub.com/make/
-- Surfer SEO Review: https://smileaireviewhub.com/surfer-seo/
-- Semrush Review: https://smileaireviewhub.com/semrush/
-- GitHub Copilot Review: https://smileaireviewhub.com/github-copilot/
-- Zapier Review: https://smileaireviewhub.com/zapier/
-- ElevenLabs Review: https://smileaireviewhub.com/elevenlabs/
-- Claude Review: https://smileaireviewhub.com/claude/
-- ChatGPT Review: https://smileaireviewhub.com/chatgpt/
-- Bolt Review: https://smileaireviewhub.com/bolt/
-- HubSpot Review: https://smileaireviewhub.com/hubspot/
-- Semrush AI Review: https://smileaireviewhub.com/semrush-ai/
-- Ahrefs AI Review: https://smileaireviewhub.com/ahrefs-ai/
-- Webflow AI Review: https://smileaireviewhub.com/webflow-ai/
-- Reclaim AI Review: https://smileaireviewhub.com/reclaim-ai/
-- Windsurf Review: https://smileaireviewhub.com/windsurf/
-- Perplexity Review: https://smileaireviewhub.com/perplexity/
-- Cursor Review: https://smileaireviewhub.com/cursor/
-- Gemini Review: https://smileaireviewhub.com/gemini/
-- Notion AI Review: https://smileaireviewhub.com/notion-ai/
-- Webflow Review: https://smileaireviewhub.com/webflow/
-- Lovable Review: https://smileaireviewhub.com/lovable/
-- Midjourney Review: https://smileaireviewhub.com/midjourney/
-- Replit Review: https://smileaireviewhub.com/replit/
-- Frase Review: https://smileaireviewhub.com/frase/
-- Framer Review: https://smileaireviewhub.com/framer/
-- Gamma Review: https://smileaireviewhub.com/gamma/
-- Durable Review: https://smileaireviewhub.com/durable/
-- AdCreative AI Review: https://smileaireviewhub.com/adcreative-ai/
-- Jasper AI Review: https://smileaireviewhub.com/jasper-ai/
-- Jasper Review: https://smileaireviewhub.com/jasper/
-- Notion Review: https://smileaireviewhub.com/notion/
-- Synthesia Review: https://smileaireviewhub.com/synthesia/
-- Pipedrive CRM Review: https://smileaireviewhub.com/pipedrive-crm/
-- Canva Review: https://smileaireviewhub.com/canva/
-- Pipedrive Review: https://smileaireviewhub.com/pipedrive/
-- Runway Review: https://smileaireviewhub.com/runway/
-- Copy.ai Review: https://smileaireviewhub.com/copy-ai/
-- Descript Review: https://smileaireviewhub.com/descript/
-- Cursor Ai Review A Practical Guide For Developers And Ai Coders Review: https://smileaireviewhub.com/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/
-
-Tool review engine pages:
-- https://smileaireviewhub.com/review/activecampaign/
-- https://smileaireviewhub.com/review/adcreative-ai/
-- https://smileaireviewhub.com/review/ahrefs-ai/
-- https://smileaireviewhub.com/review/bolt/
-- https://smileaireviewhub.com/review/canva/
-- https://smileaireviewhub.com/review/chatgpt/
-- https://smileaireviewhub.com/review/claude/
-- https://smileaireviewhub.com/review/copy-ai/
-- https://smileaireviewhub.com/review/cursor/
-- https://smileaireviewhub.com/review/descript/
-- https://smileaireviewhub.com/review/durable/
-- https://smileaireviewhub.com/review/elevenlabs/
-- https://smileaireviewhub.com/review/framer/
-- https://smileaireviewhub.com/review/frase/
-- https://smileaireviewhub.com/review/gamma/
-- https://smileaireviewhub.com/review/gemini/
-- https://smileaireviewhub.com/review/github-copilot/
-- https://smileaireviewhub.com/review/hubspot/
-- https://smileaireviewhub.com/review/jasper/
-- https://smileaireviewhub.com/review/jasper-ai/
-- https://smileaireviewhub.com/review/lovable/
-- https://smileaireviewhub.com/review/make/
-- https://smileaireviewhub.com/review/midjourney/
-- https://smileaireviewhub.com/review/notion/
-- https://smileaireviewhub.com/review/notion-ai/
-- https://smileaireviewhub.com/review/perplexity/
-- https://smileaireviewhub.com/review/pipedrive/
-- https://smileaireviewhub.com/review/pipedrive-crm/
-- https://smileaireviewhub.com/review/reclaim-ai/
-- https://smileaireviewhub.com/review/replit/
-- https://smileaireviewhub.com/review/runway/
-- https://smileaireviewhub.com/review/semrush/
-- https://smileaireviewhub.com/review/semrush-ai/
-- https://smileaireviewhub.com/review/surfer-seo/
-- https://smileaireviewhub.com/review/synthesia/
-- https://smileaireviewhub.com/review/webflow/
-- https://smileaireviewhub.com/review/webflow-ai/
-- https://smileaireviewhub.com/review/windsurf/
-- https://smileaireviewhub.com/review/zapier/
-
-Comparison pages:
-- https://smileaireviewhub.com/comparisons/
-- https://smileaireviewhub.com/comparisons/canva-vs-adobe-express/
-- https://smileaireviewhub.com/comparisons/canva-vs-gamma/
-- https://smileaireviewhub.com/comparisons/chatgpt-vs-claude/
-- https://smileaireviewhub.com/comparisons/chatgpt-vs-gemini/
-- https://smileaireviewhub.com/comparisons/chatgpt-vs-perplexity/
-- https://smileaireviewhub.com/comparisons/claude-vs-gemini/
-- https://smileaireviewhub.com/comparisons/claude-vs-perplexity/
-- https://smileaireviewhub.com/comparisons/codex-vs-openclaw/
-- https://smileaireviewhub.com/comparisons/copilot-vs-cursor/
-- https://smileaireviewhub.com/comparisons/copilot-vs-tabnine/
-- https://smileaireviewhub.com/comparisons/cursor-vs-copilot/
-- https://smileaireviewhub.com/comparisons/cursor-vs-github-copilot/
-- https://smileaireviewhub.com/comparisons/cursor-vs-vscode/
-- https://smileaireviewhub.com/comparisons/cursor-vs-windsurf/
-- https://smileaireviewhub.com/comparisons/elevenlabs-vs-murf/
-- https://smileaireviewhub.com/comparisons/elevenlabs-vs-playht/
-- https://smileaireviewhub.com/comparisons/framer-vs-webflow/
-- https://smileaireviewhub.com/comparisons/gemini-vs-claude/
-- https://smileaireviewhub.com/comparisons/hubspot-vs-salesforce/
-- https://smileaireviewhub.com/comparisons/jasper-vs-copy-ai/
-- https://smileaireviewhub.com/comparisons/jasper-vs-copyai/
-- https://smileaireviewhub.com/comparisons/lovable-vs-bolt/
-- https://smileaireviewhub.com/comparisons/make-vs-zapier/
-- https://smileaireviewhub.com/comparisons/midjourney-vs-dalle/
-- https://smileaireviewhub.com/comparisons/notion-ai-vs-chatgpt/
-- https://smileaireviewhub.com/comparisons/notion-ai-vs-clickup-ai/
-- https://smileaireviewhub.com/comparisons/notion-vs-clickup/
-- https://smileaireviewhub.com/comparisons/perplexity-vs-chatgpt/
-- https://smileaireviewhub.com/comparisons/replit-vs-cursor/
-- https://smileaireviewhub.com/comparisons/runway-vs-pika/
-- https://smileaireviewhub.com/comparisons/semrush-vs-ahrefs/
-- https://smileaireviewhub.com/comparisons/surfer-seo-vs-frase/
-- https://smileaireviewhub.com/comparisons/synthesia-vs-heygen/
-- https://smileaireviewhub.com/comparisons/synthesia-vs-runway/
-- https://smileaireviewhub.com/comparisons/windsurf-vs-copilot/
-
-Decision comparison pages:
-- https://smileaireviewhub.com/compare/activecampaign-vs-mailchimp/
-- https://smileaireviewhub.com/compare/canva-vs-adcreative-ai/
-- https://smileaireviewhub.com/compare/cursor-vs-github-copilot/
-- https://smileaireviewhub.com/compare/cursor-vs-windsurf/
-- https://smileaireviewhub.com/compare/github-copilot-vs-codeium/
-- https://smileaireviewhub.com/compare/grammarly-vs-quillbot/
-- https://smileaireviewhub.com/compare/jasper-vs-copy-ai/
-- https://smileaireviewhub.com/compare/make-vs-zapier/
-- https://smileaireviewhub.com/compare/semrush-vs-ahrefs/
-- https://smileaireviewhub.com/compare/synthesia-vs-pictory/
-
-Top list pages:
-- https://smileaireviewhub.com/best-ai-automation-tools/
-- https://smileaireviewhub.com/best-ai-automation-tools-2026/
-- https://smileaireviewhub.com/best-ai-coding-tools/
-- https://smileaireviewhub.com/best-ai-coding-tools-2026/
-- https://smileaireviewhub.com/best-ai-presentation-tools/
-- https://smileaireviewhub.com/best-ai-seo-tools/
-- https://smileaireviewhub.com/best-ai-seo-tools-2026/
-- https://smileaireviewhub.com/best-ai-tools/
-- https://smileaireviewhub.com/best-ai-video-tools/
-- https://smileaireviewhub.com/best-ai-video-tools-2026/
-- https://smileaireviewhub.com/best-ai-writing-tools/
-- https://smileaireviewhub.com/best-ai-writing-tools-2026/
-- https://smileaireviewhub.com/best-crm-tools/
-- https://smileaireviewhub.com/best-website-builders/
-
-Pricing and intent pages:
-- https://smileaireviewhub.com/cursor-pricing/
-- https://smileaireviewhub.com/elevenlabs-pricing/
-- https://smileaireviewhub.com/github-copilot-pricing/
-- https://smileaireviewhub.com/jasper-pricing/
-- https://smileaireviewhub.com/make-pricing/
-- https://smileaireviewhub.com/semrush-pricing/
-- https://smileaireviewhub.com/surfer-seo-pricing/
-- https://smileaireviewhub.com/zapier-pricing/
-- https://smileaireviewhub.com/pricing/
-- https://smileaireviewhub.com/pricing/activecampaign/
-- https://smileaireviewhub.com/pricing/canva/
-- https://smileaireviewhub.com/pricing/cursor/
-- https://smileaireviewhub.com/pricing/github-copilot/
-- https://smileaireviewhub.com/pricing/grammarly/
-- https://smileaireviewhub.com/pricing/mailchimp/
-- https://smileaireviewhub.com/pricing/make/
-- https://smileaireviewhub.com/pricing/pictory/
-- https://smileaireviewhub.com/pricing/semrush/
-- https://smileaireviewhub.com/pricing/zapier/
-
-Hub pages:
-- https://smileaireviewhub.com/hub/ai-automation/
-- https://smileaireviewhub.com/hub/ai-coding/
-- https://smileaireviewhub.com/hub/ai-presentation/
-- https://smileaireviewhub.com/hub/ai-seo/
-- https://smileaireviewhub.com/hub/ai-video/
-- https://smileaireviewhub.com/hub/ai-voice/
-- https://smileaireviewhub.com/hub/ai-writing/
-- https://smileaireviewhub.com/hub/crm/
-- https://smileaireviewhub.com/hub/email-marketing/
-- https://smileaireviewhub.com/hub/marketing/
-- https://smileaireviewhub.com/hub/productivity/
-- https://smileaireviewhub.com/hub/website-builders/
-
-Editorial notes: content is research-based, avoids fake guarantees, discloses affiliate relationships, and asks readers to verify current pricing and vendor terms.

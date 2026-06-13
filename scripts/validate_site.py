@@ -88,7 +88,7 @@ def main() -> int:
             for link in re.findall(r"href=['\"]([^'\"]+)['\"]", block):
                 if normalize_internal_link(link) == current_url:
                     errors.append(f"{rel}: self-link loop in related content block")
-        if not is_vi_page and (is_comparison(rel) or is_pricing(rel) or is_toplist(rel)) and '"@type": "BreadcrumbList"' not in text:
+        if not is_vi_page and (is_comparison(rel) or is_pricing(rel) or is_toplist(rel)) and not has_schema_type(text, "BreadcrumbList"):
             errors.append(f"{rel}: missing BreadcrumbList schema")
         if not is_vi_page and is_pricing(rel):
             errors.extend(validate_pricing_page(rel, text))
@@ -107,7 +107,7 @@ def main() -> int:
                 and "CTA" not in text
             ):
                 errors.append(f"{rel}: missing CTA")
-            if ("FAQ" in text or "<details" in text) and '"@type": "FAQPage"' not in text and rel not in FAQ_SCHEMA_DISABLED:
+            if ("FAQ" in text or "<details" in text) and not has_schema_type(text, "FAQPage") and rel not in FAQ_SCHEMA_DISABLED:
                 errors.append(f"{rel}: FAQ section present but FAQPage schema missing")
             errors.extend(validate_json_ld(rel, text))
 
@@ -145,6 +145,16 @@ def main() -> int:
 
 def is_comparison(rel: str) -> bool:
     return (rel.startswith("comparisons/") or rel.startswith("compare/")) and rel.count("/") >= 2
+
+
+def has_schema_type(text: str, schema_type: str) -> bool:
+    return bool(
+        re.search(
+            rf'["\']@type["\']\s*:\s*["\']{re.escape(schema_type)}["\']',
+            text,
+            flags=re.I,
+        )
+    )
 
 
 def is_review(rel: str) -> bool:

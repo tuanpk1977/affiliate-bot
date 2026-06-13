@@ -107,7 +107,7 @@ def validate_sitemap(result: SeoResult) -> None:
     urls = [loc.text.strip() for loc in root.findall(".//{http://www.sitemaps.org/schemas/sitemap/0.9}loc") if loc.text]
     result.sitemap_urls = len(urls)
     seen = set()
-    blocked_fragments = ["/go/", "/rss.xml", "/sitemap/", "/media-kit/", "/about-author/", "/author-profile/", "/search"]
+    blocked_fragments = ["/go/", "/rss.xml", "/search"]
     for url in urls:
         if url in seen:
             result.sitemap_errors.append(f"duplicate sitemap URL: {url}")

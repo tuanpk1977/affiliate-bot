@@ -12,6 +12,7 @@ from modules.facebook_meta import post_process_facebook_meta
 from modules.sitemap_generator import generate_sitemap
 from modules.trust_localization_upgrade import enhance_site
 from modules.gsc_404_recovery import write_gsc_404_recovery_pages
+from modules.seo_ai_search_upgrade import apply_seo_ai_search_upgrade
 
 
 def copy_if_changed(source: Path, target: Path) -> bool:
@@ -43,6 +44,7 @@ def incremental_build() -> dict[str, object]:
     add_bilingual_pages(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     write_gsc_404_recovery_pages(settings.site_output_dir)
     enhance_site(settings.site_output_dir)
+    seo_ai_stats = apply_seo_ai_search_upgrade(settings.site_output_dir)
     facebook_stats = post_process_facebook_meta(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     sitemap_path = generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     return {
@@ -52,6 +54,10 @@ def incremental_build() -> dict[str, object]:
         "sitemap": str(sitemap_path),
         "facebook_meta_pages": facebook_stats.get("pages", 0),
         "facebook_meta_changed": facebook_stats.get("changed", 0),
+        "seo_ai_pages": seo_ai_stats.get("pages", 0),
+        "seo_ai_changed": seo_ai_stats.get("changed", 0),
+        "seo_ai_faq_schemas_added": seo_ai_stats.get("faq_schemas_added", 0),
+        "seo_ai_breadcrumbs_added": seo_ai_stats.get("breadcrumbs_added", 0),
     }
 
 
@@ -59,7 +65,15 @@ def full_build() -> dict[str, object]:
     from main import main
 
     main()
-    return {"mode": "full", "site_output": str(settings.site_output_dir)}
+    seo_ai_stats = apply_seo_ai_search_upgrade(settings.site_output_dir)
+    sitemap_path = generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
+    return {
+        "mode": "full",
+        "site_output": str(settings.site_output_dir),
+        "sitemap": str(sitemap_path),
+        "seo_ai_pages": seo_ai_stats.get("pages", 0),
+        "seo_ai_changed": seo_ai_stats.get("changed", 0),
+    }
 
 
 def main_cli() -> None:
