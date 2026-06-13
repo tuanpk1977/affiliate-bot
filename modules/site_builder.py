@@ -352,6 +352,7 @@ def write_index(output: Path, pages: list[dict]) -> None:
   <meta name="twitter:card" content="summary">
   <meta name="twitter:image" content="{html.escape(site_url('/assets/og/home.svg'), quote=True)}">
   <meta name="google-site-verification" content="{html.escape(settings.google_site_verification, quote=True)}" />
+  <meta name="yandex-verification" content="265dcf14a6c419f2" />
   {impact_site_verification_meta()}
   {analytics_snippet()}
   {''.join(f'<script type="application/ld+json">{schema}</script>' for schema in base_schemas(settings.site_name, 'Independent-style AI and SaaS review hub.', (settings.base_site_url or settings.site_domain or 'https://yourdomain.com').rstrip('/') + '/'))}
