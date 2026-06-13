@@ -242,6 +242,7 @@ def render(topic: Topic) -> str:
 <header><div class="wrap"><p><strong>{html.escape(topic.category)} Review · Updated June 2026</strong></p><h1>{html.escape(title)}</h1>
 <p>{html.escape(description)} This guide prioritizes real workflow fit, verifiable details, and buyer risk rather than vendor claims.</p></div></header>
 <main class="wrap">
+<figure class="card"><img src="/assets/og/pages/{topic.slug}.png" alt="{html.escape(topic.brand)} review 2026 feature image" loading="eager" decoding="async" style="display:block;width:100%;height:auto;border-radius:8px"><figcaption>{html.escape(topic.brand)} review overview.</figcaption></figure>
 <section class="card note"><h2>Affiliate Disclosure</h2><p>Some links may be affiliate links. We may earn a commission at no extra cost to you. This does not change the evaluation method. Verify current pricing, terms, and product limits on the official website.</p></section>
 <section class="card"><h2>Table of Contents</h2><p>Overview · methodology · features · setup · daily workflow · reporting · integrations · pricing · pros and cons · best use cases · alternatives · FAQ · final verdict</p></section>
 <section class="card"><h2>Quick Verdict</h2>{paragraph(topic, "making a fast but responsible shortlist", topic.summary, 0)}
@@ -356,6 +357,15 @@ def finalize_video_assets() -> None:
         for root in (SITE, PUBLISHED):
             page = root / topic.slug / "index.html"
             text = page.read_text(encoding="utf-8", errors="ignore")
+            image_src = f"/assets/og/pages/{topic.slug}.png"
+            if f'<img src="{image_src}"' not in text:
+                figure = (
+                    '<figure class="card">'
+                    f'<img src="{image_src}" alt="{html.escape(topic.brand)} review 2026 feature image" '
+                    'loading="eager" decoding="async" style="display:block;width:100%;height:auto;border-radius:8px">'
+                    f'<figcaption>{html.escape(topic.brand)} review overview.</figcaption></figure>'
+                )
+                text = text.replace('<main class="wrap">', '<main class="wrap">' + figure, 1)
             if "<h2>CTA: Compare Before You Commit</h2>" not in text:
                 cta = (
                     '<section class="card"><h2>CTA: Compare Before You Commit</h2>'
@@ -363,7 +373,7 @@ def finalize_video_assets() -> None:
                     'with at least two alternatives using the same real workflow.</p></section>'
                 )
                 text = text.replace('<section class="card"><h2>Feature Image Prompt</h2>', cta + '<section class="card"><h2>Feature Image Prompt</h2>', 1)
-                page.write_text(text, encoding="utf-8")
+            page.write_text(text, encoding="utf-8")
 
 
 def main() -> None:
