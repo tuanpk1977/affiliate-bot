@@ -8,6 +8,52 @@ The business goal is to find affiliate programs strong enough to package as paid
 
 Phần mới nằm song song với bot cũ và không thay đổi `src/main.py` hoặc flow `runbot.bat` hiện tại.
 
+## IndexNow automation
+
+IndexNow runs after pushes to `main` that change `site_output/`, `video_output/upload_links.csv`, or
+`video_output/render_status.csv`. GitHub Actions waits until Netlify serves the repository key, then
+submits only new or changed eligible URLs. Submission failures are logged and never fail the build or
+deployment.
+
+Files:
+
+- Public key: `site_output/indexnow-key.txt`
+- Submitter and reusable function: `scripts/submit_indexnow.py`
+- Post-deploy runner: `scripts/post_deploy.py`
+- Dry-run test: `scripts/test_indexnow.py`
+- Diagnostics: `scripts/check_indexnow_status.py`
+- Automation: `.github/workflows/indexnow-post-deploy.yml`
+
+Manual commands:
+
+```powershell
+# Preview payload without sending
+python scripts/test_indexnow.py
+
+# Submit new or changed URLs from CSV/git changes
+python scripts/submit_indexnow.py
+
+# Submit up to 100 sitemap URLs
+python scripts/submit_indexnow.py --all --max-urls 100
+
+# Verify local and deployed key, sitemap, and robots files
+python scripts/check_indexnow_status.py
+
+# Simulate the post-deploy workflow
+python scripts/post_deploy.py --wait-seconds 300 --max-urls 100
+```
+
+To regenerate the key, generate a random 32-character hexadecimal value and replace the single line
+in `site_output/indexnow-key.txt`. Commit and deploy the new key before submitting with it. The live
+key must be available at `https://smileaireviewhub.com/indexnow-key.txt`.
+
+IndexNow commonly accepts valid submissions with HTTP `200` or `202`. HTTP `400` indicates an invalid
+request, `403` indicates key validation failure, `422` indicates the URLs do not belong to the host,
+and `429` indicates rate limiting. Temporary failures are retried automatically.
+
+Rollback: delete `.github/workflows/indexnow-post-deploy.yml` to stop automatic submissions. Delete
+the IndexNow scripts and public key only if IndexNow is no longer required.
+
 Mục tiêu của nền tảng mới là biến bot thành:
 
 ```text

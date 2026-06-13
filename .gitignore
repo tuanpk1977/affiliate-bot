@@ -8,6 +8,7 @@ data/logs/
 data/output/
 *.tmp
 *.bak
+data/indexnow_state.json
 
 # Generated video packages
 video_output/**
