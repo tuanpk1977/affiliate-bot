@@ -14,8 +14,11 @@ from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 from xml.etree import ElementTree as ET
 
+from dotenv import load_dotenv
+
 
 ROOT = Path(__file__).resolve().parents[1]
+load_dotenv(ROOT / ".env")
 SITE_OUTPUT = ROOT / "site_output"
 SITEMAP = SITE_OUTPUT / "sitemap.xml"
 KEY_FILE = SITE_OUTPUT / "indexnow-key.txt"
@@ -23,8 +26,9 @@ UPLOAD_LINKS = ROOT / "video_output" / "upload_links.csv"
 RENDER_STATUS = ROOT / "video_output" / "render_status.csv"
 STATE_FILE = ROOT / "data" / "indexnow_state.json"
 
-BASE_URL = "https://smileaireviewhub.com"
-HOST = "smileaireviewhub.com"
+HOST = os.getenv("INDEXNOW_HOST", "smileaireviewhub.com").strip().lower() or "smileaireviewhub.com"
+BASE_URL = f"https://{HOST}"
+KEY_LOCATION = os.getenv("INDEXNOW_KEY_LOCATION", f"{BASE_URL}/indexnow-key.txt").strip()
 ENDPOINT = "https://api.indexnow.org/indexnow"
 DEFAULT_MAX_URLS = 100
 TEMPORARY_STATUS_CODES = {408, 425, 429, 500, 502, 503, 504}
@@ -32,6 +36,9 @@ BLOCKED_HOSTS = {"localhost", "127.0.0.1", "::1"}
 
 
 def read_key(path: Path = KEY_FILE) -> str:
+    configured = os.getenv("INDEXNOW_KEY", "").strip()
+    if configured:
+        return configured
     if not path.exists():
         raise FileNotFoundError(f"IndexNow key file is missing: {path}")
     key = path.read_text(encoding="utf-8").strip()
@@ -81,6 +88,22 @@ def read_all_sitemap_urls(path: Path = SITEMAP) -> list[str]:
 
 def read_sitemap_urls(path: Path = SITEMAP) -> list[str]:
     return [url for url in read_all_sitemap_urls(path) if is_allowed_url(url)]
+
+
+def read_latest_sitemap_urls(path: Path = SITEMAP) -> list[str]:
+    if not path.exists():
+        raise FileNotFoundError(f"Sitemap is missing: {path}")
+    root = ET.fromstring(path.read_text(encoding="utf-8", errors="ignore"))
+    rows: list[tuple[str, str]] = []
+    namespace = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
+    for node in root.findall(f".//{namespace}url"):
+        loc = node.find(f"{namespace}loc")
+        lastmod = node.find(f"{namespace}lastmod")
+        url = loc.text.strip() if loc is not None and loc.text else ""
+        if is_allowed_url(url):
+            rows.append((lastmod.text.strip() if lastmod is not None and lastmod.text else "", url))
+    rows.sort(key=lambda item: (item[0], item[1]), reverse=True)
+    return [url for _, url in rows]
 
 
 def csv_url_rows_from_text(text: str) -> dict[str, str]:
@@ -171,7 +194,7 @@ def collect_incremental_urls() -> tuple[list[str], dict[str, str]]:
             previous_from_git.update(previous_rows)
     previous = previous_from_git if git_history_available else read_state()
     changed_rows = [url for url, fingerprint in current.items() if previous.get(url) != fingerprint]
-    changed_pages = [url for url in changed_site_urls_from_git() if url in current]
+    changed_pages = changed_site_urls_from_git()
     candidates = normalize_urls([*changed_pages, *changed_rows], max_urls=10_000)
     return candidates, current
 
@@ -181,7 +204,7 @@ def build_payload(urls: Iterable[str], max_urls: int = DEFAULT_MAX_URLS) -> dict
     return {
         "host": HOST,
         "key": key,
-        "keyLocation": f"{BASE_URL}/indexnow-key.txt",
+        "keyLocation": KEY_LOCATION,
         "urlList": normalize_urls(urls, max_urls=max_urls),
     }
 
@@ -223,19 +246,29 @@ def submit_indexnow(
 def main() -> int:
     parser = argparse.ArgumentParser(description="Submit Smile AI Review Hub URLs to IndexNow.")
     parser.add_argument("--max-urls", type=int, default=int(os.getenv("INDEXNOW_MAX_URLS", DEFAULT_MAX_URLS)))
+    parser.add_argument("--latest", type=int, default=0, help="Submit the newest N sitemap URLs.")
     parser.add_argument("--all", action="store_true", help="Submit URLs from sitemap instead of incremental candidates.")
     parser.add_argument("--dry-run", action="store_true", help="Print payload without sending.")
     args = parser.parse_args()
 
     state: dict[str, str] = {}
-    if args.all:
+    sitemap_total = len(read_all_sitemap_urls())
+    if args.latest > 0:
+        urls = read_latest_sitemap_urls()[: args.latest]
+        args.max_urls = args.latest
+        source = f"latest {args.latest} sitemap URLs"
+    elif args.all:
         urls = read_sitemap_urls()
         source = "sitemap"
     else:
         urls, state = collect_incremental_urls()
         source = "incremental CSV/git changes" if UPLOAD_LINKS.exists() or RENDER_STATUS.exists() else "sitemap"
+        if not urls:
+            urls = read_latest_sitemap_urls()[: args.max_urls]
+            source = f"latest {args.max_urls} sitemap URLs (incremental fallback)"
     payload = build_payload(urls, max_urls=args.max_urls)
-    print(f"[IndexNow] Source: {source}; eligible URLs: {len(payload['urlList'])}; max: {args.max_urls}")
+    print(f"[IndexNow] Sitemap URLs: {sitemap_total}")
+    print(f"[IndexNow] Source: {source}; URLs selected: {len(payload['urlList'])}; max: {args.max_urls}")
     if args.dry_run:
         print(json.dumps(payload, ensure_ascii=False, indent=2))
         return 0

@@ -3,9 +3,26 @@ from __future__ import annotations
 import argparse
 import time
 from urllib.error import URLError
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
 
-from submit_indexnow import BASE_URL, collect_incremental_urls, read_key, submit_indexnow, write_state
+try:
+    from submit_indexnow import (
+        BASE_URL,
+        collect_incremental_urls,
+        read_key,
+        read_latest_sitemap_urls,
+        submit_indexnow,
+        write_state,
+    )
+except ModuleNotFoundError:
+    from scripts.submit_indexnow import (
+        BASE_URL,
+        collect_incremental_urls,
+        read_key,
+        read_latest_sitemap_urls,
+        submit_indexnow,
+        write_state,
+    )
 
 
 def wait_for_deployment(timeout: int, interval: int) -> bool:
@@ -14,7 +31,8 @@ def wait_for_deployment(timeout: int, interval: int) -> bool:
     key_url = f"{BASE_URL}/indexnow-key.txt"
     while time.time() <= deadline:
         try:
-            with urlopen(key_url, timeout=20) as response:
+            request = Request(key_url, headers={"User-Agent": "SmileAIReviewHub-IndexNow/1.0"})
+            with urlopen(request, timeout=20) as response:
                 live = response.read().decode("utf-8").strip()
             if live == expected:
                 print(f"[post-deploy] Deployment verified at {key_url}")
@@ -28,7 +46,7 @@ def wait_for_deployment(timeout: int, interval: int) -> bool:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Run non-blocking IndexNow notification after Netlify deployment.")
+    parser = argparse.ArgumentParser(description="Run non-blocking IndexNow notification after Cloudflare deployment.")
     parser.add_argument("--wait-seconds", type=int, default=300)
     parser.add_argument("--interval-seconds", type=int, default=15)
     parser.add_argument("--max-urls", type=int, default=100)
@@ -37,6 +55,9 @@ def main() -> int:
         if not wait_for_deployment(args.wait_seconds, args.interval_seconds):
             return 0
         urls, state = collect_incremental_urls()
+        if not urls:
+            urls = read_latest_sitemap_urls()[: args.max_urls]
+            print(f"[post-deploy] No incremental URLs detected; using the latest {len(urls)} sitemap URLs.")
         ok = submit_indexnow(urls, max_urls=args.max_urls)
         if ok and state:
             write_state(state)

@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import logging
+import os
 
 import pandas as pd
+from dotenv import load_dotenv
 
 from config import ensure_platform_dirs, settings, setup_logging
 from modules.ads_generator import generate_ads, validate_ads_csv
@@ -49,6 +51,14 @@ from modules.scheduler_runner import start_background_scheduler
 
 
 LOGGER = logging.getLogger(__name__)
+load_dotenv()
+
+
+def env_enabled(name: str, default: bool = False) -> bool:
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "on"}
 
 
 def main() -> None:
@@ -67,8 +77,10 @@ def main() -> None:
     run_community_discovery()
     social_queue = ensure_social_publish_queue()
     ensure_social_publisher_assets()
-    if start_background_scheduler(interval_seconds=30):
+    if env_enabled("AUTO_SOCIAL_POST", False) and start_background_scheduler(interval_seconds=30):
         LOGGER.info("Telegram auto-post scheduler started")
+    else:
+        LOGGER.info("Automatic social posting disabled; social content remains draft/manual only")
 
     data_sources = load_data_sources(offers)
     market = analyze_market(offers)

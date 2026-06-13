@@ -10,10 +10,10 @@ Phần mới nằm song song với bot cũ và không thay đổi `src/main.py` 
 
 ## IndexNow automation
 
-IndexNow runs after pushes to `main` that change `site_output/`, `video_output/upload_links.csv`, or
-`video_output/render_status.csv`. GitHub Actions waits until Netlify serves the repository key, then
-submits only new or changed eligible URLs. Submission failures are logged and never fail the build or
-deployment.
+The production deployment target is Cloudflare Pages. Run `scripts/deploy_cloudflare.py` after the
+site build. It deploys `site_output/` with Wrangler and calls IndexNow only after the Cloudflare deploy
+command succeeds. Submission failures are logged and never change a successful deployment into a
+failed deployment.
 
 Files:
 
@@ -22,7 +22,7 @@ Files:
 - Post-deploy runner: `scripts/post_deploy.py`
 - Dry-run test: `scripts/test_indexnow.py`
 - Diagnostics: `scripts/check_indexnow_status.py`
-- Automation: `.github/workflows/indexnow-post-deploy.yml`
+- Cloudflare deploy and post-deploy hook: `scripts/deploy_cloudflare.py`
 
 Manual commands:
 
@@ -36,12 +36,25 @@ python scripts/submit_indexnow.py
 # Submit up to 100 sitemap URLs
 python scripts/submit_indexnow.py --all --max-urls 100
 
+# Submit the newest 100 sitemap URLs
+python scripts/submit_indexnow.py --latest 100
+
 # Verify local and deployed key, sitemap, and robots files
 python scripts/check_indexnow_status.py
 
-# Simulate the post-deploy workflow
-python scripts/post_deploy.py --wait-seconds 300 --max-urls 100
+# Preview the Cloudflare command without deploying
+python scripts/deploy_cloudflare.py --dry-run
+
+# Deploy to Cloudflare and automatically run IndexNow after success
+python scripts/deploy_cloudflare.py --project-name YOUR_CLOUDFLARE_PAGES_PROJECT
+
+# Build, deploy Cloudflare, then submit IndexNow
+run_cloudflare_publish.bat
 ```
+
+Set `CLOUDFLARE_PAGES_PROJECT` before using the batch workflow, or set
+`CLOUDFLARE_DEPLOY_COMMAND` to the existing successful Cloudflare deploy command. IndexNow is skipped
+when that deploy command returns a non-zero exit code.
 
 To regenerate the key, generate a random 32-character hexadecimal value and replace the single line
 in `site_output/indexnow-key.txt`. Commit and deploy the new key before submitting with it. The live
@@ -51,8 +64,23 @@ IndexNow commonly accepts valid submissions with HTTP `200` or `202`. HTTP `400`
 request, `403` indicates key validation failure, `422` indicates the URLs do not belong to the host,
 and `429` indicates rate limiting. Temporary failures are retried automatically.
 
-Rollback: delete `.github/workflows/indexnow-post-deploy.yml` to stop automatic submissions. Delete
-the IndexNow scripts and public key only if IndexNow is no longer required.
+Production workflow:
+
+```text
+Bot writes and publishes article
+-> build site_output
+-> deploy site_output to Cloudflare Pages
+-> submit IndexNow after successful deployment
+-> create review video under video_output
+-> user uploads YouTube manually
+-> user posts social drafts manually
+```
+
+The workflow does not upload YouTube videos and does not publish social posts. Social output remains
+draft-only. `netlify.toml` is retained for compatibility but is not used by the Cloudflare workflow.
+
+Rollback: stop using `scripts/deploy_cloudflare.py` and deploy with the previous Cloudflare command.
+Delete the IndexNow scripts and public key only if IndexNow is no longer required.
 
 Mục tiêu của nền tảng mới là biến bot thành:
 
@@ -87,7 +115,7 @@ python scripts/generate_tool_screenshots.py
 python main.py
 ```
 
-Kiểm tra priority pages sau khi upload `site_output/` lên Netlify:
+Kiểm tra priority pages sau khi deploy `site_output/` lên Cloudflare Pages:
 
 ```powershell
 python scripts/live_qa_priority_pages.py

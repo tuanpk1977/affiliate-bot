@@ -2,7 +2,10 @@ from __future__ import annotations
 
 import json
 
-from submit_indexnow import build_payload, is_allowed_url, read_all_sitemap_urls, read_key
+try:
+    from submit_indexnow import build_payload, is_allowed_url, read_all_sitemap_urls, read_key
+except ModuleNotFoundError:
+    from scripts.submit_indexnow import build_payload, is_allowed_url, read_all_sitemap_urls, read_key
 
 
 def main() -> int:
