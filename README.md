@@ -52,9 +52,9 @@ python scripts/deploy_cloudflare.py --project-name YOUR_CLOUDFLARE_PAGES_PROJECT
 run_cloudflare_publish.bat
 ```
 
-Set `CLOUDFLARE_PAGES_PROJECT` before using the batch workflow, or set
-`CLOUDFLARE_DEPLOY_COMMAND` to the existing successful Cloudflare deploy command. IndexNow is skipped
-when that deploy command returns a non-zero exit code.
+Set `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_PAGES_PROJECT` before using the Wrangler batch workflow,
+or set `CLOUDFLARE_DEPLOY_COMMAND` to an existing successful Cloudflare deploy command. IndexNow is
+skipped when that deploy command returns a non-zero exit code.
 
 To regenerate the key, generate a random 32-character hexadecimal value and replace the single line
 in `site_output/indexnow-key.txt`. Commit and deploy the new key before submitting with it. The live
