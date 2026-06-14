@@ -13,6 +13,7 @@ from modules.sitemap_generator import generate_sitemap
 from modules.trust_localization_upgrade import enhance_site
 from modules.gsc_404_recovery import write_gsc_404_recovery_pages
 from modules.seo_ai_search_upgrade import apply_seo_ai_search_upgrade
+from modules.seo_title_optimizer import optimize_site_titles
 
 
 def copy_if_changed(source: Path, target: Path) -> bool:
@@ -46,6 +47,7 @@ def incremental_build() -> dict[str, object]:
     enhance_site(settings.site_output_dir)
     seo_ai_stats = apply_seo_ai_search_upgrade(settings.site_output_dir)
     facebook_stats = post_process_facebook_meta(settings.site_output_dir, settings.base_site_url or settings.site_domain)
+    title_stats = optimize_site_titles(settings.site_output_dir)
     sitemap_path = generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     return {
         "mode": "incremental",
@@ -58,6 +60,8 @@ def incremental_build() -> dict[str, object]:
         "seo_ai_changed": seo_ai_stats.get("changed", 0),
         "seo_ai_faq_schemas_added": seo_ai_stats.get("faq_schemas_added", 0),
         "seo_ai_breadcrumbs_added": seo_ai_stats.get("breadcrumbs_added", 0),
+        "seo_titles_changed": title_stats.get("changed", 0),
+        "seo_titles_remaining_long": title_stats.get("remaining_long", 0),
     }
 
 
@@ -66,6 +70,7 @@ def full_build() -> dict[str, object]:
 
     main()
     seo_ai_stats = apply_seo_ai_search_upgrade(settings.site_output_dir)
+    title_stats = optimize_site_titles(settings.site_output_dir)
     sitemap_path = generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     return {
         "mode": "full",
@@ -73,6 +78,8 @@ def full_build() -> dict[str, object]:
         "sitemap": str(sitemap_path),
         "seo_ai_pages": seo_ai_stats.get("pages", 0),
         "seo_ai_changed": seo_ai_stats.get("changed", 0),
+        "seo_titles_changed": title_stats.get("changed", 0),
+        "seo_titles_remaining_long": title_stats.get("remaining_long", 0),
     }
 
 
