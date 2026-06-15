@@ -80,8 +80,10 @@ def validate_html_files(html_files: list[Path], result: SeoResult) -> None:
             result.excluded_pages += 1
 
         if is_article_page(page_path):
-            if robots.lower().replace(" ", "") != "index,follow":
-                result.robots_errors.append(f"{rel}: article page must use robots index,follow")
+            if robots.lower().replace(" ", "") != "index,follow,max-image-preview:large":
+                result.robots_errors.append(
+                    f"{rel}: article page must use robots index,follow,max-image-preview:large"
+                )
             expected = f"{BASE_URL}{page_path}"
             if not canonical:
                 result.canonical_errors.append(f"{rel}: missing canonical")

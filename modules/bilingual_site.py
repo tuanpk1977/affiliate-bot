@@ -180,8 +180,18 @@ def cleanup_vietnamese_after_link_prefix(html: str) -> str:
 
 def ensure_robots_meta(html: str, value: str) -> str:
     tag = f'<meta name="robots" content="{value}">'
-    if re.search(r"<meta\b(?=[^>]*\bname=['\"]robots['\"])[^>]*>", html, flags=re.I):
-        return re.sub(r"<meta\b(?=[^>]*\bname=['\"]robots['\"])[^>]*>", tag, html, count=1, flags=re.I)
+    pattern = r"<meta\b(?=[^>]*\bname=['\"]robots['\"])[^>]*>"
+    if re.search(pattern, html, flags=re.I):
+        inserted = False
+
+        def replace(match: re.Match[str]) -> str:
+            nonlocal inserted
+            if inserted:
+                return ""
+            inserted = True
+            return tag
+
+        return re.sub(pattern, replace, html, flags=re.I)
     if "</head>" in html:
         return html.replace("</head>", f"{tag}\n</head>", 1)
     return html

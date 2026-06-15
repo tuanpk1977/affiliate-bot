@@ -5,6 +5,8 @@ import re
 from pathlib import Path
 from urllib.parse import urlparse
 
+from modules.indexing_policy import INDEXABLE_ROBOTS_META, REDIRECT_ROBOTS_META
+
 
 BASE_URL = "https://smileaireviewhub.com"
 GSC_LEGACY_REDIRECTS = {
@@ -39,7 +41,7 @@ def promote_public_review_pages(output: Path) -> dict[str, int]:
         review_url = f"{BASE_URL}{review_path}"
         content = target.read_text(encoding="utf-8", errors="ignore")
         content = remove_meta_refresh(content)
-        content = ensure_robots(content, "index,follow")
+        content = ensure_robots(content, INDEXABLE_ROBOTS_META)
         content = replace_canonical(content, review_url)
         content = replace_meta_url(content, "og:url", review_url)
         content = content.replace(target_url, review_url)
@@ -72,7 +74,7 @@ def configure_cloudflare_redirects(output: Path) -> dict[str, int]:
         if not target:
             continue
         content = remove_meta_refresh(content)
-        content = ensure_robots(content, "noindex,follow")
+        content = ensure_robots(content, REDIRECT_ROBOTS_META)
         page.write_text(content, encoding="utf-8")
         slug = page.parent.name
         for source in (f"/go/{slug}/", f"/go/{slug}"):
@@ -123,7 +125,16 @@ def ensure_robots(source: str, value: str) -> str:
     tag = f'<meta name="robots" content="{value}">'
     pattern = r"<meta\b(?=[^>]*\bname=['\"]robots['\"])[^>]*>"
     if re.search(pattern, source, flags=re.I):
-        return re.sub(pattern, tag, source, count=1, flags=re.I)
+        inserted = False
+
+        def replace(match: re.Match[str]) -> str:
+            nonlocal inserted
+            if inserted:
+                return ""
+            inserted = True
+            return tag
+
+        return re.sub(pattern, replace, source, flags=re.I)
     return source.replace("</head>", f"{tag}\n</head>", 1)
 
 

@@ -18,7 +18,7 @@ from modules.facebook_meta import post_process_facebook_meta
 from modules.hub_page_builder import generate_hub_pages
 from modules.internal_linker import post_process_internal_links
 from modules.intent_page_generator import generate_intent_pages
-from modules.indexing_policy import is_redirect_page, robots_meta_for_path
+from modules.indexing_policy import INDEXABLE_ROBOTS_META, REDIRECT_ROBOTS_META, is_redirect_page, robots_meta_for_path
 from modules.money_content_builder import generate_money_content_pages
 from modules.priority_page_builder import generate_priority_pages
 from modules.pricing_page_builder import generate_pricing_pages
@@ -1456,9 +1456,11 @@ def page_shell(
     page_path = path or f"/{title.lower().replace(' ', '-')}/"
     robots = robots_meta_for_path(page_path) if robots == "auto" else str(robots or "")
     if is_redirect_page(page_path):
-        robots = "noindex,follow"
+        robots = REDIRECT_ROBOTS_META
     elif "no" + "index" in robots.lower():
-        robots = "index,follow"
+        robots = INDEXABLE_ROBOTS_META
+    else:
+        robots = INDEXABLE_ROBOTS_META
     canonical = base + page_path
     schema_items = base_schemas(title, description, canonical)
     schema_items.append(json.dumps({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": f"{base}/"}, {"@type": "ListItem", "position": 2, "name": title, "item": canonical}]}, ensure_ascii=False))

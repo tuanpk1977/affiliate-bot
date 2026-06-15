@@ -14,6 +14,9 @@ REDIRECT_PATHS = {
     "/vi/semrush-vs-ahrefs-2026/",
 }
 
+INDEXABLE_ROBOTS_META = "index,follow,max-image-preview:large"
+REDIRECT_ROBOTS_META = "noindex,follow"
+
 
 def clean_url_path(path: str) -> str:
     value = str(path or "").split("#", 1)[0].split("?", 1)[0].strip()
@@ -41,12 +44,9 @@ def rel_path_for_html(path: Path, output: Path) -> str:
 
 def is_redirect_page(path: str) -> bool:
     clean = clean_url_path(path)
-    localized = clean[3:] if clean.startswith("/vi/") else clean
     if clean in REDIRECT_PATHS:
         return True
     if clean.startswith("/go/"):
-        return True
-    if localized.startswith("/reviews/") and localized.count("/") >= 3:
         return True
     return False
 
@@ -61,7 +61,7 @@ def is_article_page(path: str) -> bool:
 
 
 def robots_meta_for_path(path: str) -> str:
-    return "noindex,follow" if is_redirect_page(path) else "index,follow"
+    return REDIRECT_ROBOTS_META if is_redirect_page(path) else INDEXABLE_ROBOTS_META
 
 
 def should_include_in_sitemap(path: str) -> bool:

@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from config import settings
+from modules.indexing_policy import INDEXABLE_ROBOTS_META
 
 
 PAGES = {
@@ -83,7 +84,7 @@ def render_page(slug: str, page: dict) -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(page["title"])} | {html.escape(settings.site_name)}</title>
 <meta name="description" content="{html.escape(page["description"], quote=True)}">
-<meta name="robots" content="index,follow">
+<meta name="robots" content="{INDEXABLE_ROBOTS_META}">
 <link rel="canonical" href="{html.escape(canonical, quote=True)}">
 <link rel="alternate" hreflang="vi" href="{html.escape(canonical, quote=True)}">
 <link rel="alternate" hreflang="x-default" href="{html.escape(canonical, quote=True)}">
