@@ -1771,20 +1771,17 @@ def write_redirects(output: Path, pages: list[dict]) -> None:
 
 def legacy_redirects(pages: list[dict]) -> dict[str, str]:
     redirects = {
-        "/reviews/windsurf/": "/windsurf-review/",
-        "/reviews/windsurf": "/windsurf-review/",
-        "/reviews/windsurf-review/": "/windsurf-review/",
-        "/reviews/windsurf-review": "/windsurf-review/",
         "/semrush-vs-ahrefs-2026/": "/compare/semrush-vs-ahrefs/",
         "/semrush-vs-ahrefs-2026": "/compare/semrush-vs-ahrefs/",
         "/vi/semrush-vs-ahrefs-2026/": "/vi/compare/semrush-vs-ahrefs/",
         "/vi/semrush-vs-ahrefs-2026": "/vi/compare/semrush-vs-ahrefs/",
+        "/surfer-seo-pricing-2026/": "/surfer-seo-pricing/",
+        "/surfer-seo-pricing-2026": "/surfer-seo-pricing/",
+        "/vi/surfer-seo-pricing-2026/": "/vi/surfer-seo-pricing/",
+        "/vi/surfer-seo-pricing-2026": "/vi/surfer-seo-pricing/",
+        "/review/codeium/": "/compare/github-copilot-vs-codeium/",
+        "/review/codeium": "/compare/github-copilot-vs-codeium/",
     }
-    for page in pages:
-        slug = str(page.get("slug", "")).strip("/")
-        if slug:
-            redirects.setdefault(f"/reviews/{slug}/", f"/{slug}/")
-            redirects.setdefault(f"/reviews/{slug}", f"/{slug}/")
     return redirects
 
 
@@ -1811,10 +1808,6 @@ def write_static_redirect_pages(output: Path, redirects: dict[str, str]) -> None
         page = page.replace(
             f'<link rel="canonical" href="{html.escape(site_url(source if source.endswith("/") else f"{source}/"), quote=True)}">',
             f'<link rel="canonical" href="{html.escape(target_url, quote=True)}">',
-        )
-        page = page.replace(
-            "<head><meta charset",
-            f'<head><meta http-equiv="refresh" content="0; url={html.escape(target, quote=True)}"><meta charset',
         )
         (folder / "index.html").write_text(page, encoding="utf-8")
 
