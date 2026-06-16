@@ -12,8 +12,20 @@ from modules.facebook_meta import post_process_facebook_meta
 from modules.sitemap_generator import generate_sitemap
 from modules.trust_localization_upgrade import enhance_site
 from modules.gsc_404_recovery import write_gsc_404_recovery_pages
+from modules.internal_linker import post_process_internal_links
+from modules.canonical_routes import apply_canonical_routing
 from modules.seo_ai_search_upgrade import apply_seo_ai_search_upgrade
 from modules.seo_title_optimizer import optimize_site_titles
+from modules.seo_technical_cleanup import apply_technical_seo_cleanup
+from modules.structured_data_upgrade import apply_structured_data_upgrade
+
+
+def sync_root_verification_files() -> int:
+    copied = 0
+    for source in Path(__file__).resolve().parent.glob("yandex_*.html"):
+        if copy_if_changed(source, settings.site_output_dir / source.name):
+            copied += 1
+    return copied
 
 
 def copy_if_changed(source: Path, target: Path) -> bool:
@@ -41,27 +53,47 @@ def sync_published_pages() -> dict[str, int]:
 
 def incremental_build() -> dict[str, object]:
     settings.site_output_dir.mkdir(parents=True, exist_ok=True)
+    verification_files_changed = sync_root_verification_files()
     sync_stats = sync_published_pages()
+    technical_stats = apply_technical_seo_cleanup(settings.site_output_dir)
     add_bilingual_pages(settings.site_output_dir, settings.base_site_url or settings.site_domain)
+    final_technical_stats = apply_technical_seo_cleanup(settings.site_output_dir)
+    technical_stats["review_pages_changed"] = technical_stats.get("review_pages_changed", 0) + final_technical_stats.get("review_pages_changed", 0)
+    technical_stats["cloudflare_go_redirect_rules"] = final_technical_stats.get("cloudflare_go_redirect_rules", 0)
     write_gsc_404_recovery_pages(settings.site_output_dir)
     enhance_site(settings.site_output_dir)
+    internal_link_stats = post_process_internal_links(settings.site_output_dir)
     seo_ai_stats = apply_seo_ai_search_upgrade(settings.site_output_dir)
     facebook_stats = post_process_facebook_meta(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     title_stats = optimize_site_titles(settings.site_output_dir)
+    schema_stats = apply_structured_data_upgrade(settings.site_output_dir)
+    canonical_stats = apply_canonical_routing(settings.site_output_dir)
     sitemap_path = generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     return {
         "mode": "incremental",
         "published_pages_scanned": sync_stats["scanned"],
         "published_pages_changed": sync_stats["changed"],
+        "verification_files_changed": verification_files_changed,
         "sitemap": str(sitemap_path),
         "facebook_meta_pages": facebook_stats.get("pages", 0),
         "facebook_meta_changed": facebook_stats.get("changed", 0),
+        "internal_link_pages": internal_link_stats.get("pages", 0),
+        "internal_links_added": internal_link_stats.get("links_added", 0),
         "seo_ai_pages": seo_ai_stats.get("pages", 0),
         "seo_ai_changed": seo_ai_stats.get("changed", 0),
         "seo_ai_faq_schemas_added": seo_ai_stats.get("faq_schemas_added", 0),
         "seo_ai_breadcrumbs_added": seo_ai_stats.get("breadcrumbs_added", 0),
         "seo_titles_changed": title_stats.get("changed", 0),
         "seo_titles_remaining_long": title_stats.get("remaining_long", 0),
+        "structured_data_changed": schema_stats.get("changed", 0),
+        "structured_data_review_pages": schema_stats.get("review_pages", 0),
+        "structured_data_comparison_pages": schema_stats.get("comparison_pages", 0),
+        "structured_data_video_pages": schema_stats.get("video_pages", 0),
+        "canonical_pages": canonical_stats.get("canonical_pages", 0),
+        "canonical_pages_changed": canonical_stats.get("canonical_pages_changed", 0),
+        "canonical_redirect_rules": canonical_stats.get("canonical_redirect_rules", 0),
+        "public_review_pages_changed": technical_stats.get("review_pages_changed", 0),
+        "cloudflare_go_redirect_rules": technical_stats.get("cloudflare_go_redirect_rules", 0),
     }
 
 
@@ -69,17 +101,28 @@ def full_build() -> dict[str, object]:
     from main import main
 
     main()
+    verification_files_changed = sync_root_verification_files()
+    internal_link_stats = post_process_internal_links(settings.site_output_dir)
     seo_ai_stats = apply_seo_ai_search_upgrade(settings.site_output_dir)
     title_stats = optimize_site_titles(settings.site_output_dir)
+    schema_stats = apply_structured_data_upgrade(settings.site_output_dir)
+    canonical_stats = apply_canonical_routing(settings.site_output_dir)
     sitemap_path = generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     return {
         "mode": "full",
         "site_output": str(settings.site_output_dir),
+        "verification_files_changed": verification_files_changed,
         "sitemap": str(sitemap_path),
+        "internal_link_pages": internal_link_stats.get("pages", 0),
+        "internal_links_added": internal_link_stats.get("links_added", 0),
         "seo_ai_pages": seo_ai_stats.get("pages", 0),
         "seo_ai_changed": seo_ai_stats.get("changed", 0),
         "seo_titles_changed": title_stats.get("changed", 0),
         "seo_titles_remaining_long": title_stats.get("remaining_long", 0),
+        "structured_data_changed": schema_stats.get("changed", 0),
+        "canonical_pages": canonical_stats.get("canonical_pages", 0),
+        "canonical_pages_changed": canonical_stats.get("canonical_pages_changed", 0),
+        "canonical_redirect_rules": canonical_stats.get("canonical_redirect_rules", 0),
     }
 
 
