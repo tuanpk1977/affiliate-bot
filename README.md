@@ -82,6 +82,67 @@ draft-only. `netlify.toml` is retained for compatibility but is not used by the 
 Rollback: stop using `scripts/deploy_cloudflare.py` and deploy with the previous Cloudflare command.
 Delete the IndexNow scripts and public key only if IndexNow is no longer required.
 
+## AI content growth pipeline
+
+The daily content growth workflow turns trend discovery data into website articles plus manual
+publishing assets. It auto-publishes only to the website output. It does not upload YouTube videos and
+does not post to Facebook, LinkedIn, Quora, Reddit, X, Threads, Medium, Pinterest, or any other social
+network.
+
+Workflow:
+
+```text
+discover trending AI/SaaS topics
+-> select the best non-duplicate daily topics
+-> create website article HTML
+-> create YouTube metadata/script draft files under video_output/<slug>/
+-> create manual social drafts under social_drafts/YYYY-MM-DD/<slug>/
+-> build site_output
+-> sync docs
+-> submit generated URLs to IndexNow when available
+```
+
+Commands:
+
+```powershell
+# Only discover topics. This writes data/trending_topics.json and a daily report.
+python scripts/discover_ai_trends.py --limit 10
+
+# Generate articles/assets from the existing trend file, build, sync, and submit IndexNow.
+python scripts/run_daily_content_growth.py --limit 10
+
+# Discover first, then generate the daily batch.
+python scripts/run_daily_content_growth.py --discover --limit 10
+
+# Preview topic selection without writing articles/assets.
+python scripts/run_daily_content_growth.py --limit 10 --dry-run
+
+# Generate without build or IndexNow while testing locally.
+python scripts/run_daily_content_growth.py --limit 10 --no-build --no-indexnow
+```
+
+Generated paths:
+
+- Trend data: `data/trending_topics.json`
+- Trend report: `data/trending_topics_daily_report.md`
+- Daily content report: `data/content_growth_reports/YYYY-MM-DD.md`
+- Website articles: `data/published_static_pages/<slug>/index.html`
+- YouTube manual draft files: `video_output/<slug>/`
+- Social manual draft files: `social_drafts/YYYY-MM-DD/<slug>/`
+- Performance tracking seed: `data/content_growth_performance_log.csv`
+
+Safety flags:
+
+```env
+CONTENT_GROWTH_AUTO_PUBLISH_WEBSITE=true
+CONTENT_GROWTH_VIDEO_DRAFTS_ONLY=true
+CONTENT_GROWTH_SOCIAL_DRAFTS_ONLY=true
+AUTO_YOUTUBE_UPLOAD=false
+AUTO_SOCIAL_POST=false
+```
+
+The pipeline stops if `AUTO_YOUTUBE_UPLOAD` or `AUTO_SOCIAL_POST` is set to true.
+
 Mục tiêu của nền tảng mới là biến bot thành:
 
 ```text
@@ -390,3 +451,18 @@ Recommended categories:
 4. Confirm commission, cookie window, payout, allowed traffic sources, and program activity.
 5. Capture proof before selling the information.
 6. Only move a lead toward ads when `ads_status` is not `not_ready_for_ads` and traffic restrictions are confirmed.
+# AI Trend Discovery
+
+Run the daily topic discovery engine before generating articles:
+
+```powershell
+python scripts/discover_ai_trends.py
+```
+
+The engine reads public trend feeds and optional API-backed sources, filters topics already published in the site output, scores opportunities, and writes:
+
+- `data/trending_topics.json`
+- `data/trending_topics_daily_report.md`
+- `data/trend_reports/YYYY-MM-DD.md`
+
+It does not generate articles, videos, or deploy the website. X and YouTube discovery require `TWITTER_BEARER_TOKEN` and `YOUTUBE_API_KEY`. LinkedIn is reported as unavailable unless an approved discovery endpoint is configured.

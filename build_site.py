@@ -13,6 +13,7 @@ from modules.sitemap_generator import generate_sitemap
 from modules.trust_localization_upgrade import enhance_site
 from modules.gsc_404_recovery import write_gsc_404_recovery_pages
 from modules.internal_linker import post_process_internal_links
+from modules.legacy_slug_normalizer import normalize_legacy_slugs
 from modules.canonical_routes import apply_canonical_routing
 from modules.seo_ai_search_upgrade import apply_seo_ai_search_upgrade
 from modules.seo_title_optimizer import optimize_site_titles
@@ -66,6 +67,7 @@ def incremental_build() -> dict[str, object]:
     seo_ai_stats = apply_seo_ai_search_upgrade(settings.site_output_dir)
     facebook_stats = post_process_facebook_meta(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     title_stats = optimize_site_titles(settings.site_output_dir)
+    legacy_slug_stats = normalize_legacy_slugs(settings.site_output_dir)
     schema_stats = apply_structured_data_upgrade(settings.site_output_dir)
     canonical_stats = apply_canonical_routing(settings.site_output_dir)
     sitemap_path = generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
@@ -85,6 +87,8 @@ def incremental_build() -> dict[str, object]:
         "seo_ai_breadcrumbs_added": seo_ai_stats.get("breadcrumbs_added", 0),
         "seo_titles_changed": title_stats.get("changed", 0),
         "seo_titles_remaining_long": title_stats.get("remaining_long", 0),
+        "legacy_slug_pages_changed": legacy_slug_stats.get("changed", 0),
+        "legacy_slug_replacements": legacy_slug_stats.get("replacements", 0),
         "structured_data_changed": schema_stats.get("changed", 0),
         "structured_data_review_pages": schema_stats.get("review_pages", 0),
         "structured_data_comparison_pages": schema_stats.get("comparison_pages", 0),
@@ -105,6 +109,7 @@ def full_build() -> dict[str, object]:
     internal_link_stats = post_process_internal_links(settings.site_output_dir)
     seo_ai_stats = apply_seo_ai_search_upgrade(settings.site_output_dir)
     title_stats = optimize_site_titles(settings.site_output_dir)
+    legacy_slug_stats = normalize_legacy_slugs(settings.site_output_dir)
     schema_stats = apply_structured_data_upgrade(settings.site_output_dir)
     canonical_stats = apply_canonical_routing(settings.site_output_dir)
     sitemap_path = generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
@@ -119,6 +124,8 @@ def full_build() -> dict[str, object]:
         "seo_ai_changed": seo_ai_stats.get("changed", 0),
         "seo_titles_changed": title_stats.get("changed", 0),
         "seo_titles_remaining_long": title_stats.get("remaining_long", 0),
+        "legacy_slug_pages_changed": legacy_slug_stats.get("changed", 0),
+        "legacy_slug_replacements": legacy_slug_stats.get("replacements", 0),
         "structured_data_changed": schema_stats.get("changed", 0),
         "canonical_pages": canonical_stats.get("canonical_pages", 0),
         "canonical_pages_changed": canonical_stats.get("canonical_pages_changed", 0),
