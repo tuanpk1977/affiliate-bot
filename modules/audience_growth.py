@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 from config import settings
+from modules.indexing_policy import INDEXABLE_ROBOTS_META
 
 
 BASE_URL = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
@@ -182,7 +183,7 @@ def page_shell(
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{html.escape(title)} - {SITE_NAME}</title>
   <meta name="description" content="{html.escape(description)}">
-  <meta name="robots" content="index,follow">
+  <meta name="robots" content="{INDEXABLE_ROBOTS_META}">
   <link rel="canonical" href="{html.escape(canonical, quote=True)}">
   <link rel="alternate" hreflang="en" href="{html.escape(en_url, quote=True)}">
   <link rel="alternate" hreflang="vi" href="{html.escape(vi_url, quote=True)}">
