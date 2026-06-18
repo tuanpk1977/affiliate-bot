@@ -1,0 +1,620 @@
+{
+  "generated_at": "2026-06-18T01:30:59.633344+00:00",
+  "limit": 10,
+  "dry_run": false,
+  "selected_topics": [
+    {
+      "topic": "OpenMontage Review 2026",
+      "slug": "openmontage-review-2026",
+      "sources": [
+        "github_trending"
+      ],
+      "source_urls": [
+        "https://github.com/calesthio/OpenMontage"
+      ],
+      "signals": 1,
+      "trend_score": 59,
+      "search_intent": "commercial research",
+      "content_type": "review",
+      "affiliate_potential": "medium",
+      "competition_level": "low",
+      "freshness_level": "medium",
+      "estimated_business_value": "medium",
+      "recommended_priority": "P2",
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "Review OpenMontage Review 2026 with independent methodology, use cases, pricing cautions, pros, cons, and alternatives.",
+      "suggested_video_angle": "Three-to-five minute review video for OpenMontage Review 2026: overview, features, pricing cautions, pros, cons, alternatives, verdict.",
+      "classifications": [
+        "evergreen",
+        "review",
+        "rising trend"
+      ],
+      "search_volume_potential": 64,
+      "competition": 37,
+      "affiliate_opportunity": 59,
+      "evergreen_value": 75,
+      "news_freshness": 59,
+      "cpc_potential": 83,
+      "total_score": 65.9,
+      "confidence": "low",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Competition estimate is low-to-medium.",
+        "Can remain useful after the current news cycle.",
+        "Commercial terminology suggests above-average CPC potential."
+      ],
+      "already_published": false
+    },
+    {
+      "topic": "superpowers Review 2026",
+      "slug": "superpowers-review-2026",
+      "sources": [
+        "github_trending"
+      ],
+      "source_urls": [
+        "https://github.com/obra/superpowers"
+      ],
+      "signals": 1,
+      "trend_score": 65,
+      "search_intent": "commercial research",
+      "content_type": "review",
+      "affiliate_potential": "low",
+      "competition_level": "low",
+      "freshness_level": "medium",
+      "estimated_business_value": "medium",
+      "recommended_priority": "P2",
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "Review superpowers Review 2026 with independent methodology, use cases, pricing cautions, pros, cons, and alternatives.",
+      "suggested_video_angle": "Three-to-five minute review video for superpowers Review 2026: overview, features, pricing cautions, pros, cons, alternatives, verdict.",
+      "classifications": [
+        "evergreen",
+        "review",
+        "rising trend"
+      ],
+      "search_volume_potential": 68,
+      "competition": 37,
+      "affiliate_opportunity": 49,
+      "evergreen_value": 67,
+      "news_freshness": 65,
+      "cpc_potential": 61,
+      "total_score": 61.9,
+      "confidence": "low",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Can remain useful after the current news cycle.",
+        "Recent multi-source activity indicates timely interest."
+      ],
+      "already_published": false
+    },
+    {
+      "topic": "UI-TARS-desktop Review 2026",
+      "slug": "ui-tars-desktop-review-2026",
+      "sources": [
+        "github_trending"
+      ],
+      "source_urls": [
+        "https://github.com/bytedance/UI-TARS-desktop"
+      ],
+      "signals": 1,
+      "trend_score": 60,
+      "search_intent": "commercial research",
+      "content_type": "listicle",
+      "affiliate_potential": "low",
+      "competition_level": "medium",
+      "freshness_level": "medium",
+      "estimated_business_value": "medium",
+      "recommended_priority": "P2",
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "Build UI-TARS-desktop Review 2026 as a curated buyer guide, not a generic ranked list.",
+      "suggested_video_angle": "Quick shortlist video for UI-TARS-desktop Review 2026, with one practical use case per tool.",
+      "classifications": [
+        "listicle",
+        "rising trend"
+      ],
+      "search_volume_potential": 65,
+      "competition": 49,
+      "affiliate_opportunity": 49,
+      "evergreen_value": 55,
+      "news_freshness": 60,
+      "cpc_potential": 64,
+      "total_score": 57.2,
+      "confidence": "low",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium."
+      ],
+      "already_published": false
+    },
+    {
+      "topic": "rlm Review 2026",
+      "slug": "rlm-review-2026",
+      "sources": [
+        "github_trending"
+      ],
+      "source_urls": [
+        "https://github.com/alexzhang13/rlm"
+      ],
+      "signals": 1,
+      "trend_score": 57,
+      "search_intent": "commercial research",
+      "content_type": "review",
+      "affiliate_potential": "low",
+      "competition_level": "low",
+      "freshness_level": "medium",
+      "estimated_business_value": "low",
+      "recommended_priority": "P3",
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "Review rlm Review 2026 with independent methodology, use cases, pricing cautions, pros, cons, and alternatives.",
+      "suggested_video_angle": "Three-to-five minute review video for rlm Review 2026: overview, features, pricing cautions, pros, cons, alternatives, verdict.",
+      "classifications": [
+        "review",
+        "rising trend"
+      ],
+      "search_volume_potential": 57,
+      "competition": 37,
+      "affiliate_opportunity": 44,
+      "evergreen_value": 51,
+      "news_freshness": 57,
+      "cpc_potential": 52,
+      "total_score": 53.9,
+      "confidence": "low",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Competition estimate is low-to-medium."
+      ],
+      "already_published": false
+    },
+    {
+      "topic": "8 Best Generative AI Software Stocks to Buy in June 2026",
+      "slug": "8-best-generative-ai-software-stocks-to-buy-in-june-2026",
+      "sources": [
+        "bing_trending"
+      ],
+      "source_urls": [
+        "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6a33465eda0443289298f68e6f9a0d79&url=https%3a%2f%2fwww.insidermonkey.com%2fblog%2f8-best-generative-ai-software-stocks-to-buy-in-june-2026-1782712%2f&c=15926694613762194161&mkt=en-ww"
+      ],
+      "signals": 1,
+      "trend_score": 46,
+      "search_intent": "commercial research",
+      "content_type": "listicle",
+      "affiliate_potential": "medium",
+      "competition_level": "medium",
+      "freshness_level": "low",
+      "estimated_business_value": "medium",
+      "recommended_priority": "P3",
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "Build 8 Best Generative AI Software Stocks to Buy in June 2026 as a curated buyer guide, not a generic ranked list.",
+      "suggested_video_angle": "Quick shortlist video for 8 Best Generative AI Software Stocks to Buy in June 2026, with one practical use case per tool.",
+      "classifications": [
+        "listicle"
+      ],
+      "search_volume_potential": 48,
+      "competition": 59,
+      "affiliate_opportunity": 61,
+      "evergreen_value": 55,
+      "news_freshness": 46,
+      "cpc_potential": 69,
+      "total_score": 52.7,
+      "confidence": "low",
+      "why_selected": [
+        "Detected across 1 source(s): bing_trending.",
+        "Commercial terminology suggests above-average CPC potential."
+      ],
+      "already_published": false
+    },
+    {
+      "topic": "ai search software comparison",
+      "slug": "ai-search-software-comparison",
+      "sources": [
+        "local_keyword_intelligence"
+      ],
+      "source_urls": [],
+      "signals": 1,
+      "trend_score": 56,
+      "search_intent": "comparison",
+      "content_type": "comparison",
+      "affiliate_potential": "low",
+      "competition_level": "medium",
+      "freshness_level": "medium",
+      "estimated_business_value": "low",
+      "recommended_priority": "P3",
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "Compare ai search software comparison through buyer-fit, workflow limits, pricing checks, and practical use cases.",
+      "suggested_video_angle": "Fast side-by-side explainer: where each option wins, what to verify, and the safer buyer choice for ai search software comparison.",
+      "classifications": [
+        "comparison",
+        "rising trend"
+      ],
+      "search_volume_potential": 59,
+      "competition": 47,
+      "affiliate_opportunity": 44,
+      "evergreen_value": 51,
+      "news_freshness": 56,
+      "cpc_potential": 52,
+      "total_score": 52.6,
+      "confidence": "low",
+      "why_selected": [
+        "Detected across 1 source(s): local_keyword_intelligence.",
+        "Competition estimate is low-to-medium."
+      ],
+      "already_published": false
+    },
+    {
+      "topic": "ai video software comparison",
+      "slug": "ai-video-software-comparison",
+      "sources": [
+        "local_keyword_intelligence"
+      ],
+      "source_urls": [],
+      "signals": 1,
+      "trend_score": 56,
+      "search_intent": "comparison",
+      "content_type": "comparison",
+      "affiliate_potential": "low",
+      "competition_level": "medium",
+      "freshness_level": "medium",
+      "estimated_business_value": "low",
+      "recommended_priority": "P3",
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/",
+        "/category/video-tools/",
+        "/best-ai-video-tools-2026/",
+        "/review/synthesia/"
+      ],
+      "suggested_article_angle": "Compare ai video software comparison through buyer-fit, workflow limits, pricing checks, and practical use cases.",
+      "suggested_video_angle": "Fast side-by-side explainer: where each option wins, what to verify, and the safer buyer choice for ai video software comparison.",
+      "classifications": [
+        "comparison",
+        "rising trend"
+      ],
+      "search_volume_potential": 59,
+      "competition": 47,
+      "affiliate_opportunity": 44,
+      "evergreen_value": 51,
+      "news_freshness": 56,
+      "cpc_potential": 52,
+      "total_score": 52.6,
+      "confidence": "low",
+      "why_selected": [
+        "Detected across 1 source(s): local_keyword_intelligence.",
+        "Competition estimate is low-to-medium."
+      ],
+      "already_published": false
+    },
+    {
+      "topic": "ai voice software comparison",
+      "slug": "ai-voice-software-comparison",
+      "sources": [
+        "local_keyword_intelligence"
+      ],
+      "source_urls": [],
+      "signals": 1,
+      "trend_score": 56,
+      "search_intent": "comparison",
+      "content_type": "comparison",
+      "affiliate_potential": "low",
+      "competition_level": "medium",
+      "freshness_level": "medium",
+      "estimated_business_value": "low",
+      "recommended_priority": "P3",
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "Compare ai voice software comparison through buyer-fit, workflow limits, pricing checks, and practical use cases.",
+      "suggested_video_angle": "Fast side-by-side explainer: where each option wins, what to verify, and the safer buyer choice for ai voice software comparison.",
+      "classifications": [
+        "comparison",
+        "rising trend"
+      ],
+      "search_volume_potential": 59,
+      "competition": 47,
+      "affiliate_opportunity": 44,
+      "evergreen_value": 51,
+      "news_freshness": 56,
+      "cpc_potential": 52,
+      "total_score": 52.6,
+      "confidence": "low",
+      "why_selected": [
+        "Detected across 1 source(s): local_keyword_intelligence.",
+        "Competition estimate is low-to-medium."
+      ],
+      "already_published": false
+    },
+    {
+      "topic": "ai writing software comparison",
+      "slug": "ai-writing-software-comparison",
+      "sources": [
+        "local_keyword_intelligence"
+      ],
+      "source_urls": [],
+      "signals": 1,
+      "trend_score": 56,
+      "search_intent": "comparison",
+      "content_type": "comparison",
+      "affiliate_potential": "low",
+      "competition_level": "medium",
+      "freshness_level": "medium",
+      "estimated_business_value": "low",
+      "recommended_priority": "P3",
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/",
+        "/category/ai-writing-tools/",
+        "/grammarly-review-2026/",
+        "/jasper-ai-review-2026/"
+      ],
+      "suggested_article_angle": "Compare ai writing software comparison through buyer-fit, workflow limits, pricing checks, and practical use cases.",
+      "suggested_video_angle": "Fast side-by-side explainer: where each option wins, what to verify, and the safer buyer choice for ai writing software comparison.",
+      "classifications": [
+        "comparison",
+        "rising trend"
+      ],
+      "search_volume_potential": 59,
+      "competition": 47,
+      "affiliate_opportunity": 44,
+      "evergreen_value": 51,
+      "news_freshness": 56,
+      "cpc_potential": 52,
+      "total_score": 52.6,
+      "confidence": "low",
+      "why_selected": [
+        "Detected across 1 source(s): local_keyword_intelligence.",
+        "Competition estimate is low-to-medium."
+      ],
+      "already_published": false
+    },
+    {
+      "topic": "TREX: An AI code reviewer that runs your code",
+      "slug": "trex-an-ai-code-reviewer-that-runs-your-code",
+      "sources": [
+        "hacker_news"
+      ],
+      "source_urls": [
+        "https://www.greptile.com/blog/trex-code-execution"
+      ],
+      "signals": 1,
+      "trend_score": 57,
+      "search_intent": "commercial research",
+      "content_type": "review",
+      "affiliate_potential": "low",
+      "competition_level": "low",
+      "freshness_level": "medium",
+      "estimated_business_value": "low",
+      "recommended_priority": "P3",
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "Review TREX: An AI code reviewer that runs your code with independent methodology, use cases, pricing cautions, pros, cons, and alternatives.",
+      "suggested_video_angle": "Three-to-five minute review video for TREX: An AI code reviewer that runs your code: overview, features, pricing cautions, pros, cons, alternatives, verdict.",
+      "classifications": [
+        "review",
+        "rising trend"
+      ],
+      "search_volume_potential": 58,
+      "competition": 37,
+      "affiliate_opportunity": 39,
+      "evergreen_value": 35,
+      "news_freshness": 57,
+      "cpc_potential": 43,
+      "total_score": 49.8,
+      "confidence": "low",
+      "why_selected": [
+        "Detected across 1 source(s): hacker_news.",
+        "Competition estimate is low-to-medium."
+      ],
+      "already_published": false
+    }
+  ],
+  "generated_pages": [
+    {
+      "topic": "OpenMontage Review 2026",
+      "slug": "openmontage-review-2026",
+      "url": "https://smileaireviewhub.com/openmontage-review-2026/",
+      "article_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\openmontage-review-2026\\index.html",
+      "video_folder": "D:\\AFFILATE BOT\\video_output\\openmontage-review-2026",
+      "social_folder": "D:\\AFFILATE BOT\\social_drafts\\2026-06-18\\openmontage-review-2026",
+      "content_type": "review",
+      "focus_keyword": "openmontage review",
+      "warnings": [
+        "OpenMontage Review 2026: pricing, trial terms, plan limits, and affiliate terms need manual verification before promotion."
+      ]
+    },
+    {
+      "topic": "superpowers Review 2026",
+      "slug": "superpowers-review-2026",
+      "url": "https://smileaireviewhub.com/superpowers-review-2026/",
+      "article_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\superpowers-review-2026\\index.html",
+      "video_folder": "D:\\AFFILATE BOT\\video_output\\superpowers-review-2026",
+      "social_folder": "D:\\AFFILATE BOT\\social_drafts\\2026-06-18\\superpowers-review-2026",
+      "content_type": "review",
+      "focus_keyword": "superpowers review",
+      "warnings": [
+        "superpowers Review 2026: pricing, trial terms, plan limits, and affiliate terms need manual verification before promotion."
+      ]
+    },
+    {
+      "topic": "UI-TARS-desktop Review 2026",
+      "slug": "ui-tars-desktop-review-2026",
+      "url": "https://smileaireviewhub.com/ui-tars-desktop-review-2026/",
+      "article_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\ui-tars-desktop-review-2026\\index.html",
+      "video_folder": "D:\\AFFILATE BOT\\video_output\\ui-tars-desktop-review-2026",
+      "social_folder": "D:\\AFFILATE BOT\\social_drafts\\2026-06-18\\ui-tars-desktop-review-2026",
+      "content_type": "listicle",
+      "focus_keyword": "ui-tars-desktop review",
+      "warnings": [
+        "UI-TARS-desktop Review 2026: pricing, trial terms, plan limits, and affiliate terms need manual verification before promotion."
+      ]
+    },
+    {
+      "topic": "rlm Review 2026",
+      "slug": "rlm-review-2026",
+      "url": "https://smileaireviewhub.com/rlm-review-2026/",
+      "article_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\rlm-review-2026\\index.html",
+      "video_folder": "D:\\AFFILATE BOT\\video_output\\rlm-review-2026",
+      "social_folder": "D:\\AFFILATE BOT\\social_drafts\\2026-06-18\\rlm-review-2026",
+      "content_type": "review",
+      "focus_keyword": "rlm review",
+      "warnings": [
+        "rlm Review 2026: pricing, trial terms, plan limits, and affiliate terms need manual verification before promotion."
+      ]
+    },
+    {
+      "topic": "8 Best Generative AI Software Stocks to Buy in June 2026",
+      "slug": "8-best-generative-ai-software-stocks-to-buy-in-june-2026",
+      "url": "https://smileaireviewhub.com/8-best-generative-ai-software-stocks-to-buy-in-june-2026/",
+      "article_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\8-best-generative-ai-software-stocks-to-buy-in-june-2026\\index.html",
+      "video_folder": "D:\\AFFILATE BOT\\video_output\\8-best-generative-ai-software-stocks-to-buy-in-june-2026",
+      "social_folder": "D:\\AFFILATE BOT\\social_drafts\\2026-06-18\\8-best-generative-ai-software-stocks-to-buy-in-june-2026",
+      "content_type": "listicle",
+      "focus_keyword": "8 best generative ai software stocks to buy in june",
+      "warnings": [
+        "8 Best Generative AI Software Stocks to Buy in June 2026: pricing, trial terms, plan limits, and affiliate terms need manual verification before promotion."
+      ]
+    },
+    {
+      "topic": "ai search software comparison",
+      "slug": "ai-search-software-comparison",
+      "url": "https://smileaireviewhub.com/ai-search-software-comparison/",
+      "article_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\ai-search-software-comparison\\index.html",
+      "video_folder": "D:\\AFFILATE BOT\\video_output\\ai-search-software-comparison",
+      "social_folder": "D:\\AFFILATE BOT\\social_drafts\\2026-06-18\\ai-search-software-comparison",
+      "content_type": "comparison",
+      "focus_keyword": "ai search software comparison",
+      "warnings": [
+        "ai search software comparison: pricing, trial terms, plan limits, and affiliate terms need manual verification before promotion."
+      ]
+    },
+    {
+      "topic": "ai video software comparison",
+      "slug": "ai-video-software-comparison",
+      "url": "https://smileaireviewhub.com/ai-video-software-comparison/",
+      "article_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\ai-video-software-comparison\\index.html",
+      "video_folder": "D:\\AFFILATE BOT\\video_output\\ai-video-software-comparison",
+      "social_folder": "D:\\AFFILATE BOT\\social_drafts\\2026-06-18\\ai-video-software-comparison",
+      "content_type": "comparison",
+      "focus_keyword": "ai video software comparison",
+      "warnings": [
+        "ai video software comparison: pricing, trial terms, plan limits, and affiliate terms need manual verification before promotion."
+      ]
+    },
+    {
+      "topic": "ai voice software comparison",
+      "slug": "ai-voice-software-comparison",
+      "url": "https://smileaireviewhub.com/ai-voice-software-comparison/",
+      "article_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\ai-voice-software-comparison\\index.html",
+      "video_folder": "D:\\AFFILATE BOT\\video_output\\ai-voice-software-comparison",
+      "social_folder": "D:\\AFFILATE BOT\\social_drafts\\2026-06-18\\ai-voice-software-comparison",
+      "content_type": "comparison",
+      "focus_keyword": "ai voice software comparison",
+      "warnings": [
+        "ai voice software comparison: pricing, trial terms, plan limits, and affiliate terms need manual verification before promotion."
+      ]
+    },
+    {
+      "topic": "ai writing software comparison",
+      "slug": "ai-writing-software-comparison",
+      "url": "https://smileaireviewhub.com/ai-writing-software-comparison/",
+      "article_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\ai-writing-software-comparison\\index.html",
+      "video_folder": "D:\\AFFILATE BOT\\video_output\\ai-writing-software-comparison",
+      "social_folder": "D:\\AFFILATE BOT\\social_drafts\\2026-06-18\\ai-writing-software-comparison",
+      "content_type": "comparison",
+      "focus_keyword": "ai writing software comparison",
+      "warnings": [
+        "ai writing software comparison: pricing, trial terms, plan limits, and affiliate terms need manual verification before promotion."
+      ]
+    },
+    {
+      "topic": "TREX: An AI code reviewer that runs your code",
+      "slug": "trex-an-ai-code-reviewer-that-runs-your-code",
+      "url": "https://smileaireviewhub.com/trex-an-ai-code-reviewer-that-runs-your-code/",
+      "article_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\trex-an-ai-code-reviewer-that-runs-your-code\\index.html",
+      "video_folder": "D:\\AFFILATE BOT\\video_output\\trex-an-ai-code-reviewer-that-runs-your-code",
+      "social_folder": "D:\\AFFILATE BOT\\social_drafts\\2026-06-18\\trex-an-ai-code-reviewer-that-runs-your-code",
+      "content_type": "review",
+      "focus_keyword": "trex: an ai code reviewer that runs your code",
+      "warnings": [
+        "TREX: An AI code reviewer that runs your code: pricing, trial terms, plan limits, and affiliate terms need manual verification before promotion."
+      ]
+    }
+  ],
+  "build": {
+    "build_returncode": 0,
+    "build_stdout_tail": "mode: incremental\npublished_pages_scanned: 76\npublished_pages_changed: 66\nverification_files_changed: 0\nsitemap: D:\\AFFILATE BOT\\site_output\\sitemap.xml\nfacebook_meta_pages: 884\nfacebook_meta_changed: 466\ninternal_link_pages: 778\ninternal_links_added: 11994\nseo_ai_pages: 776\nseo_ai_changed: 772\nseo_ai_faq_schemas_added: 339\nseo_ai_breadcrumbs_added: 1\nseo_titles_changed: 235\nseo_titles_remaining_long: 0\nlegacy_slug_pages_changed: 3\nlegacy_slug_replacements: 7\nstructured_data_changed: 778\nstructured_data_review_pages: 430\nstructured_data_comparison_pages: 97\nstructured_data_video_pages: 201\ncanonical_pages: 776\ncanonical_pages_changed: 28\ncanonical_redirect_rules: 2328\npublic_review_pages_changed: 0\ncloudflare_go_redirect_rules: 208\n",
+    "build_stderr_tail": "",
+    "sync_returncode": 0,
+    "sync_stdout_tail": "Synced site_output to docs: removed=203 copied=211 preserved=2 skipped_locked=0\n",
+    "sync_stderr_tail": ""
+  },
+  "indexnow": {
+    "skipped": true
+  },
+  "warnings": [
+    "OpenMontage Review 2026: pricing, trial terms, plan limits, and affiliate terms need manual verification before promotion.",
+    "superpowers Review 2026: pricing, trial terms, plan limits, and affiliate terms need manual verification before promotion.",
+    "UI-TARS-desktop Review 2026: pricing, trial terms, plan limits, and affiliate terms need manual verification before promotion.",
+    "rlm Review 2026: pricing, trial terms, plan limits, and affiliate terms need manual verification before promotion.",
+    "8 Best Generative AI Software Stocks to Buy in June 2026: pricing, trial terms, plan limits, and affiliate terms need manual verification before promotion.",
+    "ai search software comparison: pricing, trial terms, plan limits, and affiliate terms need manual verification before promotion.",
+    "ai video software comparison: pricing, trial terms, plan limits, and affiliate terms need manual verification before promotion.",
+    "ai voice software comparison: pricing, trial terms, plan limits, and affiliate terms need manual verification before promotion.",
+    "ai writing software comparison: pricing, trial terms, plan limits, and affiliate terms need manual verification before promotion.",
+    "TREX: An AI code reviewer that runs your code: pricing, trial terms, plan limits, and affiliate terms need manual verification before promotion."
+  ],
+  "manual_posting_order": [
+    "OpenMontage Review 2026: publish article first, upload YouTube manually, then post LinkedIn/Facebook/X drafts.",
+    "superpowers Review 2026: publish article first, upload YouTube manually, then post LinkedIn/Facebook/X drafts.",
+    "UI-TARS-desktop Review 2026: publish article first, upload YouTube manually, then post LinkedIn/Facebook/X drafts.",
+    "rlm Review 2026: publish article first, upload YouTube manually, then post LinkedIn/Facebook/X drafts.",
+    "8 Best Generative AI Software Stocks to Buy in June 2026: publish article first, upload YouTube manually, then post LinkedIn/Facebook/X drafts.",
+    "ai search software comparison: publish article first, upload YouTube manually, then post LinkedIn/Facebook/X drafts.",
+    "ai video software comparison: publish article first, upload YouTube manually, then post LinkedIn/Facebook/X drafts.",
+    "ai voice software comparison: publish article first, upload YouTube manually, then post LinkedIn/Facebook/X drafts.",
+    "ai writing software comparison: publish article first, upload YouTube manually, then post LinkedIn/Facebook/X drafts.",
+    "TREX: An AI code reviewer that runs your code: publish article first, upload YouTube manually, then post LinkedIn/Facebook/X drafts."
+  ],
+  "next_actions": [
+    "Review each generated article for product facts marked needs manual verification.",
+    "Upload review_video.mp4 manually only if you render a final video file later.",
+    "Copy social draft files manually to social platforms.",
+    "Paste YouTube URLs into video_output/upload_links.csv after upload, then run python scripts/update_youtube_links.py."
+  ],
+  "safety": {
+    "auto_website_publish": true,
+    "auto_youtube_upload": false,
+    "auto_social_post": false
+  }
+}

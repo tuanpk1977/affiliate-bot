@@ -10,12 +10,14 @@ from modules.indexing_policy import INDEXABLE_ROBOTS_META, REDIRECT_ROBOTS_META
 
 BASE_URL = "https://smileaireviewhub.com"
 GSC_LEGACY_REDIRECTS = {
-    "/surfer-seo-pricing-2026/": "/surfer-seo-pricing/",
-    "/surfer-seo-pricing-2026": "/surfer-seo-pricing/",
-    "/vi/surfer-seo-pricing-2026/": "/vi/surfer-seo-pricing/",
-    "/vi/surfer-seo-pricing-2026": "/vi/surfer-seo-pricing/",
-    "/review/codeium/": "/compare/github-copilot-vs-codeium/",
-    "/review/codeium": "/compare/github-copilot-vs-codeium/",
+}
+RETIRED_GSC_LEGACY_REDIRECT_SOURCES = {
+    "/surfer-seo-pricing-2026/",
+    "/surfer-seo-pricing-2026",
+    "/vi/surfer-seo-pricing-2026/",
+    "/vi/surfer-seo-pricing-2026",
+    "/review/codeium/",
+    "/review/codeium",
 }
 
 
@@ -61,6 +63,8 @@ def configure_cloudflare_redirects(output: Path) -> dict[str, int]:
             kept.append(line)
             continue
         source = stripped.split()[0]
+        if source in RETIRED_GSC_LEGACY_REDIRECT_SOURCES:
+            continue
         if source.startswith("/reviews/") or source.startswith("/vi/reviews/") or source.startswith("/go/"):
             continue
         if source not in seen:

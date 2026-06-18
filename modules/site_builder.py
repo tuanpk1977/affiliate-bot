@@ -1777,12 +1777,6 @@ def legacy_redirects(pages: list[dict]) -> dict[str, str]:
         "/semrush-vs-ahrefs-2026": "/compare/semrush-vs-ahrefs/",
         "/vi/semrush-vs-ahrefs-2026/": "/vi/compare/semrush-vs-ahrefs/",
         "/vi/semrush-vs-ahrefs-2026": "/vi/compare/semrush-vs-ahrefs/",
-        "/surfer-seo-pricing-2026/": "/surfer-seo-pricing/",
-        "/surfer-seo-pricing-2026": "/surfer-seo-pricing/",
-        "/vi/surfer-seo-pricing-2026/": "/vi/surfer-seo-pricing/",
-        "/vi/surfer-seo-pricing-2026": "/vi/surfer-seo-pricing/",
-        "/review/codeium/": "/compare/github-copilot-vs-codeium/",
-        "/review/codeium": "/compare/github-copilot-vs-codeium/",
     }
     return redirects
 

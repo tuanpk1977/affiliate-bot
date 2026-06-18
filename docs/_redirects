@@ -43,12 +43,9 @@
 /semrush-vs-ahrefs-2026 /compare/semrush-vs-ahrefs/ 301
 /vi/semrush-vs-ahrefs-2026/ /vi/compare/semrush-vs-ahrefs/ 301
 /vi/semrush-vs-ahrefs-2026 /vi/compare/semrush-vs-ahrefs/ 301
-/surfer-seo-pricing-2026/ /surfer-seo-pricing/ 301
-/surfer-seo-pricing-2026 /surfer-seo-pricing/ 301
-/vi/surfer-seo-pricing-2026/ /vi/surfer-seo-pricing/ 301
-/vi/surfer-seo-pricing-2026 /vi/surfer-seo-pricing/ 301
-/review/codeium/ /compare/github-copilot-vs-codeium/ 301
-/review/codeium /compare/github-copilot-vs-codeium/ 301
+
+
+
 
 
 
@@ -267,6 +264,9 @@
 /index.html / 301
 /home / 301
 /home/ / 301
+/8-best-generative-ai-software-stocks-to-buy-in-june-2026 /8-best-generative-ai-software-stocks-to-buy-in-june-2026/ 301
+/8-best-generative-ai-software-stocks-to-buy-in-june-2026.html /8-best-generative-ai-software-stocks-to-buy-in-june-2026/ 301
+/8-best-generative-ai-software-stocks-to-buy-in-june-2026/index.html /8-best-generative-ai-software-stocks-to-buy-in-june-2026/ 301
 /about-author /about-author/ 301
 /about-author.html /about-author/ 301
 /about-author/index.html /about-author/ 301
@@ -357,6 +357,9 @@
 /ai-search-alternatives /ai-search-alternatives/ 301
 /ai-search-alternatives.html /ai-search-alternatives/ 301
 /ai-search-alternatives/index.html /ai-search-alternatives/ 301
+/ai-search-software-comparison /ai-search-software-comparison/ 301
+/ai-search-software-comparison.html /ai-search-software-comparison/ 301
+/ai-search-software-comparison/index.html /ai-search-software-comparison/ 301
 /ai-search-software-review /ai-search-software-review/ 301
 /ai-search-software-review.html /ai-search-software-review/ 301
 /ai-search-software-review/index.html /ai-search-software-review/ 301
@@ -375,18 +378,27 @@
 /ai-video-alternatives /ai-video-alternatives/ 301
 /ai-video-alternatives.html /ai-video-alternatives/ 301
 /ai-video-alternatives/index.html /ai-video-alternatives/ 301
+/ai-video-software-comparison /ai-video-software-comparison/ 301
+/ai-video-software-comparison.html /ai-video-software-comparison/ 301
+/ai-video-software-comparison/index.html /ai-video-software-comparison/ 301
 /ai-video-software-review /ai-video-software-review/ 301
 /ai-video-software-review.html /ai-video-software-review/ 301
 /ai-video-software-review/index.html /ai-video-software-review/ 301
 /ai-voice-alternatives /ai-voice-alternatives/ 301
 /ai-voice-alternatives.html /ai-voice-alternatives/ 301
 /ai-voice-alternatives/index.html /ai-voice-alternatives/ 301
+/ai-voice-software-comparison /ai-voice-software-comparison/ 301
+/ai-voice-software-comparison.html /ai-voice-software-comparison/ 301
+/ai-voice-software-comparison/index.html /ai-voice-software-comparison/ 301
 /ai-voice-software-review /ai-voice-software-review/ 301
 /ai-voice-software-review.html /ai-voice-software-review/ 301
 /ai-voice-software-review/index.html /ai-voice-software-review/ 301
 /ai-writing-alternatives /ai-writing-alternatives/ 301
 /ai-writing-alternatives.html /ai-writing-alternatives/ 301
 /ai-writing-alternatives/index.html /ai-writing-alternatives/ 301
+/ai-writing-software-comparison /ai-writing-software-comparison/ 301
+/ai-writing-software-comparison.html /ai-writing-software-comparison/ 301
+/ai-writing-software-comparison/index.html /ai-writing-software-comparison/ 301
 /ai-writing-software-review /ai-writing-software-review/ 301
 /ai-writing-software-review.html /ai-writing-software-review/ 301
 /ai-writing-software-review/index.html /ai-writing-software-review/ 301
@@ -963,6 +975,9 @@
 /notion /notion/ 301
 /notion.html /notion/ 301
 /notion/index.html /notion/ 301
+/openmontage-review-2026 /openmontage-review-2026/ 301
+/openmontage-review-2026.html /openmontage-review-2026/ 301
+/openmontage-review-2026/index.html /openmontage-review-2026/ 301
 /perplexity /perplexity/ 301
 /perplexity.html /perplexity/ 301
 /perplexity/index.html /perplexity/ 301
@@ -1284,6 +1299,9 @@
 /reviews/zapier /reviews/zapier/ 301
 /reviews/zapier.html /reviews/zapier/ 301
 /reviews/zapier/index.html /reviews/zapier/ 301
+/rlm-review-2026 /rlm-review-2026/ 301
+/rlm-review-2026.html /rlm-review-2026/ 301
+/rlm-review-2026/index.html /rlm-review-2026/ 301
 /runway /runway/ 301
 /runway.html /runway/ 301
 /runway/index.html /runway/ 301
@@ -1314,6 +1332,9 @@
 /skillspector-review-2026 /skillspector-review-2026/ 301
 /skillspector-review-2026.html /skillspector-review-2026/ 301
 /skillspector-review-2026/index.html /skillspector-review-2026/ 301
+/superpowers-review-2026 /superpowers-review-2026/ 301
+/superpowers-review-2026.html /superpowers-review-2026/ 301
+/superpowers-review-2026/index.html /superpowers-review-2026/ 301
 /surfer-seo-alternatives /surfer-seo-alternatives/ 301
 /surfer-seo-alternatives.html /surfer-seo-alternatives/ 301
 /surfer-seo-alternatives/index.html /surfer-seo-alternatives/ 301
@@ -1353,15 +1374,24 @@
 /trackdesk-review-2026 /trackdesk-review-2026/ 301
 /trackdesk-review-2026.html /trackdesk-review-2026/ 301
 /trackdesk-review-2026/index.html /trackdesk-review-2026/ 301
+/trex-an-ai-code-reviewer-that-runs-your-code /trex-an-ai-code-reviewer-that-runs-your-code/ 301
+/trex-an-ai-code-reviewer-that-runs-your-code.html /trex-an-ai-code-reviewer-that-runs-your-code/ 301
+/trex-an-ai-code-reviewer-that-runs-your-code/index.html /trex-an-ai-code-reviewer-that-runs-your-code/ 301
 /ubersuggest-review-2026 /ubersuggest-review-2026/ 301
 /ubersuggest-review-2026.html /ubersuggest-review-2026/ 301
 /ubersuggest-review-2026/index.html /ubersuggest-review-2026/ 301
+/ui-tars-desktop-review-2026 /ui-tars-desktop-review-2026/ 301
+/ui-tars-desktop-review-2026.html /ui-tars-desktop-review-2026/ 301
+/ui-tars-desktop-review-2026/index.html /ui-tars-desktop-review-2026/ 301
 /unbounce-review-2026 /unbounce-review-2026/ 301
 /unbounce-review-2026.html /unbounce-review-2026/ 301
 /unbounce-review-2026/index.html /unbounce-review-2026/ 301
 /vi /vi/ 301
 /vi.html /vi/ 301
 /vi/index.html /vi/ 301
+/vi/8-best-generative-ai-software-stocks-to-buy-in-june-2026 /vi/8-best-generative-ai-software-stocks-to-buy-in-june-2026/ 301
+/vi/8-best-generative-ai-software-stocks-to-buy-in-june-2026.html /vi/8-best-generative-ai-software-stocks-to-buy-in-june-2026/ 301
+/vi/8-best-generative-ai-software-stocks-to-buy-in-june-2026/index.html /vi/8-best-generative-ai-software-stocks-to-buy-in-june-2026/ 301
 /vi/about-author /vi/about-author/ 301
 /vi/about-author.html /vi/about-author/ 301
 /vi/about-author/index.html /vi/about-author/ 301
@@ -1452,6 +1482,9 @@
 /vi/ai-search-alternatives /vi/ai-search-alternatives/ 301
 /vi/ai-search-alternatives.html /vi/ai-search-alternatives/ 301
 /vi/ai-search-alternatives/index.html /vi/ai-search-alternatives/ 301
+/vi/ai-search-software-comparison /vi/ai-search-software-comparison/ 301
+/vi/ai-search-software-comparison.html /vi/ai-search-software-comparison/ 301
+/vi/ai-search-software-comparison/index.html /vi/ai-search-software-comparison/ 301
 /vi/ai-search-software-review /vi/ai-search-software-review/ 301
 /vi/ai-search-software-review.html /vi/ai-search-software-review/ 301
 /vi/ai-search-software-review/index.html /vi/ai-search-software-review/ 301
@@ -1470,18 +1503,27 @@
 /vi/ai-video-alternatives /vi/ai-video-alternatives/ 301
 /vi/ai-video-alternatives.html /vi/ai-video-alternatives/ 301
 /vi/ai-video-alternatives/index.html /vi/ai-video-alternatives/ 301
+/vi/ai-video-software-comparison /vi/ai-video-software-comparison/ 301
+/vi/ai-video-software-comparison.html /vi/ai-video-software-comparison/ 301
+/vi/ai-video-software-comparison/index.html /vi/ai-video-software-comparison/ 301
 /vi/ai-video-software-review /vi/ai-video-software-review/ 301
 /vi/ai-video-software-review.html /vi/ai-video-software-review/ 301
 /vi/ai-video-software-review/index.html /vi/ai-video-software-review/ 301
 /vi/ai-voice-alternatives /vi/ai-voice-alternatives/ 301
 /vi/ai-voice-alternatives.html /vi/ai-voice-alternatives/ 301
 /vi/ai-voice-alternatives/index.html /vi/ai-voice-alternatives/ 301
+/vi/ai-voice-software-comparison /vi/ai-voice-software-comparison/ 301
+/vi/ai-voice-software-comparison.html /vi/ai-voice-software-comparison/ 301
+/vi/ai-voice-software-comparison/index.html /vi/ai-voice-software-comparison/ 301
 /vi/ai-voice-software-review /vi/ai-voice-software-review/ 301
 /vi/ai-voice-software-review.html /vi/ai-voice-software-review/ 301
 /vi/ai-voice-software-review/index.html /vi/ai-voice-software-review/ 301
 /vi/ai-writing-alternatives /vi/ai-writing-alternatives/ 301
 /vi/ai-writing-alternatives.html /vi/ai-writing-alternatives/ 301
 /vi/ai-writing-alternatives/index.html /vi/ai-writing-alternatives/ 301
+/vi/ai-writing-software-comparison /vi/ai-writing-software-comparison/ 301
+/vi/ai-writing-software-comparison.html /vi/ai-writing-software-comparison/ 301
+/vi/ai-writing-software-comparison/index.html /vi/ai-writing-software-comparison/ 301
 /vi/ai-writing-software-review /vi/ai-writing-software-review/ 301
 /vi/ai-writing-software-review.html /vi/ai-writing-software-review/ 301
 /vi/ai-writing-software-review/index.html /vi/ai-writing-software-review/ 301
@@ -2064,6 +2106,9 @@
 /vi/notion /vi/notion/ 301
 /vi/notion.html /vi/notion/ 301
 /vi/notion/index.html /vi/notion/ 301
+/vi/openmontage-review-2026 /vi/openmontage-review-2026/ 301
+/vi/openmontage-review-2026.html /vi/openmontage-review-2026/ 301
+/vi/openmontage-review-2026/index.html /vi/openmontage-review-2026/ 301
 /vi/perplexity /vi/perplexity/ 301
 /vi/perplexity.html /vi/perplexity/ 301
 /vi/perplexity/index.html /vi/perplexity/ 301
@@ -2385,6 +2430,9 @@
 /vi/reviews/zapier /vi/reviews/zapier/ 301
 /vi/reviews/zapier.html /vi/reviews/zapier/ 301
 /vi/reviews/zapier/index.html /vi/reviews/zapier/ 301
+/vi/rlm-review-2026 /vi/rlm-review-2026/ 301
+/vi/rlm-review-2026.html /vi/rlm-review-2026/ 301
+/vi/rlm-review-2026/index.html /vi/rlm-review-2026/ 301
 /vi/runway /vi/runway/ 301
 /vi/runway.html /vi/runway/ 301
 /vi/runway/index.html /vi/runway/ 301
@@ -2415,6 +2463,9 @@
 /vi/skillspector-review-2026 /vi/skillspector-review-2026/ 301
 /vi/skillspector-review-2026.html /vi/skillspector-review-2026/ 301
 /vi/skillspector-review-2026/index.html /vi/skillspector-review-2026/ 301
+/vi/superpowers-review-2026 /vi/superpowers-review-2026/ 301
+/vi/superpowers-review-2026.html /vi/superpowers-review-2026/ 301
+/vi/superpowers-review-2026/index.html /vi/superpowers-review-2026/ 301
 /vi/surfer-seo-alternatives /vi/surfer-seo-alternatives/ 301
 /vi/surfer-seo-alternatives.html /vi/surfer-seo-alternatives/ 301
 /vi/surfer-seo-alternatives/index.html /vi/surfer-seo-alternatives/ 301
@@ -2454,9 +2505,15 @@
 /vi/trackdesk-review-2026 /vi/trackdesk-review-2026/ 301
 /vi/trackdesk-review-2026.html /vi/trackdesk-review-2026/ 301
 /vi/trackdesk-review-2026/index.html /vi/trackdesk-review-2026/ 301
+/vi/trex-an-ai-code-reviewer-that-runs-your-code /vi/trex-an-ai-code-reviewer-that-runs-your-code/ 301
+/vi/trex-an-ai-code-reviewer-that-runs-your-code.html /vi/trex-an-ai-code-reviewer-that-runs-your-code/ 301
+/vi/trex-an-ai-code-reviewer-that-runs-your-code/index.html /vi/trex-an-ai-code-reviewer-that-runs-your-code/ 301
 /vi/ubersuggest-review-2026 /vi/ubersuggest-review-2026/ 301
 /vi/ubersuggest-review-2026.html /vi/ubersuggest-review-2026/ 301
 /vi/ubersuggest-review-2026/index.html /vi/ubersuggest-review-2026/ 301
+/vi/ui-tars-desktop-review-2026 /vi/ui-tars-desktop-review-2026/ 301
+/vi/ui-tars-desktop-review-2026.html /vi/ui-tars-desktop-review-2026/ 301
+/vi/ui-tars-desktop-review-2026/index.html /vi/ui-tars-desktop-review-2026/ 301
 /vi/unbounce-review-2026 /vi/unbounce-review-2026/ 301
 /vi/unbounce-review-2026.html /vi/unbounce-review-2026/ 301
 /vi/unbounce-review-2026/index.html /vi/unbounce-review-2026/ 301
