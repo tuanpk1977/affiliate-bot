@@ -237,7 +237,7 @@ def discover_articles() -> list[Article]:
             Article(
                 slug=slugify(slug),
                 title=clean_text(row.get("title") or slug),
-                page_type="article",
+                page_type=slugify(row.get("page_type") or "article"),
                 output_path=path,
                 url=row.get("url") or page_url_from_path(path),
             )
@@ -496,28 +496,87 @@ def voiceover_from_script(script: str) -> str:
 def build_youtube_voiceover(article: Article, page: ExtractedPage) -> str:
     if article.slug == "hidden-ai-infrastructure-companies-2026":
         return hidden_ai_infrastructure_voiceover()
+    if article.slug in {
+        "review-surfer-seo-review-2026",
+        "surfer-seo-free-trial",
+        "review-surfer-seo-alternatives",
+        "compare-surfer-seo-vs-frase",
+        "surfer-seo-vs-clearscope",
+        "best-ai-seo-tools-2026",
+        "best-website-builder-2026",
+        "best-ai-website-builders-compared",
+        "best-affiliate-marketing-software-saas",
+        "review-trackdesk-review-2026",
+    }:
+        return build_long_buyer_voiceover(article, page)
     name = display_name(page.title or article.title).replace(" - MS Smile AI Review Hub", "")
     name = re.sub(r"\s+Review.*$", "", name).strip() or display_name(article.title)
-    overview = trim_words(" ".join(section_source(article, page, "Overview")), 42)
-    features = [trim_words(item, 12) for item in section_source(article, page, "Key Features")[:3]]
-    pros = [trim_words(item, 12) for item in section_source(article, page, "Pros")[:3]]
-    cons = [trim_words(item, 12) for item in section_source(article, page, "Cons")[:3]]
-    pricing = trim_words(" ".join(section_source(article, page, "Pricing")), 42)
-    alternatives = [trim_words(item, 12) for item in section_source(article, page, "Alternatives")[:3]]
-    verdict = trim_words(" ".join(section_source(article, page, "Final Verdict")), 46)
     lines = [
-        f"If you are considering {name}, here is the short version before you spend money.",
-        f"The problem is simple: SEO tools can look impressive in a demo, but the real question is whether they improve your weekly workflow. {overview}",
-        f"The solution is to test {name} against one real content planning task. Look at keyword research, content briefs, competitor checks, and how much manual review is still needed.",
-        "For key features, focus on the practical pieces. " + " ".join(features),
-        "The strongest reasons to shortlist it are these. " + " ".join(pros),
-        "But there are tradeoffs. " + " ".join(cons),
-        f"For pricing, do not rely on old screenshots or old plan names. {pricing} Always verify current pricing on the official website.",
-        "Before you decide, compare alternatives. " + " ".join(alternatives),
-        f"My verdict: {verdict} Use this review as a research starting point, not a guarantee.",
-        "Watch more AI tool reviews on the Smile AI Review Hub YouTube channel. Read the full review and affiliate links at smileaireviewhub.com.",
+        f"This video explains how to evaluate {name} before spending money.",
+        "Start with the real task you need the software to improve.",
+        "A polished demo does not always produce a reliable weekly workflow.",
+        "Write down the result you need before comparing any features.",
+        "Then test the software with one realistic project from start to finish.",
+        "Measure setup time, output quality, review effort, and operating cost.",
+        "The overview should explain the main job this software is designed to handle.",
+        "It should also show which users are most likely to benefit.",
+        "Next, examine the core features through a practical buyer's lens.",
+        "A useful feature should remove a repeated bottleneck or improve a measurable result.",
+        "Check whether important features are included in the plan you can afford.",
+        "Also check whether the workflow still requires significant manual review.",
+        "Collaboration matters when several people must approve or reuse the output.",
+        "Export options matter because they reduce the risk of vendor lock-in.",
+        "Integrations matter only when they support tools your team actually uses.",
+        "Now consider the strongest reasons to shortlist this option.",
+        "The best strengths are the ones that save time on repeated work.",
+        "A strength matters less when your team rarely uses that capability.",
+        "Every tool also has limitations that should be tested before purchase.",
+        "Look for usage caps, missing controls, weak exports, and extra review work.",
+        "Treat each limitation as a question to verify with a real project.",
+        "Pricing information can change, so old screenshots may be misleading.",
+        "Verify current plans, limits, trials, and renewal terms on the official website.",
+        "Estimate the cost at today's usage and at your next stage of growth.",
+        "Compare at least two alternatives with the same realistic test case.",
+        "Use the same quality standard, deadline, and expected result for every option.",
+        "This makes the comparison more useful than a simple feature checklist.",
+        f"My verdict is to shortlist {name} only when it fits a measurable requirement.",
+        "Use the full review as a research starting point, not as a guarantee.",
+        "Read the complete review and related comparisons at smileaireviewhub.com.",
     ]
     return "\n\n".join(clean_text(line) for line in lines if clean_text(line)) + "\n"
+
+
+def build_long_buyer_voiceover(article: Article, page: ExtractedPage) -> str:
+    title = display_name(page.title or article.title).replace(" - MS Smile AI Review Hub", "")
+    name = re.sub(r"\s+Review.*$", "", title).strip() or display_name(article.title)
+    overview = trim_words(" ".join(section_source(article, page, "Overview")), 70)
+    features = trim_words(" ".join(section_source(article, page, "Key Features")), 85)
+    pros = trim_words(" ".join(section_source(article, page, "Pros")), 55)
+    cons = trim_words(" ".join(section_source(article, page, "Cons")), 55)
+    pricing = trim_words(" ".join(section_source(article, page, "Pricing")), 65)
+    alternatives = trim_words(" ".join(section_source(article, page, "Alternatives")), 75)
+    verdict = trim_words(" ".join(section_source(article, page, "Final Verdict")), 60)
+    paragraphs = [
+        f"If you are researching {title}, do not start with the longest feature list. Start with the repeated business task you need to improve. In this video, we will examine practical workflow fit, pricing risk, strengths, limitations, alternatives, and the questions to verify before spending money.",
+        f"Here is the main context. {overview} The useful decision is not whether {name} looks capable in a demo. The useful decision is whether it produces a reliable result with acceptable setup time, review effort, and operating cost.",
+        "Before comparing tools, write down one real test case. Use a current article, campaign, website, or partner workflow. Define the intended result, deadline, owner, and quality standard. Run the same test with every shortlisted option. This prevents a polished interface or a single impressive feature from controlling the decision.",
+        f"Now consider the core workflow and features. {features} For each capability, check what is included in the current plan, what requires an upgrade, what still needs manual review, and whether the output can be exported or reused if you later change platforms.",
+        f"The strongest reasons to shortlist this option are these. {pros} These strengths matter most when they remove a repeated bottleneck. They matter less when the workflow is occasional, the team does not use the output, or another existing tool already covers the same job.",
+        f"There are also important tradeoffs. {cons} Treat these as test questions rather than automatic deal breakers. Verify them with a real project, current documentation, and the people who will operate the workflow every week.",
+        f"Pricing requires special care. {pricing} Always verify current pricing on the official website. Plan names, usage limits, seats, credits, trials, refunds, renewals, and cancellation terms can change. Calculate the likely cost at today's volume and at the next realistic stage of growth.",
+        f"Alternatives should be tested with the same task. {alternatives} Compare output quality, setup time, review effort, collaboration, exports, integrations, support, and likely monthly usage. Avoid choosing a winner from marketing pages alone.",
+        f"My final verdict is this. {verdict} Shortlist {name} only when the current plan and workflow fit a real requirement you can measure. Verify fast-changing details on the official website and compare at least two alternatives before committing.",
+        "Read the full comparison, related reviews, and practical buyer checklists at smileaireviewhub.com. Subscribe to the Smile AI Review Hub YouTube channel for more independent AI, SEO, website builder, and SaaS software research.",
+    ]
+    voiceover = "\n\n".join(clean_text(paragraph) for paragraph in paragraphs)
+    voiceover = re.sub(
+        r"The YouTube review will appear here automatically after a YoutubeVideoUrl is added to video_output/upload_links\.csv\s*\.?",
+        "",
+        voiceover,
+        flags=re.I,
+    )
+    voiceover = re.sub(r"\s+The YouTube review will appear here automatically.*$", "", voiceover, flags=re.I)
+    return "\n\n".join(clean_text(paragraph) for paragraph in voiceover.split("\n\n") if clean_text(paragraph)) + "\n"
 
 
 def hidden_ai_infrastructure_voiceover() -> str:
@@ -1082,11 +1141,13 @@ def build_paired_bilingual_srts(
 
 def paired_voiceover_cues(voiceover: str, english_max_chars: int = 105) -> list[tuple[str, str]]:
     sentences = [clean_text(item) for item in re.split(r"(?<=[.!?])\s+|\n\s*\n", voiceover) if clean_text(item)]
-    pairs: list[tuple[str, str]] = []
-    for sentence in sentences:
-        for english_event in split_subtitle_event_text(sentence, max_chars=english_max_chars, max_lines=1):
-            pairs.append((english_event, translate_voiceover_cue_to_vietnamese(english_event)))
-    return pairs
+    # Keep each spoken sentence and its translation in one cue. Splitting before
+    # translation produces Vietnamese fragments that no longer match the audio.
+    return [(sentence, translate_voiceover_cue_to_vietnamese(sentence)) for sentence in sentences]
+
+
+def has_mojibake(value: str) -> bool:
+    return any(marker in value for marker in ("Ã", "Ä", "Æ", "áº", "á»", "â€"))
 
 
 def translate_paired_cues_with_google(
@@ -1099,6 +1160,8 @@ def translate_paired_cues_with_google(
     translated_pairs: list[tuple[str, str]] = []
     for english_event, _ in pairs:
         vietnamese_event = clean_text(str(cache.get(english_event) or ""))
+        if has_mojibake(vietnamese_event):
+            vietnamese_event = ""
         if not vietnamese_event:
             try:
                 response = requests.get(

@@ -1,0 +1,36 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+<title id="title">Kilocode buyer comparison graphic</title>
+<desc id="desc">A visual comparison checklist for evaluating Kilocode against alternative AI coding tools.</desc>
+<rect width="1200" height="680" fill="#f8fafc"/>
+<rect x="48" y="42" width="1104" height="596" rx="22" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="48" y="42" width="1104" height="104" rx="22" fill="#0f766e"/>
+<text x="86" y="106" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800" fill="#ffffff">Kilocode Review 2026</text>
+<text x="86" y="134" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#d1fae5">Buyer comparison snapshot for AI coding workflows</text>
+<g font-family="Arial, Helvetica, sans-serif">
+<rect x="86" y="190" width="300" height="360" rx="16" fill="#ecfeff" stroke="#67e8f9"/>
+<text x="116" y="236" font-size="28" font-weight="800" fill="#164e63">Kilocode Fit</text>
+<text x="116" y="292" font-size="22" fill="#334155">Best when the team</text>
+<text x="116" y="326" font-size="22" fill="#334155">needs coding help,</text>
+<text x="116" y="360" font-size="22" fill="#334155">review support, and</text>
+<text x="116" y="394" font-size="22" fill="#334155">workflow speed.</text>
+<circle cx="120" cy="462" r="10" fill="#0f766e"/><text x="145" y="470" font-size="20" fill="#334155">Repository context</text>
+<circle cx="120" cy="504" r="10" fill="#0f766e"/><text x="145" y="512" font-size="20" fill="#334155">Team policy checks</text>
+<rect x="450" y="190" width="300" height="360" rx="16" fill="#f1f5f9" stroke="#cbd5e1"/>
+<text x="480" y="236" font-size="28" font-weight="800" fill="#0f172a">Alternatives</text>
+<text x="480" y="292" font-size="22" fill="#334155">Compare with Cursor,</text>
+<text x="480" y="326" font-size="22" fill="#334155">GitHub Copilot,</text>
+<text x="480" y="360" font-size="22" fill="#334155">Windsurf, Replit,</text>
+<text x="480" y="394" font-size="22" fill="#334155">and Codex workflows.</text>
+<circle cx="484" cy="462" r="10" fill="#2563eb"/><text x="509" y="470" font-size="20" fill="#334155">IDE integration</text>
+<circle cx="484" cy="504" r="10" fill="#2563eb"/><text x="509" y="512" font-size="20" fill="#334155">Pricing model</text>
+<rect x="814" y="190" width="300" height="360" rx="16" fill="#fff7ed" stroke="#fdba74"/>
+<text x="844" y="236" font-size="28" font-weight="800" fill="#9a3412">Decision</text>
+<text x="844" y="292" font-size="22" fill="#334155">Test with one real</text>
+<text x="844" y="326" font-size="22" fill="#334155">coding task before</text>
+<text x="844" y="360" font-size="22" fill="#334155">committing team</text>
+<text x="844" y="394" font-size="22" fill="#334155">budget.</text>
+<circle cx="848" cy="462" r="10" fill="#ea580c"/><text x="873" y="470" font-size="20" fill="#334155">Verify official terms</text>
+<circle cx="848" cy="504" r="10" fill="#ea580c"/><text x="873" y="512" font-size="20" fill="#334155">Check data risk</text>
+<text x="86" y="604" font-size="18" fill="#64748b">Smile AI Review Hub - independent buyer research. Pricing and features should be verified on the official website.</text>
+</g>
+</svg>
