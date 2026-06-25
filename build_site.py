@@ -12,6 +12,7 @@ from modules.facebook_meta import post_process_facebook_meta
 from modules.sitemap_generator import generate_sitemap
 from modules.trust_localization_upgrade import enhance_site
 from modules.gsc_404_recovery import write_gsc_404_recovery_pages
+from modules.homepage_crawl_sections import enrich_homepage_crawl_sections
 from modules.internal_linker import post_process_internal_links
 from modules.legacy_slug_normalizer import normalize_legacy_slugs
 from modules.canonical_routes import apply_canonical_routing
@@ -19,13 +20,26 @@ from modules.seo_ai_search_upgrade import apply_seo_ai_search_upgrade
 from modules.seo_title_optimizer import optimize_site_titles
 from modules.seo_technical_cleanup import apply_technical_seo_cleanup
 from modules.structured_data_upgrade import apply_structured_data_upgrade
+from modules.topical_hubs import write_topical_hubs
 
 
 def sync_root_verification_files() -> int:
     copied = 0
-    for source in Path(__file__).resolve().parent.glob("yandex_*.html"):
-        if copy_if_changed(source, settings.site_output_dir / source.name):
-            copied += 1
+    root = Path(__file__).resolve().parent
+    patterns = (
+        "yandex_*.html",
+        "*.txt",
+        "sw.js",
+    )
+    excluded = {
+        "requirements.txt",
+    }
+    for pattern in patterns:
+        for source in root.glob(pattern):
+            if source.name in excluded or source.name.endswith(".local-backup"):
+                continue
+            if copy_if_changed(source, settings.site_output_dir / source.name):
+                copied += 1
     return copied
 
 
@@ -52,17 +66,32 @@ def sync_published_pages() -> dict[str, int]:
     return {"scanned": scanned, "changed": changed}
 
 
+def sync_article_visuals() -> int:
+    source_root = Path(__file__).resolve().parent / "assets" / "article-visuals"
+    if not source_root.exists():
+        return 0
+    changed = 0
+    target_root = settings.site_output_dir / "assets" / "article-visuals"
+    for source in sorted(source_root.glob("*")):
+        if source.is_file() and copy_if_changed(source, target_root / source.name):
+            changed += 1
+    return changed
+
+
 def incremental_build() -> dict[str, object]:
     settings.site_output_dir.mkdir(parents=True, exist_ok=True)
     verification_files_changed = sync_root_verification_files()
     sync_stats = sync_published_pages()
+    article_visuals_changed = sync_article_visuals()
     technical_stats = apply_technical_seo_cleanup(settings.site_output_dir)
     add_bilingual_pages(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     final_technical_stats = apply_technical_seo_cleanup(settings.site_output_dir)
     technical_stats["review_pages_changed"] = technical_stats.get("review_pages_changed", 0) + final_technical_stats.get("review_pages_changed", 0)
     technical_stats["cloudflare_go_redirect_rules"] = final_technical_stats.get("cloudflare_go_redirect_rules", 0)
     write_gsc_404_recovery_pages(settings.site_output_dir)
+    hub_stats = write_topical_hubs(settings.site_output_dir)
     enhance_site(settings.site_output_dir)
+    homepage_stats = enrich_homepage_crawl_sections(settings.site_output_dir)
     internal_link_stats = post_process_internal_links(settings.site_output_dir)
     seo_ai_stats = apply_seo_ai_search_upgrade(settings.site_output_dir)
     facebook_stats = post_process_facebook_meta(settings.site_output_dir, settings.base_site_url or settings.site_domain)
@@ -76,6 +105,7 @@ def incremental_build() -> dict[str, object]:
         "published_pages_scanned": sync_stats["scanned"],
         "published_pages_changed": sync_stats["changed"],
         "verification_files_changed": verification_files_changed,
+        "article_visuals_changed": article_visuals_changed,
         "sitemap": str(sitemap_path),
         "facebook_meta_pages": facebook_stats.get("pages", 0),
         "facebook_meta_changed": facebook_stats.get("changed", 0),
@@ -98,6 +128,8 @@ def incremental_build() -> dict[str, object]:
         "canonical_redirect_rules": canonical_stats.get("canonical_redirect_rules", 0),
         "public_review_pages_changed": technical_stats.get("review_pages_changed", 0),
         "cloudflare_go_redirect_rules": technical_stats.get("cloudflare_go_redirect_rules", 0),
+        "topical_hubs_written": hub_stats.get("topical_hubs_written", 0),
+        "homepage_crawl_sections": homepage_stats.get("homepage_crawl_sections", 0),
     }
 
 
@@ -106,6 +138,9 @@ def full_build() -> dict[str, object]:
 
     main()
     verification_files_changed = sync_root_verification_files()
+    article_visuals_changed = sync_article_visuals()
+    hub_stats = write_topical_hubs(settings.site_output_dir)
+    homepage_stats = enrich_homepage_crawl_sections(settings.site_output_dir)
     internal_link_stats = post_process_internal_links(settings.site_output_dir)
     seo_ai_stats = apply_seo_ai_search_upgrade(settings.site_output_dir)
     title_stats = optimize_site_titles(settings.site_output_dir)
@@ -117,6 +152,7 @@ def full_build() -> dict[str, object]:
         "mode": "full",
         "site_output": str(settings.site_output_dir),
         "verification_files_changed": verification_files_changed,
+        "article_visuals_changed": article_visuals_changed,
         "sitemap": str(sitemap_path),
         "internal_link_pages": internal_link_stats.get("pages", 0),
         "internal_links_added": internal_link_stats.get("links_added", 0),
@@ -130,6 +166,8 @@ def full_build() -> dict[str, object]:
         "canonical_pages": canonical_stats.get("canonical_pages", 0),
         "canonical_pages_changed": canonical_stats.get("canonical_pages_changed", 0),
         "canonical_redirect_rules": canonical_stats.get("canonical_redirect_rules", 0),
+        "topical_hubs_written": hub_stats.get("topical_hubs_written", 0),
+        "homepage_crawl_sections": homepage_stats.get("homepage_crawl_sections", 0),
     }
 
 
