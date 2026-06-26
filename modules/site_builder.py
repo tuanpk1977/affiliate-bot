@@ -1451,6 +1451,7 @@ def page_shell(
     image_path: str = "/assets/og/site.svg",
     page_type: str = "article",
     robots: str = "auto",
+    canonical_url: str | None = None,
 ) -> str:
     base = (settings.base_site_url or settings.site_domain or "https://yourdomain.com").rstrip("/")
     page_path = path or f"/{title.lower().replace(' ', '-')}/"
@@ -1461,7 +1462,7 @@ def page_shell(
         robots = INDEXABLE_ROBOTS_META
     else:
         robots = INDEXABLE_ROBOTS_META
-    canonical = base + page_path
+    canonical = canonical_url or base + page_path
     schema_items = base_schemas(title, description, canonical)
     schema_items.append(json.dumps({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": f"{base}/"}, {"@type": "ListItem", "position": 2, "name": title, "item": canonical}]}, ensure_ascii=False))
     if (path or "") not in FAQ_SCHEMA_DISABLED_PATHS and ("FAQ" in body or "<details" in body):
@@ -1777,6 +1778,18 @@ def legacy_redirects(pages: list[dict]) -> dict[str, str]:
         "/semrush-vs-ahrefs-2026": "/compare/semrush-vs-ahrefs/",
         "/vi/semrush-vs-ahrefs-2026/": "/vi/compare/semrush-vs-ahrefs/",
         "/vi/semrush-vs-ahrefs-2026": "/vi/compare/semrush-vs-ahrefs/",
+        "/surfer-seo-pricing-2026/": "/surfer-seo-pricing/",
+        "/surfer-seo-pricing-2026": "/surfer-seo-pricing/",
+        "/vi/surfer-seo-pricing-2026/": "/surfer-seo-pricing/",
+        "/vi/surfer-seo-pricing-2026": "/surfer-seo-pricing/",
+        "/review/codeium/": "/compare/github-copilot-vs-codeium/",
+        "/review/codeium": "/compare/github-copilot-vs-codeium/",
+        "/vi/review/codeium/": "/vi/compare/github-copilot-vs-codeium/",
+        "/vi/review/codeium": "/vi/compare/github-copilot-vs-codeium/",
+        "/vi/marketing-software-review/": "/vi/email-marketing-software-review/",
+        "/vi/marketing-software-review": "/vi/email-marketing-software-review/",
+        "/vi/crm-alternatives/": "/vi/category/crm-tools/",
+        "/vi/crm-alternatives": "/vi/category/crm-tools/",
     }
     return redirects
 
@@ -1800,10 +1813,14 @@ def write_static_redirect_pages(output: Path, redirects: dict[str, str]) -> None
 <script>window.location.replace("{html.escape(target, quote=True)}");</script>
 """
         source_url_path = source if source.endswith("/") else f"{source}/"
-        page = page_shell(title, description, body, source_url_path, page_type="website", robots=robots_meta_for_path(source_url_path))
-        page = page.replace(
-            f'<link rel="canonical" href="{html.escape(site_url(source if source.endswith("/") else f"{source}/"), quote=True)}">',
-            f'<link rel="canonical" href="{html.escape(target_url, quote=True)}">',
+        page = page_shell(
+            title,
+            description,
+            body,
+            source_url_path,
+            page_type="website",
+            robots=robots_meta_for_path(source_url_path),
+            canonical_url=target_url,
         )
         (folder / "index.html").write_text(page, encoding="utf-8")
 
