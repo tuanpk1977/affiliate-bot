@@ -13,10 +13,11 @@ from modules.indexing_policy import is_redirect_page, rel_path_for_html
 
 BASE_URL = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
 SITE_NAME = settings.site_name or "MS Smile AI Review Hub"
-AUTHOR_NAME = "Nguyen Quoc Tuan"
+AUTHOR_NAME = "Tuan Nguyen Quoc"
 ORG_ID = f"{BASE_URL}/#organization"
 WEBSITE_ID = f"{BASE_URL}/#website"
 AUTHOR_ID = f"{BASE_URL}/about-author/#person"
+DEFAULT_SCHEMA_TIMEZONE = "+07:00"
 FAQ_SCHEMA_DISABLED_PATHS = {
     "/comparisons/framer-vs-webflow/",
     "/vi/comparisons/framer-vs-webflow/",
@@ -102,7 +103,18 @@ def build_page_schemas(
         product_name = review_product_name(h1, lang)
         software_id = f"{canonical}#software"
         schemas.append(software_schema(product_name, canonical, description, software_id))
-        schemas.append(review_schema(product_name, canonical, description, lang, software_id))
+        rating = review_rating_from_existing(existing)
+        if rating:
+            schemas.append(
+                review_schema(
+                    product_name,
+                    canonical,
+                    description,
+                    lang,
+                    software_id,
+                    rating,
+                )
+            )
     elif page_kind == "comparison":
         tools = comparison_tools(h1, rel_url)
         if len(tools) >= 2:
@@ -183,6 +195,24 @@ def person_schema() -> dict[str, object]:
     }
 
 
+def author_object() -> dict[str, object]:
+    return {
+        "@type": "Person",
+        "@id": AUTHOR_ID,
+        "name": AUTHOR_NAME,
+        "url": f"{BASE_URL}/about-author/",
+    }
+
+
+def publisher_object() -> dict[str, object]:
+    return {
+        "@type": "Organization",
+        "@id": ORG_ID,
+        "name": SITE_NAME,
+        "url": f"{BASE_URL}/",
+    }
+
+
 def article_schema(
     canonical: str,
     headline: str,
@@ -205,8 +235,8 @@ def article_schema(
         "articleSection": section,
         "datePublished": published,
         "dateModified": modified,
-        "author": {"@id": AUTHOR_ID},
-        "publisher": {"@id": ORG_ID},
+        "author": author_object(),
+        "publisher": publisher_object(),
     }
     if image:
         schema["image"] = image
@@ -226,7 +256,14 @@ def software_schema(name: str, canonical: str, description: str, software_id: st
     }
 
 
-def review_schema(name: str, canonical: str, description: str, lang: str, software_id: str) -> dict[str, object]:
+def review_schema(
+    name: str,
+    canonical: str,
+    description: str,
+    lang: str,
+    software_id: str,
+    rating: dict[str, int | float],
+) -> dict[str, object]:
     return {
         "@context": "https://schema.org",
         "@type": "Review",
@@ -235,10 +272,64 @@ def review_schema(name: str, canonical: str, description: str, lang: str, softwa
         "name": f"{name} review",
         "reviewBody": description,
         "inLanguage": lang,
-        "author": {"@id": AUTHOR_ID},
-        "publisher": {"@id": ORG_ID},
-        "itemReviewed": {"@id": software_id},
+        "author": author_object(),
+        "publisher": publisher_object(),
+        "itemReviewed": {
+            "@type": "SoftwareApplication",
+            "@id": software_id,
+            "name": name,
+        },
+        "reviewRating": {
+            "@type": "Rating",
+            **rating,
+        },
     }
+
+
+def review_rating_from_existing(existing: list[dict[str, object]]) -> dict[str, int | float] | None:
+    for node in schema_nodes(existing):
+        if node.get("@type") != "Review":
+            continue
+        rating = node.get("reviewRating")
+        if not isinstance(rating, dict):
+            continue
+        rating_value = numeric_rating(rating.get("ratingValue"))
+        if rating_value is None:
+            continue
+        best_rating = numeric_rating(rating.get("bestRating"))
+        worst_rating = numeric_rating(rating.get("worstRating"))
+        best_rating = 5 if best_rating is None else best_rating
+        worst_rating = 1 if worst_rating is None else worst_rating
+        if worst_rating > best_rating or not worst_rating <= rating_value <= best_rating:
+            continue
+        return {
+            "ratingValue": rating_value,
+            "bestRating": best_rating,
+            "worstRating": worst_rating,
+        }
+    return None
+
+
+def schema_nodes(value: object):
+    if isinstance(value, dict):
+        yield value
+        for child in value.values():
+            yield from schema_nodes(child)
+    elif isinstance(value, list):
+        for child in value:
+            yield from schema_nodes(child)
+
+
+def numeric_rating(value: object) -> int | float | None:
+    if isinstance(value, bool):
+        return None
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return None
+    if not number.is_integer():
+        return number
+    return int(number)
 
 
 def comparison_item_list(canonical: str, tools: list[str], description: str) -> dict[str, object]:
@@ -336,7 +427,7 @@ def video_schema(
         "name": name,
         "description": description,
         "thumbnailUrl": image or f"https://i.ytimg.com/vi/{video_id}/hqdefault.jpg",
-        "uploadDate": modified,
+        "uploadDate": normalize_upload_date(modified),
         "embedUrl": f"https://www.youtube.com/embed/{video_id}",
         "contentUrl": f"https://www.youtube.com/watch?v={video_id}",
         "isPartOf": {"@id": f"{canonical}#article"},
@@ -401,6 +492,15 @@ def schema_dates(existing: list[dict[str, object]], page: Path) -> tuple[str, st
 def normalize_date(value: str) -> str:
     match = re.search(r"\d{4}-\d{2}-\d{2}", value or "")
     return match.group(0) if match else ""
+
+
+def normalize_upload_date(value: str) -> str:
+    value = (value or "").strip()
+    if re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})", value):
+        return value
+    match = re.search(r"\d{4}-\d{2}-\d{2}", value)
+    day = match.group(0) if match else date.today().isoformat()
+    return f"{day}T08:00:00{DEFAULT_SCHEMA_TIMEZONE}"
 
 
 def page_language(source: str, rel_url: str) -> str:
