@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from collections import Counter, defaultdict
 from dataclasses import asdict, dataclass, field
+from datetime import date, timedelta
+from difflib import SequenceMatcher
 from html.parser import HTMLParser
 from pathlib import Path
 import json
@@ -360,8 +362,35 @@ def write_health_reports(
     health_path = report_dir / "health-report.md"
     health_path.write_text("\n".join(health_lines) + "\n", encoding="utf-8")
 
+    history_dir = report_dir / "history"
+    history_dir.mkdir(parents=True, exist_ok=True)
+    today = date.today()
+    previous_path = history_dir / f"{(today - timedelta(days=1)).isoformat()}-dashboard.json"
+    previous = {}
+    if previous_path.exists():
+        try:
+            previous = json.loads(previous_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            previous = {}
+    trend_fields = (
+        "broken_internal_links",
+        "orphan_pages",
+        "duplicate_titles",
+        "missing_faq",
+        "schema_failures",
+    )
+    trends = {
+        key: {
+            "yesterday": previous.get(key),
+            "today": summary[key],
+            "change": summary[key] - previous[key] if isinstance(previous.get(key), (int, float)) else None,
+        }
+        for key in trend_fields
+    }
     dashboard = {
         **summary,
+        "report_date": today.isoformat(),
+        "trends": trends,
         "todays_articles": today_urls or [],
         "total_indexed": summary["indexable_pages"],
         "pending": 0,
@@ -369,6 +398,14 @@ def write_health_reports(
     }
     dashboard_json = report_dir / "dashboard.json"
     dashboard_json.write_text(json.dumps(dashboard, indent=2) + "\n", encoding="utf-8")
+    (history_dir / f"{today.isoformat()}-health-report.md").write_text(
+        "\n".join(health_lines) + "\n",
+        encoding="utf-8",
+    )
+    (history_dir / f"{today.isoformat()}-dashboard.json").write_text(
+        json.dumps(dashboard, indent=2) + "\n",
+        encoding="utf-8",
+    )
     dashboard_md = report_dir / "dashboard.md"
     dashboard_md.write_text(
         "\n".join(
@@ -385,6 +422,12 @@ def write_health_reports(
                 f"- Average external links: {summary['average_external_links']}",
                 f"- Schema PASS: {summary['schema_pass_percent']}%",
                 f"- Canonical PASS: {summary['canonical_pass_percent']}%",
+                "",
+                "## Change vs yesterday",
+                *[
+                    f"- {key}: {value['yesterday']} -> {value['today']} (change: {value['change']})"
+                    for key, value in trends.items()
+                ],
             ]
         )
         + "\n",
@@ -412,6 +455,24 @@ def write_internal_link_map(audit: HealthAudit, path: Path) -> Path:
 def safe_repair_pages(root: Path, urls: list[str]) -> dict[str, object]:
     repaired: list[str] = []
     unresolved: dict[str, list[str]] = {}
+    valid_urls = {
+        page_url(path, root)
+        for path in root.rglob("*.html")
+        if not is_redirect_page(urlparse(page_url(path, root)).path)
+    }
+
+    def replacement_for(broken: str) -> str:
+        broken_path = urlparse(broken).path.strip("/")
+        ranked = sorted(
+            (
+                SequenceMatcher(None, broken_path, urlparse(candidate).path.strip("/")).ratio(),
+                candidate,
+            )
+            for candidate in valid_urls
+        )
+        score, candidate = ranked[-1] if ranked else (0.0, "")
+        return urlparse(candidate).path if score >= 0.9 else ""
+
     for url in urls:
         path = url_to_file(url, root)
         if not path.exists():
@@ -432,13 +493,48 @@ def safe_repair_pages(root: Path, urls: list[str]) -> dict[str, object]:
                 if node.get("@type") in {"Article", "BlogPosting", "Review"}:
                     author = node.get("author")
                     if not isinstance(author, dict) or author.get("@type") not in {"Person", "Organization"} or not str(author.get("name") or "").strip():
-                        node["author"] = {"@type": "Organization", "name": "MS Smile AI Review Hub"}
+                        node["author"] = {"@type": "Person", "name": "Tuan Nguyen Quoc"}
                         changed = True
             if not changed:
                 return match.group(0)
             return f'<script type="application/ld+json">{json.dumps(payload, ensure_ascii=False)}</script>'
 
         updated = JSON_LD_RE.sub(repair_schema, updated)
+        if "BreadcrumbList" not in updated and "</head>" in updated:
+            breadcrumb = {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Home",
+                        "item": f"{BASE_URL}/",
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": " ".join(urlparse(url).path.strip("/").replace("-", " ").title().split()),
+                        "item": url,
+                    },
+                ],
+            }
+            updated = updated.replace(
+                "</head>",
+                f'<script type="application/ld+json">{json.dumps(breadcrumb, ensure_ascii=False)}</script></head>',
+                1,
+            )
+        broken_links = inspect_page(path, root).broken_links
+        for broken in broken_links:
+            replacement = replacement_for(broken)
+            if replacement:
+                broken_path = urlparse(broken).path
+                updated = re.sub(
+                    rf"""(?P<prefix>href=['"]){re.escape(broken_path)}(?P<suffix>[?#'"])""",
+                    rf"\g<prefix>{replacement}\g<suffix>",
+                    updated,
+                    flags=re.I,
+                )
         updated = re.sub(
             r"<img\b(?![^>]*\balt=)([^>]*)>",
             lambda match: f'<img alt="{Path(re.search(r"""src=['"]([^'"]+)""", match.group(1), re.I).group(1)).stem.replace("-", " ") if re.search(r"""src=['"]([^'"]+)""", match.group(1), re.I) else "Article image"}"{match.group(1)}>',

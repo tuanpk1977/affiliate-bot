@@ -6,7 +6,7 @@ from tempfile import TemporaryDirectory
 import unittest
 
 from modules.content_quality import inspect_content
-from modules.operational_health import audit_site, write_health_reports
+from modules.operational_health import audit_site, safe_repair_pages, write_health_reports
 
 
 def page(url: str, title: str = "Example Review") -> str:
@@ -81,6 +81,36 @@ class OperationalHealthTest(unittest.TestCase):
             after = inspect_content(target, repair=True)
             self.assertTrue(after.ok)
             self.assertEqual(target.read_text(encoding="utf-8").count(repeated), 1)
+
+    def test_safe_repair_adds_author_breadcrumb_and_obvious_link_target(self) -> None:
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "assets").mkdir()
+            (root / "assets" / "example.png").write_bytes(b"png")
+            (root / "related-review").mkdir()
+            target_url = "https://smileaireviewhub.com/related-review/"
+            (root / "related-review" / "index.html").write_text(page(target_url, "Related Review"), encoding="utf-8")
+            review_dir = root / "product-review"
+            review_dir.mkdir()
+            source_url = "https://smileaireviewhub.com/product-review/"
+            source = page(source_url, "Product Review")
+            source = source.replace(
+                '"author": {"@type": "Person", "name": "Tuan Nguyen Quoc"}',
+                '"author": ""',
+                1,
+            )
+            source = source.replace(
+                '<a href="/related/">Related</a>',
+                '<a href="/related-revie/">Related</a>',
+            )
+            source = source.replace('"@type": "BreadcrumbList"', '"@type": "WebPage"', 1)
+            (review_dir / "index.html").write_text(source, encoding="utf-8")
+            result = safe_repair_pages(root, [source_url])
+            updated = (review_dir / "index.html").read_text(encoding="utf-8")
+            self.assertIn('"name": "Tuan Nguyen Quoc"', updated)
+            self.assertIn('"@type": "BreadcrumbList"', updated)
+            self.assertIn('href="/related-review/"', updated)
+            self.assertIn(source_url, result["repaired"])
 
 
 if __name__ == "__main__":

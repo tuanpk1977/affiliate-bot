@@ -19,6 +19,10 @@ AI_STYLE = (
     "it is important to note",
 )
 CTA_TERMS = ("try ", "visit ", "compare ", "read ", "check the official", "learn more")
+USE_CASE_TERMS = ("use case", "best for", "who should use", "workflow")
+PROS_CONS_TERMS = ("pros and cons", "advantages", "limitations", "drawbacks")
+PRICING_TERMS = ("pricing", "price", "cost", "plan")
+COMPARISON_TERMS = ("comparison", "alternatives", "versus", " vs ")
 
 
 @dataclass
@@ -71,6 +75,7 @@ def inspect_content(path: Path, *, repair: bool = False) -> ContentQAResult:
     if style_hits:
         result.warnings.append(f"AI-style wording: {', '.join(style_hits)}")
     headings = [(level, text) for level, text in parser.headings]
+    heading_blob = " ".join(text for _, text in headings).casefold()
     heading_text = [normalize_sentence(text) for _, text in headings]
     duplicates = [text for text, count in Counter(heading_text).items() if count > 1]
     if duplicates:
@@ -91,6 +96,18 @@ def inspect_content(path: Path, *, repair: bool = False) -> ContentQAResult:
         result.errors.append("missing FAQ")
     if not any(term in lowered for term in CTA_TERMS):
         result.errors.append("missing CTA")
+    if not any(term in lowered for term in USE_CASE_TERMS):
+        result.warnings.append("missing practical use-case section")
+    if not any(term in lowered for term in PROS_CONS_TERMS):
+        result.warnings.append("missing pros/cons or limitations section")
+    if any(term in lowered for term in ("review", "software", "tool", "platform")) and not any(
+        term in lowered for term in PRICING_TERMS
+    ):
+        result.warnings.append("missing pricing verification section")
+    if any(term in lowered for term in ("alternatives", "comparison", " vs ")) and not any(
+        term in heading_blob for term in COMPARISON_TERMS
+    ):
+        result.warnings.append("missing comparison section")
     anchors = re.findall(r"<a\b[^>]*>(.*?)</a>", source, re.I | re.S)
     unnatural = sum(
         normalize_sentence(re.sub(r"<[^>]+>", " ", anchor)) in {"click here", "here", "read more", "link"}

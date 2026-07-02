@@ -1106,3 +1106,76 @@ video_output/trex-an-ai-code-reviewer-that-runs-your-code/
 ```
 
 Each folder should contain `review_video.mp4` plus supporting metadata/subtitle files.
+
+## 15. Competitor trend discovery
+
+The competitor scanner is a topic-discovery input only. It never copies article
+content and never publishes pages.
+
+Configuration:
+
+```text
+data/competitors.json
+```
+
+Manual scan:
+
+```powershell
+python scripts/scan_competitor_trends.py --max-items 12 --delay 1.0
+```
+
+Outputs:
+
+```text
+reports/competitor-trends.md
+reports/competitor-trends.json
+data/competitor_topic_candidates.json
+```
+
+Only candidates with a trend score of at least 70, clear commercial intent, and
+an action of `create` or `refresh` are written to the daily candidate file.
+The existing daily selector may read this file, but its duplicate checks still
+decide whether the topic becomes a new article or a refresh.
+
+The scanner prefers RSS and sitemap data, checks `robots.txt`, caches each
+host's robots policy during a run, waits between requests, and records failed
+requests in the report. Competitor pages are used only for titles, headings,
+metadata, and topic signals.
+
+## 16. Operational health and content growth reports
+
+Generate the current health, QA, cluster, refresh, and linking reports with:
+
+```powershell
+python scripts/generate_operational_reports.py --publish-root docs
+```
+
+To validate and repair only a known batch of newly generated URLs:
+
+```powershell
+python scripts/generate_operational_reports.py --publish-root docs --urls-file data/published_today.csv --repair
+```
+
+Key outputs:
+
+```text
+reports/health-report.md
+reports/dashboard.md
+reports/dashboard.json
+reports/content-qa.md
+reports/internal-link-map.md
+reports/topic-clusters.md
+reports/topic-clusters.json
+reports/content-refresh-queue.md
+reports/auto-repair-report.md
+reports/auto-repair-report.json
+reports/history/
+reports/social-posts/
+```
+
+Safe repairs are deliberately limited to deterministic changes such as a
+canonical mismatch, a missing valid author object, a missing breadcrumb schema,
+an obvious broken-link replacement, and missing image metadata/fallbacks.
+Ambiguous links, weak content, duplicate intent, or missing FAQs remain in the
+report for editorial review. Do not mass-rewrite healthy pages to make a report
+number reach zero.

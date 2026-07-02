@@ -35,6 +35,7 @@ def main() -> int:
     parser.add_argument("--generate-video-packages", action="store_true", help="Create manual YouTube package files in video_output.")
     parser.add_argument("--submit-indexnow", action="store_true", help="Reserved explicit flag. No IndexNow is submitted by this pipeline before deployment.")
     parser.add_argument("--skip-discovery", "--skip-discover", dest="skip_discovery", action="store_true", help="Use existing topic_scores.json instead of running discovery/scoring.")
+    parser.add_argument("--skip-competitor-scan", action="store_true", help="Skip the optional RSS/sitemap competitor trend scan.")
     parser.add_argument("--max-per-source", type=int, default=80)
     parser.add_argument("--timeout", type=int, default=None)
     args = parser.parse_args()
@@ -61,6 +62,17 @@ def main() -> int:
         if args.timeout is not None:
             planner_args.extend(["--timeout", str(args.timeout)])
         run_command(planner_args)
+        if not args.skip_competitor_scan:
+            run_command(
+                [
+                    sys.executable,
+                    "scripts/scan_competitor_trends.py",
+                    "--max-items",
+                    "8",
+                    "--delay",
+                    "1.0",
+                ]
+            )
     elif not args.skip_discovery and workflow_mode == "weekly_cluster":
         print("Skipping hottrend discovery because the daily guide says Tuesday-Sunday must use the current week's Weekly Topic Cluster.")
 

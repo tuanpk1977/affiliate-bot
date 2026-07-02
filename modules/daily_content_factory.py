@@ -170,6 +170,45 @@ def _weekly_cluster_rows() -> list[dict[str, Any]]:
     return load_json_rows(json_path)
 
 
+def _competitor_priority_rows() -> list[dict[str, Any]]:
+    rows = load_json_rows(DATA_DIR / "competitor_topic_candidates.json")
+    output: list[dict[str, Any]] = []
+    for row in rows:
+        score = numeric(row.get("trend_score"))
+        action = str(row.get("recommended_action", "")).lower()
+        if score < 70 or action not in {"create", "refresh"}:
+            continue
+        topic = str(row.get("suggested_article_title") or row.get("keyword") or "").strip()
+        slug = slugify(topic)
+        if not topic or not slug:
+            continue
+        keyword = str(row.get("keyword", "")).lower()
+        article_type = "Comparison" if any(value in keyword.split() for value in ("vs", "comparison")) else (
+            "Alternatives" if "alternatives" in keyword else "Review"
+        )
+        output.append(
+            {
+                "topic": topic,
+                "slug": slug,
+                "final_score": score,
+                "money_score": row.get("affiliate_potential", score),
+                "trend_score": score,
+                "affiliate_score": row.get("affiliate_potential", ""),
+                "competition_score": max(0, 100 - numeric(row.get("competitor_frequency")) * 10),
+                "content_gap_score": row.get("content_gap_score", ""),
+                "internal_link_score": row.get("internal_link_score", ""),
+                "impression_score": "",
+                "ctr_score": row.get("commercial_intent_score", ""),
+                "youtube_score": "",
+                "social_score": "",
+                "article_type": article_type,
+                "article_exists": "YES" if action == "refresh" else "NO",
+                "reason": f"Competitor trend: {row.get('competitor', '')}; keyword: {row.get('keyword', '')}.",
+            }
+        )
+    return output
+
+
 def _deep_dive_rows_from_clusters(limit: int, cluster_rows: list[dict[str, Any]] | None = None) -> list[dict[str, Any]]:
     inventory = content_inventory()
     authority_rows = build_authority_score(inventory)
@@ -311,7 +350,10 @@ def build_weekly_cluster_topics(limit: int = 10, weekly_rows: list[dict[str, Any
 
 
 def build_today_selected_topics(limit: int = 10, priority_rows: list[dict[str, Any]] | None = None) -> list[dict[str, Any]]:
-    priority_rows = priority_rows if priority_rows is not None else build_ai_priority_dashboard()
+    if priority_rows is None:
+        priority_rows = [*build_ai_priority_dashboard(), *_competitor_priority_rows()]
+    else:
+        priority_rows = list(priority_rows)
     duplicate_rows = build_duplicate_report()
     duplicate_by_slug = {str(row.get("slug", "")): row for row in duplicate_rows}
     selected: list[dict[str, Any]] = []

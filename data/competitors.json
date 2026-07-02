@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Futurepedia",
+    "website_url": "https://www.futurepedia.io/",
+    "sitemap_url": "https://www.futurepedia.io/sitemap.xml",
+    "rss_url": "",
+    "category": "AI tools",
+    "priority": 90
+  },
+  {
+    "name": "Toolify",
+    "website_url": "https://www.toolify.ai/",
+    "sitemap_url": "https://www.toolify.ai/sitemap.xml",
+    "rss_url": "",
+    "category": "AI tools",
+    "priority": 85
+  },
+  {
+    "name": "Zapier Blog",
+    "website_url": "https://zapier.com/blog/",
+    "sitemap_url": "https://zapier.com/blog/sitemap.xml",
+    "rss_url": "https://zapier.com/blog/feeds/latest/",
+    "category": "automation and SaaS",
+    "priority": 85
+  },
+  {
+    "name": "Product Hunt",
+    "website_url": "https://www.producthunt.com/",
+    "sitemap_url": "",
+    "rss_url": "https://www.producthunt.com/feed",
+    "category": "new software",
+    "priority": 75
+  },
+  {
+    "name": "TechCrunch AI",
+    "website_url": "https://techcrunch.com/category/artificial-intelligence/",
+    "sitemap_url": "https://techcrunch.com/sitemap.xml",
+    "rss_url": "https://techcrunch.com/category/artificial-intelligence/feed/",
+    "category": "AI news",
+    "priority": 65
+  }
+]
