@@ -1,0 +1,33 @@
+name: Daily site health check
+
+on:
+  schedule:
+    - cron: "0 23 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: daily-site-health
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Generate health and SEO reports
+        run: python scripts/generate_operational_reports.py --publish-root docs
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-health-${{ github.run_number }}
+          path: reports/
+          if-no-files-found: error
+          retention-days: 90

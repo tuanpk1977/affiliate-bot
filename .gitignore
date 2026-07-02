@@ -46,6 +46,7 @@ video_output/**/*.srt
 # Logs
 video_output/**/*.log
 logs/
+reports/
 *.log
 
 # Python cache

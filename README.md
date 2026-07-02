@@ -467,3 +467,14 @@ The engine reads public trend feeds and optional API-backed sources, filters top
 - `data/trend_reports/YYYY-MM-DD.md`
 
 It does not generate articles, videos, or deploy the website. X and YouTube discovery require `TWITTER_BEARER_TOKEN` and `YOUTUBE_API_KEY`. LinkedIn is reported as unavailable unless an approved discovery endpoint is configured.
+# Publishing health and indexing
+
+The production publish folder is `docs/`. Before pushing a content batch, run:
+
+```powershell
+python scripts/pre_publish_gate.py --urls-file data/published_today.json --repair
+```
+
+After a successful Cloudflare Pages deployment, GitHub Actions validates changed URLs and submits them to IndexNow. Bing sitemap submission requires `BING_WEBMASTER_API_KEY`. Google sitemap submission requires either `GOOGLE_SEARCH_CONSOLE_CREDENTIALS_JSON` or an access token. Google no longer supports the unauthenticated sitemap ping endpoint.
+
+Daily and post-deploy reports are written under `reports/` and `logs/indexing/`. See `PROJECT_GUIDE.md` for the complete operational rules and troubleshooting workflow.

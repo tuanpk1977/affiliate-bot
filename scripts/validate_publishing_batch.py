@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from modules.publishing_indexing import BASE_URL, validate_batch  # noqa: E402
+from modules.content_quality import inspect_content, write_content_qa_report  # noqa: E402
 
 
 def urls_from_file(path: Path) -> list[str]:
@@ -42,6 +43,7 @@ def main() -> int:
     parser.add_argument("--report", default="data/publishing_preflight_report.json")
     parser.add_argument("--published-today", default="data/published_today.json")
     parser.add_argument("--new-pages-only", action="store_true", help="Skip the full sitemap canonical scan.")
+    parser.add_argument("--repair-content", action="store_true", help="Remove exact duplicate paragraphs before validation.")
     args = parser.parse_args()
 
     urls = list(args.url)
@@ -61,6 +63,12 @@ def main() -> int:
         expected_lastmod=expected_lastmod,
         validate_all_canonicals=not args.new_pages_only,
     )
+    qa_results = [
+        inspect_content(Path(page.file), repair=args.repair_content)
+        for page in result.pages
+        if Path(page.file).exists()
+    ]
+    write_content_qa_report(qa_results, ROOT / "reports" / "content-qa.md")
     report_path = Path(args.report)
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(json.dumps(result.to_dict(), indent=2) + "\n", encoding="utf-8")
@@ -69,8 +77,11 @@ def main() -> int:
     print(f"Sitemap URLs: {result.sitemap.total_urls}")
     print(f"Pages valid: {sum(page.ok for page in result.pages)}/{len(result.pages)}")
     print(f"Sitemap: {'PASS' if result.sitemap.ok else 'FAIL'}")
-    print(f"Overall: {'PASS' if result.ok else 'FAIL'}")
-    if not result.ok:
+    qa_ok = all(item.ok for item in qa_results)
+    overall_ok = result.ok and qa_ok
+    print(f"Content QA: {'PASS' if qa_ok else 'FAIL'}")
+    print(f"Overall: {'PASS' if overall_ok else 'FAIL'}")
+    if not overall_ok:
         for error in result.sitemap.errors:
             print(f"- sitemap: {error}")
         for error in result.sitemap.duplicate_urls:
@@ -84,8 +95,11 @@ def main() -> int:
         for page in result.pages:
             for error in page.errors:
                 print(f"- {page.url}: {error}")
+        for item in qa_results:
+            for error in item.errors:
+                print(f"- content QA {item.file}: {error}")
     print(f"Report: {report_path}")
-    return 0 if result.ok else 1
+    return 0 if overall_ok else 1
 
 
 if __name__ == "__main__":

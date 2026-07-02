@@ -26,6 +26,12 @@ CANONICAL_RE = re.compile(
     flags=re.I,
 )
 HREF_RE = re.compile(r"\bhref=['\"]([^'\"]+)['\"]", flags=re.I)
+META_RE = re.compile(
+    r"<meta\b(?=[^>]*(?:name|property)=['\"]([^'\"]+)['\"])(?=[^>]*\bcontent=['\"]([^'\"]*)['\"])[^>]*>",
+    flags=re.I,
+)
+TITLE_RE = re.compile(r"<title[^>]*>(.*?)</title>", flags=re.I | re.S)
+IMG_RE = re.compile(r"<img\b([^>]*)>", flags=re.I)
 VALID_AUTHOR_TYPES = {"Person", "Organization"}
 
 
@@ -36,6 +42,8 @@ class PageValidation:
     canonical: str = ""
     schema_types: list[str] = field(default_factory=list)
     internal_links: int = 0
+    external_links: int = 0
+    images: int = 0
     errors: list[str] = field(default_factory=list)
 
     @property
@@ -192,6 +200,15 @@ def validate_page(url: str, publish_root: Path) -> PageValidation:
         return result
 
     source = target.read_text(encoding="utf-8", errors="replace")
+    metadata = {key.lower(): value.strip() for key, value in META_RE.findall(source)}
+    title = TITLE_RE.search(source)
+    if not title or not re.sub(r"<[^>]+>", "", title.group(1)).strip():
+        result.errors.append("meta title is missing")
+    if not metadata.get("description"):
+        result.errors.append("meta description is missing")
+    for required_meta in ("og:title", "og:description", "twitter:card"):
+        if not metadata.get(required_meta):
+            result.errors.append(f"{required_meta} is missing")
     canonicals = CANONICAL_RE.findall(source)
     if len(canonicals) != 1:
         result.errors.append(f"canonical count must be 1, found {len(canonicals)}")
@@ -214,9 +231,12 @@ def validate_page(url: str, publish_root: Path) -> PageValidation:
         result.errors.append("visible FAQ exists but FAQPage schema is missing")
 
     internal_links = set()
+    external_links = set()
     for href in HREF_RE.findall(source):
         parsed = urlparse(href)
         if parsed.netloc and parsed.netloc != HOST:
+            if parsed.scheme in {"http", "https"}:
+                external_links.add(href)
             continue
         if not href.startswith("/") and not parsed.netloc:
             continue
@@ -228,6 +248,28 @@ def validate_page(url: str, publish_root: Path) -> PageValidation:
         if not candidate.exists() and path not in {"/sitemap.xml", "/robots.txt", "/rss.xml", "/llms.txt"}:
             result.errors.append(f"broken internal link: {href}")
     result.internal_links = len(internal_links)
+    result.external_links = len(external_links)
+    if result.internal_links < 2:
+        result.errors.append(f"at least 2 internal links are required, found {result.internal_links}")
+    if result.external_links < 1:
+        result.errors.append("at least 1 external authority reference is required")
+    for attrs in IMG_RE.findall(source):
+        src = re.search(r"\bsrc=['\"]([^'\"]+)['\"]", attrs, flags=re.I)
+        alt = re.search(r"\balt=['\"]([^'\"]*)['\"]", attrs, flags=re.I)
+        if not src:
+            result.errors.append("image src is missing")
+            continue
+        result.images += 1
+        if not alt or not alt.group(1).strip():
+            result.errors.append(f"image alt is missing: {src.group(1)}")
+        if src.group(1).startswith("/"):
+            image_path = publish_root / src.group(1).lstrip("/")
+            if not image_path.exists():
+                result.errors.append(f"image file is missing: {src.group(1)}")
+    if result.images < 1:
+        result.errors.append("at least 1 image is required")
+    if "FAQPage" not in result.schema_types:
+        result.errors.append("FAQPage schema is required")
     return result
 
 
@@ -398,3 +440,51 @@ def validate_live_sitemap(sitemap_url: str, published_urls: Iterable[str]) -> tu
         if normalized and normalized not in locations:
             errors.append(f"live sitemap missing {normalized}")
     return not errors, len(locations), errors
+
+
+def validate_live_pages(urls: Iterable[str]) -> tuple[bool, dict[str, list[str]]]:
+    failures: dict[str, list[str]] = {}
+    for value in urls:
+        url = normalize_public_url(value)
+        if not url:
+            continue
+        status, source = fetch_url(f"{url}?smart_validation={int(time.time())}")
+        errors: list[str] = []
+        if status != 200:
+            errors.append(f"HTTP {status}")
+            failures[url] = errors
+            continue
+        metadata = {key.lower(): item.strip() for key, item in META_RE.findall(source)}
+        title = TITLE_RE.search(source)
+        canonicals = CANONICAL_RE.findall(source)
+        if not title or not re.sub(r"<[^>]+>", "", title.group(1)).strip():
+            errors.append("meta title is missing")
+        for key in ("description", "og:title", "og:description", "twitter:card"):
+            if not metadata.get(key):
+                errors.append(f"{key} is missing")
+        if len(canonicals) != 1 or normalize_public_url(canonicals[0]) != url:
+            errors.append("canonical is missing or invalid")
+        payloads, json_errors = parse_json_ld(source)
+        schema_types, schema_errors = validate_schema_payloads(payloads)
+        errors.extend(json_errors + schema_errors)
+        for required in ("BreadcrumbList", "FAQPage"):
+            if required not in schema_types:
+                errors.append(f"{required} schema is missing")
+        if not any(item in schema_types for item in ("Article", "BlogPosting")):
+            errors.append("Article schema is missing")
+        internal = set()
+        for href in HREF_RE.findall(source):
+            parsed = urlparse(href)
+            if parsed.netloc == HOST or href.startswith("/"):
+                if not parsed.path.startswith(("/go/", "/assets/")):
+                    internal.add(parsed.path)
+        if len(internal) < 2:
+            errors.append("fewer than 2 internal links")
+        images = IMG_RE.findall(source)
+        if not images:
+            errors.append("image is missing")
+        elif any(not re.search(r"\balt=['\"][^'\"]+['\"]", attrs, flags=re.I) for attrs in images):
+            errors.append("image alt is missing")
+        if errors:
+            failures[url] = sorted(set(errors))
+    return not failures, failures

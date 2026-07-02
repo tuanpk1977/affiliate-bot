@@ -8,7 +8,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from modules.publishing_indexing import BASE_URL, validate_batch, validate_sitemap
+from modules.publishing_indexing import BASE_URL, validate_batch, validate_live_pages, validate_sitemap
 from modules.sitemap_generator import generate_sitemap, read_lastmod_map
 from modules.search_engine_submission import submit_bing_sitemap, submit_google_sitemap
 
@@ -25,12 +25,32 @@ def page_html(url: str) -> str:
         "@type": "BreadcrumbList",
         "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": f"{BASE_URL}/"}],
     }
+    faq = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Is this a test?",
+                "acceptedAnswer": {"@type": "Answer", "text": "Yes, this is a validation fixture."},
+            }
+        ],
+    }
     return (
         "<!doctype html><html><head>"
+        "<title>Test article</title>"
+        '<meta name="description" content="A complete publishing validation fixture.">'
+        '<meta property="og:title" content="Test article">'
+        '<meta property="og:description" content="A complete publishing validation fixture.">'
+        '<meta name="twitter:card" content="summary_large_image">'
         f'<link rel="canonical" href="{url}">'
         f'<script type="application/ld+json">{json.dumps(article)}</script>'
         f'<script type="application/ld+json">{json.dumps(breadcrumb)}</script>'
-        "</head><body><a href='/'>Home</a></body></html>"
+        f'<script type="application/ld+json">{json.dumps(faq)}</script>'
+        "</head><body><h1>Test article</h1>"
+        "<img src='/assets/test.png' alt='Test product interface'>"
+        f"<a href='/'>Home</a><a href='{url}'>Current article</a>"
+        "<a href='https://example.org/reference'>Official reference</a></body></html>"
     )
 
 
@@ -51,6 +71,8 @@ class PublishingIndexingTests(unittest.TestCase):
         self.root = Path(self.temp.name)
         self.docs = self.root / "docs"
         self.docs.mkdir()
+        (self.docs / "assets").mkdir()
+        (self.docs / "assets" / "test.png").write_bytes(b"png")
         (self.docs / "index.html").write_text(page_html(f"{BASE_URL}/"), encoding="utf-8")
         self.url = f"{BASE_URL}/test-article/"
         target = self.docs / "test-article"
@@ -74,6 +96,12 @@ class PublishingIndexingTests(unittest.TestCase):
         )
         self.assertTrue(result.ok, result.to_dict())
         self.assertEqual(result.sitemap.total_urls, 2)
+
+    def test_smart_live_validation_checks_full_page_contract(self) -> None:
+        source = page_html(self.url)
+        with patch("modules.publishing_indexing.fetch_url", return_value=(200, source)):
+            ok, failures = validate_live_pages([self.url])
+        self.assertTrue(ok, failures)
 
     def test_duplicate_sitemap_url_fails(self) -> None:
         self.sitemap.write_text(

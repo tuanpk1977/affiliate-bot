@@ -18,7 +18,7 @@ concurrency:
 jobs:
   validate-and-submit:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 55
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -62,6 +62,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: indexing-report-${{ github.run_number }}
-          path: logs/indexing/
           if-no-files-found: warn
           retention-days: 90
+          path: |
+            logs/indexing/
+            reports/

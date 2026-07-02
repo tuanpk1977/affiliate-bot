@@ -161,6 +161,63 @@ git push origin main
 
 Cloudflare Pages deploys from the GitHub repository after `main` is pushed.
 
+### Mandatory pre-publish health gate
+
+After building and syncing `site_output/` to `docs/`, run:
+
+```powershell
+python scripts/pre_publish_gate.py --urls-file data/published_today.json --repair
+```
+
+The gate validates only the current batch as a blocking check and also writes the full-site diagnostics to `reports/`. Do not run `git push` when this command returns a non-zero exit code.
+
+Generated operational reports:
+
+- `reports/health-report.md`
+- `reports/dashboard.json`
+- `reports/dashboard.md`
+- `reports/content-qa.md`
+- `reports/internal-link-map.md`
+
+After Cloudflare deploys, `.github/workflows/post-deploy-indexing.yml` waits for the changed URLs, performs smart live validation, submits only changed URLs to IndexNow, submits the sitemap to Bing at most once per day, optionally submits it through the Google Search Console API, and writes:
+
+- `reports/deployment-report.md`
+- `reports/indexing-report.md`
+- `logs/indexing/<date>/publishing-report-<time>.json`
+
+The daily health workflow runs at 06:00 Asia/Bangkok and stores the generated reports as a GitHub Actions artifact.
+
+## Operational Rules
+
+- Never publish or deploy if preflight fails.
+- Never submit IndexNow before the deployed URL returns HTTP 200 and its canonical is valid.
+- Never include invalid, redirected, parameterized, draft, preview, or `/go/` URLs in the sitemap.
+- Update `lastmod` only when page content changes.
+- Submit only URLs changed by the current Git diff unless a full submission is explicitly requested.
+- Submit the Bing sitemap at most once per UTC day.
+- Do not use the retired unauthenticated Google sitemap ping endpoint. Use Search Console API credentials when configured; otherwise rely on the updated sitemap.
+- Every article must contain an Author, visible FAQ with matching FAQ schema, Breadcrumb schema, at least two internal links, an external authority reference, and an image with useful ALT text.
+- Generate health, QA, deployment, and indexing reports after every deployment.
+- If validation fails, stop immediately and state the failed checks.
+- Attempt deterministic repairs first: exact duplicate paragraphs, invalid canonical, invalid schema author, missing image ALT, and a missing image fallback.
+- Never silently ignore unresolved broken links, missing media, invalid schema, or orphan pages.
+- Deployment recovery checks use 1, 3, 10, and 30 minute delays, then stop and report. GitHub Actions concurrency prevents duplicate deployment checks.
+
+Safe daily sequence:
+
+```powershell
+python scripts/run_daily_publish_pipeline.py --limit 10 --publish
+python build_site.py
+python scripts/sync_site_output_to_docs.py
+python scripts/generate_sitemap.py --publish-root docs --mirror-to site_output --updated-urls-file data/published_today.json
+python scripts/pre_publish_gate.py --urls-file data/published_today.json --repair
+git add docs data reports
+git commit -m "Publish daily articles"
+git push origin main
+```
+
+The final push triggers Cloudflare Pages and post-deploy indexing automatically.
+
 Notes:
 
 - `site_output/` is the generated site output.

@@ -35,8 +35,8 @@ class ReviewPageBuilderTests(unittest.TestCase):
         ]
         html = render_review_page(tool, related)
         self.assertIn("<h1>Cursor Review for AI Coding Buyers</h1>", html)
-        self.assertIn("/go/cursor/?src=review/cursor&cta=review_page", html)
-        self.assertIn("/go/cursor/?src=review/cursor&cta=pricing_check", html)
+        self.assertIn("/go/cursor/?src=review/cursor&amp;cta=review_page", html)
+        self.assertIn("/go/cursor/?src=review/cursor&amp;cta=pricing_check", html)
         self.assertIn("Official site / affiliate pending", html)
         self.assertIn("Quick verdict", html)
         self.assertIn("Best for / Not best for", html)

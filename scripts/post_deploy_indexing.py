@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+import time
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -16,6 +17,7 @@ sys.path.insert(0, str(ROOT))
 from modules.publishing_indexing import (  # noqa: E402
     BASE_URL,
     validate_batch,
+    validate_live_pages,
     validate_live_sitemap,
     wait_for_live_urls,
 )
@@ -32,9 +34,9 @@ LOG_ROOT = ROOT / "logs" / "indexing"
 STATE_PATH = LOG_ROOT / "submission-state.json"
 
 
-def git_added_urls(base: str, head: str) -> list[str]:
+def git_changed_urls(base: str, head: str) -> list[str]:
     result = subprocess.run(
-        ["git", "diff", "--name-only", "--diff-filter=A", base, head, "--", "docs"],
+        ["git", "diff", "--name-only", "--diff-filter=AMR", base, head, "--", "docs"],
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -54,6 +56,19 @@ def git_added_urls(base: str, head: str) -> list[str]:
             if slug and not slug.startswith(("go/", "draft/", "preview/")):
                 urls.append(f"{BASE_URL}/{slug}/")
     return sorted(set(urls))
+
+
+def wait_with_recovery(urls: list[str], delays: list[int]) -> dict[str, int]:
+    statuses = wait_for_live_urls(urls, timeout_seconds=0, interval_seconds=1)
+    if statuses and all(status == 200 for status in statuses.values()):
+        return statuses
+    for delay in delays:
+        print(f"Deployment health check failed. Retrying in {delay} seconds.")
+        time.sleep(delay)
+        statuses = wait_for_live_urls(urls, timeout_seconds=0, interval_seconds=1)
+        if statuses and all(status == 200 for status in statuses.values()):
+            return statuses
+    return statuses
 
 
 def urls_from_file(path: Path) -> list[str]:
@@ -92,6 +107,54 @@ def write_report(report: dict[str, object]) -> Path:
     return path
 
 
+def write_markdown_reports(report: dict[str, object], started: datetime, report_path: Path) -> None:
+    reports = ROOT / "reports"
+    reports.mkdir(parents=True, exist_ok=True)
+    checks = report.get("checks", {})
+    urls = report.get("published_urls", [])
+    finished = datetime.fromisoformat(str(report["finished"]))
+    duration = max(0.0, (finished - started).total_seconds())
+    commit = str(report.get("github", ""))
+    deployment_lines = [
+        "# Deployment Report",
+        "",
+        f"- Batch ID: {started.strftime('%Y%m%d-%H%M%S')}",
+        f"- Commit SHA: {commit}",
+        f"- Deployment duration: {duration:.1f} seconds",
+        f"- Cloudflare status: {report.get('cloudflare')}",
+        f"- Published URLs: {len(urls)}",
+        f"- Indexed URLs: {len(urls) if report.get('status') == 'PASS' else 0}",
+        f"- Skipped URLs: {0 if report.get('status') == 'PASS' else len(urls)}",
+        f"- Validation summary: {report.get('status')}",
+        f"- Warnings: {', '.join(report.get('warnings', [])) or 'None'}",
+        f"- Errors: {', '.join(report.get('errors', [])) or 'None'}",
+        "",
+        "## Published URLs",
+        *[f"- {url}" for url in urls],
+        "",
+        "## Validation",
+        *[f"- {name}: {value}" for name, value in checks.items()],
+        "",
+        f"JSON report: `{report_path.as_posix()}`",
+    ]
+    (reports / "deployment-report.md").write_text("\n".join(deployment_lines) + "\n", encoding="utf-8")
+    indexing_lines = [
+        "# Indexing Report",
+        "",
+        f"- Submitted: {len(urls) if str(report.get('indexnow', {}).get('status', '')).endswith('submitted') else 0}",
+        f"- Skipped: {0 if report.get('status') == 'PASS' else len(urls)}",
+        "- Already indexed: Not queried (search engines do not provide a reliable real-time bulk status API)",
+        f"- Retry needed: {'No' if report.get('status') == 'PASS' else 'Yes'}",
+        f"- IndexNow: {report.get('indexnow', {}).get('status')}",
+        f"- Bing sitemap: {report.get('bing', {}).get('status')}",
+        f"- Google sitemap: {report.get('google', {}).get('status')}",
+        "",
+        "## Changed URLs",
+        *[f"- {url}" for url in urls],
+    ]
+    (reports / "indexing-report.md").write_text("\n".join(indexing_lines) + "\n", encoding="utf-8")
+
+
 def print_summary(report: dict[str, object]) -> None:
     checks = report["checks"]
     print("----------------------------------")
@@ -117,6 +180,7 @@ def print_summary(report: dict[str, object]) -> None:
 
 
 def main() -> int:
+    started = datetime.now(timezone.utc)
     parser = argparse.ArgumentParser(description="Validate a deployed batch, then notify search engines.")
     parser.add_argument("--publish-root", default="docs")
     parser.add_argument("--sitemap", default="docs/sitemap.xml")
@@ -127,6 +191,11 @@ def main() -> int:
     parser.add_argument("--git-head", default="HEAD")
     parser.add_argument("--wait-seconds", type=int, default=600)
     parser.add_argument("--interval-seconds", type=int, default=15)
+    parser.add_argument(
+        "--recovery-delays",
+        default="60,180,600,1800",
+        help="Comma-separated deployment retry delays in seconds.",
+    )
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--skip-bing", action="store_true")
     parser.add_argument("--skip-google", action="store_true")
@@ -138,9 +207,9 @@ def main() -> int:
     if args.urls_file:
         urls.extend(urls_from_file(Path(args.urls_file)))
     if args.from_git:
-        urls.extend(git_added_urls(args.git_base, args.git_head))
+        urls.extend(git_changed_urls(args.git_base, args.git_head))
         if not urls:
-            print("No newly added public pages in this Git diff. Post-deploy indexing is not required.")
+            print("No changed public pages in this Git diff. Post-deploy indexing is not required.")
             return 0
     if not urls:
         urls.extend(urls_from_file(ROOT / "data" / "published_today.json"))
@@ -157,6 +226,11 @@ def main() -> int:
         expected_lastmod=expected,
         validate_all_canonicals=True,
     )
+    from modules.content_quality import inspect_content, write_content_qa_report
+
+    content_qa = [inspect_content(Path(page.file)) for page in validation.pages if Path(page.file).exists()]
+    write_content_qa_report(content_qa, ROOT / "reports" / "content-qa.md")
+    content_qa_ok = all(item.ok for item in content_qa)
     append_json_log(
         LOG_ROOT / "sitemap-validation.log",
         {
@@ -167,14 +241,29 @@ def main() -> int:
             "details": validation.to_dict()["sitemap"],
         },
     )
-    if not validation.ok:
+    if not validation.ok or not content_qa_ok:
         report = {
             "status": "FAILED_PREFLIGHT",
             "articles_published": len(urls),
+            "published_urls": urls,
             "validation": validation.to_dict(),
+            "content_qa": [
+                {
+                    "file": item.file,
+                    "ok": item.ok,
+                    "errors": item.errors,
+                    "warnings": item.warnings,
+                }
+                for item in content_qa
+            ],
+            "github": os.getenv("GITHUB_SHA", "dry-run/local"),
+            "cloudflare": "not attempted",
+            "warnings": [],
+            "errors": ["preflight validation failed"],
             "finished": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         }
         path = write_report(report)
+        write_markdown_reports(report, started, path)
         print(f"FAIL: preflight validation failed. No search engine was notified. Report: {path}")
         return 1
 
@@ -184,19 +273,33 @@ def main() -> int:
         sitemap_count = validation.sitemap.total_urls
         live_sitemap_errors: list[str] = []
     else:
-        live_statuses = wait_for_live_urls(
-            urls,
-            timeout_seconds=args.wait_seconds,
-            interval_seconds=args.interval_seconds,
-        )
+        if args.recovery_delays:
+            try:
+                recovery_delays = [max(0, int(value)) for value in args.recovery_delays.split(",") if value.strip()]
+            except ValueError:
+                print("FAIL: --recovery-delays must contain comma-separated integers.")
+                return 2
+            live_statuses = wait_with_recovery(urls, recovery_delays)
+        else:
+            live_statuses = wait_for_live_urls(
+                urls,
+                timeout_seconds=args.wait_seconds,
+                interval_seconds=args.interval_seconds,
+            )
         if not all(status == 200 for status in live_statuses.values()):
             report = {
                 "status": "FAILED_DEPLOYMENT_CHECK",
                 "articles_published": len(urls),
+                "published_urls": urls,
                 "live_http": live_statuses,
+                "github": os.getenv("GITHUB_SHA", "local"),
+                "cloudflare": "failed health check",
+                "warnings": [],
+                "errors": ["not all URLs returned HTTP 200 with a valid canonical"],
                 "finished": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             }
             path = write_report(report)
+            write_markdown_reports(report, started, path)
             print(f"FAIL: not all deployed URLs returned HTTP 200. No search engine was notified. Report: {path}")
             return 1
         live_sitemap_ok, sitemap_count, live_sitemap_errors = validate_live_sitemap(SITEMAP_URL, urls)
@@ -204,12 +307,36 @@ def main() -> int:
             report = {
                 "status": "FAILED_LIVE_SITEMAP",
                 "articles_published": len(urls),
+                "published_urls": urls,
                 "live_http": live_statuses,
                 "live_sitemap_errors": live_sitemap_errors,
+                "github": os.getenv("GITHUB_SHA", "local"),
+                "cloudflare": "deployed",
+                "warnings": [],
+                "errors": live_sitemap_errors,
                 "finished": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             }
             path = write_report(report)
+            write_markdown_reports(report, started, path)
             print(f"FAIL: live sitemap validation failed. No search engine was notified. Report: {path}")
+            return 1
+        live_pages_ok, live_page_errors = validate_live_pages(urls)
+        if not live_pages_ok:
+            report = {
+                "status": "FAILED_LIVE_SMART_VALIDATION",
+                "articles_published": len(urls),
+                "published_urls": urls,
+                "live_http": live_statuses,
+                "live_page_errors": live_page_errors,
+                "github": os.getenv("GITHUB_SHA", "local"),
+                "cloudflare": "deployed",
+                "warnings": [],
+                "errors": [f"{url}: {', '.join(errors)}" for url, errors in live_page_errors.items()],
+                "finished": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            }
+            path = write_report(report)
+            write_markdown_reports(report, started, path)
+            print(f"FAIL: live smart URL validation failed. No search engine was notified. Report: {path}")
             return 1
 
     indexnow_ok = True
@@ -279,6 +406,15 @@ def main() -> int:
         "validation": validation.to_dict(),
     }
     report_path = write_report(report)
+    write_markdown_reports(report, started, report_path)
+    try:
+        from modules.operational_health import audit_site, write_health_reports, write_internal_link_map
+        audit = audit_site(ROOT / args.publish_root)
+        write_health_reports(audit, ROOT / "reports", today_urls=urls)
+        write_internal_link_map(audit, ROOT / "reports" / "internal-link-map.md")
+        write_content_qa_report(content_qa, ROOT / "reports" / "content-qa.md")
+    except Exception as exc:
+        print(f"WARNING: operational report generation failed: {exc}")
     print_summary(report)
     if engine_failures:
         print(f"WARNING: failed search engine submissions: {', '.join(engine_failures)}")
