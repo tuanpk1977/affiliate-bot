@@ -20,8 +20,9 @@ from dotenv import load_dotenv
 ROOT = Path(__file__).resolve().parents[1]
 load_dotenv(ROOT / ".env")
 SITE_OUTPUT = ROOT / "site_output"
-SITEMAP = SITE_OUTPUT / "sitemap.xml"
-KEY_FILE = SITE_OUTPUT / "indexnow-key.txt"
+PUBLISH_ROOT = ROOT / "docs"
+SITEMAP = PUBLISH_ROOT / "sitemap.xml" if (PUBLISH_ROOT / "sitemap.xml").exists() else SITE_OUTPUT / "sitemap.xml"
+KEY_FILE = PUBLISH_ROOT / "indexnow-key.txt" if (PUBLISH_ROOT / "indexnow-key.txt").exists() else SITE_OUTPUT / "indexnow-key.txt"
 UPLOAD_LINKS = ROOT / "video_output" / "upload_links.csv"
 RENDER_STATUS = ROOT / "video_output" / "render_status.csv"
 STATE_FILE = ROOT / "data" / "indexnow_state.json"

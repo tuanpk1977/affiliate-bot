@@ -1,0 +1,67 @@
+name: Post-deploy indexing
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/**"
+      - "site_output/sitemap.xml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: post-deploy-indexing-main
+  cancel-in-progress: false
+
+jobs:
+  validate-and-submit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install indexing dependencies
+        run: python -m pip install --disable-pip-version-check python-dotenv google-auth requests
+
+      - name: Restore daily submission state
+        uses: actions/cache@v4
+        with:
+          path: logs/indexing/submission-state.json
+          key: indexing-state-${{ github.run_id }}
+          restore-keys: |
+            indexing-state-
+
+      - name: Wait for Cloudflare, validate, and notify search engines
+        env:
+          BING_WEBMASTER_API_KEY: ${{ secrets.BING_WEBMASTER_API_KEY }}
+          GOOGLE_SEARCH_CONSOLE_CREDENTIALS_JSON: ${{ secrets.GOOGLE_SEARCH_CONSOLE_CREDENTIALS_JSON }}
+          GOOGLE_SEARCH_CONSOLE_SITE_URL: ${{ vars.GOOGLE_SEARCH_CONSOLE_SITE_URL }}
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          INDEXNOW_HOST: smileaireviewhub.com
+          INDEXNOW_KEY_LOCATION: https://smileaireviewhub.com/indexnow-key.txt
+        run: >
+          python scripts/post_deploy_indexing.py
+          --from-git
+          --git-base HEAD^
+          --git-head HEAD
+          --wait-seconds 600
+          --interval-seconds 15
+
+      - name: Upload indexing report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: indexing-report-${{ github.run_number }}
+          path: logs/indexing/
+          if-no-files-found: warn
+          retention-days: 90

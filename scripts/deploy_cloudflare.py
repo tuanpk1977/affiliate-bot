@@ -31,7 +31,9 @@ def cloudflare_command(project_name: str) -> list[str]:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Deploy site_output to Cloudflare Pages, then notify IndexNow.")
+    parser = argparse.ArgumentParser(
+        description="Deploy site_output to Cloudflare Pages, then validate the live batch and notify search engines."
+    )
     parser.add_argument("--project-name", default=os.getenv("CLOUDFLARE_PAGES_PROJECT", "").strip())
     parser.add_argument("--max-urls", type=int, default=100)
     parser.add_argument("--dry-run", action="store_true")
@@ -56,16 +58,22 @@ def main() -> int:
         return result.returncode
 
     if not enabled("AUTO_INDEXNOW_AFTER_DEPLOY", True):
-        print("[Cloudflare] Deployment succeeded. AUTO_INDEXNOW_AFTER_DEPLOY is disabled; IndexNow skipped.")
+        print("[Cloudflare] Deployment succeeded. AUTO_INDEXNOW_AFTER_DEPLOY is disabled; indexing automation skipped.")
         return 0
-    print("[Cloudflare] Deployment command completed successfully. Running post-deploy IndexNow.")
+    print("[Cloudflare] Deployment command completed successfully. Running post-deploy validation and indexing.")
     post_deploy = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "post_deploy.py"), "--wait-seconds", "600", "--max-urls", str(args.max_urls)],
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "post_deploy_indexing.py"),
+            "--from-git",
+            "--wait-seconds",
+            "600",
+        ],
         cwd=ROOT,
         check=False,
     )
     if post_deploy.returncode != 0:
-        print("[Cloudflare] IndexNow warning: post-deploy check failed, but Cloudflare deployment remains successful.")
+        print("[Cloudflare] WARNING: post-deploy validation/indexing failed. Review logs/indexing before continuing.")
     return 0
 
 

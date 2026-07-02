@@ -3,6 +3,7 @@ requests
 beautifulsoup4
 lxml
 python-dotenv
+google-auth
 streamlit
 jinja2
 protobuf>=7.34.1,<8

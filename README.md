@@ -8,56 +8,47 @@ The business goal is to find affiliate programs strong enough to package as paid
 
 Phần mới nằm song song với bot cũ và không thay đổi `src/main.py` hoặc flow `runbot.bat` hiện tại.
 
-## IndexNow automation
+## Post-deploy indexing automation
 
-The production deployment target is Cloudflare Pages. Run `scripts/deploy_cloudflare.py` after the
-site build. It deploys `site_output/` with Wrangler and calls IndexNow only after the Cloudflare deploy
-command succeeds. Submission failures are logged and never change a successful deployment into a
-failed deployment.
+The production site deploys from `docs/` through Cloudflare Pages Git integration. After a content
+commit reaches `main`, `.github/workflows/post-deploy-indexing.yml` waits for the newly added pages to
+return HTTP 200, validates the live sitemap, and only then notifies search engines.
 
 Files:
 
-- Public key: `site_output/indexnow-key.txt`
+- Public key: `docs/indexnow-key.txt`
 - Submitter and reusable function: `scripts/submit_indexnow.py`
-- Post-deploy runner: `scripts/post_deploy.py`
+- Local preflight: `scripts/validate_publishing_batch.py`
+- Post-deploy runner: `scripts/post_deploy_indexing.py`
+- Sitemap generator: `scripts/generate_sitemap.py`
 - Dry-run test: `scripts/test_indexnow.py`
 - Diagnostics: `scripts/check_indexnow_status.py`
-- Cloudflare deploy and post-deploy hook: `scripts/deploy_cloudflare.py`
+- GitHub workflow: `.github/workflows/post-deploy-indexing.yml`
 
 Manual commands:
 
 ```powershell
-# Preview payload without sending
-python scripts/test_indexnow.py
+# Regenerate the active Cloudflare sitemap and mirror it to site_output
+python scripts/generate_sitemap.py --publish-root docs --mirror-to site_output --updated-urls-file data/published_today.json
 
-# Submit new or changed URLs from CSV/git changes
-python scripts/submit_indexnow.py
+# Block publishing when the batch, sitemap, schema, canonical, or links are invalid
+python scripts/validate_publishing_batch.py --urls-file data/published_today.json
 
-# Submit up to 100 sitemap URLs
-python scripts/submit_indexnow.py --all --max-urls 100
+# Preview the complete post-deploy flow without sending requests
+python scripts/post_deploy_indexing.py --urls-file data/published_today.json --dry-run
 
-# Submit the newest 100 sitemap URLs
-python scripts/submit_indexnow.py --latest 100
-
-# Verify local and deployed key, sitemap, and robots files
-python scripts/check_indexnow_status.py
-
-# Preview the Cloudflare command without deploying
-python scripts/deploy_cloudflare.py --dry-run
-
-# Deploy to Cloudflare and automatically run IndexNow after success
-python scripts/deploy_cloudflare.py --project-name YOUR_CLOUDFLARE_PAGES_PROJECT
-
-# Build, deploy Cloudflare, then submit IndexNow
-run_cloudflare_publish.bat
+# Manual post-deploy validation and submission
+python scripts/post_deploy_indexing.py --urls-file data/published_today.json
 ```
 
-Set `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_PAGES_PROJECT` before using the Wrangler batch workflow,
-or set `CLOUDFLARE_DEPLOY_COMMAND` to an existing successful Cloudflare deploy command. IndexNow is
-skipped when that deploy command returns a non-zero exit code.
+Set the repository secret `BING_WEBMASTER_API_KEY` to enable authenticated Bing `SubmitFeed`.
+For Google Search Console, add `GOOGLE_SEARCH_CONSOLE_CREDENTIALS_JSON` and grant that service-account
+email access to the Search Console property. If Google credentials are absent, the workflow records
+natural discovery through the registered sitemap and `robots.txt`. Google removed its unauthenticated
+sitemap ping endpoint, so this project does not call that obsolete endpoint.
 
 To regenerate the key, generate a random 32-character hexadecimal value and replace the single line
-in `site_output/indexnow-key.txt`. Commit and deploy the new key before submitting with it. The live
+in both `docs/indexnow-key.txt` and `site_output/indexnow-key.txt`. Commit and deploy the new key before submitting with it. The live
 key must be available at `https://smileaireviewhub.com/indexnow-key.txt`.
 
 IndexNow commonly accepts valid submissions with HTTP `200` or `202`. HTTP `400` indicates an invalid
@@ -68,9 +59,15 @@ Production workflow:
 
 ```text
 Bot writes and publishes article
--> build site_output
--> deploy site_output to Cloudflare Pages
--> submit IndexNow after successful deployment
+-> regenerate and validate docs/sitemap.xml
+-> preflight schema, canonical, lastmod, and internal links
+-> push main
+-> Cloudflare Pages deploys docs/
+-> GitHub Action waits for every new URL to return HTTP 200
+-> validate the live sitemap
+-> submit new URLs to IndexNow
+-> submit the sitemap to Bing and Google when credentials are configured
+-> upload logs/indexing as a GitHub Actions artifact
 -> create review video under video_output
 -> user uploads YouTube manually
 -> user posts social drafts manually
@@ -79,8 +76,12 @@ Bot writes and publishes article
 The workflow does not upload YouTube videos and does not publish social posts. Social output remains
 draft-only. `netlify.toml` is retained for compatibility but is not used by the Cloudflare workflow.
 
-Rollback: stop using `scripts/deploy_cloudflare.py` and deploy with the previous Cloudflare command.
-Delete the IndexNow scripts and public key only if IndexNow is no longer required.
+The Bing and Google sitemap clients enforce one successful submission per UTC day. IndexNow still
+submits each new batch. No engine is notified if local validation, Cloudflare deployment checks, live
+HTTP checks, or live sitemap validation fails.
+
+Rollback: disable or remove `.github/workflows/post-deploy-indexing.yml`. The website deployment and
+generated pages continue to work because the workflow runs only after a Git push.
 
 ## AI content growth pipeline
 

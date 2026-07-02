@@ -528,12 +528,17 @@ Verify the script source before changing CSV location assumptions, because both 
 
 ## 8. IndexNow workflow
 
-IndexNow support is implemented through:
+IndexNow and sitemap submission support is implemented through:
 
 ```text
 scripts/submit_indexnow.py
 scripts/check_indexnow_status.py
-site_output/indexnow-key.txt
+scripts/validate_publishing_batch.py
+scripts/post_deploy_indexing.py
+modules/publishing_indexing.py
+modules/search_engine_submission.py
+docs/indexnow-key.txt
+.github/workflows/post-deploy-indexing.yml
 ```
 
 Manual submission:
@@ -552,9 +557,39 @@ Current intended behavior:
 
 - Submit only valid `https://smileaireviewhub.com` URLs.
 - Avoid localhost, preview, draft, and off-domain URLs.
-- Read URLs from `site_output/sitemap.xml`.
-- Use `site_output/indexnow-key.txt` for the key file.
-- Do not crash the build if IndexNow submission fails.
+- Read the production sitemap from `docs/sitemap.xml`.
+- Use `docs/indexnow-key.txt` for the key file.
+- Run local validation before a content commit is pushed.
+- After GitHub push, wait for every new URL and the sitemap to be live on Cloudflare.
+- Submit each new batch to IndexNow only after all safety checks pass.
+- Submit the sitemap to Bing at most once per UTC day when `BING_WEBMASTER_API_KEY` is configured.
+- Submit the sitemap through the Google Search Console API at most once per UTC day when credentials are configured.
+- If Google credentials are absent, record natural sitemap discovery instead of calling the retired ping endpoint.
+
+Safe daily sequence:
+
+```powershell
+python scripts/generate_sitemap.py --publish-root docs --mirror-to site_output --updated-urls-file data/published_today.json
+python scripts/validate_publishing_batch.py --urls-file data/published_today.json
+git add docs site_output/sitemap.xml data/published_today.json
+git commit -m "Publish daily content batch"
+git push origin main
+```
+
+The push triggers `.github/workflows/post-deploy-indexing.yml`. It performs:
+
+```text
+wait for Cloudflare deployment
+-> HTTP 200 check for every newly added page
+-> live sitemap XML and membership check
+-> IndexNow submission
+-> Bing sitemap submission (daily limit)
+-> Google Search Console sitemap submission or natural-discovery log
+-> indexing report artifact
+```
+
+Persistent local logs are written under `logs/indexing/`. GitHub Actions uploads the same directory as
+an artifact retained for 90 days. Do not commit API keys or service-account JSON files.
 
 ## 9. Sitemap, robots, canonical, and SEO post-processing
 
