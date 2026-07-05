@@ -14,6 +14,11 @@ canonical: https://smileaireviewhub.com/affordable-ai-seo-platform/
 
 **Affiliate disclosure:** Some links may be affiliate links. We may earn a commission at no extra cost to you. This does not change the evaluation method.
 
+## Author
+**Written by:** Nguyen Quoc Tuan, Founder - MS Smile AI Review Hub.
+
+**Last updated:** June 2026.
+
 ## Watch the video review
 A YouTube embed can be placed here after the video is uploaded and the URL is added to upload_links.csv.
 

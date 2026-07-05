@@ -1,0 +1,24 @@
+﻿Cluster,Topic,Recommended Slug,Intent,Priority,Notes
+Best For Articles,Best AI Tools For Students,best-ai-tools-for-students,best-list,HIGH,Create only if no existing canonical page covers this exact intent.
+Best For Articles,Best AI Tools For Teachers,best-ai-tools-for-teachers,best-list,HIGH,Create only if no existing canonical page covers this exact intent.
+Best For Articles,Best AI Tools For Freelancers,best-ai-tools-for-freelancers,best-list,HIGH,Create only if no existing canonical page covers this exact intent.
+Best For Articles,Best AI Tools For Startups,best-ai-tools-for-startups,best-list,MEDIUM,Create only if no existing canonical page covers this exact intent.
+Best For Articles,Best AI Tools For Small Business,best-ai-tools-for-small-business,best-list,MEDIUM,Create only if no existing canonical page covers this exact intent.
+Best For Articles,Best AI Tools Under $10,best-ai-tools-under-10,best-list,MEDIUM,Create only if no existing canonical page covers this exact intent.
+Best For Articles,Best AI Tools Under $20,best-ai-tools-under-20,best-list,MEDIUM,Create only if no existing canonical page covers this exact intent.
+Best For Articles,Best AI Tools Under $50,best-ai-tools-under-50,best-list,MEDIUM,Create only if no existing canonical page covers this exact intent.
+Best For Articles,Best AI Coding Tools For Beginners,best-ai-coding-tools-for-beginners,best-list,MEDIUM,Create only if no existing canonical page covers this exact intent.
+Best For Articles,Best AI Coding Tools For Non Developers,best-ai-coding-tools-for-non-developers,best-list,MEDIUM,Create only if no existing canonical page covers this exact intent.
+Comparison Articles,Cursor vs GitHub Copilot,cursor-vs-github-copilot,comparison,HIGH,Create only if no existing canonical page covers this exact intent.
+Comparison Articles,Cursor vs Windsurf,cursor-vs-windsurf,comparison,HIGH,Create only if no existing canonical page covers this exact intent.
+Comparison Articles,Cursor vs Claude Code,cursor-vs-claude-code,comparison,HIGH,Create only if no existing canonical page covers this exact intent.
+Comparison Articles,Claude vs ChatGPT,claude-vs-chatgpt,comparison,MEDIUM,Create only if no existing canonical page covers this exact intent.
+Comparison Articles,Gemini vs ChatGPT,gemini-vs-chatgpt,comparison,MEDIUM,Create only if no existing canonical page covers this exact intent.
+Comparison Articles,Copy.ai vs Jasper,copy-ai-vs-jasper,comparison,MEDIUM,Create only if no existing canonical page covers this exact intent.
+Comparison Articles,Midjourney vs Leonardo AI,midjourney-vs-leonardo-ai,comparison,MEDIUM,Create only if no existing canonical page covers this exact intent.
+Comparison Articles,HeyGen vs Synthesia,heygen-vs-synthesia,comparison,MEDIUM,Create only if no existing canonical page covers this exact intent.
+Decision Articles,Which AI Coding Tool Should You Choose?,which-ai-coding-tool-should-you-choose,decision,HIGH,Create only if no existing canonical page covers this exact intent.
+Decision Articles,Which AI Writer Is Best For Beginners?,which-ai-writer-is-best-for-beginners,decision,HIGH,Create only if no existing canonical page covers this exact intent.
+Decision Articles,Which AI Image Generator Is Worth Paying For?,which-ai-image-generator-is-worth-paying-for,decision,HIGH,Create only if no existing canonical page covers this exact intent.
+Decision Articles,Which AI Video Generator Is Best In 2026?,which-ai-video-generator-is-best-in-2026,decision,MEDIUM,Create only if no existing canonical page covers this exact intent.
+Decision Articles,Which AI Tool Is Best For Affiliate Marketing?,which-ai-tool-is-best-for-affiliate-marketing,decision,MEDIUM,Create only if no existing canonical page covers this exact intent.

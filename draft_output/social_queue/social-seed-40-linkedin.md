@@ -2,7 +2,7 @@
 
 - Platform: LinkedIn
 - Status: Pending Review
-- Suggested time: 2026-06-17 16:00
+- Suggested time: 2026-06-21 16:00
 - Target URL: https://smileaireviewhub.com/windsurf-review/?utm_source=linkedin
 
 ## Copy

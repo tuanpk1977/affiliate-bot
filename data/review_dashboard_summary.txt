@@ -1,7 +1,7 @@
 REVIEW DASHBOARD SUMMARY
 pending: 0
 approved_or_published: 2
-missing_images: 10
+missing_images: 0
 pending_pages_in_sitemap: 0
 drafts_missing_cta_or_internal_links: 0
 

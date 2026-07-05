@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from pathlib import Path
+import re
 from xml.sax.saxutils import escape
 
 from config import settings
@@ -25,10 +26,18 @@ def scan_index_pages(output: Path, base_url: str) -> list[dict[str, str]]:
         url_path = rel_path_for_html(index_file, output)
         if not should_include_in_sitemap(url_path):
             continue
+        text = index_file.read_text(encoding="utf-8", errors="ignore")
+        if re.search(r"<meta\b(?=[^>]*\bname=['\"]robots['\"])(?=[^>]*\bcontent=['\"][^'\"]*noindex)", text, flags=re.I):
+            continue
+        if re.search(r"<meta\b[^>]*http-equiv=['\"]?refresh['\"]?", text, flags=re.I):
+            continue
         if url_path == "/":
             loc = f"{base_url}/"
         else:
             loc = f"{base_url}{url_path}"
+        canonical = re.search(r"<link\b(?=[^>]*\brel=['\"]canonical['\"])(?=[^>]*\bhref=['\"]([^'\"]+)['\"])[^>]*>", text, flags=re.I)
+        if canonical and canonical.group(1).rstrip("/") != loc.rstrip("/"):
+            continue
         pages.append({"loc": loc, "lastmod": file_lastmod(index_file)})
 
     seen = set()

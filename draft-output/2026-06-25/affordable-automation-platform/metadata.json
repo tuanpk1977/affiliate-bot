@@ -1,0 +1,104 @@
+{
+  "title": "Affordable Automation Platform Review: Features, Pricing, Pros and Cons",
+  "description": "In this draft video package, we review Affordable Automation Platform from a practical buyer perspective.\n\nWe cover what it does, who it is best for, pricing checks, pros and cons, alternatives, and what to verify before buying.\n\nRead full reviews and comparisons:\nhttps://smileaireviewhub.com\n\nNote: verify current pricing and plan limits on the official website before buying.\n",
+  "tags": [
+    "affordable automation platform",
+    "affordable automation platform review",
+    "ai tools",
+    "saas review",
+    "software comparison",
+    "pricing",
+    "alternatives"
+  ],
+  "category": "Automation",
+  "source_url": "https://smileaireviewhub.com/affordable-automation-platform/",
+  "website_url": "https://smileaireviewhub.com",
+  "author": "Nguyen Quoc Tuan",
+  "author_name": "Nguyen Quoc Tuan",
+  "brand": "Smile AI Review Hub",
+  "content_type": "draft_review",
+  "publish_status": "draft_only_codex_review_required",
+  "youtube_upload": "disabled",
+  "worker_bot": true,
+  "video_render_status": "worker_draft_youtube_review",
+  "render_status": "success",
+  "audio_status": "real_placeholder_voice",
+  "music_status": "not_added_worker_draft",
+  "video_style": "article_section_review_draft",
+  "subtitle_language": "en+vi",
+  "subtitle_status": "bilingual_burned_and_srt",
+  "motion_style": "multi_scene_static_article_sections",
+  "scene_visuals": [
+    {
+      "index": 1,
+      "section": "intro",
+      "title": "Introduction",
+      "path": "D:/AFFILATE BOT/draft-output/2026-06-25/affordable-automation-platform/editor_assets/article_sections/01-intro.png",
+      "start": 0.0,
+      "duration": 6.43
+    },
+    {
+      "index": 2,
+      "section": "overview",
+      "title": "Overview",
+      "path": "D:/AFFILATE BOT/draft-output/2026-06-25/affordable-automation-platform/editor_assets/article_sections/02-overview.png",
+      "start": 6.43,
+      "duration": 6.43
+    },
+    {
+      "index": 3,
+      "section": "key-features",
+      "title": "Key Features",
+      "path": "D:/AFFILATE BOT/draft-output/2026-06-25/affordable-automation-platform/editor_assets/article_sections/03-key-features.png",
+      "start": 12.86,
+      "duration": 6.43
+    },
+    {
+      "index": 4,
+      "section": "pricing",
+      "title": "Pricing",
+      "path": "D:/AFFILATE BOT/draft-output/2026-06-25/affordable-automation-platform/editor_assets/article_sections/04-pricing.png",
+      "start": 19.29,
+      "duration": 6.43
+    },
+    {
+      "index": 5,
+      "section": "pros-cons",
+      "title": "Pros and Cons",
+      "path": "D:/AFFILATE BOT/draft-output/2026-06-25/affordable-automation-platform/editor_assets/article_sections/05-pros-cons.png",
+      "start": 25.71,
+      "duration": 6.43
+    },
+    {
+      "index": 6,
+      "section": "final-verdict",
+      "title": "Final Verdict",
+      "path": "D:/AFFILATE BOT/draft-output/2026-06-25/affordable-automation-platform/editor_assets/article_sections/06-final-verdict.png",
+      "start": 32.14,
+      "duration": 6.43
+    },
+    {
+      "index": 7,
+      "section": "end-screen",
+      "title": "Final CTA",
+      "path": "D:/AFFILATE BOT/draft-output/2026-06-25/affordable-automation-platform/editor_assets/article_sections/07-end-screen.png",
+      "start": 38.57,
+      "duration": 6.43
+    }
+  ],
+  "unique_scene_visuals": 7,
+  "review_video_duration_seconds": 45.03,
+  "review_video_size_bytes": 716048,
+  "streams": {
+    "video": true,
+    "audio": true,
+    "subtitles": true
+  },
+  "safety": {
+    "published": false,
+    "deployed": false,
+    "youtube_uploaded": false,
+    "social_posted": false,
+    "indexnow_submitted": false
+  }
+}

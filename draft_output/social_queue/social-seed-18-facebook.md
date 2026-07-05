@@ -2,7 +2,7 @@
 
 - Platform: Facebook
 - Status: Pending Review
-- Suggested time: 2026-06-06 20:00
+- Suggested time: 2026-06-10 20:00
 - Target URL: https://smileaireviewhub.com/review/cursor/?utm_source=facebook
 
 ## Copy

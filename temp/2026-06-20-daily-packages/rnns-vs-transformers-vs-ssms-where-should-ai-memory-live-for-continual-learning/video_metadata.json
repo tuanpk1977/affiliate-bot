@@ -1,0 +1,20 @@
+{
+  "slug": "rnns-vs-transformers-vs-ssms-where-should-ai-memory-live-for-continual-learning",
+  "topic": "RNNs vs Transformers vs SSMs: where should AI memory live for continual learning?",
+  "article_url": "https://smileaireviewhub.com/rnns-vs-transformers-vs-ssms-where-should-ai-memory-live-for-continual-learning/",
+  "manual_youtube_upload": true,
+  "auto_upload_youtube": false,
+  "created_at": "2026-06-20T15:39:09.661394",
+  "subtitle_policy": "Vietnamese bottom subtitles. English captions must not overlap Vietnamese subtitles.",
+  "required_files": [
+    "script.txt",
+    "voiceover.txt",
+    "scene_plan.json",
+    "youtube_title.txt",
+    "youtube_description.txt",
+    "youtube_tags.txt",
+    "thumbnail_prompt.txt",
+    "shorts_script.txt",
+    "video_metadata.json"
+  ]
+}

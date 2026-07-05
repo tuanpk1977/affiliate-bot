@@ -7,7 +7,9 @@ import json
 from pathlib import Path
 
 from config import settings
+from modules.facebook_meta import page_title_and_description, upsert_meta_name, upsert_meta_property
 from modules.indexing_policy import robots_meta_for_path
+from modules.seo_title_optimizer import shorten_title
 from modules.vietnamese_localizer import localize_html
 
 
@@ -53,6 +55,7 @@ def add_bilingual_pages(output: Path | None = None, base_url: str | None = None)
         vi_html = localize_html(html)
         vi_html = prefix_internal_links_for_vi(vi_html)
         vi_html = cleanup_vietnamese_after_link_prefix(vi_html)
+        vi_html = set_localized_seo_metadata(vi_html, rel_url, "vi")
         vi_html = ensure_robots_meta(vi_html, robots_meta_for_path(vi_url_for(rel_url)))
         vi_html = set_language_switcher(vi_html, rel_url, "vi")
         vi_html = set_seo_language_tags(vi_html, rel_url, "vi", base)
@@ -94,6 +97,84 @@ def set_html_lang(html: str, lang: str) -> str:
     if re.search(r"<html\b[^>]*>", html, flags=re.I):
         return re.sub(r"<html\b[^>]*>", f'<html lang="{lang}">', html, count=1, flags=re.I)
     return html
+
+
+def set_localized_seo_metadata(html: str, en_url: str, lang: str) -> str:
+    """Keep Vietnamese pages from inheriting English metadata."""
+    if lang != "vi":
+        return html
+    title, description = page_title_and_description(html)
+    title = normalize_vi_title(title, en_url)
+    description = normalize_vi_description(description, title)
+    html = upsert_title(html, title)
+    html = upsert_meta_name(html, "description", description)
+    html = upsert_meta_property(html, "og:title", title)
+    html = upsert_meta_property(html, "og:description", description)
+    html = upsert_meta_name(html, "twitter:title", title)
+    html = upsert_meta_name(html, "twitter:description", description)
+    return html
+
+
+def normalize_vi_title(title: str, en_url: str) -> str:
+    base = clean_title(title) or humanize_url(en_url)
+    if "tiếng việt" not in base.lower():
+        base = f"{base} | Tiếng Việt"
+    return shorten_title(base, 60)
+
+
+def normalize_vi_description(description: str, title: str) -> str:
+    base = clean_title(description)
+    if not base or len(base) < 30:
+        base = f"Bản tiếng Việt của {clean_title(title).replace(' | Tiếng Việt', '')}. So sánh tính năng, giá, ưu điểm, nhược điểm, và lựa chọn thay thế."
+    elif "bản tiếng việt" not in base.lower():
+        base = f"{base} Bản tiếng Việt."
+    return base[:155].rstrip(" ,:;|-")
+
+
+def upsert_title(html: str, title: str) -> str:
+    escaped = html_lib.escape(title, quote=False)
+    pattern = r"(<title\b[^>]*>).*?(</title>)"
+    if re.search(pattern, html, flags=re.I | re.S):
+        return re.sub(pattern, rf"\g<1>{escaped}\g<2>", html, count=1, flags=re.I | re.S)
+    if "</head>" in html:
+        return html.replace("</head>", f"<title>{escaped}</title>\n</head>", 1)
+    return f"<title>{escaped}</title>\n" + html
+
+
+def clean_title(value: str) -> str:
+    text = re.sub(r"<[^>]+>", " ", value or "")
+    return re.sub(r"\s+", " ", html_lib.unescape(text)).strip()
+
+
+def humanize_url(url: str) -> str:
+    rel = url.strip("/")
+    if not rel:
+        return "MS Smile AI Review Hub"
+    parts = [part for part in rel.split("/") if part and part != "vi"]
+    if not parts:
+        return "MS Smile AI Review Hub"
+    slug = parts[-1]
+    words = [word for word in re.split(r"[-_]+", slug) if word]
+    if not words:
+        return "MS Smile AI Review Hub"
+    normalized = []
+    for word in words:
+        lower = word.lower()
+        normalized.append({
+            "ai": "AI",
+            "seo": "SEO",
+            "api": "API",
+            "ui": "UI",
+            "ux": "UX",
+            "llm": "LLM",
+            "gsc": "GSC",
+            "youtube": "YouTube",
+            "github": "GitHub",
+            "google": "Google",
+            "bing": "Bing",
+            "yandex": "Yandex",
+        }.get(lower, word.capitalize()))
+    return " ".join(normalized)
 
 
 def set_language_switcher(html: str, en_url: str, active: str) -> str:

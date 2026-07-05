@@ -1,46 +1,45 @@
 from __future__ import annotations
 
 import html
-import json
 from pathlib import Path
 
 from config import settings
-from modules.indexing_policy import INDEXABLE_ROBOTS_META
+from modules.indexing_policy import REDIRECT_ROBOTS_META
 
 
 PAGES = {
     "crm-alternatives": {
-        "title": "Các lựa chọn thay thế CRM tốt nhất năm 2026",
-        "description": "So sánh các lựa chọn thay thế CRM cho doanh nghiệp nhỏ, đội bán hàng và marketing trước khi chọn nền tảng.",
-        "intro": "Trang này giúp bạn lập danh sách rút gọn các nền tảng CRM theo nhu cầu thực tế. Hãy kiểm tra giá, giới hạn người dùng, tự động hóa, tích hợp và điều khoản mới nhất trên website chính thức trước khi mua.",
+        "title": "Lua chon CRM thay the 2026",
+        "description": "So sanh cac lua chon CRM thay the cho doanh nghiep nho, doi ban hang va marketing truoc khi chon nen tang.",
+        "intro": "Trang nay giup ban lap danh sach rut gon cac nen tang CRM theo nhu cau thuc te. Hay kiem tra gia, gioi han nguoi dung, tu dong hoa, tich hop va dieu khoan moi nhat tren website chinh thuc truoc khi mua.",
         "sections": [
-            ("Khi nào nên tìm CRM thay thế?", "Nên cân nhắc đổi CRM khi chi phí tăng nhanh, quy trình bán hàng khó tùy chỉnh, báo cáo không đủ rõ hoặc đội ngũ phải dùng quá nhiều công cụ bổ sung."),
-            ("Các lựa chọn nên xem xét", "HubSpot phù hợp với đội ngũ cần CRM kết hợp marketing. Pipedrive tập trung vào pipeline bán hàng. ActiveCampaign phù hợp khi email automation là phần quan trọng của quy trình."),
-            ("Cách chọn nền tảng", "So sánh tổng chi phí, số lượng người dùng, tích hợp, khả năng xuất dữ liệu, hỗ trợ và thời gian triển khai. Không nên chọn chỉ dựa trên danh sách tính năng."),
+            ("Khi nao nen tim CRM thay the?", "Nen can nhac doi CRM khi chi phi tang nhanh, quy trinh ban hang kho tuy chinh, bao cao khong du ro hoac doi ngu phai dung qua nhieu cong cu bo sung."),
+            ("Cac lua chon nen xem xet", "HubSpot phu hop voi doi ngu can CRM ket hop marketing. Pipedrive tap trung vao pipeline ban hang. ActiveCampaign phu hop khi email automation la phan quan trong cua quy trinh."),
+            ("Cach chon nen tang", "So sanh tong chi phi, so luong nguoi dung, tich hop, kha nang xuat du lieu, ho tro va thoi gian trien khai. Khong nen chon chi dua tren danh sach tinh nang."),
         ],
         "links": [
-            ("/vi/best-crm-tools/", "Công cụ CRM tốt nhất"),
-            ("/vi/category/crm-tools/", "Danh mục CRM"),
-            ("/vi/hub/crm/", "Trung tâm nội dung CRM"),
-            ("/vi/review/hubspot/", "Đánh giá HubSpot"),
-            ("/vi/review/pipedrive/", "Đánh giá Pipedrive"),
+            ("/vi/best-crm-tools/", "Cong cu CRM tot nhat"),
+            ("/vi/category/crm-tools/", "Danh muc CRM"),
+            ("/vi/hub/crm/", "Trung tam noi dung CRM"),
+            ("/vi/review/hubspot/", "Danh gia HubSpot"),
+            ("/vi/review/pipedrive/", "Danh gia Pipedrive"),
         ],
     },
     "marketing-software-review": {
-        "title": "Đánh giá phần mềm marketing năm 2026",
-        "description": "Hướng dẫn đánh giá phần mềm marketing theo tự động hóa, email, CRM, nội dung, báo cáo và mức phù hợp quy trình.",
-        "intro": "Phần mềm marketing tốt nhất phụ thuộc vào kênh, quy mô đội ngũ và mức độ tự động hóa cần thiết. Trang này trình bày cách đánh giá công cụ mà không dựa vào quảng cáo hoặc tuyên bố chưa được xác minh.",
+        "title": "Danh gia phan mem marketing 2026",
+        "description": "Huong dan danh gia phan mem marketing theo email, CRM, automation, bao cao va muc phu hop quy trinh.",
+        "intro": "Phan mem marketing tot nhat phu thuoc vao kenh, quy mo doi ngu va muc do tu dong hoa can thiet. Trang nay trinh bay cach danh gia cong cu ma khong dua vao quang cao hoac tuyen bo chua duoc xac minh.",
         "sections": [
-            ("Nên đánh giá những gì?", "Kiểm tra email marketing, CRM, automation, báo cáo, quản lý chiến dịch, tích hợp và khả năng xuất dữ liệu. Giá và giới hạn sử dụng cần được xác minh trên website chính thức."),
-            ("Phù hợp nhất cho ai?", "Doanh nghiệp nhỏ thường cần công cụ dễ triển khai. Đội marketing lớn cần phân quyền, báo cáo và tích hợp sâu hơn. Người sáng tạo nội dung có thể ưu tiên email và landing page."),
-            ("Rủi ro cần kiểm tra", "Chi phí có thể tăng theo số liên hệ, số người dùng hoặc mức sử dụng. Hãy kiểm tra chính sách gửi email, giới hạn automation, hỗ trợ và điều khoản hủy dịch vụ."),
+            ("Nen danh gia nhung gi?", "Kiem tra email marketing, CRM, automation, bao cao, quan ly chien dich, tich hop va kha nang xuat du lieu. Gia va gioi han su dung can duoc xac minh tren website chinh thuc."),
+            ("Phu hop nhat cho ai?", "Doanh nghiep nho thuong can cong cu de trien khai. Doi marketing lon can phan quyen, bao cao va tich hop sau hon. Nguoi sang tao noi dung co the uu tien email va landing page."),
+            ("Rui ro can kiem tra", "Chi phi co the tang theo so lien he, so nguoi dung hoac muc su dung. Hay kiem tra chinh sach gui email, gioi han automation, ho tro va dieu khoan huy dich vu."),
         ],
         "links": [
-            ("/vi/email-marketing-software-review/", "Đánh giá phần mềm email marketing"),
-            ("/vi/marketing-alternatives/", "Các lựa chọn thay thế marketing"),
-            ("/vi/hub/marketing/", "Trung tâm nội dung marketing"),
-            ("/vi/review/activecampaign/", "Đánh giá ActiveCampaign"),
-            ("/vi/category/email-marketing-tools/", "Danh mục email marketing"),
+            ("/vi/email-marketing-software-review/", "Danh gia phan mem email marketing"),
+            ("/vi/marketing-alternatives/", "Cac lua chon thay the marketing"),
+            ("/vi/hub/marketing/", "Trung tam noi dung marketing"),
+            ("/vi/review/activecampaign/", "Danh gia ActiveCampaign"),
+            ("/vi/category/email-marketing-tools/", "Danh muc email marketing"),
         ],
     },
 }
@@ -62,20 +61,6 @@ def render_page(slug: str, page: dict) -> str:
     canonical = f"{base}/vi/{slug}/"
     links = "".join(f'<li><a href="{html.escape(url, quote=True)}">{html.escape(label)}</a></li>' for url, label in page["links"])
     sections = "".join(f"<section class='card'><h2>{html.escape(title)}</h2><p>{html.escape(body)}</p></section>" for title, body in page["sections"])
-    schema = json.dumps(
-        {
-            "@context": "https://schema.org",
-            "@type": "Article",
-            "headline": page["title"],
-            "description": page["description"],
-            "url": canonical,
-            "inLanguage": "vi",
-            "author": {"@type": "Person", "name": "Nguyen Quoc Tuan"},
-            "publisher": {"@type": "Organization", "name": settings.site_name, "url": f"{base}/"},
-            "dateModified": "2026-06-12",
-        },
-        ensure_ascii=False,
-    )
     contact = settings.contact_email or "contact@smileaireviewhub.com"
     return f"""<!doctype html>
 <html lang="vi">
@@ -84,24 +69,23 @@ def render_page(slug: str, page: dict) -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(page["title"])} | {html.escape(settings.site_name)}</title>
 <meta name="description" content="{html.escape(page["description"], quote=True)}">
-<meta name="robots" content="{INDEXABLE_ROBOTS_META}">
+<meta name="robots" content="{REDIRECT_ROBOTS_META}">
 <link rel="canonical" href="{html.escape(canonical, quote=True)}">
 <link rel="alternate" hreflang="vi" href="{html.escape(canonical, quote=True)}">
 <link rel="alternate" hreflang="x-default" href="{html.escape(canonical, quote=True)}">
-<script type="application/ld+json">{schema}</script>
 <style>{css()}</style>
 </head>
 <body>
-<nav><div class="wrap"><a href="/vi/"><strong>{html.escape(settings.site_name)}</strong></a><a href="/vi/reviews/">Đánh giá</a><a href="/vi/comparisons/">So sánh</a><a href="/vi/categories/">Danh mục</a><a href="/vi/contact/">Liên hệ</a></div></nav>
+<nav><div class="wrap"><a href="/vi/"><strong>{html.escape(settings.site_name)}</strong></a><a href="/vi/reviews/">Danh gia</a><a href="/vi/comparisons/">So sanh</a><a href="/vi/categories/">Danh muc</a><a href="/vi/contact/">Lien he</a></div></nav>
 <main class="wrap">
 <article>
-<header class="card"><p class="eyebrow">Hướng dẫn nghiên cứu 2026</p><h1>{html.escape(page["title"])}</h1><p>{html.escape(page["intro"])}</p></header>
+<header class="card"><p class="eyebrow">Huong dan nghien cuu 2026</p><h1>{html.escape(page["title"])}</h1><p>{html.escape(page["intro"])}</p></header>
 {sections}
-<section class="card"><h2>Nội dung liên quan</h2><ul>{links}</ul></section>
-<section class="card"><h2>Kết luận</h2><p>Dùng trang này để tạo danh sách rút gọn, sau đó xác minh giá, tính năng, giới hạn và điều khoản mới nhất trực tiếp với nhà cung cấp.</p></section>
+<section class="card"><h2>Noi dung lien quan</h2><ul>{links}</ul></section>
+<section class="card"><h2>Ket luan</h2><p>Dung trang nay de tao danh sach rut gon, sau do xac minh gia, tinh nang, gioi han va dieu khoan moi nhat truc tiep voi nha cung cap.</p></section>
 </article>
 </main>
-<footer><div class="wrap"><p><strong>{html.escape(settings.site_name)}</strong></p><p>Contact: <!--email_off--><a href="mailto:{html.escape(contact, quote=True)}">{html.escape(contact)}</a><!--/email_off--></p><a href="/vi/about/">Giới thiệu</a><a href="/vi/contact/">Liên hệ</a><a href="/vi/editorial-policy/">Chính sách biên tập</a></div></footer>
+<footer><div class="wrap"><p><strong>{html.escape(settings.site_name)}</strong></p><p>Contact: <!--email_off--><a href="mailto:{html.escape(contact, quote=True)}">{html.escape(contact)}</a><!--/email_off--></p><a href="/vi/about/">Gioi thieu</a><a href="/vi/contact/">Lien he</a><a href="/vi/editorial-policy/">Chinh sach bien tap</a></div></footer>
 </body>
 </html>"""
 

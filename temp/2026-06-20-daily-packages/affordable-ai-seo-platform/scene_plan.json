@@ -1,0 +1,21 @@
+{
+  "slug": "affordable-ai-seo-platform",
+  "title": "affordable ai seo platform",
+  "scenes": [
+    {
+      "id": 1,
+      "title": "Intro",
+      "description": "What this topic is and why it matters."
+    },
+    {
+      "id": 2,
+      "title": "Key points",
+      "description": "Discuss the main features, pricing, and fit."
+    },
+    {
+      "id": 3,
+      "title": "Short verdict",
+      "description": "Summarize pros, cons, and recommendation."
+    }
+  ]
+}

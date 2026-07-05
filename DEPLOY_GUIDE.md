@@ -1,4 +1,11 @@
-# GitHub + Netlify Auto Deploy Guide
+# Legacy GitHub + Netlify Auto Deploy Guide
+
+Important current note: this file contains older Netlify-era notes. The current
+project guide says Smile AI Review Hub deploys through Cloudflare Pages from
+`docs/`. Do not use this file to change the active deployment workflow unless the
+user explicitly asks for a deployment migration.
+
+The AI Content Intelligence scripts are reporting-only and do not deploy.
 
 This project should deploy as a static site from `site_output/`.
 

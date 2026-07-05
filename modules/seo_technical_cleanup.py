@@ -10,14 +10,20 @@ from modules.indexing_policy import INDEXABLE_ROBOTS_META, REDIRECT_ROBOTS_META
 
 BASE_URL = "https://smileaireviewhub.com"
 GSC_LEGACY_REDIRECTS = {
+    "/surfer-seo-pricing-2026/": "/surfer-seo-pricing/",
+    "/surfer-seo-pricing-2026": "/surfer-seo-pricing/",
+    "/vi/surfer-seo-pricing-2026/": "/surfer-seo-pricing/",
+    "/vi/surfer-seo-pricing-2026": "/surfer-seo-pricing/",
+    "/review/codeium/": "/compare/github-copilot-vs-codeium/",
+    "/review/codeium": "/compare/github-copilot-vs-codeium/",
+    "/vi/review/codeium/": "/vi/compare/github-copilot-vs-codeium/",
+    "/vi/review/codeium": "/vi/compare/github-copilot-vs-codeium/",
+    "/vi/marketing-software-review/": "/vi/email-marketing-software-review/",
+    "/vi/marketing-software-review": "/vi/email-marketing-software-review/",
+    "/vi/crm-alternatives/": "/vi/category/crm-tools/",
+    "/vi/crm-alternatives": "/vi/category/crm-tools/",
 }
 RETIRED_GSC_LEGACY_REDIRECT_SOURCES = {
-    "/surfer-seo-pricing-2026/",
-    "/surfer-seo-pricing-2026",
-    "/vi/surfer-seo-pricing-2026/",
-    "/vi/surfer-seo-pricing-2026",
-    "/review/codeium/",
-    "/review/codeium",
 }
 
 

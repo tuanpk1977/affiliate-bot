@@ -2,7 +2,7 @@
 
 - Platform: Facebook
 - Status: Pending Review
-- Suggested time: 2026-06-03 20:30
+- Suggested time: 2026-06-07 20:30
 - Target URL: https://smileaireviewhub.com/comparisons/windsurf-vs-copilot/?utm_source=facebook
 
 ## Copy

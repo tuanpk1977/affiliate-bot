@@ -17,6 +17,7 @@ from modules.internal_linker import post_process_internal_links
 from modules.legacy_slug_normalizer import normalize_legacy_slugs
 from modules.canonical_routes import apply_canonical_routing
 from modules.seo_ai_search_upgrade import apply_seo_ai_search_upgrade
+from modules.seo_metadata_uniqueness import rewrite_duplicate_metadata
 from modules.seo_title_optimizer import optimize_site_titles
 from modules.seo_technical_cleanup import apply_technical_seo_cleanup
 from modules.structured_data_upgrade import apply_structured_data_upgrade
@@ -96,6 +97,7 @@ def incremental_build() -> dict[str, object]:
     seo_ai_stats = apply_seo_ai_search_upgrade(settings.site_output_dir)
     facebook_stats = post_process_facebook_meta(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     title_stats = optimize_site_titles(settings.site_output_dir)
+    metadata_stats = rewrite_duplicate_metadata(settings.site_output_dir)
     legacy_slug_stats = normalize_legacy_slugs(settings.site_output_dir)
     schema_stats = apply_structured_data_upgrade(settings.site_output_dir)
     canonical_stats = apply_canonical_routing(settings.site_output_dir)
@@ -117,6 +119,9 @@ def incremental_build() -> dict[str, object]:
         "seo_ai_breadcrumbs_added": seo_ai_stats.get("breadcrumbs_added", 0),
         "seo_titles_changed": title_stats.get("changed", 0),
         "seo_titles_remaining_long": title_stats.get("remaining_long", 0),
+        "metadata_pages_changed": metadata_stats.get("pages_changed", 0),
+        "metadata_titles_changed": metadata_stats.get("titles_changed", 0),
+        "metadata_descriptions_changed": metadata_stats.get("descriptions_changed", 0),
         "legacy_slug_pages_changed": legacy_slug_stats.get("changed", 0),
         "legacy_slug_replacements": legacy_slug_stats.get("replacements", 0),
         "structured_data_changed": schema_stats.get("changed", 0),
@@ -144,6 +149,7 @@ def full_build() -> dict[str, object]:
     internal_link_stats = post_process_internal_links(settings.site_output_dir)
     seo_ai_stats = apply_seo_ai_search_upgrade(settings.site_output_dir)
     title_stats = optimize_site_titles(settings.site_output_dir)
+    metadata_stats = rewrite_duplicate_metadata(settings.site_output_dir)
     legacy_slug_stats = normalize_legacy_slugs(settings.site_output_dir)
     schema_stats = apply_structured_data_upgrade(settings.site_output_dir)
     canonical_stats = apply_canonical_routing(settings.site_output_dir)
@@ -160,6 +166,9 @@ def full_build() -> dict[str, object]:
         "seo_ai_changed": seo_ai_stats.get("changed", 0),
         "seo_titles_changed": title_stats.get("changed", 0),
         "seo_titles_remaining_long": title_stats.get("remaining_long", 0),
+        "metadata_pages_changed": metadata_stats.get("pages_changed", 0),
+        "metadata_titles_changed": metadata_stats.get("titles_changed", 0),
+        "metadata_descriptions_changed": metadata_stats.get("descriptions_changed", 0),
         "legacy_slug_pages_changed": legacy_slug_stats.get("changed", 0),
         "legacy_slug_replacements": legacy_slug_stats.get("replacements", 0),
         "structured_data_changed": schema_stats.get("changed", 0),

@@ -1,7 +1,7 @@
 ---
 id: day-24-2030-vi-short_video
 day: 24
-scheduled_date: 2026-06-13
+scheduled_date: 2026-06-25
 scheduled_time: 20:30
 language: vi
 platform: short_video

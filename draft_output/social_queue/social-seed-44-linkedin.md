@@ -2,7 +2,7 @@
 
 - Platform: LinkedIn
 - Status: Pending Review
-- Suggested time: 2026-06-19 18:30
+- Suggested time: 2026-06-23 18:30
 - Target URL: https://smileaireviewhub.com/review/cursor/?utm_source=linkedin
 
 ## Copy

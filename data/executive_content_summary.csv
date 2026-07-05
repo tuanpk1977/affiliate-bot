@@ -1,0 +1,31 @@
+﻿section,rank,topic,slug,action,final_score,estimated_value,notes
+Top 10 Revenue Opportunities,1,free-for-dev Review 2026,free-for-dev-review-2026,REFRESH,59.1,1490.08,
+Top 10 Revenue Opportunities,2,ai-berkshire Review 2026,ai-berkshire-review-2026,REFRESH,58.8,1369.31,
+Top 10 Revenue Opportunities,3,agency-agents Review 2026,agency-agents-review-2026,REFRESH,58.6,1369.31,
+Top 10 Revenue Opportunities,4,logto Review 2026,logto-review-2026,REFRESH,57.1,1347.19,
+Top 10 Revenue Opportunities,5,VulnClaw Review 2026,vulnclaw-review-2026,REFRESH,57.1,1326.78,
+Top 10 Revenue Opportunities,6,council-of-high-intelligence Review 2026,council-of-high-intelligence-review-2026,REFRESH,56.3,1153.62,
+Top 10 Revenue Opportunities,7,cupy Review 2026,cupy-review-2026,REFRESH,56.0,1069.06,
+Top 10 Revenue Opportunities,8,best ai search software,best-ai-search-software,REFRESH,55.7,1136.92,
+Top 10 Revenue Opportunities,9,"Tavant debuts agentic AI platform for software engineering, automation",tavant-debuts-agentic-ai-platform-for-software-engineering-automation,REFRESH,55.6,1036.8,
+Top 10 Revenue Opportunities,10,affordable ai search platform,affordable-ai-search-platform,REFRESH,55.0,859.73,
+Top 10 Refresh Opportunities,1,free-for-dev Review 2026,free-for-dev-review-2026,REFRESH,59.1,1490.08,REFRESH: Reviews; duplicate=REFRESH_EXISTING
+Top 10 Refresh Opportunities,2,ai-berkshire Review 2026,ai-berkshire-review-2026,REFRESH,58.8,1369.31,REFRESH: Reviews; duplicate=REFRESH_EXISTING
+Top 10 Refresh Opportunities,3,agency-agents Review 2026,agency-agents-review-2026,REFRESH,58.6,1369.31,REFRESH: AI Automation; duplicate=REFRESH_EXISTING
+Top 10 Refresh Opportunities,4,logto Review 2026,logto-review-2026,REFRESH,57.1,1347.19,REFRESH: Reviews; duplicate=REFRESH_EXISTING
+Top 10 Refresh Opportunities,5,VulnClaw Review 2026,vulnclaw-review-2026,REFRESH,57.1,1326.78,REFRESH: Reviews; duplicate=REFRESH_EXISTING
+Top 10 Refresh Opportunities,6,council-of-high-intelligence Review 2026,council-of-high-intelligence-review-2026,REFRESH,56.3,1153.62,REFRESH: Reviews; duplicate=REFRESH_EXISTING
+Top 10 Refresh Opportunities,7,cupy Review 2026,cupy-review-2026,REFRESH,56.0,1069.06,REFRESH: Reviews; duplicate=REFRESH_EXISTING
+Top 10 Refresh Opportunities,8,best ai search software,best-ai-search-software,REFRESH,55.7,1136.92,REFRESH: AI Search; duplicate=REFRESH_EXISTING
+Top 10 Refresh Opportunities,9,"Tavant debuts agentic AI platform for software engineering, automation",tavant-debuts-agentic-ai-platform-for-software-engineering-automation,REFRESH,55.6,1036.8,REFRESH: AI Automation; duplicate=REFRESH_EXISTING
+Top 10 Refresh Opportunities,10,affordable ai search platform,affordable-ai-search-platform,REFRESH,55.0,859.73,REFRESH: AI Search; duplicate=REFRESH_EXISTING
+Top 10 Content Gaps,1,AI Coding Alternatives 2026,ai-coding-alternatives-2026,alternatives,,,AI Coding cluster is missing a alternatives asset.
+Top 10 Content Gaps,2,AI Coding Tutorial 2026,ai-coding-tutorial-2026,tutorial,,,AI Coding cluster is missing a tutorial asset.
+Top 10 Content Gaps,3,AI Coding Faq 2026,ai-coding-faq-2026,faq,,,AI Coding cluster is missing a faq asset.
+Top 10 Content Gaps,4,AI Coding Video Review 2026,ai-coding-video-2026,video,,,AI Coding cluster is missing a video asset.
+Top 10 Content Gaps,5,SaaS Reviews Review 2026,saas-reviews-review-2026,review,,,SaaS Reviews cluster is missing a review asset.
+Top 10 Content Gaps,6,SaaS Reviews Alternatives 2026,saas-reviews-alternatives-2026,alternatives,,,SaaS Reviews cluster is missing a alternatives asset.
+Top 10 Content Gaps,7,SaaS Reviews Comparison 2026,saas-reviews-comparison-2026,comparison,,,SaaS Reviews cluster is missing a comparison asset.
+Top 10 Content Gaps,8,SaaS Reviews Tutorial 2026,saas-reviews-tutorial-2026,tutorial,,,SaaS Reviews cluster is missing a tutorial asset.
+Top 10 Content Gaps,9,SaaS Reviews Faq 2026,saas-reviews-faq-2026,faq,,,SaaS Reviews cluster is missing a faq asset.
+Top 10 Content Gaps,10,SaaS Reviews Video Review 2026,saas-reviews-video-2026,video,,,SaaS Reviews cluster is missing a video asset.

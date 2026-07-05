@@ -1,0 +1,20 @@
+{
+  "slug": "kilocode-review-2026",
+  "topic": "kilocode Review 2026",
+  "article_url": "https://smileaireviewhub.com/kilocode-review-2026/",
+  "manual_youtube_upload": true,
+  "auto_upload_youtube": false,
+  "created_at": "2026-06-20T15:34:00.755921",
+  "subtitle_policy": "Vietnamese bottom subtitles. English captions must not overlap Vietnamese subtitles.",
+  "required_files": [
+    "script.txt",
+    "voiceover.txt",
+    "scene_plan.json",
+    "youtube_title.txt",
+    "youtube_description.txt",
+    "youtube_tags.txt",
+    "thumbnail_prompt.txt",
+    "shorts_script.txt",
+    "video_metadata.json"
+  ]
+}

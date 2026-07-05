@@ -13,7 +13,7 @@ from modules.ai_trend_discovery import TrendDiscoveryEngine, save_discovery_resu
 def main() -> int:
     parser = argparse.ArgumentParser(description="Discover and score AI/SaaS topics without generating articles.")
     parser.add_argument("--limit", type=int, default=10, help="Number of topics to select.")
-    parser.add_argument("--max-per-source", type=int, default=40, help="Maximum signals retained from each source.")
+    parser.add_argument("--max-per-source", type=int, default=80, help="Maximum signals retained from each source.")
     parser.add_argument("--timeout", type=int, default=None, help="HTTP timeout in seconds.")
     args = parser.parse_args()
 

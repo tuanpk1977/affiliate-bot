@@ -1,0 +1,35 @@
+---
+INTRODUCTION (0:00-0:20)
+
+---
+Today we explore RNNs vs Transformers vs SSMs: where should AI memory live for continual learning? and explain where AI memory should live in continual learning systems.
+
+---
+WHY IT MATTERS (0:20-0:50)
+
+---
+If you are building AI systems, the memory architecture determines how the model remembers past interactions and updates over time.
+
+---
+RNNs EXPLAINED (0:50-1:40)
+
+---
+RNNs keep state in a recurrent loop, which can work for short sequences but struggles with long-term context.
+
+---
+TRANSFORMERS EXPLAINED (1:40-2:30)
+
+---
+Transformers use attention to process context windows, but scaling memory beyond the window requires extra mechanisms.
+
+---
+SSMS EXPLAINED (2:30-3:20)
+
+---
+SSMs are designed for efficient long-range memory, which can be a strong fit for continual learning if engineered carefully.
+
+---
+CONCLUSION (3:20-4:00)
+
+---
+The right memory architecture depends on your application: transactional systems, research prototypes, or production agents.

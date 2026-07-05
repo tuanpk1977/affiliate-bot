@@ -40,6 +40,8 @@ from modules.roi_tracker import build_roi_report
 from modules.site_builder import build_site_output
 from modules.sitemap_generator import generate_sitemap
 from modules.seo_title_optimizer import optimize_site_titles
+from modules.seo_technical_cleanup import apply_technical_seo_cleanup
+from modules.structured_data_upgrade import apply_structured_data_upgrade
 from modules.seo_system import run_seo_system
 from modules.trust_localization_upgrade import enhance_site
 from modules.social_content_generator import ensure_report as ensure_social_post_report
@@ -135,11 +137,14 @@ def main() -> None:
     run_keyword_intelligence_report()
     run_action_priority_report()
     post_process_internal_links(settings.site_output_dir)
+    apply_technical_seo_cleanup(settings.site_output_dir)
     add_bilingual_pages(settings.site_output_dir, settings.base_site_url or settings.site_domain)
+    apply_technical_seo_cleanup(settings.site_output_dir)
     run_audience_growth_system(settings.site_output_dir)
     enhance_site(settings.site_output_dir)
     post_process_facebook_meta(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     optimize_site_titles(settings.site_output_dir)
+    apply_structured_data_upgrade(settings.site_output_dir)
     generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     run_seo_system()
     generate_social_seo_assets()

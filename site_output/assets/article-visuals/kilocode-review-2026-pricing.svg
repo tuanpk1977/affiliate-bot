@@ -1,0 +1,24 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+<title id="title">Kilocode pricing verification checklist</title>
+<desc id="desc">A practical pricing checklist for verifying Kilocode before purchase.</desc>
+<rect width="1200" height="680" fill="#f8fafc"/>
+<rect x="54" y="46" width="1092" height="588" rx="22" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<text x="92" y="112" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800" fill="#0f172a">Pricing Verification Checklist</text>
+<text x="92" y="148" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#475569">Do not rely on old screenshots. Confirm the current official pricing page before buying.</text>
+<g font-family="Arial, Helvetica, sans-serif">
+<rect x="92" y="198" width="1016" height="66" rx="12" fill="#ecfdf5" stroke="#86efac"/>
+<text x="126" y="240" font-size="24" font-weight="700" fill="#166534">1. Official plan price</text>
+<text x="690" y="240" font-size="22" fill="#334155">Monthly vs annual cost</text>
+<rect x="92" y="286" width="1016" height="66" rx="12" fill="#eff6ff" stroke="#93c5fd"/>
+<text x="126" y="328" font-size="24" font-weight="700" fill="#1d4ed8">2. Usage limits</text>
+<text x="690" y="328" font-size="22" fill="#334155">Seats, repos, messages, caps</text>
+<rect x="92" y="374" width="1016" height="66" rx="12" fill="#fefce8" stroke="#fde047"/>
+<text x="126" y="416" font-size="24" font-weight="700" fill="#854d0e">3. Upgrade triggers</text>
+<text x="690" y="416" font-size="22" fill="#334155">When a team must pay more</text>
+<rect x="92" y="462" width="1016" height="66" rx="12" fill="#fff1f2" stroke="#fda4af"/>
+<text x="126" y="504" font-size="24" font-weight="700" fill="#be123c">4. Cancellation and data</text>
+<text x="690" y="504" font-size="22" fill="#334155">Terms, retention, security</text>
+<rect x="92" y="550" width="1016" height="44" rx="12" fill="#0f172a"/>
+<text x="126" y="580" font-size="20" font-weight="700" fill="#ffffff">Recommendation: verify current pricing on the official website before buying or promoting.</text>
+</g>
+</svg>

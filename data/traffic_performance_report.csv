@@ -1,509 +1,613 @@
 ﻿page,title_or_slug,impressions,clicks,ctr,avg_position,cta_clicks,go_clicks,internal_links_count,priority_score,recommended_action
-/,AI Tool Review Center - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,103,40,no_data_yet
-/cursor/,"Cursor Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,48,40,no_data_yet
-/windsurf-review/,"Windsurf Review: Agent-Style AI Coding Workflow, Pros, Cons, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,51,40,no_data_yet
-/comparisons/cursor-vs-windsurf/,Cursor vs Windsurf: Which AI Coding Editor Fits Real Development Work? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,40,no_data_yet
+/,AI Tool Review Center - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,124,40,no_data_yet
+/cursor/,"Cursor Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,50,40,no_data_yet
+/windsurf-review/,"Windsurf Review: Agent-Style AI Coding Workflow, Pros, Cons, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,52,40,no_data_yet
+/comparisons/cursor-vs-windsurf/,Cursor vs Windsurf: Which AI coding tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,59,40,no_data_yet
 /comparisons/copilot-vs-cursor/,Copilot vs Cursor: Enterprise Assistant or AI-First Coding Editor? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,40,no_data_yet
-/best-ai-coding-tools-2026/,"Best AI Coding Tools 2026: Cursor, Windsurf, Copilot, and Practical Buying Advice - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,54,40,no_data_yet
+/best-ai-coding-tools-2026/,"Best AI Coding Tools 2026: Cursor, Windsurf, Copilot, and Practical Buying Advice - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,56,40,no_data_yet
 /blog/chatgpt-windsurf-codex-workflow/,ChatGPT Windsurf Codex Workflow - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,56,40,no_data_yet
 /free-ai-coding-workflow-checklist/,Free AI Coding Workflow Checklist - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,16,40,no_data_yet
 /about/,About MS Smile AI Review Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,14,40,no_data_yet
-/category/ai-coding-tools/,Best AI Coding Tools to Research Before You Buy - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,40,no_data_yet
+/category/ai-coding-tools/,Best AI Coding Tools to Research Before You Buy - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,56,40,no_data_yet
 /about-author/,About Author - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/activecampaign/,"ActiveCampaign Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,39,10,monitor
-/adcreative-ai/,"AdCreative AI Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,40,10,monitor
+/activecampaign/,"ActiveCampaign Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,40,10,monitor
+/adcreative-ai/,"AdCreative AI Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,41,10,monitor
 /aeo-action-plan/,AEO Action Plan - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
 /affiliate-disclosure/,Affiliate Disclosure - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,14,10,monitor
-/ai-coding-alternatives/,Best AI Coding Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/ai-coding-software-review/,AI Coding Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/ai-design-alternatives/,Best AI Design Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/ai-meeting-alternatives/,Best AI Meeting Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/ai-meeting-software-review/,AI Meeting Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
-/ai-productivity-alternatives/,Best AI Productivity Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/ai-productivity-software-review/,AI Productivity Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
-/ai-seo-alternatives/,Best AI SEO Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
-/ai-seo-software-review/,AI SEO Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,56,10,monitor
-/ai-video-alternatives/,Best AI Video Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
-/ai-voice-alternatives/,Best AI Voice Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/ai-voice-software-review/,AI Voice Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
-/ai-writing-alternatives/,Best AI Writing Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/ahrefs-ai/,"Ahrefs AI Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,50,10,monitor
+/ai-app-builder-alternatives/,Best AI App Builder Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
+/ai-app-builder-software-review/,AI App Builder Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,56,10,monitor
+/ai-assistant-alternatives/,Best AI Assistant Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
+/ai-assistant-software-review/,AI Assistant Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,56,10,monitor
+/ai-coding-alternatives/,Best AI Coding Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/ai-coding-software-review/,AI Coding Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
+/ai-design-alternatives/,Best AI Design Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
+/ai-image-alternatives/,Best AI Image Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
+/ai-image-software-review/,AI Image Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,56,10,monitor
+/ai-meeting-alternatives/,Best AI Meeting Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
+/ai-meeting-software-review/,AI Meeting Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,56,10,monitor
+/ai-productivity-alternatives/,Best AI Productivity Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
+/ai-productivity-software-review/,AI Productivity Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,56,10,monitor
+/ai-search-alternatives/,Best AI Search Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
+/ai-search-software-review/,AI Search Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,56,10,monitor
+/ai-seo-alternatives/,Best AI SEO Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,57,10,monitor
+/ai-seo-software-review/,AI SEO Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,57,10,monitor
+/ai-video-alternatives/,Best AI Video Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,57,10,monitor
+/ai-voice-alternatives/,Best AI Voice Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
+/ai-voice-software-review/,AI Voice Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,56,10,monitor
+/ai-writing-alternatives/,Best AI Writing Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,56,10,monitor
 /author-profile/,Author Profile - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/automation-alternatives/,Best Automation Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/automation-software-review/,Automation Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
+/automation-alternatives/,Best Automation Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
+/automation-software-review/,Automation Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
 /best-ai-automation-tools-2026/,Best AI Automation Tools 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,59,10,monitor
-/best-ai-automation-tools/,Best AI Automation Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
+/best-ai-automation-tools/,Best AI Automation Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
 /best-ai-coding-tools/,Best AI Coding Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/best-ai-presentation-tools/,Best AI Presentation Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
-/best-ai-seo-tools-2026/,Best AI SEO Tools 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,59,10,monitor
-/best-ai-seo-tools/,Best AI SEO Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,56,10,monitor
+/best-ai-presentation-tools/,Best AI Presentation Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
+/best-ai-seo-tools-2026/,Best AI SEO Tools 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,61,10,monitor
+/best-ai-seo-tools/,Best AI SEO Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
+/best-ai-tools/,Best AI Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,63,10,monitor
 /best-ai-video-tools-2026/,Best AI Video Tools 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,58,10,monitor
-/best-ai-video-tools/,Best AI Video Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,56,10,monitor
+/best-ai-video-tools/,Best AI Video Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
 /best-ai-writing-tools-2026/,Best AI Writing Tools 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
-/best-ai-writing-tools/,Best AI Writing Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,58,10,monitor
-/best-crm-tools/,Best CRM Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
-/best-website-builders/,Best Website Builders - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,57,10,monitor
+/best-ai-writing-tools/,Best AI Writing Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
+/best-crm-tools/,Best CRM Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/best-website-builders/,Best Website Builders - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
 /blog/,Blog - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,64,10,monitor
 /blog/ai-productivity-tools/,AI Productivity Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
 /blog/ai-tools-for-content-creators/,AI Tools for Content Creators - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
 /blog/ai-tools-for-marketers/,AI Tools for Marketers - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
 /blog/ai-tools-under-20-month/,AI Tools Under $20/month - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/blog/ai-website-builders-comparison/,AI Website Builders Comparison - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
+/blog/ai-website-builders-comparison/,AI Website Builders Comparison - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
 /blog/automation-tools-for-beginners/,Automation Tools for Beginners - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
 /blog/best-ai-presentation-tools/,Best AI Presentation Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
 /blog/best-ai-tools-for-small-business/,Best AI Tools for Small Business - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
 /blog/best-ai-voice-generators/,Best AI Voice Generators - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
 /blog/best-alternatives-to-canva-ai/,Best Alternatives to Canva AI - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
 /blog/best-crm-for-startups/,Best CRM for Startups - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/blog/chatgpt-prompts-for-windsurf/,ChatGPT Prompts for Windsurf - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
-/blog/fix-windsurf-mixed-language/,Fix Windsurf Mixed Language Issues - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
+/blog/chatgpt-prompts-for-windsurf/,ChatGPT Prompts for Windsurf - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,57,10,monitor
+/blog/fix-windsurf-mixed-language/,Fix Windsurf Mixed Language Issues - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
 /blog/how-to-choose-saas-tools-safely/,How to Choose SaaS Tools Safely - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/blog/windsurf-prompt-checklist/,Windsurf Prompt Checklist - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
+/blog/windsurf-prompt-checklist/,Windsurf Prompt Checklist - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
 /blog/windsurf-to-codex-workflow/,Windsurf to Codex Workflow - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
-/canva/,"Canva Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,44,10,monitor
-/categories/,Categories - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
+/bolt/,"Bolt Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,42,10,monitor
+/canva/,"Canva Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,46,10,monitor
+/categories/,Categories - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,58,10,monitor
 /category/ai-automation-tools/,AI Automation Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,58,10,monitor
 /category/ai-customer-support-tools/,AI Customer Support Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,58,10,monitor
 /category/ai-presentation-tools/,AI Presentation Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,58,10,monitor
-/category/ai-seo-tools/,AI SEO Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
+/category/ai-seo-tools/,AI SEO Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,63,10,monitor
 /category/ai-video-tools/,AI Video Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
 /category/ai-voice-tools/,AI Voice Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,58,10,monitor
 /category/ai-writing-tools/,AI Writing Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,62,10,monitor
-/category/ai-writing/,AI Writing - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,74,10,monitor
+/category/ai-writing/,AI Writing - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,84,10,monitor
 /category/automation-tools/,Best Automation Tools to Research Before You Buy - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,57,10,monitor
 /category/automation/,Automation - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,61,10,monitor
 /category/crm-tools/,CRM Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
 /category/crm/,CRM - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
-/category/design-tools/,Best Design Tools to Research Before You Buy - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,57,10,monitor
-/category/email-marketing-tools/,Best Email Marketing Tools to Research Before You Buy - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,58,10,monitor
-/category/seo-tools/,Best SEO Tools to Research Before You Buy - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,58,10,monitor
+/category/design-tools/,Best Design Tools to Research Before You Buy - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
+/category/email-marketing-tools/,Best Email Marketing Tools to Research Before You Buy - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,59,10,monitor
+/category/seo-tools/,Best SEO Tools to Research Before You Buy - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
 /category/video-tools/,Best Video Tools to Research Before You Buy - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,59,10,monitor
 /category/website-builder-tools/,Best Website Builder Tools to Research Before You Buy - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,57,10,monitor
-/category/website-builders/,Website Builders - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,62,10,monitor
-/category/writing-tools/,Best Writing Tools to Research Before You Buy - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,58,10,monitor
+/category/website-builders/,Website Builders - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
+/category/writing-tools/,Best Writing Tools to Research Before You Buy - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
+/chatgpt/,"ChatGPT Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,53,10,monitor
+/claude/,"Claude Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,53,10,monitor
+/cloud-development-alternatives/,Best Cloud Development Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
+/cloud-development-software-review/,Cloud Development Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
 /compare/activecampaign-vs-mailchimp/,ActiveCampaign vs Mailchimp: Which email marketing platforms should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
 /compare/canva-vs-adcreative-ai/,Canva vs AdCreative AI: Which AI design and ad creative tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
 /compare/cursor-vs-github-copilot/,Cursor vs GitHub Copilot: Which AI coding assistants should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
 /compare/cursor-vs-windsurf/,Cursor vs Windsurf: Which AI coding editors should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
-/compare/github-copilot-vs-codeium/,GitHub Copilot vs Codeium: Which AI coding assistants should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/compare/grammarly-vs-quillbot/,Grammarly vs QuillBot: Which AI writing assistants should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
+/compare/github-copilot-vs-codeium/,GitHub Copilot vs Codeium: Which AI coding assistants should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
+/compare/grammarly-vs-quillbot/,Grammarly vs QuillBot: Which AI writing assistants should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
 /compare/jasper-vs-copy-ai/,Jasper vs Copy.ai: Which AI writing tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
 /compare/make-vs-zapier/,Make vs Zapier: Which automation platforms should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
 /compare/semrush-vs-ahrefs/,Semrush vs Ahrefs: Which SEO platforms should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
 /compare/synthesia-vs-pictory/,Synthesia vs Pictory: Which AI video tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/comparisons/,Comparisons - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,82,10,monitor
+/comparisons/,Comparisons - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,89,10,monitor
 /comparisons/canva-vs-adobe-express/,Canva vs Adobe Express: Which Tool Should You Choose in 2026? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/comparisons/canva-vs-gamma/,Canva vs Gamma: Which AI design and presentation tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/comparisons/chatgpt-vs-claude/,ChatGPT vs Claude: Which AI assistants should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/comparisons/chatgpt-vs-gemini/,ChatGPT vs Gemini - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/comparisons/codex-vs-openclaw/,Codex vs OpenClaw: Which AI Coding Tool Fits Real Development Workflows? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
+/comparisons/canva-vs-gamma/,Canva vs Gamma: Which AI design and presentation tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,62,10,monitor
+/comparisons/chatgpt-vs-claude/,ChatGPT vs Claude: Which AI assistants should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
+/comparisons/chatgpt-vs-gemini/,ChatGPT vs Gemini: Which AI assistants should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
+/comparisons/chatgpt-vs-perplexity/,ChatGPT vs Perplexity: Which AI assistants and research tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,61,10,monitor
+/comparisons/claude-vs-gemini/,Claude vs Gemini: Which AI assistants should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
+/comparisons/claude-vs-perplexity/,Claude vs Perplexity: Which AI research tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
+/comparisons/codex-vs-openclaw/,Codex vs OpenClaw: Which AI Coding Tool Fits Real Development Workflows? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
 /comparisons/copilot-vs-codex/,Copilot vs Codex: Practical Comparison for Real Developers and AI Builders - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/comparisons/copilot-vs-tabnine/,GitHub Copilot vs Tabnine - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
+/comparisons/copilot-vs-tabnine/,GitHub Copilot vs Tabnine - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
 /comparisons/cursor-vs-copilot/,Cursor vs GitHub Copilot: Which Tool Should You Choose in 2026? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/comparisons/cursor-vs-github-copilot/,Cursor vs GitHub Copilot: Which AI coding tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
+/comparisons/cursor-vs-github-copilot/,Cursor vs GitHub Copilot: Which AI coding tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,59,10,monitor
 /comparisons/cursor-vs-vscode/,Cursor vs VS Code - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/comparisons/elevenlabs-vs-murf/,ElevenLabs vs Murf: Which AI voice tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
+/comparisons/elevenlabs-vs-murf/,ElevenLabs vs Murf: Which AI voice tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,62,10,monitor
 /comparisons/elevenlabs-vs-playht/,ElevenLabs vs PlayHT - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
 /comparisons/framer-vs-webflow/,Framer vs Webflow - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
-/comparisons/gemini-vs-claude/,Gemini vs Claude - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
+/comparisons/gemini-vs-claude/,Gemini vs Claude - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
 /comparisons/hubspot-vs-salesforce/,HubSpot vs Salesforce - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
+/comparisons/jasper-vs-copy-ai/,Jasper vs Copy.ai: Which AI writing tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,63,10,monitor
 /comparisons/jasper-vs-copyai/,Jasper vs Copy.ai - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
-/comparisons/make-vs-zapier/,Make vs Zapier: Which automation platforms should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
+/comparisons/lovable-vs-bolt/,Lovable vs Bolt: Which AI app builders should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,63,10,monitor
+/comparisons/make-vs-zapier/,Make vs Zapier: Which automation platforms should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,64,10,monitor
 /comparisons/midjourney-vs-dalle/,Midjourney vs DALL-E - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
 /comparisons/notion-ai-vs-chatgpt/,Notion AI vs ChatGPT - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
-/comparisons/notion-ai-vs-clickup-ai/,Notion AI vs ClickUp AI: Which AI productivity tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/comparisons/notion-ai-vs-clickup-ai/,Notion AI vs ClickUp AI: Which AI productivity tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,62,10,monitor
 /comparisons/notion-vs-clickup/,Notion vs ClickUp - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
 /comparisons/perplexity-vs-chatgpt/,Perplexity vs ChatGPT - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/comparisons/runway-vs-pika/,Runway vs Pika: Which AI video tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/comparisons/semrush-vs-ahrefs/,Semrush vs Ahrefs: Which SEO platforms should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/comparisons/replit-vs-cursor/,Replit vs Cursor: Which AI coding tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
+/comparisons/runway-vs-pika/,Runway vs Pika: Which AI video tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,64,10,monitor
+/comparisons/semrush-vs-ahrefs/,Semrush vs Ahrefs: Which SEO platforms should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,62,10,monitor
+/comparisons/surfer-seo-vs-frase/,Surfer SEO vs Frase: Which AI SEO content tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,62,10,monitor
 /comparisons/synthesia-vs-heygen/,Synthesia vs HeyGen - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
 /comparisons/synthesia-vs-runway/,Synthesia vs Runway - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
 /comparisons/windsurf-vs-copilot/,Windsurf vs GitHub Copilot: Which Tool Should You Choose in 2026? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
 /contact/,Contact - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,47,10,monitor
-/copy-ai/,"Copy.ai Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,49,10,monitor
-/crm-alternatives/,Best CRM Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,Cursor Ai Review: A Practical Guide for Developers And Ai Coders - AI Tool Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
+/copy-ai/,"Copy.ai Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,53,10,monitor
+/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,Cursor Ai Review: A Practical Guide for Developers And Ai Coders - AI Tool Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
 /cursor-pricing/,Pricing Cursor: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,46,10,monitor
-/descript/,"Descript Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,49,10,monitor
-/disclosure/,Disclosure - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
+/descript/,"Descript Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,53,10,monitor
+/disclosure/,Disclosure - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
 /downloads/ai-coding-workflow-checklist/,AI Coding Workflow Checklist - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,15,10,monitor
-/durable/,"Durable Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,45,10,monitor
+/durable/,"Durable Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,47,10,monitor
 /editorial-policy/,Editorial Policy - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,14,10,monitor
-/elevenlabs-pricing/,Pricing ElevenLabs: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/elevenlabs/,"ElevenLabs Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,42,10,monitor
+/elevenlabs-pricing/,Pricing ElevenLabs: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,47,10,monitor
+/elevenlabs/,"ElevenLabs Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,45,10,monitor
 /email-capture-setup/,Email Capture Setup - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,15,10,monitor
 /email-marketing-alternatives/,Best Email Marketing Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/email-marketing-software-review/,Email Marketing Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
+/email-marketing-software-review/,Email Marketing Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
+/facebook-test/,Facebook Browser Test - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,44,10,monitor
 /formspree-setup/,Formspree Setup for Email Capture - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,15,10,monitor
-/framer/,"Framer Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,45,10,monitor
-/gamma/,"Gamma Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,45,10,monitor
-/github-copilot-pricing/,Pricing GitHub Copilot: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,44,10,monitor
-/github-copilot/,"GitHub Copilot Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,46,10,monitor
+/framer/,"Framer Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,47,10,monitor
+/frase/,"Frase Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,42,10,monitor
+/gamma/,"Gamma Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,47,10,monitor
+/gemini/,"Gemini Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,43,10,monitor
+/github-copilot-pricing/,Pricing GitHub Copilot: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,45,10,monitor
+/github-copilot/,"GitHub Copilot Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,49,10,monitor
 /how-we-review-tools/,How We Review Tools - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/hub/ai-automation/,AI Automation Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/hub/ai-coding/,AI Coding Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/hub/ai-presentation/,AI Presentation Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
-/hub/ai-seo/,AI SEO Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
-/hub/ai-video/,AI Video Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,57,10,monitor
-/hub/ai-voice/,AI Voice Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/hub/ai-writing/,AI Writing Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,63,10,monitor
-/hub/crm/,CRM Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,56,10,monitor
-/hub/email-marketing/,Email Marketing Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
-/hub/marketing/,AI Marketing Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,65,10,monitor
-/hub/productivity/,AI Productivity Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
-/hub/website-builders/,Website Builders Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,58,10,monitor
+/hub/ai-automation/,AI Automation Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
+/hub/ai-coding/,AI Coding Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
+/hub/ai-presentation/,AI Presentation Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/hub/ai-seo/,AI SEO Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
+/hub/ai-video/,AI Video Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
+/hub/ai-voice/,AI Voice Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
+/hub/ai-writing/,AI Writing Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,62,10,monitor
+/hub/crm/,CRM Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/hub/email-marketing/,Email Marketing Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,59,10,monitor
+/hub/marketing/,AI Marketing Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,66,10,monitor
+/hub/productivity/,AI Productivity Tools Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,59,10,monitor
+/hub/website-builders/,Website Builders Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,57,10,monitor
 /hubs/,Hubs - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,57,10,monitor
-/hubspot/,"HubSpot Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,44,10,monitor
-/jasper-ai/,"Jasper AI Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,49,10,monitor
-/jasper-pricing/,Pricing Jasper: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/jasper/,"Jasper Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,49,10,monitor
-/make-pricing/,Pricing Make: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,47,10,monitor
-/make/,"Make Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,44,10,monitor
+/hubspot/,"HubSpot Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,48,10,monitor
+/jasper-ai/,"Jasper AI Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,53,10,monitor
+/jasper-pricing/,Pricing Jasper: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
+/jasper/,"Jasper Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,53,10,monitor
+/lovable/,"Lovable Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,42,10,monitor
+/make-pricing/,Pricing Make: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,46,10,monitor
+/make/,"Make Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,46,10,monitor
 /marketing-alternatives/,Best Marketing Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
-/marketing-software-review/,Marketing Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
 /media-kit/,Media Kit - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/notion-ai/,"Notion AI Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,49,10,monitor
-/notion/,"Notion Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,49,10,monitor
-/pipedrive-crm/,"Pipedrive CRM Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,44,10,monitor
-/pipedrive/,"Pipedrive Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,45,10,monitor
+/midjourney/,"Midjourney Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,42,10,monitor
+/notion-ai/,"Notion AI Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,53,10,monitor
+/notion/,"Notion Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,53,10,monitor
+/perplexity/,"Perplexity Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,44,10,monitor
+/pipedrive-crm/,"Pipedrive CRM Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,48,10,monitor
+/pipedrive/,"Pipedrive Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,49,10,monitor
 /pricing/,Pricing Guides - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
 /pricing/activecampaign/,"ActiveCampaign Pricing Guide: Plans, Trial Notes, and Buying Risks - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,48,10,monitor
 /pricing/canva/,"Canva Pricing Guide: Plans, Trial Notes, and Buying Risks - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,49,10,monitor
 /pricing/cursor/,"Cursor Pricing Guide: Plans, Trial Notes, and Buying Risks - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,48,10,monitor
 /pricing/github-copilot/,"GitHub Copilot Pricing Guide: Plans, Trial Notes, and Buying Risks - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,48,10,monitor
-/pricing/grammarly/,"Grammarly Pricing Guide: Plans, Trial Notes, and Buying Risks - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,49,10,monitor
+/pricing/grammarly/,"Grammarly Pricing Guide: Plans, Trial Notes, and Buying Risks - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
 /pricing/mailchimp/,"Mailchimp Pricing Guide: Plans, Trial Notes, and Buying Risks - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
 /pricing/make/,"Make Pricing Guide: Plans, Trial Notes, and Buying Risks - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,49,10,monitor
-/pricing/pictory/,"Pictory Pricing Guide: Plans, Trial Notes, and Buying Risks - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,51,10,monitor
-/pricing/semrush/,"Semrush Pricing Guide: Plans, Trial Notes, and Buying Risks - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,48,10,monitor
+/pricing/pictory/,"Pictory Pricing Guide: Plans, Trial Notes, and Buying Risks - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,52,10,monitor
+/pricing/semrush/,"Semrush Pricing Guide: Plans, Trial Notes, and Buying Risks - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,49,10,monitor
 /pricing/zapier/,"Zapier Pricing Guide: Plans, Trial Notes, and Buying Risks - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,49,10,monitor
 /privacy-policy/,Privacy Policy - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,47,10,monitor
-/privacy/,Privacy Policy - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,47,10,monitor
-/productivity-alternatives/,Best Productivity Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/reclaim-ai/,"Reclaim AI Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,40,10,monitor
-/review/activecampaign/,"ActiveCampaign Review for Email Marketing Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,49,10,monitor
-/review/adcreative-ai/,"AdCreative AI Review for Marketing Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,49,10,monitor
-/review/canva/,"Canva Review for AI Design Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/review/copy-ai/,"Copy.ai Review for AI Writing Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,53,10,monitor
-/review/cursor/,"Cursor Review for AI Coding Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/review/descript/,"Descript Review for AI Video Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,52,10,monitor
-/review/durable/,"Durable Review for Website Builder Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/review/elevenlabs/,"ElevenLabs Review for AI Voice Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,49,10,monitor
-/review/framer/,"Framer Review for Website Builder Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/review/gamma/,"Gamma Review for AI Productivity Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/review/github-copilot/,"GitHub Copilot Review for AI Coding Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/review/hubspot/,"HubSpot Review for CRM Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/review/jasper-ai/,"Jasper AI Review for AI Writing Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,52,10,monitor
-/review/jasper/,"Jasper Review for AI Writing Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,52,10,monitor
-/review/make/,"Make Review for Automation Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/review/notion-ai/,"Notion AI Review for AI Productivity Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,55,10,monitor
-/review/notion/,"Notion Review for Productivity Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,55,10,monitor
-/review/pipedrive-crm/,"Pipedrive CRM Review for CRM Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/review/pipedrive/,"Pipedrive Review for CRM Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/review/reclaim-ai/,"Reclaim AI Review for AI Meeting Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,49,10,monitor
-/review/runway/,"Runway Review for AI Video Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,52,10,monitor
-/review/semrush/,"Semrush Review for AI SEO Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,52,10,monitor
-/review/surfer-seo/,"Surfer SEO Review for AI SEO Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,51,10,monitor
-/review/synthesia/,"Synthesia Review for AI Video Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,53,10,monitor
-/review/webflow-ai/,"Webflow AI Review for Website Builder Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/review/webflow/,"Webflow Review for Website Builder Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/review/zapier/,"Zapier Review for Automation Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,51,10,monitor
-/reviews/,Reviews - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,74,10,monitor
-/reviews/activecampaign/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
-/reviews/adcreative-ai/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
-/reviews/canva/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/reviews/copy-ai/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/reviews/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/reviews/cursor/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/reviews/descript/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/reviews/durable/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/reviews/elevenlabs/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
-/reviews/framer/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/reviews/gamma/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/reviews/github-copilot/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
-/reviews/hubspot/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/reviews/jasper-ai/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/reviews/jasper/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/reviews/make/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/reviews/notion-ai/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/reviews/notion/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/reviews/pipedrive-crm/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/reviews/pipedrive/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/reviews/reclaim-ai/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/reviews/runway/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/privacy/,Privacy Policy - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
+/reclaim-ai/,"Reclaim AI Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,41,10,monitor
+/replit/,"Replit Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,42,10,monitor
+/review/activecampaign/,"ActiveCampaign Review for Email Marketing Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,54,10,monitor
+/review/adcreative-ai/,"AdCreative AI Review for Marketing Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,54,10,monitor
+/review/ahrefs-ai/,"Ahrefs AI Review for AI SEO Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,55,10,monitor
+/review/bolt/,"Bolt Review for AI App Builder Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,61,10,monitor
+/review/canva/,"Canva Review for AI Design Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,55,10,monitor
+/review/chatgpt/,"ChatGPT Review for AI Assistant Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,57,10,monitor
+/review/claude/,"Claude Review for AI Assistant Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,57,10,monitor
+/review/copy-ai/,"Copy.ai Review for AI Writing Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,59,10,monitor
+/review/cursor/,"Cursor Review for AI Coding Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,55,10,monitor
+/review/descript/,"Descript Review for AI Video Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,56,10,monitor
+/review/durable/,"Durable Review for Website Builder Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,57,10,monitor
+/review/elevenlabs/,"ElevenLabs Review for AI Voice Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,55,10,monitor
+/review/framer/,"Framer Review for Website Builder Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,57,10,monitor
+/review/frase/,"Frase Review for AI SEO Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,55,10,monitor
+/review/gamma/,"Gamma Review for AI Productivity Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,55,10,monitor
+/review/gemini/,"Gemini Review for AI Assistant Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,53,10,monitor
+/review/github-copilot/,"GitHub Copilot Review for AI Coding Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,55,10,monitor
+/review/hubspot/,"HubSpot Review for CRM Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,55,10,monitor
+/review/jasper-ai/,"Jasper AI Review for AI Writing Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,59,10,monitor
+/review/jasper/,"Jasper Review for AI Writing Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,59,10,monitor
+/review/lovable/,"Lovable Review for AI App Builder Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,61,10,monitor
+/review/make/,"Make Review for Automation Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,54,10,monitor
+/review/midjourney/,"Midjourney Review for AI Image Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,57,10,monitor
+/review/notion-ai/,"Notion AI Review for AI Productivity Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,58,10,monitor
+/review/notion/,"Notion Review for Productivity Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,58,10,monitor
+/review/perplexity/,"Perplexity Review for AI Search Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,55,10,monitor
+/review/pipedrive-crm/,"Pipedrive CRM Review for CRM Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,55,10,monitor
+/review/pipedrive/,"Pipedrive Review for CRM Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,55,10,monitor
+/review/reclaim-ai/,"Reclaim AI Review for AI Meeting Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,54,10,monitor
+/review/replit/,"Replit Review for Cloud Development Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,59,10,monitor
+/review/runway/,"Runway Review for AI Video Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,56,10,monitor
+/review/semrush-ai/,"Semrush AI Review for AI SEO Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,55,10,monitor
+/review/semrush/,"Semrush Review for AI SEO Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,55,10,monitor
+/review/surfer-seo/,"Surfer SEO Review for AI SEO Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,55,10,monitor
+/review/synthesia/,"Synthesia Review for AI Video Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,57,10,monitor
+/review/webflow-ai/,"Webflow AI Review for Website Builder Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,57,10,monitor
+/review/webflow/,"Webflow Review for Website Builder Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,57,10,monitor
+/review/windsurf/,"Windsurf Review for AI Coding Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,56,10,monitor
+/review/zapier/,"Zapier Review for Automation Buyers: Workflow Fit, Pricing Checks, and Alternatives - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,54,10,monitor
+/reviews/,Reviews - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,85,10,monitor
+/reviews/activecampaign/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
+/reviews/adcreative-ai/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
+/reviews/ahrefs-ai/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
+/reviews/bolt/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/reviews/canva/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
+/reviews/chatgpt/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
+/reviews/claude/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
+/reviews/copy-ai/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
+/reviews/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
+/reviews/cursor/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
+/reviews/descript/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
+/reviews/durable/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/reviews/elevenlabs/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/reviews/framer/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/reviews/frase/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/reviews/gamma/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
+/reviews/gemini/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/reviews/github-copilot/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
+/reviews/hubspot/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/reviews/jasper-ai/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
+/reviews/jasper/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
+/reviews/lovable/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/reviews/make/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
+/reviews/midjourney/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/reviews/notion-ai/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
+/reviews/notion/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
+/reviews/perplexity/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/reviews/pipedrive-crm/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/reviews/pipedrive/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/reviews/reclaim-ai/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/reviews/replit/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/reviews/runway/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
+/reviews/semrush-ai/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
 /reviews/semrush/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
 /reviews/surfer-seo/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/reviews/synthesia/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/reviews/webflow-ai/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/reviews/webflow/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/reviews/windsurf-review/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/reviews/windsurf/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/reviews/zapier/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/runway/,"Runway Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,49,10,monitor
+/reviews/synthesia/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
+/reviews/webflow-ai/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/reviews/webflow/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
+/reviews/windsurf-review/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
+/reviews/windsurf/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
+/reviews/zapier/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
+/runway/,"Runway Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,53,10,monitor
+/semrush-ai/,"Semrush AI Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,51,10,monitor
 /semrush-pricing/,Pricing Semrush: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/semrush/,"Semrush Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,49,10,monitor
-/sitemap/,Sitemap - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,137,10,monitor
+/semrush/,"Semrush Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,51,10,monitor
+/sitemap/,Sitemap - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,156,10,monitor
 /surfer-seo-pricing/,Pricing Surfer SEO: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/surfer-seo/,"Surfer SEO Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,47,10,monitor
-/synthesia/,"Synthesia Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,49,10,monitor
+/surfer-seo/,"Surfer SEO Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,49,10,monitor
+/synthesia/,"Synthesia Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,53,10,monitor
+/terms-of-service/,Terms of Service - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
 /terms/,Terms - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,47,10,monitor
 /testing-methodology/,Testing Methodology - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/vi/,Trung tâm đánh giá công cụ AI - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,103,10,monitor
-/vi/about-author/,Giới thiệu tác giả - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/vi/about/,Giới thiệu MS Smile AI Review Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,14,10,monitor
-/vi/activecampaign/,"ActiveCampaign Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,39,10,monitor
-/vi/adcreative-ai/,"AdCreative AI Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,40,10,monitor
-/vi/aeo-action-plan/,AEO Action Plan - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/vi/affiliate-disclosure/,Tiết lộ affiliate - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,14,10,monitor
-/vi/ai-coding-alternatives/,Lựa chọn thay thế AI coding tốt nhất năm 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/vi/ai-coding-software-review/,Review phần mềm AI coding theo hướng nghiên cứu năm 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/ai-design-alternatives/,Lựa chọn thay thế AI design tốt nhất năm 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/vi/ai-meeting-alternatives/,Lựa chọn thay thế AI meeting tốt nhất năm 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/vi/ai-meeting-software-review/,AI Meeting Software Đánh giá: review theo hướng nghiên cứu for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
-/vi/ai-productivity-alternatives/,Best AI Productivity Lựa chọn thay thế for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/ai-productivity-software-review/,AI Productivity Software Đánh giá: review theo hướng nghiên cứu for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
-/vi/ai-seo-alternatives/,Best AI SEO Lựa chọn thay thế for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
-/vi/ai-seo-software-review/,AI SEO Software Đánh giá: review theo hướng nghiên cứu for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,56,10,monitor
-/vi/ai-video-alternatives/,Best AI Video Lựa chọn thay thế for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
-/vi/ai-voice-alternatives/,Best AI Voice Lựa chọn thay thế for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/vi/ai-voice-software-review/,AI Voice Software Đánh giá: review theo hướng nghiên cứu for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
-/vi/ai-writing-alternatives/,Best AI Writing Lựa chọn thay thế for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/author-profile/,Tác giả Profile - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/vi/automation-alternatives/,Best Automation Lựa chọn thay thế for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/automation-software-review/,Automation Software Đánh giá: review theo hướng nghiên cứu for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/vi/best-ai-automation-tools-2026/,Công cụ tự động hóa AI tốt nhất 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,59,10,monitor
-/vi/best-ai-automation-tools/,Công cụ tự động hóa AI tốt nhất - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
-/vi/best-ai-coding-tools-2026/,"Công cụ AI coding tốt nhất 2026: Cursor, Windsurf, Copilot, và lời khuyên mua hàng thực tế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,54,10,monitor
-/vi/best-ai-coding-tools/,Công cụ AI coding tốt nhất - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/best-ai-presentation-tools/,Công cụ trình bày AI tốt nhất - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
-/vi/best-ai-seo-tools-2026/,Công cụ AI SEO tốt nhất 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,59,10,monitor
-/vi/best-ai-seo-tools/,Công cụ AI SEO tốt nhất - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,56,10,monitor
-/vi/best-ai-video-tools-2026/,Best AI Video Công cụs 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,58,10,monitor
-/vi/best-ai-video-tools/,Công cụ AI video tốt nhất - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,56,10,monitor
-/vi/best-ai-writing-tools-2026/,Best AI Writing Công cụs 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
-/vi/best-ai-writing-tools/,Best AI Writing Công cụs - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,58,10,monitor
-/vi/best-crm-tools/,Best CRM Công cụs - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
-/vi/best-website-builders/,Best Website Builders - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,57,10,monitor
-/vi/blog/,Blog - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,64,10,monitor
-/vi/blog/ai-productivity-tools/,AI Productivity Công cụs - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/vi/blog/ai-tools-for-content-creators/,Công cụ AIs for Content Creators - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/blog/ai-tools-for-marketers/,Công cụ AIs for Marketers - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/blog/ai-tools-under-20-month/,Công cụ AIs Under $20/month - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/blog/ai-website-builders-comparison/,AI Website Builders Comparison - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/vi/blog/automation-tools-for-beginners/,Automation Công cụs for Beginners - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/vi/blog/best-ai-presentation-tools/,Công cụ trình bày AI tốt nhất - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/blog/best-ai-tools-for-small-business/,Best Công cụ AIs for Small Business - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/blog/best-ai-voice-generators/,Best AI Voice Generators - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/blog/best-alternatives-to-canva-ai/,Best Lựa chọn thay thế to Canva AI - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/vi/blog/best-crm-for-startups/,Best CRM for Startups - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/vi/blog/chatgpt-prompts-for-windsurf/,Prompt ChatGPT cho Windsurf - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
-/vi/blog/chatgpt-windsurf-codex-workflow/,Quy trình ChatGPT Windsurf Codex - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,56,10,monitor
-/vi/blog/fix-windsurf-mixed-language/,Sửa lỗi lẫn ngôn ngữ khi dùng Windsurf - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/vi/blog/how-to-choose-saas-tools-safely/,How to Choose SaaS Công cụs Safely - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/blog/windsurf-prompt-checklist/,Checklist prompt Windsurf - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/vi/blog/windsurf-to-codex-workflow/,Workflow từ Windsurf sang Codex - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
-/vi/canva/,"Canva Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,44,10,monitor
-/vi/categories/,Danh mục - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
-/vi/category/ai-automation-tools/,Công cụ tự động hóa AI - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,58,10,monitor
-/vi/category/ai-coding-tools/,Công cụ AI coding tốt nhất cần nghiên cứu trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
-/vi/category/ai-customer-support-tools/,AI Customer Support Công cụs - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,58,10,monitor
-/vi/category/ai-presentation-tools/,AI Presentation Công cụs - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,58,10,monitor
-/vi/category/ai-seo-tools/,AI SEO Công cụs - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
-/vi/category/ai-video-tools/,Công cụ AI video - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
-/vi/category/ai-voice-tools/,AI Voice Công cụs - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,58,10,monitor
-/vi/category/ai-writing-tools/,AI Writing Công cụs - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,62,10,monitor
-/vi/category/ai-writing/,AI Writing - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,74,10,monitor
-/vi/category/automation-tools/,Best Automation Công cụs cần nghiên cứu trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,57,10,monitor
-/vi/category/automation/,Automation - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,61,10,monitor
-/vi/category/crm-tools/,CRM Công cụs - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
-/vi/category/crm/,CRM - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
-/vi/category/design-tools/,Best Design Công cụs cần nghiên cứu trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,57,10,monitor
-/vi/category/email-marketing-tools/,Best Email Marketing Công cụs cần nghiên cứu trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,58,10,monitor
-/vi/category/seo-tools/,Best SEO Công cụs cần nghiên cứu trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,58,10,monitor
-/vi/category/video-tools/,Công cụ video nên nghiên cứu trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,59,10,monitor
-/vi/category/website-builder-tools/,Best Website Builder Công cụs cần nghiên cứu trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,57,10,monitor
-/vi/category/website-builders/,Website Builders - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,62,10,monitor
-/vi/category/writing-tools/,Best Writing Công cụs cần nghiên cứu trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,58,10,monitor
-/vi/compare/activecampaign-vs-mailchimp/,ActiveCampaign vs Mailchimp: Nên chọn nền tảng email marketing nào? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/compare/canva-vs-adcreative-ai/,Canva vs AdCreative AI: Nên chọn công cụ thiết kế và tạo quảng cáo AI nào? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/compare/cursor-vs-github-copilot/,Cursor vs GitHub Copilot: Nên chọn trợ lý lập trình AI nào? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
-/vi/compare/cursor-vs-windsurf/,Cursor vs Windsurf: Nên chọn editor AI coding nào? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
-/vi/compare/github-copilot-vs-codeium/,GitHub Copilot vs Codeium: Nên chọn trợ lý lập trình AI nào? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/vi/compare/grammarly-vs-quillbot/,Grammarly vs QuillBot: Nên chọn trợ lý viết AI nào? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/vi/compare/jasper-vs-copy-ai/,Jasper vs Copy.ai: Which AI writing tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/compare/make-vs-zapier/,Make vs Zapier: Which automation platforms should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/vi/compare/semrush-vs-ahrefs/,Semrush vs Ahrefs: Which SEO platforms should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/vi/compare/synthesia-vs-pictory/,Synthesia vs Pictory: Nên chọn công cụ AI video nào? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/comparisons/,So sánh - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,82,10,monitor
-/vi/comparisons/canva-vs-adobe-express/,Canva vs Adobe Express: Nên chọn công cụ nào trong năm 2026? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/comparisons/canva-vs-gamma/,Canva vs Gamma: Which AI design and presentation tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/vi/comparisons/chatgpt-vs-claude/,ChatGPT vs Claude: Which AI assistants should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/vi/comparisons/chatgpt-vs-gemini/,ChatGPT vs Gemini - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/comparisons/codex-vs-openclaw/,Codex vs OpenClaw: công cụ lập trình AI nào hợp với workflow phát triển thực tế? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
-/vi/comparisons/copilot-vs-codex/,Copilot vs Codex: Practical Comparison for Real Developers and AI Builders - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/comparisons/copilot-vs-cursor/,Copilot vs Cursor: trợ lý doanh nghiệp hay trình soạn thảo AI-first? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/vi/comparisons/copilot-vs-tabnine/,GitHub Copilot vs Tabnine - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/vi/comparisons/cursor-vs-copilot/,Cursor vs GitHub Copilot: Nên chọn công cụ nào trong năm 2026? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/vi/comparisons/cursor-vs-github-copilot/,Cursor vs GitHub Copilot: Nên chọn công cụ lập trình AI nào? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/vi/comparisons/cursor-vs-vscode/,Cursor vs VS Code - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/comparisons/cursor-vs-windsurf/,Cursor vs Windsurf: trình soạn thảo AI nào phù hợp với workflow lập trình thực tế? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
-/vi/comparisons/elevenlabs-vs-murf/,ElevenLabs vs Murf: Which AI voice tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/vi/comparisons/elevenlabs-vs-playht/,ElevenLabs vs PlayHT - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/comparisons/framer-vs-webflow/,Framer vs Webflow - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
-/vi/comparisons/gemini-vs-claude/,Gemini vs Claude - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/vi/comparisons/hubspot-vs-salesforce/,HubSpot vs Salesforce - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/vi/comparisons/jasper-vs-copyai/,Jasper vs Copy.ai - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
-/vi/comparisons/make-vs-zapier/,Make vs Zapier: Which automation platforms should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
-/vi/comparisons/midjourney-vs-dalle/,Midjourney vs DALL-E - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/comparisons/notion-ai-vs-chatgpt/,Notion AI vs ChatGPT - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
-/vi/comparisons/notion-ai-vs-clickup-ai/,Notion AI vs ClickUp AI: Which AI productivity tools should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/comparisons/notion-vs-clickup/,Notion vs ClickUp - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
-/vi/comparisons/perplexity-vs-chatgpt/,Perplexity vs ChatGPT - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/comparisons/runway-vs-pika/,Runway vs Pika: Nên chọn công cụ AI video nào? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/comparisons/semrush-vs-ahrefs/,Semrush vs Ahrefs: Which SEO platforms should you choose? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/comparisons/synthesia-vs-heygen/,Synthesia vs HeyGen - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/comparisons/synthesia-vs-runway/,Synthesia vs Runway - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/comparisons/windsurf-vs-copilot/,Windsurf vs GitHub Copilot: Nên chọn công cụ nào trong năm 2026? - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/contact/,Liên hệ - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,47,10,monitor
-/vi/copy-ai/,"Copy.ai Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,49,10,monitor
-/vi/crm-alternatives/,Best CRM Lựa chọn thay thế for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,Cursor Ai Đánh giá: A Practical Guide for Developers And Ai Coders - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
-/vi/cursor-pricing/,Giá Cursor: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,46,10,monitor
-/vi/cursor/,"Cursor Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,48,10,monitor
-/vi/descript/,"Descript Đánh giá: Tính năng, ưu điểm, hạn chế và ghi chú giá",0,0,0.0,0.0,0,0,49,10,monitor
-/vi/disclosure/,Tiết lộ liên kết - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/vi/downloads/ai-coding-workflow-checklist/,Checklist workflow AI coding - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,15,10,monitor
-/vi/durable/,"Durable Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,45,10,monitor
-/vi/editorial-policy/,Chính sách biên tập - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,14,10,monitor
-/vi/elevenlabs-pricing/,Giá ElevenLabs: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/vi/elevenlabs/,"ElevenLabs Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,42,10,monitor
-/vi/email-capture-setup/,Cấu hình email capture - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,15,10,monitor
-/vi/email-marketing-alternatives/,Best Email Marketing Lựa chọn thay thế for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/vi/email-marketing-software-review/,Email Marketing Software Đánh giá: review theo hướng nghiên cứu for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/vi/formspree-setup/,Hướng dẫn cấu hình Formspree - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,15,10,monitor
-/vi/framer/,"Framer Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,45,10,monitor
-/vi/free-ai-coding-workflow-checklist/,Checklist workflow AI coding miễn phí - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,16,10,monitor
-/vi/gamma/,"Gamma Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,45,10,monitor
-/vi/github-copilot-pricing/,Giá GitHub Copilot: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,44,10,monitor
-/vi/github-copilot/,"GitHub Copilot Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,46,10,monitor
-/vi/how-we-review-tools/,How We Đánh giá Công cụs - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/vi/hub/ai-automation/,Công cụ tự động hóa AI Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/hub/ai-coding/,Công cụ AI coding Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/hub/ai-presentation/,AI Presentation Công cụs Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
-/vi/hub/ai-seo/,AI SEO Công cụs Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
-/vi/hub/ai-video/,Công cụ AI video Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,57,10,monitor
-/vi/hub/ai-voice/,AI Voice Công cụs Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/hub/ai-writing/,AI Writing Công cụs Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,63,10,monitor
-/vi/hub/crm/,CRM Công cụs Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,56,10,monitor
-/vi/hub/email-marketing/,Email Marketing Công cụs Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
-/vi/hub/marketing/,AI Marketing Công cụs Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,65,10,monitor
-/vi/hub/productivity/,AI Productivity Công cụs Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
-/vi/hub/website-builders/,Website Builders Hub - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,58,10,monitor
-/vi/hubs/,Trung tâm - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,57,10,monitor
-/vi/hubspot/,"HubSpot Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,44,10,monitor
-/vi/jasper-ai/,"Jasper AI Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,49,10,monitor
-/vi/jasper-pricing/,Giá Jasper: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/vi/jasper/,"Jasper Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,49,10,monitor
-/vi/make-pricing/,Giá Make: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,47,10,monitor
-/vi/make/,"Make Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,44,10,monitor
-/vi/marketing-alternatives/,Best Marketing Lựa chọn thay thế for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
-/vi/marketing-software-review/,Marketing Software Đánh giá: review theo hướng nghiên cứu for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/vi/media-kit/,Media Kit - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/vi/notion-ai/,"Notion AI Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,49,10,monitor
-/vi/notion/,"Notion Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,49,10,monitor
-/vi/pipedrive-crm/,"Pipedrive CRM Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,44,10,monitor
-/vi/pipedrive/,"Pipedrive Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,45,10,monitor
-/vi/pricing/,Hướng dẫn giá - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/pricing/activecampaign/,"ActiveCampaign Hướng dẫn giá: gói dịch vụ, ghi chú dùng thử và rủi ro khi mua - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,48,10,monitor
-/vi/pricing/canva/,"Canva Hướng dẫn giá: gói dịch vụ, ghi chú dùng thử và rủi ro khi mua - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,49,10,monitor
-/vi/pricing/cursor/,"Cursor Hướng dẫn giá: gói dịch vụ, ghi chú dùng thử và rủi ro khi mua - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,48,10,monitor
-/vi/pricing/github-copilot/,"GitHub Copilot Hướng dẫn giá: gói dịch vụ, ghi chú dùng thử và rủi ro khi mua - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,48,10,monitor
-/vi/pricing/grammarly/,"Grammarly Hướng dẫn giá: gói dịch vụ, ghi chú dùng thử và rủi ro khi mua - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,49,10,monitor
-/vi/pricing/mailchimp/,"Mailchimp Hướng dẫn giá: gói dịch vụ, ghi chú dùng thử và rủi ro khi mua - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/vi/pricing/make/,"Make Hướng dẫn giá: gói dịch vụ, ghi chú dùng thử và rủi ro khi mua - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,49,10,monitor
-/vi/pricing/pictory/,"Pictory Hướng dẫn giá: gói dịch vụ, ghi chú dùng thử và rủi ro khi mua - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,51,10,monitor
-/vi/pricing/semrush/,"Semrush Hướng dẫn giá: gói dịch vụ, ghi chú dùng thử và rủi ro khi mua - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,48,10,monitor
-/vi/pricing/zapier/,"Zapier Hướng dẫn giá: gói dịch vụ, ghi chú dùng thử và rủi ro khi mua - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,49,10,monitor
-/vi/privacy-policy/,Chính sách bảo mật - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,47,10,monitor
-/vi/privacy/,Chính sách bảo mật - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,47,10,monitor
-/vi/productivity-alternatives/,Best Productivity Lựa chọn thay thế for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/vi/reclaim-ai/,"Reclaim AI Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,40,10,monitor
-/vi/review/activecampaign/,"ActiveCampaign Đánh giá for Email Marketing Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,49,10,monitor
-/vi/review/adcreative-ai/,"AdCreative AI Đánh giá for Marketing Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,49,10,monitor
-/vi/review/canva/,"Canva Đánh giá for AI Design Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/vi/review/copy-ai/,"Copy.ai Đánh giá for AI Writing Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,53,10,monitor
-/vi/review/cursor/,"Cursor review cho người mua công cụ AI coding: mức phù hợp workflow, kiểm tra giá và lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/vi/review/descript/,"Descript Đánh giá for AI Video Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,52,10,monitor
-/vi/review/durable/,"Durable Đánh giá for Website Builder Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/vi/review/elevenlabs/,"ElevenLabs Đánh giá for AI Voice Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,49,10,monitor
-/vi/review/framer/,"Framer Đánh giá for Website Builder Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/vi/review/gamma/,"Gamma Đánh giá for AI Productivity Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/vi/review/github-copilot/,"GitHub Copilot review cho người mua công cụ AI coding: mức phù hợp workflow, kiểm tra giá và lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/vi/review/hubspot/,"HubSpot Đánh giá for CRM Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/vi/review/jasper-ai/,"Jasper AI Đánh giá for AI Writing Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,52,10,monitor
-/vi/review/jasper/,"Jasper Đánh giá for AI Writing Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,52,10,monitor
-/vi/review/make/,"Make Đánh giá for Automation Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/vi/review/notion-ai/,"Notion AI Đánh giá for AI Productivity Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,55,10,monitor
-/vi/review/notion/,"Notion Đánh giá for Productivity Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,55,10,monitor
-/vi/review/pipedrive-crm/,"Pipedrive CRM Đánh giá for CRM Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/vi/review/pipedrive/,"Pipedrive Đánh giá for CRM Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/vi/review/reclaim-ai/,"Reclaim AI Đánh giá for AI Meeting Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,49,10,monitor
-/vi/review/runway/,"Review Runway cho người mua công cụ AI video: mức phù hợp workflow, kiểm tra giá và lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,52,10,monitor
-/vi/review/semrush/,"Semrush Đánh giá for AI SEO Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,52,10,monitor
-/vi/review/surfer-seo/,"Surfer SEO Đánh giá for AI SEO Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,51,10,monitor
-/vi/review/synthesia/,"Synthesia Review cho người mua công cụ AI video: mức phù hợp quy trình, kiểm tra giá và lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,53,10,monitor
-/vi/review/webflow-ai/,"Webflow AI Đánh giá for Website Builder Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/vi/review/webflow/,"Webflow Đánh giá for Website Builder Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,50,10,monitor
-/vi/review/zapier/,"Zapier Đánh giá for Automation Buyers: mức phù hợp workflow, kiểm tra giá, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,51,10,monitor
-/vi/reviews/,Đánh giá - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,74,10,monitor
-/vi/reviews/activecampaign/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
-/vi/reviews/adcreative-ai/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
-/vi/reviews/canva/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/vi/reviews/copy-ai/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/reviews/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/vi/reviews/cursor/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/reviews/descript/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/reviews/durable/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/reviews/elevenlabs/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
-/vi/reviews/framer/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/reviews/gamma/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/vi/reviews/github-copilot/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
-/vi/reviews/hubspot/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/reviews/jasper-ai/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/reviews/jasper/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/reviews/make/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/vi/reviews/notion-ai/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/reviews/notion/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/reviews/pipedrive-crm/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/reviews/pipedrive/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/reviews/reclaim-ai/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/vi/reviews/runway/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/reviews/semrush/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/vi/reviews/surfer-seo/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,52,10,monitor
-/vi/reviews/synthesia/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,53,10,monitor
-/vi/reviews/webflow-ai/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/reviews/webflow/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,51,10,monitor
-/vi/reviews/windsurf-review/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/vi/reviews/windsurf/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/vi/reviews/zapier/,Redirecting - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
-/vi/runway/,"Runway Đánh giá: Tính năng, ưu điểm, hạn chế và ghi chú giá",0,0,0.0,0.0,0,0,49,10,monitor
-/vi/semrush-pricing/,Giá Semrush: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/vi/semrush/,"Semrush Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,49,10,monitor
-/vi/sitemap/,Sitemap - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,137,10,monitor
-/vi/surfer-seo-pricing/,Giá Surfer SEO: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/vi/surfer-seo/,"Surfer SEO Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,47,10,monitor
-/vi/synthesia/,"Synthesia Đánh giá: Tính năng, ưu điểm, hạn chế và ghi chú giá",0,0,0.0,0.0,0,0,49,10,monitor
-/vi/terms/,Điều khoản - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,47,10,monitor
-/vi/testing-methodology/,Phương pháp thử nghiệm - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/vi/webflow-ai/,"Webflow AI Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,43,10,monitor
-/vi/webflow/,"Webflow Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,43,10,monitor
-/vi/website-builder-alternatives/,Best Website Builder Lựa chọn thay thế for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,56,10,monitor
-/vi/website-builder-software-review/,Website Builder Software Đánh giá: review theo hướng nghiên cứu for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
-/vi/windsurf-review/,"Windsurf Đánh giá: Agent-Style AI Coding Workflow, Ưu điểm, Hạn chế, and Lựa chọn thay thế - MS Smile AI Review Hub",0,0,0.0,0.0,0,0,51,10,monitor
-/vi/zapier-pricing/,Giá Zapier: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/vi/zapier/,"Zapier Đánh giá: Tính năng, Ưu điểm, Hạn chế, Giá Notes",0,0,0.0,0.0,0,0,46,10,monitor
-/webflow-ai/,"Webflow AI Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,43,10,monitor
-/webflow/,"Webflow Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,43,10,monitor
-/website-builder-alternatives/,Best Website Builder Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,56,10,monitor
-/website-builder-software-review/,Website Builder Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,55,10,monitor
-/zapier-pricing/,Pricing Zapier: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
-/zapier/,"Zapier Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,46,10,monitor
+/vi/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,126,10,monitor
+/vi/about-author/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,50,10,monitor
+/vi/about/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,17,10,monitor
+/vi/activecampaign/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,42,10,monitor
+/vi/adcreative-ai/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,43,10,monitor
+/vi/aeo-action-plan/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,50,10,monitor
+/vi/affiliate-disclosure/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,17,10,monitor
+/vi/ahrefs-ai/,"Phần này tóm tắt cách đánh giá Ahrefs, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,52,10,monitor
+/vi/ai-app-builder-alternatives/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,57,10,monitor
+/vi/ai-app-builder-software-review/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,58,10,monitor
+/vi/ai-assistant-alternatives/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,57,10,monitor
+/vi/ai-assistant-software-review/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,58,10,monitor
+/vi/ai-coding-alternatives/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/ai-coding-software-review/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,56,10,monitor
+/vi/ai-design-alternatives/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,56,10,monitor
+/vi/ai-image-alternatives/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,56,10,monitor
+/vi/ai-image-software-review/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,58,10,monitor
+/vi/ai-meeting-alternatives/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,56,10,monitor
+/vi/ai-meeting-software-review/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,58,10,monitor
+/vi/ai-productivity-alternatives/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,57,10,monitor
+/vi/ai-productivity-software-review/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,58,10,monitor
+/vi/ai-search-alternatives/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,56,10,monitor
+/vi/ai-search-software-review/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,58,10,monitor
+/vi/ai-seo-alternatives/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,59,10,monitor
+/vi/ai-seo-software-review/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,59,10,monitor
+/vi/ai-video-alternatives/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,59,10,monitor
+/vi/ai-voice-alternatives/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,56,10,monitor
+/vi/ai-voice-software-review/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,58,10,monitor
+/vi/ai-writing-alternatives/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,58,10,monitor
+/vi/author-profile/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,50,10,monitor
+/vi/automation-alternatives/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,52,10,monitor
+/vi/automation-software-review/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,56,10,monitor
+/vi/best-ai-automation-tools-2026/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,61,10,monitor
+/vi/best-ai-automation-tools/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/best-ai-coding-tools-2026/,"Phần này tóm tắt cách đánh giá Cursor và Windsurf, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,58,10,monitor
+/vi/best-ai-coding-tools/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/best-ai-presentation-tools/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,54,10,monitor
+/vi/best-ai-seo-tools-2026/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,63,10,monitor
+/vi/best-ai-seo-tools/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,57,10,monitor
+/vi/best-ai-tools/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,65,10,monitor
+/vi/best-ai-video-tools-2026/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,60,10,monitor
+/vi/best-ai-video-tools/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/best-ai-writing-tools-2026/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,62,10,monitor
+/vi/best-ai-writing-tools/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,57,10,monitor
+/vi/best-crm-tools/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/best-website-builders/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,54,10,monitor
+/vi/blog/,Blog - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,66,10,monitor
+/vi/blog/ai-productivity-tools/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,54,10,monitor
+/vi/blog/ai-tools-for-content-creators/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,53,10,monitor
+/vi/blog/ai-tools-for-marketers/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,53,10,monitor
+/vi/blog/ai-tools-under-20-month/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,53,10,monitor
+/vi/blog/ai-website-builders-comparison/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/blog/automation-tools-for-beginners/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,54,10,monitor
+/vi/blog/best-ai-presentation-tools/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,53,10,monitor
+/vi/blog/best-ai-tools-for-small-business/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,53,10,monitor
+/vi/blog/best-ai-voice-generators/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/blog/best-alternatives-to-canva-ai/,"Phần này tóm tắt cách đánh giá Canva, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,54,10,monitor
+/vi/blog/best-crm-for-startups/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,54,10,monitor
+/vi/blog/chatgpt-prompts-for-windsurf/,"Phần này tóm tắt cách đánh giá ChatGPT và Windsurf, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,59,10,monitor
+/vi/blog/chatgpt-windsurf-codex-workflow/,"Phần này tóm tắt cách đánh giá ChatGPT và Windsurf, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,58,10,monitor
+/vi/blog/fix-windsurf-mixed-language/,"Phần này tóm tắt cách đánh giá Windsurf, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/blog/how-to-choose-saas-tools-safely/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,53,10,monitor
+/vi/blog/windsurf-prompt-checklist/,"Phần này tóm tắt cách đánh giá Windsurf, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/blog/windsurf-to-codex-workflow/,"Phần này tóm tắt cách đánh giá Windsurf, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,56,10,monitor
+/vi/bolt/,"Phần này tóm tắt cách đánh giá Bolt, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,44,10,monitor
+/vi/canva/,"Phần này tóm tắt cách đánh giá Canva, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,48,10,monitor
+/vi/categories/,Danh mục - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,60,10,monitor
+/vi/category/ai-automation-tools/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,60,10,monitor
+/vi/category/ai-coding-tools/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,58,10,monitor
+/vi/category/ai-customer-support-tools/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,60,10,monitor
+/vi/category/ai-presentation-tools/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,60,10,monitor
+/vi/category/ai-seo-tools/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,65,10,monitor
+/vi/category/ai-video-tools/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,62,10,monitor
+/vi/category/ai-voice-tools/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,60,10,monitor
+/vi/category/ai-writing-tools/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,64,10,monitor
+/vi/category/ai-writing/,AI Writing - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,86,10,monitor
+/vi/category/automation-tools/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,59,10,monitor
+/vi/category/automation/,Automation - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,63,10,monitor
+/vi/category/crm-tools/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,62,10,monitor
+/vi/category/crm/,CRM - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,62,10,monitor
+/vi/category/design-tools/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,62,10,monitor
+/vi/category/email-marketing-tools/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,61,10,monitor
+/vi/category/seo-tools/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,62,10,monitor
+/vi/category/video-tools/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,61,10,monitor
+/vi/category/website-builder-tools/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,59,10,monitor
+/vi/category/website-builders/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,62,10,monitor
+/vi/category/writing-tools/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,62,10,monitor
+/vi/chatgpt/,"Phần này tóm tắt cách đánh giá ChatGPT, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/claude/,"Phần này tóm tắt cách đánh giá Claude, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/cloud-development-alternatives/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,52,10,monitor
+/vi/cloud-development-software-review/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,54,10,monitor
+/vi/compare/activecampaign-vs-mailchimp/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/compare/canva-vs-adcreative-ai/,"Phần này tóm tắt cách đánh giá Canva, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,53,10,monitor
+/vi/compare/cursor-vs-github-copilot/,"Phần này tóm tắt cách đánh giá Cursor và GitHub Copilot, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,51,10,monitor
+/vi/compare/cursor-vs-windsurf/,"Phần này tóm tắt cách đánh giá Cursor và Windsurf, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,51,10,monitor
+/vi/compare/github-copilot-vs-codeium/,"Phần này tóm tắt cách đánh giá GitHub Copilot, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,51,10,monitor
+/vi/compare/grammarly-vs-quillbot/,"Phần này tóm tắt cách đánh giá Grammarly và QuillBot, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,54,10,monitor
+/vi/compare/jasper-vs-copy-ai/,"Phần này tóm tắt cách đánh giá Jasper và Copy.ai, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/compare/make-vs-zapier/,"Phần này tóm tắt cách đánh giá Make và Zapier, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,54,10,monitor
+/vi/compare/semrush-vs-ahrefs/,"Phần này tóm tắt cách đánh giá SEMrush và Ahrefs, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,54,10,monitor
+/vi/compare/synthesia-vs-pictory/,"Phần này tóm tắt cách đánh giá Synthesia, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/comparisons/,So sánh - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,91,10,monitor
+/vi/comparisons/canva-vs-adobe-express/,"Phần này tóm tắt cách đánh giá Canva, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,53,10,monitor
+/vi/comparisons/canva-vs-gamma/,"Phần này tóm tắt cách đánh giá Canva và Gamma, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,64,10,monitor
+/vi/comparisons/chatgpt-vs-claude/,"Phần này tóm tắt cách đánh giá ChatGPT và Claude, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,62,10,monitor
+/vi/comparisons/chatgpt-vs-gemini/,"Phần này tóm tắt cách đánh giá ChatGPT và Gemini, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,62,10,monitor
+/vi/comparisons/chatgpt-vs-perplexity/,"Phần này tóm tắt cách đánh giá ChatGPT và Perplexity, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,63,10,monitor
+/vi/comparisons/claude-vs-gemini/,"Phần này tóm tắt cách đánh giá Claude và Gemini, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,62,10,monitor
+/vi/comparisons/claude-vs-perplexity/,"Phần này tóm tắt cách đánh giá Claude và Perplexity, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,62,10,monitor
+/vi/comparisons/codex-vs-openclaw/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,54,10,monitor
+/vi/comparisons/copilot-vs-codex/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,52,10,monitor
+/vi/comparisons/copilot-vs-cursor/,"Phần này tóm tắt cách đánh giá Cursor, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,52,10,monitor
+/vi/comparisons/copilot-vs-tabnine/,"Phần này tóm tắt cách đánh giá GitHub Copilot, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,51,10,monitor
+/vi/comparisons/cursor-vs-copilot/,"Phần này tóm tắt cách đánh giá Cursor và GitHub Copilot, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,52,10,monitor
+/vi/comparisons/cursor-vs-github-copilot/,"Phần này tóm tắt cách đánh giá Cursor và GitHub Copilot, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,61,10,monitor
+/vi/comparisons/cursor-vs-vscode/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,53,10,monitor
+/vi/comparisons/cursor-vs-windsurf/,"Phần này tóm tắt cách đánh giá Cursor và Windsurf, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,61,10,monitor
+/vi/comparisons/elevenlabs-vs-murf/,"Phần này tóm tắt cách đánh giá ElevenLabs, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,64,10,monitor
+/vi/comparisons/elevenlabs-vs-playht/,"Phần này tóm tắt cách đánh giá ElevenLabs, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,53,10,monitor
+/vi/comparisons/framer-vs-webflow/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,56,10,monitor
+/vi/comparisons/gemini-vs-claude/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/comparisons/hubspot-vs-salesforce/,"Phần này tóm tắt cách đánh giá HubSpot và Salesforce, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,54,10,monitor
+/vi/comparisons/jasper-vs-copy-ai/,"Phần này tóm tắt cách đánh giá Jasper và Copy.ai, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,65,10,monitor
+/vi/comparisons/jasper-vs-copyai/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,57,10,monitor
+/vi/comparisons/lovable-vs-bolt/,"Phần này tóm tắt cách đánh giá Lovable và Bolt, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,65,10,monitor
+/vi/comparisons/make-vs-zapier/,"Phần này tóm tắt cách đánh giá Make và Zapier, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,66,10,monitor
+/vi/comparisons/midjourney-vs-dalle/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,53,10,monitor
+/vi/comparisons/notion-ai-vs-chatgpt/,"Phần này tóm tắt cách đánh giá ChatGPT và Notion, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,56,10,monitor
+/vi/comparisons/notion-ai-vs-clickup-ai/,"Phần này tóm tắt cách đánh giá Notion và Notion AI, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,64,10,monitor
+/vi/comparisons/notion-vs-clickup/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,56,10,monitor
+/vi/comparisons/perplexity-vs-chatgpt/,"Phần này tóm tắt cách đánh giá ChatGPT và Perplexity, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/comparisons/replit-vs-cursor/,"Phần này tóm tắt cách đánh giá Cursor và Replit, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,62,10,monitor
+/vi/comparisons/runway-vs-pika/,"Phần này tóm tắt cách đánh giá Runway, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,66,10,monitor
+/vi/comparisons/semrush-vs-ahrefs/,"Phần này tóm tắt cách đánh giá SEMrush và Ahrefs, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,64,10,monitor
+/vi/comparisons/surfer-seo-vs-frase/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,64,10,monitor
+/vi/comparisons/synthesia-vs-heygen/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/comparisons/synthesia-vs-runway/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/comparisons/windsurf-vs-copilot/,"Phần này tóm tắt cách đánh giá Windsurf và GitHub Copilot, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,53,10,monitor
+/vi/contact/,Liên hệ - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,48,10,monitor
+/vi/copy-ai/,"Phần này tóm tắt cách đánh giá Copy.ai, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,"Phần này tóm tắt cách đánh giá Cursor, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,50,10,monitor
+/vi/cursor-pricing/,"Phần này tóm tắt cách đánh giá Cursor, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,48,10,monitor
+/vi/cursor/,"Phần này tóm tắt cách đánh giá Cursor, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,52,10,monitor
+/vi/descript/,"Descript Đánh giá: Tính năng, ưu điểm, hạn chế và ghi chú giá",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/disclosure/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,53,10,monitor
+/vi/downloads/ai-coding-workflow-checklist/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,16,10,monitor
+/vi/durable/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,49,10,monitor
+/vi/editorial-policy/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,17,10,monitor
+/vi/elevenlabs-pricing/,"Phần này tóm tắt cách đánh giá ElevenLabs, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,49,10,monitor
+/vi/elevenlabs/,"Phần này tóm tắt cách đánh giá ElevenLabs, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,47,10,monitor
+/vi/email-capture-setup/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,16,10,monitor
+/vi/email-marketing-alternatives/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,52,10,monitor
+/vi/email-marketing-software-review/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,54,10,monitor
+/vi/facebook-test/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,45,10,monitor
+/vi/formspree-setup/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,16,10,monitor
+/vi/framer/,"Phần này tóm tắt cách đánh giá Framer, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,49,10,monitor
+/vi/frase/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,44,10,monitor
+/vi/free-ai-coding-workflow-checklist/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,17,10,monitor
+/vi/gamma/,"Phần này tóm tắt cách đánh giá Gamma, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,49,10,monitor
+/vi/gemini/,"Phần này tóm tắt cách đánh giá Gemini, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,45,10,monitor
+/vi/github-copilot-pricing/,"Phần này tóm tắt cách đánh giá GitHub Copilot, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,47,10,monitor
+/vi/github-copilot/,"Phần này tóm tắt cách đánh giá GitHub Copilot, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,51,10,monitor
+/vi/how-we-review-tools/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,50,10,monitor
+/vi/hub/ai-automation/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,53,10,monitor
+/vi/hub/ai-coding/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,57,10,monitor
+/vi/hub/ai-presentation/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/hub/ai-seo/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,57,10,monitor
+/vi/hub/ai-video/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,56,10,monitor
+/vi/hub/ai-voice/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,54,10,monitor
+/vi/hub/ai-writing/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,64,10,monitor
+/vi/hub/crm/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/hub/email-marketing/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,61,10,monitor
+/vi/hub/marketing/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,68,10,monitor
+/vi/hub/productivity/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,61,10,monitor
+/vi/hub/website-builders/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,59,10,monitor
+/vi/hubs/,Trung tâm - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,59,10,monitor
+/vi/hubspot/,"Phần này tóm tắt cách đánh giá HubSpot, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,50,10,monitor
+/vi/jasper-ai/,"Phần này tóm tắt cách đánh giá Jasper, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/jasper-pricing/,"Phần này tóm tắt cách đánh giá Jasper, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,51,10,monitor
+/vi/jasper/,"Phần này tóm tắt cách đánh giá Jasper, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/lovable/,"Phần này tóm tắt cách đánh giá Lovable, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,44,10,monitor
+/vi/make-pricing/,"Phần này tóm tắt cách đánh giá Make, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,48,10,monitor
+/vi/make/,"Phần này tóm tắt cách đánh giá Make, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,48,10,monitor
+/vi/marketing-alternatives/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,51,10,monitor
+/vi/media-kit/,Media Kit - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,50,10,monitor
+/vi/midjourney/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,44,10,monitor
+/vi/notion-ai/,"Phần này tóm tắt cách đánh giá Notion và Notion AI, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/notion/,"Phần này tóm tắt cách đánh giá Notion, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/perplexity/,"Phần này tóm tắt cách đánh giá Perplexity, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,46,10,monitor
+/vi/pipedrive-crm/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,50,10,monitor
+/vi/pipedrive/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,51,10,monitor
+/vi/pricing/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/pricing/activecampaign/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,50,10,monitor
+/vi/pricing/canva/,"Phần này tóm tắt cách đánh giá Canva, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,51,10,monitor
+/vi/pricing/cursor/,"Phần này tóm tắt cách đánh giá Cursor, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,50,10,monitor
+/vi/pricing/github-copilot/,"Phần này tóm tắt cách đánh giá GitHub Copilot, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,50,10,monitor
+/vi/pricing/grammarly/,"Phần này tóm tắt cách đánh giá Grammarly, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,52,10,monitor
+/vi/pricing/mailchimp/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,52,10,monitor
+/vi/pricing/make/,"Phần này tóm tắt cách đánh giá Make, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,51,10,monitor
+/vi/pricing/pictory/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,54,10,monitor
+/vi/pricing/semrush/,"Phần này tóm tắt cách đánh giá SEMrush, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,51,10,monitor
+/vi/pricing/zapier/,"Phần này tóm tắt cách đánh giá Zapier, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,51,10,monitor
+/vi/privacy-policy/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,50,10,monitor
+/vi/privacy/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,52,10,monitor
+/vi/reclaim-ai/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,43,10,monitor
+/vi/replit/,"Phần này tóm tắt cách đánh giá Replit, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,44,10,monitor
+/vi/review/activecampaign/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,56,10,monitor
+/vi/review/adcreative-ai/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,56,10,monitor
+/vi/review/ahrefs-ai/,"Phần này tóm tắt cách đánh giá Ahrefs, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,57,10,monitor
+/vi/review/bolt/,"Phần này tóm tắt cách đánh giá Bolt, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,63,10,monitor
+/vi/review/canva/,"Phần này tóm tắt cách đánh giá Canva, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,57,10,monitor
+/vi/review/chatgpt/,"Phần này tóm tắt cách đánh giá ChatGPT, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,59,10,monitor
+/vi/review/claude/,"Phần này tóm tắt cách đánh giá Claude, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,59,10,monitor
+/vi/review/copy-ai/,"Phần này tóm tắt cách đánh giá Copy.ai, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,61,10,monitor
+/vi/review/cursor/,"Phần này tóm tắt cách đánh giá Cursor, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,57,10,monitor
+/vi/review/descript/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,58,10,monitor
+/vi/review/durable/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,59,10,monitor
+/vi/review/elevenlabs/,"Phần này tóm tắt cách đánh giá ElevenLabs, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,57,10,monitor
+/vi/review/framer/,"Phần này tóm tắt cách đánh giá Framer, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,59,10,monitor
+/vi/review/frase/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,57,10,monitor
+/vi/review/gamma/,"Phần này tóm tắt cách đánh giá Gamma, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,57,10,monitor
+/vi/review/gemini/,"Phần này tóm tắt cách đánh giá Gemini, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/review/github-copilot/,"Phần này tóm tắt cách đánh giá GitHub Copilot, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,57,10,monitor
+/vi/review/hubspot/,"Phần này tóm tắt cách đánh giá HubSpot, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,57,10,monitor
+/vi/review/jasper-ai/,"Phần này tóm tắt cách đánh giá Jasper, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,61,10,monitor
+/vi/review/jasper/,"Phần này tóm tắt cách đánh giá Jasper, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,61,10,monitor
+/vi/review/lovable/,"Phần này tóm tắt cách đánh giá Lovable, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,63,10,monitor
+/vi/review/make/,"Phần này tóm tắt cách đánh giá Make, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,56,10,monitor
+/vi/review/midjourney/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,59,10,monitor
+/vi/review/notion-ai/,"Phần này tóm tắt cách đánh giá Notion và Notion AI, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,60,10,monitor
+/vi/review/notion/,"Phần này tóm tắt cách đánh giá Notion, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,60,10,monitor
+/vi/review/perplexity/,"Phần này tóm tắt cách đánh giá Perplexity, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,57,10,monitor
+/vi/review/pipedrive-crm/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,57,10,monitor
+/vi/review/pipedrive/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,57,10,monitor
+/vi/review/reclaim-ai/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,56,10,monitor
+/vi/review/replit/,"Phần này tóm tắt cách đánh giá Replit, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,61,10,monitor
+/vi/review/runway/,"Phần này tóm tắt cách đánh giá Runway, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,58,10,monitor
+/vi/review/semrush-ai/,"Phần này tóm tắt cách đánh giá SEMrush, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,57,10,monitor
+/vi/review/semrush/,"Phần này tóm tắt cách đánh giá SEMrush, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,57,10,monitor
+/vi/review/surfer-seo/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,57,10,monitor
+/vi/review/synthesia/,"Phần này tóm tắt cách đánh giá Synthesia, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,59,10,monitor
+/vi/review/webflow-ai/,"Phần này tóm tắt cách đánh giá Webflow, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,59,10,monitor
+/vi/review/webflow/,"Phần này tóm tắt cách đánh giá Webflow, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,59,10,monitor
+/vi/review/windsurf/,"Phần này tóm tắt cách đánh giá Windsurf, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,58,10,monitor
+/vi/review/zapier/,"Phần này tóm tắt cách đánh giá Zapier, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,56,10,monitor
+/vi/reviews/,Đánh giá - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,87,10,monitor
+/vi/reviews/activecampaign/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,54,10,monitor
+/vi/reviews/adcreative-ai/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,54,10,monitor
+/vi/reviews/ahrefs-ai/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,53,10,monitor
+/vi/reviews/bolt/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/reviews/canva/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,54,10,monitor
+/vi/reviews/chatgpt/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,57,10,monitor
+/vi/reviews/claude/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,57,10,monitor
+/vi/reviews/copy-ai/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,57,10,monitor
+/vi/reviews/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,53,10,monitor
+/vi/reviews/cursor/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,54,10,monitor
+/vi/reviews/descript/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,56,10,monitor
+/vi/reviews/durable/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/reviews/elevenlabs/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/reviews/framer/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/reviews/frase/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/reviews/gamma/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,54,10,monitor
+/vi/reviews/gemini/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/reviews/github-copilot/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,52,10,monitor
+/vi/reviews/hubspot/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/reviews/jasper-ai/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,57,10,monitor
+/vi/reviews/jasper/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,57,10,monitor
+/vi/reviews/lovable/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/reviews/make/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,53,10,monitor
+/vi/reviews/midjourney/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/reviews/notion-ai/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,57,10,monitor
+/vi/reviews/notion/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,57,10,monitor
+/vi/reviews/perplexity/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/reviews/pipedrive-crm/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/reviews/pipedrive/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/reviews/reclaim-ai/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/reviews/replit/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/reviews/runway/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,56,10,monitor
+/vi/reviews/semrush-ai/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,54,10,monitor
+/vi/reviews/semrush/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,54,10,monitor
+/vi/reviews/surfer-seo/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,54,10,monitor
+/vi/reviews/synthesia/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,56,10,monitor
+/vi/reviews/webflow-ai/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/reviews/webflow/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,55,10,monitor
+/vi/reviews/windsurf-review/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,54,10,monitor
+/vi/reviews/windsurf/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,54,10,monitor
+/vi/reviews/zapier/,Thông tin cần kiểm tra,0,0,0.0,0.0,0,0,53,10,monitor
+/vi/runway/,"Runway Đánh giá: Tính năng, ưu điểm, hạn chế và ghi chú giá",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/semrush-ai/,"Phần này tóm tắt cách đánh giá SEMrush, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,53,10,monitor
+/vi/semrush-pricing/,"Phần này tóm tắt cách đánh giá SEMrush, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,50,10,monitor
+/vi/semrush/,"Phần này tóm tắt cách đánh giá SEMrush, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,53,10,monitor
+/vi/sitemap/,Sitemap - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,161,10,monitor
+/vi/surfer-seo-pricing/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,50,10,monitor
+/vi/surfer-seo/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,51,10,monitor
+/vi/synthesia/,"Synthesia Đánh giá: Tính năng, ưu điểm, hạn chế và ghi chú giá",0,0,0.0,0.0,0,0,55,10,monitor
+/vi/terms-of-service/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,53,10,monitor
+/vi/terms/,Điều khoản - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,49,10,monitor
+/vi/testing-methodology/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,50,10,monitor
+/vi/webflow-ai/,"Phần này tóm tắt cách đánh giá Webflow, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,49,10,monitor
+/vi/webflow/,"Phần này tóm tắt cách đánh giá Webflow, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,49,10,monitor
+/vi/website-builder-alternatives/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,56,10,monitor
+/vi/website-builder-software-review/,"Phần này tóm tắt mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,59,10,monitor
+/vi/windsurf-review/,"Phần này tóm tắt cách đánh giá Windsurf, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,54,10,monitor
+/vi/windsurf/,"Phần này tóm tắt cách đánh giá Windsurf, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,52,10,monitor
+/vi/zapier-pricing/,"Phần này tóm tắt cách đánh giá Zapier, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,49,10,monitor
+/vi/zapier/,"Phần này tóm tắt cách đánh giá Zapier, mức phù hợp quy trình, giá, rủi ro, lựa chọn thay thế và các điểm cần xác minh trên trang chính thức trước khi mua.",0,0,0.0,0.0,0,0,50,10,monitor
+/webflow-ai/,"Webflow AI Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,47,10,monitor
+/webflow/,"Webflow Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,47,10,monitor
+/website-builder-alternatives/,Best Website Builder Alternatives for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,54,10,monitor
+/website-builder-software-review/,Website Builder Software Review: Research-Style Review for 2026 - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,57,10,monitor
+/windsurf/,"Windsurf Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,50,10,monitor
+/zapier-pricing/,Pricing Zapier: những điểm cần kiểm tra trước khi mua - MS Smile AI Review Hub,0,0,0.0,0.0,0,0,47,10,monitor
+/zapier/,"Zapier Review: Features, Pros, Cons, Pricing Notes",0,0,0.0,0.0,0,0,48,10,monitor

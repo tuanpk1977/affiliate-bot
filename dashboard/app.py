@@ -4,6 +4,8 @@ import base64
 import json
 import os
 import re
+import shutil
+import subprocess
 import sys
 import urllib.parse
 from datetime import datetime, timedelta
@@ -2650,6 +2652,380 @@ def render_settings_center() -> None:
         render_post_deploy_page()
 
 
+VIDEO_PACKAGE_REQUIRED_FILES = [
+    "script.txt",
+    "voiceover.txt",
+    "subtitles.srt",
+    "thumbnail.png",
+    "thumbnail_text.txt",
+    "scenes.json",
+    "metadata.json",
+]
+
+
+def video_output_root() -> Path:
+    return ROOT / "video_output"
+
+
+def discover_video_packages() -> list[Path]:
+    root = video_output_root()
+    if not root.exists():
+        return []
+    packages = []
+    for folder in sorted(root.iterdir()):
+        if folder.is_dir() and (folder / "metadata.json").exists() and (folder / "scenes.json").exists():
+            packages.append(folder)
+    return packages
+
+
+def load_json_file(path: Path, fallback):
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return fallback
+
+
+def read_text_file(path: Path) -> str:
+    try:
+        return path.read_text(encoding="utf-8", errors="ignore")
+    except Exception:
+        return ""
+
+
+def parse_srt(path: Path) -> list[dict[str, str]]:
+    text = read_text_file(path)
+    blocks = re.split(r"\n\s*\n", text.strip())
+    subtitles = []
+    for block in blocks:
+        lines = [line.strip() for line in block.splitlines() if line.strip()]
+        if len(lines) < 3:
+            continue
+        time_line = lines[1]
+        if "-->" not in time_line:
+            continue
+        start, end = [part.strip() for part in time_line.split("-->", 1)]
+        subtitles.append({"index": lines[0], "start": start, "end": end, "text": " ".join(lines[2:])})
+    return subtitles
+
+
+def package_status(package_dir: Path) -> dict[str, object]:
+    files = {name: (package_dir / name).exists() for name in VIDEO_PACKAGE_REQUIRED_FILES}
+    files["review_video.mp4"] = (package_dir / "review_video.mp4").exists() and (package_dir / "review_video.mp4").stat().st_size > 0
+    shorts = []
+    for index in range(1, 4):
+        short_dir = package_dir / "shorts" / f"short-{index}"
+        shorts.append({"short": f"short-{index}", "exists": short_dir.exists(), "files": sorted(p.name for p in short_dir.glob("*")) if short_dir.exists() else []})
+    return {"files": files, "shorts": shorts}
+
+
+def save_uploaded_video_editor_file(uploaded_file: object, output_dir: Path) -> Path | None:
+    if uploaded_file is None:
+        return None
+    output_dir.mkdir(parents=True, exist_ok=True)
+    filename = re.sub(r"[^A-Za-z0-9._-]+", "-", getattr(uploaded_file, "name", "uploaded-file")).strip("-")
+    target = output_dir / (filename or "uploaded-file")
+    with target.open("wb") as handle:
+        handle.write(uploaded_file.getbuffer())
+    return target
+
+
+def ffmpeg_path() -> str | None:
+    config_path = ROOT / "config" / "video_render.json"
+    if config_path.exists():
+        try:
+            config = json.loads(config_path.read_text(encoding="utf-8"))
+            configured = str(config.get("ffmpeg_path", "") or "").strip()
+            if configured and Path(configured).exists():
+                return configured
+        except Exception:
+            pass
+    return shutil.which("ffmpeg")
+
+
+def video_export_status(package_dir: Path) -> dict[str, bool]:
+    return {
+        "long": (package_dir / "exports" / "long_video_1920x1080.mp4").exists()
+        and (package_dir / "exports" / "long_video_1920x1080.mp4").stat().st_size > 0,
+        "short_1": (package_dir / "exports" / "shorts" / "short_1_1080x1920.mp4").exists()
+        and (package_dir / "exports" / "shorts" / "short_1_1080x1920.mp4").stat().st_size > 0,
+        "short_2": (package_dir / "exports" / "shorts" / "short_2_1080x1920.mp4").exists()
+        and (package_dir / "exports" / "shorts" / "short_2_1080x1920.mp4").stat().st_size > 0,
+        "short_3": (package_dir / "exports" / "shorts" / "short_3_1080x1920.mp4").exists()
+        and (package_dir / "exports" / "shorts" / "short_3_1080x1920.mp4").stat().st_size > 0,
+    }
+
+
+def run_ffmpeg_export(command: list[str], log_path: Path) -> tuple[bool, str]:
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        result = subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        log_path.write_text((result.stdout or "") + "\n" + (result.stderr or ""), encoding="utf-8")
+        return True, "Export complete."
+    except FileNotFoundError:
+        log_path.write_text("ffmpeg not found. Install ffmpeg and rerun export.\n", encoding="utf-8")
+        return False, "ffmpeg not found. Install ffmpeg to render MP4 exports."
+    except subprocess.CalledProcessError as exc:
+        log_path.write_text((exc.stdout or "") + "\n" + (exc.stderr or ""), encoding="utf-8")
+        return False, f"ffmpeg export failed. See log: {log_path}"
+
+
+def build_editor_video_export(
+    package_dir: Path,
+    mode: str,
+    background_music: Path | None,
+    visual_path: Path | None,
+    manual_review_note: str,
+) -> tuple[bool, str, Path]:
+    exports_dir = package_dir / "exports"
+    exports_dir.mkdir(parents=True, exist_ok=True)
+    output_name = "long_video_1920x1080.mp4" if mode == "long" else "shorts"
+    output_path = exports_dir / output_name
+    log_path = exports_dir / f"{output_name}.log"
+
+    ffmpeg = ffmpeg_path()
+    if not ffmpeg:
+        manifest = {
+            "status": "pending_ffmpeg",
+            "mode": mode,
+            "output_path": str(output_path),
+            "manual_review_note": manual_review_note,
+            "message": "ffmpeg is required for local MP4 export. No upload was attempted.",
+        }
+        (exports_dir / f"{mode}_export_request.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+        return False, "ffmpeg not found. Export request saved locally; install ffmpeg to render MP4.", output_path
+
+    if mode == "shorts":
+        shorts_export_dir = exports_dir / "shorts"
+        shorts_export_dir.mkdir(exist_ok=True)
+        rendered = []
+        failures = []
+        for index in range(1, 4):
+            short_dir = package_dir / "shorts" / f"short-{index}"
+            if not short_dir.exists():
+                continue
+            short_output = shorts_export_dir / f"short-{index}_1080x1920.mp4"
+            short_subtitles = short_dir / "subtitles.srt"
+            thumbnail = visual_path or package_dir / "thumbnail.png"
+            escaped_subtitles = str(short_subtitles).replace("\\", "/").replace(":", "\\:")
+            vf = (
+                "[0:v]scale=1080:1920:force_original_aspect_ratio=decrease,"
+                "pad=1080:1920:(ow-iw)/2:(oh-ih)/2,setsar=1,"
+                "drawtext=text='smileaireviewhub.com':x=w-tw-36:y=h-th-30:fontsize=30:fontcolor=white:box=1:boxcolor=black@0.45"
+            )
+            if short_subtitles.exists():
+                vf += f",subtitles='{escaped_subtitles}'"
+            vf += "[vout]"
+            command = [ffmpeg, "-y", "-loop", "1", "-framerate", "30", "-i", str(thumbnail), "-t", "45"]
+            if background_music and background_music.exists():
+                command += ["-i", str(background_music), "-filter_complex", vf, "-map", "[vout]", "-map", "1:a", "-shortest"]
+            else:
+                command += ["-filter_complex", vf, "-map", "[vout]"]
+            command += ["-c:v", "libx264", "-pix_fmt", "yuv420p", "-preset", "veryfast", str(short_output)]
+            ok, message = run_ffmpeg_export(command, shorts_export_dir / f"short-{index}.log")
+            if ok:
+                rendered.append(str(short_output))
+            else:
+                failures.append({"short": f"short-{index}", "message": message})
+        manifest = {
+            "status": "exported" if rendered and not failures else "failed",
+            "mode": mode,
+            "output_path": str(shorts_export_dir),
+            "rendered": rendered,
+            "failures": failures,
+            "background_music": str(background_music) if background_music else "",
+            "visual_path": str(visual_path) if visual_path else "",
+            "watermark": "smileaireviewhub.com",
+            "manual_review_note": manual_review_note,
+            "youtube_upload": "disabled",
+        }
+        (exports_dir / f"{mode}_export_request.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+        return bool(rendered and not failures), f"Rendered {len(rendered)} shorts locally.", shorts_export_dir
+
+    width, height = ("1920", "1080") if mode == "long" else ("1080", "1920")
+    source_video = package_dir / "review_video.mp4"
+    thumbnail = visual_path or package_dir / "thumbnail.png"
+    inputs: list[str] = []
+    filter_parts: list[str] = []
+
+    if source_video.exists() and source_video.stat().st_size > 0:
+        inputs.extend(["-i", str(source_video)])
+        video_input = "0:v"
+    else:
+        inputs.extend(["-loop", "1", "-framerate", "30", "-i", str(thumbnail), "-t", "30"])
+        video_input = "0:v"
+
+    audio_index = None
+    if background_music and background_music.exists():
+        audio_index = 1
+        inputs.extend(["-i", str(background_music)])
+
+    watermark = "smileaireviewhub.com"
+    subtitles = package_dir / "subtitles.srt"
+    escaped_subtitles = str(subtitles).replace("\\", "/").replace(":", "\\:")
+    vf = (
+        f"[{video_input}]scale={width}:{height}:force_original_aspect_ratio=decrease,"
+        f"pad={width}:{height}:(ow-iw)/2:(oh-ih)/2,setsar=1,"
+        f"drawtext=text='{watermark}':x=w-tw-44:y=h-th-34:fontsize=34:fontcolor=white:box=1:boxcolor=black@0.45"
+    )
+    if subtitles.exists():
+        vf += f",subtitles='{escaped_subtitles}'"
+    vf += "[vout]"
+    filter_parts.append(vf)
+
+    command = [ffmpeg, "-y"] + inputs + ["-filter_complex", ";".join(filter_parts), "-map", "[vout]"]
+    if audio_index is not None:
+        command += ["-map", f"{audio_index}:a", "-shortest"]
+    command += ["-c:v", "libx264", "-pix_fmt", "yuv420p", "-preset", "veryfast", str(output_path)]
+
+    ok, message = run_ffmpeg_export(command, log_path)
+    manifest = {
+        "status": "exported" if ok else "failed",
+        "mode": mode,
+        "output_path": str(output_path),
+        "background_music": str(background_music) if background_music else "",
+        "visual_path": str(visual_path) if visual_path else "",
+        "watermark": watermark,
+        "manual_review_note": manual_review_note,
+        "youtube_upload": "disabled",
+    }
+    (exports_dir / f"{mode}_export_request.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    return ok, message, output_path
+
+
+def render_video_editor_center() -> None:
+    st.header("Video Editor")
+    st.caption("Import local MS Smile AI Review Hub video packages for manual review and local export. No YouTube upload or API call is used.")
+    st.warning("Use only owned screenshots, licensed assets, or generated first-party visuals. Do not add copyrighted music or images.")
+
+    packages = discover_video_packages()
+    package_labels = [str(path.relative_to(ROOT)) for path in packages]
+    c1, c2 = st.columns([2, 1])
+    default_package = str(Path("video_output") / "review-chatgpt")
+    if not package_labels:
+        package_labels = [default_package]
+    with c1:
+        default_index = package_labels.index(default_package) if default_package in package_labels else 0
+        selected_label = st.selectbox("Existing package", package_labels, index=default_index)
+    with c2:
+        st.write("")
+        import_clicked = st.button("Import Video Package", use_container_width=True)
+
+    custom_path = st.text_input("Or paste package folder path", value=st.session_state.get("video_editor_package_path", "video_output/review-chatgpt/"))
+    package_dir = ROOT / selected_label if package_labels else ROOT / custom_path
+    if custom_path.strip():
+        custom_candidate = Path(custom_path.strip())
+        package_dir = custom_candidate if custom_candidate.is_absolute() else ROOT / custom_candidate
+    if import_clicked:
+        st.session_state["video_editor_package_path"] = str(package_dir)
+
+    if not package_dir.exists():
+        st.error(f"Package folder does not exist: {package_dir}")
+        return
+
+    status = package_status(package_dir)
+    files = status["files"]
+    exports = video_export_status(package_dir)
+    missing = [name for name, exists in files.items() if name != "review_video.mp4" and not exists]
+    if missing:
+        st.error(f"Missing required files: {', '.join(missing)}")
+        return
+
+    metadata = load_json_file(package_dir / "metadata.json", {})
+    scenes = load_json_file(package_dir / "scenes.json", [])
+    subtitles = parse_srt(package_dir / "subtitles.srt")
+    voiceover = read_text_file(package_dir / "voiceover.txt")
+    script = read_text_file(package_dir / "script.txt")
+    thumbnail_text = read_text_file(package_dir / "thumbnail_text.txt").strip()
+
+    st.success(f"Imported package: {package_dir.relative_to(ROOT) if package_dir.is_relative_to(ROOT) else package_dir}")
+    metric_cols = st.columns(4)
+    metric_cols[0].metric("Scenes", len(scenes) if isinstance(scenes, list) else 0)
+    metric_cols[1].metric("Subtitles", len(subtitles))
+    metric_cols[2].metric("Shorts", sum(1 for item in status["shorts"] if item["exists"]))
+    metric_cols[3].metric("Source video", "available" if files.get("review_video.mp4") else "placeholder")
+    export_cols = st.columns(5)
+    export_cols[0].metric("FFmpeg", "ready" if ffmpeg_path() else "missing")
+    export_cols[1].metric("Long export", "ready" if exports["long"] else "pending")
+    export_cols[2].metric("Short 1", "ready" if exports["short_1"] else "pending")
+    export_cols[3].metric("Short 2", "ready" if exports["short_2"] else "pending")
+    export_cols[4].metric("Short 3", "ready" if exports["short_3"] else "pending")
+    st.markdown(
+        "Export links: "
+        f"[Open export folder]({(package_dir / 'exports').as_posix()}) | "
+        f"[Long video]({(package_dir / 'exports' / 'long_video_1920x1080.mp4').as_posix()}) | "
+        f"[Short 1]({(package_dir / 'exports' / 'shorts' / 'short_1_1080x1920.mp4').as_posix()}) | "
+        f"[Short 2]({(package_dir / 'exports' / 'shorts' / 'short_2_1080x1920.mp4').as_posix()}) | "
+        f"[Short 3]({(package_dir / 'exports' / 'shorts' / 'short_3_1080x1920.mp4').as_posix()})"
+    )
+
+    left, right = st.columns([1, 1])
+    with left:
+        st.markdown("### Thumbnail preview")
+        thumbnail_path = package_dir / "thumbnail.png"
+        if thumbnail_path.exists():
+            st.image(str(thumbnail_path), caption=thumbnail_text or "Thumbnail", use_container_width=True)
+        st.markdown("### YouTube metadata preview")
+        st.json(metadata)
+    with right:
+        st.markdown("### Voiceover text")
+        st.text_area("Voiceover", value=voiceover, height=300, key=f"video_voiceover_{package_dir.name}")
+        st.markdown("### Manual review checklist")
+        approved_for_export = st.checkbox("I reviewed script, subtitles, metadata, visuals, music rights, and export settings.", key=f"video_review_{package_dir.name}")
+        manual_note = st.text_area("Review notes", value="", height=90, key=f"video_review_note_{package_dir.name}")
+
+    st.markdown("### Timeline from scenes.json")
+    if isinstance(scenes, list) and scenes:
+        scene_df = pd.DataFrame(scenes)
+        edited_scenes = st.data_editor(scene_df, use_container_width=True, hide_index=True, num_rows="dynamic", key=f"video_scenes_{package_dir.name}")
+        if st.button("Save Timeline Edits", key=f"save_scenes_{package_dir.name}"):
+            (package_dir / "scenes.json").write_text(edited_scenes.to_json(orient="records", indent=2), encoding="utf-8")
+            st.success("Saved scenes.json.")
+    else:
+        st.info("No scenes found.")
+
+    st.markdown("### Subtitle layer from subtitles.srt")
+    if subtitles:
+        st.dataframe(pd.DataFrame(subtitles).head(80), use_container_width=True, hide_index=True)
+    else:
+        st.info("No subtitles parsed.")
+
+    st.markdown("### Script preview")
+    with st.expander("Open script.txt"):
+        st.text_area("Script", value=script, height=360, key=f"video_script_{package_dir.name}")
+
+    st.markdown("### Shorts packages")
+    shorts_rows = []
+    for item in status["shorts"]:
+        short_dir = package_dir / "shorts" / str(item["short"])
+        short_meta = load_json_file(short_dir / "metadata.json", {}) if short_dir.exists() else {}
+        shorts_rows.append({"short": item["short"], "exists": item["exists"], "title": short_meta.get("title", ""), "files": ", ".join(item["files"])})
+    st.dataframe(pd.DataFrame(shorts_rows), use_container_width=True, hide_index=True)
+
+    st.markdown("### Replace visuals and add music")
+    asset_cols = st.columns(2)
+    visual_upload = asset_cols[0].file_uploader("Replace placeholder visual / screenshot", type=["png", "jpg", "jpeg", "webp"], key=f"visual_upload_{package_dir.name}")
+    music_upload = asset_cols[1].file_uploader("Add background music", type=["mp3", "wav", "m4a"], key=f"music_upload_{package_dir.name}")
+    visual_path = save_uploaded_video_editor_file(visual_upload, package_dir / "editor_assets" / "visuals") if visual_upload is not None else None
+    music_path = save_uploaded_video_editor_file(music_upload, package_dir / "editor_assets" / "music") if music_upload is not None else None
+    if visual_path:
+        st.success(f"Saved visual: {visual_path.relative_to(ROOT) if visual_path.is_relative_to(ROOT) else visual_path}")
+        st.image(str(visual_path), caption="Replacement visual", use_container_width=True)
+    if music_path:
+        st.success(f"Saved music: {music_path.relative_to(ROOT) if music_path.is_relative_to(ROOT) else music_path}")
+
+    st.markdown("### Local export")
+    st.caption("Exports are saved under the package `exports/` folder. YouTube upload remains disabled.")
+    if not ffmpeg_path():
+        st.warning("ffmpeg is not installed or not in PATH. Export buttons will save a local export request manifest but cannot render playable MP4 yet.")
+    export_cols = st.columns(2)
+    if export_cols[0].button("Export Long Video 1920x1080 MP4", disabled=not approved_for_export, key=f"export_long_{package_dir.name}"):
+        ok, message, output = build_editor_video_export(package_dir, "long", music_path, visual_path, manual_note)
+        st.success(f"{message} Output: {output}") if ok else st.warning(f"{message} Output target: {output}")
+    if export_cols[1].button("Export Shorts 1080x1920 MP4", disabled=not approved_for_export, key=f"export_short_{package_dir.name}"):
+        ok, message, output = build_editor_video_export(package_dir, "shorts", music_path, visual_path, manual_note)
+        st.success(f"{message} Output: {output}") if ok else st.warning(f"{message} Output target: {output}")
+
+
 st.set_page_config(page_title="AI Affiliate Intelligence Platform", layout="wide")
 inject_dashboard_css()
 st.title("AI Affiliate Intelligence Platform")
@@ -2664,6 +3040,7 @@ sidebar_page = st.sidebar.radio(
         "Publishing Queue",
         "Social Discovery",
         "SEO Center",
+        "Video Editor",
         "Settings",
     ],
     index=0,
@@ -2707,6 +3084,9 @@ elif sidebar_page == "Social Discovery":
     st.stop()
 elif sidebar_page == "SEO Center":
     render_seo_center()
+    st.stop()
+elif sidebar_page == "Video Editor":
+    render_video_editor_center()
     st.stop()
 elif sidebar_page == "Settings":
     render_settings_center()

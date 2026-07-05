@@ -2,7 +2,7 @@
 
 - Platform: Telegram
 - Status: Pending Review
-- Suggested time: 2026-06-18 18:00
+- Suggested time: 2026-06-22 18:00
 - Target URL: https://smileaireviewhub.com/windsurf-review/?utm_source=telegram
 
 ## Copy

@@ -12,8 +12,8 @@ COUNTS
 - hub_pages: 13
 - priority_pages: 30
 - go_tracking_pages: 104
-- total_sitemap_urls: 610
-- total_html_files: 799
+- total_sitemap_urls: 712
+- total_html_files: 820
 
 ERRORS
 - none

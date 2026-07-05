@@ -1,14 +1,14 @@
 hub_slug,hub_title,output_path,review_count,comparison_count,priority_page_count,status
 hubs,AI Tool Research Hubs,D:\AFFILATE BOT\site_output\hubs\index.html,,,,built
-ai-coding,AI Coding Tools Hub,D:\AFFILATE BOT\site_output\hub\ai-coding\index.html,3,5,2,built
-ai-seo,AI SEO Tools Hub,D:\AFFILATE BOT\site_output\hub\ai-seo\index.html,5,1,2,built
+ai-coding,AI Coding Tools Hub,D:\AFFILATE BOT\site_output\hub\ai-coding\index.html,3,6,2,built
+ai-seo,AI SEO Tools Hub,D:\AFFILATE BOT\site_output\hub\ai-seo\index.html,5,2,2,built
 ai-automation,AI Automation Tools Hub,D:\AFFILATE BOT\site_output\hub\ai-automation\index.html,2,1,2,built
 ai-presentation,AI Presentation Tools Hub,D:\AFFILATE BOT\site_output\hub\ai-presentation\index.html,2,1,1,built
 ai-voice,AI Voice Tools Hub,D:\AFFILATE BOT\site_output\hub\ai-voice\index.html,1,2,2,built
 ai-video,AI Video Tools Hub,D:\AFFILATE BOT\site_output\hub\ai-video\index.html,3,3,1,built
-crm,CRM Tools Hub,D:\AFFILATE BOT\site_output\hub\crm\index.html,3,1,1,built
-website-builders,Website Builders Hub,D:\AFFILATE BOT\site_output\hub\website-builders\index.html,6,1,2,built
+crm,CRM Tools Hub,D:\AFFILATE BOT\site_output\hub\crm\index.html,3,1,0,built
+website-builders,Website Builders Hub,D:\AFFILATE BOT\site_output\hub\website-builders\index.html,6,1,4,built
 ai-writing,AI Writing Tools Hub,D:\AFFILATE BOT\site_output\hub\ai-writing\index.html,7,8,1,built
-email-marketing,Email Marketing Tools Hub,D:\AFFILATE BOT\site_output\hub\email-marketing\index.html,4,1,6,built
-productivity,AI Productivity Tools Hub,D:\AFFILATE BOT\site_output\hub\productivity\index.html,4,3,5,built
-marketing,AI Marketing Tools Hub,D:\AFFILATE BOT\site_output\hub\marketing\index.html,8,1,6,built
+email-marketing,Email Marketing Tools Hub,D:\AFFILATE BOT\site_output\hub\email-marketing\index.html,4,1,5,built
+productivity,AI Productivity Tools Hub,D:\AFFILATE BOT\site_output\hub\productivity\index.html,4,3,4,built
+marketing,AI Marketing Tools Hub,D:\AFFILATE BOT\site_output\hub\marketing\index.html,8,2,5,built

@@ -1,0 +1,4 @@
+Short script for RNNs vs Transformers vs SSMs: where should AI memory live for continual learning?
+Hook: Why this topic is worth watching.
+Body: one key benefit and one risk.
+CTA: See the full review in the main article.

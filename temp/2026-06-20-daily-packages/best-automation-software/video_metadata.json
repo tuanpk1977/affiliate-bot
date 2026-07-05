@@ -1,0 +1,20 @@
+{
+  "slug": "best-automation-software",
+  "topic": "best automation software",
+  "article_url": "https://smileaireviewhub.com/best-automation-software/",
+  "manual_youtube_upload": true,
+  "auto_upload_youtube": false,
+  "created_at": "2026-06-20T15:35:03.140844",
+  "subtitle_policy": "Vietnamese bottom subtitles. English captions must not overlap Vietnamese subtitles.",
+  "required_files": [
+    "script.txt",
+    "voiceover.txt",
+    "scene_plan.json",
+    "youtube_title.txt",
+    "youtube_description.txt",
+    "youtube_tags.txt",
+    "thumbnail_prompt.txt",
+    "shorts_script.txt",
+    "video_metadata.json"
+  ]
+}

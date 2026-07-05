@@ -1,0 +1,26 @@
+{
+  "topics_per_day": 10,
+  "minimum_score": 45,
+  "maximum_similarity": 0.82,
+  "output_folder": "draft-output",
+  "video_duration_seconds": 45,
+  "language": "en",
+  "voice": "en-US-GuyNeural",
+  "image_source": "prompt_only",
+  "master_dashboard_path": "data/master_dashboard.xlsx",
+  "topic_scores_path": "data/topic_scores.json",
+  "topic_dashboard_path": "data/topic_dashboard.json",
+  "trending_topics_path": "data/trending_topics.json",
+  "topic_history_path": "data/hottrend_topic_history.csv",
+  "existing_article_roots": [
+    "data/published_static_pages",
+    "content/posts",
+    "public/posts",
+    "docs",
+    "site_output"
+  ],
+  "existing_video_root": "video_output",
+  "cache_file": "data/content_assistant_bot_cache.json",
+  "ffmpeg_config": "config/video_render.json",
+  "reuse_unchanged_content": true
+}

@@ -1,0 +1,18 @@
+{
+  "seo_intelligence_engine": {
+    "enabled": false,
+    "description": "Enable advanced feedback integration"
+  },
+  "content_engine_v2": {
+    "enabled": false,
+    "description": "Enable new blueprint engine"
+  },
+  "schema_engine_v2": {
+    "enabled": false,
+    "description": "Enable advanced schema generation"
+  },
+  "affiliate_optimization": {
+    "enabled": false,
+    "description": "Enable affiliate performance scoring"
+  }
+}

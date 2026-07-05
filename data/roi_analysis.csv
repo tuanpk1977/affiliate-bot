@@ -1,0 +1,85 @@
+﻿rank,topic,slug,expected_revenue,expected_clicks,expected_conversion,expected_affiliate_revenue,estimated_writing_time,estimated_video_production_time,estimated_social_time,estimated_total_cost,estimated_profit,roi,roi_per_hour,priority_roi_score
+1,free-for-dev Review 2026,free-for-dev-review-2026,80.51,57.1,0.0514,80.51,2.5,1.5,0.4,79.2,1.31,0.02,0.3,52.4
+2,ai-berkshire Review 2026,ai-berkshire-review-2026,75.23,54.6,0.0509,75.23,2.5,1.5,0.4,79.2,-3.97,-0.05,-0.9,58.8
+3,agency-agents Review 2026,agency-agents-review-2026,75.23,54.6,0.0509,75.23,2.5,1.5,0.4,79.2,-3.97,-0.05,-0.9,51.3
+4,logto Review 2026,logto-review-2026,74.3,52.7,0.0514,74.3,2.5,1.5,0.4,79.2,-4.9,-0.06,-1.11,51.9
+5,VulnClaw Review 2026,vulnclaw-review-2026,73.17,51.9,0.0514,73.17,2.5,1.5,0.4,79.2,-6.03,-0.08,-1.37,51.8
+6,AI coding tokens could soon cost as much as salaries,ai-coding-tokens-could-soon-cost-as-much-as-salaries,54.11,43.2,0.049,54.11,1.5,1.5,0.4,61.2,-7.09,-0.12,-2.09,52.3
+7,council-of-high-intelligence Review 2026,council-of-high-intelligence-review-2026,67.36,53.6,0.0489,67.36,2.5,1.5,0.4,79.2,-11.84,-0.15,-2.69,47.9
+8,cupy Review 2026,cupy-review-2026,62.87,51.1,0.0484,62.87,2.5,1.5,0.4,79.2,-16.33,-0.21,-3.71,46.9
+9,Open AI delayed GPT-5.6 after a U.S. government review request. Is AI regulation becoming the new normal?,open-ai-delayed-gpt-5-6-after-a-u-s-government-review-request-is-ai-regulation-becoming-the-new-normal,47.37,38.5,0.0484,47.37,2.5,1.5,0.4,79.2,-31.83,-0.4,-7.23,53.0
+10,AI shakes SaaS as markets plunge and Korea races to reinvent software,ai-shakes-saas-as-markets-plunge-and-korea-races-to-reinvent-software,30.08,19.6,0.0537,30.08,1.5,1.5,0.4,61.2,-31.12,-0.51,-9.15,60.6
+11,"Tavant debuts agentic AI platform for software engineering, automation",tavant-debuts-agentic-ai-platform-for-software-engineering-automation,29.21,19.4,0.0532,29.21,1.5,1.5,0.4,61.2,-31.99,-0.52,-9.41,59.9
+12,best ai productivity software,best-ai-productivity-software,37.17,28.5,0.0492,37.17,2.5,1.5,0.4,79.2,-42.03,-0.53,-9.55,45.6
+13,best productivity software,best-productivity-software,37.17,28.5,0.0492,37.17,2.5,1.5,0.4,79.2,-42.03,-0.53,-9.55,45.6
+14,best productivity tools,best-productivity-tools,36.39,27.9,0.0492,36.39,2.5,1.5,0.4,79.2,-42.81,-0.54,-9.73,45.5
+15,best ai image software,best-ai-image-software,34.28,26.9,0.0487,34.28,2.5,1.5,0.4,79.2,-44.92,-0.57,-10.21,44.6
+16,best ai meeting software,best-ai-meeting-software,34.28,26.9,0.0487,34.28,2.5,1.5,0.4,79.2,-44.92,-0.57,-10.21,44.6
+17,best ai search software,best-ai-search-software,34.28,26.9,0.0487,34.28,2.5,1.5,0.4,79.2,-44.92,-0.57,-10.21,44.6
+18,best ai voice software,best-ai-voice-software,34.28,26.9,0.0487,34.28,2.5,1.5,0.4,79.2,-44.92,-0.57,-10.21,44.6
+19,best ai image tools,best-ai-image-tools,33.52,26.3,0.0487,33.52,2.5,1.5,0.4,79.2,-45.68,-0.58,-10.38,44.5
+20,best ai meeting tools,best-ai-meeting-tools,33.52,26.3,0.0487,33.52,2.5,1.5,0.4,79.2,-45.68,-0.58,-10.38,44.5
+21,The best AI coding tool isn't the one that writes the most code,the-best-ai-coding-tool-isn-t-the-one-that-writes-the-most-code,32.92,24.7,0.0497,32.92,2.5,1.5,0.4,79.2,-46.28,-0.58,-10.52,45.8
+22,Gradial Lands $65M Series C for Agentic Marketing Platform,gradial-lands-65m-series-c-for-agentic-marketing-platform,24.75,18.3,0.0508,24.75,1.5,1.5,0.4,61.2,-36.45,-0.6,-10.72,56.1
+23,I signed up for another SaaS,i-signed-up-for-another-saas,24.75,18.3,0.0508,24.75,1.5,1.5,0.4,61.2,-36.45,-0.6,-10.72,56.1
+24,affordable ai design platform,affordable-ai-design-platform,24.64,21.0,0.0478,24.64,1.5,1.5,0.4,61.2,-36.56,-0.6,-10.75,47.1
+25,affordable ai image platform,affordable-ai-image-platform,24.64,21.0,0.0478,24.64,1.5,1.5,0.4,61.2,-36.56,-0.6,-10.75,47.1
+26,affordable ai meeting platform,affordable-ai-meeting-platform,24.64,21.0,0.0478,24.64,1.5,1.5,0.4,61.2,-36.56,-0.6,-10.75,47.1
+27,affordable ai search platform,affordable-ai-search-platform,24.64,21.0,0.0478,24.64,1.5,1.5,0.4,61.2,-36.56,-0.6,-10.75,47.1
+28,affordable ai voice platform,affordable-ai-voice-platform,24.64,21.0,0.0478,24.64,1.5,1.5,0.4,61.2,-36.56,-0.6,-10.75,47.1
+29,"CMO Vision: AI Is Rewiring How Marketing Is Understood, Shaped And Scaled",cmo-vision-ai-is-rewiring-how-marketing-is-understood-shaped-and-scaled,21.58,19.7,0.0462,21.58,1.5,1.5,0.4,61.2,-39.62,-0.65,-11.65,49.6
+30,Is SaaS dead?,is-saas-dead,21.25,17.7,0.0483,21.25,1.5,1.5,0.4,61.2,-39.95,-0.65,-11.75,52.3
+31,How AI is upending SaaS tools,how-ai-is-upending-saas-tools,21.18,15.2,0.0507,21.18,1.5,1.5,0.4,61.2,-40.02,-0.65,-11.77,51.7
+32,12 Best AI for Coding Tools in 2026 (Vibecoding & Data Science),12-best-ai-for-coding-tools-in-2026-vibecoding-data-science,27.02,21.2,0.0487,27.02,2.5,1.5,0.4,79.2,-52.18,-0.66,-11.86,44.0
+33,PayU Brings AI Coding And CLI Tools To Payment Developers,payu-brings-ai-coding-and-cli-tools-to-payment-developers,20.59,16.0,0.049,20.59,1.5,1.5,0.4,61.2,-40.61,-0.66,-11.94,44.3
+34,Tidal AI Policy,tidal-ai-policy,20.25,22.1,0.0428,20.25,1.5,1.5,0.4,61.2,-40.95,-0.67,-12.04,39.9
+35,Ornith-1.0: self-improving open-source models for agentic coding,ornith-1-0-self-improving-open-source-models-for-agentic-coding,19.7,21.5,0.0428,19.7,1.5,1.5,0.4,61.2,-41.5,-0.68,-12.21,32.3
+36,"Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue",impartner-redefines-partner-marketing-automation-with-full-automation-adtech-and-ai-to-drive-measurable-revenue,19.41,18.2,0.0457,19.41,1.5,1.5,0.4,61.2,-41.79,-0.68,-12.29,48.7
+37,Search Marketing’s Insight Gap: When Automation Replaces Understanding,search-marketing-s-insight-gap-when-automation-replaces-understanding,19.41,18.2,0.0457,19.41,1.5,1.5,0.4,61.2,-41.79,-0.68,-12.29,48.7
+38,The Future of Matrix Marketing: How AI and Environment Isolation are Replacing Legacy RPA,the-future-of-matrix-marketing-how-ai-and-environment-isolation-are-replacing-legacy-rpa,19.41,18.2,0.0457,19.41,1.5,1.5,0.4,61.2,-41.79,-0.68,-12.29,48.7
+39,Working With AI: A concrete example,working-with-ai-a-concrete-example,19.24,21.0,0.0428,19.24,1.5,1.5,0.4,61.2,-41.96,-0.69,-12.34,39.8
+40,"Most AI Models Would Run Your Company Into the Ground, Princeton’s CEO-Bench Finds",most-ai-models-would-run-your-company-into-the-ground-princeton-s-ceo-bench-finds,18.88,17.7,0.0457,18.88,1.5,1.5,0.4,61.2,-42.32,-0.69,-12.45,43.6
+41,"When An AI Agent Goes Rogue, Who Takes The Blame?",when-an-ai-agent-goes-rogue-who-takes-the-blame,18.88,17.7,0.0457,18.88,1.5,1.5,0.4,61.2,-42.32,-0.69,-12.45,43.6
+42,Ornith-1.0: Self-scaffolding LLMs for agentic coding,ornith-1-0-self-scaffolding-llms-for-agentic-coding,18.69,20.4,0.0428,18.69,1.5,1.5,0.4,61.2,-42.51,-0.69,-12.5,32.2
+43,Why Won't Europe Build AI Data Centers in Iceland?,why-won-t-europe-build-ai-data-centers-in-iceland,17.87,19.5,0.0428,17.87,1.5,1.5,0.4,61.2,-43.33,-0.71,-12.74,39.6
+44,AI-powered vibe coding is gaining ground in Nepal,ai-powered-vibe-coding-is-gaining-ground-in-nepal,17.86,17.1,0.0453,17.86,1.5,1.5,0.4,61.2,-43.34,-0.71,-12.75,42.9
+45,Agent Mode by Receiptor AI,agent-mode-by-receiptor-ai,17.34,16.6,0.0453,17.34,1.5,1.5,0.4,61.2,-43.86,-0.72,-12.9,42.8
+46,Import AI 447: The AGI economy; testing AIs with generated games; and agent ecologies,import-ai-447-the-agi-economy-testing-ais-with-generated-games-and-agent-ecologies,17.34,16.6,0.0453,17.34,1.5,1.5,0.4,61.2,-43.86,-0.72,-12.9,42.8
+47,The first big exit in AI,the-first-big-exit-in-ai,17.34,16.6,0.0453,17.34,1.5,1.5,0.4,61.2,-43.86,-0.72,-12.9,42.8
+48,Reco Launches Industry-First AI Agent Security to Tackle Agent Sprawl Across SaaS,reco-launches-industry-first-ai-agent-security-to-tackle-agent-sprawl-across-saas,16.66,19.8,0.0395,16.66,1.5,1.5,0.4,61.2,-44.54,-0.73,-13.1,40.7
+49,SaaS stocks are rallying on AI optimism. 3 stocks to buy now.,saas-stocks-are-rallying-on-ai-optimism-3-stocks-to-buy-now,16.12,17.7,0.0415,16.12,1.5,1.5,0.4,61.2,-45.08,-0.74,-13.26,43.1
+50,BetterCloud Unveils AI-Native Next Generation SaaS Management Platform to Help Enterprises Govern AI at Scale,bettercloud-unveils-ai-native-next-generation-saas-management-platform-to-help-enterprises-govern-ai-at-scale,15.96,18.3,0.0408,15.96,1.5,1.5,0.4,61.2,-45.24,-0.74,-13.31,42.1
+51,Filum.ai,filum-ai,15.67,15.0,0.0453,15.67,1.5,1.5,0.4,61.2,-45.53,-0.74,-13.39,39.8
+52,AI Is Automating Marketing Execution But Raising The Value Of Judgment,ai-is-automating-marketing-execution-but-raising-the-value-of-judgment,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,44.3
+53,AI Companies Will Become Profitable Eventually. Here's why.,ai-companies-will-become-profitable-eventually-here-s-why,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+54,Ford rehires veteran engineers after AI fails to meet quality standards,ford-rehires-veteran-engineers-after-ai-fails-to-meet-quality-standards,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+55,"Has AI changed the way you think, not just the way you work?",has-ai-changed-the-way-you-think-not-just-the-way-you-work,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+56,"My AI Predictions, Two Years Later: The Ones That Landed",my-ai-predictions-two-years-later-the-ones-that-landed,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+57,Palantir and Nvidia Expand Sovereign AI Partnership for US Government,palantir-and-nvidia-expand-sovereign-ai-partnership-for-us-government,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+58,What AI capability do you think is still surprisingly underdeveloped?,what-ai-capability-do-you-think-is-still-surprisingly-underdeveloped,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+59,What if AI's failures reveal our vices more than its limits?,what-if-ai-s-failures-reveal-our-vices-more-than-its-limits,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+60,Working on my first fully featured Ai companion with Vision for games and movies n all that!,working-on-my-first-fully-featured-ai-companion-with-vision-for-games-and-movies-n-all-that,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+61,AI Slide Editor by CubeOne,ai-slide-editor-by-cubeone,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+62,Tough Tongue AI for Sales,tough-tongue-ai-for-sales,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+63,"Hey Siri, meet AI",hey-siri-meet-ai,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+64,Import AI 445: Timing superintelligence; AIs solve frontier math proofs; a new ML research benchmark,import-ai-445-timing-superintelligence-ais-solve-frontier-math-proofs-a-new-ml-research-benchmark,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+65,Import AI 446: Nuclear LLMs; China's big AI benchmark; measurement and AI policy,import-ai-446-nuclear-llms-china-s-big-ai-benchmark-measurement-and-ai-policy,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+66,Import AI 450: China's electronic warfare model; traumatized LLMs; and a scaling law for cyberattacks,import-ai-450-china-s-electronic-warfare-model-traumatized-llms-and-a-scaling-law-for-cyberattacks,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+67,"Import AI 451: Political superintelligence; Google's society of minds, and a robot drummer",import-ai-451-political-superintelligence-google-s-society-of-minds-and-a-robot-drummer,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+68,Import AI 454: Automating alignment research; safety study of a Chinese model; HiFloat4,import-ai-454-automating-alignment-research-safety-study-of-a-chinese-model-hifloat4,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+69,Import AI 456: RSI and economic growth; radical optionality for AI regulation; and a neural computer,import-ai-456-rsi-and-economic-growth-radical-optionality-for-ai-regulation-and-a-neural-computer,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+70,Import AI 457: AI stuxnet; cursed Muon optimizer; and positive alignment,import-ai-457-ai-stuxnet-cursed-muon-optimizer-and-positive-alignment,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+71,Import AI 458: Reckoning with the future; and a singularity story,import-ai-458-reckoning-with-the-future-and-a-singularity-story,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+72,"Import AI 460: Reward hacking society, RSI data from Anthropic; and RL-based quadcopter racing",import-ai-460-reward-hacking-society-rsi-data-from-anthropic-and-rl-based-quadcopter-racing,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+73,"Import AI 461: ""Alignment is not on track""; FrontierCode; and synthetic research interns",import-ai-461-alignment-is-not-on-track-frontiercode-and-synthetic-research-interns,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+74,Import AI 462: Superpersuasion; self-sustaining AI; paths to ASI,import-ai-462-superpersuasion-self-sustaining-ai-paths-to-asi,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+75,Import AI 463: Self-improving robots; a 10k Chinese GPU cluster; and an elegiac essay for the human era,import-ai-463-self-improving-robots-a-10k-chinese-gpu-cluster-and-an-elegiac-essay-for-the-human-era,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+76,ImportAI 449: LLMs training other LLMs; 72B distributed training run; computer vision is harder than generative text,importai-449-llms-training-other-llms-72b-distributed-training-run-computer-vision-is-harder-than-generative-text,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,39.3
+77,A language model that runs on 5$ chip,a-language-model-that-runs-on-5-chip,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,31.8
+78,I built a benchmark for multi-turn prompt injection attacks. Most defenses never see them coming.,i-built-a-benchmark-for-multi-turn-prompt-injection-attacks-most-defenses-never-see-them-coming,15.03,16.4,0.0428,15.03,1.5,1.5,0.4,61.2,-46.17,-0.75,-13.58,31.8
+79,Shopify launches AI-powered marketing automation tool,shopify-launches-ai-powered-marketing-automation-tool,14.71,18.4,0.0386,14.71,1.5,1.5,0.4,61.2,-46.49,-0.76,-13.67,39.2
+80,Folio AI,folio-ai,13.29,14.5,0.0428,13.29,1.5,1.5,0.4,61.2,-47.91,-0.78,-14.09,36.3
+81,Oxlo.ai,oxlo-ai,13.29,14.5,0.0428,13.29,1.5,1.5,0.4,61.2,-47.91,-0.78,-14.09,36.3
+82,discode.ai,discode-ai,13.29,14.5,0.0428,13.29,1.5,1.5,0.4,61.2,-47.91,-0.78,-14.09,36.3
+83,ImageKit Launches Creative Automation with AI Assist to Help Teams Generate On-Brand Visuals at Scale,imagekit-launches-creative-automation-with-ai-assist-to-help-teams-generate-on-brand-visuals-at-scale,12.72,18.4,0.036,12.72,1.5,1.5,0.4,61.2,-48.48,-0.79,-14.26,35.6
+84,Asian AI startups launch Mythos-like models as Anthropic's export ban drags on,asian-ai-startups-launch-mythos-like-models-as-anthropic-s-export-ban-drags-on,8.69,16.4,0.0328,8.69,1.5,0.5,0.4,43.2,-34.51,-0.8,-14.38,25.9

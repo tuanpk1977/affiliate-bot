@@ -2,7 +2,7 @@
 
 - Platform: LinkedIn
 - Status: Pending Review
-- Suggested time: 2026-06-02 09:00
+- Suggested time: 2026-06-06 09:00
 - Target URL: https://smileaireviewhub.com/review/semrush/?utm_source=linkedin
 
 ## Copy

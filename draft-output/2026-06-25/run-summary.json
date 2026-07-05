@@ -1,0 +1,19 @@
+{
+  "run_date": "2026-06-25",
+  "output_root": "D:\\AFFILATE BOT\\draft-output\\2026-06-25",
+  "candidates": 104,
+  "selected": 1,
+  "rejected": 104,
+  "generated": 1,
+  "topics": [
+    "affordable-automation-platform"
+  ],
+  "safety": {
+    "published": false,
+    "deployed": false,
+    "youtube_uploaded": false,
+    "social_posted": false,
+    "indexnow_submitted": false
+  },
+  "force_one_test": true
+}

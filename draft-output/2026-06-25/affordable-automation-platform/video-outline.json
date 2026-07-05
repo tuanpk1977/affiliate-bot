@@ -1,0 +1,32 @@
+{
+  "topic": "Affordable Automation Platform",
+  "style": "draft review video",
+  "duration_seconds": 45,
+  "scenes": [
+    {
+      "title": "Intro",
+      "visual": "brand title card",
+      "voiceover": "Researching Affordable Automation Platform? Start with workflow fit."
+    },
+    {
+      "title": "Feature checklist",
+      "visual": "checklist slide",
+      "voiceover": "Check features, integrations, pricing limits, and support."
+    },
+    {
+      "title": "Pricing",
+      "visual": "pricing verification card",
+      "voiceover": "Verify current pricing on the official website."
+    },
+    {
+      "title": "Pros and cons",
+      "visual": "two-column table",
+      "voiceover": "Compare upside, limits, and switching risk."
+    },
+    {
+      "title": "Verdict",
+      "visual": "CTA card",
+      "voiceover": "Read the full review on Smile AI Review Hub."
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+[
+  {
+    "cluster": "AI Automation",
+    "total_articles": 26,
+    "published_articles": 0,
+    "missing_articles": 3,
+    "authority_score": 100,
+    "recommended_next_articles": "AI Automation Tutorial 2026; AI Automation Faq 2026; AI Automation Video Review 2026",
+    "internal_link_gaps": 0
+  },
+  {
+    "cluster": "AI Coding",
+    "total_articles": 27,
+    "published_articles": 0,
+    "missing_articles": 4,
+    "authority_score": 100,
+    "recommended_next_articles": "AI Coding Alternatives 2026; AI Coding Tutorial 2026; AI Coding Faq 2026; AI Coding Video Review 2026",
+    "internal_link_gaps": 0
+  },
+  {
+    "cluster": "AI Image",
+    "total_articles": 17,
+    "published_articles": 0,
+    "missing_articles": 4,
+    "authority_score": 68.0,
+    "recommended_next_articles": "AI Image Alternatives 2026; AI Image Tutorial 2026; AI Image Faq 2026; AI Image Video Review 2026",
+    "internal_link_gaps": 32.0
+  },
+  {
+    "cluster": "AI Productivity",
+    "total_articles": 17,
+    "published_articles": 0,
+    "missing_articles": 5,
+    "authority_score": 68.0,
+    "recommended_next_articles": "AI Productivity Pricing 2026; AI Productivity Alternatives 2026; AI Productivity Tutorial 2026; AI Productivity Faq 2026; AI Productivity Video Review 2026",
+    "internal_link_gaps": 32.0
+  },
+  {
+    "cluster": "AI SEO",
+    "total_articles": 23,
+    "published_articles": 0,
+    "missing_articles": 3,
+    "authority_score": 92.0,
+    "recommended_next_articles": "AI SEO Tutorial 2026; AI SEO Faq 2026; AI SEO Video Review 2026",
+    "internal_link_gaps": 8.0
+  },
+  {
+    "cluster": "AI Search",
+    "total_articles": 14,
+    "published_articles": 0,
+    "missing_articles": 5,
+    "authority_score": 56.0,
+    "recommended_next_articles": "AI Search Pricing 2026; AI Search Alternatives 2026; AI Search Tutorial 2026; AI Search Faq 2026; AI Search Video Review 2026",
+    "internal_link_gaps": 44.0
+  },
+  {
+    "cluster": "AI Video",
+    "total_articles": 11,
+    "published_articles": 0,
+    "missing_articles": 4,
+    "authority_score": 44.0,
+    "recommended_next_articles": "AI Video Alternatives 2026; AI Video Tutorial 2026; AI Video Faq 2026; AI Video Video Review 2026",
+    "internal_link_gaps": 56.0
+  },
+  {
+    "cluster": "AI Writing",
+    "total_articles": 16,
+    "published_articles": 0,
+    "missing_articles": 4,
+    "authority_score": 64.0,
+    "recommended_next_articles": "AI Writing Alternatives 2026; AI Writing Tutorial 2026; AI Writing Faq 2026; AI Writing Video Review 2026",
+    "internal_link_gaps": 36.0
+  },
+  {
+    "cluster": "Comparisons",
+    "total_articles": 3,
+    "published_articles": 0,
+    "missing_articles": 5,
+    "authority_score": 12.0,
+    "recommended_next_articles": "Comparisons Review 2026; Comparisons Pricing 2026; Comparisons Alternatives 2026; Comparisons Tutorial 2026; Comparisons Faq 2026",
+    "internal_link_gaps": 88.0
+  },
+  {
+    "cluster": "Reviews",
+    "total_articles": 55,
+    "published_articles": 0,
+    "missing_articles": 5,
+    "authority_score": 100,
+    "recommended_next_articles": "Reviews Pricing 2026; Reviews Alternatives 2026; Reviews Comparison 2026; Reviews Faq 2026; Reviews Video Review 2026",
+    "internal_link_gaps": 0
+  },
+  {
+    "cluster": "SaaS Reviews",
+    "total_articles": 65,
+    "published_articles": 0,
+    "missing_articles": 5,
+    "authority_score": 100,
+    "recommended_next_articles": "SaaS Reviews Review 2026; SaaS Reviews Alternatives 2026; SaaS Reviews Comparison 2026; SaaS Reviews Tutorial 2026; SaaS Reviews Faq 2026",
+    "internal_link_gaps": 0
+  }
+]

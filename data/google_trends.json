@@ -1,0 +1,74 @@
+[
+  {
+    "date": "2026-06-18",
+    "keyword": "AI coding agents",
+    "growth": 50,
+    "country": "US",
+    "category": "Programming",
+    "trend_score": 50.0,
+    "source": "google_trends_manual_or_seed"
+  },
+  {
+    "date": "2026-06-18",
+    "keyword": "AI website builder",
+    "growth": 54,
+    "country": "US",
+    "category": "SaaS",
+    "trend_score": 54.0,
+    "source": "google_trends_manual_or_seed"
+  },
+  {
+    "date": "2026-06-18",
+    "keyword": "AI SEO software",
+    "growth": 58,
+    "country": "US",
+    "category": "Marketing",
+    "trend_score": 58.0,
+    "source": "google_trends_manual_or_seed"
+  },
+  {
+    "date": "2026-06-18",
+    "keyword": "AI video software",
+    "growth": 62,
+    "country": "US",
+    "category": "Marketing",
+    "trend_score": 62.0,
+    "source": "google_trends_manual_or_seed"
+  },
+  {
+    "date": "2026-06-18",
+    "keyword": "AI productivity tools",
+    "growth": 66,
+    "country": "US",
+    "category": "Productivity",
+    "trend_score": 66.0,
+    "source": "google_trends_manual_or_seed"
+  },
+  {
+    "date": "2026-06-18",
+    "keyword": "AI agents for business",
+    "growth": 70,
+    "country": "US",
+    "category": "SaaS",
+    "trend_score": 70.0,
+    "source": "google_trends_manual_or_seed"
+  },
+  {
+    "date": "2026-06-18",
+    "keyword": "marketing automation AI",
+    "growth": 74,
+    "country": "US",
+    "category": "Marketing",
+    "trend_score": 74.0,
+    "source": "google_trends_manual_or_seed"
+  },
+  {
+    "date": "2026-06-18",
+    "keyword": "AI education tools",
+    "growth": 78,
+    "country": "US",
+    "category": "Education",
+    "trend_score": 78.0,
+    "source": "google_trends_manual_or_seed"
+  }
+]

@@ -108,29 +108,30 @@ def discover_pages(output: Path) -> list[PageInfo]:
 
 
 def classify(url: str, slug: str) -> str:
-    if url == "/":
+    localized = url[3:] if url.startswith("/vi/") else url
+    if localized == "/":
         return "home"
-    if url.startswith("/go/"):
+    if localized.startswith("/go/"):
         return "tracking"
-    if url.startswith("/review/"):
+    if (localized.startswith("/review/") or localized.startswith("/reviews/")) and localized not in {"/review/", "/reviews/"}:
         return "review"
-    if url.startswith("/compare/"):
+    if localized.startswith("/compare/"):
         return "comparison"
-    if url.startswith("/comparisons/") and slug != "comparisons":
+    if localized.startswith("/comparisons/") and slug != "comparisons":
         return "comparison"
-    if url.startswith("/blog/") and slug != "blog":
+    if localized.startswith("/blog/") and slug != "blog":
         return "blog"
-    if url.startswith("/hub/"):
+    if localized.startswith("/hub/"):
         return "hub"
     if slug == "hubs":
         return "hub_index"
-    if url.startswith("/pricing/"):
+    if localized.startswith("/pricing/"):
         return "pricing"
     if slug.endswith("-pricing"):
         return "pricing"
     if slug.startswith("best-"):
         return "toplist"
-    if url.startswith("/category/"):
+    if localized.startswith("/category/"):
         return "category"
     static = {
         "reviews",
@@ -206,7 +207,8 @@ def related_for_page(page: PageInfo, pages: list[PageInfo]) -> dict[str, list[Pa
 
 def rank(page: PageInfo, candidates: list[PageInfo], kinds: set[str], limit: int) -> list[PageInfo]:
     scored = []
-    for item in candidates:
+    same_language = [item for item in candidates if item.url.startswith("/vi/") == page.url.startswith("/vi/")]
+    for item in same_language:
         if item.kind not in kinds:
             continue
         score = len(page.tokens & item.tokens) * 4 + len(page.categories & item.categories) * 3
@@ -219,26 +221,41 @@ def rank(page: PageInfo, candidates: list[PageInfo], kinds: set[str], limit: int
         if score > 0:
             scored.append((score, item.title, item))
     scored.sort(key=lambda row: (-row[0], row[1]))
-    return [item for _, _, item in scored[:limit]]
+    ranked = [item for _, _, item in scored[:limit]]
+    if len(ranked) < limit:
+        ranked_urls = {item.url for item in ranked}
+        fallback = sorted(
+            (item for item in same_language if item.kind in kinds and item.url not in ranked_urls),
+            key=lambda item: item.title,
+        )
+        ranked.extend(fallback[: limit - len(ranked)])
+    return ranked
 
 
 def related_block(page: PageInfo, groups: dict[str, list[PageInfo]]) -> str:
     sections = []
     seen: set[str] = {page.url}
+    total_links = 0
+    max_links = 6
     for label, items in groups.items():
+        if total_links >= max_links:
+            break
         links = []
         for item in items:
+            if total_links >= max_links:
+                break
             if item.url in seen:
                 continue
             seen.add(item.url)
             title = html.escape(clean_title(item.title))
             description = html.escape(related_description(item))
             links.append(f"<article class='related-research-card'><h4>{title}</h4><p>{description}</p><a href='{html.escape(item.url)}'>Open guide</a></article>")
+            total_links += 1
         if links:
             sections.append(f"<div class='related-card-section'><h3>{html.escape(label)}</h3><div class='related-card-grid'>{''.join(links)}</div></div>")
     if not sections:
         return ""
-    return "\n<section class='card internal-links related-research' data-auto-internal-links='1'><h2>Related research</h2>" + "".join(sections) + "</section>\n"
+    return "\n<section class='card internal-links related-research' data-auto-internal-links='1'><h2>Related Articles</h2>" + "".join(sections) + "</section>\n"
 
 
 def related_description(item: PageInfo) -> str:

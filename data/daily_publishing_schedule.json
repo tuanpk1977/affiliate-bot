@@ -1,0 +1,407 @@
+[
+  {
+    "date": "2026-06-30",
+    "topic": "Comparisons Review 2026",
+    "slug": "comparisons-review-2026",
+    "article_type": "review",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-06-30",
+    "topic": "Comparisons Pricing 2026",
+    "slug": "comparisons-pricing-2026",
+    "article_type": "pricing",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-01",
+    "topic": "AI Coding Tutorial 2026",
+    "slug": "ai-coding-tutorial-2026",
+    "article_type": "tutorial",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-01",
+    "topic": "AI Coding Alternatives 2026",
+    "slug": "ai-coding-alternatives-2026",
+    "article_type": "alternatives",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-02",
+    "topic": "AI Coding Faq 2026",
+    "slug": "ai-coding-faq-2026",
+    "article_type": "faq",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-02",
+    "topic": "SaaS Reviews Alternatives 2026",
+    "slug": "saas-reviews-alternatives-2026",
+    "article_type": "alternatives",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-03",
+    "topic": "AI Coding Video Review 2026",
+    "slug": "ai-coding-video-2026",
+    "article_type": "video",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-03",
+    "topic": "SaaS Reviews Comparison 2026",
+    "slug": "saas-reviews-comparison-2026",
+    "article_type": "comparison",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-04",
+    "topic": "SaaS Reviews Review 2026",
+    "slug": "saas-reviews-review-2026",
+    "article_type": "review",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-04",
+    "topic": "AI Image Alternatives 2026",
+    "slug": "ai-image-alternatives-2026",
+    "article_type": "alternatives",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-05",
+    "topic": "SaaS Reviews Tutorial 2026",
+    "slug": "saas-reviews-tutorial-2026",
+    "article_type": "tutorial",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-05",
+    "topic": "AI Productivity Pricing 2026",
+    "slug": "ai-productivity-pricing-2026",
+    "article_type": "pricing",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-06",
+    "topic": "SaaS Reviews Faq 2026",
+    "slug": "saas-reviews-faq-2026",
+    "article_type": "faq",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-06",
+    "topic": "AI Productivity Alternatives 2026",
+    "slug": "ai-productivity-alternatives-2026",
+    "article_type": "alternatives",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-07",
+    "topic": "SaaS Reviews Video Review 2026",
+    "slug": "saas-reviews-video-2026",
+    "article_type": "video",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-07",
+    "topic": "AI Search Pricing 2026",
+    "slug": "ai-search-pricing-2026",
+    "article_type": "pricing",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-08",
+    "topic": "AI Image Tutorial 2026",
+    "slug": "ai-image-tutorial-2026",
+    "article_type": "tutorial",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-08",
+    "topic": "AI Search Alternatives 2026",
+    "slug": "ai-search-alternatives-2026",
+    "article_type": "alternatives",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-09",
+    "topic": "AI Image Faq 2026",
+    "slug": "ai-image-faq-2026",
+    "article_type": "faq",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-09",
+    "topic": "AI Video Alternatives 2026",
+    "slug": "ai-video-alternatives-2026",
+    "article_type": "alternatives",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-10",
+    "topic": "AI Image Video Review 2026",
+    "slug": "ai-image-video-2026",
+    "article_type": "video",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-10",
+    "topic": "AI Writing Alternatives 2026",
+    "slug": "ai-writing-alternatives-2026",
+    "article_type": "alternatives",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-11",
+    "topic": "AI Productivity Tutorial 2026",
+    "slug": "ai-productivity-tutorial-2026",
+    "article_type": "tutorial",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-11",
+    "topic": "Reviews Pricing 2026",
+    "slug": "reviews-pricing-2026",
+    "article_type": "pricing",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-12",
+    "topic": "AI Productivity Faq 2026",
+    "slug": "ai-productivity-faq-2026",
+    "article_type": "faq",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-12",
+    "topic": "Reviews Alternatives 2026",
+    "slug": "reviews-alternatives-2026",
+    "article_type": "alternatives",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-13",
+    "topic": "AI Productivity Video Review 2026",
+    "slug": "ai-productivity-video-2026",
+    "article_type": "video",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-13",
+    "topic": "Reviews Comparison 2026",
+    "slug": "reviews-comparison-2026",
+    "article_type": "comparison",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-14",
+    "topic": "AI Search Tutorial 2026",
+    "slug": "ai-search-tutorial-2026",
+    "article_type": "tutorial",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-14",
+    "topic": "Comparisons Alternatives 2026",
+    "slug": "comparisons-alternatives-2026",
+    "article_type": "alternatives",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-15",
+    "topic": "AI Search Faq 2026",
+    "slug": "ai-search-faq-2026",
+    "article_type": "faq",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-16",
+    "topic": "AI Search Video Review 2026",
+    "slug": "ai-search-video-2026",
+    "article_type": "video",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-17",
+    "topic": "AI Video Tutorial 2026",
+    "slug": "ai-video-tutorial-2026",
+    "article_type": "tutorial",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-18",
+    "topic": "AI Video Faq 2026",
+    "slug": "ai-video-faq-2026",
+    "article_type": "faq",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-19",
+    "topic": "AI Video Video Review 2026",
+    "slug": "ai-video-video-2026",
+    "article_type": "video",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-20",
+    "topic": "AI Writing Tutorial 2026",
+    "slug": "ai-writing-tutorial-2026",
+    "article_type": "tutorial",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-21",
+    "topic": "AI Writing Faq 2026",
+    "slug": "ai-writing-faq-2026",
+    "article_type": "faq",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-22",
+    "topic": "AI Writing Video Review 2026",
+    "slug": "ai-writing-video-2026",
+    "article_type": "video",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-23",
+    "topic": "AI Automation Tutorial 2026",
+    "slug": "ai-automation-tutorial-2026",
+    "article_type": "tutorial",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-24",
+    "topic": "AI Automation Faq 2026",
+    "slug": "ai-automation-faq-2026",
+    "article_type": "faq",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-25",
+    "topic": "AI Automation Video Review 2026",
+    "slug": "ai-automation-video-2026",
+    "article_type": "video",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-26",
+    "topic": "AI SEO Tutorial 2026",
+    "slug": "ai-seo-tutorial-2026",
+    "article_type": "tutorial",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-27",
+    "topic": "AI SEO Faq 2026",
+    "slug": "ai-seo-faq-2026",
+    "article_type": "faq",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-28",
+    "topic": "AI SEO Video Review 2026",
+    "slug": "ai-seo-video-2026",
+    "article_type": "video",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  },
+  {
+    "date": "2026-07-29",
+    "topic": "Reviews Faq 2026",
+    "slug": "reviews-faq-2026",
+    "article_type": "faq",
+    "priority": "P4",
+    "estimated_value": "",
+    "estimated_revenue_score": ""
+  }
+]

@@ -1,11 +1,15 @@
 ﻿keyword,topic_cluster,intent,page_url,current_page_exists,competition_level,content_gap,social_angle,priority_score,next_action
 cursor vs codex,AI coding tools,comparison,,false,low,missing_page,comparison debate / practical tradeoff,75,build_comparison_page
 cursor vs copilot debugging speed,AI coding tools,comparison,,false,low,missing_page,comparison debate / practical tradeoff,75,build_comparison_page
+ai app builder tool reviews,general,review,,false,low,missing_page,practical review / use case,68,build_review_page
+ai assistant tool reviews,general,review,,false,low,missing_page,practical review / use case,68,build_review_page
 ai coding tool reviews,AI coding tools,review,,false,low,missing_page,practical review / use case,68,build_review_page
 ai design software review,general,review,,false,low,missing_page,practical review / use case,68,build_review_page
 ai design tool reviews,general,review,,false,low,missing_page,practical review / use case,68,build_review_page
+ai image tool reviews,general,review,,false,low,missing_page,practical review / use case,68,build_review_page
 ai meeting tool reviews,general,review,,false,low,missing_page,practical review / use case,68,build_review_page
 ai productivity tool reviews,general,review,,false,low,missing_page,practical review / use case,68,build_review_page
+ai search tool reviews,general,review,,false,low,missing_page,practical review / use case,68,build_review_page
 ai seo tool reviews,AI SEO tools,review,,false,low,missing_page,practical review / use case,68,build_review_page
 ai video software review,general,review,,false,low,missing_page,practical review / use case,68,build_review_page
 ai video tool reviews,general,review,,false,low,missing_page,practical review / use case,68,build_review_page
@@ -13,14 +17,18 @@ ai voice tool reviews,general,review,,false,low,missing_page,practical review / 
 ai writing software review,AI writing tools,review,,false,low,missing_page,practical review / use case,68,build_review_page
 ai writing tool reviews,AI writing tools,review,,false,low,missing_page,practical review / use case,68,build_review_page
 automation tool reviews,AI automation tools,review,,false,low,missing_page,practical review / use case,68,build_review_page
+cloud development tool reviews,general,review,,false,low,missing_page,practical review / use case,68,build_review_page
 crm software review,general,review,,false,low,missing_page,practical review / use case,68,build_review_page
 crm tool reviews,general,review,,false,low,missing_page,practical review / use case,68,build_review_page
 marketing tool reviews,general,review,,false,low,missing_page,practical review / use case,68,build_review_page
 productivity tool reviews,general,review,,false,low,missing_page,practical review / use case,68,build_review_page
+ai assistant software comparison,general,comparison,,false,low,missing_page,comparison debate / practical tradeoff,65,build_comparison_page
 ai coding software comparison,AI coding tools,comparison,,false,low,missing_page,comparison debate / practical tradeoff,65,build_comparison_page
 ai design software comparison,general,comparison,,false,low,missing_page,comparison debate / practical tradeoff,65,build_comparison_page
+ai image software comparison,general,comparison,,false,low,missing_page,comparison debate / practical tradeoff,65,build_comparison_page
 ai meeting software comparison,general,comparison,,false,low,missing_page,comparison debate / practical tradeoff,65,build_comparison_page
 ai productivity software comparison,general,comparison,,false,low,missing_page,comparison debate / practical tradeoff,65,build_comparison_page
+ai search software comparison,general,comparison,,false,low,missing_page,comparison debate / practical tradeoff,65,build_comparison_page
 ai seo software comparison,AI SEO tools,comparison,,false,low,missing_page,comparison debate / practical tradeoff,65,build_comparison_page
 ai video software comparison,general,comparison,,false,low,missing_page,comparison debate / practical tradeoff,65,build_comparison_page
 ai voice software comparison,general,comparison,,false,low,missing_page,comparison debate / practical tradeoff,65,build_comparison_page
@@ -30,12 +38,17 @@ crm software comparison,general,comparison,,false,low,missing_page,comparison de
 marketing software comparison,general,comparison,,false,low,missing_page,comparison debate / practical tradeoff,65,build_comparison_page
 productivity software comparison,general,comparison,,false,low,missing_page,comparison debate / practical tradeoff,65,build_comparison_page
 coupon code,general,review,,false,medium,missing_page,practical review / use case,62,build_review_page
+best ai assistant software,general,best_tools,,false,medium,missing_page,shortlist / decision guide,61,build_best_tools_page
+best ai assistant tools,general,best_tools,,false,medium,missing_page,shortlist / decision guide,61,build_best_tools_page
 best ai coding software,AI coding tools,best_tools,,false,medium,missing_page,shortlist / decision guide,61,build_best_tools_page
 best ai design software,general,best_tools,,false,medium,missing_page,shortlist / decision guide,61,build_best_tools_page
+best ai image software,general,best_tools,,false,medium,missing_page,shortlist / decision guide,61,build_best_tools_page
+best ai image tools,general,best_tools,,false,medium,missing_page,shortlist / decision guide,61,build_best_tools_page
 best ai meeting software,general,best_tools,,false,medium,missing_page,shortlist / decision guide,61,build_best_tools_page
 best ai meeting tools,general,best_tools,,false,medium,missing_page,shortlist / decision guide,61,build_best_tools_page
 best ai productivity software,general,best_tools,,false,medium,missing_page,shortlist / decision guide,61,build_best_tools_page
 best ai productivity tools,general,best_tools,,false,medium,missing_page,shortlist / decision guide,61,build_best_tools_page
+best ai search software,general,best_tools,,false,medium,missing_page,shortlist / decision guide,61,build_best_tools_page
 best ai seo software,AI SEO tools,best_tools,,false,medium,missing_page,shortlist / decision guide,61,build_best_tools_page
 best ai video software,general,best_tools,,false,medium,missing_page,shortlist / decision guide,61,build_best_tools_page
 best ai voice software,general,best_tools,,false,medium,missing_page,shortlist / decision guide,61,build_best_tools_page
@@ -46,40 +59,53 @@ best crm software,general,best_tools,,false,medium,missing_page,shortlist / deci
 best marketing software,general,best_tools,,false,medium,missing_page,shortlist / decision guide,61,build_best_tools_page
 best productivity software,general,best_tools,,false,medium,missing_page,shortlist / decision guide,61,build_best_tools_page
 best productivity tools,general,best_tools,,false,medium,missing_page,shortlist / decision guide,61,build_best_tools_page
+affordable ai app builder platform,general,review,,false,low,missing_page,practical review / use case,59,monitor
+affordable ai assistant platform,general,review,,false,low,missing_page,practical review / use case,59,monitor
 affordable ai coding platform,AI coding tools,review,,false,low,missing_page,practical review / use case,59,monitor
 affordable ai design platform,general,review,,false,low,missing_page,practical review / use case,59,monitor
+affordable ai image platform,general,review,,false,low,missing_page,practical review / use case,59,monitor
 affordable ai meeting platform,general,review,,false,low,missing_page,practical review / use case,59,monitor
 affordable ai productivity platform,general,review,,false,low,missing_page,practical review / use case,59,monitor
+affordable ai search platform,general,review,,false,low,missing_page,practical review / use case,59,monitor
 affordable ai seo platform,AI SEO tools,review,,false,low,missing_page,practical review / use case,59,monitor
 affordable ai video platform,general,review,,false,low,missing_page,practical review / use case,59,monitor
 affordable ai voice platform,general,review,,false,low,missing_page,practical review / use case,59,monitor
 affordable ai writing platform,AI writing tools,review,,false,low,missing_page,practical review / use case,59,monitor
 affordable automation platform,AI automation tools,review,,false,low,missing_page,practical review / use case,59,monitor
+affordable cloud development platform,general,review,,false,low,missing_page,practical review / use case,59,monitor
 affordable crm platform,general,review,,false,low,missing_page,practical review / use case,59,monitor
 affordable marketing platform,general,review,,false,low,missing_page,practical review / use case,59,monitor
 affordable productivity platform,general,review,,false,low,missing_page,practical review / use case,59,monitor
 affordable website builder platform,general,review,,false,low,missing_page,practical review / use case,59,monitor
 cursor for builders,AI coding tools,review,,false,low,missing_page,practical review / use case,59,monitor
 cursor hay copilot,AI coding tools,review,,false,low,missing_page,practical review / use case,59,monitor
+how to automate ai app builder,general,tutorial,,false,low,missing_page,practical review / use case,59,monitor
+how to automate ai assistant,general,tutorial,,false,low,missing_page,practical review / use case,59,monitor
 how to automate ai coding,AI coding tools,tutorial,,false,low,missing_page,practical review / use case,59,monitor
 how to automate ai design,general,tutorial,,false,low,missing_page,practical review / use case,59,monitor
+how to automate ai image,general,tutorial,,false,low,missing_page,practical review / use case,59,monitor
 how to automate ai meeting,general,tutorial,,false,low,missing_page,practical review / use case,59,monitor
 how to automate ai productivity,general,tutorial,,false,low,missing_page,practical review / use case,59,monitor
+how to automate ai search,general,tutorial,,false,low,missing_page,practical review / use case,59,monitor
 how to automate ai seo,AI SEO tools,tutorial,,false,low,missing_page,practical review / use case,59,monitor
 how to automate ai video,general,tutorial,,false,low,missing_page,practical review / use case,59,monitor
 how to automate ai voice,general,tutorial,,false,low,missing_page,practical review / use case,59,monitor
 how to automate ai writing,AI writing tools,tutorial,,false,low,missing_page,practical review / use case,59,monitor
 how to automate automation,AI automation tools,tutorial,,false,low,missing_page,practical review / use case,59,monitor
+how to automate cloud development,general,tutorial,,false,low,missing_page,practical review / use case,59,monitor
 how to automate crm,general,tutorial,,false,low,missing_page,practical review / use case,59,monitor
 how to automate email marketing,general,tutorial,,false,low,missing_page,practical review / use case,59,monitor
 how to automate marketing,general,tutorial,,false,low,missing_page,practical review / use case,59,monitor
 how to automate productivity,general,tutorial,,false,low,missing_page,practical review / use case,59,monitor
 how to automate website builder,general,tutorial,,false,low,missing_page,practical review / use case,59,monitor
 my actual ai coding workflow in,AI coding tools,tutorial,,false,low,missing_page,builder workflow / failure case,59,monitor
+solve ai assistant workflow,AI automation tools,tutorial,,false,low,missing_page,builder workflow / failure case,59,monitor
 solve ai coding workflow,AI coding tools,tutorial,,false,low,missing_page,builder workflow / failure case,59,monitor
 solve ai design workflow,AI automation tools,tutorial,,false,low,missing_page,builder workflow / failure case,59,monitor
+solve ai image workflow,AI automation tools,tutorial,,false,low,missing_page,builder workflow / failure case,59,monitor
 solve ai meeting workflow,AI automation tools,tutorial,,false,low,missing_page,builder workflow / failure case,59,monitor
 solve ai productivity workflow,AI automation tools,tutorial,,false,low,missing_page,builder workflow / failure case,59,monitor
+solve ai search workflow,AI automation tools,tutorial,,false,low,missing_page,builder workflow / failure case,59,monitor
 solve ai seo workflow,AI SEO tools,tutorial,,false,low,missing_page,builder workflow / failure case,59,monitor
 solve ai video workflow,AI automation tools,tutorial,,false,low,missing_page,builder workflow / failure case,59,monitor
 solve ai voice workflow,AI automation tools,tutorial,,false,low,missing_page,builder workflow / failure case,59,monitor
@@ -99,8 +125,12 @@ semrush angle,AI SEO tools,review,,false,medium,missing_page,practical review / 
 torrent,general,review,,false,medium,missing_page,practical review / use case,57,monitor
 activecampaign for email marketing buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/activecampaign/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 adcreative ai for marketing buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/adcreative-ai/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
+ahrefs ai for ai seo buyers workflow fit checks and alternatives ms smile ai hub,AI SEO tools,alternative,/review/ahrefs-ai/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 ai writing tools need editors,AI writing tools,review,,false,medium,missing_page,practical review / use case,56,monitor
+bolt for ai app builder buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/bolt/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 canva for ai design buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/canva/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
+chatgpt for ai assistant buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/chatgpt/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
+claude for ai assistant buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/claude/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 copilot vs cursor,AI coding tools,comparison,/comparisons/copilot-vs-cursor/,true,low,thin_content,comparison debate / practical tradeoff,56,expand_content_depth
 copilot vs cursor enterprise assistant or ai first coding editor,AI coding tools,comparison,/comparisons/copilot-vs-cursor/,true,low,thin_content,comparison debate / practical tradeoff,56,expand_content_depth
 copy.ai for ai writing buyers workflow fit checks and alternatives ms smile ai hub,AI writing tools,alternative,/review/copy-ai/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
@@ -109,31 +139,43 @@ descript for ai video buyers workflow fit checks and alternatives ms smile ai hu
 durable for website builder buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/durable/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 elevenlabs for ai voice buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/elevenlabs/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 framer for website builder buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/framer/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
+frase for ai seo buyers workflow fit checks and alternatives ms smile ai hub,AI SEO tools,alternative,/review/frase/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 gamma for ai productivity buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/gamma/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
+gemini for ai assistant buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/gemini/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 github copilot for ai coding buyers workflow fit checks and alternatives ms smile ai hub,AI coding tools,alternative,/review/github-copilot/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 hubspot for crm buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/hubspot/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 jasper ai for ai writing buyers workflow fit checks and alternatives ms smile ai hub,AI writing tools,alternative,/review/jasper/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 jasper for ai writing buyers workflow fit checks and alternatives ms smile ai hub,AI writing tools,alternative,/review/jasper/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
+lovable for ai app builder buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/lovable/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 make for automation buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/make/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
+midjourney for ai image buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/midjourney/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 notion ai for ai productivity buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/notion/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 notion for productivity buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/notion/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
+perplexity for ai search buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/perplexity/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 pipedrive crm for crm buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/pipedrive/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 pipedrive for crm buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/pipedrive/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 reclaim ai for ai meeting buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/reclaim-ai/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
+replit for cloud development buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/replit/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 runway for ai video buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/runway/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
+semrush ai for ai seo buyers workflow fit checks and alternatives ms smile ai hub,AI SEO tools,alternative,/review/semrush/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 semrush for ai seo buyers workflow fit checks and alternatives ms smile ai hub,AI SEO tools,alternative,/review/semrush/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 surfer seo for ai seo buyers workflow fit checks and alternatives ms smile ai hub,AI SEO tools,alternative,/review/surfer-seo/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 synthesia for ai video buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/synthesia/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 webflow ai for website builder buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/webflow/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 webflow for website builder buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/webflow/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 why i stopped using only one ai coding tool,AI coding tools,review,,false,medium,missing_page,practical review / use case,56,monitor
+windsurf for ai coding buyers workflow fit checks and alternatives ms smile ai hub,AI coding tools,alternative,/review/windsurf/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 zapier for automation buyers workflow fit checks and alternatives ms smile ai hub,AI automation tools,alternative,/review/zapier/,true,low,thin_content,switching story / alternatives,56,expand_content_depth
 activecampaign vs mailchimp,comparisons,comparison,/compare/activecampaign-vs-mailchimp/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 activecampaign vs mailchimp which email marketing platforms should you choose,comparisons,comparison,/compare/activecampaign-vs-mailchimp/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
+best ai app builder alternatives for ms smile ai hub,alternatives,alternative,/ai-app-builder-alternatives/,true,low,thin_content,switching story / alternatives,53,expand_content_depth
+best ai assistant alternatives for ms smile ai hub,alternatives,alternative,/ai-assistant-alternatives/,true,low,thin_content,switching story / alternatives,53,expand_content_depth
 best ai coding alternatives for ms smile ai hub,AI coding tools,alternative,/ai-coding-alternatives/,true,low,thin_content,switching story / alternatives,53,expand_content_depth
 best ai design alternatives for ms smile ai hub,alternatives,alternative,/ai-design-alternatives/,true,low,thin_content,switching story / alternatives,53,expand_content_depth
+best ai image alternatives for ms smile ai hub,alternatives,alternative,/ai-image-alternatives/,true,low,thin_content,switching story / alternatives,53,expand_content_depth
 best ai meeting alternatives for ms smile ai hub,alternatives,alternative,/ai-meeting-alternatives/,true,low,thin_content,switching story / alternatives,53,expand_content_depth
 best ai productivity alternatives for ms smile ai hub,alternatives,alternative,/ai-productivity-alternatives/,true,low,thin_content,switching story / alternatives,53,expand_content_depth
+best ai search alternatives for ms smile ai hub,alternatives,alternative,/ai-search-alternatives/,true,low,thin_content,switching story / alternatives,53,expand_content_depth
 best ai seo alternatives for ms smile ai hub,AI SEO tools,alternative,/ai-seo-alternatives/,true,low,thin_content,switching story / alternatives,53,expand_content_depth
 best ai video alternatives for ms smile ai hub,alternatives,alternative,/ai-video-alternatives/,true,low,thin_content,switching story / alternatives,53,expand_content_depth
 best ai voice alternatives for ms smile ai hub,alternatives,alternative,/ai-voice-alternatives/,true,low,thin_content,switching story / alternatives,53,expand_content_depth
@@ -141,10 +183,9 @@ best ai writing alternatives for ms smile ai hub,AI writing tools,alternative,/a
 best alternatives to canva ai,alternatives,alternative,/blog/best-alternatives-to-canva-ai/,true,low,thin_content,switching story / alternatives,53,expand_content_depth
 best alternatives to canva ai ms smile ai hub,alternatives,alternative,/blog/best-alternatives-to-canva-ai/,true,low,thin_content,switching story / alternatives,53,expand_content_depth
 best automation alternatives for ms smile ai hub,AI automation tools,alternative,/automation-alternatives/,true,low,thin_content,switching story / alternatives,53,expand_content_depth
-best crm alternatives for ms smile ai hub,alternatives,alternative,/crm-alternatives/,true,low,thin_content,switching story / alternatives,53,expand_content_depth
+best cloud development alternatives for ms smile ai hub,alternatives,alternative,/cloud-development-alternatives/,true,low,thin_content,switching story / alternatives,53,expand_content_depth
 best email marketing alternatives for ms smile ai hub,alternatives,alternative,/email-marketing-alternatives/,true,low,thin_content,switching story / alternatives,53,expand_content_depth
 best marketing alternatives for ms smile ai hub,alternatives,alternative,/email-marketing-alternatives/,true,low,thin_content,switching story / alternatives,53,expand_content_depth
-best productivity alternatives for ms smile ai hub,alternatives,alternative,/ai-productivity-alternatives/,true,low,thin_content,switching story / alternatives,53,expand_content_depth
 best website builder alternatives for ms smile ai hub,alternatives,alternative,/website-builder-alternatives/,true,low,thin_content,switching story / alternatives,53,expand_content_depth
 canva vs adcreative ai,comparisons,comparison,/compare/canva-vs-adcreative-ai/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 canva vs adobe express,comparisons,comparison,/comparisons/canva-vs-adobe-express/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
@@ -153,7 +194,11 @@ canva vs gamma,comparisons,comparison,/comparisons/canva-vs-gamma/,true,low,thin
 chatgpt vs claude,comparisons,comparison,/comparisons/chatgpt-vs-claude/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 chatgpt vs claude which ai assistants should you choose,comparisons,comparison,/comparisons/chatgpt-vs-claude/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 chatgpt vs gemini,comparisons,comparison,/comparisons/chatgpt-vs-gemini/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
-chatgpt vs gemini ms smile ai hub,comparisons,comparison,/comparisons/chatgpt-vs-gemini/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
+chatgpt vs gemini which ai assistants should you choose,comparisons,comparison,/comparisons/chatgpt-vs-gemini/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
+chatgpt vs perplexity,comparisons,comparison,/comparisons/chatgpt-vs-perplexity/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
+claude vs gemini,comparisons,comparison,/comparisons/claude-vs-gemini/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
+claude vs gemini which ai assistants should you choose,comparisons,comparison,/comparisons/claude-vs-gemini/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
+claude vs perplexity,comparisons,comparison,/comparisons/claude-vs-perplexity/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 codex vs openclaw,AI coding tools,comparison,/comparisons/codex-vs-openclaw/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 codex vs openclaw which ai coding tool fits real development workflows,AI coding tools,comparison,/comparisons/codex-vs-openclaw/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 copilot vs codex,AI coding tools,comparison,/comparisons/copilot-vs-codex/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
@@ -165,7 +210,6 @@ cursor vs github copilot which tool should you choose in,AI coding tools,compari
 cursor vs vs code ms smile ai hub,AI coding tools,comparison,/comparisons/cursor-vs-vscode/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 cursor vs vscode,AI coding tools,comparison,/comparisons/cursor-vs-vscode/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 cursor vs windsurf,AI coding tools,comparison,/compare/cursor-vs-windsurf/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
-cursor vs windsurf which ai coding editor fits real development work,AI coding tools,comparison,/comparisons/cursor-vs-windsurf/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 cursor vs windsurf which ai coding editors should you choose,AI coding tools,comparison,/compare/cursor-vs-windsurf/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 elevenlabs vs murf,comparisons,comparison,/comparisons/elevenlabs-vs-murf/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 elevenlabs vs playht,comparisons,comparison,/comparisons/elevenlabs-vs-playht/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
@@ -173,7 +217,7 @@ elevenlabs vs playht ms smile ai hub,comparisons,comparison,/comparisons/elevenl
 framer vs webflow,comparisons,comparison,/comparisons/framer-vs-webflow/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 framer vs webflow ms smile ai hub,comparisons,comparison,/comparisons/framer-vs-webflow/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 gemini vs claude,comparisons,comparison,/comparisons/gemini-vs-claude/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
-gemini vs claude ms smile ai hub,comparisons,comparison,/comparisons/gemini-vs-claude/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
+gemini vs claude ms smile ai hub,comparisons,comparison,/comparisons/claude-vs-gemini/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 github copilot vs codeium,AI coding tools,comparison,/compare/github-copilot-vs-codeium/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 github copilot vs codeium which ai coding assistants should you choose,AI coding tools,comparison,/compare/github-copilot-vs-codeium/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 github copilot vs tabnine ms smile ai hub,AI coding tools,comparison,/comparisons/copilot-vs-tabnine/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
@@ -184,6 +228,8 @@ hubspot vs salesforce ms smile ai hub,comparisons,comparison,/comparisons/hubspo
 jasper vs copy ai,AI writing tools,comparison,/compare/jasper-vs-copy-ai/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 jasper vs copy.ai ms smile ai hub,AI writing tools,comparison,/compare/jasper-vs-copy-ai/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 jasper vs copyai,AI writing tools,comparison,/comparisons/jasper-vs-copyai/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
+lovable vs bolt,comparisons,comparison,/comparisons/lovable-vs-bolt/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
+lovable vs bolt which ai app builders should you choose,comparisons,comparison,/comparisons/lovable-vs-bolt/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 make vs zapier,AI automation tools,comparison,/compare/make-vs-zapier/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 make vs zapier which automation platforms should you choose,AI automation tools,comparison,/compare/make-vs-zapier/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 midjourney vs dall e ms smile ai hub,comparisons,comparison,/comparisons/midjourney-vs-dalle/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
@@ -194,10 +240,12 @@ notion ai vs clickup ai,comparisons,comparison,/comparisons/notion-ai-vs-clickup
 notion vs clickup,comparisons,comparison,/comparisons/notion-vs-clickup/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 notion vs clickup ms smile ai hub,comparisons,comparison,/comparisons/notion-ai-vs-clickup-ai/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 perplexity vs chatgpt,comparisons,comparison,/comparisons/perplexity-vs-chatgpt/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
-perplexity vs chatgpt ms smile ai hub,comparisons,comparison,/comparisons/perplexity-vs-chatgpt/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
+perplexity vs chatgpt ms smile ai hub,comparisons,comparison,/comparisons/chatgpt-vs-perplexity/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
+replit vs cursor,AI coding tools,comparison,/comparisons/replit-vs-cursor/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 runway vs pika,comparisons,comparison,/comparisons/runway-vs-pika/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 semrush vs ahrefs,AI SEO tools,comparison,/compare/semrush-vs-ahrefs/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 semrush vs ahrefs which seo platforms should you choose,AI SEO tools,comparison,/compare/semrush-vs-ahrefs/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
+surfer seo vs frase,AI SEO tools,comparison,/comparisons/surfer-seo-vs-frase/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 synthesia vs heygen,comparisons,comparison,/comparisons/synthesia-vs-heygen/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 synthesia vs heygen ms smile ai hub,comparisons,comparison,/comparisons/synthesia-vs-heygen/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 synthesia vs pictory,comparisons,comparison,/compare/synthesia-vs-pictory/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
@@ -207,45 +255,66 @@ windsurf vs copilot,AI coding tools,comparison,/comparisons/windsurf-vs-copilot/
 windsurf vs copilot th c t,AI coding tools,comparison,/best-ai-coding-tools-2026/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 windsurf vs copilot workflow note,AI coding tools,comparison,/best-ai-coding-tools-2026/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
 windsurf vs github copilot which tool should you choose in,AI coding tools,comparison,/comparisons/windsurf-vs-copilot/,true,low,thin_content,comparison debate / practical tradeoff,53,expand_content_depth
+ai app builder alternatives,alternatives,alternative,/ai-app-builder-alternatives/,true,low,thin_content,switching story / alternatives,51,expand_content_depth
+ai assistant alternatives,alternatives,alternative,/ai-assistant-alternatives/,true,low,thin_content,switching story / alternatives,51,expand_content_depth
 ai coding alternatives,AI coding tools,alternative,/ai-coding-alternatives/,true,low,thin_content,switching story / alternatives,51,expand_content_depth
 ai design alternatives,alternatives,alternative,/ai-design-alternatives/,true,low,thin_content,switching story / alternatives,51,expand_content_depth
+ai image alternatives,alternatives,alternative,/ai-image-alternatives/,true,low,thin_content,switching story / alternatives,51,expand_content_depth
 ai meeting alternatives,alternatives,alternative,/ai-meeting-alternatives/,true,low,thin_content,switching story / alternatives,51,expand_content_depth
 ai productivity alternatives,alternatives,alternative,/ai-productivity-alternatives/,true,low,thin_content,switching story / alternatives,51,expand_content_depth
+ai search alternatives,alternatives,alternative,/ai-search-alternatives/,true,low,thin_content,switching story / alternatives,51,expand_content_depth
 ai seo alternatives,AI SEO tools,alternative,/ai-seo-alternatives/,true,low,thin_content,switching story / alternatives,51,expand_content_depth
 ai video alternatives,alternatives,alternative,/ai-video-alternatives/,true,low,thin_content,switching story / alternatives,51,expand_content_depth
 ai voice alternatives,alternatives,alternative,/ai-voice-alternatives/,true,low,thin_content,switching story / alternatives,51,expand_content_depth
 ai writing alternatives,AI writing tools,alternative,/ai-writing-alternatives/,true,low,thin_content,switching story / alternatives,51,expand_content_depth
+cloud development alternatives,alternatives,alternative,/cloud-development-alternatives/,true,low,thin_content,switching story / alternatives,51,expand_content_depth
 email marketing alternatives,alternatives,alternative,/email-marketing-alternatives/,true,low,thin_content,switching story / alternatives,51,expand_content_depth
 website builder alternatives,alternatives,alternative,/website-builder-alternatives/,true,low,thin_content,switching story / alternatives,51,expand_content_depth
 windsurf agent style ai coding workflow pros cons and alternatives ms smile ai hub,AI coding tools,alternative,/windsurf-review/,true,low,thin_content,switching story / alternatives,51,expand_content_depth
-alternatives,alternatives,alternative,/ai-coding-alternatives/,true,low,thin_content,switching story / alternatives,49,expand_content_depth
+alternatives,alternatives,alternative,/ai-app-builder-alternatives/,true,low,thin_content,switching story / alternatives,49,expand_content_depth
 automation alternatives,AI automation tools,alternative,/automation-alternatives/,true,low,thin_content,switching story / alternatives,49,expand_content_depth
 canva vs adcreative ai which ai design and ad creative tools should you choose,comparisons,comparison,/compare/canva-vs-adcreative-ai/,true,low,thin_content,comparison debate / practical tradeoff,49,expand_content_depth
 canva vs gamma which ai design and presentation tools should you choose,comparisons,comparison,/comparisons/canva-vs-gamma/,true,low,thin_content,comparison debate / practical tradeoff,49,expand_content_depth
-crm alternatives,alternatives,alternative,/crm-alternatives/,true,low,thin_content,switching story / alternatives,49,expand_content_depth
+chatgpt vs perplexity which ai assistants and research tools should you choose,comparisons,comparison,/comparisons/chatgpt-vs-perplexity/,true,low,thin_content,comparison debate / practical tradeoff,49,expand_content_depth
+claude vs perplexity which ai research tools should you choose,comparisons,comparison,/comparisons/claude-vs-perplexity/,true,low,thin_content,comparison debate / practical tradeoff,49,expand_content_depth
+crm alternatives,alternatives,alternative,/review/hubspot/,true,low,thin_content,switching story / alternatives,49,expand_content_depth
 cursor vs github copilot which ai coding tools should you choose,AI coding tools,comparison,/comparisons/cursor-vs-github-copilot/,true,low,thin_content,comparison debate / practical tradeoff,49,expand_content_depth
+cursor vs windsurf which ai coding tools should you choose,AI coding tools,comparison,/comparisons/cursor-vs-windsurf/,true,low,thin_content,comparison debate / practical tradeoff,49,expand_content_depth
 elevenlabs vs murf which ai voice tools should you choose,comparisons,comparison,/comparisons/elevenlabs-vs-murf/,true,low,thin_content,comparison debate / practical tradeoff,49,expand_content_depth
 github copilot pricing,AI coding tools,pricing,/github-copilot-pricing/,true,low,thin_content,pricing reality / buying risk,49,expand_content_depth
 jasper vs copy.ai which ai writing tools should you choose,AI writing tools,comparison,/compare/jasper-vs-copy-ai/,true,low,thin_content,comparison debate / practical tradeoff,49,expand_content_depth
 marketing alternatives,alternatives,alternative,/marketing-alternatives/,true,low,thin_content,switching story / alternatives,49,expand_content_depth
 notion ai vs clickup ai which ai productivity tools should you choose,comparisons,comparison,/comparisons/notion-ai-vs-clickup-ai/,true,low,thin_content,comparison debate / practical tradeoff,49,expand_content_depth
-productivity alternatives,alternatives,alternative,/productivity-alternatives/,true,low,thin_content,switching story / alternatives,49,expand_content_depth
+productivity alternatives,alternatives,alternative,/ai-productivity-alternatives/,true,low,thin_content,switching story / alternatives,49,expand_content_depth
+replit vs cursor which ai coding tools should you choose,AI coding tools,comparison,/comparisons/replit-vs-cursor/,true,low,thin_content,comparison debate / practical tradeoff,49,expand_content_depth
 runway vs pika which ai video tools should you choose,comparisons,comparison,/comparisons/runway-vs-pika/,true,low,thin_content,comparison debate / practical tradeoff,49,expand_content_depth
 surfer seo pricing,AI SEO tools,pricing,/surfer-seo-pricing/,true,low,thin_content,pricing reality / buying risk,49,expand_content_depth
+surfer seo vs frase which ai seo content tools should you choose,AI SEO tools,comparison,/comparisons/surfer-seo-vs-frase/,true,low,thin_content,comparison debate / practical tradeoff,49,expand_content_depth
 synthesia vs pictory which ai video tools should you choose,comparisons,comparison,/compare/synthesia-vs-pictory/,true,low,thin_content,comparison debate / practical tradeoff,49,expand_content_depth
 adcreative ai review,general,review,/adcreative-ai/,true,low,thin_content,practical review / use case,46,expand_content_depth
+ahrefs ai review,AI SEO tools,review,/ahrefs-ai/,true,low,thin_content,practical review / use case,46,expand_content_depth
+ai app builder software review,general,review,/ai-app-builder-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
+ai app builder software review review,general,review,/ai-app-builder-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
+ai assistant software review,general,review,/ai-assistant-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
+ai assistant software review review,general,review,/ai-assistant-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
 ai coding software review,AI coding tools,review,/ai-coding-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
 ai coding software review review,AI coding tools,review,/ai-coding-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
+ai image software review,general,review,/ai-image-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
+ai image software review review,general,review,/ai-image-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
 ai meeting software review,general,review,/ai-meeting-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
 ai meeting software review review,general,review,/ai-meeting-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
 ai productivity software review,general,review,/ai-productivity-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
 ai productivity software review review,general,review,/ai-productivity-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
+ai search software review,general,review,/ai-search-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
+ai search software review review,general,review,/ai-app-builder-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
 ai seo software review,AI SEO tools,review,/ai-seo-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
 ai seo software review review,AI SEO tools,review,/ai-seo-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
 ai voice software review,general,review,/ai-voice-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
 ai voice software review review,general,review,/ai-voice-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
 automation software review,AI automation tools,review,/automation-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
 automation software review review,AI automation tools,review,/automation-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
+cloud development software review,general,review,/cloud-development-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
+cloud development software review review,general,review,/cloud-development-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
 copy ai review,AI writing tools,review,/compare/jasper-vs-copy-ai/,true,low,thin_content,practical review / use case,46,expand_content_depth
 cursor ai review a practical guide for developers and ai coders,AI coding tools,review,/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,true,low,thin_content,practical review / use case,46,expand_content_depth
 cursor ai review a practical guide for developers and ai coders review,AI coding tools,review,/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,true,low,thin_content,practical review / use case,46,expand_content_depth
@@ -255,15 +324,15 @@ email marketing software review review,general,review,/email-marketing-software-
 email marketing tool reviews,general,review,/category/email-marketing-tools/,true,low,thin_content,practical review / use case,46,expand_content_depth
 github copilot review,AI coding tools,review,/compare/cursor-vs-github-copilot/,true,low,thin_content,practical review / use case,46,expand_content_depth
 jasper ai review,AI writing tools,review,/compare/jasper-vs-copy-ai/,true,low,thin_content,practical review / use case,46,expand_content_depth
-marketing software review,general,review,/marketing-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
-marketing software review review,general,review,/email-marketing-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
+marketing software review,general,review,/email-marketing-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
 notion ai review,general,review,/comparisons/notion-ai-vs-chatgpt/,true,low,thin_content,practical review / use case,46,expand_content_depth
 pipedrive crm review,general,review,/pipedrive-crm/,true,low,thin_content,practical review / use case,46,expand_content_depth
 productivity software review,general,review,/ai-productivity-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
 reclaim ai review,general,review,/reclaim-ai/,true,low,thin_content,practical review / use case,46,expand_content_depth
 reviews ms smile ai hub,general,review,/reviews/activecampaign/,true,low,thin_content,practical review / use case,46,expand_content_depth
+semrush ai review,AI SEO tools,review,/compare/semrush-vs-ahrefs/,true,low,thin_content,practical review / use case,46,expand_content_depth
 semrush review,AI SEO tools,review,/compare/semrush-vs-ahrefs/,true,low,thin_content,practical review / use case,46,expand_content_depth
-surfer seo review,AI SEO tools,review,/review/surfer-seo/,true,low,thin_content,practical review / use case,46,expand_content_depth
+surfer seo review,AI SEO tools,review,/comparisons/surfer-seo-vs-frase/,true,low,thin_content,practical review / use case,46,expand_content_depth
 webflow ai review,general,review,/comparisons/framer-vs-webflow/,true,low,thin_content,practical review / use case,46,expand_content_depth
 website builder software review,general,review,/website-builder-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
 website builder software review review,general,review,/website-builder-software-review/,true,low,thin_content,practical review / use case,46,expand_content_depth
@@ -281,12 +350,17 @@ best writing tools to research before you buy ms smile ai hub,AI writing tools,b
 activecampaign pricing,pricing,pricing,/activecampaign/,true,low,thin_content,pricing reality / buying risk,43,expand_content_depth
 activecampaign review,general,review,/activecampaign/,true,low,thin_content,practical review / use case,43,expand_content_depth
 activecampaign trial notes and buying risks ms smile ai hub,general,review,/pricing/activecampaign/,true,low,thin_content,practical review / use case,43,expand_content_depth
+ai app builder software comparison,general,comparison,/ai-app-builder-software-review/,true,low,thin_content,comparison debate / practical tradeoff,43,expand_content_depth
 ai tool center ms smile ai hub,general,review,/,true,low,thin_content,practical review / use case,43,expand_content_depth
 ai website builders comparison,general,comparison,/blog/ai-website-builders-comparison/,true,low,thin_content,comparison debate / practical tradeoff,43,expand_content_depth
 ai website builders comparison ms smile ai hub,general,comparison,/blog/ai-website-builders-comparison/,true,low,thin_content,comparison debate / practical tradeoff,43,expand_content_depth
+bolt review,general,review,/bolt/,true,low,thin_content,practical review / use case,43,expand_content_depth
 canva pricing,pricing,pricing,/canva/,true,low,thin_content,pricing reality / buying risk,43,expand_content_depth
 canva review,general,review,/blog/best-alternatives-to-canva-ai/,true,low,thin_content,practical review / use case,43,expand_content_depth
 canva trial notes and buying risks ms smile ai hub,general,review,/pricing/canva/,true,low,thin_content,practical review / use case,43,expand_content_depth
+chatgpt review,general,review,/blog/chatgpt-prompts-for-windsurf/,true,low,thin_content,practical review / use case,43,expand_content_depth
+claude review,general,review,/claude/,true,low,thin_content,practical review / use case,43,expand_content_depth
+cloud development software comparison,general,comparison,/cloud-development-software-review/,true,low,thin_content,comparison debate / practical tradeoff,43,expand_content_depth
 comparisons ms smile ai hub,general,comparison,/comparisons/canva-vs-adobe-express/,true,low,thin_content,comparison debate / practical tradeoff,43,expand_content_depth
 cursor ai a practical for developers and ai coders ai tool hub,AI coding tools,review,/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,true,low,thin_content,practical review / use case,43,expand_content_depth
 cursor review,AI coding tools,review,/best-ai-coding-tools-2026/,true,low,thin_content,practical review / use case,43,expand_content_depth
@@ -297,24 +371,30 @@ elevenlabs pricing,pricing,pricing,/elevenlabs-pricing/,true,low,thin_content,pr
 elevenlabs review,general,review,/comparisons/elevenlabs-vs-murf/,true,low,thin_content,practical review / use case,43,expand_content_depth
 email marketing software comparison,general,comparison,/email-marketing-software-review/,true,low,thin_content,comparison debate / practical tradeoff,43,expand_content_depth
 framer review,general,review,/comparisons/framer-vs-webflow/,true,low,thin_content,practical review / use case,43,expand_content_depth
+frase review,general,review,/comparisons/surfer-seo-vs-frase/,true,low,thin_content,practical review / use case,43,expand_content_depth
 gamma review,general,review,/comparisons/canva-vs-gamma/,true,low,thin_content,practical review / use case,43,expand_content_depth
+gemini review,general,review,/comparisons/chatgpt-vs-gemini/,true,low,thin_content,practical review / use case,43,expand_content_depth
 github copilot trial notes and buying risks ms smile ai hub,AI coding tools,review,/pricing/github-copilot/,true,low,thin_content,practical review / use case,43,expand_content_depth
 grammarly pricing,pricing,pricing,/pricing/grammarly/,true,low,thin_content,pricing reality / buying risk,43,expand_content_depth
 grammarly trial notes and buying risks ms smile ai hub,general,review,/pricing/grammarly/,true,low,thin_content,practical review / use case,43,expand_content_depth
 hubspot review,general,review,/comparisons/hubspot-vs-salesforce/,true,low,thin_content,practical review / use case,43,expand_content_depth
 jasper pricing,AI writing tools,pricing,/jasper-pricing/,true,low,thin_content,pricing reality / buying risk,43,expand_content_depth
 jasper review,AI writing tools,review,/compare/jasper-vs-copy-ai/,true,low,thin_content,practical review / use case,43,expand_content_depth
+lovable review,general,review,/comparisons/lovable-vs-bolt/,true,low,thin_content,practical review / use case,43,expand_content_depth
 mailchimp pricing,pricing,pricing,/pricing/mailchimp/,true,low,thin_content,pricing reality / buying risk,43,expand_content_depth
 mailchimp trial notes and buying risks ms smile ai hub,general,review,/pricing/mailchimp/,true,low,thin_content,practical review / use case,43,expand_content_depth
 make pricing,AI automation tools,pricing,/make-pricing/,true,low,thin_content,pricing reality / buying risk,43,expand_content_depth
 make review,AI automation tools,review,/compare/make-vs-zapier/,true,low,thin_content,practical review / use case,43,expand_content_depth
 make trial notes and buying risks ms smile ai hub,AI automation tools,review,/pricing/make/,true,low,thin_content,practical review / use case,43,expand_content_depth
+midjourney review,general,review,/comparisons/midjourney-vs-dalle/,true,low,thin_content,practical review / use case,43,expand_content_depth
 notion review,general,review,/comparisons/notion-ai-vs-chatgpt/,true,low,thin_content,practical review / use case,43,expand_content_depth
+perplexity review,general,review,/comparisons/chatgpt-vs-perplexity/,true,low,thin_content,practical review / use case,43,expand_content_depth
 pictory pricing,pricing,pricing,/pricing/pictory/,true,low,thin_content,pricing reality / buying risk,43,expand_content_depth
 pictory trial notes and buying risks ms smile ai hub,general,review,/pricing/pictory/,true,low,thin_content,practical review / use case,43,expand_content_depth
 pipedrive review,general,review,/pipedrive/,true,low,thin_content,practical review / use case,43,expand_content_depth
 pricing,pricing,pricing,/pricing/,true,low,thin_content,pricing reality / buying risk,43,expand_content_depth
 pricing pricing,pricing,pricing,/activecampaign/,true,low,thin_content,pricing reality / buying risk,43,expand_content_depth
+replit review,general,review,/comparisons/replit-vs-cursor/,true,low,thin_content,practical review / use case,43,expand_content_depth
 reviews,general,review,/reviews/,true,low,thin_content,practical review / use case,43,expand_content_depth
 reviews review,general,review,/reviews/activecampaign/,true,low,thin_content,practical review / use case,43,expand_content_depth
 runway review,general,review,/comparisons/runway-vs-pika/,true,low,thin_content,practical review / use case,43,expand_content_depth
@@ -335,6 +415,8 @@ ai tools for content creators ms smile ai hub,AI writing tools,review,/blog/ai-t
 ai tools for marketers,general,review,/blog/ai-tools-for-marketers/,true,medium,thin_content,practical review / use case,39,expand_content_depth
 ai tools for marketers ms smile ai hub,general,review,/blog/ai-tools-for-marketers/,true,medium,thin_content,practical review / use case,39,expand_content_depth
 ai tools under 20 month,general,review,/blog/ai-tools-under-20-month/,true,medium,thin_content,practical review / use case,39,expand_content_depth
+best ai app builder software,general,best_tools,/ai-app-builder-alternatives/,true,medium,thin_content,shortlist / decision guide,39,expand_content_depth
+best ai app builder tools,general,best_tools,/ai-app-builder-alternatives/,true,medium,thin_content,shortlist / decision guide,39,expand_content_depth
 best ai automation tools,AI automation tools,best_tools,/best-ai-automation-tools/,true,medium,thin_content,shortlist / decision guide,39,expand_content_depth
 best ai automation tools 2026,AI automation tools,best_tools,/best-ai-automation-tools-2026/,true,medium,thin_content,shortlist / decision guide,39,expand_content_depth
 best ai automation tools ms smile ai hub,AI automation tools,best_tools,/best-ai-automation-tools/,true,medium,thin_content,shortlist / decision guide,39,expand_content_depth
@@ -344,6 +426,7 @@ best ai coding tools ms smile ai hub,AI coding tools,best_tools,/best-ai-coding-
 best ai design tools,general,best_tools,/category/design-tools/,true,medium,thin_content,shortlist / decision guide,39,expand_content_depth
 best ai presentation tools,general,best_tools,/best-ai-presentation-tools/,true,medium,thin_content,shortlist / decision guide,39,expand_content_depth
 best ai presentation tools ms smile ai hub,general,best_tools,/best-ai-presentation-tools/,true,medium,thin_content,shortlist / decision guide,39,expand_content_depth
+best ai search tools,general,best_tools,/category/ai-coding-tools/,true,medium,thin_content,shortlist / decision guide,39,expand_content_depth
 best ai seo tools,AI SEO tools,best_tools,/best-ai-seo-tools/,true,medium,thin_content,shortlist / decision guide,39,expand_content_depth
 best ai seo tools 2026,AI SEO tools,best_tools,/best-ai-seo-tools-2026/,true,medium,thin_content,shortlist / decision guide,39,expand_content_depth
 best ai seo tools for practical teams,AI SEO tools,best_tools,/best-ai-coding-tools-2026/,true,medium,thin_content,shortlist / decision guide,39,expand_content_depth
@@ -357,6 +440,8 @@ best ai writing tools,AI writing tools,best_tools,/best-ai-writing-tools/,true,m
 best ai writing tools 2026,AI writing tools,best_tools,/best-ai-writing-tools-2026/,true,medium,thin_content,shortlist / decision guide,39,expand_content_depth
 best ai writing tools ms smile ai hub,AI writing tools,best_tools,/best-ai-writing-tools/,true,medium,thin_content,shortlist / decision guide,39,expand_content_depth
 best automation tools,AI automation tools,best_tools,/best-ai-automation-tools/,true,medium,thin_content,shortlist / decision guide,39,expand_content_depth
+best cloud development software,general,best_tools,/cloud-development-alternatives/,true,medium,thin_content,shortlist / decision guide,39,expand_content_depth
+best cloud development tools,general,best_tools,/cloud-development-alternatives/,true,medium,thin_content,shortlist / decision guide,39,expand_content_depth
 best crm for startups,general,best_tools,/blog/best-crm-for-startups/,true,medium,thin_content,shortlist / decision guide,39,expand_content_depth
 best crm for startups ms smile ai hub,general,best_tools,/blog/best-crm-for-startups/,true,medium,thin_content,shortlist / decision guide,39,expand_content_depth
 best crm tools,general,best_tools,/best-crm-tools/,true,medium,thin_content,shortlist / decision guide,39,expand_content_depth
@@ -376,16 +461,29 @@ aeo action plan,general,review,/aeo-action-plan/,true,low,thin_content,practical
 aeo action plan ms smile ai hub,general,review,/aeo-action-plan/,true,low,thin_content,practical review / use case,37,expand_content_depth
 affiliate disclosure ms smile ai hub,general,review,/affiliate-disclosure/,true,low,thin_content,practical review / use case,37,expand_content_depth
 affordable email marketing platform,general,review,/compare/activecampaign-vs-mailchimp/,true,low,thin_content,practical review / use case,37,expand_content_depth
+ahrefs ai features pros cons notes,AI SEO tools,review,/ahrefs-ai/,true,low,thin_content,practical review / use case,37,expand_content_depth
+ai app builder software,general,review,/ai-app-builder-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
+ai app builder software research style for ms smile ai hub,general,review,/ai-app-builder-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
+ai app builder tool for business,general,review,/ai-app-builder-alternatives/,true,low,thin_content,practical review / use case,37,expand_content_depth
+ai assistant software,general,review,/ai-assistant-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
+ai assistant software research style for ms smile ai hub,general,review,/ai-assistant-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
+ai assistant tool for business,general,review,/blog/best-ai-tools-for-small-business/,true,low,thin_content,practical review / use case,37,expand_content_depth
 ai coding software,AI coding tools,review,/ai-coding-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
 ai coding software research style for ms smile ai hub,AI coding tools,review,/ai-coding-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
 ai coding tool for business,AI coding tools,review,/best-ai-coding-tools-2026/,true,low,thin_content,practical review / use case,37,expand_content_depth
 ai design tool for business,general,review,/blog/best-ai-tools-for-small-business/,true,low,thin_content,practical review / use case,37,expand_content_depth
+ai image software,general,review,/ai-image-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
+ai image software research style for ms smile ai hub,general,review,/ai-image-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
+ai image tool for business,general,review,/blog/best-ai-tools-for-small-business/,true,low,thin_content,practical review / use case,37,expand_content_depth
 ai meeting software,general,review,/ai-meeting-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
 ai meeting software research style for ms smile ai hub,general,review,/ai-meeting-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
 ai meeting tool for business,general,review,/blog/best-ai-tools-for-small-business/,true,low,thin_content,practical review / use case,37,expand_content_depth
 ai productivity software,general,review,/ai-productivity-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
 ai productivity software research style for ms smile ai hub,general,review,/ai-productivity-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
 ai productivity tool for business,general,review,/blog/best-ai-tools-for-small-business/,true,low,thin_content,practical review / use case,37,expand_content_depth
+ai search software,general,review,/ai-app-builder-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
+ai search software research style for ms smile ai hub,general,review,/ai-app-builder-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
+ai search tool for business,general,review,/blog/best-ai-tools-for-small-business/,true,low,thin_content,practical review / use case,37,expand_content_depth
 ai seo software,AI SEO tools,review,/ai-seo-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
 ai seo software research style for ms smile ai hub,AI SEO tools,review,/ai-seo-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
 ai seo tool for business,AI SEO tools,review,/blog/best-ai-tools-for-small-business/,true,low,thin_content,practical review / use case,37,expand_content_depth
@@ -400,12 +498,18 @@ automation ms smile ai hub,AI automation tools,review,/automation-alternatives/,
 automation software research style for ms smile ai hub,AI automation tools,review,/automation-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
 automation tool for business,AI automation tools,review,/blog/automation-tools-for-beginners/,true,low,thin_content,practical review / use case,37,expand_content_depth
 blog ms smile ai hub,general,review,/blog/ai-productivity-tools/,true,low,thin_content,practical review / use case,37,expand_content_depth
+bolt features pros cons notes,general,review,/bolt/,true,low,thin_content,practical review / use case,37,expand_content_depth
 canva features pros cons notes,general,review,/canva/,true,low,thin_content,practical review / use case,37,expand_content_depth
 categories ms smile ai hub,general,review,/categories/,true,low,thin_content,practical review / use case,37,expand_content_depth
+chatgpt features pros cons notes,general,review,/chatgpt/,true,low,thin_content,practical review / use case,37,expand_content_depth
 chatgpt prompts for windsurf,AI coding tools,review,/blog/chatgpt-prompts-for-windsurf/,true,low,thin_content,practical review / use case,37,expand_content_depth
 chatgpt prompts for windsurf ms smile ai hub,AI coding tools,review,/blog/chatgpt-prompts-for-windsurf/,true,low,thin_content,practical review / use case,37,expand_content_depth
 chatgpt windsurf codex workflow,AI coding tools,tutorial,/blog/chatgpt-windsurf-codex-workflow/,true,low,thin_content,builder workflow / failure case,37,expand_content_depth
 chatgpt windsurf codex workflow ms smile ai hub,AI coding tools,tutorial,/blog/chatgpt-windsurf-codex-workflow/,true,low,thin_content,builder workflow / failure case,37,expand_content_depth
+claude features pros cons notes,general,review,/claude/,true,low,thin_content,practical review / use case,37,expand_content_depth
+cloud development software,general,review,/cloud-development-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
+cloud development software research style for ms smile ai hub,general,review,/cloud-development-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
+cloud development tool for business,general,review,/blog/best-ai-tools-for-small-business/,true,low,thin_content,practical review / use case,37,expand_content_depth
 contact ms smile ai hub,general,review,/contact/,true,low,thin_content,practical review / use case,37,expand_content_depth
 copy.ai features pros cons notes,AI writing tools,review,/copy-ai/,true,low,thin_content,practical review / use case,37,expand_content_depth
 crm ms smile ai hub,general,review,/best-crm-tools/,true,low,thin_content,practical review / use case,37,expand_content_depth
@@ -420,10 +524,13 @@ elevenlabs features pros cons notes,general,review,/elevenlabs/,true,low,thin_co
 email marketing software,general,review,/email-marketing-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
 email marketing software research style for ms smile ai hub,general,review,/email-marketing-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
 email marketing tool for business,general,review,/category/email-marketing-tools/,true,low,thin_content,practical review / use case,37,expand_content_depth
+facebook browser test ms smile ai hub,general,review,/facebook-test/,true,low,thin_content,practical review / use case,37,expand_content_depth
 fix windsurf mixed language,AI coding tools,tutorial,/blog/fix-windsurf-mixed-language/,true,low,thin_content,practical review / use case,37,expand_content_depth
 fix windsurf mixed language issues ms smile ai hub,AI coding tools,tutorial,/blog/fix-windsurf-mixed-language/,true,low,thin_content,practical review / use case,37,expand_content_depth
 framer features pros cons notes,general,review,/framer/,true,low,thin_content,practical review / use case,37,expand_content_depth
+frase features pros cons notes,general,review,/frase/,true,low,thin_content,practical review / use case,37,expand_content_depth
 gamma features pros cons notes,general,review,/gamma/,true,low,thin_content,practical review / use case,37,expand_content_depth
+gemini features pros cons notes,general,review,/gemini/,true,low,thin_content,practical review / use case,37,expand_content_depth
 gi cursor nh ng i m c n ki m tra tr c khi mua ms smile ai hub,AI coding tools,review,/cursor-pricing/,true,low,thin_content,practical review / use case,37,expand_content_depth
 gi elevenlabs nh ng i m c n ki m tra tr c khi mua ms smile ai hub,general,review,/elevenlabs-pricing/,true,low,thin_content,practical review / use case,37,expand_content_depth
 gi github copilot nh ng i m c n ki m tra tr c khi mua ms smile ai hub,AI coding tools,review,/github-copilot-pricing/,true,low,thin_content,practical review / use case,37,expand_content_depth
@@ -438,27 +545,35 @@ hubs ms smile ai hub,general,review,/comparisons/hubspot-vs-salesforce/,true,low
 hubspot features pros cons notes,general,review,/hubspot/,true,low,thin_content,practical review / use case,37,expand_content_depth
 jasper ai features pros cons notes,AI writing tools,review,/jasper/,true,low,thin_content,practical review / use case,37,expand_content_depth
 jasper features pros cons notes,AI writing tools,review,/jasper/,true,low,thin_content,practical review / use case,37,expand_content_depth
+lovable features pros cons notes,general,review,/lovable/,true,low,thin_content,practical review / use case,37,expand_content_depth
 make features pros cons notes,AI automation tools,review,/make/,true,low,thin_content,practical review / use case,37,expand_content_depth
-marketing software research style for ms smile ai hub,general,review,/email-marketing-software-review/,true,low,thin_content,practical review / use case,37,expand_content_depth
 marketing tool for business,general,review,/blog/best-ai-tools-for-small-business/,true,low,thin_content,practical review / use case,37,expand_content_depth
 media kit ms smile ai hub,general,review,/media-kit/,true,low,thin_content,practical review / use case,37,expand_content_depth
+midjourney features pros cons notes,general,review,/midjourney/,true,low,thin_content,practical review / use case,37,expand_content_depth
 month ms smile ai hub,general,review,/blog/ai-tools-under-20-month/,true,low,thin_content,practical review / use case,37,expand_content_depth
 notion ai features pros cons notes,general,review,/notion/,true,low,thin_content,practical review / use case,37,expand_content_depth
 notion features pros cons notes,general,review,/notion/,true,low,thin_content,practical review / use case,37,expand_content_depth
+perplexity features pros cons notes,general,review,/perplexity/,true,low,thin_content,practical review / use case,37,expand_content_depth
 pipedrive crm features pros cons notes,general,review,/pipedrive-crm/,true,low,thin_content,practical review / use case,37,expand_content_depth
 pipedrive features pros cons notes,general,review,/pipedrive/,true,low,thin_content,practical review / use case,37,expand_content_depth
 privacy policy ms smile ai hub,general,review,/privacy/,true,low,thin_content,practical review / use case,37,expand_content_depth
 productivity tool for business,general,review,/blog/best-ai-tools-for-small-business/,true,low,thin_content,practical review / use case,37,expand_content_depth
 reclaim ai features pros cons notes,general,review,/reclaim-ai/,true,low,thin_content,practical review / use case,37,expand_content_depth
 redirecting ms smile ai hub,general,review,/reviews/activecampaign/,true,low,thin_content,practical review / use case,37,expand_content_depth
+replit features pros cons notes,general,review,/replit/,true,low,thin_content,practical review / use case,37,expand_content_depth
 runway features pros cons notes,general,review,/runway/,true,low,thin_content,practical review / use case,37,expand_content_depth
+semrush ai features pros cons notes,AI SEO tools,review,/semrush/,true,low,thin_content,practical review / use case,37,expand_content_depth
 semrush features pros cons notes,AI SEO tools,review,/semrush/,true,low,thin_content,practical review / use case,37,expand_content_depth
 sitemap ms smile ai hub,general,review,/sitemap/,true,low,thin_content,practical review / use case,37,expand_content_depth
+solve ai app builder workflow,AI automation tools,tutorial,/review/bolt/,true,low,thin_content,builder workflow / failure case,37,expand_content_depth
+solve cloud development workflow,AI automation tools,tutorial,/review/replit/,true,low,thin_content,builder workflow / failure case,37,expand_content_depth
 solve email marketing workflow,AI automation tools,tutorial,/review/activecampaign/,true,low,thin_content,builder workflow / failure case,37,expand_content_depth
 solve website builder workflow,AI automation tools,tutorial,/review/durable/,true,low,thin_content,builder workflow / failure case,37,expand_content_depth
 surfer seo features pros cons notes,AI SEO tools,review,/surfer-seo/,true,low,thin_content,practical review / use case,37,expand_content_depth
 synthesia features pros cons notes,general,review,/synthesia/,true,low,thin_content,practical review / use case,37,expand_content_depth
 terms ms smile ai hub,general,review,/terms/,true,low,thin_content,practical review / use case,37,expand_content_depth
+terms of service,general,review,/terms-of-service/,true,low,thin_content,practical review / use case,37,expand_content_depth
+terms of service ms smile ai hub,general,review,/terms-of-service/,true,low,thin_content,practical review / use case,37,expand_content_depth
 testing methodology ms smile ai hub,general,review,/testing-methodology/,true,low,thin_content,practical review / use case,37,expand_content_depth
 webflow ai features pros cons notes,general,review,/webflow/,true,low,thin_content,practical review / use case,37,expand_content_depth
 webflow features pros cons notes,general,review,/webflow/,true,low,thin_content,practical review / use case,37,expand_content_depth
@@ -468,6 +583,7 @@ website builder tool for business,general,review,/category/website-builder-tools
 website builders hub ms smile ai hub,general,review,/best-website-builders/,true,low,thin_content,practical review / use case,37,expand_content_depth
 website builders ms smile ai hub,general,review,/best-website-builders/,true,low,thin_content,practical review / use case,37,expand_content_depth
 windsurf + codex workflow,AI coding tools,tutorial,/blog/chatgpt-windsurf-codex-workflow/,true,low,thin_content,builder workflow / failure case,37,expand_content_depth
+windsurf features pros cons notes,AI coding tools,review,/windsurf/,true,low,thin_content,practical review / use case,37,expand_content_depth
 windsurf prompt checklist,AI coding tools,review,/blog/windsurf-prompt-checklist/,true,low,thin_content,practical review / use case,37,expand_content_depth
 windsurf prompt checklist ms smile ai hub,AI coding tools,review,/blog/windsurf-prompt-checklist/,true,low,thin_content,practical review / use case,37,expand_content_depth
 windsurf to codex workflow,AI coding tools,tutorial,/blog/windsurf-to-codex-workflow/,true,low,thin_content,builder workflow / failure case,37,expand_content_depth
@@ -478,6 +594,7 @@ about author,general,review,/about-author/,true,medium,thin_content,practical re
 activecampaign,general,review,/activecampaign/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 adcreative ai,general,review,/adcreative-ai/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 affiliate disclosure,general,review,/affiliate-disclosure/,true,medium,thin_content,practical review / use case,35,expand_content_depth
+ahrefs ai,AI SEO tools,review,/ahrefs-ai/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 ai automation,AI automation tools,review,/hub/ai-automation/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 ai coding,AI coding tools,review,/hub/ai-coding/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 ai presentation,general,review,/hub/ai-presentation/,true,medium,thin_content,practical review / use case,35,expand_content_depth
@@ -490,6 +607,8 @@ automation,AI automation tools,review,/category/automation/,true,medium,thin_con
 automation software,AI automation tools,review,/automation-software-review/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 canva,general,review,/canva/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 categories,general,review,/categories/,true,medium,thin_content,practical review / use case,35,expand_content_depth
+chatgpt,general,review,/chatgpt/,true,medium,thin_content,practical review / use case,35,expand_content_depth
+claude,general,review,/claude/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 contact,general,review,/contact/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 copy ai,AI writing tools,review,/copy-ai/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 cursor,AI coding tools,review,/cursor/,true,medium,thin_content,practical review / use case,35,expand_content_depth
@@ -499,21 +618,26 @@ durable,general,review,/durable/,true,medium,thin_content,practical review / use
 editorial policy,general,review,/editorial-policy/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 elevenlabs,general,review,/elevenlabs/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 email marketing,general,review,/hub/email-marketing/,true,medium,thin_content,practical review / use case,35,expand_content_depth
+facebook test,general,review,/facebook-test/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 framer,general,review,/framer/,true,medium,thin_content,practical review / use case,35,expand_content_depth
+frase,general,review,/frase/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 gamma,general,review,/gamma/,true,medium,thin_content,practical review / use case,35,expand_content_depth
+gemini,general,review,/gemini/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 github copilot,AI coding tools,review,/github-copilot/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 grammarly,general,review,/pricing/grammarly/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 homepage,general,review,/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 hubspot,general,review,/hubspot/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 jasper,AI writing tools,review,/jasper/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 jasper ai,AI writing tools,review,/jasper-ai/,true,medium,thin_content,practical review / use case,35,expand_content_depth
+lovable,general,review,/lovable/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 mailchimp,general,review,/pricing/mailchimp/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 make note,AI automation tools,review,/make/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 marketing,general,review,/hub/marketing/,true,medium,thin_content,practical review / use case,35,expand_content_depth
-marketing software,general,review,/email-marketing-software-review/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 media kit,general,review,/media-kit/,true,medium,thin_content,practical review / use case,35,expand_content_depth
+midjourney,general,review,/midjourney/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 notion,general,review,/notion/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 notion ai,general,review,/notion-ai/,true,medium,thin_content,practical review / use case,35,expand_content_depth
+perplexity,general,review,/perplexity/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 pictory,general,review,/pricing/pictory/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 pipedrive,general,review,/pipedrive/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 pipedrive crm,general,review,/pipedrive-crm/,true,medium,thin_content,practical review / use case,35,expand_content_depth
@@ -521,8 +645,10 @@ privacy,general,review,/privacy/,true,medium,thin_content,practical review / use
 privacy policy,general,review,/privacy-policy/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 productivity,general,review,/hub/productivity/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 reclaim ai,general,review,/reclaim-ai/,true,medium,thin_content,practical review / use case,35,expand_content_depth
+replit,general,review,/replit/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 runway,general,review,/review/runway/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 semrush,AI SEO tools,review,/pricing/semrush/,true,medium,thin_content,practical review / use case,35,expand_content_depth
+semrush ai,AI SEO tools,review,/review/semrush-ai/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 sitemap,general,review,/sitemap/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 surfer seo,AI SEO tools,review,/review/surfer-seo/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 synthesia,general,review,/review/synthesia/,true,medium,thin_content,practical review / use case,35,expand_content_depth
@@ -531,7 +657,7 @@ testing methodology,general,review,/testing-methodology/,true,medium,thin_conten
 webflow,general,review,/review/webflow/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 webflow ai,general,review,/review/webflow-ai/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 website builders,general,review,/category/website-builders/,true,medium,thin_content,practical review / use case,35,expand_content_depth
-windsurf,AI coding tools,review,/reviews/windsurf/,true,medium,thin_content,practical review / use case,35,expand_content_depth
+windsurf,AI coding tools,review,/review/windsurf/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 zapier,AI automation tools,review,/pricing/zapier/,true,medium,thin_content,practical review / use case,35,expand_content_depth
 ai automation tools,AI automation tools,review,/category/ai-automation-tools/,true,medium,thin_content,practical review / use case,34,expand_content_depth
 ai automation tools and failure states,AI automation tools,review,/category/automation-tools/,true,medium,thin_content,practical review / use case,34,expand_content_depth
@@ -563,8 +689,10 @@ ai writing tools hub ms smile ai hub,AI writing tools,review,/best-ai-writing-to
 ai writing tools ms smile ai hub,AI writing tools,review,/best-ai-writing-tools/,true,medium,thin_content,practical review / use case,34,expand_content_depth
 automation tools for beginners,AI automation tools,review,/blog/automation-tools-for-beginners/,true,medium,thin_content,practical review / use case,34,expand_content_depth
 automation tools for beginners ms smile ai hub,AI automation tools,review,/blog/automation-tools-for-beginners/,true,medium,thin_content,practical review / use case,34,expand_content_depth
+best ai tools,general,best_tools,/best-ai-tools/,true,high,thin_content,shortlist / decision guide,34,expand_content_depth
 best ai tools for small business,general,best_tools,/blog/best-ai-tools-for-small-business/,true,high,thin_content,shortlist / decision guide,34,expand_content_depth
 best ai tools for small business ms smile ai hub,general,best_tools,/blog/best-ai-tools-for-small-business/,true,high,thin_content,shortlist / decision guide,34,expand_content_depth
+best ai tools ms smile ai hub,general,best_tools,/best-ai-automation-tools/,true,high,thin_content,shortlist / decision guide,34,expand_content_depth
 crm tools hub ms smile ai hub,general,review,/best-crm-tools/,true,medium,thin_content,practical review / use case,34,expand_content_depth
 crm tools ms smile ai hub,general,review,/best-crm-tools/,true,medium,thin_content,practical review / use case,34,expand_content_depth
 email marketing tools,general,review,/category/email-marketing-tools/,true,medium,thin_content,practical review / use case,34,expand_content_depth

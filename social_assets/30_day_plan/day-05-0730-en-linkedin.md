@@ -1,7 +1,7 @@
 ---
 id: day-05-0730-en-linkedin
 day: 5
-scheduled_date: 2026-05-25
+scheduled_date: 2026-06-06
 scheduled_time: 07:30
 language: en
 platform: linkedin

@@ -633,7 +633,6 @@ def tracking_redirect_html(row: pd.Series | dict) -> str:
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="{safe_robots}">
   <link rel="canonical" href="{safe_canonical}">
-  <meta http-equiv="refresh" content="0; url={safe_url}">
   <title>Continue - {safe_id}</title>
   <meta name="description" content="Local-safe tracking redirect.">
   <style>body{{font-family:Arial,Helvetica,sans-serif;background:#f8fafc;color:#0f172a;margin:0}}main{{max-width:720px;margin:12vh auto;padding:24px}}.card{{background:#fff;border:1px solid #dbe3ef;border-radius:8px;padding:24px}}a{{color:#0f766e;font-weight:700}}</style>

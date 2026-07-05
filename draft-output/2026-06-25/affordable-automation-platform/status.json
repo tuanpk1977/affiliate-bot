@@ -1,0 +1,83 @@
+{
+  "status": "draft_ready",
+  "topic": "affordable automation platform",
+  "slug": "affordable-automation-platform",
+  "score": 91.8,
+  "article_file": "article.md",
+  "draft_video": "draft-video.mp4",
+  "video_status": "ok",
+  "video_message": "multi-scene draft video rendered with local placeholder voiceover",
+  "video_details": {
+    "scene_count": 7,
+    "scene_visuals": [
+      {
+        "index": 1,
+        "section": "intro",
+        "title": "Introduction",
+        "path": "D:/AFFILATE BOT/draft-output/2026-06-25/affordable-automation-platform/editor_assets/article_sections/01-intro.png",
+        "start": 0.0,
+        "duration": 6.43
+      },
+      {
+        "index": 2,
+        "section": "overview",
+        "title": "Overview",
+        "path": "D:/AFFILATE BOT/draft-output/2026-06-25/affordable-automation-platform/editor_assets/article_sections/02-overview.png",
+        "start": 6.43,
+        "duration": 6.43
+      },
+      {
+        "index": 3,
+        "section": "key-features",
+        "title": "Key Features",
+        "path": "D:/AFFILATE BOT/draft-output/2026-06-25/affordable-automation-platform/editor_assets/article_sections/03-key-features.png",
+        "start": 12.86,
+        "duration": 6.43
+      },
+      {
+        "index": 4,
+        "section": "pricing",
+        "title": "Pricing",
+        "path": "D:/AFFILATE BOT/draft-output/2026-06-25/affordable-automation-platform/editor_assets/article_sections/04-pricing.png",
+        "start": 19.29,
+        "duration": 6.43
+      },
+      {
+        "index": 5,
+        "section": "pros-cons",
+        "title": "Pros and Cons",
+        "path": "D:/AFFILATE BOT/draft-output/2026-06-25/affordable-automation-platform/editor_assets/article_sections/05-pros-cons.png",
+        "start": 25.71,
+        "duration": 6.43
+      },
+      {
+        "index": 6,
+        "section": "final-verdict",
+        "title": "Final Verdict",
+        "path": "D:/AFFILATE BOT/draft-output/2026-06-25/affordable-automation-platform/editor_assets/article_sections/06-final-verdict.png",
+        "start": 32.14,
+        "duration": 6.43
+      },
+      {
+        "index": 7,
+        "section": "end-screen",
+        "title": "Final CTA",
+        "path": "D:/AFFILATE BOT/draft-output/2026-06-25/affordable-automation-platform/editor_assets/article_sections/07-end-screen.png",
+        "start": 38.57,
+        "duration": 6.43
+      }
+    ],
+    "duration_seconds": 45.03,
+    "audio_stream": true,
+    "voice_status": "real_placeholder_voice",
+    "voice_message": "voiceover generated with local Windows SAPI",
+    "subtitles": "D:\\AFFILATE BOT\\draft-output\\2026-06-25\\affordable-automation-platform\\subtitles.srt",
+    "subtitles_vi": "D:\\AFFILATE BOT\\draft-output\\2026-06-25\\affordable-automation-platform\\subtitles_vi.srt",
+    "narration": "D:\\AFFILATE BOT\\draft-output\\2026-06-25\\affordable-automation-platform\\narration.txt",
+    "voiceover": "D:\\AFFILATE BOT\\draft-output\\2026-06-25\\affordable-automation-platform\\voiceover.txt"
+  },
+  "warnings": [],
+  "published": false,
+  "deployment": "not_allowed_for_worker_bot",
+  "generated_at": "2026-06-25T14:26:21"
+}

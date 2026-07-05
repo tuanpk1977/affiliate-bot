@@ -2,7 +2,7 @@
 
 - Platform: Facebook
 - Status: Pending Review
-- Suggested time: 2026-06-18 20:30
+- Suggested time: 2026-06-22 20:30
 - Target URL: https://smileaireviewhub.com/windsurf-review/?utm_source=facebook
 
 ## Copy

@@ -1,0 +1,21 @@
+Final SEO Technical Audit
+Deployment readiness score: 90.8/100
+Total pages: 818
+Indexable pages: 712
+Non-indexable pages: 106
+Sitemap URLs: 712
+Internal links: 50958
+Broken links: 0
+Canonical issues: 0
+Duplicate metadata: 308
+Missing metadata: 0
+Images missing alt: 0
+Images missing lazy loading: 0
+Errors: 0
+Warnings: 308
+Structured data: {"Article": 559, "BreadcrumbList": 711, "CollectionPage": 72, "FAQPage": 625, "ItemList": 97, "Organization": 712, "Person": 559, "Review": 373, "SoftwareApplication": 373, "VideoObject": 162, "WebSite": 712}
+Remaining warnings:
+- HTTP status is validated from static publish targets before deployment; verify live HTTP 200 after deployment.
+- Core Web Vitals require live field or Lighthouse data; this audit checks static performance signals only.
+JSON report: D:\AFFILATE BOT\data\final_seo_technical_audit.json
+CSV issues: D:\AFFILATE BOT\data\final_seo_technical_issues.csv

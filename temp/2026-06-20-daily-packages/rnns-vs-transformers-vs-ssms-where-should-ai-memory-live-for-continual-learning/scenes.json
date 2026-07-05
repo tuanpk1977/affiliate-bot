@@ -1,0 +1,17 @@
+{
+  "slug": "rnns-vs-transformers-vs-ssms-where-should-ai-memory-live-for-continual-learning",
+  "scenes": [
+    {
+      "scene": "intro",
+      "duration": 15
+    },
+    {
+      "scene": "details",
+      "duration": 30
+    },
+    {
+      "scene": "closing",
+      "duration": 15
+    }
+  ]
+}

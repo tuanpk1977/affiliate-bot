@@ -1,0 +1,62 @@
+[
+  {
+    "competitor_domain": "futurepedia.io",
+    "target_keyword": "AI tools",
+    "missing_keyword": "AI tools",
+    "missing_page_type": "Newest page",
+    "priority": "Low",
+    "estimated_revenue": 10,
+    "difficulty": 55,
+    "recommended_response": "Monitor and add internal links"
+  },
+  {
+    "competitor_domain": "theresanaiforthat.com",
+    "target_keyword": "AI tools",
+    "missing_keyword": "AI tools",
+    "missing_page_type": "Newest page",
+    "priority": "Low",
+    "estimated_revenue": 10,
+    "difficulty": 55,
+    "recommended_response": "Monitor and add internal links"
+  },
+  {
+    "competitor_domain": "toolify.ai",
+    "target_keyword": "AI tools",
+    "missing_keyword": "AI tools",
+    "missing_page_type": "Newest page",
+    "priority": "Low",
+    "estimated_revenue": 10,
+    "difficulty": 55,
+    "recommended_response": "Monitor and add internal links"
+  },
+  {
+    "competitor_domain": "futuretools.io",
+    "target_keyword": "AI tools",
+    "missing_keyword": "AI tools",
+    "missing_page_type": "Newest page",
+    "priority": "Low",
+    "estimated_revenue": 10,
+    "difficulty": 55,
+    "recommended_response": "Monitor and add internal links"
+  },
+  {
+    "competitor_domain": "easywithai.com",
+    "target_keyword": "AI tools",
+    "missing_keyword": "AI tools",
+    "missing_page_type": "Newest page",
+    "priority": "Low",
+    "estimated_revenue": 10,
+    "difficulty": 55,
+    "recommended_response": "Monitor and add internal links"
+  },
+  {
+    "competitor_domain": "topai.tools",
+    "target_keyword": "AI tools",
+    "missing_keyword": "AI tools",
+    "missing_page_type": "Newest page",
+    "priority": "Low",
+    "estimated_revenue": 10,
+    "difficulty": 55,
+    "recommended_response": "Monitor and add internal links"
+  }
+]

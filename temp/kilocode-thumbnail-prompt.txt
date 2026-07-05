@@ -1,0 +1,44 @@
+THUMBNAIL DESIGN PROMPT FOR KILOCODE REVIEW VIDEO
+
+Background:
+- Dark professional blue (#001F3F)
+- Clean, modern tech aesthetic
+- GitHub octopus logo visible in subtle watermark corner
+
+Main Text Elements:
+- Large bold text: "KILOCODE"
+- Smaller text below: "2026 REVIEW"
+- Emphasis text in bright lime green (#00FF41): "Worth It?"
+
+Visual Elements:
+- Code snippet visualization (pseudo-code in terminal style)
+- Developer avatar or silhouette (2-3 figures representing team collaboration)
+- GitHub logo integrated subtly
+- Real-time collaboration arrows or sync icon
+
+Color Scheme:
+- Primary: Dark blue (#001F3F)
+- Accent: Lime green (#00FF41)
+- Secondary: Clean white (#FFFFFF) for text
+- Border: Thin yellow accent line (#FFD700)
+
+Text Style:
+- Font: Bold, sans-serif (similar to Roboto Bold or Poppins Bold)
+- Size: Large headline text that reads clearly in YouTube thumbnail
+- Text positioning: Balanced, not cluttered
+
+Emotional Hook:
+- Professional but approachable
+- Trustworthy reviewer tone
+- Tech-forward but practical
+
+Optional Elements:
+- Small checkmark or "✓" next to positive points
+- Developer hat or code editor window icon
+- "Top Pick" or recommendation badge if applicable
+
+Specific Instructions:
+- Avoid oversaturation of colors
+- Keep text readable on mobile devices
+- Ensure logo placement doesn't obstruct main message
+- Consider A/B testing with/without "Worth It?" question

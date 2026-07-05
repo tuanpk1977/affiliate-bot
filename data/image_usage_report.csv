@@ -1,45 +1,79 @@
 page_path,tool_slug,tool_name,image_path,status,alt_text
 D:\AFFILATE BOT\site_output\review\activecampaign\index.html,activecampaign,ActiveCampaign,D:\AFFILATE BOT\assets\screenshots\activecampaign.png,ok,Activecampaign dashboard screenshot
-D:\AFFILATE BOT\site_output\review\adcreative-ai\index.html,adcreative-ai,AdCreative AI,,missing_image,Adcreative Ai dashboard screenshot
+D:\AFFILATE BOT\site_output\review\adcreative-ai\index.html,adcreative-ai,AdCreative AI,D:\AFFILATE BOT\assets\screenshots\adcreative-ai.png,ok,Adcreative Ai dashboard screenshot
+D:\AFFILATE BOT\site_output\review\ahrefs-ai\index.html,ahrefs-ai,Ahrefs AI,D:\AFFILATE BOT\assets\screenshots\ahrefs-ai.png,ok,Ahrefs Ai dashboard screenshot
+D:\AFFILATE BOT\site_output\review\bolt\index.html,bolt,Bolt,D:\AFFILATE BOT\assets\screenshots\bolt.png,ok,Bolt dashboard screenshot
 D:\AFFILATE BOT\site_output\review\canva\index.html,canva,Canva,D:\AFFILATE BOT\assets\screenshots\canva.png,ok,Canva dashboard screenshot
+D:\AFFILATE BOT\site_output\review\chatgpt\index.html,chatgpt,ChatGPT,D:\AFFILATE BOT\assets\screenshots\chatgpt.png,ok,Chatgpt dashboard screenshot
+D:\AFFILATE BOT\site_output\review\claude\index.html,claude,Claude,D:\AFFILATE BOT\assets\screenshots\claude.png,ok,Claude dashboard screenshot
 D:\AFFILATE BOT\site_output\review\copy-ai\index.html,copy-ai,Copy.ai,D:\AFFILATE BOT\assets\screenshots\copy-ai.png,ok,Copy.ai dashboard screenshot
 D:\AFFILATE BOT\site_output\review\cursor\index.html,cursor,Cursor,D:\AFFILATE BOT\assets\screenshots\cursor.png,ok,Cursor dashboard screenshot
 D:\AFFILATE BOT\site_output\review\descript\index.html,descript,Descript,D:\AFFILATE BOT\assets\screenshots\descript.png,ok,Descript dashboard screenshot
-D:\AFFILATE BOT\site_output\review\durable\index.html,durable,Durable,,missing_image,Durable dashboard screenshot
+D:\AFFILATE BOT\site_output\review\durable\index.html,durable,Durable,D:\AFFILATE BOT\assets\screenshots\durable.png,ok,Durable dashboard screenshot
 D:\AFFILATE BOT\site_output\review\elevenlabs\index.html,elevenlabs,ElevenLabs,D:\AFFILATE BOT\assets\screenshots\elevenlabs.png,ok,Elevenlabs dashboard screenshot
-D:\AFFILATE BOT\site_output\review\framer\index.html,framer,Framer,,missing_image,Framer dashboard screenshot
+D:\AFFILATE BOT\site_output\review\framer\index.html,framer,Framer,D:\AFFILATE BOT\assets\screenshots\framer.png,ok,Framer dashboard screenshot
+D:\AFFILATE BOT\site_output\review\frase\index.html,frase,Frase,D:\AFFILATE BOT\assets\screenshots\frase.png,ok,Frase dashboard screenshot
 D:\AFFILATE BOT\site_output\review\gamma\index.html,gamma,Gamma,D:\AFFILATE BOT\assets\screenshots\gamma.png,ok,Gamma dashboard screenshot
+D:\AFFILATE BOT\site_output\review\gemini\index.html,gemini,Gemini,D:\AFFILATE BOT\assets\screenshots\gemini.png,ok,Gemini dashboard screenshot
 D:\AFFILATE BOT\site_output\review\github-copilot\index.html,github-copilot,GitHub Copilot,D:\AFFILATE BOT\assets\screenshots\github-copilot.png,ok,GitHub Copilot dashboard screenshot
 D:\AFFILATE BOT\site_output\review\hubspot\index.html,hubspot,HubSpot,D:\AFFILATE BOT\assets\screenshots\hubspot.png,ok,Hubspot dashboard screenshot
 D:\AFFILATE BOT\site_output\review\jasper\index.html,jasper,Jasper,D:\AFFILATE BOT\assets\screenshots\jasper.png,ok,Jasper dashboard screenshot
-D:\AFFILATE BOT\site_output\review\jasper-ai\index.html,jasper-ai,Jasper AI,,missing_image,Jasper Ai dashboard screenshot
+D:\AFFILATE BOT\site_output\review\jasper-ai\index.html,jasper-ai,Jasper AI,D:\AFFILATE BOT\assets\screenshots\jasper-ai.png,ok,Jasper Ai dashboard screenshot
+D:\AFFILATE BOT\site_output\review\lovable\index.html,lovable,Lovable,D:\AFFILATE BOT\assets\screenshots\lovable.png,ok,Lovable dashboard screenshot
 D:\AFFILATE BOT\site_output\review\make\index.html,make,Make,D:\AFFILATE BOT\assets\screenshots\make.png,ok,Make dashboard screenshot
-D:\AFFILATE BOT\site_output\review\notion\index.html,notion,Notion,,missing_image,Notion dashboard screenshot
+D:\AFFILATE BOT\site_output\review\midjourney\index.html,midjourney,Midjourney,D:\AFFILATE BOT\assets\screenshots\midjourney.png,ok,Midjourney dashboard screenshot
+D:\AFFILATE BOT\site_output\review\notion\index.html,notion,Notion,D:\AFFILATE BOT\assets\screenshots\notion.png,ok,Notion dashboard screenshot
 D:\AFFILATE BOT\site_output\review\notion-ai\index.html,notion-ai,Notion AI,D:\AFFILATE BOT\assets\screenshots\notion-ai.png,ok,Notion AI dashboard screenshot
-D:\AFFILATE BOT\site_output\review\pipedrive\index.html,pipedrive,Pipedrive,,missing_image,Pipedrive dashboard screenshot
-D:\AFFILATE BOT\site_output\review\pipedrive-crm\index.html,pipedrive-crm,Pipedrive CRM,,missing_image,Pipedrive Crm dashboard screenshot
-D:\AFFILATE BOT\site_output\review\reclaim-ai\index.html,reclaim-ai,Reclaim AI,,missing_image,Reclaim Ai dashboard screenshot
+D:\AFFILATE BOT\site_output\review\perplexity\index.html,perplexity,Perplexity,D:\AFFILATE BOT\assets\screenshots\perplexity.png,ok,Perplexity dashboard screenshot
+D:\AFFILATE BOT\site_output\review\pipedrive\index.html,pipedrive,Pipedrive,D:\AFFILATE BOT\assets\screenshots\pipedrive.png,ok,Pipedrive dashboard screenshot
+D:\AFFILATE BOT\site_output\review\pipedrive-crm\index.html,pipedrive-crm,Pipedrive CRM,D:\AFFILATE BOT\assets\screenshots\pipedrive-crm.png,ok,Pipedrive Crm dashboard screenshot
+D:\AFFILATE BOT\site_output\review\reclaim-ai\index.html,reclaim-ai,Reclaim AI,D:\AFFILATE BOT\assets\screenshots\reclaim-ai.png,ok,Reclaim Ai dashboard screenshot
+D:\AFFILATE BOT\site_output\review\replit\index.html,replit,Replit,D:\AFFILATE BOT\assets\screenshots\replit.png,ok,Replit dashboard screenshot
 D:\AFFILATE BOT\site_output\review\runway\index.html,runway,Runway,D:\AFFILATE BOT\assets\screenshots\runway.png,ok,Runway dashboard screenshot
 D:\AFFILATE BOT\site_output\review\semrush\index.html,semrush,Semrush,D:\AFFILATE BOT\assets\screenshots\semrush.png,ok,Semrush dashboard screenshot
+D:\AFFILATE BOT\site_output\review\semrush-ai\index.html,semrush-ai,Semrush AI,D:\AFFILATE BOT\assets\screenshots\semrush-ai.png,ok,Semrush Ai dashboard screenshot
 D:\AFFILATE BOT\site_output\review\surfer-seo\index.html,surfer-seo,Surfer SEO,D:\AFFILATE BOT\assets\screenshots\surfer-seo.png,ok,Surfer SEO dashboard screenshot
-D:\AFFILATE BOT\site_output\review\synthesia\index.html,synthesia,Synthesia,,missing_image,Synthesia dashboard screenshot
-D:\AFFILATE BOT\site_output\review\webflow\index.html,webflow,Webflow,,missing_image,Webflow dashboard screenshot
+D:\AFFILATE BOT\site_output\review\synthesia\index.html,synthesia,Synthesia,D:\AFFILATE BOT\assets\screenshots\synthesia.png,ok,Synthesia dashboard screenshot
+D:\AFFILATE BOT\site_output\review\webflow\index.html,webflow,Webflow,D:\AFFILATE BOT\assets\screenshots\webflow.png,ok,Webflow dashboard screenshot
 D:\AFFILATE BOT\site_output\review\webflow-ai\index.html,webflow-ai,Webflow AI,D:\AFFILATE BOT\assets\screenshots\webflow-ai.png,ok,Webflow AI dashboard screenshot
+D:\AFFILATE BOT\site_output\review\windsurf\index.html,windsurf,Windsurf,D:\AFFILATE BOT\assets\screenshots\windsurf.png,ok,Windsurf dashboard screenshot
 D:\AFFILATE BOT\site_output\review\zapier\index.html,zapier,Zapier,D:\AFFILATE BOT\assets\screenshots\zapier.png,ok,Zapier dashboard screenshot
 D:\AFFILATE BOT\site_output\activecampaign\index.html,activecampaign,Activecampaign,D:\AFFILATE BOT\assets\screenshots\activecampaign.png,ok,Activecampaign dashboard screenshot
+D:\AFFILATE BOT\site_output\adcreative-ai\index.html,adcreative-ai,Adcreative Ai,D:\AFFILATE BOT\assets\screenshots\adcreative-ai.png,ok,Adcreative Ai dashboard screenshot
+D:\AFFILATE BOT\site_output\ahrefs-ai\index.html,ahrefs-ai,Ahrefs Ai,D:\AFFILATE BOT\assets\screenshots\ahrefs-ai.png,ok,Ahrefs Ai dashboard screenshot
+D:\AFFILATE BOT\site_output\bolt\index.html,bolt,Bolt,D:\AFFILATE BOT\assets\screenshots\bolt.png,ok,Bolt dashboard screenshot
 D:\AFFILATE BOT\site_output\canva\index.html,canva,Canva,D:\AFFILATE BOT\assets\screenshots\canva.png,ok,Canva dashboard screenshot
+D:\AFFILATE BOT\site_output\chatgpt\index.html,chatgpt,Chatgpt,D:\AFFILATE BOT\assets\screenshots\chatgpt.png,ok,Chatgpt dashboard screenshot
+D:\AFFILATE BOT\site_output\claude\index.html,claude,Claude,D:\AFFILATE BOT\assets\screenshots\claude.png,ok,Claude dashboard screenshot
 D:\AFFILATE BOT\site_output\copy-ai\index.html,copy-ai,Copy.ai,D:\AFFILATE BOT\assets\screenshots\copy-ai.png,ok,Copy.ai dashboard screenshot
 D:\AFFILATE BOT\site_output\cursor\index.html,cursor,Cursor,D:\AFFILATE BOT\assets\screenshots\cursor.png,ok,Cursor dashboard screenshot
 D:\AFFILATE BOT\site_output\descript\index.html,descript,Descript,D:\AFFILATE BOT\assets\screenshots\descript.png,ok,Descript dashboard screenshot
+D:\AFFILATE BOT\site_output\durable\index.html,durable,Durable,D:\AFFILATE BOT\assets\screenshots\durable.png,ok,Durable dashboard screenshot
 D:\AFFILATE BOT\site_output\elevenlabs\index.html,elevenlabs,Elevenlabs,D:\AFFILATE BOT\assets\screenshots\elevenlabs.png,ok,Elevenlabs dashboard screenshot
+D:\AFFILATE BOT\site_output\framer\index.html,framer,Framer,D:\AFFILATE BOT\assets\screenshots\framer.png,ok,Framer dashboard screenshot
+D:\AFFILATE BOT\site_output\frase\index.html,frase,Frase,D:\AFFILATE BOT\assets\screenshots\frase.png,ok,Frase dashboard screenshot
 D:\AFFILATE BOT\site_output\gamma\index.html,gamma,Gamma,D:\AFFILATE BOT\assets\screenshots\gamma.png,ok,Gamma dashboard screenshot
+D:\AFFILATE BOT\site_output\gemini\index.html,gemini,Gemini,D:\AFFILATE BOT\assets\screenshots\gemini.png,ok,Gemini dashboard screenshot
 D:\AFFILATE BOT\site_output\github-copilot\index.html,github-copilot,GitHub Copilot,D:\AFFILATE BOT\assets\screenshots\github-copilot.png,ok,GitHub Copilot dashboard screenshot
 D:\AFFILATE BOT\site_output\hubspot\index.html,hubspot,Hubspot,D:\AFFILATE BOT\assets\screenshots\hubspot.png,ok,Hubspot dashboard screenshot
 D:\AFFILATE BOT\site_output\jasper\index.html,jasper,Jasper,D:\AFFILATE BOT\assets\screenshots\jasper.png,ok,Jasper dashboard screenshot
+D:\AFFILATE BOT\site_output\jasper-ai\index.html,jasper-ai,Jasper Ai,D:\AFFILATE BOT\assets\screenshots\jasper-ai.png,ok,Jasper Ai dashboard screenshot
+D:\AFFILATE BOT\site_output\lovable\index.html,lovable,Lovable,D:\AFFILATE BOT\assets\screenshots\lovable.png,ok,Lovable dashboard screenshot
 D:\AFFILATE BOT\site_output\make\index.html,make,Make,D:\AFFILATE BOT\assets\screenshots\make.png,ok,Make dashboard screenshot
+D:\AFFILATE BOT\site_output\midjourney\index.html,midjourney,Midjourney,D:\AFFILATE BOT\assets\screenshots\midjourney.png,ok,Midjourney dashboard screenshot
+D:\AFFILATE BOT\site_output\notion\index.html,notion,Notion,D:\AFFILATE BOT\assets\screenshots\notion.png,ok,Notion dashboard screenshot
 D:\AFFILATE BOT\site_output\notion-ai\index.html,notion-ai,Notion AI,D:\AFFILATE BOT\assets\screenshots\notion-ai.png,ok,Notion AI dashboard screenshot
+D:\AFFILATE BOT\site_output\perplexity\index.html,perplexity,Perplexity,D:\AFFILATE BOT\assets\screenshots\perplexity.png,ok,Perplexity dashboard screenshot
+D:\AFFILATE BOT\site_output\pipedrive\index.html,pipedrive,Pipedrive,D:\AFFILATE BOT\assets\screenshots\pipedrive.png,ok,Pipedrive dashboard screenshot
+D:\AFFILATE BOT\site_output\pipedrive-crm\index.html,pipedrive-crm,Pipedrive Crm,D:\AFFILATE BOT\assets\screenshots\pipedrive-crm.png,ok,Pipedrive Crm dashboard screenshot
+D:\AFFILATE BOT\site_output\reclaim-ai\index.html,reclaim-ai,Reclaim Ai,D:\AFFILATE BOT\assets\screenshots\reclaim-ai.png,ok,Reclaim Ai dashboard screenshot
+D:\AFFILATE BOT\site_output\replit\index.html,replit,Replit,D:\AFFILATE BOT\assets\screenshots\replit.png,ok,Replit dashboard screenshot
 D:\AFFILATE BOT\site_output\runway\index.html,runway,Runway,D:\AFFILATE BOT\assets\screenshots\runway.png,ok,Runway dashboard screenshot
 D:\AFFILATE BOT\site_output\semrush\index.html,semrush,Semrush,D:\AFFILATE BOT\assets\screenshots\semrush.png,ok,Semrush dashboard screenshot
+D:\AFFILATE BOT\site_output\semrush-ai\index.html,semrush-ai,Semrush Ai,D:\AFFILATE BOT\assets\screenshots\semrush-ai.png,ok,Semrush Ai dashboard screenshot
 D:\AFFILATE BOT\site_output\surfer-seo\index.html,surfer-seo,Surfer SEO,D:\AFFILATE BOT\assets\screenshots\surfer-seo.png,ok,Surfer SEO dashboard screenshot
+D:\AFFILATE BOT\site_output\synthesia\index.html,synthesia,Synthesia,D:\AFFILATE BOT\assets\screenshots\synthesia.png,ok,Synthesia dashboard screenshot
+D:\AFFILATE BOT\site_output\webflow\index.html,webflow,Webflow,D:\AFFILATE BOT\assets\screenshots\webflow.png,ok,Webflow dashboard screenshot
 D:\AFFILATE BOT\site_output\webflow-ai\index.html,webflow-ai,Webflow AI,D:\AFFILATE BOT\assets\screenshots\webflow-ai.png,ok,Webflow AI dashboard screenshot
+D:\AFFILATE BOT\site_output\windsurf\index.html,windsurf,Windsurf,D:\AFFILATE BOT\assets\screenshots\windsurf.png,ok,Windsurf dashboard screenshot
 D:\AFFILATE BOT\site_output\zapier\index.html,zapier,Zapier,D:\AFFILATE BOT\assets\screenshots\zapier.png,ok,Zapier dashboard screenshot

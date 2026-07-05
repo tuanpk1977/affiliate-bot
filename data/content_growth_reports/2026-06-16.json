@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-06-16T08:28:15.775544+00:00",
+  "limit": 2,
+  "dry_run": true,
+  "selected_topics": [],
+  "generated_pages": [],
+  "build": {
+    "skipped": true
+  },
+  "indexnow": {
+    "skipped": true
+  },
+  "warnings": [],
+  "manual_posting_order": [],
+  "next_actions": [
+    "Review each generated article for product facts marked needs manual verification.",
+    "Upload review_video.mp4 manually only if you render a final video file later.",
+    "Copy social draft files manually to social platforms.",
+    "Paste YouTube URLs into video_output/upload_links.csv after upload, then run python scripts/update_youtube_links.py."
+  ],
+  "safety": {
+    "auto_website_publish": true,
+    "auto_youtube_upload": false,
+    "auto_social_post": false
+  }
+}

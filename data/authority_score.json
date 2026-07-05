@@ -1,0 +1,123 @@
+[
+  {
+    "cluster": "Comparisons",
+    "article_count": 3,
+    "indexed_count": 0,
+    "internal_link_count": 9,
+    "impressions": 0.0,
+    "clicks": 0.0,
+    "average_position": 0,
+    "authority_score": 12.0,
+    "content_gap_score": 88.0
+  },
+  {
+    "cluster": "AI Video",
+    "article_count": 11,
+    "indexed_count": 0,
+    "internal_link_count": 33,
+    "impressions": 0.0,
+    "clicks": 0.0,
+    "average_position": 0,
+    "authority_score": 44.0,
+    "content_gap_score": 56.0
+  },
+  {
+    "cluster": "AI Search",
+    "article_count": 14,
+    "indexed_count": 0,
+    "internal_link_count": 42,
+    "impressions": 0.0,
+    "clicks": 0.0,
+    "average_position": 0,
+    "authority_score": 56.0,
+    "content_gap_score": 44.0
+  },
+  {
+    "cluster": "AI Writing",
+    "article_count": 16,
+    "indexed_count": 0,
+    "internal_link_count": 48,
+    "impressions": 0.0,
+    "clicks": 0.0,
+    "average_position": 0,
+    "authority_score": 64.0,
+    "content_gap_score": 36.0
+  },
+  {
+    "cluster": "AI Image",
+    "article_count": 17,
+    "indexed_count": 0,
+    "internal_link_count": 51,
+    "impressions": 0.0,
+    "clicks": 0.0,
+    "average_position": 0,
+    "authority_score": 68.0,
+    "content_gap_score": 32.0
+  },
+  {
+    "cluster": "AI Productivity",
+    "article_count": 17,
+    "indexed_count": 0,
+    "internal_link_count": 51,
+    "impressions": 0.0,
+    "clicks": 0.0,
+    "average_position": 0,
+    "authority_score": 68.0,
+    "content_gap_score": 32.0
+  },
+  {
+    "cluster": "AI SEO",
+    "article_count": 23,
+    "indexed_count": 0,
+    "internal_link_count": 69,
+    "impressions": 0.0,
+    "clicks": 0.0,
+    "average_position": 0,
+    "authority_score": 92.0,
+    "content_gap_score": 8.0
+  },
+  {
+    "cluster": "AI Coding",
+    "article_count": 27,
+    "indexed_count": 0,
+    "internal_link_count": 81,
+    "impressions": 0.0,
+    "clicks": 0.0,
+    "average_position": 0,
+    "authority_score": 100,
+    "content_gap_score": 0
+  },
+  {
+    "cluster": "SaaS Reviews",
+    "article_count": 65,
+    "indexed_count": 0,
+    "internal_link_count": 195,
+    "impressions": 0.0,
+    "clicks": 0.0,
+    "average_position": 0,
+    "authority_score": 100,
+    "content_gap_score": 0
+  },
+  {
+    "cluster": "AI Automation",
+    "article_count": 26,
+    "indexed_count": 0,
+    "internal_link_count": 78,
+    "impressions": 0.0,
+    "clicks": 0.0,
+    "average_position": 0,
+    "authority_score": 100,
+    "content_gap_score": 0
+  },
+  {
+    "cluster": "Reviews",
+    "article_count": 55,
+    "indexed_count": 0,
+    "internal_link_count": 165,
+    "impressions": 0.0,
+    "clicks": 0.0,
+    "average_position": 0,
+    "authority_score": 100,
+    "content_gap_score": 0
+  }
+]

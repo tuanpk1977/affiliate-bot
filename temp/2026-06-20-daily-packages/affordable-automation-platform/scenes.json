@@ -1,0 +1,17 @@
+{
+  "slug": "affordable-automation-platform",
+  "scenes": [
+    {
+      "scene": "intro",
+      "duration": 15
+    },
+    {
+      "scene": "details",
+      "duration": 30
+    },
+    {
+      "scene": "closing",
+      "duration": 15
+    }
+  ]
+}

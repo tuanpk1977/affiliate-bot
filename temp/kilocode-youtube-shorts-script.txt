@@ -1,0 +1,95 @@
+KILOCODE SHORTS SCRIPT (15-60 seconds)
+
+---
+
+SHORTS SCRIPT 1: "Is Kilocode Worth It?" (30 seconds)
+
+"If you're a developer, here's the real question about Kilocode:
+
+Does it actually save you time on code reviews?
+
+For teams using GitHub with 15-50 developers, the answer is usually YES.
+
+But if you're using GitLab or Bitbucket? Skip it.
+
+The key: Test the free tier first. Measure if your code review time goes down. If it does, upgrade.
+
+Kilocode isn't magical. It's just a focused tool that solves one problem well.
+
+Check it out and tell us what you think in the comments."
+
+---
+
+SHORTS SCRIPT 2: "GitHub or Kilocode?" (30 seconds)
+
+"Question: Should you use GitHub Copilot or Kilocode?
+
+Answer: They do different things.
+
+GitHub Copilot is AI-assisted coding. It writes code for you.
+
+Kilocode is team collaboration. It helps your team review code together faster.
+
+Many teams use BOTH.
+
+So it's not either/or. It's both/and.
+
+Which tool is your team considering?"
+
+---
+
+SHORTS SCRIPT 3: "Kilocode Pricing Reality" (30 seconds)
+
+"Kilocode pricing looks simple on the website:
+
+Pro Plan: $15-25 per user per month.
+
+But here's the reality:
+
+If you have 20 developers, that's $300-500 per month.
+
+For a year? $3,600-6,000.
+
+That's real money. So test it first with 2-3 people.
+
+Make sure it actually saves time before you commit the full team.
+
+Smart investment strategy = test first, expand after."
+
+---
+
+SHORTS SCRIPT 4: "Better Than GitHub's Built-in Tools?" (30 seconds)
+
+"GitHub has built-in code review tools.
+
+So why would you pay for Kilocode?
+
+Because Kilocode is faster for:
+- Pair programming
+- Knowledge sharing
+- Cross-team collaboration
+
+GitHub's tools are good, but they're basic.
+
+Kilocode adds real-time features that matter.
+
+Test both. Pick what fits your workflow.
+
+Don't just assume the built-in tool is enough."
+
+---
+
+SHORTS SCRIPT 5: "Who's Kilocode NOT For?" (30 seconds)
+
+"Skip Kilocode if:
+
+1. Your team uses GitLab or Bitbucket (not GitHub)
+2. You have fewer than 5 developers (overhead isn't worth it)
+3. Your team is already fast at code reviews
+4. Budget is super tight
+
+For everyone else, it's worth a test.
+
+Real talk: Most tools aren't bad. They're just wrong for some teams.
+
+Make sure Kilocode solves YOUR specific problem."

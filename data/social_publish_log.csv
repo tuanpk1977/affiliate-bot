@@ -1,2 +1,2 @@
-﻿timestamp,post_id,queue_id,platform,action,status,message,published_url
-2026-05-29T14:32:55,social-seed-21-telegram,mp-social-seed-21-telegram,telegram,telegram_publish,published,sent,10
+﻿post_id,platform,mode,scheduled_time,action,status,error
+social-seed-21-telegram,telegram,,,telegram_publish,published,

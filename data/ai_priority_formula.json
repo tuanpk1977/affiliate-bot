@@ -1,0 +1,14 @@
+{
+  "weights": {
+    "money_score": 0.2,
+    "trend_score": 0.12,
+    "affiliate_score": 0.12,
+    "competition_score": 0.1,
+    "content_gap_score": 0.1,
+    "internal_link_score": 0.08,
+    "impression_score": 0.08,
+    "ctr_score": 0.06,
+    "youtube_score": 0.08,
+    "social_score": 0.06
+  }
+}

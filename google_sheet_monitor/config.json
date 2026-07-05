@@ -1,0 +1,12 @@
+{
+  "source_sheet_url": "https://docs.google.com/spreadsheets/d/1USFXV2PxnvTjlyZueC-qz8Fgvs9vttTTDI7oTJirNRw/edit?gid=1582626019#gid=1582626019",
+  "output_file": "local_copy.xlsx",
+  "reports_folder": "reports",
+  "snapshots_folder": "snapshots",
+  "logs_folder": "logs",
+  "auth_mode": "auto",
+  "oauth_credentials_file": "credentials.json",
+  "oauth_token_file": "token.json",
+  "service_account_file": "service_account.json",
+  "keep_snapshots": 30
+}

@@ -1,10 +1,10 @@
 # Deploy Checklist
 
-Use this checklist before uploading the static site to Netlify Drop.
+Use this checklist before deploying `site_output/` to Cloudflare Pages.
 
-## 1. Build and check locally
+## 1. Build and validate locally
 
-Run from the project root:
+From the project root:
 
 ```powershell
 python main.py
@@ -20,64 +20,82 @@ python scripts/validate_go_pages.py
 python -m unittest discover -s tests
 ```
 
-Open these reports:
+Open these reports if available:
 
 - `data/final_predeploy_report.csv`
 - `data/final_predeploy_summary.txt`
 
 Deploy only if the final predeploy check says `PASS`.
 
-## 2. Upload the correct folder
+## 2. Ensure output folder is correct
 
-Upload only:
+Deploy only the generated static site:
 
 ```text
 site_output/
 ```
 
-Do not upload the whole project folder when using Netlify Drop.
+Do not deploy the full repository directory.
 
-## 3. Test 5 live URLs after deploy
+## 3. Verify deployment prerequisites
 
-After Netlify finishes the upload, test:
+- `site_output/sitemap.xml` exists.
+- `site_output/robots.txt` exists.
+- `site_output/indexnow-key.txt` exists if IndexNow is required.
+- `BASE_SITE_URL` is set in `.env`.
+- `CLOUDFLARE_PAGES_PROJECT` or `CLOUDFLARE_DEPLOY_COMMAND` is configured.
 
-- `https://smileaireviewhub.com/`
-- `https://smileaireviewhub.com/reviews/`
-- `https://smileaireviewhub.com/comparisons/`
-- `https://smileaireviewhub.com/pricing/`
-- `https://smileaireviewhub.com/categories/`
+## 4. Deploy to Cloudflare Pages
 
-Each page should load with no 404.
-
-## 4. Test one tracking link
-
-Open:
-
-```text
-https://smileaireviewhub.com/go/cursor/?src=/cursor/&cta=official_site&debug=1
+```powershell
+python scripts/deploy_cloudflare.py --project-name YOUR_CLOUDFLARE_PAGES_PROJECT
 ```
 
-Confirm the debug page shows:
+Or run the helper batch file:
 
-- `tool_slug`
-- `target_url`
-- webhook/function status
-- payload
+```text
+run_cloudflare_publish.bat
+```
 
-Then test without `debug=1` and confirm it redirects normally.
+If using `--dry-run`, the deploy command is printed but not executed.
 
-## 5. Check Google Sheet click tracking
+## 5. Validate IndexNow support
 
-If `CLICK_WEBHOOK_URL` is set and embedded during build, test one `/go/` click and confirm the Google Sheet receives a new row.
+After a successful deploy, confirm:
 
-If the Sheet does not update:
+- `https://<site>/indexnow-key.txt` returns the live key.
+- `https://<site>/sitemap.xml` is available.
+- `https://<site>/robots.txt` is available.
 
-- Recheck the Apps Script deployment is a Web App.
-- Confirm access is set to `Anyone`.
-- Confirm `.env` contains the correct `CLICK_WEBHOOK_URL`.
-- Run `python main.py` again after changing `.env`.
-- Upload `site_output/` again.
+Run:
 
-## 6. Do not use Netlify AI Agent
+```powershell
+python scripts/check_indexnow_status.py
+```
 
-Do not use Netlify AI Agent for this project unless explicitly needed. It is not required for this static deploy and can consume credits.
+If the check returns failures, fix the site output or key deployment before retrying.
+
+## 6. Smoke test live pages
+
+Visit a sample of live pages:
+
+- `https://<site>/`
+- `https://<site>/reviews/`
+- `https://<site>/comparisons/`
+- `https://<site>/pricing/`
+- `https://<site>/categories/`
+
+Also test one tracking page with debug enabled:
+
+```text
+https://<site>/go/cursor/?src=/cursor/&cta=official_site&debug=1
+```
+
+Confirm the debug page renders and that the same URL without `debug=1` redirects normally.
+
+## 7. Notes
+
+- Cloudflare deploy success is separate from IndexNow success.
+- If IndexNow fails, the deploy may still be valid; fix IndexNow configuration afterward.
+- Do not commit `.env` or secrets.
+- `netlify.toml` is kept for compatibility only. Primary production deployment is Cloudflare Pages.

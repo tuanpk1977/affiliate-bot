@@ -2,7 +2,7 @@
 
 - Platform: Telegram
 - Status: Pending Review
-- Suggested time: 2026-06-16 15:00
+- Suggested time: 2026-06-20 15:00
 - Target URL: https://smileaireviewhub.com/review/cursor/?utm_source=telegram
 
 ## Copy

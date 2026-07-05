@@ -1,0 +1,7 @@
+1
+00:00:00,000 --> 00:00:05,000
+Welcome to the affordable automation platform review.
+
+2
+00:00:05,000 --> 00:00:10,000
+We cover the main benefits, pricing, and who should use it.

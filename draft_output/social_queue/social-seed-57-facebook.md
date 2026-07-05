@@ -2,7 +2,7 @@
 
 - Platform: Facebook
 - Status: Pending Review
-- Suggested time: 2026-06-26 20:00
+- Suggested time: 2026-06-30 20:00
 - Target URL: https://smileaireviewhub.com/comparisons/cursor-vs-copilot/?utm_source=facebook
 
 ## Copy

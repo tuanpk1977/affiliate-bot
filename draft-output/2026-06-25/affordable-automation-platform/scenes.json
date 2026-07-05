@@ -1,0 +1,37 @@
+[
+  {
+    "time": "0-6",
+    "type": "intro",
+    "title": "Introduction"
+  },
+  {
+    "time": "6-12",
+    "type": "overview",
+    "title": "Overview"
+  },
+  {
+    "time": "12-19",
+    "type": "key-features",
+    "title": "Key Features"
+  },
+  {
+    "time": "19-25",
+    "type": "pricing",
+    "title": "Pricing"
+  },
+  {
+    "time": "25-32",
+    "type": "pros-cons",
+    "title": "Pros and Cons"
+  },
+  {
+    "time": "32-38",
+    "type": "final-verdict",
+    "title": "Final Verdict"
+  },
+  {
+    "time": "38-45",
+    "type": "end-screen",
+    "title": "Final CTA"
+  }
+]

@@ -1,385 +1,455 @@
 ﻿page_url,topic,generic_score,has_experience,has_use_case,has_opinion,has_comparison,has_faq,has_table,internal_links_count,recommendation
-https://smileaireviewhub.com/ai-coding-software-review/,AI coding tools,0,true,true,true,true,true,true,53,ok
-https://smileaireviewhub.com/ai-meeting-software-review/,general,0,true,true,true,true,true,true,54,ok
-https://smileaireviewhub.com/ai-productivity-software-review/,general,0,true,true,true,true,true,true,55,ok
-https://smileaireviewhub.com/ai-seo-software-review/,AI SEO tools,0,true,true,true,true,true,true,56,ok
-https://smileaireviewhub.com/ai-voice-software-review/,general,0,true,true,true,true,true,true,54,ok
-https://smileaireviewhub.com/automation-software-review/,AI automation tools,0,true,true,true,true,true,true,52,ok
-https://smileaireviewhub.com/best-ai-automation-tools/,AI automation tools,54,true,true,true,true,true,true,55,too_generic
+https://smileaireviewhub.com/ai-app-builder-software-review/,general,0,true,true,true,true,true,true,56,ok
+https://smileaireviewhub.com/ai-assistant-software-review/,general,0,true,true,true,true,true,true,56,ok
+https://smileaireviewhub.com/ai-coding-software-review/,AI coding tools,0,true,true,true,true,true,true,54,ok
+https://smileaireviewhub.com/ai-image-software-review/,general,0,true,true,true,true,true,true,56,ok
+https://smileaireviewhub.com/ai-meeting-software-review/,general,0,true,true,true,true,true,true,56,ok
+https://smileaireviewhub.com/ai-productivity-software-review/,general,0,true,true,true,true,true,true,56,ok
+https://smileaireviewhub.com/ai-search-software-review/,general,0,true,true,true,true,true,true,56,ok
+https://smileaireviewhub.com/ai-seo-software-review/,AI SEO tools,0,true,true,true,true,true,true,57,ok
+https://smileaireviewhub.com/ai-voice-software-review/,general,0,true,true,true,true,true,true,56,ok
+https://smileaireviewhub.com/automation-software-review/,AI automation tools,0,true,true,true,true,true,true,54,ok
+https://smileaireviewhub.com/best-ai-automation-tools/,AI automation tools,54,true,true,true,true,true,true,53,too_generic
 https://smileaireviewhub.com/best-ai-automation-tools-2026/,AI automation tools,18,false,true,true,true,true,true,59,add_experience
 https://smileaireviewhub.com/best-ai-coding-tools/,AI coding tools,54,true,true,true,true,true,true,53,too_generic
-https://smileaireviewhub.com/best-ai-coding-tools-2026/,AI coding tools,72,true,true,true,true,true,true,54,too_generic
-https://smileaireviewhub.com/best-ai-presentation-tools/,general,54,true,true,true,true,true,true,54,too_generic
-https://smileaireviewhub.com/best-ai-seo-tools/,AI SEO tools,54,true,true,true,true,true,true,56,too_generic
-https://smileaireviewhub.com/best-ai-seo-tools-2026/,AI SEO tools,18,false,true,true,true,true,true,59,add_experience
-https://smileaireviewhub.com/best-ai-video-tools/,general,54,true,true,true,true,true,true,56,too_generic
+https://smileaireviewhub.com/best-ai-coding-tools-2026/,AI coding tools,72,true,true,true,true,true,true,56,too_generic
+https://smileaireviewhub.com/best-ai-presentation-tools/,general,54,true,true,true,true,true,true,52,too_generic
+https://smileaireviewhub.com/best-ai-seo-tools/,AI SEO tools,54,true,true,true,true,true,true,55,too_generic
+https://smileaireviewhub.com/best-ai-seo-tools-2026/,AI SEO tools,18,false,true,true,true,true,true,61,add_experience
+https://smileaireviewhub.com/best-ai-tools/,general,54,true,true,true,true,true,true,63,too_generic
+https://smileaireviewhub.com/best-ai-video-tools/,general,54,true,true,true,true,true,true,53,too_generic
 https://smileaireviewhub.com/best-ai-video-tools-2026/,general,18,false,true,true,true,true,true,58,add_experience
-https://smileaireviewhub.com/best-ai-writing-tools/,AI writing tools,54,true,true,true,true,true,true,58,too_generic
+https://smileaireviewhub.com/best-ai-writing-tools/,AI writing tools,54,true,true,true,true,true,true,55,too_generic
 https://smileaireviewhub.com/best-ai-writing-tools-2026/,AI writing tools,18,false,true,true,true,true,true,60,add_experience
-https://smileaireviewhub.com/best-crm-tools/,general,54,true,true,true,true,true,true,55,too_generic
-https://smileaireviewhub.com/best-website-builders/,general,54,true,true,true,true,true,true,57,too_generic
+https://smileaireviewhub.com/best-crm-tools/,general,54,true,true,true,true,true,true,53,too_generic
+https://smileaireviewhub.com/best-website-builders/,general,54,true,true,true,true,true,true,52,too_generic
 https://smileaireviewhub.com/blog/ai-productivity-tools/,general,0,true,true,true,true,true,false,52,ok
 https://smileaireviewhub.com/blog/ai-tools-for-content-creators/,AI writing tools,0,true,true,true,true,true,false,51,ok
 https://smileaireviewhub.com/blog/ai-tools-for-marketers/,general,0,true,true,true,true,true,false,51,ok
 https://smileaireviewhub.com/blog/ai-tools-under-20-month/,general,0,true,true,true,true,true,false,51,ok
-https://smileaireviewhub.com/blog/ai-website-builders-comparison/,comparisons,0,true,true,true,true,true,false,52,ok
+https://smileaireviewhub.com/blog/ai-website-builders-comparison/,comparisons,0,true,true,true,true,true,false,53,ok
 https://smileaireviewhub.com/blog/automation-tools-for-beginners/,AI automation tools,0,true,true,true,true,true,false,52,ok
 https://smileaireviewhub.com/blog/best-ai-presentation-tools/,general,0,true,true,true,true,true,false,51,ok
 https://smileaireviewhub.com/blog/best-ai-tools-for-small-business/,general,54,true,true,true,true,true,false,51,too_generic
 https://smileaireviewhub.com/blog/best-ai-voice-generators/,general,0,true,true,true,true,true,false,53,ok
 https://smileaireviewhub.com/blog/best-alternatives-to-canva-ai/,alternatives,0,true,true,true,true,true,false,52,ok
 https://smileaireviewhub.com/blog/best-crm-for-startups/,general,0,true,true,true,true,true,false,52,ok
-https://smileaireviewhub.com/blog/chatgpt-prompts-for-windsurf/,AI coding tools,0,true,true,true,true,true,false,54,ok
+https://smileaireviewhub.com/blog/chatgpt-prompts-for-windsurf/,AI coding tools,0,true,true,true,true,true,false,57,ok
 https://smileaireviewhub.com/blog/chatgpt-windsurf-codex-workflow/,AI coding tools|AI automation tools,54,true,true,true,true,true,true,56,too_generic
-https://smileaireviewhub.com/blog/fix-windsurf-mixed-language/,AI coding tools,0,true,true,true,true,true,false,52,ok
+https://smileaireviewhub.com/blog/fix-windsurf-mixed-language/,AI coding tools,0,true,true,true,true,true,false,53,ok
 https://smileaireviewhub.com/blog/how-to-choose-saas-tools-safely/,general,0,true,true,true,true,true,false,51,ok
 https://smileaireviewhub.com/blog/,general,18,true,true,true,true,false,false,64,add_faq
-https://smileaireviewhub.com/blog/windsurf-prompt-checklist/,AI coding tools,0,true,true,true,true,true,false,52,ok
+https://smileaireviewhub.com/blog/windsurf-prompt-checklist/,AI coding tools,0,true,true,true,true,true,false,53,ok
 https://smileaireviewhub.com/blog/windsurf-to-codex-workflow/,AI coding tools|AI automation tools,0,true,true,true,true,true,false,54,ok
 https://smileaireviewhub.com/category/ai-automation-tools/,AI automation tools,0,false,true,true,true,false,false,58,add_experience|add_faq
-https://smileaireviewhub.com/category/ai-coding-tools/,AI coding tools,36,true,true,true,true,true,true,55,ok
+https://smileaireviewhub.com/category/ai-coding-tools/,AI coding tools,36,true,true,true,true,true,true,56,ok
 https://smileaireviewhub.com/category/ai-customer-support-tools/,general,0,false,true,true,true,false,false,58,add_experience|add_faq
 https://smileaireviewhub.com/category/ai-presentation-tools/,general,0,false,true,true,true,false,false,58,add_experience|add_faq
-https://smileaireviewhub.com/category/ai-seo-tools/,AI SEO tools,0,false,true,true,true,false,false,60,add_experience|add_faq
+https://smileaireviewhub.com/category/ai-seo-tools/,AI SEO tools,0,false,true,true,true,false,false,63,add_experience|add_faq
 https://smileaireviewhub.com/category/ai-video-tools/,general,0,false,true,true,true,false,false,60,add_experience|add_faq
 https://smileaireviewhub.com/category/ai-voice-tools/,general,0,false,true,true,true,false,false,58,add_experience|add_faq
-https://smileaireviewhub.com/category/ai-writing/,AI writing tools,0,false,true,true,true,false,false,74,add_experience|add_faq
+https://smileaireviewhub.com/category/ai-writing/,AI writing tools,0,false,true,true,true,false,false,84,add_experience|add_faq
 https://smileaireviewhub.com/category/ai-writing-tools/,AI writing tools,0,false,true,true,true,false,false,62,add_experience|add_faq
 https://smileaireviewhub.com/category/automation/,AI automation tools,0,false,true,true,true,false,false,61,add_experience|add_faq
 https://smileaireviewhub.com/category/automation-tools/,AI automation tools,36,true,true,true,true,true,true,57,ok
 https://smileaireviewhub.com/category/crm/,general,0,false,true,true,true,false,false,60,add_experience|add_faq
 https://smileaireviewhub.com/category/crm-tools/,general,0,false,true,true,true,false,false,60,add_experience|add_faq
-https://smileaireviewhub.com/category/design-tools/,general,36,true,true,true,true,true,true,57,ok
-https://smileaireviewhub.com/category/email-marketing-tools/,general,36,true,true,true,true,true,true,58,ok
-https://smileaireviewhub.com/category/seo-tools/,AI SEO tools,36,true,true,true,true,true,true,58,ok
+https://smileaireviewhub.com/category/design-tools/,general,36,true,true,true,true,true,true,60,ok
+https://smileaireviewhub.com/category/email-marketing-tools/,general,36,true,true,true,true,true,true,59,ok
+https://smileaireviewhub.com/category/seo-tools/,AI SEO tools,36,true,true,true,true,true,true,60,ok
 https://smileaireviewhub.com/category/video-tools/,general,36,true,true,true,true,true,true,59,ok
 https://smileaireviewhub.com/category/website-builder-tools/,general,36,true,true,true,true,true,true,57,ok
-https://smileaireviewhub.com/category/website-builders/,general,0,false,true,true,true,false,false,62,add_experience|add_faq
-https://smileaireviewhub.com/category/writing-tools/,AI writing tools,36,true,true,true,true,true,true,58,ok
+https://smileaireviewhub.com/category/website-builders/,general,0,false,true,true,true,false,false,60,add_experience|add_faq
+https://smileaireviewhub.com/category/writing-tools/,AI writing tools,36,true,true,true,true,true,true,60,ok
+https://smileaireviewhub.com/cloud-development-software-review/,general,0,true,true,true,true,true,true,52,ok
 https://smileaireviewhub.com/compare/activecampaign-vs-mailchimp/,comparisons,0,true,true,true,true,true,true,53,ok
 https://smileaireviewhub.com/compare/canva-vs-adcreative-ai/,comparisons,0,true,true,true,true,true,true,51,ok
 https://smileaireviewhub.com/compare/cursor-vs-github-copilot/,AI coding tools|comparisons,0,true,true,true,true,true,true,49,ok
 https://smileaireviewhub.com/compare/cursor-vs-windsurf/,AI coding tools|comparisons,0,true,true,true,true,true,true,49,ok
-https://smileaireviewhub.com/compare/github-copilot-vs-codeium/,AI coding tools|comparisons,0,true,true,true,true,true,true,48,ok
-https://smileaireviewhub.com/compare/grammarly-vs-quillbot/,AI writing tools|comparisons,0,true,true,true,true,true,true,50,ok
+https://smileaireviewhub.com/compare/github-copilot-vs-codeium/,AI coding tools|comparisons,0,true,true,true,true,true,true,49,ok
+https://smileaireviewhub.com/compare/grammarly-vs-quillbot/,AI writing tools|comparisons,0,true,true,true,true,true,true,52,ok
 https://smileaireviewhub.com/compare/jasper-vs-copy-ai/,AI writing tools|comparisons,0,true,true,true,true,true,true,53,ok
 https://smileaireviewhub.com/compare/make-vs-zapier/,AI automation tools|comparisons,0,true,true,true,true,true,true,52,ok
 https://smileaireviewhub.com/compare/semrush-vs-ahrefs/,AI SEO tools|comparisons,0,true,true,true,true,true,true,52,ok
 https://smileaireviewhub.com/compare/synthesia-vs-pictory/,comparisons,0,true,true,true,true,true,true,53,ok
 https://smileaireviewhub.com/comparisons/canva-vs-adobe-express/,comparisons,0,false,true,true,true,true,true,51,add_experience
-https://smileaireviewhub.com/comparisons/canva-vs-gamma/,comparisons,0,true,true,true,true,true,true,52,ok
-https://smileaireviewhub.com/comparisons/chatgpt-vs-claude/,comparisons,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/comparisons/chatgpt-vs-gemini/,comparisons,0,false,true,true,true,true,true,53,add_experience
-https://smileaireviewhub.com/comparisons/codex-vs-openclaw/,AI coding tools|comparisons,18,true,true,true,true,true,true,49,ok
+https://smileaireviewhub.com/comparisons/canva-vs-gamma/,comparisons,0,false,true,true,true,true,true,62,add_experience
+https://smileaireviewhub.com/comparisons/chatgpt-vs-claude/,comparisons,0,false,true,true,true,true,true,60,add_experience
+https://smileaireviewhub.com/comparisons/chatgpt-vs-gemini/,comparisons,0,false,true,true,true,true,true,60,add_experience
+https://smileaireviewhub.com/comparisons/chatgpt-vs-perplexity/,comparisons,0,false,true,true,true,true,true,61,add_experience
+https://smileaireviewhub.com/comparisons/claude-vs-gemini/,comparisons,0,false,true,true,true,true,true,60,add_experience
+https://smileaireviewhub.com/comparisons/claude-vs-perplexity/,comparisons,0,false,true,true,true,true,true,60,add_experience
+https://smileaireviewhub.com/comparisons/codex-vs-openclaw/,AI coding tools|comparisons,18,true,true,true,true,true,true,52,ok
 https://smileaireviewhub.com/comparisons/copilot-vs-codex/,AI coding tools|comparisons,36,true,true,true,true,true,true,51,ok
 https://smileaireviewhub.com/comparisons/copilot-vs-cursor/,AI coding tools|comparisons,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/comparisons/copilot-vs-tabnine/,AI coding tools|comparisons,0,false,true,true,true,true,true,48,add_experience
+https://smileaireviewhub.com/comparisons/copilot-vs-tabnine/,AI coding tools|comparisons,0,false,true,true,true,true,true,49,add_experience
 https://smileaireviewhub.com/comparisons/cursor-vs-copilot/,AI coding tools|comparisons,0,false,true,true,true,true,true,50,add_experience
-https://smileaireviewhub.com/comparisons/cursor-vs-github-copilot/,AI coding tools|comparisons,0,true,true,true,true,true,true,50,ok
+https://smileaireviewhub.com/comparisons/cursor-vs-github-copilot/,AI coding tools|comparisons,0,true,true,true,true,true,true,59,ok
 https://smileaireviewhub.com/comparisons/cursor-vs-vscode/,AI coding tools|comparisons,0,false,true,true,true,true,true,51,add_experience
-https://smileaireviewhub.com/comparisons/cursor-vs-windsurf/,AI coding tools|comparisons,18,true,true,true,true,true,true,49,ok
-https://smileaireviewhub.com/comparisons/elevenlabs-vs-murf/,comparisons,0,true,true,true,true,true,true,52,ok
+https://smileaireviewhub.com/comparisons/cursor-vs-windsurf/,AI coding tools|comparisons,0,false,true,true,true,true,true,59,add_experience
+https://smileaireviewhub.com/comparisons/elevenlabs-vs-murf/,comparisons,0,false,true,true,true,true,true,62,add_experience
 https://smileaireviewhub.com/comparisons/elevenlabs-vs-playht/,comparisons,0,false,true,true,true,true,true,51,add_experience
 https://smileaireviewhub.com/comparisons/framer-vs-webflow/,comparisons,0,false,true,true,true,true,true,54,add_experience
-https://smileaireviewhub.com/comparisons/gemini-vs-claude/,comparisons,0,false,true,true,true,true,true,52,add_experience
+https://smileaireviewhub.com/comparisons/gemini-vs-claude/,comparisons,0,false,true,true,true,true,true,53,add_experience
 https://smileaireviewhub.com/comparisons/hubspot-vs-salesforce/,comparisons,0,false,true,true,true,true,true,52,add_experience
-https://smileaireviewhub.com/comparisons/,general,0,false,true,true,true,false,true,82,add_experience|add_faq
+https://smileaireviewhub.com/comparisons/,general,0,false,true,true,true,false,true,89,add_experience|add_faq
+https://smileaireviewhub.com/comparisons/jasper-vs-copy-ai/,AI writing tools|comparisons,0,false,true,true,true,true,true,63,add_experience
 https://smileaireviewhub.com/comparisons/jasper-vs-copyai/,AI writing tools|comparisons,0,false,true,true,true,true,true,55,add_experience
-https://smileaireviewhub.com/comparisons/make-vs-zapier/,AI automation tools|comparisons,0,true,true,true,true,true,true,54,ok
+https://smileaireviewhub.com/comparisons/lovable-vs-bolt/,comparisons,0,false,true,true,true,true,true,63,add_experience
+https://smileaireviewhub.com/comparisons/make-vs-zapier/,AI automation tools|comparisons,0,false,true,true,true,true,true,64,add_experience
 https://smileaireviewhub.com/comparisons/midjourney-vs-dalle/,comparisons,0,false,true,true,true,true,true,51,add_experience
 https://smileaireviewhub.com/comparisons/notion-ai-vs-chatgpt/,AI writing tools|comparisons,0,false,true,true,true,true,true,54,add_experience
-https://smileaireviewhub.com/comparisons/notion-ai-vs-clickup-ai/,AI writing tools|comparisons,0,true,true,true,true,true,true,53,ok
+https://smileaireviewhub.com/comparisons/notion-ai-vs-clickup-ai/,AI writing tools|comparisons,0,false,true,true,true,true,true,62,add_experience
 https://smileaireviewhub.com/comparisons/notion-vs-clickup/,AI writing tools|comparisons,0,false,true,true,true,true,true,54,add_experience
 https://smileaireviewhub.com/comparisons/perplexity-vs-chatgpt/,comparisons,0,false,true,true,true,true,true,53,add_experience
-https://smileaireviewhub.com/comparisons/runway-vs-pika/,comparisons,0,true,true,true,true,true,true,53,ok
-https://smileaireviewhub.com/comparisons/semrush-vs-ahrefs/,AI SEO tools|comparisons,0,true,true,true,true,true,true,53,ok
+https://smileaireviewhub.com/comparisons/replit-vs-cursor/,AI coding tools|comparisons,0,false,true,true,true,true,true,60,add_experience
+https://smileaireviewhub.com/comparisons/runway-vs-pika/,comparisons,0,false,true,true,true,true,true,64,add_experience
+https://smileaireviewhub.com/comparisons/semrush-vs-ahrefs/,AI SEO tools|comparisons,0,false,true,true,true,true,true,62,add_experience
+https://smileaireviewhub.com/comparisons/surfer-seo-vs-frase/,AI SEO tools|AI writing tools|comparisons,0,false,true,true,true,true,true,62,add_experience
 https://smileaireviewhub.com/comparisons/synthesia-vs-heygen/,comparisons,18,false,true,true,true,true,true,53,add_experience
 https://smileaireviewhub.com/comparisons/synthesia-vs-runway/,comparisons,0,true,true,true,true,true,true,53,ok
 https://smileaireviewhub.com/comparisons/windsurf-vs-copilot/,AI coding tools|comparisons,0,false,true,true,true,true,true,51,add_experience
-https://smileaireviewhub.com/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,AI coding tools,0,true,true,true,true,true,false,49,ok
+https://smileaireviewhub.com/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,AI coding tools,0,true,true,true,true,true,false,48,ok
 https://smileaireviewhub.com/cursor-pricing/,AI coding tools|pricing,0,false,true,true,true,true,false,46,add_experience|add_comparison_table
-https://smileaireviewhub.com/elevenlabs-pricing/,pricing,0,false,true,true,true,true,false,48,add_experience|add_comparison_table
-https://smileaireviewhub.com/email-marketing-software-review/,general,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/github-copilot-pricing/,AI coding tools|pricing,0,false,true,true,true,true,false,44,add_experience|add_comparison_table
-https://smileaireviewhub.com/how-we-review-tools/,general,0,false,true,true,true,false,false,48,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/hub/ai-automation/,AI automation tools,0,false,true,true,true,false,false,53,add_experience|add_faq
-https://smileaireviewhub.com/hub/ai-coding/,AI coding tools,0,false,true,true,true,false,false,53,add_experience|add_faq
-https://smileaireviewhub.com/hub/ai-presentation/,general,0,false,true,true,true,false,false,54,add_experience|add_faq
-https://smileaireviewhub.com/hub/ai-seo/,AI SEO tools,0,false,true,true,true,false,false,54,add_experience|add_faq
-https://smileaireviewhub.com/hub/ai-video/,general,0,false,true,true,true,false,false,57,add_experience|add_faq
-https://smileaireviewhub.com/hub/ai-voice/,general,0,false,true,true,true,false,false,53,add_experience|add_faq
-https://smileaireviewhub.com/hub/ai-writing/,AI writing tools,0,false,true,true,true,false,false,63,add_experience|add_faq
-https://smileaireviewhub.com/hub/crm/,general,0,false,true,true,true,false,false,56,add_experience|add_faq
-https://smileaireviewhub.com/hub/email-marketing/,general,0,false,true,true,true,false,false,60,add_experience|add_faq
-https://smileaireviewhub.com/hub/marketing/,general,0,false,true,true,true,false,false,65,add_experience|add_faq
-https://smileaireviewhub.com/hub/productivity/,general,0,false,true,true,true,false,false,60,add_experience|add_faq
-https://smileaireviewhub.com/hub/website-builders/,general,0,false,true,true,true,false,false,58,add_experience|add_faq
-https://smileaireviewhub.com/jasper-pricing/,AI writing tools|pricing,0,false,true,true,true,true,false,50,add_experience|add_comparison_table
-https://smileaireviewhub.com/make-pricing/,AI automation tools|pricing,0,false,true,true,true,true,false,47,add_experience|add_comparison_table
-https://smileaireviewhub.com/marketing-software-review/,general,0,true,true,true,true,true,true,50,ok
+https://smileaireviewhub.com/elevenlabs-pricing/,pricing,0,false,true,true,true,true,false,47,add_experience|add_comparison_table
+https://smileaireviewhub.com/email-marketing-software-review/,general,0,true,true,true,true,true,true,52,ok
+https://smileaireviewhub.com/github-copilot-pricing/,AI coding tools|pricing,0,false,true,true,true,true,false,45,add_experience|add_comparison_table
+https://smileaireviewhub.com/how-we-review-tools/,general,0,true,true,true,true,true,false,48,ok
+https://smileaireviewhub.com/hub/ai-automation/,AI automation tools,0,false,true,true,true,false,false,51,add_experience|add_faq
+https://smileaireviewhub.com/hub/ai-coding/,AI coding tools,0,false,true,true,true,false,false,55,add_experience|add_faq
+https://smileaireviewhub.com/hub/ai-presentation/,general,0,false,true,true,true,false,false,53,add_experience|add_faq
+https://smileaireviewhub.com/hub/ai-seo/,AI SEO tools,0,false,true,true,true,false,false,55,add_experience|add_faq
+https://smileaireviewhub.com/hub/ai-video/,general,0,false,true,true,true,false,false,54,add_experience|add_faq
+https://smileaireviewhub.com/hub/ai-voice/,general,0,false,true,true,true,false,false,52,add_experience|add_faq
+https://smileaireviewhub.com/hub/ai-writing/,AI writing tools,0,false,true,true,true,false,false,62,add_experience|add_faq
+https://smileaireviewhub.com/hub/crm/,general,0,false,true,true,true,false,false,53,add_experience|add_faq
+https://smileaireviewhub.com/hub/email-marketing/,general,0,false,true,true,true,false,false,59,add_experience|add_faq
+https://smileaireviewhub.com/hub/marketing/,general,0,false,true,true,true,false,false,66,add_experience|add_faq
+https://smileaireviewhub.com/hub/productivity/,general,0,false,true,true,true,false,false,59,add_experience|add_faq
+https://smileaireviewhub.com/hub/website-builders/,general,0,false,true,true,true,false,false,57,add_experience|add_faq
+https://smileaireviewhub.com/jasper-pricing/,AI writing tools|pricing,0,false,true,true,true,true,false,49,add_experience|add_comparison_table
+https://smileaireviewhub.com/make-pricing/,AI automation tools|pricing,0,false,true,true,true,true,false,46,add_experience|add_comparison_table
 https://smileaireviewhub.com/pricing/activecampaign/,pricing,18,true,true,true,true,true,true,48,ok
 https://smileaireviewhub.com/pricing/canva/,pricing,18,true,true,true,true,true,true,49,ok
 https://smileaireviewhub.com/pricing/cursor/,AI coding tools|pricing,18,true,true,true,true,true,true,48,ok
 https://smileaireviewhub.com/pricing/github-copilot/,AI coding tools|pricing,18,true,true,true,true,true,true,48,ok
-https://smileaireviewhub.com/pricing/grammarly/,pricing,18,true,true,true,true,true,true,49,ok
+https://smileaireviewhub.com/pricing/grammarly/,pricing,18,true,true,true,true,true,true,50,ok
 https://smileaireviewhub.com/pricing/,pricing,0,true,true,true,true,true,false,53,add_comparison_table
 https://smileaireviewhub.com/pricing/mailchimp/,pricing,18,true,true,true,true,true,true,50,ok
 https://smileaireviewhub.com/pricing/make/,AI automation tools|pricing,18,true,true,true,true,true,true,49,ok
-https://smileaireviewhub.com/pricing/pictory/,pricing,18,true,true,true,true,true,true,51,ok
-https://smileaireviewhub.com/pricing/semrush/,AI SEO tools|pricing,18,true,true,true,true,true,true,48,ok
+https://smileaireviewhub.com/pricing/pictory/,pricing,18,true,true,true,true,true,true,52,ok
+https://smileaireviewhub.com/pricing/semrush/,AI SEO tools|pricing,18,true,true,true,true,true,true,49,ok
 https://smileaireviewhub.com/pricing/zapier/,AI automation tools|pricing,18,true,true,true,true,true,true,49,ok
-https://smileaireviewhub.com/review/activecampaign/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,49,ok
-https://smileaireviewhub.com/review/adcreative-ai/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,49,ok
-https://smileaireviewhub.com/review/canva/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/review/copy-ai/,AI writing tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,53,ok
-https://smileaireviewhub.com/review/cursor/,AI coding tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/review/descript/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,52,ok
-https://smileaireviewhub.com/review/durable/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/review/elevenlabs/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,49,ok
-https://smileaireviewhub.com/review/framer/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/review/gamma/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/review/github-copilot/,AI coding tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/review/hubspot/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/review/jasper/,AI writing tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,52,ok
-https://smileaireviewhub.com/review/jasper-ai/,AI writing tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,52,ok
-https://smileaireviewhub.com/review/make/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/review/notion/,AI writing tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,55,ok
-https://smileaireviewhub.com/review/notion-ai/,AI writing tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,55,ok
-https://smileaireviewhub.com/review/pipedrive/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/review/pipedrive-crm/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/review/reclaim-ai/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,49,ok
-https://smileaireviewhub.com/review/runway/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,52,ok
-https://smileaireviewhub.com/review/semrush/,AI SEO tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,52,ok
-https://smileaireviewhub.com/review/surfer-seo/,AI SEO tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,51,ok
-https://smileaireviewhub.com/review/synthesia/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,53,ok
-https://smileaireviewhub.com/review/webflow/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/review/webflow-ai/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/review/zapier/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,51,ok
-https://smileaireviewhub.com/reviews/activecampaign/,general,0,false,true,true,true,false,false,49,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/adcreative-ai/,general,0,false,true,true,true,false,false,49,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/canva/,general,0,false,true,true,true,false,false,50,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/copy-ai/,AI writing tools,0,false,true,true,true,false,false,53,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/cursor/,AI coding tools,0,false,true,true,true,false,false,51,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,AI coding tools,0,false,true,true,true,false,false,50,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/descript/,general,0,false,true,true,true,false,false,53,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/durable/,general,0,false,true,true,true,false,false,51,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/elevenlabs/,general,0,false,true,true,true,false,false,49,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/framer/,general,0,false,true,true,true,false,false,51,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/gamma/,general,0,false,true,true,true,false,false,50,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/github-copilot/,AI coding tools,0,false,true,true,true,false,false,49,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/hubspot/,general,0,false,true,true,true,false,false,51,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/,general,0,false,true,true,true,false,false,74,add_experience|add_faq
-https://smileaireviewhub.com/reviews/jasper/,AI writing tools,0,false,true,true,true,false,false,53,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/jasper-ai/,AI writing tools,0,false,true,true,true,false,false,53,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/make/,AI automation tools,0,false,true,true,true,false,false,50,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/notion/,AI writing tools,0,false,true,true,true,false,false,53,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/notion-ai/,AI writing tools,0,false,true,true,true,false,false,53,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/pipedrive/,general,0,false,true,true,true,false,false,51,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/pipedrive-crm/,general,0,false,true,true,true,false,false,51,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/reclaim-ai/,general,0,false,true,true,true,false,false,50,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/runway/,general,0,false,true,true,true,false,false,53,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/semrush/,AI SEO tools,0,false,true,true,true,false,false,52,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/surfer-seo/,AI SEO tools,0,false,true,true,true,false,false,52,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/synthesia/,general,0,false,true,true,true,false,false,53,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/webflow/,general,0,false,true,true,true,false,false,51,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/webflow-ai/,general,0,false,true,true,true,false,false,51,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/windsurf/,AI coding tools,0,false,true,true,true,false,false,50,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/windsurf-review/,AI coding tools,0,false,true,true,true,false,false,50,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/reviews/zapier/,AI automation tools,0,false,true,true,true,false,false,50,add_experience|add_cta|add_faq
+https://smileaireviewhub.com/review/activecampaign/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,54,ok
+https://smileaireviewhub.com/review/adcreative-ai/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,54,ok
+https://smileaireviewhub.com/review/ahrefs-ai/,AI SEO tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,55,ok
+https://smileaireviewhub.com/review/bolt/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,61,ok
+https://smileaireviewhub.com/review/canva/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,55,ok
+https://smileaireviewhub.com/review/chatgpt/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,57,ok
+https://smileaireviewhub.com/review/claude/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,57,ok
+https://smileaireviewhub.com/review/copy-ai/,AI writing tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,59,ok
+https://smileaireviewhub.com/review/cursor/,AI coding tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,55,ok
+https://smileaireviewhub.com/review/descript/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,56,ok
+https://smileaireviewhub.com/review/durable/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,57,ok
+https://smileaireviewhub.com/review/elevenlabs/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,55,ok
+https://smileaireviewhub.com/review/framer/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,57,ok
+https://smileaireviewhub.com/review/frase/,AI SEO tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,55,ok
+https://smileaireviewhub.com/review/gamma/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,55,ok
+https://smileaireviewhub.com/review/gemini/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,53,ok
+https://smileaireviewhub.com/review/github-copilot/,AI coding tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,55,ok
+https://smileaireviewhub.com/review/hubspot/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,55,ok
+https://smileaireviewhub.com/review/jasper/,AI writing tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,59,ok
+https://smileaireviewhub.com/review/jasper-ai/,AI writing tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,59,ok
+https://smileaireviewhub.com/review/lovable/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,61,ok
+https://smileaireviewhub.com/review/make/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,54,ok
+https://smileaireviewhub.com/review/midjourney/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,57,ok
+https://smileaireviewhub.com/review/notion/,AI writing tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,58,ok
+https://smileaireviewhub.com/review/notion-ai/,AI writing tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,58,ok
+https://smileaireviewhub.com/review/perplexity/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,55,ok
+https://smileaireviewhub.com/review/pipedrive/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,55,ok
+https://smileaireviewhub.com/review/pipedrive-crm/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,55,ok
+https://smileaireviewhub.com/review/reclaim-ai/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,54,ok
+https://smileaireviewhub.com/review/replit/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,59,ok
+https://smileaireviewhub.com/review/runway/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,56,ok
+https://smileaireviewhub.com/review/semrush/,AI SEO tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,55,ok
+https://smileaireviewhub.com/review/semrush-ai/,AI SEO tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,55,ok
+https://smileaireviewhub.com/review/surfer-seo/,AI SEO tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,55,ok
+https://smileaireviewhub.com/review/synthesia/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,57,ok
+https://smileaireviewhub.com/review/webflow/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,57,ok
+https://smileaireviewhub.com/review/webflow-ai/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,57,ok
+https://smileaireviewhub.com/review/windsurf/,AI coding tools|AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,56,ok
+https://smileaireviewhub.com/review/zapier/,AI automation tools|pricing|alternatives,0,true,true,true,true,true,true,54,ok
+https://smileaireviewhub.com/reviews/activecampaign/,general,0,true,true,true,true,true,false,52,ok
+https://smileaireviewhub.com/reviews/adcreative-ai/,general,0,true,true,true,true,true,false,52,ok
+https://smileaireviewhub.com/reviews/ahrefs-ai/,AI SEO tools,0,true,true,true,true,true,false,51,ok
+https://smileaireviewhub.com/reviews/bolt/,general,0,true,true,true,true,true,false,53,ok
+https://smileaireviewhub.com/reviews/canva/,general,0,true,true,true,true,true,false,52,ok
+https://smileaireviewhub.com/reviews/chatgpt/,general,0,true,true,true,true,true,false,55,ok
+https://smileaireviewhub.com/reviews/claude/,general,0,true,true,true,true,true,false,55,ok
+https://smileaireviewhub.com/reviews/copy-ai/,AI writing tools,0,true,true,true,true,true,false,55,ok
+https://smileaireviewhub.com/reviews/cursor/,AI coding tools,0,true,true,true,true,true,false,52,ok
+https://smileaireviewhub.com/reviews/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,AI coding tools,0,true,true,true,true,true,false,51,ok
+https://smileaireviewhub.com/reviews/descript/,general,0,true,true,true,true,true,false,54,ok
+https://smileaireviewhub.com/reviews/durable/,general,0,true,true,true,true,true,false,53,ok
+https://smileaireviewhub.com/reviews/elevenlabs/,general,0,true,true,true,true,true,false,53,ok
+https://smileaireviewhub.com/reviews/framer/,general,0,true,true,true,true,true,false,53,ok
+https://smileaireviewhub.com/reviews/frase/,general,0,true,true,true,true,true,false,53,ok
+https://smileaireviewhub.com/reviews/gamma/,general,0,true,true,true,true,true,false,52,ok
+https://smileaireviewhub.com/reviews/gemini/,general,0,true,true,true,true,true,false,53,ok
+https://smileaireviewhub.com/reviews/github-copilot/,AI coding tools,0,true,true,true,true,true,false,50,ok
+https://smileaireviewhub.com/reviews/hubspot/,general,0,true,true,true,true,true,false,53,ok
+https://smileaireviewhub.com/reviews/,general,0,true,true,true,true,true,false,85,ok
+https://smileaireviewhub.com/reviews/jasper/,AI writing tools,0,true,true,true,true,true,false,55,ok
+https://smileaireviewhub.com/reviews/jasper-ai/,AI writing tools,0,true,true,true,true,true,false,55,ok
+https://smileaireviewhub.com/reviews/lovable/,general,0,true,true,true,true,true,false,53,ok
+https://smileaireviewhub.com/reviews/make/,AI automation tools,0,true,true,true,true,true,false,51,ok
+https://smileaireviewhub.com/reviews/midjourney/,general,0,true,true,true,true,true,false,53,ok
+https://smileaireviewhub.com/reviews/notion/,AI writing tools,0,true,true,true,true,true,false,55,ok
+https://smileaireviewhub.com/reviews/notion-ai/,AI writing tools,0,true,true,true,true,true,false,55,ok
+https://smileaireviewhub.com/reviews/perplexity/,general,0,true,true,true,true,true,false,53,ok
+https://smileaireviewhub.com/reviews/pipedrive/,general,0,true,true,true,true,true,false,53,ok
+https://smileaireviewhub.com/reviews/pipedrive-crm/,general,0,true,true,true,true,true,false,53,ok
+https://smileaireviewhub.com/reviews/reclaim-ai/,general,0,true,true,true,true,true,false,53,ok
+https://smileaireviewhub.com/reviews/replit/,general,0,true,true,true,true,true,false,53,ok
+https://smileaireviewhub.com/reviews/runway/,general,0,true,true,true,true,true,false,54,ok
+https://smileaireviewhub.com/reviews/semrush/,AI SEO tools,0,true,true,true,true,true,false,52,ok
+https://smileaireviewhub.com/reviews/semrush-ai/,AI SEO tools,0,true,true,true,true,true,false,52,ok
+https://smileaireviewhub.com/reviews/surfer-seo/,AI SEO tools,0,true,true,true,true,true,false,52,ok
+https://smileaireviewhub.com/reviews/synthesia/,general,0,true,true,true,true,true,false,54,ok
+https://smileaireviewhub.com/reviews/webflow/,general,0,true,true,true,true,true,false,53,ok
+https://smileaireviewhub.com/reviews/webflow-ai/,general,0,true,true,true,true,true,false,53,ok
+https://smileaireviewhub.com/reviews/windsurf/,AI coding tools,0,true,true,true,true,true,false,52,ok
+https://smileaireviewhub.com/reviews/windsurf-review/,AI coding tools,0,true,true,true,true,true,false,52,ok
+https://smileaireviewhub.com/reviews/zapier/,AI automation tools,0,true,true,true,true,true,false,51,ok
 https://smileaireviewhub.com/semrush-pricing/,AI SEO tools|pricing,0,false,true,true,true,true,false,48,add_experience|add_comparison_table
 https://smileaireviewhub.com/surfer-seo-pricing/,AI SEO tools|pricing,0,false,true,true,true,true,false,48,add_experience|add_comparison_table
-https://smileaireviewhub.com/vi/ai-coding-software-review/,AI coding tools,0,true,true,true,true,true,true,53,ok
-https://smileaireviewhub.com/vi/ai-meeting-software-review/,general,0,true,true,true,true,true,true,54,ok
-https://smileaireviewhub.com/vi/ai-productivity-software-review/,general,0,true,true,true,true,true,true,55,ok
-https://smileaireviewhub.com/vi/ai-seo-software-review/,AI SEO tools,0,true,true,true,true,true,true,56,ok
-https://smileaireviewhub.com/vi/ai-voice-software-review/,general,0,true,true,true,true,true,true,54,ok
-https://smileaireviewhub.com/vi/automation-software-review/,AI automation tools,0,true,true,true,true,true,true,52,ok
-https://smileaireviewhub.com/vi/best-ai-automation-tools/,AI automation tools,36,true,true,false,true,true,true,55,add_opinion
-https://smileaireviewhub.com/vi/best-ai-automation-tools-2026/,AI automation tools,0,false,true,true,true,true,true,59,add_experience
-https://smileaireviewhub.com/vi/best-ai-coding-tools/,AI coding tools,36,true,true,false,true,true,true,53,add_opinion
-https://smileaireviewhub.com/vi/best-ai-coding-tools-2026/,AI coding tools,54,true,true,true,true,true,true,54,too_generic
-https://smileaireviewhub.com/vi/best-ai-presentation-tools/,general,36,true,true,false,true,true,true,54,add_opinion
-https://smileaireviewhub.com/vi/best-ai-seo-tools/,AI SEO tools,36,true,true,false,true,true,true,56,add_opinion
-https://smileaireviewhub.com/vi/best-ai-seo-tools-2026/,AI SEO tools,0,false,true,true,true,true,true,59,add_experience
-https://smileaireviewhub.com/vi/best-ai-video-tools/,general,36,false,true,false,true,true,true,56,add_experience|add_opinion
-https://smileaireviewhub.com/vi/best-ai-video-tools-2026/,general,0,false,true,true,true,true,true,58,add_experience
-https://smileaireviewhub.com/vi/best-ai-writing-tools/,AI writing tools,36,true,true,false,true,true,true,58,add_opinion
-https://smileaireviewhub.com/vi/best-ai-writing-tools-2026/,AI writing tools,0,false,true,true,true,true,true,60,add_experience
-https://smileaireviewhub.com/vi/best-crm-tools/,general,36,true,true,false,true,true,true,55,add_opinion
-https://smileaireviewhub.com/vi/best-website-builders/,general,36,true,true,false,true,true,true,57,add_opinion
-https://smileaireviewhub.com/vi/blog/ai-productivity-tools/,general,0,true,true,true,true,true,false,52,ok
-https://smileaireviewhub.com/vi/blog/ai-tools-for-content-creators/,AI writing tools,0,true,true,true,true,true,false,51,ok
-https://smileaireviewhub.com/vi/blog/ai-tools-for-marketers/,general,0,true,true,true,true,true,false,51,ok
-https://smileaireviewhub.com/vi/blog/ai-tools-under-20-month/,general,0,true,true,true,true,true,false,51,ok
-https://smileaireviewhub.com/vi/blog/ai-website-builders-comparison/,comparisons,0,true,true,true,true,true,false,52,ok
-https://smileaireviewhub.com/vi/blog/automation-tools-for-beginners/,AI automation tools,0,true,true,true,true,true,false,52,ok
-https://smileaireviewhub.com/vi/blog/best-ai-presentation-tools/,general,0,true,true,true,true,true,false,51,ok
-https://smileaireviewhub.com/vi/blog/best-ai-tools-for-small-business/,general,54,true,true,true,true,true,false,51,too_generic
-https://smileaireviewhub.com/vi/blog/best-ai-voice-generators/,general,0,true,true,true,true,true,false,53,ok
-https://smileaireviewhub.com/vi/blog/best-alternatives-to-canva-ai/,alternatives,0,true,true,true,true,true,false,52,ok
-https://smileaireviewhub.com/vi/blog/best-crm-for-startups/,general,0,true,true,true,true,true,false,52,ok
-https://smileaireviewhub.com/vi/blog/chatgpt-prompts-for-windsurf/,AI coding tools,0,true,true,false,true,true,false,54,add_opinion|add_cta
-https://smileaireviewhub.com/vi/blog/chatgpt-windsurf-codex-workflow/,AI coding tools|AI automation tools,0,true,true,false,true,true,true,56,add_opinion|add_cta
-https://smileaireviewhub.com/vi/blog/fix-windsurf-mixed-language/,AI coding tools,0,true,true,false,true,true,false,52,add_opinion|add_cta
-https://smileaireviewhub.com/vi/blog/how-to-choose-saas-tools-safely/,general,0,true,true,true,true,true,false,51,ok
-https://smileaireviewhub.com/vi/blog/,general,18,false,true,false,true,false,false,64,add_experience|add_opinion|add_faq
-https://smileaireviewhub.com/vi/blog/windsurf-prompt-checklist/,AI coding tools,0,false,true,false,true,true,false,52,add_experience|add_opinion
-https://smileaireviewhub.com/vi/blog/windsurf-to-codex-workflow/,AI coding tools|AI automation tools,0,false,true,true,true,true,false,54,add_experience
-https://smileaireviewhub.com/vi/category/ai-automation-tools/,AI automation tools,0,false,true,true,true,false,false,58,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/vi/category/ai-coding-tools/,AI coding tools,36,true,true,true,true,true,true,55,ok
-https://smileaireviewhub.com/vi/category/ai-customer-support-tools/,general,0,false,true,true,true,false,false,58,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/vi/category/ai-presentation-tools/,general,0,false,true,true,true,false,false,58,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/vi/category/ai-seo-tools/,AI SEO tools,0,false,true,true,true,false,false,60,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/vi/category/ai-video-tools/,general,0,false,false,true,true,false,false,60,add_experience|add_use_case|add_cta|add_faq
-https://smileaireviewhub.com/vi/category/ai-voice-tools/,general,0,false,true,true,true,false,false,58,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/vi/category/ai-writing/,AI writing tools,0,false,true,true,true,false,false,74,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/vi/category/ai-writing-tools/,AI writing tools,0,false,true,true,true,false,false,62,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/vi/category/automation/,AI automation tools,0,false,true,true,true,false,false,61,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/vi/category/automation-tools/,AI automation tools,36,true,true,true,true,true,true,57,ok
-https://smileaireviewhub.com/vi/category/crm/,general,0,false,true,true,true,false,false,60,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/vi/category/crm-tools/,general,0,false,true,true,true,false,false,60,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/vi/category/design-tools/,general,36,true,true,true,true,true,true,57,ok
-https://smileaireviewhub.com/vi/category/email-marketing-tools/,general,36,true,true,true,true,true,true,58,ok
-https://smileaireviewhub.com/vi/category/seo-tools/,AI SEO tools,36,true,true,true,true,true,true,58,ok
-https://smileaireviewhub.com/vi/category/video-tools/,general,36,false,true,true,true,true,true,59,add_experience
-https://smileaireviewhub.com/vi/category/website-builder-tools/,general,36,true,true,true,true,true,true,57,ok
+https://smileaireviewhub.com/vi/ai-app-builder-software-review/,general,0,true,true,true,true,false,true,58,add_faq
+https://smileaireviewhub.com/vi/ai-assistant-software-review/,general,0,true,true,true,true,false,true,58,add_faq
+https://smileaireviewhub.com/vi/ai-coding-software-review/,AI coding tools,0,true,true,true,true,false,true,56,add_faq
+https://smileaireviewhub.com/vi/ai-image-software-review/,general,0,true,true,true,true,false,true,58,add_faq
+https://smileaireviewhub.com/vi/ai-meeting-software-review/,general,0,true,true,true,true,false,true,58,add_faq
+https://smileaireviewhub.com/vi/ai-productivity-software-review/,general,0,true,true,true,true,false,true,58,add_faq
+https://smileaireviewhub.com/vi/ai-search-software-review/,general,0,true,true,true,true,false,true,58,add_faq
+https://smileaireviewhub.com/vi/ai-seo-software-review/,AI SEO tools,0,true,true,true,true,false,true,59,add_faq
+https://smileaireviewhub.com/vi/ai-voice-software-review/,general,0,true,true,true,true,false,true,58,add_faq
+https://smileaireviewhub.com/vi/automation-software-review/,AI automation tools,0,true,true,true,true,false,true,56,add_faq
+https://smileaireviewhub.com/vi/best-ai-automation-tools/,AI automation tools,18,false,true,false,true,false,true,55,add_experience|add_opinion|add_faq
+https://smileaireviewhub.com/vi/best-ai-automation-tools-2026/,AI automation tools,0,false,true,false,true,false,true,61,add_experience|add_opinion|add_faq
+https://smileaireviewhub.com/vi/best-ai-coding-tools/,AI coding tools,18,false,true,false,true,false,true,55,add_experience|add_opinion|add_faq
+https://smileaireviewhub.com/vi/best-ai-coding-tools-2026/,AI coding tools,0,true,true,true,true,false,true,58,add_faq
+https://smileaireviewhub.com/vi/best-ai-presentation-tools/,general,18,false,true,false,true,false,true,54,add_experience|add_opinion|add_faq
+https://smileaireviewhub.com/vi/best-ai-seo-tools/,AI SEO tools,18,false,true,false,true,false,true,57,add_experience|add_opinion|add_faq
+https://smileaireviewhub.com/vi/best-ai-seo-tools-2026/,AI SEO tools,0,false,true,false,true,false,true,63,add_experience|add_opinion|add_faq
+https://smileaireviewhub.com/vi/best-ai-tools/,general,18,false,true,false,true,false,true,65,add_experience|add_opinion|add_faq
+https://smileaireviewhub.com/vi/best-ai-video-tools/,general,18,false,true,false,true,false,true,55,add_experience|add_opinion|add_faq
+https://smileaireviewhub.com/vi/best-ai-video-tools-2026/,general,0,false,true,false,true,false,true,60,add_experience|add_opinion|add_faq
+https://smileaireviewhub.com/vi/best-ai-writing-tools/,AI writing tools,18,false,true,false,true,false,true,57,add_experience|add_opinion|add_faq
+https://smileaireviewhub.com/vi/best-ai-writing-tools-2026/,AI writing tools,0,false,true,false,true,false,true,62,add_experience|add_opinion|add_faq
+https://smileaireviewhub.com/vi/best-crm-tools/,general,18,false,true,false,true,false,true,55,add_experience|add_opinion|add_faq
+https://smileaireviewhub.com/vi/best-website-builders/,general,18,false,true,false,true,false,true,54,add_experience|add_opinion|add_faq
+https://smileaireviewhub.com/vi/blog/ai-productivity-tools/,general,0,false,true,true,true,false,false,54,add_experience|add_faq
+https://smileaireviewhub.com/vi/blog/ai-tools-for-content-creators/,AI writing tools,0,false,true,true,true,false,false,53,add_experience|add_faq
+https://smileaireviewhub.com/vi/blog/ai-tools-for-marketers/,general,0,false,true,true,true,false,false,53,add_experience|add_faq
+https://smileaireviewhub.com/vi/blog/ai-tools-under-20-month/,general,0,false,true,true,true,false,false,53,add_experience|add_faq
+https://smileaireviewhub.com/vi/blog/ai-website-builders-comparison/,comparisons,0,false,true,true,true,false,false,55,add_experience|add_faq
+https://smileaireviewhub.com/vi/blog/automation-tools-for-beginners/,AI automation tools,0,false,true,true,true,false,false,54,add_experience|add_faq
+https://smileaireviewhub.com/vi/blog/best-ai-presentation-tools/,general,0,false,true,true,true,false,false,53,add_experience|add_faq
+https://smileaireviewhub.com/vi/blog/best-ai-tools-for-small-business/,general,18,false,true,true,true,false,false,53,add_experience|add_faq
+https://smileaireviewhub.com/vi/blog/best-ai-voice-generators/,general,0,false,true,true,true,false,false,55,add_experience|add_faq
+https://smileaireviewhub.com/vi/blog/best-alternatives-to-canva-ai/,alternatives,0,false,true,true,true,false,false,54,add_experience|add_faq
+https://smileaireviewhub.com/vi/blog/best-crm-for-startups/,general,0,false,true,true,true,false,false,54,add_experience|add_faq
+https://smileaireviewhub.com/vi/blog/chatgpt-prompts-for-windsurf/,AI coding tools,0,false,true,false,true,false,false,59,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/blog/chatgpt-windsurf-codex-workflow/,AI coding tools|AI automation tools,0,false,true,false,true,false,true,58,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/blog/fix-windsurf-mixed-language/,AI coding tools,0,false,true,false,true,false,false,55,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/blog/how-to-choose-saas-tools-safely/,general,0,false,true,true,true,false,false,53,add_experience|add_faq
+https://smileaireviewhub.com/vi/blog/,general,0,false,true,false,true,false,false,66,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/blog/windsurf-prompt-checklist/,AI coding tools,0,false,true,false,true,false,false,55,add_experience|add_opinion|add_faq
+https://smileaireviewhub.com/vi/blog/windsurf-to-codex-workflow/,AI coding tools|AI automation tools,0,false,true,false,true,false,false,56,add_experience|add_opinion|add_faq
+https://smileaireviewhub.com/vi/category/ai-automation-tools/,AI automation tools,0,false,true,true,true,false,false,60,add_experience|add_cta|add_faq
+https://smileaireviewhub.com/vi/category/ai-coding-tools/,AI coding tools,0,false,true,true,true,false,true,58,add_experience|add_faq
+https://smileaireviewhub.com/vi/category/ai-customer-support-tools/,general,0,false,true,true,true,false,false,60,add_experience|add_cta|add_faq
+https://smileaireviewhub.com/vi/category/ai-presentation-tools/,general,0,false,true,true,true,false,false,60,add_experience|add_cta|add_faq
+https://smileaireviewhub.com/vi/category/ai-seo-tools/,AI SEO tools,0,false,true,true,true,false,false,65,add_experience|add_cta|add_faq
+https://smileaireviewhub.com/vi/category/ai-video-tools/,general,0,false,true,true,true,false,false,62,add_experience|add_cta|add_faq
+https://smileaireviewhub.com/vi/category/ai-voice-tools/,general,0,false,true,true,true,false,false,60,add_experience|add_cta|add_faq
+https://smileaireviewhub.com/vi/category/ai-writing/,AI writing tools,0,false,true,true,true,false,false,86,add_experience|add_cta|add_faq
+https://smileaireviewhub.com/vi/category/ai-writing-tools/,AI writing tools,0,false,true,true,true,false,false,64,add_experience|add_cta|add_faq
+https://smileaireviewhub.com/vi/category/automation/,AI automation tools,0,false,true,true,true,false,false,63,add_experience|add_cta|add_faq
+https://smileaireviewhub.com/vi/category/automation-tools/,AI automation tools,0,false,true,true,true,false,true,59,add_experience|add_faq
+https://smileaireviewhub.com/vi/category/crm/,general,0,false,true,true,true,false,false,62,add_experience|add_cta|add_faq
+https://smileaireviewhub.com/vi/category/crm-tools/,general,0,false,true,true,true,false,false,62,add_experience|add_cta|add_faq
+https://smileaireviewhub.com/vi/category/design-tools/,general,0,false,true,true,true,false,true,62,add_experience|add_faq
+https://smileaireviewhub.com/vi/category/email-marketing-tools/,general,0,false,true,true,true,false,true,61,add_experience|add_faq
+https://smileaireviewhub.com/vi/category/seo-tools/,AI SEO tools,0,false,true,true,true,false,true,62,add_experience|add_faq
+https://smileaireviewhub.com/vi/category/video-tools/,general,0,false,true,true,true,false,true,61,add_experience|add_faq
+https://smileaireviewhub.com/vi/category/website-builder-tools/,general,0,false,true,true,true,false,true,59,add_experience|add_faq
 https://smileaireviewhub.com/vi/category/website-builders/,general,0,false,true,true,true,false,false,62,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/vi/category/writing-tools/,AI writing tools,36,true,true,true,true,true,true,58,ok
-https://smileaireviewhub.com/vi/compare/activecampaign-vs-mailchimp/,comparisons,0,true,true,true,true,true,true,53,ok
-https://smileaireviewhub.com/vi/compare/canva-vs-adcreative-ai/,comparisons,0,true,true,true,true,true,true,51,ok
-https://smileaireviewhub.com/vi/compare/cursor-vs-github-copilot/,AI coding tools|comparisons,0,true,true,true,true,true,true,49,ok
-https://smileaireviewhub.com/vi/compare/cursor-vs-windsurf/,AI coding tools|comparisons,0,true,true,true,true,true,true,49,ok
-https://smileaireviewhub.com/vi/compare/github-copilot-vs-codeium/,AI coding tools|comparisons,0,true,true,true,true,true,true,48,ok
-https://smileaireviewhub.com/vi/compare/grammarly-vs-quillbot/,comparisons,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/vi/compare/jasper-vs-copy-ai/,AI writing tools|comparisons,0,true,true,true,true,true,true,53,ok
-https://smileaireviewhub.com/vi/compare/make-vs-zapier/,AI automation tools|comparisons,0,true,true,true,true,true,true,52,ok
-https://smileaireviewhub.com/vi/compare/semrush-vs-ahrefs/,AI SEO tools|comparisons,0,true,true,true,true,true,true,52,ok
-https://smileaireviewhub.com/vi/compare/synthesia-vs-pictory/,comparisons,0,false,true,true,true,true,true,53,add_experience
-https://smileaireviewhub.com/vi/comparisons/canva-vs-adobe-express/,comparisons,0,false,true,true,true,true,true,51,add_experience
-https://smileaireviewhub.com/vi/comparisons/canva-vs-gamma/,comparisons,0,true,true,false,true,true,true,52,add_opinion
-https://smileaireviewhub.com/vi/comparisons/chatgpt-vs-claude/,comparisons,0,true,true,false,true,true,true,50,add_opinion
-https://smileaireviewhub.com/vi/comparisons/chatgpt-vs-gemini/,comparisons,0,false,true,false,true,true,true,53,add_experience|add_opinion|add_cta
-https://smileaireviewhub.com/vi/comparisons/codex-vs-openclaw/,AI coding tools|AI automation tools|comparisons,0,false,true,true,true,true,true,49,add_experience
-https://smileaireviewhub.com/vi/comparisons/copilot-vs-codex/,AI coding tools|comparisons,36,true,true,true,true,true,true,51,ok
-https://smileaireviewhub.com/vi/comparisons/copilot-vs-cursor/,AI coding tools|comparisons,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/vi/comparisons/copilot-vs-tabnine/,AI coding tools|comparisons,0,false,true,false,true,true,true,48,add_experience|add_opinion|add_cta
-https://smileaireviewhub.com/vi/comparisons/cursor-vs-copilot/,AI coding tools|comparisons,0,false,true,true,true,true,true,50,add_experience
-https://smileaireviewhub.com/vi/comparisons/cursor-vs-github-copilot/,AI coding tools|comparisons,0,true,true,false,true,true,true,50,add_opinion
-https://smileaireviewhub.com/vi/comparisons/cursor-vs-vscode/,AI coding tools|comparisons,0,false,true,false,true,true,true,51,add_experience|add_opinion|add_cta
-https://smileaireviewhub.com/vi/comparisons/cursor-vs-windsurf/,AI coding tools|AI automation tools|comparisons,0,true,true,true,true,true,true,49,ok
-https://smileaireviewhub.com/vi/comparisons/elevenlabs-vs-murf/,comparisons,0,true,true,false,true,true,true,52,add_opinion
-https://smileaireviewhub.com/vi/comparisons/elevenlabs-vs-playht/,comparisons,0,false,true,false,true,true,true,51,add_experience|add_opinion|add_cta
-https://smileaireviewhub.com/vi/comparisons/framer-vs-webflow/,comparisons,0,false,true,false,true,false,true,54,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/comparisons/gemini-vs-claude/,comparisons,0,false,true,false,true,true,true,52,add_experience|add_opinion|add_cta
-https://smileaireviewhub.com/vi/comparisons/hubspot-vs-salesforce/,comparisons,0,false,true,false,true,true,true,52,add_experience|add_opinion|add_cta
-https://smileaireviewhub.com/vi/comparisons/,general,0,false,true,true,true,false,true,82,add_experience|add_faq
-https://smileaireviewhub.com/vi/comparisons/jasper-vs-copyai/,AI writing tools|comparisons,0,false,true,false,true,true,true,55,add_experience|add_opinion|add_cta
-https://smileaireviewhub.com/vi/comparisons/make-vs-zapier/,AI automation tools|comparisons,0,true,true,false,true,true,true,54,add_opinion
-https://smileaireviewhub.com/vi/comparisons/midjourney-vs-dalle/,comparisons,0,false,true,false,true,true,true,51,add_experience|add_opinion|add_cta
-https://smileaireviewhub.com/vi/comparisons/notion-ai-vs-chatgpt/,AI writing tools|comparisons,0,false,true,false,true,true,true,54,add_experience|add_opinion|add_cta
-https://smileaireviewhub.com/vi/comparisons/notion-ai-vs-clickup-ai/,AI writing tools|comparisons,0,true,true,false,true,true,true,53,add_opinion
-https://smileaireviewhub.com/vi/comparisons/notion-vs-clickup/,AI writing tools|comparisons,0,false,true,false,true,true,true,54,add_experience|add_opinion|add_cta
-https://smileaireviewhub.com/vi/comparisons/perplexity-vs-chatgpt/,comparisons,0,false,true,false,true,true,true,53,add_experience|add_opinion|add_cta
-https://smileaireviewhub.com/vi/comparisons/runway-vs-pika/,comparisons,0,true,true,false,true,true,true,53,add_opinion
-https://smileaireviewhub.com/vi/comparisons/semrush-vs-ahrefs/,AI SEO tools|comparisons,0,true,true,false,true,true,true,53,add_opinion
-https://smileaireviewhub.com/vi/comparisons/synthesia-vs-heygen/,comparisons,0,false,true,false,true,true,true,53,add_experience|add_opinion
-https://smileaireviewhub.com/vi/comparisons/synthesia-vs-runway/,comparisons,0,true,true,true,true,true,true,53,ok
-https://smileaireviewhub.com/vi/comparisons/windsurf-vs-copilot/,AI coding tools|comparisons,0,false,true,true,true,true,true,51,add_experience
-https://smileaireviewhub.com/vi/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,AI coding tools,0,true,true,true,true,true,false,49,ok
-https://smileaireviewhub.com/vi/cursor-pricing/,AI coding tools|pricing,0,false,true,false,true,true,false,46,add_experience|add_opinion|add_comparison_table
-https://smileaireviewhub.com/vi/elevenlabs-pricing/,pricing,0,false,true,false,true,true,false,48,add_experience|add_opinion|add_comparison_table
-https://smileaireviewhub.com/vi/email-marketing-software-review/,general,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/vi/github-copilot-pricing/,AI coding tools|pricing,0,false,true,false,true,true,false,44,add_experience|add_opinion|add_comparison_table
-https://smileaireviewhub.com/vi/how-we-review-tools/,general,0,false,true,false,true,false,false,48,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/category/writing-tools/,AI writing tools,0,false,true,true,true,false,true,62,add_experience|add_faq
+https://smileaireviewhub.com/vi/cloud-development-software-review/,general,0,true,true,true,true,false,true,54,add_faq
+https://smileaireviewhub.com/vi/compare/activecampaign-vs-mailchimp/,comparisons,0,false,true,true,true,false,true,55,add_experience|add_faq
+https://smileaireviewhub.com/vi/compare/canva-vs-adcreative-ai/,comparisons,0,false,true,true,true,false,true,53,add_experience|add_faq
+https://smileaireviewhub.com/vi/compare/cursor-vs-github-copilot/,AI coding tools|comparisons,0,true,true,true,true,false,true,51,add_faq
+https://smileaireviewhub.com/vi/compare/cursor-vs-windsurf/,AI coding tools|comparisons,0,true,true,true,true,false,true,51,add_faq
+https://smileaireviewhub.com/vi/compare/github-copilot-vs-codeium/,AI coding tools|comparisons,0,true,true,true,true,false,true,51,add_faq
+https://smileaireviewhub.com/vi/compare/grammarly-vs-quillbot/,comparisons,0,false,true,true,true,false,true,54,add_experience|add_faq
+https://smileaireviewhub.com/vi/compare/jasper-vs-copy-ai/,AI writing tools|comparisons,0,false,true,true,true,false,true,55,add_experience|add_faq
+https://smileaireviewhub.com/vi/compare/make-vs-zapier/,AI automation tools|comparisons,0,false,true,true,true,false,true,54,add_experience|add_faq
+https://smileaireviewhub.com/vi/compare/semrush-vs-ahrefs/,AI SEO tools|comparisons,0,false,true,true,true,false,true,54,add_experience|add_faq
+https://smileaireviewhub.com/vi/compare/synthesia-vs-pictory/,comparisons,0,false,true,true,true,false,true,55,add_experience|add_faq
+https://smileaireviewhub.com/vi/comparisons/canva-vs-adobe-express/,comparisons,0,false,true,false,true,false,true,53,add_experience|add_opinion|add_faq
+https://smileaireviewhub.com/vi/comparisons/canva-vs-gamma/,comparisons,0,false,true,true,true,false,true,64,add_experience|add_faq
+https://smileaireviewhub.com/vi/comparisons/chatgpt-vs-claude/,comparisons,0,false,true,true,true,false,true,62,add_experience|add_faq
+https://smileaireviewhub.com/vi/comparisons/chatgpt-vs-gemini/,comparisons,0,false,true,true,true,false,true,62,add_experience|add_faq
+https://smileaireviewhub.com/vi/comparisons/chatgpt-vs-perplexity/,comparisons,0,false,true,true,true,false,true,63,add_experience|add_faq
+https://smileaireviewhub.com/vi/comparisons/claude-vs-gemini/,comparisons,0,false,true,true,true,false,true,62,add_experience|add_faq
+https://smileaireviewhub.com/vi/comparisons/claude-vs-perplexity/,comparisons,0,false,true,true,true,false,true,62,add_experience|add_faq
+https://smileaireviewhub.com/vi/comparisons/codex-vs-openclaw/,AI coding tools|comparisons,0,false,true,false,true,false,true,54,add_experience|add_opinion|add_faq
+https://smileaireviewhub.com/vi/comparisons/copilot-vs-codex/,AI coding tools|comparisons,0,true,true,true,true,false,true,52,add_faq
+https://smileaireviewhub.com/vi/comparisons/copilot-vs-cursor/,AI coding tools|comparisons,0,true,true,true,true,false,true,52,add_faq
+https://smileaireviewhub.com/vi/comparisons/copilot-vs-tabnine/,AI coding tools|comparisons,0,false,true,false,true,false,true,51,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/comparisons/cursor-vs-copilot/,AI coding tools|comparisons,0,false,true,false,true,false,true,52,add_experience|add_opinion|add_faq
+https://smileaireviewhub.com/vi/comparisons/cursor-vs-github-copilot/,AI coding tools|comparisons,0,false,true,true,true,false,true,61,add_experience|add_faq
+https://smileaireviewhub.com/vi/comparisons/cursor-vs-vscode/,AI coding tools|comparisons,0,false,true,false,true,false,true,53,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/comparisons/cursor-vs-windsurf/,AI coding tools|comparisons,0,false,true,true,true,false,true,61,add_experience|add_faq
+https://smileaireviewhub.com/vi/comparisons/elevenlabs-vs-murf/,comparisons,0,false,true,true,true,false,true,64,add_experience|add_faq
+https://smileaireviewhub.com/vi/comparisons/elevenlabs-vs-playht/,comparisons,0,false,true,false,true,false,true,53,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/comparisons/framer-vs-webflow/,comparisons,0,false,true,false,true,false,true,56,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/comparisons/gemini-vs-claude/,comparisons,0,false,true,false,true,false,true,55,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/comparisons/hubspot-vs-salesforce/,comparisons,0,false,true,false,true,false,true,54,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/comparisons/,general,0,false,true,true,true,false,true,91,add_experience|add_faq
+https://smileaireviewhub.com/vi/comparisons/jasper-vs-copy-ai/,AI writing tools|comparisons,0,false,true,true,true,false,true,65,add_experience|add_faq
+https://smileaireviewhub.com/vi/comparisons/jasper-vs-copyai/,AI writing tools|comparisons,0,false,true,false,true,false,true,57,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/comparisons/lovable-vs-bolt/,comparisons,0,false,true,true,true,false,true,65,add_experience|add_faq
+https://smileaireviewhub.com/vi/comparisons/make-vs-zapier/,AI automation tools|comparisons,0,false,true,true,true,false,true,66,add_experience|add_faq
+https://smileaireviewhub.com/vi/comparisons/midjourney-vs-dalle/,comparisons,0,false,true,false,true,false,true,53,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/comparisons/notion-ai-vs-chatgpt/,AI writing tools|comparisons,0,false,true,false,true,false,true,56,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/comparisons/notion-ai-vs-clickup-ai/,AI writing tools|comparisons,0,false,true,true,true,false,true,64,add_experience|add_faq
+https://smileaireviewhub.com/vi/comparisons/notion-vs-clickup/,AI writing tools|comparisons,0,false,true,false,true,false,true,56,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/comparisons/perplexity-vs-chatgpt/,comparisons,0,false,true,false,true,false,true,55,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/comparisons/replit-vs-cursor/,AI coding tools|comparisons,0,false,true,true,true,false,true,62,add_experience|add_faq
+https://smileaireviewhub.com/vi/comparisons/runway-vs-pika/,comparisons,0,false,true,true,true,false,true,66,add_experience|add_faq
+https://smileaireviewhub.com/vi/comparisons/semrush-vs-ahrefs/,AI SEO tools|comparisons,0,false,true,true,true,false,true,64,add_experience|add_faq
+https://smileaireviewhub.com/vi/comparisons/surfer-seo-vs-frase/,AI SEO tools|comparisons,0,false,true,true,true,false,true,64,add_experience|add_faq
+https://smileaireviewhub.com/vi/comparisons/synthesia-vs-heygen/,comparisons,0,false,true,false,true,false,true,55,add_experience|add_opinion|add_faq
+https://smileaireviewhub.com/vi/comparisons/synthesia-vs-runway/,comparisons,0,true,true,false,true,false,true,55,add_opinion|add_faq
+https://smileaireviewhub.com/vi/comparisons/windsurf-vs-copilot/,AI coding tools|comparisons,0,false,true,false,true,false,true,53,add_experience|add_opinion|add_faq
+https://smileaireviewhub.com/vi/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,AI coding tools,0,false,true,false,true,false,false,50,add_experience|add_opinion|add_faq
+https://smileaireviewhub.com/vi/cursor-pricing/,AI coding tools|pricing,0,false,true,false,true,false,false,48,add_experience|add_opinion|add_faq|add_comparison_table
+https://smileaireviewhub.com/vi/elevenlabs-pricing/,pricing,0,false,true,false,true,false,false,49,add_experience|add_opinion|add_faq|add_comparison_table
+https://smileaireviewhub.com/vi/email-marketing-software-review/,general,0,true,true,true,true,false,true,54,add_faq
+https://smileaireviewhub.com/vi/github-copilot-pricing/,AI coding tools|pricing,0,false,true,false,true,false,false,47,add_experience|add_opinion|add_faq|add_comparison_table
+https://smileaireviewhub.com/vi/how-we-review-tools/,general,0,false,true,false,true,false,false,50,add_experience|add_opinion|add_cta|add_faq
 https://smileaireviewhub.com/vi/hub/ai-automation/,AI automation tools,0,false,true,true,true,false,false,53,add_experience|add_faq
-https://smileaireviewhub.com/vi/hub/ai-coding/,AI coding tools,0,false,true,true,true,false,false,53,add_experience|add_faq
-https://smileaireviewhub.com/vi/hub/ai-presentation/,general,0,false,true,true,true,false,false,54,add_experience|add_faq
-https://smileaireviewhub.com/vi/hub/ai-seo/,AI SEO tools,0,false,true,true,true,false,false,54,add_experience|add_faq
-https://smileaireviewhub.com/vi/hub/ai-video/,general,0,false,true,true,true,false,false,57,add_experience|add_faq
-https://smileaireviewhub.com/vi/hub/ai-voice/,general,0,false,true,true,true,false,false,53,add_experience|add_faq
-https://smileaireviewhub.com/vi/hub/ai-writing/,AI writing tools,0,false,true,true,true,false,false,63,add_experience|add_faq
-https://smileaireviewhub.com/vi/hub/crm/,general,0,false,true,true,true,false,false,56,add_experience|add_faq
-https://smileaireviewhub.com/vi/hub/email-marketing/,general,0,false,true,true,true,false,false,60,add_experience|add_faq
-https://smileaireviewhub.com/vi/hub/marketing/,general,0,false,true,true,true,false,false,65,add_experience|add_faq
-https://smileaireviewhub.com/vi/hub/productivity/,general,0,false,true,true,true,false,false,60,add_experience|add_faq
-https://smileaireviewhub.com/vi/hub/website-builders/,general,0,false,true,true,true,false,false,58,add_experience|add_faq
-https://smileaireviewhub.com/vi/jasper-pricing/,AI writing tools|pricing,0,false,true,false,true,true,false,50,add_experience|add_opinion|add_comparison_table
-https://smileaireviewhub.com/vi/make-pricing/,AI automation tools|pricing,0,false,true,false,true,true,false,47,add_experience|add_opinion|add_comparison_table
-https://smileaireviewhub.com/vi/marketing-software-review/,general,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/vi/pricing/activecampaign/,pricing,18,true,true,true,true,true,true,48,ok
-https://smileaireviewhub.com/vi/pricing/canva/,pricing,18,true,true,true,true,true,true,49,ok
-https://smileaireviewhub.com/vi/pricing/cursor/,AI coding tools|pricing,18,true,true,true,true,true,true,48,ok
-https://smileaireviewhub.com/vi/pricing/github-copilot/,AI coding tools|pricing,18,true,true,true,true,true,true,48,ok
-https://smileaireviewhub.com/vi/pricing/grammarly/,pricing,18,true,true,true,true,true,true,49,ok
-https://smileaireviewhub.com/vi/pricing/,pricing,0,true,true,true,true,true,false,53,add_comparison_table
-https://smileaireviewhub.com/vi/pricing/mailchimp/,pricing,18,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/vi/pricing/make/,AI automation tools|pricing,18,true,true,true,true,true,true,49,ok
-https://smileaireviewhub.com/vi/pricing/pictory/,pricing,18,true,true,true,true,true,true,51,ok
-https://smileaireviewhub.com/vi/pricing/semrush/,AI SEO tools|pricing,18,true,true,true,true,true,true,48,ok
-https://smileaireviewhub.com/vi/pricing/zapier/,AI automation tools|pricing,18,true,true,true,true,true,true,49,ok
-https://smileaireviewhub.com/vi/review/activecampaign/,AI automation tools,0,true,true,true,true,true,true,49,ok
-https://smileaireviewhub.com/vi/review/adcreative-ai/,AI automation tools,0,true,true,true,true,true,true,49,ok
-https://smileaireviewhub.com/vi/review/canva/,AI automation tools,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/vi/review/copy-ai/,AI writing tools|AI automation tools,0,true,true,true,true,true,true,53,ok
-https://smileaireviewhub.com/vi/review/cursor/,AI coding tools|AI automation tools,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/vi/review/descript/,AI automation tools,0,true,true,true,true,true,true,52,ok
-https://smileaireviewhub.com/vi/review/durable/,AI automation tools,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/vi/review/elevenlabs/,AI automation tools,0,true,true,true,true,true,true,49,ok
-https://smileaireviewhub.com/vi/review/framer/,AI automation tools,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/vi/review/gamma/,AI automation tools,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/vi/review/github-copilot/,AI coding tools|AI automation tools,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/vi/review/hubspot/,AI automation tools,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/vi/review/jasper/,AI writing tools|AI automation tools,0,true,true,true,true,true,true,52,ok
-https://smileaireviewhub.com/vi/review/jasper-ai/,AI writing tools|AI automation tools,0,true,true,true,true,true,true,52,ok
-https://smileaireviewhub.com/vi/review/make/,AI automation tools,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/vi/review/notion/,AI writing tools|AI automation tools,0,true,true,true,true,true,true,55,ok
-https://smileaireviewhub.com/vi/review/notion-ai/,AI writing tools|AI automation tools,0,true,true,true,true,true,true,55,ok
-https://smileaireviewhub.com/vi/review/pipedrive/,AI automation tools,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/vi/review/pipedrive-crm/,AI automation tools,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/vi/review/reclaim-ai/,AI automation tools,0,true,true,true,true,true,true,49,ok
-https://smileaireviewhub.com/vi/review/runway/,AI automation tools,0,true,true,true,true,true,true,52,ok
-https://smileaireviewhub.com/vi/review/semrush/,AI SEO tools|AI automation tools,0,true,true,true,true,true,true,52,ok
-https://smileaireviewhub.com/vi/review/surfer-seo/,AI SEO tools|AI automation tools,0,true,true,true,true,true,true,51,ok
-https://smileaireviewhub.com/vi/review/synthesia/,general,0,false,true,true,true,true,true,53,add_experience
-https://smileaireviewhub.com/vi/review/webflow/,AI automation tools,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/vi/review/webflow-ai/,AI automation tools,0,true,true,true,true,true,true,50,ok
-https://smileaireviewhub.com/vi/review/zapier/,AI automation tools,0,true,true,true,true,true,true,51,ok
-https://smileaireviewhub.com/vi/reviews/activecampaign/,general,0,false,true,false,true,false,false,49,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/adcreative-ai/,general,0,false,true,false,true,false,false,49,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/canva/,general,0,false,true,false,true,false,false,50,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/copy-ai/,AI writing tools,0,false,true,false,true,false,false,53,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/cursor/,AI coding tools,0,false,true,false,true,false,false,51,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,AI coding tools,0,false,true,false,true,false,false,50,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/descript/,general,0,false,false,false,true,false,false,53,add_experience|add_use_case|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/durable/,general,0,false,true,false,true,false,false,51,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/elevenlabs/,general,0,false,true,false,true,false,false,49,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/framer/,general,0,false,true,false,true,false,false,51,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/gamma/,general,0,false,true,false,true,false,false,50,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/github-copilot/,AI coding tools,0,false,true,false,true,false,false,49,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/hubspot/,general,0,false,true,false,true,false,false,51,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/,general,0,false,true,true,true,false,false,74,add_experience|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/jasper/,AI writing tools,0,false,true,false,true,false,false,53,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/jasper-ai/,AI writing tools,0,false,true,false,true,false,false,53,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/make/,AI automation tools,0,false,true,false,true,false,false,50,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/notion/,AI writing tools,0,false,true,false,true,false,false,53,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/notion-ai/,AI writing tools,0,false,true,false,true,false,false,53,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/pipedrive/,general,0,false,true,false,true,false,false,51,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/pipedrive-crm/,general,0,false,true,false,true,false,false,51,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/reclaim-ai/,general,0,false,true,false,true,false,false,50,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/runway/,general,0,false,false,false,true,false,false,53,add_experience|add_use_case|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/semrush/,AI SEO tools,0,false,true,false,true,false,false,52,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/surfer-seo/,AI SEO tools,0,false,true,false,true,false,false,52,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/synthesia/,general,0,false,false,false,true,false,false,53,add_experience|add_use_case|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/webflow/,general,0,false,true,false,true,false,false,51,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/webflow-ai/,general,0,false,true,false,true,false,false,51,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/windsurf/,AI coding tools,0,false,true,false,true,false,false,50,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/windsurf-review/,AI coding tools,0,false,true,false,true,false,false,50,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/reviews/zapier/,AI automation tools,0,false,true,false,true,false,false,50,add_experience|add_opinion|add_cta|add_faq
-https://smileaireviewhub.com/vi/semrush-pricing/,AI SEO tools|pricing,0,false,true,false,true,true,false,48,add_experience|add_opinion|add_comparison_table
-https://smileaireviewhub.com/vi/surfer-seo-pricing/,AI SEO tools|pricing,0,false,true,false,true,true,false,48,add_experience|add_opinion|add_comparison_table
-https://smileaireviewhub.com/vi/website-builder-software-review/,general,0,true,true,true,true,true,true,55,ok
-https://smileaireviewhub.com/vi/windsurf-review/,AI coding tools|AI automation tools,90,true,true,true,true,true,true,51,too_generic
-https://smileaireviewhub.com/vi/zapier-pricing/,AI automation tools|pricing,0,false,true,false,true,true,false,48,add_experience|add_opinion|add_comparison_table
-https://smileaireviewhub.com/website-builder-software-review/,general,0,true,true,true,true,true,true,55,ok
-https://smileaireviewhub.com/windsurf-review/,AI coding tools|AI automation tools|alternatives,90,true,true,true,true,true,true,51,too_generic
-https://smileaireviewhub.com/zapier-pricing/,AI automation tools|pricing,0,false,true,true,true,true,false,48,add_experience|add_comparison_table
+https://smileaireviewhub.com/vi/hub/ai-coding/,AI coding tools,0,false,true,true,true,false,false,57,add_experience|add_faq
+https://smileaireviewhub.com/vi/hub/ai-presentation/,general,0,false,true,true,true,false,false,55,add_experience|add_faq
+https://smileaireviewhub.com/vi/hub/ai-seo/,AI SEO tools,0,false,true,true,true,false,false,57,add_experience|add_faq
+https://smileaireviewhub.com/vi/hub/ai-video/,general,0,false,true,true,true,false,false,56,add_experience|add_faq
+https://smileaireviewhub.com/vi/hub/ai-voice/,general,0,false,true,true,true,false,false,54,add_experience|add_faq
+https://smileaireviewhub.com/vi/hub/ai-writing/,AI writing tools,0,false,true,true,true,false,false,64,add_experience|add_faq
+https://smileaireviewhub.com/vi/hub/crm/,general,0,false,true,true,true,false,false,55,add_experience|add_faq
+https://smileaireviewhub.com/vi/hub/email-marketing/,general,0,false,true,true,true,false,false,61,add_experience|add_faq
+https://smileaireviewhub.com/vi/hub/marketing/,general,0,false,true,true,true,false,false,68,add_experience|add_faq
+https://smileaireviewhub.com/vi/hub/productivity/,general,0,false,true,true,true,false,false,61,add_experience|add_faq
+https://smileaireviewhub.com/vi/hub/website-builders/,general,0,false,true,true,true,false,false,59,add_experience|add_faq
+https://smileaireviewhub.com/vi/jasper-pricing/,AI writing tools|pricing,0,false,true,false,true,false,false,51,add_experience|add_opinion|add_faq|add_comparison_table
+https://smileaireviewhub.com/vi/make-pricing/,AI automation tools|pricing,0,false,true,false,true,false,false,48,add_experience|add_opinion|add_faq|add_comparison_table
+https://smileaireviewhub.com/vi/pricing/activecampaign/,pricing,0,false,true,true,true,false,true,50,add_experience|add_faq
+https://smileaireviewhub.com/vi/pricing/canva/,pricing,0,false,true,true,true,false,true,51,add_experience|add_faq
+https://smileaireviewhub.com/vi/pricing/cursor/,AI coding tools|pricing,0,false,true,true,true,false,true,50,add_experience|add_faq
+https://smileaireviewhub.com/vi/pricing/github-copilot/,AI coding tools|pricing,0,false,true,true,true,false,true,50,add_experience|add_faq
+https://smileaireviewhub.com/vi/pricing/grammarly/,pricing,0,false,true,true,true,false,true,52,add_experience|add_faq
+https://smileaireviewhub.com/vi/pricing/,pricing,0,true,true,true,true,false,false,55,add_faq|add_comparison_table
+https://smileaireviewhub.com/vi/pricing/mailchimp/,pricing,0,false,true,true,true,false,true,52,add_experience|add_faq
+https://smileaireviewhub.com/vi/pricing/make/,AI automation tools|pricing,0,false,true,true,true,false,true,51,add_experience|add_faq
+https://smileaireviewhub.com/vi/pricing/pictory/,pricing,0,false,true,true,true,false,true,54,add_experience|add_faq
+https://smileaireviewhub.com/vi/pricing/semrush/,AI SEO tools|pricing,0,false,true,true,true,false,true,51,add_experience|add_faq
+https://smileaireviewhub.com/vi/pricing/zapier/,AI automation tools|pricing,0,false,true,true,true,false,true,51,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/activecampaign/,general,0,false,true,true,true,false,true,56,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/adcreative-ai/,general,0,false,true,true,true,false,true,56,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/ahrefs-ai/,AI SEO tools,0,false,true,true,true,false,true,57,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/bolt/,general,0,true,true,true,true,false,true,63,add_faq
+https://smileaireviewhub.com/vi/review/canva/,general,0,false,true,true,true,false,true,57,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/chatgpt/,general,0,false,true,true,true,false,true,59,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/claude/,general,0,false,true,true,true,false,true,59,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/copy-ai/,AI writing tools,0,false,true,true,true,false,true,61,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/cursor/,AI coding tools,0,true,true,true,true,false,true,57,add_faq
+https://smileaireviewhub.com/vi/review/descript/,general,0,false,true,true,true,false,true,58,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/durable/,general,0,false,true,true,true,false,true,59,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/elevenlabs/,general,0,false,true,true,true,false,true,57,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/framer/,general,0,false,true,true,true,false,true,59,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/frase/,general,0,false,true,true,true,false,true,57,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/gamma/,general,0,false,true,true,true,false,true,57,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/gemini/,general,0,false,true,true,true,false,true,55,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/github-copilot/,AI coding tools,0,true,true,true,true,false,true,57,add_faq
+https://smileaireviewhub.com/vi/review/hubspot/,general,0,false,true,true,true,false,true,57,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/jasper/,AI writing tools,0,false,true,true,true,false,true,61,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/jasper-ai/,AI writing tools,0,false,true,true,true,false,true,61,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/lovable/,general,0,true,true,true,true,false,true,63,add_faq
+https://smileaireviewhub.com/vi/review/make/,AI automation tools,0,false,true,true,true,false,true,56,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/midjourney/,general,0,false,true,true,true,false,true,59,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/notion/,AI writing tools,0,false,true,true,true,false,true,60,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/notion-ai/,AI writing tools,0,false,true,true,true,false,true,60,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/perplexity/,general,0,false,true,true,true,false,true,57,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/pipedrive/,general,0,false,true,true,true,false,true,57,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/pipedrive-crm/,general,0,false,true,true,true,false,true,57,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/reclaim-ai/,general,0,false,true,true,true,false,true,56,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/replit/,general,0,true,true,true,true,false,true,61,add_faq
+https://smileaireviewhub.com/vi/review/runway/,general,0,false,true,true,true,false,true,58,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/semrush/,AI SEO tools,0,false,true,true,true,false,true,57,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/semrush-ai/,AI SEO tools,0,false,true,true,true,false,true,57,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/surfer-seo/,AI SEO tools,0,false,true,true,true,false,true,57,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/synthesia/,general,0,false,true,true,true,false,true,59,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/webflow/,general,0,false,true,true,true,false,true,59,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/webflow-ai/,general,0,false,true,true,true,false,true,59,add_experience|add_faq
+https://smileaireviewhub.com/vi/review/windsurf/,AI coding tools,0,true,true,true,true,false,true,58,add_faq
+https://smileaireviewhub.com/vi/review/zapier/,AI automation tools,0,false,true,true,true,false,true,56,add_experience|add_faq
+https://smileaireviewhub.com/vi/reviews/activecampaign/,general,0,false,true,false,true,false,false,54,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/adcreative-ai/,general,0,false,true,false,true,false,false,54,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/ahrefs-ai/,AI SEO tools,0,false,true,false,true,false,false,53,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/bolt/,general,0,false,true,false,true,false,false,55,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/canva/,general,0,false,true,false,true,false,false,54,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/chatgpt/,general,0,false,true,false,true,false,false,57,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/claude/,general,0,false,true,false,true,false,false,57,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/copy-ai/,AI writing tools,0,false,true,false,true,false,false,57,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/cursor/,AI coding tools,0,false,true,false,true,false,false,54,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/,AI coding tools,0,false,true,false,true,false,false,53,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/descript/,general,0,false,true,false,true,false,false,56,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/durable/,general,0,false,true,false,true,false,false,55,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/elevenlabs/,general,0,false,true,false,true,false,false,55,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/framer/,general,0,false,true,false,true,false,false,55,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/frase/,general,0,false,true,false,true,false,false,55,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/gamma/,general,0,false,true,false,true,false,false,54,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/gemini/,general,0,false,true,false,true,false,false,55,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/github-copilot/,AI coding tools,0,false,true,false,true,false,false,52,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/hubspot/,general,0,false,true,false,true,false,false,55,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/,general,0,false,true,true,true,false,false,87,add_experience|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/jasper/,AI writing tools,0,false,true,false,true,false,false,57,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/jasper-ai/,AI writing tools,0,false,true,false,true,false,false,57,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/lovable/,general,0,false,true,false,true,false,false,55,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/make/,AI automation tools,0,false,true,false,true,false,false,53,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/midjourney/,general,0,false,true,false,true,false,false,55,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/notion/,AI writing tools,0,false,true,false,true,false,false,57,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/notion-ai/,AI writing tools,0,false,true,false,true,false,false,57,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/perplexity/,general,0,false,true,false,true,false,false,55,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/pipedrive/,general,0,false,true,false,true,false,false,55,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/pipedrive-crm/,general,0,false,true,false,true,false,false,55,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/reclaim-ai/,general,0,false,true,false,true,false,false,55,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/replit/,general,0,false,true,false,true,false,false,55,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/runway/,general,0,false,true,false,true,false,false,56,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/semrush/,AI SEO tools,0,false,true,false,true,false,false,54,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/semrush-ai/,AI SEO tools,0,false,true,false,true,false,false,54,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/surfer-seo/,AI SEO tools,0,false,true,false,true,false,false,54,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/synthesia/,general,0,false,true,false,true,false,false,56,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/webflow/,general,0,false,true,false,true,false,false,55,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/webflow-ai/,general,0,false,true,false,true,false,false,55,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/windsurf/,AI coding tools,0,false,true,false,true,false,false,54,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/windsurf-review/,AI coding tools,0,false,true,false,true,false,false,54,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/reviews/zapier/,AI automation tools,0,false,true,false,true,false,false,53,add_experience|add_opinion|add_cta|add_faq
+https://smileaireviewhub.com/vi/semrush-pricing/,AI SEO tools|pricing,0,false,true,false,true,false,false,50,add_experience|add_opinion|add_faq|add_comparison_table
+https://smileaireviewhub.com/vi/surfer-seo-pricing/,AI SEO tools|pricing,0,false,true,false,true,false,false,50,add_experience|add_opinion|add_faq|add_comparison_table
+https://smileaireviewhub.com/vi/website-builder-software-review/,general,0,true,true,true,true,false,true,59,add_faq
+https://smileaireviewhub.com/vi/windsurf-review/,AI coding tools,18,true,true,true,true,false,true,54,add_faq
+https://smileaireviewhub.com/vi/zapier-pricing/,AI automation tools|pricing,0,false,true,false,true,false,false,49,add_experience|add_opinion|add_faq|add_comparison_table
+https://smileaireviewhub.com/website-builder-software-review/,general,0,true,true,true,true,true,true,57,ok
+https://smileaireviewhub.com/windsurf-review/,AI coding tools|AI automation tools|alternatives,90,true,true,true,true,true,true,52,too_generic
+https://smileaireviewhub.com/zapier-pricing/,AI automation tools|pricing,0,false,true,true,true,true,false,47,add_experience|add_comparison_table

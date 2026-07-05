@@ -8,75 +8,111 @@ make,Make,Aggressive,2.89,0.045,49.48,12.37
 surfer-seo,Surfer SEO,Conservative,4.38,0.012,-67.09,-16.77
 surfer-seo,Surfer SEO,Normal,3.5,0.025,-14.29,-3.57
 surfer-seo,Surfer SEO,Aggressive,2.98,0.045,81.51,20.38
-github-copilot,GitHub Copilot,Conservative,5.12,0.012,-95.32,-23.83
-github-copilot,GitHub Copilot,Normal,4.1,0.025,-87.8,-21.95
-github-copilot,GitHub Copilot,Aggressive,3.48,0.045,-74.18,-18.54
 semrush,Semrush,Conservative,4.38,0.012,-94.51,-23.63
 semrush,Semrush,Normal,3.5,0.025,-85.71,-21.43
 semrush,Semrush,Aggressive,2.98,0.045,-69.75,-17.44
-elevenlabs,ElevenLabs,Conservative,4.0,0.012,-68.32,-17.08
-elevenlabs,ElevenLabs,Normal,3.2,0.025,-17.5,-4.38
-elevenlabs,ElevenLabs,Aggressive,2.72,0.045,74.71,18.68
+github-copilot,GitHub Copilot,Conservative,5.12,0.012,-95.32,-23.83
+github-copilot,GitHub Copilot,Normal,4.1,0.025,-87.8,-21.95
+github-copilot,GitHub Copilot,Aggressive,3.48,0.045,-74.18,-18.54
 zapier,Zapier,Conservative,4.25,0.012,-94.35,-23.59
 zapier,Zapier,Normal,3.4,0.025,-85.29,-21.32
 zapier,Zapier,Aggressive,2.89,0.045,-68.86,-17.21
-webflow-ai,Webflow AI,Conservative,3.75,0.012,-93.6,-23.4
-webflow-ai,Webflow AI,Normal,3.0,0.025,-83.33,-20.83
-webflow-ai,Webflow AI,Aggressive,2.55,0.045,-64.71,-16.18
+elevenlabs,ElevenLabs,Conservative,4.0,0.012,-68.32,-17.08
+elevenlabs,ElevenLabs,Normal,3.2,0.025,-17.5,-4.38
+elevenlabs,ElevenLabs,Aggressive,2.72,0.045,74.71,18.68
+claude,Claude,Conservative,3.75,0.012,-93.6,-23.4
+claude,Claude,Normal,3.0,0.025,-83.33,-20.83
+claude,Claude,Aggressive,2.55,0.045,-64.71,-16.18
+chatgpt,ChatGPT,Conservative,3.75,0.012,-93.6,-23.4
+chatgpt,ChatGPT,Normal,3.0,0.025,-83.33,-20.83
+chatgpt,ChatGPT,Aggressive,2.55,0.045,-64.71,-16.18
+bolt,Bolt,Conservative,3.75,0.012,-93.6,-23.4
+bolt,Bolt,Normal,3.0,0.025,-83.33,-20.83
+bolt,Bolt,Aggressive,2.55,0.045,-64.71,-16.18
 hubspot,HubSpot,Conservative,8.12,0.012,47.69,11.92
 hubspot,HubSpot,Normal,6.5,0.025,284.62,71.15
 hubspot,HubSpot,Aggressive,5.52,0.045,714.48,178.62
+semrush-ai,Semrush AI,Conservative,4.38,0.012,-94.51,-23.63
+semrush-ai,Semrush AI,Normal,3.5,0.025,-85.71,-21.43
+semrush-ai,Semrush AI,Aggressive,2.98,0.045,-69.75,-17.44
+ahrefs-ai,Ahrefs AI,Conservative,4.38,0.012,-94.51,-23.63
+ahrefs-ai,Ahrefs AI,Normal,3.5,0.025,-85.71,-21.43
+ahrefs-ai,Ahrefs AI,Aggressive,2.98,0.045,-69.75,-17.44
+webflow-ai,Webflow AI,Conservative,3.75,0.012,-93.6,-23.4
+webflow-ai,Webflow AI,Normal,3.0,0.025,-83.33,-20.83
+webflow-ai,Webflow AI,Aggressive,2.55,0.045,-64.71,-16.18
 reclaim-ai,Reclaim AI,Conservative,3.62,0.012,-60.28,-15.07
 reclaim-ai,Reclaim AI,Normal,2.9,0.025,3.45,0.86
 reclaim-ai,Reclaim AI,Aggressive,2.46,0.045,119.07,29.77
-webflow,Webflow,Conservative,3.75,0.012,-93.6,-23.4
-webflow,Webflow,Normal,3.0,0.025,-83.33,-20.83
-webflow,Webflow,Aggressive,2.55,0.045,-64.71,-16.18
+windsurf,Windsurf,Conservative,5.12,0.012,-95.32,-23.83
+windsurf,Windsurf,Normal,4.1,0.025,-87.8,-21.95
+windsurf,Windsurf,Aggressive,3.48,0.045,-74.18,-18.54
+perplexity,Perplexity,Conservative,3.75,0.012,-93.6,-23.4
+perplexity,Perplexity,Normal,3.0,0.025,-83.33,-20.83
+perplexity,Perplexity,Aggressive,2.55,0.045,-64.71,-16.18
 cursor,Cursor,Conservative,5.12,0.012,-95.32,-23.83
 cursor,Cursor,Normal,4.1,0.025,-87.8,-21.95
 cursor,Cursor,Aggressive,3.48,0.045,-74.18,-18.54
+gemini,Gemini,Conservative,3.75,0.012,-93.6,-23.4
+gemini,Gemini,Normal,3.0,0.025,-83.33,-20.83
+gemini,Gemini,Aggressive,2.55,0.045,-64.71,-16.18
 notion-ai,Notion AI,Conservative,3.75,0.012,-93.6,-23.4
 notion-ai,Notion AI,Normal,3.0,0.025,-83.33,-20.83
 notion-ai,Notion AI,Aggressive,2.55,0.045,-64.71,-16.18
+webflow,Webflow,Conservative,3.75,0.012,-93.6,-23.4
+webflow,Webflow,Normal,3.0,0.025,-83.33,-20.83
+webflow,Webflow,Aggressive,2.55,0.045,-64.71,-16.18
+lovable,Lovable,Conservative,3.75,0.012,-93.6,-23.4
+lovable,Lovable,Normal,3.0,0.025,-83.33,-20.83
+lovable,Lovable,Aggressive,2.55,0.045,-64.71,-16.18
+midjourney,Midjourney,Conservative,3.75,0.012,-93.6,-23.4
+midjourney,Midjourney,Normal,3.0,0.025,-83.33,-20.83
+midjourney,Midjourney,Aggressive,2.55,0.045,-64.71,-16.18
+replit,Replit,Conservative,3.75,0.012,-93.6,-23.4
+replit,Replit,Normal,3.0,0.025,-83.33,-20.83
+replit,Replit,Aggressive,2.55,0.045,-64.71,-16.18
+frase,Frase,Conservative,4.38,0.012,-94.51,-23.63
+frase,Frase,Normal,3.5,0.025,-85.71,-21.43
+frase,Frase,Aggressive,2.98,0.045,-69.75,-17.44
 framer,Framer,Conservative,3.75,0.012,-93.6,-23.4
 framer,Framer,Normal,3.0,0.025,-83.33,-20.83
 framer,Framer,Aggressive,2.55,0.045,-64.71,-16.18
-durable,Durable,Conservative,3.75,0.012,-93.6,-23.4
-durable,Durable,Normal,3.0,0.025,-83.33,-20.83
-durable,Durable,Aggressive,2.55,0.045,-64.71,-16.18
 gamma,Gamma,Conservative,3.75,0.012,-93.6,-23.4
 gamma,Gamma,Normal,3.0,0.025,-83.33,-20.83
 gamma,Gamma,Aggressive,2.55,0.045,-64.71,-16.18
+durable,Durable,Conservative,3.75,0.012,-93.6,-23.4
+durable,Durable,Normal,3.0,0.025,-83.33,-20.83
+durable,Durable,Aggressive,2.55,0.045,-64.71,-16.18
 adcreative-ai,AdCreative AI,Conservative,3.75,0.012,-93.6,-23.4
 adcreative-ai,AdCreative AI,Normal,3.0,0.025,-83.33,-20.83
 adcreative-ai,AdCreative AI,Aggressive,2.55,0.045,-64.71,-16.18
-jasper,Jasper,Conservative,4.75,0.012,-63.62,-15.91
-jasper,Jasper,Normal,3.8,0.025,-5.26,-1.32
-jasper,Jasper,Aggressive,3.23,0.045,100.62,25.15
 jasper-ai,Jasper AI,Conservative,4.75,0.012,-63.62,-15.91
 jasper-ai,Jasper AI,Normal,3.8,0.025,-5.26,-1.32
 jasper-ai,Jasper AI,Aggressive,3.23,0.045,100.62,25.15
-canva,Canva,Conservative,4.62,0.012,-90.66,-22.66
-canva,Canva,Normal,3.7,0.025,-75.68,-18.92
-canva,Canva,Aggressive,3.15,0.045,-48.49,-12.12
+jasper,Jasper,Conservative,4.75,0.012,-63.62,-15.91
+jasper,Jasper,Normal,3.8,0.025,-5.26,-1.32
+jasper,Jasper,Aggressive,3.23,0.045,100.62,25.15
 notion,Notion,Conservative,3.88,0.012,-84.52,-21.13
 notion,Notion,Normal,3.1,0.025,-59.68,-14.92
 notion,Notion,Aggressive,2.63,0.045,-14.61,-3.65
 synthesia,Synthesia,Conservative,5.75,0.012,-94.99,-23.75
 synthesia,Synthesia,Normal,4.6,0.025,-86.96,-21.74
 synthesia,Synthesia,Aggressive,3.91,0.045,-72.38,-18.09
-pipedrive,Pipedrive,Conservative,8.12,0.012,-97.05,-24.26
-pipedrive,Pipedrive,Normal,6.5,0.025,-92.31,-23.08
-pipedrive,Pipedrive,Aggressive,5.52,0.045,-83.71,-20.93
 pipedrive-crm,Pipedrive CRM,Conservative,8.12,0.012,-97.05,-24.26
 pipedrive-crm,Pipedrive CRM,Normal,6.5,0.025,-92.31,-23.08
 pipedrive-crm,Pipedrive CRM,Aggressive,5.52,0.045,-83.71,-20.93
+canva,Canva,Conservative,4.62,0.012,-90.66,-22.66
+canva,Canva,Normal,3.7,0.025,-75.68,-18.92
+canva,Canva,Aggressive,3.15,0.045,-48.49,-12.12
+pipedrive,Pipedrive,Conservative,8.12,0.012,-97.05,-24.26
+pipedrive,Pipedrive,Normal,6.5,0.025,-92.31,-23.08
+pipedrive,Pipedrive,Aggressive,5.52,0.045,-83.71,-20.93
+runway,Runway,Conservative,5.75,0.012,-95.83,-23.96
+runway,Runway,Normal,4.6,0.025,-89.13,-22.28
+runway,Runway,Aggressive,3.91,0.045,-76.98,-19.25
 copy-ai,Copy.ai,Conservative,4.75,0.012,-94.95,-23.74
 copy-ai,Copy.ai,Normal,3.8,0.025,-86.84,-21.71
 copy-ai,Copy.ai,Aggressive,3.23,0.045,-72.14,-18.03
 descript,Descript,Conservative,5.75,0.012,-95.83,-23.96
 descript,Descript,Normal,4.6,0.025,-89.13,-22.28
 descript,Descript,Aggressive,3.91,0.045,-76.98,-19.25
-runway,Runway,Conservative,5.75,0.012,-95.83,-23.96
-runway,Runway,Normal,4.6,0.025,-89.13,-22.28
-runway,Runway,Aggressive,3.91,0.045,-76.98,-19.25

@@ -1,0 +1,1886 @@
+{
+  "deployment_readiness_score": 90.8,
+  "summary": {
+    "total_pages": 818,
+    "indexable_pages": 712,
+    "non_indexable_pages": 106,
+    "sitemap_urls": 712,
+    "structured_data": {
+      "Organization": 712,
+      "WebSite": 712,
+      "FAQPage": 625,
+      "Person": 559,
+      "Article": 559,
+      "BreadcrumbList": 711,
+      "SoftwareApplication": 373,
+      "Review": 373,
+      "VideoObject": 162,
+      "CollectionPage": 72,
+      "ItemList": 97
+    },
+    "internal_links": 50958,
+    "broken_links": 0,
+    "canonical_issues": 0,
+    "duplicate_metadata": 308,
+    "missing_metadata": 0,
+    "images": 572,
+    "images_missing_alt": 0,
+    "images_missing_lazy_loading": 0,
+    "errors": 0,
+    "warnings": 308
+  },
+  "remaining_warnings": [
+    "HTTP status is validated from static publish targets before deployment; verify live HTTP 200 after deployment.",
+    "Core Web Vitals require live field or Lighthouse data; this audit checks static performance signals only."
+  ],
+  "issues": [
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/activecampaign/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/activecampaign/ | https://smileaireviewhub.com/reviews/activecampaign/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/adcreative-ai/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/adcreative-ai/ | https://smileaireviewhub.com/reviews/adcreative-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/aeo-action-plan/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/aeo-action-plan/ | https://smileaireviewhub.com/vi/aeo-action-plan/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ahrefs-ai/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/ahrefs-ai/ | https://smileaireviewhub.com/reviews/ahrefs-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/best-ai-presentation-tools/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/best-ai-presentation-tools/ | https://smileaireviewhub.com/blog/best-ai-presentation-tools/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/blog/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/blog/ | https://smileaireviewhub.com/vi/blog/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/bolt/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/bolt/ | https://smileaireviewhub.com/reviews/bolt/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/canva/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/canva/ | https://smileaireviewhub.com/reviews/canva/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/chatgpt/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/chatgpt/ | https://smileaireviewhub.com/reviews/chatgpt/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/claude/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/claude/ | https://smileaireviewhub.com/reviews/claude/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/copy-ai/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/copy-ai/ | https://smileaireviewhub.com/reviews/copy-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/cursor/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/cursor/ | https://smileaireviewhub.com/reviews/cursor/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/ | https://smileaireviewhub.com/reviews/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/descript/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/descript/ | https://smileaireviewhub.com/reviews/descript/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/durable/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/durable/ | https://smileaireviewhub.com/reviews/durable/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/elevenlabs/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/elevenlabs/ | https://smileaireviewhub.com/reviews/elevenlabs/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/email-capture-setup/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/email-capture-setup/ | https://smileaireviewhub.com/vi/email-capture-setup/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/facebook-test/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/facebook-test/ | https://smileaireviewhub.com/vi/facebook-test/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/formspree-setup/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/formspree-setup/ | https://smileaireviewhub.com/vi/formspree-setup/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/framer/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/framer/ | https://smileaireviewhub.com/reviews/framer/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/frase/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/frase/ | https://smileaireviewhub.com/reviews/frase/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/gamma/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/gamma/ | https://smileaireviewhub.com/reviews/gamma/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/gemini/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/gemini/ | https://smileaireviewhub.com/reviews/gemini/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/github-copilot/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/github-copilot/ | https://smileaireviewhub.com/reviews/github-copilot/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/hubspot/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/hubspot/ | https://smileaireviewhub.com/reviews/hubspot/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/jasper/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/jasper/ | https://smileaireviewhub.com/reviews/jasper/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/jasper-ai/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/jasper-ai/ | https://smileaireviewhub.com/reviews/jasper-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/lovable/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/lovable/ | https://smileaireviewhub.com/reviews/lovable/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/make/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/make/ | https://smileaireviewhub.com/reviews/make/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/media-kit/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/media-kit/ | https://smileaireviewhub.com/vi/media-kit/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/midjourney/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/midjourney/ | https://smileaireviewhub.com/reviews/midjourney/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/notion/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/notion/ | https://smileaireviewhub.com/reviews/notion/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/notion-ai/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/notion-ai/ | https://smileaireviewhub.com/reviews/notion-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/perplexity/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/perplexity/ | https://smileaireviewhub.com/reviews/perplexity/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/pipedrive/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/pipedrive/ | https://smileaireviewhub.com/reviews/pipedrive/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/pipedrive-crm/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/pipedrive-crm/ | https://smileaireviewhub.com/reviews/pipedrive-crm/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/privacy/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/privacy/ | https://smileaireviewhub.com/privacy-policy/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/reclaim-ai/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/reclaim-ai/ | https://smileaireviewhub.com/reviews/reclaim-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/replit/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/replit/ | https://smileaireviewhub.com/reviews/replit/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/runway/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/runway/ | https://smileaireviewhub.com/reviews/runway/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/semrush/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/semrush/ | https://smileaireviewhub.com/reviews/semrush/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/semrush-ai/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/semrush-ai/ | https://smileaireviewhub.com/reviews/semrush-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/sitemap/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/sitemap/ | https://smileaireviewhub.com/vi/sitemap/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/surfer-seo/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/surfer-seo/ | https://smileaireviewhub.com/reviews/surfer-seo/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/synthesia/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/synthesia/ | https://smileaireviewhub.com/reviews/synthesia/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/webflow/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/webflow/ | https://smileaireviewhub.com/reviews/webflow/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/webflow-ai/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/webflow-ai/ | https://smileaireviewhub.com/reviews/webflow-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/windsurf-review/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/windsurf-review/ | https://smileaireviewhub.com/reviews/windsurf/ | https://smileaireviewhub.com/reviews/windsurf-review/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/zapier/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/zapier/ | https://smileaireviewhub.com/reviews/zapier/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/activecampaign/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/activecampaign/ | https://smileaireviewhub.com/vi/reviews/activecampaign/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/adcreative-ai/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/adcreative-ai/ | https://smileaireviewhub.com/vi/reviews/adcreative-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/ahrefs-ai/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/ahrefs-ai/ | https://smileaireviewhub.com/vi/reviews/ahrefs-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/ai-app-builder-alternatives/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/ai-app-builder-alternatives/ | https://smileaireviewhub.com/vi/ai-app-builder-software-review/ | https://smileaireviewhub.com/vi/ai-assistant-software-review/ | https://smileaireviewhub.com/vi/ai-coding-software-review/ | https://smileaireviewhub.com/vi/ai-image-software-review/ | https://smileaireviewhub.com/vi/ai-meeting-software-review/ | https://smileaireviewhub.com/vi/ai-productivity-alternatives/ | https://smileaireviewhub.com/vi/ai-productivity-software-review/ | https://smileaireviewhub.com/vi/ai-search-software-review/ | https://smileaireviewhub.com/vi/ai-seo-software-review/ | https://smileaireviewhub.com/vi/ai-voice-software-review/ | https://smileaireviewhub.com/vi/automation-software-review/ | https://smileaireviewhub.com/vi/best-ai-coding-tools-2026/ | https://smileaireviewhub.com/vi/best-ai-seo-tools-2026/ | https://smileaireviewhub.com/vi/cloud-development-alternatives/ | https://smileaireviewhub.com/vi/cloud-development-software-review/ | https://smileaireviewhub.com/vi/constant-contact-review-2026/ | https://smileaireviewhub.com/vi/email-marketing-alternatives/ | https://smileaireviewhub.com/vi/email-marketing-software-review/ | https://smileaireviewhub.com/vi/hidden-ai-infrastructure-companies-2026/ | https://smileaireviewhub.com/vi/hostinger-website-builder-review-2026/ | https://smileaireviewhub.com/vi/leadpages-review-2026/ | https://smileaireviewhub.com/vi/moz-review-2026/ | https://smileaireviewhub.com/vi/serpstat-review-2026/ | https://smileaireviewhub.com/vi/ubersuggest-review-2026/ | https://smileaireviewhub.com/vi/unbounce-review-2026/ | https://smileaireviewhub.com/vi/website-builder-alternatives/ | https://smileaireviewhub.com/vi/website-builder-software-review/ | https://smileaireviewhub.com/vi/wordtune-review-2026/ | https://smileaireviewhub.com/vi/review/activecampaign/ | https://smileaireviewhub.com/vi/review/descript/ | https://smileaireviewhub.com/vi/comparisons/copilot-vs-codex/ | https://smileaireviewhub.com/vi/comparisons/surfer-seo-vs-frase/ | https://smileaireviewhub.com/vi/category/ai-coding-tools/ | https://smileaireviewhub.com/vi/category/automation-tools/ | https://smileaireviewhub.com/vi/category/design-tools/ | https://smileaireviewhub.com/vi/category/email-marketing-tools/ | https://smileaireviewhub.com/vi/category/website-builder-tools/ | https://smileaireviewhub.com/vi/category/writing-tools/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/ai-assistant-alternatives/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/ai-assistant-alternatives/ | https://smileaireviewhub.com/vi/ai-image-alternatives/ | https://smileaireviewhub.com/vi/ai-search-alternatives/ | https://smileaireviewhub.com/vi/ai-seo-alternatives/ | https://smileaireviewhub.com/vi/ai-video-alternatives/ | https://smileaireviewhub.com/vi/ai-voice-alternatives/ | https://smileaireviewhub.com/vi/ai-writing-alternatives/ | https://smileaireviewhub.com/vi/automation-alternatives/ | https://smileaireviewhub.com/vi/best-affiliate-marketing-software-saas/ | https://smileaireviewhub.com/vi/best-ai-website-builders-compared/ | https://smileaireviewhub.com/vi/best-website-builder-2026/ | https://smileaireviewhub.com/vi/best-website-builders/ | https://smileaireviewhub.com/vi/free-ai-coding-workflow-checklist/ | https://smileaireviewhub.com/vi/marketing-alternatives/ | https://smileaireviewhub.com/vi/surfer-seo-alternatives/ | https://smileaireviewhub.com/vi/surfer-seo-free-trial/ | https://smileaireviewhub.com/vi/surfer-seo-vs-clearscope/ | https://smileaireviewhub.com/vi/review/adcreative-ai/ | https://smileaireviewhub.com/vi/review/ahrefs-ai/ | https://smileaireviewhub.com/vi/review/bolt/ | https://smileaireviewhub.com/vi/review/canva/ | https://smileaireviewhub.com/vi/review/chatgpt/ | https://smileaireviewhub.com/vi/review/claude/ | https://smileaireviewhub.com/vi/review/copy-ai/ | https://smileaireviewhub.com/vi/review/cursor/ | https://smileaireviewhub.com/vi/review/durable/ | https://smileaireviewhub.com/vi/review/durable-ai-review-2026/ | https://smileaireviewhub.com/vi/review/elevenlabs/ | https://smileaireviewhub.com/vi/review/framer/ | https://smileaireviewhub.com/vi/review/frase/ | https://smileaireviewhub.com/vi/review/gamma/ | https://smileaireviewhub.com/vi/review/gemini/ | https://smileaireviewhub.com/vi/review/github-copilot/ | https://smileaireviewhub.com/vi/review/hubspot/ | https://smileaireviewhub.com/vi/review/jasper/ | https://smileaireviewhub.com/vi/review/jasper-ai/ | https://smileaireviewhub.com/vi/review/lovable/ | https://smileaireviewhub.com/vi/review/make/ | https://smileaireviewhub.com/vi/review/midjourney/ | https://smileaireviewhub.com/vi/review/notion/ | https://smileaireviewhub.com/vi/review/perplexity/ | https://smileaireviewhub.com/vi/review/pipedrive/ | https://smileaireviewhub.com/vi/review/pipedrive-crm/ | https://smileaireviewhub.com/vi/review/reclaim-ai/ | https://smileaireviewhub.com/vi/review/replit/ | https://smileaireviewhub.com/vi/review/runway/ | https://smileaireviewhub.com/vi/review/semrush/ | https://smileaireviewhub.com/vi/review/semrush-ai/ | https://smileaireviewhub.com/vi/review/surfer-seo/ | https://smileaireviewhub.com/vi/review/webflow/ | https://smileaireviewhub.com/vi/review/windsurf/ | https://smileaireviewhub.com/vi/review/zapier/ | https://smileaireviewhub.com/vi/compare/chatgpt-vs-claude/ | https://smileaireviewhub.com/vi/category/seo-tools/ | https://smileaireviewhub.com/vi/category/video-tools/ | https://smileaireviewhub.com/vi/blog/ai-tools-for-content-creators/ | https://smileaireviewhub.com/vi/blog/ai-website-builders-comparison/ | https://smileaireviewhub.com/vi/blog/best-ai-tools-for-small-business/ | https://smileaireviewhub.com/vi/blog/best-crm-for-startups/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/best-ai-presentation-tools/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/best-ai-presentation-tools/ | https://smileaireviewhub.com/vi/blog/best-ai-presentation-tools/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/bolt/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/bolt/ | https://smileaireviewhub.com/vi/reviews/bolt/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/canva/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/canva/ | https://smileaireviewhub.com/vi/reviews/canva/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/chatgpt/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/chatgpt/ | https://smileaireviewhub.com/vi/reviews/chatgpt/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/claude/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/claude/ | https://smileaireviewhub.com/vi/reviews/claude/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/copy-ai/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/copy-ai/ | https://smileaireviewhub.com/vi/reviews/copy-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/cursor/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/cursor/ | https://smileaireviewhub.com/vi/reviews/cursor/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/ | https://smileaireviewhub.com/vi/reviews/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/ | https://smileaireviewhub.com/vi/comparisons/copilot-vs-cursor/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/descript/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/descript/ | https://smileaireviewhub.com/vi/reviews/descript/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/durable/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/durable/ | https://smileaireviewhub.com/vi/reviews/durable/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/elevenlabs/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/elevenlabs/ | https://smileaireviewhub.com/vi/reviews/elevenlabs/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/framer/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/framer/ | https://smileaireviewhub.com/vi/reviews/framer/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/frase/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/frase/ | https://smileaireviewhub.com/vi/reviews/frase/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/gamma/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/gamma/ | https://smileaireviewhub.com/vi/reviews/gamma/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/gemini/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/gemini/ | https://smileaireviewhub.com/vi/reviews/gemini/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/github-copilot/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/github-copilot/ | https://smileaireviewhub.com/vi/reviews/github-copilot/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/hubspot/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/hubspot/ | https://smileaireviewhub.com/vi/reviews/hubspot/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/jasper/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/jasper/ | https://smileaireviewhub.com/vi/reviews/jasper/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/jasper-ai/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/jasper-ai/ | https://smileaireviewhub.com/vi/reviews/jasper-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/lovable/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/lovable/ | https://smileaireviewhub.com/vi/reviews/lovable/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/make/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/make/ | https://smileaireviewhub.com/vi/reviews/make/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/midjourney/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/midjourney/ | https://smileaireviewhub.com/vi/reviews/midjourney/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/notion/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/notion/ | https://smileaireviewhub.com/vi/reviews/notion/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/notion-ai/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/notion-ai/ | https://smileaireviewhub.com/vi/reviews/notion-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/perplexity/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/perplexity/ | https://smileaireviewhub.com/vi/reviews/perplexity/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/pipedrive/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/pipedrive/ | https://smileaireviewhub.com/vi/reviews/pipedrive/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/pipedrive-crm/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/pipedrive-crm/ | https://smileaireviewhub.com/vi/reviews/pipedrive-crm/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/privacy/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/privacy/ | https://smileaireviewhub.com/vi/privacy-policy/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/reclaim-ai/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/reclaim-ai/ | https://smileaireviewhub.com/vi/reviews/reclaim-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/replit/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/replit/ | https://smileaireviewhub.com/vi/reviews/replit/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/runway/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/runway/ | https://smileaireviewhub.com/vi/reviews/runway/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/semrush/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/semrush/ | https://smileaireviewhub.com/vi/reviews/semrush/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/semrush-ai/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/semrush-ai/ | https://smileaireviewhub.com/vi/reviews/semrush-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/surfer-seo/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/surfer-seo/ | https://smileaireviewhub.com/vi/reviews/surfer-seo/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/synthesia/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/synthesia/ | https://smileaireviewhub.com/vi/reviews/synthesia/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/webflow/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/webflow/ | https://smileaireviewhub.com/vi/reviews/webflow/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/webflow-ai/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/webflow-ai/ | https://smileaireviewhub.com/vi/reviews/webflow-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/windsurf-review/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/windsurf-review/ | https://smileaireviewhub.com/vi/reviews/windsurf/ | https://smileaireviewhub.com/vi/reviews/windsurf-review/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/zapier/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/zapier/ | https://smileaireviewhub.com/vi/reviews/zapier/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/hub/website-builders/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/hub/website-builders/ | https://smileaireviewhub.com/hub/website-builders/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/downloads/ai-coding-workflow-checklist/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/downloads/ai-coding-workflow-checklist/ | https://smileaireviewhub.com/downloads/ai-coding-workflow-checklist/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/canva-vs-gamma/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/canva-vs-gamma/ | https://smileaireviewhub.com/comparisons/canva-vs-gamma/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/chatgpt-vs-claude/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/chatgpt-vs-claude/ | https://smileaireviewhub.com/comparisons/chatgpt-vs-claude/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/chatgpt-vs-gemini/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/chatgpt-vs-gemini/ | https://smileaireviewhub.com/comparisons/chatgpt-vs-gemini/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/chatgpt-vs-perplexity/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/chatgpt-vs-perplexity/ | https://smileaireviewhub.com/comparisons/chatgpt-vs-perplexity/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/claude-vs-gemini/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/claude-vs-gemini/ | https://smileaireviewhub.com/comparisons/claude-vs-gemini/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/claude-vs-perplexity/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/claude-vs-perplexity/ | https://smileaireviewhub.com/comparisons/claude-vs-perplexity/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/copilot-vs-tabnine/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/copilot-vs-tabnine/ | https://smileaireviewhub.com/comparisons/copilot-vs-tabnine/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/cursor-vs-github-copilot/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/cursor-vs-github-copilot/ | https://smileaireviewhub.com/vi/compare/cursor-vs-github-copilot/ | https://smileaireviewhub.com/comparisons/cursor-vs-github-copilot/ | https://smileaireviewhub.com/compare/cursor-vs-github-copilot/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/cursor-vs-vscode/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/cursor-vs-vscode/ | https://smileaireviewhub.com/comparisons/cursor-vs-vscode/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/cursor-vs-windsurf/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/cursor-vs-windsurf/ | https://smileaireviewhub.com/vi/compare/cursor-vs-windsurf/ | https://smileaireviewhub.com/comparisons/cursor-vs-windsurf/ | https://smileaireviewhub.com/compare/cursor-vs-windsurf/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/elevenlabs-vs-murf/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/elevenlabs-vs-murf/ | https://smileaireviewhub.com/comparisons/elevenlabs-vs-murf/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/elevenlabs-vs-playht/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/elevenlabs-vs-playht/ | https://smileaireviewhub.com/comparisons/elevenlabs-vs-playht/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/framer-vs-webflow/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/framer-vs-webflow/ | https://smileaireviewhub.com/comparisons/framer-vs-webflow/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/gemini-vs-claude/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/gemini-vs-claude/ | https://smileaireviewhub.com/comparisons/gemini-vs-claude/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/hubspot-vs-salesforce/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/hubspot-vs-salesforce/ | https://smileaireviewhub.com/comparisons/hubspot-vs-salesforce/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/jasper-vs-copy-ai/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/jasper-vs-copy-ai/ | https://smileaireviewhub.com/vi/comparisons/jasper-vs-copyai/ | https://smileaireviewhub.com/vi/compare/jasper-vs-copy-ai/ | https://smileaireviewhub.com/comparisons/jasper-vs-copy-ai/ | https://smileaireviewhub.com/comparisons/jasper-vs-copyai/ | https://smileaireviewhub.com/compare/jasper-vs-copy-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/lovable-vs-bolt/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/lovable-vs-bolt/ | https://smileaireviewhub.com/comparisons/lovable-vs-bolt/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/make-vs-zapier/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/make-vs-zapier/ | https://smileaireviewhub.com/vi/compare/make-vs-zapier/ | https://smileaireviewhub.com/comparisons/make-vs-zapier/ | https://smileaireviewhub.com/compare/make-vs-zapier/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/midjourney-vs-dalle/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/midjourney-vs-dalle/ | https://smileaireviewhub.com/comparisons/midjourney-vs-dalle/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/notion-ai-vs-chatgpt/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/notion-ai-vs-chatgpt/ | https://smileaireviewhub.com/comparisons/notion-ai-vs-chatgpt/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/notion-ai-vs-clickup-ai/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/notion-ai-vs-clickup-ai/ | https://smileaireviewhub.com/comparisons/notion-ai-vs-clickup-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/notion-vs-clickup/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/notion-vs-clickup/ | https://smileaireviewhub.com/comparisons/notion-vs-clickup/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/perplexity-vs-chatgpt/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/perplexity-vs-chatgpt/ | https://smileaireviewhub.com/comparisons/perplexity-vs-chatgpt/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/replit-vs-cursor/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/replit-vs-cursor/ | https://smileaireviewhub.com/comparisons/replit-vs-cursor/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/runway-vs-pika/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/runway-vs-pika/ | https://smileaireviewhub.com/comparisons/runway-vs-pika/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/semrush-vs-ahrefs/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/semrush-vs-ahrefs/ | https://smileaireviewhub.com/comparisons/semrush-vs-ahrefs/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/synthesia-vs-heygen/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/synthesia-vs-heygen/ | https://smileaireviewhub.com/comparisons/synthesia-vs-heygen/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/synthesia-vs-runway/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/synthesia-vs-runway/ | https://smileaireviewhub.com/comparisons/synthesia-vs-runway/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/compare/canva-vs-adcreative-ai/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/compare/canva-vs-adcreative-ai/ | https://smileaireviewhub.com/compare/canva-vs-adcreative-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/compare/cursor-vs-github-copilot-2026/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/compare/cursor-vs-github-copilot-2026/ | https://smileaireviewhub.com/compare/cursor-vs-github-copilot-2026/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/compare/github-copilot-vs-codeium/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/compare/github-copilot-vs-codeium/ | https://smileaireviewhub.com/compare/github-copilot-vs-codeium/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/compare/grammarly-vs-quillbot/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/compare/grammarly-vs-quillbot/ | https://smileaireviewhub.com/compare/grammarly-vs-quillbot/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/compare/synthesia-vs-pictory/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/compare/synthesia-vs-pictory/ | https://smileaireviewhub.com/compare/synthesia-vs-pictory/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/category/ai-writing/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/category/ai-writing/ | https://smileaireviewhub.com/category/ai-writing/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/category/automation/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/category/automation/ | https://smileaireviewhub.com/category/automation/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/category/crm/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/category/crm/ | https://smileaireviewhub.com/category/crm/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/category/website-builders/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/category/website-builders/ | https://smileaireviewhub.com/category/website-builders/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/blog/best-ai-voice-generators/",
+      "issue": "duplicate_title",
+      "detail": "https://smileaireviewhub.com/vi/blog/best-ai-voice-generators/ | https://smileaireviewhub.com/blog/best-ai-voice-generators/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/activecampaign/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/activecampaign/ | https://smileaireviewhub.com/reviews/activecampaign/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/adcreative-ai/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/adcreative-ai/ | https://smileaireviewhub.com/reviews/adcreative-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/aeo-action-plan/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/aeo-action-plan/ | https://smileaireviewhub.com/vi/aeo-action-plan/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ahrefs-ai/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ahrefs-ai/ | https://smileaireviewhub.com/reviews/ahrefs-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ai-app-builder-alternatives/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ai-app-builder-alternatives/ | https://smileaireviewhub.com/vi/ai-app-builder-alternatives/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ai-app-builder-software-review/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ai-app-builder-software-review/ | https://smileaireviewhub.com/vi/ai-app-builder-software-review/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ai-assistant-alternatives/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ai-assistant-alternatives/ | https://smileaireviewhub.com/vi/ai-assistant-alternatives/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ai-assistant-software-review/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ai-assistant-software-review/ | https://smileaireviewhub.com/vi/ai-assistant-software-review/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ai-coding-alternatives/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ai-coding-alternatives/ | https://smileaireviewhub.com/vi/ai-coding-alternatives/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ai-coding-software-review/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ai-coding-software-review/ | https://smileaireviewhub.com/vi/ai-coding-software-review/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ai-design-alternatives/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ai-design-alternatives/ | https://smileaireviewhub.com/vi/ai-design-alternatives/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ai-image-alternatives/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ai-image-alternatives/ | https://smileaireviewhub.com/vi/ai-image-alternatives/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ai-image-software-review/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ai-image-software-review/ | https://smileaireviewhub.com/vi/ai-image-software-review/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ai-meeting-alternatives/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ai-meeting-alternatives/ | https://smileaireviewhub.com/vi/ai-meeting-alternatives/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ai-meeting-software-review/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ai-meeting-software-review/ | https://smileaireviewhub.com/vi/ai-meeting-software-review/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ai-productivity-alternatives/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ai-productivity-alternatives/ | https://smileaireviewhub.com/vi/ai-productivity-alternatives/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ai-productivity-software-review/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ai-productivity-software-review/ | https://smileaireviewhub.com/vi/ai-productivity-software-review/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ai-search-alternatives/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ai-search-alternatives/ | https://smileaireviewhub.com/vi/ai-search-alternatives/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ai-search-software-review/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ai-search-software-review/ | https://smileaireviewhub.com/vi/ai-search-software-review/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ai-seo-alternatives/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ai-seo-alternatives/ | https://smileaireviewhub.com/vi/ai-seo-alternatives/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ai-seo-software-review/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ai-seo-software-review/ | https://smileaireviewhub.com/vi/ai-seo-software-review/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ai-video-alternatives/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ai-video-alternatives/ | https://smileaireviewhub.com/vi/ai-video-alternatives/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ai-voice-alternatives/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ai-voice-alternatives/ | https://smileaireviewhub.com/vi/ai-voice-alternatives/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ai-voice-software-review/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ai-voice-software-review/ | https://smileaireviewhub.com/vi/ai-voice-software-review/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/ai-writing-alternatives/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/ai-writing-alternatives/ | https://smileaireviewhub.com/vi/ai-writing-alternatives/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/automation-alternatives/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/automation-alternatives/ | https://smileaireviewhub.com/vi/automation-alternatives/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/automation-software-review/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/automation-software-review/ | https://smileaireviewhub.com/vi/automation-software-review/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/beehiiv-review-2026/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/beehiiv-review-2026/ | https://smileaireviewhub.com/vi/beehiiv-review-2026/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/best-ai-coding-tools-2026/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/best-ai-coding-tools-2026/ | https://smileaireviewhub.com/vi/best-ai-coding-tools-2026/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/best-ai-seo-tools-2026/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/best-ai-seo-tools-2026/ | https://smileaireviewhub.com/vi/best-ai-seo-tools-2026/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/best-ai-website-builders-compared/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/best-ai-website-builders-compared/ | https://smileaireviewhub.com/vi/best-ai-website-builders-compared/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/best-website-builder-2026/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/best-website-builder-2026/ | https://smileaireviewhub.com/vi/best-website-builder-2026/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/blog/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/blog/ | https://smileaireviewhub.com/vi/blog/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/bolt/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/bolt/ | https://smileaireviewhub.com/reviews/bolt/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/bunny-net-review-2026/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/bunny-net-review-2026/ | https://smileaireviewhub.com/vi/bunny-net-review-2026/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/canva/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/canva/ | https://smileaireviewhub.com/reviews/canva/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/categories/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/categories/ | https://smileaireviewhub.com/vi/categories/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/chatgpt/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/chatgpt/ | https://smileaireviewhub.com/reviews/chatgpt/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/claude/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/claude/ | https://smileaireviewhub.com/reviews/claude/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/cloud-development-alternatives/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/cloud-development-alternatives/ | https://smileaireviewhub.com/vi/cloud-development-alternatives/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/cloud-development-software-review/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/cloud-development-software-review/ | https://smileaireviewhub.com/vi/cloud-development-software-review/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/comparisons/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/comparisons/ | https://smileaireviewhub.com/vi/comparisons/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/copy-ai/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/copy-ai/ | https://smileaireviewhub.com/reviews/copy-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/cursor/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/cursor/ | https://smileaireviewhub.com/reviews/cursor/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/ | https://smileaireviewhub.com/vi/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/ | https://smileaireviewhub.com/vi/reviews/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/ | https://smileaireviewhub.com/reviews/cursor-ai-review-a-practical-guide-for-developers-and-ai-coders/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/descript/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/descript/ | https://smileaireviewhub.com/reviews/descript/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/durable/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/durable/ | https://smileaireviewhub.com/reviews/durable/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/elevenlabs/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/elevenlabs/ | https://smileaireviewhub.com/reviews/elevenlabs/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/email-capture-setup/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/email-capture-setup/ | https://smileaireviewhub.com/vi/email-capture-setup/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/email-marketing-alternatives/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/email-marketing-alternatives/ | https://smileaireviewhub.com/vi/email-marketing-alternatives/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/email-marketing-software-review/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/email-marketing-software-review/ | https://smileaireviewhub.com/vi/email-marketing-software-review/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/facebook-test/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/facebook-test/ | https://smileaireviewhub.com/vi/facebook-test/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/fathom-analytics-review-2026/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/fathom-analytics-review-2026/ | https://smileaireviewhub.com/vi/fathom-analytics-review-2026/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/formspree-setup/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/formspree-setup/ | https://smileaireviewhub.com/vi/formspree-setup/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/framer/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/framer/ | https://smileaireviewhub.com/reviews/framer/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/frase/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/frase/ | https://smileaireviewhub.com/reviews/frase/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/free-ai-coding-workflow-checklist/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/free-ai-coding-workflow-checklist/ | https://smileaireviewhub.com/vi/free-ai-coding-workflow-checklist/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/gamma/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/gamma/ | https://smileaireviewhub.com/reviews/gamma/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/gemini/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/gemini/ | https://smileaireviewhub.com/reviews/gemini/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/github-copilot/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/github-copilot/ | https://smileaireviewhub.com/reviews/github-copilot/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/hubs/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/hubs/ | https://smileaireviewhub.com/vi/hubs/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/hubspot/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/hubspot/ | https://smileaireviewhub.com/reviews/hubspot/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/jasper/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/jasper/ | https://smileaireviewhub.com/reviews/jasper/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/jasper-ai/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/jasper-ai/ | https://smileaireviewhub.com/reviews/jasper-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/keysearch-review-2026/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/keysearch-review-2026/ | https://smileaireviewhub.com/vi/keysearch-review-2026/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/link-whisper-review-2026/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/link-whisper-review-2026/ | https://smileaireviewhub.com/vi/link-whisper-review-2026/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/lovable/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/lovable/ | https://smileaireviewhub.com/reviews/lovable/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/lowfruits-review-2026/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/lowfruits-review-2026/ | https://smileaireviewhub.com/vi/lowfruits-review-2026/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/make/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/make/ | https://smileaireviewhub.com/reviews/make/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/marketing-alternatives/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/marketing-alternatives/ | https://smileaireviewhub.com/vi/marketing-alternatives/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/media-kit/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/media-kit/ | https://smileaireviewhub.com/vi/media-kit/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/midjourney/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/midjourney/ | https://smileaireviewhub.com/reviews/midjourney/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/neuronwriter-review-2026/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/neuronwriter-review-2026/ | https://smileaireviewhub.com/vi/neuronwriter-review-2026/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/notion/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/notion/ | https://smileaireviewhub.com/reviews/notion/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/notion-ai/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/notion-ai/ | https://smileaireviewhub.com/reviews/notion-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/perplexity/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/perplexity/ | https://smileaireviewhub.com/reviews/perplexity/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/pipedrive/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/pipedrive/ | https://smileaireviewhub.com/reviews/pipedrive/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/pipedrive-crm/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/pipedrive-crm/ | https://smileaireviewhub.com/reviews/pipedrive-crm/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/plausible-analytics-review-2026/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/plausible-analytics-review-2026/ | https://smileaireviewhub.com/vi/plausible-analytics-review-2026/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/privacy/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/privacy/ | https://smileaireviewhub.com/privacy-policy/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/reclaim-ai/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/reclaim-ai/ | https://smileaireviewhub.com/reviews/reclaim-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/replit/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/replit/ | https://smileaireviewhub.com/reviews/replit/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/reviews/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/reviews/ | https://smileaireviewhub.com/vi/reviews/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/runway/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/runway/ | https://smileaireviewhub.com/reviews/runway/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/semrush/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/semrush/ | https://smileaireviewhub.com/reviews/semrush/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/semrush-ai/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/semrush-ai/ | https://smileaireviewhub.com/reviews/semrush-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/senja-review-2026/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/senja-review-2026/ | https://smileaireviewhub.com/vi/senja-review-2026/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/surfer-seo/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/surfer-seo/ | https://smileaireviewhub.com/reviews/surfer-seo/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/surfer-seo-free-trial/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/surfer-seo-free-trial/ | https://smileaireviewhub.com/vi/surfer-seo-free-trial/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/synthesia/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/synthesia/ | https://smileaireviewhub.com/reviews/synthesia/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/tally-forms-review-2026/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/tally-forms-review-2026/ | https://smileaireviewhub.com/vi/tally-forms-review-2026/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/trackdesk-review-2026/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/trackdesk-review-2026/ | https://smileaireviewhub.com/vi/trackdesk-review-2026/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/webflow/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/webflow/ | https://smileaireviewhub.com/reviews/webflow/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/webflow-ai/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/webflow-ai/ | https://smileaireviewhub.com/reviews/webflow-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/webflow-pros-and-cons/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/webflow-pros-and-cons/ | https://smileaireviewhub.com/vi/webflow-pros-and-cons/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/website-builder-alternatives/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/website-builder-alternatives/ | https://smileaireviewhub.com/vi/website-builder-alternatives/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/website-builder-software-review/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/website-builder-software-review/ | https://smileaireviewhub.com/vi/website-builder-software-review/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/windsurf-review/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/windsurf-review/ | https://smileaireviewhub.com/reviews/windsurf/ | https://smileaireviewhub.com/reviews/windsurf-review/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/zapier/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/zapier/ | https://smileaireviewhub.com/reviews/zapier/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/zapier-pricing/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/zapier-pricing/ | https://smileaireviewhub.com/vi/zapier-pricing/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/activecampaign/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/activecampaign/ | https://smileaireviewhub.com/vi/reviews/activecampaign/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/adcreative-ai/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/adcreative-ai/ | https://smileaireviewhub.com/vi/reviews/adcreative-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/ahrefs-ai/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/ahrefs-ai/ | https://smileaireviewhub.com/vi/reviews/ahrefs-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/bolt/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/bolt/ | https://smileaireviewhub.com/vi/reviews/bolt/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/canva/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/canva/ | https://smileaireviewhub.com/vi/reviews/canva/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/chatgpt/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/chatgpt/ | https://smileaireviewhub.com/vi/reviews/chatgpt/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/claude/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/claude/ | https://smileaireviewhub.com/vi/reviews/claude/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/copy-ai/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/copy-ai/ | https://smileaireviewhub.com/vi/reviews/copy-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/cursor/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/cursor/ | https://smileaireviewhub.com/vi/reviews/cursor/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/descript/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/descript/ | https://smileaireviewhub.com/vi/reviews/descript/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/durable/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/durable/ | https://smileaireviewhub.com/vi/reviews/durable/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/elevenlabs/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/elevenlabs/ | https://smileaireviewhub.com/vi/reviews/elevenlabs/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/framer/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/framer/ | https://smileaireviewhub.com/vi/reviews/framer/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/frase/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/frase/ | https://smileaireviewhub.com/vi/reviews/frase/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/gamma/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/gamma/ | https://smileaireviewhub.com/vi/reviews/gamma/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/gemini/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/gemini/ | https://smileaireviewhub.com/vi/reviews/gemini/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/github-copilot/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/github-copilot/ | https://smileaireviewhub.com/vi/reviews/github-copilot/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/hubspot/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/hubspot/ | https://smileaireviewhub.com/vi/reviews/hubspot/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/jasper/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/jasper/ | https://smileaireviewhub.com/vi/reviews/jasper/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/jasper-ai/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/jasper-ai/ | https://smileaireviewhub.com/vi/reviews/jasper-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/lovable/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/lovable/ | https://smileaireviewhub.com/vi/reviews/lovable/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/make/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/make/ | https://smileaireviewhub.com/vi/reviews/make/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/midjourney/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/midjourney/ | https://smileaireviewhub.com/vi/reviews/midjourney/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/notion/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/notion/ | https://smileaireviewhub.com/vi/reviews/notion/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/notion-ai/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/notion-ai/ | https://smileaireviewhub.com/vi/reviews/notion-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/perplexity/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/perplexity/ | https://smileaireviewhub.com/vi/reviews/perplexity/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/pipedrive/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/pipedrive/ | https://smileaireviewhub.com/vi/reviews/pipedrive/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/pipedrive-crm/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/pipedrive-crm/ | https://smileaireviewhub.com/vi/reviews/pipedrive-crm/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/privacy/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/privacy/ | https://smileaireviewhub.com/vi/privacy-policy/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/reclaim-ai/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/reclaim-ai/ | https://smileaireviewhub.com/vi/reviews/reclaim-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/replit/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/replit/ | https://smileaireviewhub.com/vi/reviews/replit/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/runway/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/runway/ | https://smileaireviewhub.com/vi/reviews/runway/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/semrush/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/semrush/ | https://smileaireviewhub.com/vi/reviews/semrush/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/semrush-ai/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/semrush-ai/ | https://smileaireviewhub.com/vi/reviews/semrush-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/surfer-seo/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/surfer-seo/ | https://smileaireviewhub.com/vi/reviews/surfer-seo/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/synthesia/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/synthesia/ | https://smileaireviewhub.com/vi/reviews/synthesia/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/webflow/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/webflow/ | https://smileaireviewhub.com/vi/reviews/webflow/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/webflow-ai/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/webflow-ai/ | https://smileaireviewhub.com/vi/reviews/webflow-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/windsurf-review/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/windsurf-review/ | https://smileaireviewhub.com/vi/reviews/windsurf/ | https://smileaireviewhub.com/vi/reviews/windsurf-review/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/zapier/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/zapier/ | https://smileaireviewhub.com/vi/reviews/zapier/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/review/adcreative-ai-review-2026/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/review/adcreative-ai-review-2026/ | https://smileaireviewhub.com/review/adcreative-ai-review-2026/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/review/durable-ai-review-2026/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/review/durable-ai-review-2026/ | https://smileaireviewhub.com/review/durable-ai-review-2026/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/review/surfer-seo-review-2026/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/review/surfer-seo-review-2026/ | https://smileaireviewhub.com/review/surfer-seo-review-2026/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/hub/ai-video/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/hub/ai-video/ | https://smileaireviewhub.com/hub/ai-video/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/hub/crm/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/hub/crm/ | https://smileaireviewhub.com/hub/crm/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/hub/email-marketing/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/hub/email-marketing/ | https://smileaireviewhub.com/hub/email-marketing/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/downloads/ai-coding-workflow-checklist/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/downloads/ai-coding-workflow-checklist/ | https://smileaireviewhub.com/downloads/ai-coding-workflow-checklist/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/canva-vs-adobe-express/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/canva-vs-adobe-express/ | https://smileaireviewhub.com/comparisons/canva-vs-adobe-express/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/copilot-vs-cursor/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/copilot-vs-cursor/ | https://smileaireviewhub.com/comparisons/copilot-vs-cursor/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/cursor-vs-copilot/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/cursor-vs-copilot/ | https://smileaireviewhub.com/comparisons/cursor-vs-copilot/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/comparisons/windsurf-vs-copilot/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/comparisons/windsurf-vs-copilot/ | https://smileaireviewhub.com/comparisons/windsurf-vs-copilot/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/compare/activecampaign-vs-mailchimp/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/compare/activecampaign-vs-mailchimp/ | https://smileaireviewhub.com/compare/activecampaign-vs-mailchimp/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/compare/canva-vs-adcreative-ai/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/compare/canva-vs-adcreative-ai/ | https://smileaireviewhub.com/compare/canva-vs-adcreative-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/compare/chatgpt-vs-claude/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/compare/chatgpt-vs-claude/ | https://smileaireviewhub.com/compare/chatgpt-vs-claude/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/compare/cursor-vs-github-copilot/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/compare/cursor-vs-github-copilot/ | https://smileaireviewhub.com/compare/cursor-vs-github-copilot/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/compare/cursor-vs-github-copilot-2026/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/compare/cursor-vs-github-copilot-2026/ | https://smileaireviewhub.com/compare/cursor-vs-github-copilot-2026/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/compare/cursor-vs-windsurf/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/compare/cursor-vs-windsurf/ | https://smileaireviewhub.com/compare/cursor-vs-windsurf/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/compare/github-copilot-vs-codeium/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/compare/github-copilot-vs-codeium/ | https://smileaireviewhub.com/compare/github-copilot-vs-codeium/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/compare/grammarly-vs-quillbot/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/compare/grammarly-vs-quillbot/ | https://smileaireviewhub.com/compare/grammarly-vs-quillbot/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/compare/jasper-vs-copy-ai/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/compare/jasper-vs-copy-ai/ | https://smileaireviewhub.com/compare/jasper-vs-copy-ai/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/compare/make-vs-zapier/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/compare/make-vs-zapier/ | https://smileaireviewhub.com/compare/make-vs-zapier/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/compare/semrush-vs-ahrefs/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/compare/semrush-vs-ahrefs/ | https://smileaireviewhub.com/compare/semrush-vs-ahrefs/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/category/ai-writing/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/category/ai-writing/ | https://smileaireviewhub.com/category/ai-writing/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/category/automation/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/category/automation/ | https://smileaireviewhub.com/category/automation/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/category/crm/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/category/crm/ | https://smileaireviewhub.com/category/crm/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/category/website-builders/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/category/website-builders/ | https://smileaireviewhub.com/category/website-builders/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/blog/ai-productivity-tools/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/blog/ai-productivity-tools/ | https://smileaireviewhub.com/blog/ai-productivity-tools/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/blog/ai-tools-for-content-creators/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/blog/ai-tools-for-content-creators/ | https://smileaireviewhub.com/blog/ai-tools-for-content-creators/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/blog/ai-tools-for-marketers/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/blog/ai-tools-for-marketers/ | https://smileaireviewhub.com/blog/ai-tools-for-marketers/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/blog/ai-website-builders-comparison/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/blog/ai-website-builders-comparison/ | https://smileaireviewhub.com/blog/ai-website-builders-comparison/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/blog/best-ai-presentation-tools/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/blog/best-ai-presentation-tools/ | https://smileaireviewhub.com/blog/best-ai-presentation-tools/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/blog/best-ai-tools-for-small-business/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/blog/best-ai-tools-for-small-business/ | https://smileaireviewhub.com/blog/best-ai-tools-for-small-business/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/blog/best-crm-for-startups/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/blog/best-crm-for-startups/ | https://smileaireviewhub.com/blog/best-crm-for-startups/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/blog/chatgpt-windsurf-codex-workflow/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/blog/chatgpt-windsurf-codex-workflow/ | https://smileaireviewhub.com/blog/chatgpt-windsurf-codex-workflow/"
+    },
+    {
+      "severity": "warning",
+      "url": "https://smileaireviewhub.com/vi/blog/how-to-choose-saas-tools-safely/",
+      "issue": "duplicate_meta_description",
+      "detail": "https://smileaireviewhub.com/vi/blog/how-to-choose-saas-tools-safely/ | https://smileaireviewhub.com/blog/how-to-choose-saas-tools-safely/"
+    }
+  ]
+}

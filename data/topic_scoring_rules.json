@@ -1,0 +1,67 @@
+{
+  "final_score_weights": {
+    "seo": 0.25,
+    "traffic": 0.2,
+    "revenue": 0.25,
+    "video": 0.15,
+    "social": 0.1,
+    "freshness": 0.05
+  },
+  "category_weights": {
+    "traffic": {
+      "trend_score": 0.2,
+      "search_intent": 0.2,
+      "estimated_traffic": 0.35,
+      "freshness": 0.15,
+      "social_share_potential": 0.1
+    },
+    "revenue": {
+      "affiliate_value": 0.32,
+      "buyer_intent": 0.28,
+      "cpc_potential": 0.18,
+      "estimated_conversion": 0.22
+    },
+    "seo": {
+      "seo_opportunity": 0.35,
+      "internal_linking_opportunity": 0.18,
+      "evergreen_potential": 0.22,
+      "search_intent": 0.15,
+      "competition_level": -0.1
+    }
+  },
+  "recommendation_thresholds": {
+    "high_priority": 90,
+    "strong_candidate": 80,
+    "opportunity": 70,
+    "watch": 60
+  },
+  "score_grades": {
+    "excellent": {
+      "min": 90,
+      "max": 100
+    },
+    "strong": {
+      "min": 80,
+      "max": 89
+    },
+    "good": {
+      "min": 70,
+      "max": 79
+    },
+    "watch": {
+      "min": 60,
+      "max": 69
+    },
+    "skip": {
+      "min": 0,
+      "max": 59
+    }
+  },
+  "commercial_topic_boosts": {
+    "product_or_comparison_affiliate_intent": 7,
+    "comparison_with_revenue_and_seo_fit": 7,
+    "ai_saas_brand_fit": 3,
+    "balanced_traffic_and_revenue": 3,
+    "high_difficulty_penalty": -4
+  }
+}

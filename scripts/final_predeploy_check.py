@@ -180,7 +180,7 @@ def validate_metadata(html_files: list[Path]) -> list[str]:
     errors = []
     for file in html_files:
         rel = file.relative_to(SITE).as_posix()
-        if rel.startswith("go/"):
+        if rel.startswith("go/") or is_verification_file(rel):
             continue
         text = file.read_text(encoding="utf-8", errors="ignore")
         if '<link rel="canonical"' not in text:
@@ -211,6 +211,8 @@ def validate_robots_meta_policy(html_files: list[Path]) -> list[str]:
     for file in html_files:
         text = file.read_text(encoding="utf-8", errors="ignore")
         rel = file.relative_to(SITE).as_posix()
+        if is_verification_file(rel):
+            continue
         page_path = rel_path_for_html(file, SITE)
         match = re.search(r"<meta[^>]+name=['\"]robots['\"][^>]+content=['\"]([^'\"]+)['\"]", text, flags=re.I)
         robots = (match.group(1).strip().lower() if match else "")
@@ -223,6 +225,10 @@ def validate_robots_meta_policy(html_files: list[Path]) -> list[str]:
         if not robots:
             errors.append(f"{rel}: missing robots meta")
     return errors
+
+
+def is_verification_file(rel: str) -> bool:
+    return bool(re.fullmatch(r"(?:yandex_[a-z0-9]+|BingSiteAuth)\.html", rel, flags=re.I))
 
 
 def validate_internal_links(html_files: list[Path]) -> list[str]:

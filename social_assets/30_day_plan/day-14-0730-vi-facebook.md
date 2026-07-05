@@ -1,7 +1,7 @@
 ---
 id: day-14-0730-vi-facebook
 day: 14
-scheduled_date: 2026-06-03
+scheduled_date: 2026-06-15
 scheduled_time: 07:30
 language: vi
 platform: facebook

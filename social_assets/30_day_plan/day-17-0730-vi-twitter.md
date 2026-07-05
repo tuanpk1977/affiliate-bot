@@ -1,7 +1,7 @@
 ---
 id: day-17-0730-vi-twitter
 day: 17
-scheduled_date: 2026-06-06
+scheduled_date: 2026-06-18
 scheduled_time: 07:30
 language: vi
 platform: twitter

@@ -101,6 +101,7 @@ class TopicCandidate:
 class DiscoveryResult:
     generated_at: str
     selected_topics: list[TopicCandidate]
+    all_candidates: list[TopicCandidate]
     source_status: dict[str, dict[str, object]]
     candidates_evaluated: int
     published_topics_checked: int
@@ -144,10 +145,12 @@ class TrendDiscoveryEngine:
 
         candidates = self.aggregate(signals)
         eligible = [candidate for candidate in candidates if not candidate.already_published]
-        selected = sorted(eligible, key=lambda item: (-item.total_score, item.competition, item.topic))[:limit]
+        ranked = sorted(eligible, key=lambda item: (-item.total_score, item.competition, item.topic))
+        selected = [candidate for candidate in ranked if candidate.total_score >= 60][:limit]
         return DiscoveryResult(
             generated_at=datetime.now(timezone.utc).isoformat(),
             selected_topics=selected,
+            all_candidates=ranked,
             source_status=self.source_status,
             candidates_evaluated=len(candidates),
             published_topics_checked=len(self.published),

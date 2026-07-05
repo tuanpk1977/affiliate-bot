@@ -1,0 +1,20 @@
+{
+  "slug": "affordable-automation-platform",
+  "topic": "affordable automation platform",
+  "article_url": "https://smileaireviewhub.com/affordable-automation-platform/",
+  "manual_youtube_upload": true,
+  "auto_upload_youtube": false,
+  "created_at": "2026-06-20T15:31:05.301606",
+  "subtitle_policy": "Vietnamese bottom subtitles. English captions must not overlap Vietnamese subtitles.",
+  "required_files": [
+    "script.txt",
+    "voiceover.txt",
+    "scene_plan.json",
+    "youtube_title.txt",
+    "youtube_description.txt",
+    "youtube_tags.txt",
+    "thumbnail_prompt.txt",
+    "shorts_script.txt",
+    "video_metadata.json"
+  ]
+}

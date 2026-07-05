@@ -1,0 +1,7 @@
+file 'D:/AFFILATE BOT/draft-output/2026-06-25/affordable-automation-platform/render_assets/segment_01.mp4'
+file 'D:/AFFILATE BOT/draft-output/2026-06-25/affordable-automation-platform/render_assets/segment_02.mp4'
+file 'D:/AFFILATE BOT/draft-output/2026-06-25/affordable-automation-platform/render_assets/segment_03.mp4'
+file 'D:/AFFILATE BOT/draft-output/2026-06-25/affordable-automation-platform/render_assets/segment_04.mp4'
+file 'D:/AFFILATE BOT/draft-output/2026-06-25/affordable-automation-platform/render_assets/segment_05.mp4'
+file 'D:/AFFILATE BOT/draft-output/2026-06-25/affordable-automation-platform/render_assets/segment_06.mp4'
+file 'D:/AFFILATE BOT/draft-output/2026-06-25/affordable-automation-platform/render_assets/segment_07.mp4'

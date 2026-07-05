@@ -1,7 +1,7 @@
 ---
 id: day-27-0730-en-facebook
 day: 27
-scheduled_date: 2026-06-16
+scheduled_date: 2026-06-28
 scheduled_time: 07:30
 language: en
 platform: facebook

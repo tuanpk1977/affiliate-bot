@@ -12,6 +12,12 @@ SITEMAP_EXCLUDED_PREFIXES = {
 REDIRECT_PATHS = {
     "/semrush-vs-ahrefs-2026/",
     "/vi/semrush-vs-ahrefs-2026/",
+    "/surfer-seo-pricing-2026/",
+    "/vi/surfer-seo-pricing-2026/",
+    "/review/codeium/",
+    "/vi/review/codeium/",
+    "/vi/marketing-software-review/",
+    "/vi/crm-alternatives/",
 }
 
 INDEXABLE_ROBOTS_META = "index,follow,max-image-preview:large"
