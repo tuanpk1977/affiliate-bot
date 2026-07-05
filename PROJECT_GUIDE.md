@@ -969,6 +969,67 @@ git push origin main
 
 This daily instruction block is the first thing the bot should read before doing daily content work.
 
+## 12B. CONTENT QUALITY FIRST WORKFLOW
+
+This section defines the required quality-first workflow for future Codex/Copilot runs before any new article is written or published.
+
+### Mandatory reading before content work
+
+Before writing or publishing new articles, the assistant must read:
+
+- [PROJECT_GUIDE.md](PROJECT_GUIDE.md)
+- [PROJECT_MAP.md](PROJECT_MAP.md)
+- [RUNBOOK.md](RUNBOOK.md)
+- [reports/REPO_HEALTH.md](reports/REPO_HEALTH.md)
+
+### Guardrails for every content run
+
+1. Do not refactor more unless explicitly requested.
+2. For low CTR or low click performance, improve the content engine first rather than changing publish flow:
+   - stronger title
+   - stronger meta description
+   - better search intent match
+   - FAQ section
+   - pros/cons
+   - comparison table
+   - alternatives section
+   - verdict section
+   - internal links
+   - Review/FAQ/Breadcrumb schema
+   - E-E-A-T signals
+   - Last Updated
+   - Tested by Smile AI Review Hub
+   - affiliate CTA quality
+3. Use [modules/pre_publish_quality_gate.py](modules/pre_publish_quality_gate.py) in report-only mode before publishing.
+   - Minimum target score: 85/100.
+   - If the score is below 85, report the issues and improve the draft or generator.
+   - Do not block publish yet unless the user explicitly enables blocking mode.
+4. Daily content workflow must be:
+   - select topics from the dashboard/cluster
+   - generate drafts first
+   - run the quality gate
+   - improve drafts or the generator until the score is at least 85
+   - publish only after user approval
+5. Do not modify:
+   - [build_site.py](build_site.py)
+   - the publish pipeline
+   - Cloudflare scripts
+   - GitHub Actions
+   - [docs/](docs/)
+   - [site_output/](site_output/)
+   - production files under [data/](data/)
+unless the user explicitly asks.
+6. Do not deploy, push, submit IndexNow, or publish to social platforms unless the user explicitly asks.
+7. After any change, report:
+   - files changed
+   - tests run
+   - quality gate result
+   - whether publish is safe
+
+### Default operating rule
+
+If a run is not explicitly approved for publishing, the assistant should stay in report-only mode, improve quality first, and avoid any production-side changes.
+
 ## 13. Safe-change rules for AI assistants
 
 Before editing:
