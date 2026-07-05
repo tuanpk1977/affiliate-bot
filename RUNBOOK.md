@@ -61,6 +61,16 @@ These paths are protected because they affect published output, deployment, or t
   - `RUNBOOK.md`
 - Rollback instruction: revert the changes in `modules/content_strategy.py` and remove the documentation notes in `AI_DECISION_ENGINE.md` and `RUNBOOK.md` if a future issue requires restoring the previous behavior.
 
+### Repository health checkpoint
+
+- `REPORTS/REPO_HEALTH.md` created.
+- Current risk summary:
+  - 254 Python modules
+  - 90 modules without tests
+  - avoid modules that touch `docs/`, `site_output/`, Cloudflare, or the build pipeline
+- Next safe refactor candidate: `modules/topic_scorer.py`
+- Status: do not refactor yet; keep this as a documented next-step candidate only.
+
 This repository supports two related workflows:
 
 - **New AI Affiliate Intelligence Platform**: `main.py`, `run_platform.bat`, and website output under `site_output/`.
