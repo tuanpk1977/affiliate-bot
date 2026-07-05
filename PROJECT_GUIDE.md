@@ -981,6 +981,18 @@ Before writing or publishing new articles, the assistant must read:
 - [PROJECT_MAP.md](PROJECT_MAP.md)
 - [RUNBOOK.md](RUNBOOK.md)
 - [reports/REPO_HEALTH.md](reports/REPO_HEALTH.md)
+- [SERP_WINNING_RULEBOOK.md](SERP_WINNING_RULEBOOK.md)
+
+Before any future content generation, Codex/Copilot must read:
+
+- [PROJECT_GUIDE.md](PROJECT_GUIDE.md)
+- [SERP_WINNING_RULEBOOK.md](SERP_WINNING_RULEBOOK.md)
+- [CONTENT_ENGINE_V2_PLAN.md](CONTENT_ENGINE_V2_PLAN.md)
+- [CONTENT_ENGINE_V3_BLUEPRINT.md](CONTENT_ENGINE_V3_BLUEPRINT.md)
+- [CTR_ENGINE_DESIGN.md](CTR_ENGINE_DESIGN.md)
+- [EEAT_ENGINE_DESIGN.md](EEAT_ENGINE_DESIGN.md)
+- [INTERNAL_LINK_ENGINE_DESIGN.md](INTERNAL_LINK_ENGINE_DESIGN.md)
+- [SEO_AUTONOMOUS_WRITER.md](SEO_AUTONOMOUS_WRITER.md)
 
 ### Guardrails for every content run
 
