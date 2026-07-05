@@ -50,6 +50,25 @@ NEWS_PENALTY_TERMS = (
     "press release",
 )
 
+DEFAULT_FINAL_SCORE_WEIGHTS = {
+    "seo": 0.25,
+    "traffic": 0.20,
+    "revenue": 0.25,
+    "video": 0.15,
+    "social": 0.10,
+    "freshness": 0.05,
+}
+
+DEFAULT_RECOMMENDATION_THRESHOLDS = {
+    "high_priority": 85,
+    "strong_candidate": 70,
+    "opportunity": 50,
+    "watch": 35,
+}
+
+SCORE_BOOST_THRESHOLD = 60
+SCORE_BOOST_MULTIPLIER = 1.25
+
 
 class TrendDataAdapter(Protocol):
     def fetch_trend_signals(self, topic: str) -> Dict[str, Any]:
@@ -219,27 +238,68 @@ class TopicScorer:
         )
 
     @staticmethod
-    def commercial_topic_bonus(features: TopicFeatureSet, traffic_score: float, revenue_score: float, seo_score: float) -> float:
+    def _build_topic_haystack(features: TopicFeatureSet) -> str:
         topic = features.topic.lower()
         tags = " ".join(features.tags).lower()
-        haystack = f"{topic} {tags}"
+        return f"{topic} {tags}"
+
+    @staticmethod
+    def _has_any_term(haystack: str, terms: tuple[str, ...]) -> bool:
+        return any(term in haystack for term in terms)
+
+    @staticmethod
+    def _count_buyer_intent_hits(haystack: str) -> int:
+        return sum(1 for term in BUYER_INTENT_TERMS if term in haystack)
+
+    def _get_final_score_weights(self) -> Dict[str, float]:
+        weights = self.rules.get("final_score_weights", {})
+        if not weights:
+            return dict(DEFAULT_FINAL_SCORE_WEIGHTS)
+        return {
+            "seo": float(weights.get("seo", DEFAULT_FINAL_SCORE_WEIGHTS["seo"])),
+            "traffic": float(weights.get("traffic", DEFAULT_FINAL_SCORE_WEIGHTS["traffic"])),
+            "revenue": float(weights.get("revenue", DEFAULT_FINAL_SCORE_WEIGHTS["revenue"])),
+            "video": float(weights.get("video", DEFAULT_FINAL_SCORE_WEIGHTS["video"])),
+            "social": float(weights.get("social", DEFAULT_FINAL_SCORE_WEIGHTS["social"])),
+            "freshness": float(weights.get("freshness", DEFAULT_FINAL_SCORE_WEIGHTS["freshness"])),
+        }
+
+    def _get_recommendation_thresholds(self) -> Dict[str, float]:
+        thresholds = self.rules.get("recommendation_thresholds", {})
+        if not thresholds:
+            return dict(DEFAULT_RECOMMENDATION_THRESHOLDS)
+        return {
+            "high_priority": float(thresholds.get("high_priority", DEFAULT_RECOMMENDATION_THRESHOLDS["high_priority"])),
+            "strong_candidate": float(thresholds.get("strong_candidate", DEFAULT_RECOMMENDATION_THRESHOLDS["strong_candidate"])),
+            "opportunity": float(thresholds.get("opportunity", DEFAULT_RECOMMENDATION_THRESHOLDS["opportunity"])),
+            "watch": float(thresholds.get("watch", DEFAULT_RECOMMENDATION_THRESHOLDS["watch"])),
+        }
+
+    def _apply_total_score_boost(self, base_total: float) -> float:
+        if base_total >= SCORE_BOOST_THRESHOLD:
+            base_total = SCORE_BOOST_THRESHOLD + (base_total - SCORE_BOOST_THRESHOLD) * SCORE_BOOST_MULTIPLIER
+        return round(max(0.0, min(100.0, base_total)), 1)
+
+    @staticmethod
+    def commercial_topic_bonus(features: TopicFeatureSet, traffic_score: float, revenue_score: float, seo_score: float) -> float:
+        haystack = TopicScorer._build_topic_haystack(features)
         bonus = 0.0
-        buyer_hits = sum(1 for term in BUYER_INTENT_TERMS if term in haystack)
+        buyer_hits = TopicScorer._count_buyer_intent_hits(haystack)
         if buyer_hits and (features.affiliate_value >= 45 or features.buyer_intent >= 50):
             bonus += min(14.0, 6.0 + buyer_hits * 2.0)
-        if any(term in haystack for term in ("comparison", " vs ", "alternatives", "software comparison")) and revenue_score >= 45 and seo_score >= 35:
+        if TopicScorer._has_any_term(haystack, ("comparison", " vs ", "alternatives", "software comparison")) and revenue_score >= 45 and seo_score >= 35:
             bonus += 9.0
-        if any(term in haystack for term in ("review", "pricing", "best", "top tools", "features", "pros and cons")) and features.buyer_intent >= 55:
+        if TopicScorer._has_any_term(haystack, ("review", "pricing", "best", "top tools", "features", "pros and cons")) and features.buyer_intent >= 55:
             bonus += 5.0
-        if any(term in haystack for term in ("ai", "seo", "video", "image", "writing", "automation", "coding")) and features.brand_fit >= 65:
+        if TopicScorer._has_any_term(haystack, ("ai", "seo", "video", "image", "writing", "automation", "coding")) and features.brand_fit >= 65:
             bonus += 3.0
-        if any(term in haystack for term in ("saas", "software", "platform", "tool", "tools")) and features.estimated_conversion >= 50:
+        if TopicScorer._has_any_term(haystack, ("saas", "software", "platform", "tool", "tools")) and features.estimated_conversion >= 50:
             bonus += 3.0
         if traffic_score >= 55 and revenue_score >= 55:
             bonus += 3.0
         if features.difficulty >= 85 and seo_score < 55:
             bonus -= 4.0
-        if any(term in haystack for term in NEWS_PENALTY_TERMS):
+        if TopicScorer._has_any_term(haystack, NEWS_PENALTY_TERMS):
             bonus -= 30.0
         return bonus
 
@@ -249,16 +309,7 @@ class TopicScorer:
         seo_score = self.weighted_score(features, "seo")
         video_score = self.video_score(features)
         social_score = self.social_score(features)
-        weights = self.rules.get("final_score_weights", {})
-        if not weights:
-            weights = {
-                "seo": 0.25,
-                "traffic": 0.20,
-                "revenue": 0.25,
-                "video": 0.15,
-                "social": 0.10,
-                "freshness": 0.05,
-            }
+        weights = self._get_final_score_weights()
         base_total = (
             seo_score * float(weights.get("seo", 0))
             + traffic_score * float(weights.get("traffic", 0))
@@ -269,19 +320,17 @@ class TopicScorer:
         )
         bonus = self.commercial_topic_bonus(features, traffic_score, revenue_score, seo_score)
         boosted = base_total + bonus
-        if boosted >= 60:
-            boosted = 60 + (boosted - 60) * 1.25
-        return round(max(0.0, min(100.0, boosted)), 1)
+        return self._apply_total_score_boost(boosted)
 
     def classify_recommendation(self, total_score: float, features: TopicFeatureSet) -> str:
-        thresholds = self.rules.get("recommendation_thresholds", {})
-        if total_score >= thresholds.get("high_priority", 85):
+        thresholds = self._get_recommendation_thresholds()
+        if total_score >= thresholds.get("high_priority", DEFAULT_RECOMMENDATION_THRESHOLDS["high_priority"]):
             return "Excellent"
-        if total_score >= thresholds.get("strong_candidate", 70):
+        if total_score >= thresholds.get("strong_candidate", DEFAULT_RECOMMENDATION_THRESHOLDS["strong_candidate"]):
             return "Strong"
-        if total_score >= thresholds.get("opportunity", 50):
+        if total_score >= thresholds.get("opportunity", DEFAULT_RECOMMENDATION_THRESHOLDS["opportunity"]):
             return "Good"
-        if total_score >= thresholds.get("watch", 35):
+        if total_score >= thresholds.get("watch", DEFAULT_RECOMMENDATION_THRESHOLDS["watch"]):
             return "Watch"
         return "Skip"
 
