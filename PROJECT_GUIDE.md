@@ -161,63 +161,6 @@ git push origin main
 
 Cloudflare Pages deploys from the GitHub repository after `main` is pushed.
 
-### Mandatory pre-publish health gate
-
-After building and syncing `site_output/` to `docs/`, run:
-
-```powershell
-python scripts/pre_publish_gate.py --urls-file data/published_today.json --repair
-```
-
-The gate validates only the current batch as a blocking check and also writes the full-site diagnostics to `reports/`. Do not run `git push` when this command returns a non-zero exit code.
-
-Generated operational reports:
-
-- `reports/health-report.md`
-- `reports/dashboard.json`
-- `reports/dashboard.md`
-- `reports/content-qa.md`
-- `reports/internal-link-map.md`
-
-After Cloudflare deploys, `.github/workflows/post-deploy-indexing.yml` waits for the changed URLs, performs smart live validation, submits only changed URLs to IndexNow, submits the sitemap to Bing at most once per day, optionally submits it through the Google Search Console API, and writes:
-
-- `reports/deployment-report.md`
-- `reports/indexing-report.md`
-- `logs/indexing/<date>/publishing-report-<time>.json`
-
-The daily health workflow runs at 06:00 Asia/Bangkok and stores the generated reports as a GitHub Actions artifact.
-
-## Operational Rules
-
-- Never publish or deploy if preflight fails.
-- Never submit IndexNow before the deployed URL returns HTTP 200 and its canonical is valid.
-- Never include invalid, redirected, parameterized, draft, preview, or `/go/` URLs in the sitemap.
-- Update `lastmod` only when page content changes.
-- Submit only URLs changed by the current Git diff unless a full submission is explicitly requested.
-- Submit the Bing sitemap at most once per UTC day.
-- Do not use the retired unauthenticated Google sitemap ping endpoint. Use Search Console API credentials when configured; otherwise rely on the updated sitemap.
-- Every article must contain an Author, visible FAQ with matching FAQ schema, Breadcrumb schema, at least two internal links, an external authority reference, and an image with useful ALT text.
-- Generate health, QA, deployment, and indexing reports after every deployment.
-- If validation fails, stop immediately and state the failed checks.
-- Attempt deterministic repairs first: exact duplicate paragraphs, invalid canonical, invalid schema author, missing image ALT, and a missing image fallback.
-- Never silently ignore unresolved broken links, missing media, invalid schema, or orphan pages.
-- Deployment recovery checks use 1, 3, 10, and 30 minute delays, then stop and report. GitHub Actions concurrency prevents duplicate deployment checks.
-
-Safe daily sequence:
-
-```powershell
-python scripts/run_daily_publish_pipeline.py --limit 10 --publish
-python build_site.py
-python scripts/sync_site_output_to_docs.py
-python scripts/generate_sitemap.py --publish-root docs --mirror-to site_output --updated-urls-file data/published_today.json
-python scripts/pre_publish_gate.py --urls-file data/published_today.json --repair
-git add docs data reports
-git commit -m "Publish daily articles"
-git push origin main
-```
-
-The final push triggers Cloudflare Pages and post-deploy indexing automatically.
-
 Notes:
 
 - `site_output/` is the generated site output.
@@ -585,17 +528,12 @@ Verify the script source before changing CSV location assumptions, because both 
 
 ## 8. IndexNow workflow
 
-IndexNow and sitemap submission support is implemented through:
+IndexNow support is implemented through:
 
 ```text
 scripts/submit_indexnow.py
 scripts/check_indexnow_status.py
-scripts/validate_publishing_batch.py
-scripts/post_deploy_indexing.py
-modules/publishing_indexing.py
-modules/search_engine_submission.py
-docs/indexnow-key.txt
-.github/workflows/post-deploy-indexing.yml
+site_output/indexnow-key.txt
 ```
 
 Manual submission:
@@ -614,39 +552,9 @@ Current intended behavior:
 
 - Submit only valid `https://smileaireviewhub.com` URLs.
 - Avoid localhost, preview, draft, and off-domain URLs.
-- Read the production sitemap from `docs/sitemap.xml`.
-- Use `docs/indexnow-key.txt` for the key file.
-- Run local validation before a content commit is pushed.
-- After GitHub push, wait for every new URL and the sitemap to be live on Cloudflare.
-- Submit each new batch to IndexNow only after all safety checks pass.
-- Submit the sitemap to Bing at most once per UTC day when `BING_WEBMASTER_API_KEY` is configured.
-- Submit the sitemap through the Google Search Console API at most once per UTC day when credentials are configured.
-- If Google credentials are absent, record natural sitemap discovery instead of calling the retired ping endpoint.
-
-Safe daily sequence:
-
-```powershell
-python scripts/generate_sitemap.py --publish-root docs --mirror-to site_output --updated-urls-file data/published_today.json
-python scripts/validate_publishing_batch.py --urls-file data/published_today.json
-git add docs site_output/sitemap.xml data/published_today.json
-git commit -m "Publish daily content batch"
-git push origin main
-```
-
-The push triggers `.github/workflows/post-deploy-indexing.yml`. It performs:
-
-```text
-wait for Cloudflare deployment
--> HTTP 200 check for every newly added page
--> live sitemap XML and membership check
--> IndexNow submission
--> Bing sitemap submission (daily limit)
--> Google Search Console sitemap submission or natural-discovery log
--> indexing report artifact
-```
-
-Persistent local logs are written under `logs/indexing/`. GitHub Actions uploads the same directory as
-an artifact retained for 90 days. Do not commit API keys or service-account JSON files.
+- Read URLs from `site_output/sitemap.xml`.
+- Use `site_output/indexnow-key.txt` for the key file.
+- Do not crash the build if IndexNow submission fails.
 
 ## 9. Sitemap, robots, canonical, and SEO post-processing
 
@@ -1061,6 +969,79 @@ git push origin main
 
 This daily instruction block is the first thing the bot should read before doing daily content work.
 
+## 12B. CONTENT QUALITY FIRST WORKFLOW
+
+This section defines the required quality-first workflow for future Codex/Copilot runs before any new article is written or published.
+
+### Mandatory reading before content work
+
+Before writing or publishing new articles, the assistant must read:
+
+- [PROJECT_GUIDE.md](PROJECT_GUIDE.md)
+- [PROJECT_MAP.md](PROJECT_MAP.md)
+- [RUNBOOK.md](RUNBOOK.md)
+- [reports/REPO_HEALTH.md](reports/REPO_HEALTH.md)
+- [SERP_WINNING_RULEBOOK.md](SERP_WINNING_RULEBOOK.md)
+
+Before any future content generation, Codex/Copilot must read:
+
+- [PROJECT_GUIDE.md](PROJECT_GUIDE.md)
+- [SERP_WINNING_RULEBOOK.md](SERP_WINNING_RULEBOOK.md)
+- [CONTENT_ENGINE_V2_PLAN.md](CONTENT_ENGINE_V2_PLAN.md)
+- [CONTENT_ENGINE_V3_BLUEPRINT.md](CONTENT_ENGINE_V3_BLUEPRINT.md)
+- [CTR_ENGINE_DESIGN.md](CTR_ENGINE_DESIGN.md)
+- [EEAT_ENGINE_DESIGN.md](EEAT_ENGINE_DESIGN.md)
+- [INTERNAL_LINK_ENGINE_DESIGN.md](INTERNAL_LINK_ENGINE_DESIGN.md)
+- [SEO_AUTONOMOUS_WRITER.md](SEO_AUTONOMOUS_WRITER.md)
+
+### Guardrails for every content run
+
+1. Do not refactor more unless explicitly requested.
+2. For low CTR or low click performance, improve the content engine first rather than changing publish flow:
+   - stronger title
+   - stronger meta description
+   - better search intent match
+   - FAQ section
+   - pros/cons
+   - comparison table
+   - alternatives section
+   - verdict section
+   - internal links
+   - Review/FAQ/Breadcrumb schema
+   - E-E-A-T signals
+   - Last Updated
+   - Tested by Smile AI Review Hub
+   - affiliate CTA quality
+3. Use [modules/pre_publish_quality_gate.py](modules/pre_publish_quality_gate.py) in report-only mode before publishing.
+   - Minimum target score: 85/100.
+   - If the score is below 85, report the issues and improve the draft or generator.
+   - Do not block publish yet unless the user explicitly enables blocking mode.
+4. Daily content workflow must be:
+   - select topics from the dashboard/cluster
+   - generate drafts first
+   - run the quality gate
+   - improve drafts or the generator until the score is at least 85
+   - publish only after user approval
+5. Do not modify:
+   - [build_site.py](build_site.py)
+   - the publish pipeline
+   - Cloudflare scripts
+   - GitHub Actions
+   - [docs/](docs/)
+   - [site_output/](site_output/)
+   - production files under [data/](data/)
+unless the user explicitly asks.
+6. Do not deploy, push, submit IndexNow, or publish to social platforms unless the user explicitly asks.
+7. After any change, report:
+   - files changed
+   - tests run
+   - quality gate result
+   - whether publish is safe
+
+### Default operating rule
+
+If a run is not explicitly approved for publishing, the assistant should stay in report-only mode, improve quality first, and avoid any production-side changes.
+
 ## 13. Safe-change rules for AI assistants
 
 Before editing:
@@ -1106,76 +1087,3 @@ video_output/trex-an-ai-code-reviewer-that-runs-your-code/
 ```
 
 Each folder should contain `review_video.mp4` plus supporting metadata/subtitle files.
-
-## 15. Competitor trend discovery
-
-The competitor scanner is a topic-discovery input only. It never copies article
-content and never publishes pages.
-
-Configuration:
-
-```text
-data/competitors.json
-```
-
-Manual scan:
-
-```powershell
-python scripts/scan_competitor_trends.py --max-items 12 --delay 1.0
-```
-
-Outputs:
-
-```text
-reports/competitor-trends.md
-reports/competitor-trends.json
-data/competitor_topic_candidates.json
-```
-
-Only candidates with a trend score of at least 70, clear commercial intent, and
-an action of `create` or `refresh` are written to the daily candidate file.
-The existing daily selector may read this file, but its duplicate checks still
-decide whether the topic becomes a new article or a refresh.
-
-The scanner prefers RSS and sitemap data, checks `robots.txt`, caches each
-host's robots policy during a run, waits between requests, and records failed
-requests in the report. Competitor pages are used only for titles, headings,
-metadata, and topic signals.
-
-## 16. Operational health and content growth reports
-
-Generate the current health, QA, cluster, refresh, and linking reports with:
-
-```powershell
-python scripts/generate_operational_reports.py --publish-root docs
-```
-
-To validate and repair only a known batch of newly generated URLs:
-
-```powershell
-python scripts/generate_operational_reports.py --publish-root docs --urls-file data/published_today.csv --repair
-```
-
-Key outputs:
-
-```text
-reports/health-report.md
-reports/dashboard.md
-reports/dashboard.json
-reports/content-qa.md
-reports/internal-link-map.md
-reports/topic-clusters.md
-reports/topic-clusters.json
-reports/content-refresh-queue.md
-reports/auto-repair-report.md
-reports/auto-repair-report.json
-reports/history/
-reports/social-posts/
-```
-
-Safe repairs are deliberately limited to deterministic changes such as a
-canonical mismatch, a missing valid author object, a missing breadcrumb schema,
-an obvious broken-link replacement, and missing image metadata/fallbacks.
-Ambiguous links, weak content, duplicate intent, or missing FAQs remain in the
-report for editorial review. Do not mass-rewrite healthy pages to make a report
-number reach zero.
