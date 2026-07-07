@@ -79,5 +79,13 @@
   },
   "human_approval": {
     "required": false
+  },
+  "publish_gate": {
+    "enabled": true,
+    "minimum_verified_source_score": 35,
+    "minimum_knowledge_freshness": 20,
+    "require_human_approval": false,
+    "minimum_business_score": 35,
+    "minimum_readability_score": 30
   }
 }

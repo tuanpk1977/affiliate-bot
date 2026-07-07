@@ -22,6 +22,7 @@ from modules.ai_trend_discovery import (
 )
 from modules.content_review import ContentReviewEngine
 from modules.content_planning_engine import ContentPlanningEngine
+from modules.publish_gate import PublishGate
 from modules.human_approval import HumanApprovalWorkflow
 from modules.indexing_policy import INDEXABLE_ROBOTS_META
 from modules.research_intelligence import ResearchIntelligencePlatform
@@ -41,6 +42,7 @@ _CONTENT_PLANNER: ContentPlanningEngine | None = None
 _RESEARCH_PLATFORM: ResearchIntelligencePlatform | None = None
 _CONTENT_REVIEW_ENGINE: ContentReviewEngine | None = None
 _HUMAN_APPROVAL_WORKFLOW: HumanApprovalWorkflow | None = None
+_PUBLISH_GATE: PublishGate | None = None
 
 
 @dataclass(frozen=True)
@@ -59,6 +61,7 @@ class GeneratedPage:
     planning: dict[str, Any]
     review: dict[str, Any]
     human_approval: dict[str, Any]
+    publish_gate: dict[str, Any]
     warnings: list[str]
 
 
@@ -245,6 +248,17 @@ def get_human_approval_workflow() -> HumanApprovalWorkflow:
     return _HUMAN_APPROVAL_WORKFLOW
 
 
+def get_publish_gate() -> PublishGate:
+    global _PUBLISH_GATE
+    if _PUBLISH_GATE is None:
+        _PUBLISH_GATE = PublishGate(
+            data_dir=DATA_DIR,
+            site_output_dir=SITE_OUTPUT,
+            config=getattr(settings, "editorial_config", {}).get("publish_gate", {}),
+        )
+    return _PUBLISH_GATE
+
+
 def coerce_text_list(value: Any) -> list[str]:
     if isinstance(value, str):
         items = re.split(r"[,;\n]", value)
@@ -379,10 +393,6 @@ def generate_topic_package(topic: dict[str, Any]) -> GeneratedPage:
     warnings = fact_warnings(topic_name)
 
     article_html = render_article(enriched_topic, title, description, path, links, warnings)
-    article_file = write_article(path, article_html)
-    write_article(path, article_html, output=SITE_OUTPUT)
-    video_folder = write_video_drafts(enriched_topic, url, title)
-    social_folder = write_social_drafts(enriched_topic, url, title)
     review = get_content_review_engine().review_content(
         topic=enriched_topic,
         html=article_html,
@@ -395,6 +405,26 @@ def generate_topic_package(topic: dict[str, Any]) -> GeneratedPage:
         planning=planning_payload(enriched_topic),
     )
     human_approval = get_human_approval_workflow().sync_review(review)
+    publish_gate = get_publish_gate().evaluate(
+        topic=enriched_topic,
+        title=title,
+        description=description,
+        url=url,
+        html=article_html,
+        research=research_payload(enriched_topic),
+        review=review,
+        human_approval=human_approval,
+        internal_links=links,
+    )
+    if str(publish_gate.get("status", "")) == "blocked":
+        raise RuntimeError(
+            f"Publish gate blocked generation for {topic_name}: {'; '.join(publish_gate.get('failures', [])) or 'publish checks failed'}."
+        )
+    article_file = write_article(path, article_html)
+    site_file = write_article(path, article_html, output=SITE_OUTPUT)
+    video_folder = write_video_drafts(enriched_topic, url, title)
+    social_folder = write_social_drafts(enriched_topic, url, title)
+    publish_gate = get_publish_gate().mark_published_local(slug, url=url, article_file=article_file, site_file=site_file) or publish_gate
     return GeneratedPage(
         topic=topic_name,
         slug=slug,
@@ -410,6 +440,7 @@ def generate_topic_package(topic: dict[str, Any]) -> GeneratedPage:
         planning=planning_payload(enriched_topic),
         review=review,
         human_approval=human_approval,
+        publish_gate=publish_gate,
         warnings=warnings,
     )
 
@@ -934,6 +965,7 @@ def page_to_dict(page: GeneratedPage) -> dict[str, Any]:
         "planning": page.planning,
         "review": page.review,
         "human_approval": page.human_approval,
+        "publish_gate": page.publish_gate,
         "warnings": page.warnings,
     }
 

@@ -9,6 +9,7 @@ import unittest
 from modules import content_growth_pipeline as pipeline
 from modules.content_review import ContentReviewEngine
 from modules.human_approval import HumanApprovalWorkflow
+from modules.publish_gate import PublishGate
 from modules.research_intelligence import ResearchIntelligencePlatform
 
 
@@ -76,6 +77,7 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
                 stack.enter_context(patch.object(pipeline, "_RESEARCH_PLATFORM", None))
                 stack.enter_context(patch.object(pipeline, "_CONTENT_REVIEW_ENGINE", None))
                 stack.enter_context(patch.object(pipeline, "_HUMAN_APPROVAL_WORKFLOW", None))
+                stack.enter_context(patch.object(pipeline, "_PUBLISH_GATE", None))
                 stack.enter_context(patch.object(pipeline, "load_or_discover_topics", return_value=[topic]))
                 research_platform = ResearchIntelligencePlatform(
                     data_dir=data_dir,
@@ -124,6 +126,24 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
                         return_value=HumanApprovalWorkflow(data_dir=data_dir, config={"required": False}),
                     )
                 )
+                stack.enter_context(
+                    patch.object(
+                        pipeline,
+                        "get_publish_gate",
+                        return_value=PublishGate(
+                            data_dir=data_dir,
+                            site_output_dir=site_output,
+                            config={
+                                "enabled": True,
+                                "minimum_verified_source_score": 0,
+                                "minimum_knowledge_freshness": 0,
+                                "minimum_business_score": 0,
+                                "minimum_readability_score": 0,
+                                "require_human_approval": False,
+                            },
+                        ),
+                    )
+                )
 
                 report = pipeline.run_daily_content_growth(
                     limit=1,
@@ -160,8 +180,10 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
             self.assertEqual(planning["related_keywords"], topic["related_keywords"])
             self.assertIn("review", page)
             self.assertIn("human_approval", page)
+            self.assertIn("publish_gate", page)
             self.assertEqual(page["review"]["status"], "ai_review_passed")
             self.assertEqual(page["human_approval"]["status"], "human_approved")
+            self.assertEqual(page["publish_gate"]["status"], "published_local")
 
             self.assertTrue(article_file.exists())
             self.assertTrue(site_file.exists())
@@ -193,6 +215,8 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
             self.assertTrue((data_dir / "content_review_queue.json").exists())
             self.assertTrue((data_dir / "content_review_report.json").exists())
             self.assertTrue((data_dir / "human_approval_queue.json").exists())
+            self.assertTrue((data_dir / "publish_queue.json").exists())
+            self.assertTrue((data_dir / "publish_gate_report.json").exists())
 
     def test_low_quality_research_is_blocked_and_queued(self) -> None:
         topic = {
@@ -227,6 +251,7 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
                 stack.enter_context(patch.object(pipeline, "_RESEARCH_PLATFORM", None))
                 stack.enter_context(patch.object(pipeline, "_CONTENT_REVIEW_ENGINE", None))
                 stack.enter_context(patch.object(pipeline, "_HUMAN_APPROVAL_WORKFLOW", None))
+                stack.enter_context(patch.object(pipeline, "_PUBLISH_GATE", None))
                 research_platform = ResearchIntelligencePlatform(
                     data_dir=data_dir,
                     site_output_dir=site_output,
@@ -259,6 +284,99 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
 
             queue_file = data_dir / "research_enrichment_queue.json"
             self.assertTrue(queue_file.exists())
+
+    def test_publish_gate_blocks_content_before_local_publish(self) -> None:
+        topic = {
+            "topic": "cursor pricing review",
+            "slug": "cursor-pricing-review",
+            "content_type": "comparison",
+            "search_intent": "commercial",
+            "total_score": 91,
+            "related_keywords": ["cursor pricing"],
+            "suggested_internal_links": [],
+        }
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            site_output = root / "site_output"
+            published_dir = data_dir / "published_static_pages"
+            with ExitStack() as stack:
+                stack.enter_context(patch.object(pipeline, "ROOT", root))
+                stack.enter_context(patch.object(pipeline, "DATA_DIR", data_dir))
+                stack.enter_context(patch.object(pipeline, "SITE_OUTPUT", site_output))
+                stack.enter_context(patch.object(pipeline, "PUBLISHED_DIR", published_dir))
+                stack.enter_context(patch.object(pipeline, "VIDEO_OUTPUT", root / "video_output"))
+                stack.enter_context(patch.object(pipeline, "SOCIAL_DRAFTS", root / "social_drafts"))
+                stack.enter_context(patch.object(pipeline, "REPORT_DIR", data_dir / "content_growth_reports"))
+                stack.enter_context(patch.object(pipeline, "TRACKING_CSV", data_dir / "content_growth_performance_log.csv"))
+                stack.enter_context(patch.object(pipeline, "_CONTENT_PLANNER", None))
+                stack.enter_context(patch.object(pipeline, "_RESEARCH_PLATFORM", None))
+                stack.enter_context(patch.object(pipeline, "_CONTENT_REVIEW_ENGINE", None))
+                stack.enter_context(patch.object(pipeline, "_HUMAN_APPROVAL_WORKFLOW", None))
+                stack.enter_context(patch.object(pipeline, "_PUBLISH_GATE", None))
+                research_platform = ResearchIntelligencePlatform(
+                    data_dir=data_dir,
+                    site_output_dir=site_output,
+                    offers_file=data_dir / "offers.csv",
+                    affiliate_links_file=data_dir / "affiliate_links.csv",
+                    config={
+                        "research_intelligence": {
+                            "quality_gate": {"threshold": 0, "enabled": True, "allow_override": False},
+                            "verified_source_gate": {"enabled": False},
+                        }
+                    },
+                )
+                stack.enter_context(patch.object(pipeline, "get_research_platform", return_value=research_platform))
+                stack.enter_context(
+                    patch.object(
+                        pipeline,
+                        "get_content_review_engine",
+                        return_value=ContentReviewEngine(
+                            data_dir=data_dir,
+                            config={
+                                "minimum_word_count": 50,
+                                "minimum_publish_readiness": 50,
+                                "minimum_source_quality": 0,
+                                "minimum_factual_quality": 0,
+                                "minimum_seo_quality": 0,
+                                "minimum_business_value": 0,
+                                "minimum_readability_score": 0,
+                                "require_human_approval": True,
+                            },
+                        ),
+                    )
+                )
+                stack.enter_context(
+                    patch.object(
+                        pipeline,
+                        "get_human_approval_workflow",
+                        return_value=HumanApprovalWorkflow(data_dir=data_dir, config={"required": True}),
+                    )
+                )
+                stack.enter_context(
+                    patch.object(
+                        pipeline,
+                        "get_publish_gate",
+                        return_value=PublishGate(
+                            data_dir=data_dir,
+                            site_output_dir=site_output,
+                            config={
+                                "enabled": True,
+                                "minimum_verified_source_score": 0,
+                                "minimum_knowledge_freshness": 0,
+                                "minimum_business_score": 0,
+                                "minimum_readability_score": 0,
+                                "require_human_approval": True,
+                            },
+                        ),
+                    )
+                )
+                with self.assertRaises(RuntimeError):
+                    pipeline.generate_topic_package(topic)
+
+            self.assertFalse((published_dir / topic["slug"] / "index.html").exists())
+            publish_queue = data_dir / "publish_queue.json"
+            self.assertTrue(publish_queue.exists())
 
 
 if __name__ == "__main__":
