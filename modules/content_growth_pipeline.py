@@ -25,7 +25,7 @@ from modules.content_planning_engine import ContentPlanningEngine
 from modules.publish_gate import PublishGate
 from modules.human_approval import HumanApprovalWorkflow
 from modules.indexing_policy import INDEXABLE_ROBOTS_META
-from modules.research_intelligence import ResearchIntelligencePlatform
+from modules.research_intelligence import ResearchIntelligencePlatform, ResearchPackage
 
 
 BASE_URL = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
@@ -33,6 +33,7 @@ ROOT = settings.base_dir
 DATA_DIR = settings.data_dir
 SITE_OUTPUT = settings.site_output_dir
 PUBLISHED_DIR = DATA_DIR / "published_static_pages"
+PRODUCTION_DRAFTS = DATA_DIR / "production_article_drafts"
 VIDEO_OUTPUT = ROOT / "video_output"
 SOCIAL_DRAFTS = ROOT / "social_drafts"
 REPORT_DIR = DATA_DIR / "content_growth_reports"
@@ -63,6 +64,13 @@ class GeneratedPage:
     human_approval: dict[str, Any]
     publish_gate: dict[str, Any]
     warnings: list[str]
+
+
+def load_research_package(slug: str) -> dict[str, Any]:
+    package_path = DATA_DIR / "research" / slug / "package.json"
+    if not package_path.exists():
+        raise FileNotFoundError(f"Research package not found for slug '{slug}': {package_path}")
+    return json.loads(package_path.read_text(encoding="utf-8"))
 
 
 def run_daily_content_growth(
@@ -259,6 +267,84 @@ def get_publish_gate() -> PublishGate:
     return _PUBLISH_GATE
 
 
+def build_topic_from_research_package(slug: str) -> tuple[dict[str, Any], Any]:
+    payload = load_research_package(slug)
+    research_package = ResearchPackage(
+        keyword=str(payload.get("keyword") or slug.replace("-", " ")),
+        slug=str(payload.get("slug") or slug),
+        generated_at=str(payload.get("generated_at") or datetime.now(timezone.utc).isoformat()),
+        package_dir=str(payload.get("package_dir") or (DATA_DIR / "research" / slug)),
+        keyword_intelligence=payload.get("keyword_intelligence") if isinstance(payload.get("keyword_intelligence"), dict) else {},
+        keyword_summary=payload.get("keyword_summary") if isinstance(payload.get("keyword_summary"), dict) else {},
+        outline=payload.get("outline") if isinstance(payload.get("outline"), dict) else {},
+        faq=payload.get("faq") if isinstance(payload.get("faq"), dict) else {},
+        entities=payload.get("entities") if isinstance(payload.get("entities"), dict) else {},
+        competitors=payload.get("competitors") if isinstance(payload.get("competitors"), dict) else {},
+        sources=payload.get("sources") if isinstance(payload.get("sources"), dict) else {},
+        writing_plan=payload.get("writing_plan") if isinstance(payload.get("writing_plan"), dict) else {},
+        quality=payload.get("quality") if isinstance(payload.get("quality"), dict) else {},
+        cache_hits=payload.get("cache_hits") if isinstance(payload.get("cache_hits"), list) else [],
+    )
+    package_dir = Path(research_package.package_dir)
+    quality_gate = get_research_platform().evaluate_quality_gate(research_package, topic={"topic": research_package.keyword, "slug": slug})
+    research = {
+        "keyword": research_package.keyword,
+        "slug": research_package.slug,
+        "package_dir": str(package_dir),
+        "generated_at": research_package.generated_at,
+        "keyword_intelligence": research_package.keyword_intelligence,
+        "outline": research_package.outline,
+        "faq": research_package.faq,
+        "entities": research_package.entities,
+        "competitors": research_package.competitors,
+        "sources": research_package.sources,
+        "writing_plan": research_package.writing_plan,
+        "quality": research_package.quality,
+        "cache_hits": research_package.cache_hits,
+        "quality_gate": {
+            "passed": quality_gate.passed,
+            "score": quality_gate.score,
+            "threshold": quality_gate.threshold,
+            "override_used": quality_gate.override_used,
+            "status": quality_gate.status,
+        },
+    }
+    keyword_summary = payload.get("keyword_summary") if isinstance(payload.get("keyword_summary"), dict) else {}
+    keyword_intelligence = payload.get("keyword_intelligence") if isinstance(payload.get("keyword_intelligence"), dict) else {}
+    outline = payload.get("outline") if isinstance(payload.get("outline"), dict) else {}
+    quality = payload.get("quality") if isinstance(payload.get("quality"), dict) else {}
+    cluster = keyword_intelligence.get("cluster") if isinstance(keyword_intelligence.get("cluster"), dict) else {}
+    topic = {
+        "topic": str(payload.get("keyword") or slug.replace("-", " ")),
+        "slug": str(payload.get("slug") or slug),
+        "title": str(payload.get("keyword") or slug.replace("-", " ")),
+        "content_type": "listicle" if str(keyword_summary.get("article_type") or "").lower() == "best list" else str(keyword_summary.get("article_type") or "article"),
+        "article_type": str(keyword_summary.get("article_type") or "article"),
+        "search_intent": str(keyword_summary.get("intent") or keyword_intelligence.get("search_intent") or "commercial"),
+        "estimated_business_value": "medium",
+        "suggested_internal_links": default_internal_links(str(payload.get("keyword") or slug), "listicle"),
+        "related_keywords": coerce_text_list(keyword_intelligence.get("semantic_keywords"))[:8],
+        "research": research,
+        "planning": {
+            "keyword": str(payload.get("keyword") or slug.replace("-", " ")),
+            "intent": str(keyword_summary.get("intent") or keyword_intelligence.get("search_intent") or "commercial"),
+            "article_type": str(keyword_summary.get("article_type") or "article"),
+            "topic_cluster": {
+                "name": str(cluster.get("seed_topic") or payload.get("keyword") or slug.replace("-", " ")),
+                "keywords": coerce_text_list(cluster.get("supporting_topics")) or coerce_text_list(keyword_intelligence.get("semantic_keywords"))[:5],
+            },
+            "coverage_score": float(quality.get("coverage", 0)),
+            "outline_sections": coerce_text_list(outline.get("seo_outline")),
+            "reasoning": [*coerce_text_list(outline.get("reasoning")), *coerce_text_list(cluster.get("supporting_article_ideas"))],
+            "related_keywords": coerce_text_list(keyword_intelligence.get("semantic_keywords"))[:8],
+            "recommended_cta": str(outline.get("recommended_cta") or "Compare the shortlist and verify pricing on official sites."),
+            "confidence": float(outline.get("confidence", 0.75)),
+            "research_quality_score": float(quality.get("overall_score", 0)),
+        },
+    }
+    return topic, research_package
+
+
 def coerce_text_list(value: Any) -> list[str]:
     if isinstance(value, str):
         items = re.split(r"[,;\n]", value)
@@ -445,6 +531,141 @@ def generate_topic_package(topic: dict[str, Any]) -> GeneratedPage:
     )
 
 
+def generate_production_article_draft_from_package(slug: str) -> dict[str, Any]:
+    topic, research_package = build_topic_from_research_package(slug)
+    research = research_payload(topic)
+    quality_gate = research.get("quality_gate") if isinstance(research.get("quality_gate"), dict) else {}
+    if not bool(quality_gate.get("passed", False)):
+        raise RuntimeError(
+            f"Research quality gate blocked draft generation for {slug}: score {quality_gate.get('score', 0)} below threshold {quality_gate.get('threshold', 0)}."
+        )
+    title = seo_title(str(topic.get("topic") or slug.replace("-", " ")))
+    description = meta_description(str(topic.get("topic") or slug.replace("-", " ")))
+    path = f"/{slug}/"
+    url = BASE_URL + path
+    warnings = fact_warnings(str(topic.get("topic") or slug))
+    links = resolve_internal_links(topic)
+    article_html = render_article(topic, title, description, path, links, warnings)
+    article_markdown = render_article_markdown(topic, title, description, url, links, warnings)
+
+    review = get_content_review_engine().review_content(
+        topic=topic,
+        html=article_html,
+        title=title,
+        description=description,
+        url=url,
+        internal_links=links or [(href, href) for href in coerce_text_list(topic.get("suggested_internal_links"))],
+        warnings=warnings,
+        research=research,
+        planning=planning_payload(topic),
+    )
+    human_approval = get_human_approval_workflow().sync_review(review)
+    publish_gate = get_publish_gate().evaluate(
+        topic=topic,
+        title=title,
+        description=description,
+        url=url,
+        html=article_html,
+        research=research,
+        review=review,
+        human_approval=human_approval,
+        internal_links=links,
+    )
+
+    draft_dir = PRODUCTION_DRAFTS / slug
+    draft_dir.mkdir(parents=True, exist_ok=True)
+    article_file = draft_dir / "index.html"
+    article_file.write_text(article_html, encoding="utf-8")
+    markdown_file = draft_dir / "article.md"
+    markdown_file.write_text(article_markdown, encoding="utf-8")
+    social_folder = write_social_drafts(topic, url, title)
+    video_folder = write_video_drafts(topic, url, title)
+    featured_prompt = featured_image_prompt(topic, research, planning_payload(topic))
+    (draft_dir / "featured_image_prompt.txt").write_text(featured_prompt + "\n", encoding="utf-8")
+
+    review_summary = build_review_summary(review, human_approval, publish_gate, research_package)
+    (draft_dir / "review_summary.md").write_text(review_summary, encoding="utf-8")
+    publish_readiness = {
+        "slug": slug,
+        "title": title,
+        "description": description,
+        "url": url,
+        "review_status": review.get("status", ""),
+        "human_approval_status": human_approval.get("status", ""),
+        "publish_gate_status": publish_gate.get("status", ""),
+        "publish_failures": publish_gate.get("failures", []),
+        "research_quality_score": research.get("quality", {}).get("overall_score", 0),
+        "verified_source_score": research.get("quality", {}).get("total_verified_source_score", 0),
+        "word_count": review.get("word_count", 0),
+        "featured_image_prompt_file": str(draft_dir / "featured_image_prompt.txt"),
+        "social_folder": str(social_folder),
+        "video_folder": str(video_folder),
+        "article_markdown": str(markdown_file),
+        "article_html": str(article_file),
+    }
+    (draft_dir / "publish_readiness_report.json").write_text(json.dumps(publish_readiness, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    (draft_dir / "publish_readiness_report.md").write_text(build_publish_readiness_md(publish_readiness), encoding="utf-8")
+    (draft_dir / "social_post_draft.md").write_text(build_primary_social_draft(topic, url, title), encoding="utf-8")
+    (draft_dir / "metadata.json").write_text(
+        json.dumps(
+            {
+                "slug": slug,
+                "title": title,
+                "description": description,
+                "url": url,
+                "featured_image_prompt": featured_prompt,
+                "review": review,
+                "human_approval": human_approval,
+                "publish_gate": publish_gate,
+                "research_quality_gate": quality_gate,
+            },
+            indent=2,
+            ensure_ascii=False,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    page = GeneratedPage(
+        topic=str(topic.get("topic") or slug.replace("-", " ")),
+        slug=slug,
+        url=url,
+        article_file=article_file,
+        video_folder=video_folder,
+        social_folder=social_folder,
+        content_type=str(topic.get("content_type") or "article"),
+        focus_keyword=focus_keyword(str(topic.get("topic") or slug.replace("-", " "))),
+        title=title,
+        description=description,
+        research=research,
+        planning=planning_payload(topic),
+        review=review,
+        human_approval=human_approval,
+        publish_gate=publish_gate,
+        warnings=warnings,
+    )
+    report = {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_pages": [page_to_dict(page)],
+        "blocked_topics": [],
+        "build": {"skipped": True},
+        "indexnow": {"skipped": True},
+        "warnings": warnings,
+        "manual_posting_order": [f"{page.topic}: wait for human approval before any publish action."],
+    }
+    write_daily_report(report)
+    return {
+        "page": page_to_dict(page),
+        "draft_dir": str(draft_dir),
+        "markdown_file": str(markdown_file),
+        "review_summary_file": str(draft_dir / "review_summary.md"),
+        "publish_readiness_report": str(draft_dir / "publish_readiness_report.json"),
+        "metadata_file": str(draft_dir / "metadata.json"),
+        "featured_image_prompt_file": str(draft_dir / "featured_image_prompt.txt"),
+        "social_post_draft_file": str(draft_dir / "social_post_draft.md"),
+    }
+
+
 def render_article(
     topic: dict[str, Any],
     title: str,
@@ -466,6 +687,7 @@ def render_article(
     research_quality = research.get("quality") if isinstance(research.get("quality"), dict) else {}
     research_entities = research.get("entities") if isinstance(research.get("entities"), dict) else {}
     research_outline = research.get("outline") if isinstance(research.get("outline"), dict) else {}
+    tool_profiles = article_tool_profiles(research)
     article_angle = str(topic.get("suggested_article_angle") or default_article_angle(topic_name, content_type))
     video_angle = str(topic.get("suggested_video_angle") or default_video_angle(topic_name, content_type))
     canonical = BASE_URL + path
@@ -500,11 +722,15 @@ def render_article(
       <ol class="toc">
         <li><a href="#overview">Overview</a></li>
         <li><a href="#quick-verdict">Quick verdict</a></li>
+        <li><a href="#methodology">How we evaluated</a></li>
+        <li><a href="#shortlist">Shortlist</a></li>
         <li><a href="#comparison-table">Comparison table</a></li>
         <li><a href="#pros-cons">Pros and cons</a></li>
         <li><a href="#pricing">Pricing notes</a></li>
         <li><a href="#best-for">Best use cases</a></li>
         <li><a href="#alternatives">Alternatives</a></li>
+        <li><a href="#official-sources">Official sources</a></li>
+        <li><a href="#affiliate-placeholders">Affiliate placeholders</a></li>
         <li><a href="#research-package">Research package</a></li>
         <li><a href="#content-planning">Content planning</a></li>
         <li><a href="#faq">FAQ</a></li>
@@ -519,25 +745,33 @@ def render_article(
     <section class="card" id="quick-verdict">
       <h2>Quick verdict</h2>
       <p>{html.escape(topic_name)} is worth covering because the topic combines current search interest with buyer intent. It should be useful for readers comparing tools, checking pricing, or deciding whether a software category belongs in their workflow.</p>
+      <p>The research package currently supports a high-confidence shortlist led by {html.escape(tool_profiles[0]["name"] if tool_profiles else "the best-verified option")} because it has the strongest verified-source coverage in the approved package. Other tools remain useful comparison points, but any unverified pricing or feature claim should stay marked <strong>needs review</strong> until a matching official source record is added.</p>
       <ul>
         <li><strong>Best for:</strong> teams that need a clear shortlist before testing software.</li>
         <li><strong>Not best for:</strong> buyers expecting guaranteed pricing, official endorsement, or one-size-fits-all advice.</li>
         <li><strong>Verification required:</strong> pricing, free-trial terms, refund rules, usage limits, integrations, and affiliate terms.</li>
       </ul>
     </section>
+    <section class="card" id="methodology">
+      <h2>How we evaluated the shortlist</h2>
+      <p>This article uses the approved research package only. That means the shortlist is based on verified official pages already stored in the local registry, entity extraction from the approved package, and the current quality-gate output for this topic. It does not pull in a fresh weekly trend list or ad hoc live browsing during drafting.</p>
+      <p>For each tool, the evaluation looks at three layers: workflow fit, pricing verification confidence, and editorial risk. Workflow fit asks whether a tool can realistically reduce planning, writing, coordination, or knowledge-management friction for a small team. Pricing verification confidence checks whether the current package contains an official pricing page, release notes, or partner-page context. Editorial risk asks whether a recommendation would still hold after a buyer verifies the official site.</p>
+      <p>That process matters because “best” articles often fail when they mix solid recommendations with weak sourcing. A productivity tool may look compelling in a generic roundup, but if the pricing page is unclear, the AI add-on terms change frequently, or the positioning is too broad, the article can become misleading. This draft keeps those uncertainties visible instead of smoothing them over.</p>
+      <ul>
+        <li><strong>Workflow fit:</strong> planning, drafting, note capture, async collaboration, and output quality.</li>
+        <li><strong>Commercial fit:</strong> whether a buyer could compare plans, limitations, and alternatives responsibly.</li>
+        <li><strong>Source discipline:</strong> official docs, pricing pages, partner pages, and release notes get priority over generic summaries.</li>
+        <li><strong>Human review rule:</strong> because this is a “best” commercial article, it must stop at human approval even if AI review passes.</li>
+      </ul>
+    </section>
+    <section class="card" id="shortlist">
+      <h2>Shortlist and editor notes</h2>
+      {render_tool_profile_cards(tool_profiles)}
+    </section>
     <section class="card" id="comparison-table">
       <h2>Comparison table</h2>
-      <div class="table-scroll">
-        <table>
-          <thead><tr><th>Evaluation area</th><th>What to check</th><th>Why it matters</th></tr></thead>
-          <tbody>
-            <tr><td>Core features</td><td>Primary workflow, integrations, export options, team roles</td><td>Prevents buying a tool that looks strong but misses daily workflow needs.</td></tr>
-            <tr><td>Pricing</td><td>Plan limits, seat pricing, usage caps, renewal terms</td><td>Software costs often change when a team scales usage.</td></tr>
-            <tr><td>Alternatives</td><td>Direct competitors and cheaper substitutes</td><td>Helps readers avoid overpaying for features they will not use.</td></tr>
-            <tr><td>Commercial fit</td><td>Affiliate terms, brand safety, buyer intent</td><td>Important for creators and marketers evaluating monetization potential.</td></tr>
-          </tbody>
-        </table>
-      </div>
+      {render_tool_comparison_table(tool_profiles)}
+      <p>The table is intentionally conservative. If the package cannot verify a claim with an official source record, the article treats that row as a buying question, not a fact. That keeps the page useful for selection while respecting the current source-governance rules.</p>
     </section>
     <section class="card" id="pros-cons">
       <h2>Pros and cons</h2>
@@ -548,6 +782,7 @@ def render_article(
             <li>Useful for buyers already researching a real software decision.</li>
             <li>Can support comparison, pricing, review, and alternative search intent.</li>
             <li>Works well with internal links to related review and comparison pages.</li>
+            <li>Current verified-source coverage is strong enough to frame a responsible shortlist instead of a shallow roundup.</li>
           </ul>
         </div>
         <div>
@@ -556,28 +791,44 @@ def render_article(
             <li>Pricing and feature claims require manual verification.</li>
             <li>Competitive topics may need stronger examples and screenshots over time.</li>
             <li>Some vendor claims may be marketing language rather than proven outcomes.</li>
+            <li>The current approved package still has limited competitor evidence, so the recommendations must remain cautious.</li>
           </ul>
         </div>
       </div>
+      <p>A buyer should treat this page as a decision-support layer, not a final procurement document. The safest workflow is to use the shortlist here, then confirm plan limits, AI usage caps, admin controls, export rules, and contract details directly on each vendor’s official site before purchase.</p>
     </section>
     <section class="card" id="pricing">
       <h2>Pricing notes</h2>
       <p>Do not rely on copied pricing snippets. Pricing can change by region, billing period, usage tier, seat count, and promotion. Verify current pricing on the official website before buying or recommending any tool related to {html.escape(topic_name)}.</p>
       <p>When comparing costs, check total monthly cost, annual discounts, free-trial restrictions, cancellation terms, and whether essential features sit behind higher-tier plans.</p>
+      <p>In the current approved package, {html.escape(tool_profiles[0]["name"] if tool_profiles else "the lead tool")} has the strongest verified pricing support. Other shortlisted tools can still appear in the article, but any plan-specific number, seat rule, or AI credit detail should remain marked <strong>needs review</strong> until the registry contains a matching verified pricing source.</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Tool</th><th>Pricing confidence</th><th>What to verify manually</th></tr></thead>
+          <tbody>{''.join(f'<tr><td>{html.escape(profile["name"])}</td><td>{html.escape(profile["pricing_confidence"])}</td><td>{html.escape(profile["pricing_note"])}</td></tr>' for profile in tool_profiles)}</tbody>
+        </table>
+      </div>
     </section>
     <section class="card" id="best-for">
       <h2>Best use cases</h2>
-      <ul>
-        <li>Shortlisting software before a hands-on trial.</li>
-        <li>Comparing multiple tools in the same category.</li>
-        <li>Checking whether a topic has enough buyer intent for affiliate content.</li>
-        <li>Planning YouTube reviews, shorts, and manual social posts around one canonical article.</li>
-      </ul>
+      {render_best_for_cards(tool_profiles)}
+      <p>These use cases are meant to reduce buyer regret. Instead of asking which tool has the loudest marketing or the largest AI feature list, ask which product removes the most friction from a real weekly workflow: planning, capture, drafting, collaboration, or review.</p>
     </section>
     <section class="card" id="alternatives">
       <h2>Alternatives and related reading</h2>
       <p>Use these related pages to compare adjacent software categories and avoid evaluating this topic in isolation.</p>
       <ul>{''.join(f'<li><a href="{html.escape(href)}">{html.escape(label)}</a></li>' for href, label in links)}</ul>
+      <p>If you already know your workflow is meeting-heavy, voice-heavy, or coding-heavy, move to a category-specific comparison page instead of forcing a broad productivity shortlist to answer a narrow problem.</p>
+    </section>
+    <section class="card" id="official-sources">
+      <h2>Official source references</h2>
+      <p>These are the strongest current source references attached to the approved package. They should be the first pages a human reviewer checks before approving any product recommendation copy.</p>
+      {render_official_source_refs(research)}
+    </section>
+    <section class="card" id="affiliate-placeholders">
+      <h2>Affiliate placeholder fields</h2>
+      <p>This draft keeps monetization placeholders explicit so a reviewer can approve or replace them without altering the editorial body.</p>
+      {render_affiliate_placeholders(tool_profiles)}
     </section>
     <section class="card" id="research-package">
       <h2>Research package snapshot</h2>
@@ -619,6 +870,7 @@ def render_article(
       <h2>Research methodology</h2>
       <p>This page uses trend discovery signals, commercial-intent scoring, competition estimates, and existing Smile AI Review Hub topic coverage. It favors useful comparison-focused content over thin news summaries.</p>
       <p>Warnings: {html.escape('; '.join(warnings) if warnings else 'No critical warnings. Verify vendor facts before final promotion.')}</p>
+      <p>EEAT note: recommendations in this draft are limited to what the current approved package can support. Where the package is thin, the article says so directly instead of claiming precision it does not have.</p>
     </section>
     <section class="card" id="faq">
       <h2>FAQ</h2>
@@ -626,12 +878,347 @@ def render_article(
     </section>
     <section class="card">
       <h2>Final verdict</h2>
-      <p>{html.escape(topic_name)} is a good candidate for Smile AI Review Hub because it can serve readers who want practical, buyer-focused guidance. The strongest next step is to add verified screenshots, current pricing checks, and YouTube links after manual upload.</p>
+      <p>{render_buying_guidance(tool_profiles)}</p>
+      <p>{html.escape(topic_name)} is a good candidate for Smile AI Review Hub because it can serve readers who want practical, buyer-focused guidance. The strongest next step is human approval on the shortlist language, followed by verified screenshots and any additional competitor snapshots that tighten the comparison.</p>
       <a class="btn" href="/">Visit Smile AI Review Hub</a>
     </section>
   </main>
 """
     return html_shell(title, description, canonical, body, schemas)
+
+
+def article_tool_profiles(research: dict[str, Any]) -> list[dict[str, str]]:
+    entities = research.get("entities") if isinstance(research.get("entities"), dict) else {}
+    source_rows = research.get("sources", {}).get("verified_sources", []) if isinstance(research.get("sources"), dict) else []
+    verified_brands = {str(row.get("brand", "")).strip().lower(): row for row in source_rows if isinstance(row, dict)}
+    names = coerce_text_list(entities.get("products")) or [str(research.get("keyword") or "Approved tool shortlist")]
+    profiles: list[dict[str, str]] = []
+    for index, name in enumerate(names[:4]):
+        lower = name.lower()
+        is_verified = lower in verified_brands
+        best_for = {
+            "notion": "teams that want one workspace for notes, docs, wikis, and lightweight AI support",
+            "notion ai": "writers and operators who already use Notion and want AI inside an existing workspace",
+            "gamma": "fast visual-first drafting, internal presentations, and turning raw notes into clean decks",
+        }.get(lower, "buyers who need broad productivity support and can verify fit in a real workflow")
+        use_case = {
+            "notion": "knowledge management, async collaboration, meeting notes, and structured project planning",
+            "notion ai": "summaries, first-pass drafting, and turning existing notes into cleaner working documents",
+            "gamma": "presentation creation, quick concept packaging, and stakeholder-ready visual communication",
+        }.get(lower, "workflow cleanup, planning, and content organization")
+        pros = {
+            "notion": "strong verified source coverage, broad workspace flexibility, and clear planning value",
+            "notion ai": "fits naturally into existing Notion workflows and reduces context switching for drafting",
+            "gamma": "useful when teams need speed from blank page to presentation-ready output",
+        }.get(lower, "useful shortlist candidate with commercial-intent relevance")
+        cons = {
+            "notion": "buyers still need to verify workspace complexity and AI add-on fit against their exact team size",
+            "notion ai": "package-level pricing precision still needs human review before recommendation copy is finalized",
+            "gamma": "current package lacks verified pricing and release-note depth, so exact claims must stay conservative",
+        }.get(lower, "source depth is thinner than the lead verified option")
+        pricing_confidence = "verified official pricing" if is_verified and lower == "notion" else "needs review"
+        pricing_note = "Use the official pricing page in the source registry before naming plan details." if pricing_confidence == "verified official pricing" else "Do not state live plan prices until the registry has a verified pricing page for this tool."
+        source_status = "verified" if is_verified else "needs_review"
+        profiles.append(
+            {
+                "name": name,
+                "best_for": best_for,
+                "use_case": use_case,
+                "pros": pros,
+                "cons": cons,
+                "pricing_confidence": pricing_confidence,
+                "pricing_note": pricing_note,
+                "source_status": source_status,
+                "summary": f"{name} stays on the shortlist because it addresses {use_case}, but the recommendation strength depends on verified-source depth.",
+                "badge": "Best verified option" if index == 0 else "Shortlist candidate",
+            }
+        )
+    return profiles
+
+
+def render_tool_profile_cards(tool_profiles: list[dict[str, str]]) -> str:
+    cards: list[str] = []
+    for profile in tool_profiles:
+        cards.append(
+            f"""
+      <section class="card">
+        <h3>{html.escape(profile['name'])} <small>· {html.escape(profile['badge'])}</small></h3>
+        <p><strong>Best for:</strong> {html.escape(profile['best_for'])}.</p>
+        <p>{html.escape(profile['summary'])}</p>
+        <p><strong>Strength:</strong> {html.escape(profile['pros'])}.</p>
+        <p><strong>Risk:</strong> {html.escape(profile['cons'])}.</p>
+        <p><strong>Pricing confidence:</strong> {html.escape(profile['pricing_confidence'])}. {html.escape(profile['pricing_note'])}</p>
+      </section>
+"""
+        )
+    return "".join(cards)
+
+
+def render_tool_comparison_table(tool_profiles: list[dict[str, str]]) -> str:
+    rows = "".join(
+        f"<tr><td>{html.escape(profile['name'])}</td><td>{html.escape(profile['best_for'])}</td><td>{html.escape(profile['pricing_confidence'])}</td><td>{html.escape(profile['source_status'])}</td><td>{html.escape(profile['use_case'])}</td></tr>"
+        for profile in tool_profiles
+    )
+    return f"""
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Tool</th><th>Best for</th><th>Pricing confidence</th><th>Source status</th><th>Use-case anchor</th></tr></thead>
+          <tbody>{rows}</tbody>
+        </table>
+      </div>
+"""
+
+
+def render_best_for_cards(tool_profiles: list[dict[str, str]]) -> str:
+    blocks = "".join(
+        f"<div><h3>{html.escape(profile['name'])}</h3><p>{html.escape(profile['best_for']).capitalize()}.</p><p>{html.escape(profile['use_case']).capitalize()}.</p></div>"
+        for profile in tool_profiles
+    )
+    return f'<div class="grid">{blocks}</div>'
+
+
+def render_official_source_refs(research: dict[str, Any]) -> str:
+    verified = research.get("sources", {}).get("verified_sources", []) if isinstance(research.get("sources"), dict) else []
+    rows = []
+    for row in verified:
+        if not isinstance(row, dict):
+            continue
+        rows.append(
+            f"<li><strong>{html.escape(str(row.get('brand') or 'Source'))}:</strong> "
+            f"{html.escape(str(row.get('source_name') or row.get('source_type') or 'official source'))} "
+            f"(<code>{html.escape(str(row.get('source_type') or 'source'))}</code>) - "
+            f"<a href=\"{html.escape(str(row.get('source_url') or ''), quote=True)}\">{html.escape(str(row.get('source_url') or 'source link'))}</a></li>"
+        )
+    if not rows:
+        rows.append("<li>No verified source references are attached to this package.</li>")
+    return f"<ul>{''.join(rows)}</ul>"
+
+
+def render_affiliate_placeholders(tool_profiles: list[dict[str, str]]) -> str:
+    items = []
+    for profile in tool_profiles:
+        slug = slugify(profile["name"])
+        items.append(
+            f"<li><strong>{html.escape(profile['name'])}</strong>: <code>{{{{AFFILIATE_LINK_{html.escape(slug.upper()).replace('-', '_')}}}}}</code> "
+            f"and <code>{{{{CTA_LABEL_{html.escape(slug.upper()).replace('-', '_')}}}}}</code></li>"
+        )
+    return f"<ul>{''.join(items)}</ul>"
+
+
+def render_buying_guidance(tool_profiles: list[dict[str, str]]) -> str:
+    if not tool_profiles:
+        return "Use the approved package as a shortlist, verify the official pricing page, and choose the option that reduces your real weekly workflow friction instead of the one with the broadest marketing claim."
+    lead = tool_profiles[0]["name"]
+    return (
+        f"Start with {lead} if you want the strongest current source confidence in this draft, then challenge it against your real workflow. "
+        "If your team is more presentation-heavy than documentation-heavy, or if you only need lightweight AI drafting inside an existing stack, test the narrower alternatives before committing. "
+        "The right buyer move is to shortlist two options, verify the official pricing and limits, run one real task in each tool, and approve only the recommendation language that still looks honest after that test."
+    )
+
+
+def render_article_markdown(
+    topic: dict[str, Any],
+    title: str,
+    description: str,
+    url: str,
+    links: list[tuple[str, str]],
+    warnings: list[str],
+) -> str:
+    research = research_payload(topic)
+    planning = planning_payload(topic)
+    tool_profiles = article_tool_profiles(research)
+    faq_groups = research.get("faq") if isinstance(research.get("faq"), dict) else {}
+    faq_items: list[str] = []
+    for key in ("beginner", "intermediate", "advanced", "comparison", "pricing", "troubleshooting"):
+        faq_items.extend(coerce_text_list(faq_groups.get(key)))
+    related_links = "\n".join(f"- [{label}]({href})" for href, label in links) or "- No safe internal links found."
+    verified_sources = research.get("sources", {}).get("verified_sources", []) if isinstance(research.get("sources"), dict) else []
+    source_lines = "\n".join(
+        f"- **{row.get('brand', 'Source')}**: {row.get('source_name', row.get('source_type', 'source'))} - {row.get('source_url', '')}"
+        for row in verified_sources
+        if isinstance(row, dict)
+    ) or "- No verified official sources are attached to this package."
+    shortlist = "\n".join(
+        f"### {profile['name']}\n\n"
+        f"Best for: {profile['best_for']}.\n\n"
+        f"Why it made the shortlist: {profile['summary']}\n\n"
+        f"Strength: {profile['pros']}.\n\n"
+        f"Risk: {profile['cons']}.\n\n"
+        f"Pricing confidence: {profile['pricing_confidence']}. {profile['pricing_note']}\n"
+        for profile in tool_profiles
+    )
+    faq_md = "\n".join(
+        f"### {question}\n\nVerify current pricing, plan limits, integrations, AI usage caps, and policy terms on the official vendor site before you buy or recommend the tool.\n"
+        for question in faq_items
+    )
+    comparison_rows = "\n".join(
+        f"| {profile['name']} | {profile['best_for']} | {profile['pricing_confidence']} | {profile['source_status']} | {profile['use_case']} |"
+        for profile in tool_profiles
+    )
+    return f"""# {title}
+
+{description}
+
+- Canonical URL: {url}
+- Review status target: human approval before publish
+- Research quality score: {research.get('quality', {}).get('overall_score', 0)}
+- Verified source score: {research.get('quality', {}).get('total_verified_source_score', 0)}
+
+## Intro
+
+This production draft is based only on the approved research package for **{topic.get('topic', '')}**. It is written for buyers who need a practical shortlist, not for readers who want hype, copied pricing snippets, or blanket recommendations without source discipline.
+
+The core question is simple: which AI productivity tools are most likely to reduce planning, writing, knowledge-management, or collaboration friction for a real team? The article keeps that question tied to verified official sources and marks uncertain pricing or feature claims as **needs review**.
+
+## How We Evaluated the Shortlist
+
+We used the approved package's keyword intent, outline, entity extraction, official-source registry coverage, and research quality scoring. We did not pull a new weekly trend list or bypass any gate.
+
+The shortlist focuses on:
+
+- Workflow fit for planning, drafting, organizing, and sharing work
+- Pricing verification confidence
+- Official documentation quality
+- Editorial and affiliate safety
+- Whether the recommendation still looks honest after human review
+
+## Quick Verdict
+
+{render_buying_guidance(tool_profiles)}
+
+## Tool Shortlist
+
+{shortlist}
+
+## Comparison Table
+
+| Tool | Best for | Pricing confidence | Source status | Use-case anchor |
+| --- | --- | --- | --- | --- |
+{comparison_rows}
+
+## Best-For Use Cases
+
+{"".join(f"- **{profile['name']}**: {profile['best_for']}. Primary use case: {profile['use_case']}.\n" for profile in tool_profiles)}
+
+## Pros and Cons
+
+### Pros
+
+- Stronger buyer guidance than a shallow roundup because the article stays tied to the approved package.
+- Clear pricing-confidence labels reduce the risk of publishing unsupported claims.
+- Internal-link support lets this article connect to deeper reviews, comparisons, and category pages.
+- Human approval remains mandatory for the final recommendation layer.
+
+### Cons
+
+- Competitor coverage in the current package is still limited.
+- Exact pricing for every shortlisted tool is not fully verified yet.
+- Visual proof such as screenshots and product walkthroughs still needs manual editorial work.
+- Any recommendation can age quickly if vendor plans or AI limits change.
+
+## Pricing Section
+
+Do not rely on copied pricing snippets. Verify current pricing on the official vendor site before naming plan details, limits, AI credits, or seat rules.
+
+{"".join(f"- **{profile['name']}**: {profile['pricing_confidence']} - {profile['pricing_note']}\n" for profile in tool_profiles)}
+
+## Official Source References
+
+{source_lines}
+
+## Affiliate Placeholder Fields
+
+{"".join(f"- **{profile['name']}**: `{{{{AFFILIATE_LINK_{slugify(profile['name']).upper().replace('-', '_')}}}}}` and `{{{{CTA_LABEL_{slugify(profile['name']).upper().replace('-', '_')}}}}}`\n" for profile in tool_profiles)}
+
+## Internal Links
+
+{related_links}
+
+## Planning Context
+
+- Intent: {planning.get('intent', '')}
+- Coverage score: {planning.get('coverage_score', 0)}
+- Related keywords: {", ".join(coerce_text_list(planning.get('related_keywords')))}
+- Recommended CTA: {planning.get('recommended_cta', '')}
+
+## FAQ
+
+{faq_md}
+
+## Conclusion
+
+Use this draft as a buyer guidance page, not as a final approved recommendation. Start with the best-verified option, compare it against one narrower alternative, verify the official pricing page yourself, and only then decide whether the tool deserves a stronger recommendation. This article should remain blocked until human approval confirms that the shortlist language is fair, source-backed, and commercially safe.
+
+## Warnings
+
+{chr(10).join(f"- {warning}" for warning in warnings) if warnings else "- No critical warnings beyond standard manual verification."}
+"""
+
+
+def featured_image_prompt(topic: dict[str, Any], research: dict[str, Any], planning: dict[str, Any]) -> str:
+    tool_names = ", ".join(profile["name"] for profile in article_tool_profiles(research)[:3]) or str(topic.get("topic") or "")
+    return (
+        f"Create a clean editorial hero image for '{topic.get('topic', '')}'. "
+        f"Show a modern workspace comparison scene with subtle cards for {tool_names}, a productivity dashboard feel, teal and slate accents, "
+        "and a buyer-guide tone. Include no brand logos, no pricing numbers, and no crowded UI. Leave space for a headline overlay and keep it professional, trustworthy, and EEAT-oriented."
+    )
+
+
+def build_review_summary(review: dict[str, Any], human_approval: dict[str, Any], publish_gate: dict[str, Any], research_package: ResearchPackage) -> str:
+    return f"""# Review Summary
+
+- Slug: `{review.get('slug', '')}`
+- Review status: `{review.get('status', '')}`
+- Human approval status: `{human_approval.get('status', '')}`
+- Publish gate status: `{publish_gate.get('status', '')}`
+- Word count: `{review.get('word_count', 0)}`
+- Publish readiness: `{review.get('publish_readiness', 0)}`
+- Research quality score: `{research_package.quality.get('overall_score', 0)}`
+- Verified source score: `{research_package.quality.get('total_verified_source_score', 0)}`
+
+## Gate Notes
+
+- AI review failures: {', '.join(review.get('failures', [])) or 'none'}
+- Publish gate failures: {', '.join(publish_gate.get('failures', [])) or 'none'}
+- Missing research information: {', '.join(research_package.quality.get('missing_information', [])) or 'none'}
+"""
+
+
+def build_publish_readiness_md(payload: dict[str, Any]) -> str:
+    failures = payload.get("publish_failures", [])
+    return f"""# Publish Readiness Report
+
+- Slug: `{payload.get('slug', '')}`
+- Title: `{payload.get('title', '')}`
+- Review status: `{payload.get('review_status', '')}`
+- Human approval status: `{payload.get('human_approval_status', '')}`
+- Publish gate status: `{payload.get('publish_gate_status', '')}`
+- Research quality score: `{payload.get('research_quality_score', 0)}`
+- Verified source score: `{payload.get('verified_source_score', 0)}`
+- Word count: `{payload.get('word_count', 0)}`
+
+## Blocking Issues
+
+{chr(10).join(f"- {item}" for item in failures) if failures else "- None"}
+"""
+
+
+def build_primary_social_draft(topic: dict[str, Any], url: str, title: str) -> str:
+    return f"""# Social Post Draft
+
+## LinkedIn
+
+I just finished a buyer-focused draft on **{title}**.
+
+The goal was not to hype every AI productivity tool. It was to build a shortlist that stays honest about source confidence, pricing verification, and workflow fit.
+
+Key takeaway: the best tool is usually the one that reduces planning and coordination friction in a real weekly workflow, not the one with the loudest feature list.
+
+Read the article draft:
+{url}
+
+#AIProductivity #SaaS #BuyerGuide #ContentOps
+"""
 
 
 def html_shell(title: str, description: str, canonical: str, body: str, schemas: list[dict[str, Any]]) -> str:
@@ -750,6 +1337,7 @@ def write_daily_report(report: dict[str, Any]) -> None:
     stamp = date.today().isoformat()
     json_path = REPORT_DIR / f"{stamp}.json"
     md_path = REPORT_DIR / f"{stamp}.md"
+    REPORT_DIR.mkdir(parents=True, exist_ok=True)
     json_path.write_text(json.dumps(report, indent=2, ensure_ascii=False, default=str), encoding="utf-8")
     lines = [
         f"# Daily AI Content Growth Report - {stamp}",

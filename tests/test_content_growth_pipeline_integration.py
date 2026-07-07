@@ -382,6 +382,222 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
             publish_queue = data_dir / "publish_queue.json"
             self.assertTrue(publish_queue.exists())
 
+    def test_generate_production_article_draft_from_package_stops_at_human_approval(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            site_output = root / "site_output"
+            slug = "best-ai-productivity-software"
+            package_dir = data_dir / "research" / slug
+            package_dir.mkdir(parents=True, exist_ok=True)
+            for href in ("reviews", "comparisons", "categories", "best-website-builder-2026", "review/surfer-seo"):
+                target = site_output / href / "index.html"
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_text("<html></html>", encoding="utf-8")
+            package_dir.joinpath("package.json").write_text(
+                """
+{
+  "keyword": "best ai productivity software",
+  "slug": "best-ai-productivity-software",
+  "generated_at": "2026-07-07T00:00:00+00:00",
+  "package_dir": "TEMP_PACKAGE_DIR",
+  "keyword_intelligence": {
+    "primary_keyword": "best ai productivity software",
+    "semantic_keywords": ["best ai productivity software pricing", "best ai productivity software comparison"],
+    "search_intent": "commercial",
+    "cluster": {
+      "seed_topic": "best ai productivity software",
+      "supporting_topics": ["best ai productivity software pricing", "best ai productivity software comparison"],
+      "supporting_article_ideas": ["Comparison article", "Pricing article"]
+    }
+  },
+  "keyword_summary": {
+    "keyword": "best ai productivity software",
+    "slug": "best-ai-productivity-software",
+    "primary_keyword": "best ai productivity software",
+    "intent": "commercial",
+    "article_type": "best list",
+    "cluster_seed": "best ai productivity software"
+  },
+  "outline": {
+    "seo_outline": ["Quick verdict", "Comparison", "Pros and cons", "Pricing", "FAQ"],
+    "faq_placement": "After alternatives and before final CTA",
+    "cta_placement": "Hero CTA and final verdict CTA",
+    "recommended_cta": "Review the comparison and shortlist the best option for your workflow.",
+    "confidence": 0.8,
+    "reasoning": ["Fixture outline reasoning"]
+  },
+  "faq": {
+    "beginner": ["What is best ai productivity software and who is it for?"],
+    "comparison": ["How does best ai productivity software compare with alternatives?"],
+    "pricing": ["What should readers verify on the pricing page?"]
+  },
+  "entities": {
+    "products": ["Notion", "Gamma", "Notion AI"],
+    "companies": ["Notion", "Gamma", "Notion AI"],
+    "entity_coverage_score": 60,
+    "missing_entity_types": ["competitors"]
+  },
+  "competitors": {
+    "keyword": "best ai productivity software",
+    "coverage_status": "missing",
+    "profiles": [],
+    "report": "competitor coverage is missing"
+  },
+  "sources": {
+    "verified_sources": [
+      {
+        "brand": "Notion",
+        "slug": "notion",
+        "source_type": "official_docs",
+        "source_name": "Notion Help Center",
+        "source_url": "https://www.notion.com/help",
+        "verification_status": "verified",
+        "verification_date": "2026-07-07T00:00:00+00:00",
+        "trust_score": 100,
+        "freshness_score": 100,
+        "confidence": 94
+      }
+    ],
+    "official_docs_score": 100,
+    "pricing_source_score": 100,
+    "affiliate_source_score": 98,
+    "changelog_source_score": 98,
+    "competitor_source_score": 0,
+    "total_verified_source_score": 79,
+    "source_confidence": 91.6,
+    "source_status": "verified"
+  },
+  "writing_plan": {
+    "recommended_word_count": 2370,
+    "affiliate_value": 64,
+    "seo_opportunity": 85,
+    "commercial_intent": 90,
+    "article_type": "best list",
+    "intent": "commercial"
+  },
+  "quality": {
+    "overall_score": 62.36,
+    "coverage": 72,
+    "entity_coverage": 60,
+    "entity_coverage_score": 60,
+    "faq_coverage": 68,
+    "outline_quality": 80,
+    "affiliate_readiness": 57,
+    "source_quality": 89.5,
+    "official_docs_score": 100,
+    "pricing_source_score": 100,
+    "affiliate_source_score": 98,
+    "changelog_source_score": 98,
+    "competitor_source_score": 0,
+    "total_verified_source_score": 79,
+    "source_confidence": 91.6,
+    "source_status": "verified",
+    "missing_information": ["competitor coverage is limited"],
+    "status": "ready"
+  },
+  "cache_hits": ["Notion", "Gamma", "Notion AI"]
+}
+                """.replace("TEMP_PACKAGE_DIR", str(package_dir).replace("\\", "\\\\")),
+                encoding="utf-8",
+            )
+            with ExitStack() as stack:
+                stack.enter_context(patch.object(pipeline, "DATA_DIR", data_dir))
+                stack.enter_context(patch.object(pipeline, "SITE_OUTPUT", site_output))
+                stack.enter_context(patch.object(pipeline, "PRODUCTION_DRAFTS", data_dir / "production_article_drafts"))
+                stack.enter_context(patch.object(pipeline, "VIDEO_OUTPUT", root / "video_output"))
+                stack.enter_context(patch.object(pipeline, "SOCIAL_DRAFTS", root / "social_drafts"))
+                stack.enter_context(patch.object(pipeline, "REPORT_DIR", data_dir / "content_growth_reports"))
+                stack.enter_context(patch.object(pipeline, "_RESEARCH_PLATFORM", None))
+                stack.enter_context(patch.object(pipeline, "_CONTENT_REVIEW_ENGINE", None))
+                stack.enter_context(patch.object(pipeline, "_HUMAN_APPROVAL_WORKFLOW", None))
+                stack.enter_context(patch.object(pipeline, "_PUBLISH_GATE", None))
+                (data_dir / "offers.csv").write_text("offer_id,brand_name,website,affiliate_url,niche,commission_type,commission_rate,flat_commission,cookie_days,recurring,traffic_policy,direct_linking_allowed,brand_bidding_allowed,vendor_trust,buyer_intent,notes\n", encoding="utf-8")
+                (data_dir / "affiliate_links.csv").write_text("tool_slug,tool_name,brand,slug,official_url,affiliate_url,affiliate_status,status,notes,commission_note,network,approved\n", encoding="utf-8")
+                stack.enter_context(
+                    patch.object(
+                        pipeline,
+                        "get_research_platform",
+                        return_value=ResearchIntelligencePlatform(
+                            data_dir=data_dir,
+                            site_output_dir=site_output,
+                            offers_file=data_dir / "offers.csv",
+                            affiliate_links_file=data_dir / "affiliate_links.csv",
+                            config={
+                                "research_intelligence": {
+                                    "quality_gate": {"threshold": 60, "enabled": True, "allow_override": False},
+                                    "verified_source_gate": {
+                                        "enabled": True,
+                                        "minimum_official_docs_score": 20,
+                                        "minimum_pricing_source_score": 20,
+                                        "minimum_affiliate_source_score": 10,
+                                        "minimum_total_score": 35,
+                                    },
+                                },
+                                "knowledge_review": {
+                                    "minimum_verified_sources": 1,
+                                    "minimum_official_sources": 1,
+                                    "minimum_trust_score": 50,
+                                    "minimum_freshness": 35,
+                                },
+                            },
+                        ),
+                    )
+                )
+                stack.enter_context(
+                    patch.object(
+                        pipeline,
+                        "get_content_review_engine",
+                        return_value=ContentReviewEngine(
+                            data_dir=data_dir,
+                            config={
+                                "minimum_word_count": 50,
+                                "minimum_publish_readiness": 50,
+                                "minimum_source_quality": 0,
+                                "minimum_factual_quality": 0,
+                                "minimum_seo_quality": 0,
+                                "minimum_business_value": 0,
+                                "minimum_readability_score": 0,
+                                "manual_approval_article_types": ["pricing", "comparison", "review", "product_recommendation"],
+                            },
+                        ),
+                    )
+                )
+                stack.enter_context(
+                    patch.object(
+                        pipeline,
+                        "get_human_approval_workflow",
+                        return_value=HumanApprovalWorkflow(data_dir=data_dir, config={"required": False}),
+                    )
+                )
+                stack.enter_context(
+                    patch.object(
+                        pipeline,
+                        "get_publish_gate",
+                        return_value=PublishGate(
+                            data_dir=data_dir,
+                            site_output_dir=site_output,
+                            config={
+                                "enabled": True,
+                                "minimum_verified_source_score": 35,
+                                "minimum_knowledge_freshness": 20,
+                                "minimum_business_score": 35,
+                                "minimum_readability_score": 30,
+                                "require_human_approval": False,
+                            },
+                        ),
+                    )
+                )
+
+                result = pipeline.generate_production_article_draft_from_package(slug)
+
+            self.assertEqual(result["page"]["review"]["status"], "needs_human_review")
+            self.assertEqual(result["page"]["human_approval"]["status"], "needs_human_review")
+            self.assertEqual(result["page"]["publish_gate"]["status"], "blocked")
+            self.assertIn("human approval missing", result["page"]["publish_gate"]["failures"])
+            self.assertTrue((data_dir / "production_article_drafts" / slug / "article.md").exists())
+            self.assertTrue((data_dir / "production_article_drafts" / slug / "index.html").exists())
+
 
 if __name__ == "__main__":
     unittest.main()

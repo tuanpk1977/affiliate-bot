@@ -108,6 +108,57 @@ class ContentReviewTests(unittest.TestCase):
             self.assertEqual(result["status"], "needs_human_review")
             self.assertTrue(result["requires_human_approval"])
 
+    def test_same_slug_is_not_treated_as_duplicate_content(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            data_dir = Path(temp_dir) / "data"
+            engine = ContentReviewEngine(
+                data_dir=data_dir,
+                config={
+                    "minimum_word_count": 20,
+                    "minimum_publish_readiness": 40,
+                    "minimum_source_quality": 0,
+                    "minimum_factual_quality": 0,
+                    "minimum_seo_quality": 0,
+                    "minimum_business_value": 0,
+                    "minimum_readability_score": 0,
+                    "manual_approval_article_types": [],
+                    "manual_approval_title_markers": [],
+                },
+            )
+            html = """
+            <html><body>
+            <section><h2>Affiliate disclosure</h2><p>We may earn a commission.</p></section>
+            <p>This draft has enough substance to pass local review checks and should not fail for duplicating itself.</p>
+            <p>It includes workflow guidance, internal link context, and pricing verification reminders.</p>
+            </body></html>
+            """
+            first = engine.review_content(
+                topic={"topic": "best ai productivity software", "slug": "best-ai-productivity-software", "estimated_business_value": "high"},
+                html=html,
+                title="Best AI Productivity Software 2026",
+                description="Guide to evaluating AI productivity software with pricing checks and workflow notes.",
+                url="https://example.com/best-ai-productivity-software/",
+                internal_links=[("/reviews/", "Reviews")],
+                warnings=[],
+                research={"quality": {"overall_score": 82, "source_quality": 76, "total_verified_source_score": 72, "affiliate_readiness": 80}},
+                planning={"coverage_score": 78, "keyword": "best ai productivity software"},
+            )
+            second = engine.review_content(
+                topic={"topic": "best ai productivity software", "slug": "best-ai-productivity-software", "estimated_business_value": "high"},
+                html=html,
+                title="Best AI Productivity Software 2026",
+                description="Guide to evaluating AI productivity software with pricing checks and workflow notes.",
+                url="https://example.com/best-ai-productivity-software/",
+                internal_links=[("/reviews/", "Reviews")],
+                warnings=[],
+                research={"quality": {"overall_score": 82, "source_quality": 76, "total_verified_source_score": 72, "affiliate_readiness": 80}},
+                planning={"coverage_score": 78, "keyword": "best ai productivity software"},
+            )
+
+            self.assertEqual(first["status"], "ai_review_passed")
+            self.assertEqual(second["status"], "ai_review_passed")
+            self.assertEqual(second["duplicate_content_risk"], 10.0)
+
 
 if __name__ == "__main__":
     unittest.main()

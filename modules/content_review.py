@@ -123,7 +123,7 @@ class ContentReviewEngine:
         affiliate_disclosure_present = "affiliate disclosure" in html.lower() and "commission" in html.lower()
         internal_link_count = len(internal_links)
         internal_links_score = round(_clamp(30 + internal_link_count * 18), 2)
-        duplicate_content_risk = round(self._duplicate_risk(title, url, queue), 2)
+        duplicate_content_risk = round(self._duplicate_risk(title, url, queue, current_slug=str(topic.get("slug") or "")), 2)
         business_value = round(self._business_value(topic, planning, research_quality), 2)
 
         checks = {
@@ -256,11 +256,13 @@ class ContentReviewEngine:
             ],
         )
 
-    def _duplicate_risk(self, title: str, url: str, queue: list[dict[str, Any]]) -> float:
+    def _duplicate_risk(self, title: str, url: str, queue: list[dict[str, Any]], *, current_slug: str = "") -> float:
         if not queue:
             return 10.0
         scores = []
         for row in queue:
+            if current_slug and str(row.get("slug", "")) == current_slug:
+                continue
             similarity = SequenceMatcher(None, title.lower(), str(row.get("topic", "")).lower()).ratio()
             same_url = 1.0 if str(row.get("url", "")) == url else 0.0
             scores.append(max(similarity * 100, same_url * 100))
