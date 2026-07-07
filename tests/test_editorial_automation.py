@@ -157,6 +157,8 @@ class EditorialAutomationTests(unittest.TestCase):
                 stack.enter_context(patch.object(pipeline, "TRACKING_CSV", data_dir / "content_growth_performance_log.csv"))
                 stack.enter_context(patch.object(pipeline, "_CONTENT_PLANNER", None))
                 stack.enter_context(patch.object(pipeline, "_RESEARCH_PLATFORM", None))
+                stack.enter_context(patch.object(pipeline, "_CONTENT_REVIEW_ENGINE", None))
+                stack.enter_context(patch.object(pipeline, "_HUMAN_APPROVAL_WORKFLOW", None))
                 result = editorial_automation.run_daily_editorial_content(target_date=target_date, build=False)
 
             self.assertEqual(result["calendar_rows"], 1)
@@ -167,6 +169,8 @@ class EditorialAutomationTests(unittest.TestCase):
             page = result["generated_pages"][0]
             self.assertIn("research", page)
             self.assertIn("planning", page)
+            self.assertIn("review", page)
+            self.assertIn("human_approval", page)
             self.assertEqual(page["slug"], "best-ai-coding-assistants-for-teams-pricing")
 
     def test_monday_runner_refreshes_weekly_topics_before_generation(self) -> None:
@@ -229,6 +233,8 @@ class EditorialAutomationTests(unittest.TestCase):
                 stack.enter_context(patch.object(pipeline, "TRACKING_CSV", data_dir / "content_growth_performance_log.csv"))
                 stack.enter_context(patch.object(pipeline, "_CONTENT_PLANNER", None))
                 stack.enter_context(patch.object(pipeline, "_RESEARCH_PLATFORM", None))
+                stack.enter_context(patch.object(pipeline, "_CONTENT_REVIEW_ENGINE", None))
+                stack.enter_context(patch.object(pipeline, "_HUMAN_APPROVAL_WORKFLOW", None))
                 stack.enter_context(patch.object(editorial_automation, "load_editorial_calendar", return_value=monday_rows))
                 stack.enter_context(
                     patch.object(

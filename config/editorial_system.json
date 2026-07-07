@@ -69,5 +69,15 @@
     "minimum_trust_score": 50,
     "minimum_freshness": 35,
     "duplicate_similarity": 0.88
+  },
+  "content_review": {
+    "minimum_word_count": 900,
+    "minimum_publish_readiness": 65,
+    "minimum_readability_score": 35,
+    "maximum_duplicate_risk": 65,
+    "require_human_approval": false
+  },
+  "human_approval": {
+    "required": false
   }
 }

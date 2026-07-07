@@ -20,7 +20,9 @@ from modules.ai_trend_discovery import (
     save_discovery_result,
     slugify,
 )
+from modules.content_review import ContentReviewEngine
 from modules.content_planning_engine import ContentPlanningEngine
+from modules.human_approval import HumanApprovalWorkflow
 from modules.indexing_policy import INDEXABLE_ROBOTS_META
 from modules.research_intelligence import ResearchIntelligencePlatform
 
@@ -37,6 +39,8 @@ TRACKING_CSV = DATA_DIR / "content_growth_performance_log.csv"
 TRENDING_JSON = DATA_DIR / "trending_topics.json"
 _CONTENT_PLANNER: ContentPlanningEngine | None = None
 _RESEARCH_PLATFORM: ResearchIntelligencePlatform | None = None
+_CONTENT_REVIEW_ENGINE: ContentReviewEngine | None = None
+_HUMAN_APPROVAL_WORKFLOW: HumanApprovalWorkflow | None = None
 
 
 @dataclass(frozen=True)
@@ -49,8 +53,12 @@ class GeneratedPage:
     social_folder: Path
     content_type: str
     focus_keyword: str
+    title: str
+    description: str
     research: dict[str, Any]
     planning: dict[str, Any]
+    review: dict[str, Any]
+    human_approval: dict[str, Any]
     warnings: list[str]
 
 
@@ -217,6 +225,26 @@ def get_research_platform() -> ResearchIntelligencePlatform:
     return _RESEARCH_PLATFORM
 
 
+def get_content_review_engine() -> ContentReviewEngine:
+    global _CONTENT_REVIEW_ENGINE
+    if _CONTENT_REVIEW_ENGINE is None:
+        _CONTENT_REVIEW_ENGINE = ContentReviewEngine(
+            data_dir=DATA_DIR,
+            config=getattr(settings, "editorial_config", {}).get("content_review", {}),
+        )
+    return _CONTENT_REVIEW_ENGINE
+
+
+def get_human_approval_workflow() -> HumanApprovalWorkflow:
+    global _HUMAN_APPROVAL_WORKFLOW
+    if _HUMAN_APPROVAL_WORKFLOW is None:
+        _HUMAN_APPROVAL_WORKFLOW = HumanApprovalWorkflow(
+            data_dir=DATA_DIR,
+            config=getattr(settings, "editorial_config", {}).get("human_approval", {}),
+        )
+    return _HUMAN_APPROVAL_WORKFLOW
+
+
 def coerce_text_list(value: Any) -> list[str]:
     if isinstance(value, str):
         items = re.split(r"[,;\n]", value)
@@ -355,6 +383,18 @@ def generate_topic_package(topic: dict[str, Any]) -> GeneratedPage:
     write_article(path, article_html, output=SITE_OUTPUT)
     video_folder = write_video_drafts(enriched_topic, url, title)
     social_folder = write_social_drafts(enriched_topic, url, title)
+    review = get_content_review_engine().review_content(
+        topic=enriched_topic,
+        html=article_html,
+        title=title,
+        description=description,
+        url=url,
+        internal_links=links or [(href, href) for href in coerce_text_list(enriched_topic.get("suggested_internal_links"))],
+        warnings=warnings,
+        research=research_payload(enriched_topic),
+        planning=planning_payload(enriched_topic),
+    )
+    human_approval = get_human_approval_workflow().sync_review(review)
     return GeneratedPage(
         topic=topic_name,
         slug=slug,
@@ -364,8 +404,12 @@ def generate_topic_package(topic: dict[str, Any]) -> GeneratedPage:
         social_folder=social_folder,
         content_type=str(enriched_topic.get("content_type") or "article"),
         focus_keyword=focus_keyword(topic_name),
+        title=title,
+        description=description,
         research=research_payload(enriched_topic),
         planning=planning_payload(enriched_topic),
+        review=review,
+        human_approval=human_approval,
         warnings=warnings,
     )
 
@@ -884,8 +928,12 @@ def page_to_dict(page: GeneratedPage) -> dict[str, Any]:
         "social_folder": str(page.social_folder),
         "content_type": page.content_type,
         "focus_keyword": page.focus_keyword,
+        "title": page.title,
+        "description": page.description,
         "research": page.research,
         "planning": page.planning,
+        "review": page.review,
+        "human_approval": page.human_approval,
         "warnings": page.warnings,
     }
 

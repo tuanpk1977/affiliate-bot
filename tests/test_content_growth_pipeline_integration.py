@@ -7,6 +7,8 @@ from unittest.mock import patch
 import unittest
 
 from modules import content_growth_pipeline as pipeline
+from modules.content_review import ContentReviewEngine
+from modules.human_approval import HumanApprovalWorkflow
 from modules.research_intelligence import ResearchIntelligencePlatform
 
 
@@ -72,6 +74,8 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
                 stack.enter_context(patch.object(pipeline, "TRENDING_JSON", trending_json))
                 stack.enter_context(patch.object(pipeline, "_CONTENT_PLANNER", None))
                 stack.enter_context(patch.object(pipeline, "_RESEARCH_PLATFORM", None))
+                stack.enter_context(patch.object(pipeline, "_CONTENT_REVIEW_ENGINE", None))
+                stack.enter_context(patch.object(pipeline, "_HUMAN_APPROVAL_WORKFLOW", None))
                 stack.enter_context(patch.object(pipeline, "load_or_discover_topics", return_value=[topic]))
                 research_platform = ResearchIntelligencePlatform(
                     data_dir=data_dir,
@@ -82,10 +86,44 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
                         "research_intelligence": {
                             "quality_gate": {"threshold": 0, "enabled": True, "allow_override": False},
                             "verified_source_gate": {"enabled": False},
-                        }
+                        },
+                        "content_review": {
+                            "minimum_word_count": 50,
+                            "minimum_publish_readiness": 50,
+                            "minimum_source_quality": 0,
+                            "minimum_factual_quality": 0,
+                            "minimum_seo_quality": 0,
+                            "minimum_business_value": 0,
+                            "minimum_readability_score": 0,
+                        },
                     },
                 )
                 stack.enter_context(patch.object(pipeline, "get_research_platform", return_value=research_platform))
+                stack.enter_context(
+                    patch.object(
+                        pipeline,
+                        "get_content_review_engine",
+                        return_value=ContentReviewEngine(
+                            data_dir=data_dir,
+                            config={
+                                "minimum_word_count": 50,
+                                "minimum_publish_readiness": 50,
+                                "minimum_source_quality": 0,
+                                "minimum_factual_quality": 0,
+                                "minimum_seo_quality": 0,
+                                "minimum_business_value": 0,
+                                "minimum_readability_score": 0,
+                            },
+                        ),
+                    )
+                )
+                stack.enter_context(
+                    patch.object(
+                        pipeline,
+                        "get_human_approval_workflow",
+                        return_value=HumanApprovalWorkflow(data_dir=data_dir, config={"required": False}),
+                    )
+                )
 
                 report = pipeline.run_daily_content_growth(
                     limit=1,
@@ -120,6 +158,10 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
             self.assertTrue(planning["outline_sections"])
             self.assertTrue(planning["reasoning"])
             self.assertEqual(planning["related_keywords"], topic["related_keywords"])
+            self.assertIn("review", page)
+            self.assertIn("human_approval", page)
+            self.assertEqual(page["review"]["status"], "ai_review_passed")
+            self.assertEqual(page["human_approval"]["status"], "human_approved")
 
             self.assertTrue(article_file.exists())
             self.assertTrue(site_file.exists())
@@ -148,6 +190,9 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
             self.assertTrue((research_dir / "entities.json").exists())
             self.assertTrue((research_dir / "sources.json").exists())
             self.assertTrue((data_dir / "research_quality_report.json").exists())
+            self.assertTrue((data_dir / "content_review_queue.json").exists())
+            self.assertTrue((data_dir / "content_review_report.json").exists())
+            self.assertTrue((data_dir / "human_approval_queue.json").exists())
 
     def test_low_quality_research_is_blocked_and_queued(self) -> None:
         topic = {
@@ -180,6 +225,8 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
                 stack.enter_context(patch.object(pipeline, "TRACKING_CSV", tracking_csv))
                 stack.enter_context(patch.object(pipeline, "_CONTENT_PLANNER", None))
                 stack.enter_context(patch.object(pipeline, "_RESEARCH_PLATFORM", None))
+                stack.enter_context(patch.object(pipeline, "_CONTENT_REVIEW_ENGINE", None))
+                stack.enter_context(patch.object(pipeline, "_HUMAN_APPROVAL_WORKFLOW", None))
                 research_platform = ResearchIntelligencePlatform(
                     data_dir=data_dir,
                     site_output_dir=site_output,
@@ -193,6 +240,20 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
                     },
                 )
                 stack.enter_context(patch.object(pipeline, "get_research_platform", return_value=research_platform))
+                stack.enter_context(
+                    patch.object(
+                        pipeline,
+                        "get_content_review_engine",
+                        return_value=ContentReviewEngine(data_dir=data_dir, config={"minimum_word_count": 50}),
+                    )
+                )
+                stack.enter_context(
+                    patch.object(
+                        pipeline,
+                        "get_human_approval_workflow",
+                        return_value=HumanApprovalWorkflow(data_dir=data_dir, config={"required": False}),
+                    )
+                )
                 with self.assertRaises(RuntimeError):
                     pipeline.generate_topic_package(topic)
 
