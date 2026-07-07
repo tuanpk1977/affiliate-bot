@@ -1,0 +1,7 @@
+{
+  "candidate_limit": 200,
+  "max_per_source": 40,
+  "top_topics": 10,
+  "calendar_days": 7,
+  "validation_keywords": 10
+}

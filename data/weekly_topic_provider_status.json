@@ -1,0 +1,49 @@
+{
+  "google_trends": {
+    "status": "ok",
+    "signals": 10
+  },
+  "bing_trending": {
+    "status": "ok",
+    "signals": 38
+  },
+  "reddit": {
+    "status": "empty",
+    "signals": 0
+  },
+  "hacker_news": {
+    "status": "ok",
+    "signals": 40
+  },
+  "product_hunt": {
+    "status": "ok",
+    "signals": 40
+  },
+  "github_trending": {
+    "status": "ok",
+    "signals": 16
+  },
+  "x_twitter": {
+    "status": "error",
+    "signals": 0,
+    "detail": "MissingCredential: Set TWITTER_BEARER_TOKEN to enable X recent-search discovery."
+  },
+  "linkedin": {
+    "status": "error",
+    "signals": 0,
+    "detail": "MissingCredential: LinkedIn does not expose public trending search; set LINKEDIN_ACCESS_TOKEN and a permitted discovery endpoint."
+  },
+  "youtube_trending": {
+    "status": "error",
+    "signals": 0,
+    "detail": "MissingCredential: Set YOUTUBE_API_KEY to enable YouTube trending discovery."
+  },
+  "ai_newsletters": {
+    "status": "ok",
+    "signals": 40
+  },
+  "local_keyword_intelligence": {
+    "status": "ok",
+    "signals": 40
+  }
+}

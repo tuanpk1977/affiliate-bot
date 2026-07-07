@@ -2,6 +2,225 @@
 
 This guide documents the current repository behavior so Codex, Copilot, or another AI assistant can understand the project before changing it.
 
+## Editorial Automation Platform
+
+The repository now includes an AI Editorial Automation Platform layered on top of the existing site generators.
+
+The system is designed around two repeating workflows:
+
+- Weekly editorial intelligence
+- Daily scheduled production
+
+The rule for future work is:
+
+- reuse stable engines
+- prefer adapters over rewrites
+- keep automatic publishing local-only unless explicitly enabled later
+
+### Architecture
+
+Core platform modules:
+
+- `modules/ai_trend_discovery.py`: multi-source trend discovery and scoring.
+- `modules/content_planning_engine.py`: keyword planning, intent, cluster, coverage, outline, and reasoning.
+- `modules/content_growth_pipeline.py`: content generation, SEO metadata, local publish, and reusable content assets.
+- `modules/editorial_automation.py`: weekly candidate collection, weekly ranking, editorial calendar generation, and daily scheduled execution.
+- `modules/topic_cluster_engine.py`: topic clustering support.
+- `scripts/validate_production_content_pipeline.py`: end-to-end production validation against real keywords.
+
+Compatibility adapters:
+
+- `modules/homepage_crawl_sections.py`
+- `modules/topical_hubs.py`
+
+These exist so the incremental build remains stable while the broader editorial system is assembled.
+
+### Folder Structure
+
+Editorial automation files:
+
+- `data/weekly_topic_candidates.csv`
+- `data/weekly_topic_candidates.json`
+- `data/weekly_topic_history.jsonl`
+- `data/weekly_topic_provider_status.json`
+- `data/weekly_topics.csv`
+- `data/weekly_topics.json`
+- `data/editorial_calendar.csv`
+- `data/editorial_calendar.json`
+- `data/daily_editorial_report_<date>.json`
+- `data/content_growth_reports/production-pipeline-validation-*.json`
+- `data/content_growth_reports/production-pipeline-validation-*.md`
+- `data/content_growth_reports/production-pipeline-validation-*.csv`
+
+Entry points:
+
+- `scripts/run_weekly_editorial_cycle.py`
+- `run_daily_content.py`
+- `scripts/validate_production_content_pipeline.py`
+
+### Weekly Workflow
+
+The weekly workflow is:
+
+```text
+provider signals
+  -> trend aggregation
+  -> candidate scoring
+  -> weekly topic ranking
+  -> weekly_topics.csv/json
+  -> editorial calendar expansion
+  -> editorial_calendar.csv/json
+```
+
+Weekly outputs are generated without publishing articles. Every candidate topic is persisted so discovery history is never discarded.
+
+### Daily Workflow
+
+The daily workflow is:
+
+```text
+editorial_calendar.json
+  -> today's scheduled rows
+  -> planning
+  -> generation
+  -> SEO title/meta
+  -> internal links
+  -> FAQ/schema/html
+  -> local publish
+  -> optional local build
+  -> daily report
+```
+
+`run_daily_content.py` reads the existing weekly calendar and generates only today’s scheduled content. It does not regenerate weekly topic selection.
+
+### Sequence Diagram
+
+```text
+Weekly cycle
+  scripts/run_weekly_editorial_cycle.py
+    -> WeeklyTrendIntelligenceEngine.collect_candidates()
+    -> WeeklyTrendIntelligenceEngine.rank_topics()
+    -> WeeklyTrendIntelligenceEngine.generate_editorial_calendar()
+
+Daily cycle
+  python run_daily_content.py
+    -> load editorial_calendar.json
+    -> content_growth_pipeline.generate_topic_package()
+      -> ContentPlanningEngine.create_plan()
+      -> render article + assets
+    -> optional build_site.incremental_build()
+```
+
+### Data Flow
+
+```text
+external/local trend providers
+  -> TopicCandidate records
+  -> CandidateTopicRecord snapshots
+  -> WeeklyTopicRecord shortlist
+  -> EditorialCalendarEntry schedule
+  -> GeneratedPage outputs
+  -> validation reports
+```
+
+### Commands
+
+Weekly intelligence:
+
+```powershell
+python scripts/run_weekly_editorial_cycle.py
+```
+
+Weekly intelligence with overrides:
+
+```powershell
+python scripts/run_weekly_editorial_cycle.py --candidate-limit 200 --top-topics 10 --max-per-source 40
+```
+
+Generate today’s scheduled content only:
+
+```powershell
+python run_daily_content.py
+```
+
+Generate today’s scheduled content and run a local incremental build:
+
+```powershell
+python run_daily_content.py --build
+```
+
+Run end-to-end production validation:
+
+```powershell
+python scripts/validate_production_content_pipeline.py
+```
+
+Run the full test suite:
+
+```powershell
+python -m pytest
+```
+
+### Validation
+
+Production validation checks:
+
+- planning metadata
+- outline presence
+- SEO title
+- meta description
+- canonical URL
+- heading structure
+- internal links
+- related keywords
+- broken links
+- duplicate titles
+- duplicate descriptions
+
+Reports are written in:
+
+- JSON
+- Markdown
+- CSV
+
+### Troubleshooting
+
+- If `build_site.py` fails on missing editorial helper modules, confirm the compatibility adapters still exist.
+- If weekly discovery returns too few topics, increase `EDITORIAL_MAX_PER_SOURCE` or `EDITORIAL_CANDIDATE_LIMIT`.
+- If daily generation returns zero pages, check `data/editorial_calendar.json` and confirm there are rows for today’s date.
+- If validation reports broken links, inspect `suggested_internal_links` for the generated topic and verify the referenced local pages exist.
+
+### Configuration
+
+Editorial automation values now live in config:
+
+- `config/editorial_system.json`
+- `EDITORIAL_CANDIDATE_LIMIT`
+- `EDITORIAL_MAX_PER_SOURCE`
+- `EDITORIAL_TOP_TOPICS`
+- `EDITORIAL_CALENDAR_DAYS`
+- `EDITORIAL_VALIDATION_KEYWORDS`
+
+### Future Roadmap
+
+Planned follow-up work:
+
+- parallel article generation
+- retry/resume support for interrupted runs
+- richer research adapters before drafting
+- stronger article-level validation before local publish
+- clean interfaces for future git push, deploy, sitemap ping, and indexing automation
+
+### Updated Summary
+
+The repository is no longer only a set of separate article scripts. It now has a weekly-to-daily editorial automation layer that can:
+
+- collect and persist candidate topics
+- rank weekly topics
+- expand those topics into an editorial calendar
+- generate only today’s scheduled content
+- validate production output end to end
+
 ## 1. Project overview
 
 Smile AI Review Hub is an AI affiliate and content automation project for `https://smileaireviewhub.com`.

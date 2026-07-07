@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 import json
 import re
 import time
@@ -18,6 +19,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 import build_site  # noqa: E402
+from config import settings  # noqa: E402
 from modules import content_growth_pipeline as pipeline  # noqa: E402
 
 
@@ -100,6 +102,86 @@ VALIDATION_TOPICS = [
             "/comparisons/runway-vs-pika/",
             "/comparisons/synthesia-vs-runway/",
             "/category/video-tools/",
+        ],
+    },
+    {
+        "category": "AI Writing",
+        "topic": "jasper vs copy ai",
+        "slug": "jasper-vs-copy-ai-production-validation",
+        "content_type": "comparison",
+        "related_keywords": [
+            "jasper ai pricing",
+            "copy ai alternatives",
+            "ai copywriting tools",
+        ],
+        "suggested_internal_links": [
+            "/comparisons/jasper-vs-copy-ai/",
+            "/category/writing-tools/",
+            "/comparisons/notion-ai-vs-chatgpt/",
+        ],
+    },
+    {
+        "category": "Automation",
+        "topic": "zapier alternatives for small business",
+        "slug": "zapier-alternatives-for-small-business-production-validation",
+        "content_type": "alternatives",
+        "related_keywords": [
+            "make vs zapier",
+            "zapier pricing",
+            "automation tools for beginners",
+        ],
+        "suggested_internal_links": [
+            "/comparisons/make-vs-zapier/",
+            "/category/automation-tools/",
+            "/zapier-pricing/",
+        ],
+    },
+    {
+        "category": "Email Marketing",
+        "topic": "best newsletter platform for creators",
+        "slug": "best-newsletter-platform-for-creators-production-validation",
+        "content_type": "best list",
+        "related_keywords": [
+            "convertkit review",
+            "creator email marketing",
+            "newsletter software pricing",
+        ],
+        "suggested_internal_links": [
+            "/category/email-marketing-tools/",
+            "/convertkit-review-2026/",
+            "/activecampaign-review/",
+        ],
+    },
+    {
+        "category": "AI Voice",
+        "topic": "best ai voice generator pricing",
+        "slug": "best-ai-voice-generator-pricing-production-validation",
+        "content_type": "pricing guide",
+        "related_keywords": [
+            "elevenlabs pricing",
+            "playht pricing",
+            "ai voice tools",
+        ],
+        "suggested_internal_links": [
+            "/comparisons/elevenlabs-vs-playht/",
+            "/category/ai-voice-tools/",
+            "/comparisons/elevenlabs-vs-murf/",
+        ],
+    },
+    {
+        "category": "AI Research",
+        "topic": "notion ai vs chatgpt for teams",
+        "slug": "notion-ai-vs-chatgpt-for-teams-production-validation",
+        "content_type": "comparison",
+        "related_keywords": [
+            "notion ai review",
+            "chatgpt for teams",
+            "team knowledge base ai",
+        ],
+        "suggested_internal_links": [
+            "/comparisons/notion-ai-vs-chatgpt/",
+            "/comparisons/chatgpt-vs-claude/",
+            "/ai-productivity-tools/",
         ],
     },
 ]
@@ -223,11 +305,12 @@ def duplicate_map(values: dict[str, str]) -> dict[str, list[str]]:
     return {value: slugs for value, slugs in grouped.items() if value and len(slugs) > 1}
 
 
-def write_report(report_dir: Path, report: dict[str, object]) -> tuple[Path, Path]:
+def write_report(report_dir: Path, report: dict[str, object]) -> tuple[Path, Path, Path]:
     report_dir.mkdir(parents=True, exist_ok=True)
     stamp = time.strftime("%Y%m%d-%H%M%S")
     json_path = report_dir / f"production-pipeline-validation-{stamp}.json"
     md_path = report_dir / f"production-pipeline-validation-{stamp}.md"
+    csv_path = report_dir / f"production-pipeline-validation-{stamp}.csv"
     json_path.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
 
     lines = [
@@ -251,7 +334,37 @@ def write_report(report_dir: Path, report: dict[str, object]) -> tuple[Path, Pat
         lines.extend(["", "## Errors"])
         lines.extend([f"- {item}" for item in report["errors"]])
     md_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    return json_path, md_path
+    with csv_path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=[
+                "slug",
+                "topic",
+                "title",
+                "meta_description",
+                "canonical",
+                "missing_metadata_count",
+                "broken_links_count",
+                "h1_count",
+                "h2_count",
+            ],
+        )
+        writer.writeheader()
+        for page in report["pages"]:
+            writer.writerow(
+                {
+                    "slug": page["slug"],
+                    "topic": page["topic"],
+                    "title": page["title"],
+                    "meta_description": page["meta_description"],
+                    "canonical": page["canonical"],
+                    "missing_metadata_count": len(page["missing_metadata"]),
+                    "broken_links_count": len(page["broken_links"]),
+                    "h1_count": page["h1_count"],
+                    "h2_count": page["h2_count"],
+                }
+            )
+    return json_path, md_path, csv_path
 
 
 def main() -> int:
@@ -267,7 +380,8 @@ def main() -> int:
         temp_tracking = temp_data / "content_growth_performance_log.csv"
         temp_trending = temp_data / "trending_topics.json"
 
-        copy_seed_pages(temp_site_output, html_targets_for_links(VALIDATION_TOPICS))
+        validation_topics = VALIDATION_TOPICS[: settings.editorial_validation_keywords]
+        copy_seed_pages(temp_site_output, html_targets_for_links(validation_topics))
 
         generated_pages: list[dict[str, object]] = []
         with ExitStack() as stack:
@@ -282,7 +396,7 @@ def main() -> int:
             stack.enter_context(patch.object(pipeline, "TRENDING_JSON", temp_trending))
             stack.enter_context(patch.object(pipeline, "_CONTENT_PLANNER", None))
 
-            for raw_topic in VALIDATION_TOPICS:
+            for raw_topic in validation_topics:
                 normalized = pipeline.normalize_topic_record(raw_topic)
                 generated_pages.append(pipeline.page_to_dict(pipeline.generate_topic_package(normalized)))
 
@@ -318,8 +432,8 @@ def main() -> int:
             errors.append("duplicate meta descriptions detected across generated pages")
 
         report = {
-            "keywords": [topic["topic"] for topic in VALIDATION_TOPICS],
-            "categories": {topic["topic"]: topic["category"] for topic in VALIDATION_TOPICS},
+            "keywords": [topic["topic"] for topic in validation_topics],
+            "categories": {topic["topic"]: topic["category"] for topic in validation_topics},
             "pages_generated": len(generated_pages),
             "generation_time_seconds": generation_time,
             "build_time_seconds": build_time,
@@ -331,8 +445,8 @@ def main() -> int:
             "pages": [asdict(page) for page in pages],
         }
         report_dir = ROOT / "data" / "content_growth_reports"
-        json_path, md_path = write_report(report_dir, report)
-        print(json.dumps({"report_json": str(json_path), "report_md": str(md_path), **report}, indent=2, ensure_ascii=False))
+        json_path, md_path, csv_path = write_report(report_dir, report)
+        print(json.dumps({"report_json": str(json_path), "report_md": str(md_path), "report_csv": str(csv_path), **report}, indent=2, ensure_ascii=False))
         return 1 if errors else 0
 
 

@@ -102,6 +102,35 @@ class Settings:
             return ""
         return value
 
+    @property
+    def editorial_config(self) -> dict:
+        return load_json_config(BASE_DIR / "config" / "editorial_system.json")
+
+    @property
+    def editorial_candidate_limit(self) -> int:
+        value = os.getenv("EDITORIAL_CANDIDATE_LIMIT") or self.editorial_config.get("candidate_limit", 200)
+        return max(25, min(500, int(value)))
+
+    @property
+    def editorial_max_per_source(self) -> int:
+        value = os.getenv("EDITORIAL_MAX_PER_SOURCE") or self.editorial_config.get("max_per_source", 40)
+        return max(10, min(100, int(value)))
+
+    @property
+    def editorial_top_topics(self) -> int:
+        value = os.getenv("EDITORIAL_TOP_TOPICS") or self.editorial_config.get("top_topics", 10)
+        return max(1, min(50, int(value)))
+
+    @property
+    def editorial_calendar_days(self) -> int:
+        value = os.getenv("EDITORIAL_CALENDAR_DAYS") or self.editorial_config.get("calendar_days", 7)
+        return max(1, min(14, int(value)))
+
+    @property
+    def editorial_validation_keywords(self) -> int:
+        value = os.getenv("EDITORIAL_VALIDATION_KEYWORDS") or self.editorial_config.get("validation_keywords", 10)
+        return max(5, min(30, int(value)))
+
 
 settings = Settings()
 
