@@ -15,6 +15,7 @@ from modules.keyword_intent_engine import KeywordIntentEngine
 from modules.search_intent_analyzer import SearchIntentAnalyzer
 from modules.source_connectors import SourceConnectorFramework
 from modules.topic_cluster_engine import TopicClusterEngine
+from modules.verified_source_acquisition import VerifiedSourceAcquisition
 
 
 UTC = timezone.utc
@@ -178,6 +179,10 @@ class ResearchIntelligencePlatform:
         self.cache_root = self.data_dir / "research_cache"
         self.queue = ResearchEnrichmentQueue(self.data_dir, self.research_config.get("enrichment_queue", {}))
         self.connectors = SourceConnectorFramework(offers_file=self.offers_file, affiliate_links_file=self.affiliate_links_file)
+        self.verified_sources = VerifiedSourceAcquisition(
+            registry_json=self.data_dir / "source_registry.json",
+            registry_csv=self.data_dir / "source_registry.csv",
+        )
         self.snapshot_ingestion = CompetitorSnapshotIngestion(
             json_path=self.data_dir / "competitor_snapshots.json",
             csv_path=self.data_dir / "competitor_snapshots.csv",
@@ -251,6 +256,7 @@ class ResearchIntelligencePlatform:
 
     def evaluate_quality_gate(self, package: ResearchPackage, *, topic: dict[str, Any] | None = None, allow_override: bool | None = None) -> ResearchQualityGateResult:
         gate_config = self.research_config.get("quality_gate", {})
+        source_gate = self.research_config.get("verified_source_gate", {})
         enabled = bool(gate_config.get("enabled", True))
         threshold = float(gate_config.get("threshold", self.research_config.get("min_research_quality_score", 60)))
         override_allowed = bool(
@@ -259,14 +265,17 @@ class ResearchIntelligencePlatform:
             else allow_override
         ) or bool(gate_config.get("allow_override", False))
         score = float(package.quality.get("overall_score", 0))
+        source_gate_passed, source_gate_reasons = self._passes_verified_source_gate(package.sources, source_gate)
         if not enabled:
             return ResearchQualityGateResult(True, score, threshold, False, "passed")
-        if score >= threshold:
+        if score >= threshold and source_gate_passed:
             self.queue.update_status(package.slug, "approved", approved_at=datetime.now(UTC).isoformat())
             return ResearchQualityGateResult(True, score, threshold, False, "passed")
         if override_allowed:
             return ResearchQualityGateResult(True, score, threshold, True, "override_allowed")
         entry = self._queue_entry_for_package(package, topic or {"topic": package.keyword, "slug": package.slug})
+        if source_gate_reasons:
+            entry["reason"] = "; ".join(dict.fromkeys([entry["reason"], *source_gate_reasons]))
         self.queue.enqueue(entry)
         return ResearchQualityGateResult(False, score, threshold, False, "needs_enrichment", queue_entry=entry)
 
@@ -295,6 +304,8 @@ class ResearchIntelligencePlatform:
                     "topic": keyword,
                     "score": package.quality.get("overall_score", 0),
                     "status": final_status,
+                    "source_status": package.sources.get("source_status", "missing"),
+                    "total_verified_source_score": package.quality.get("total_verified_source_score", 0),
                     "missing_information": package.quality.get("missing_information", []),
                 }
             )
@@ -497,6 +508,7 @@ class ResearchIntelligencePlatform:
 
     def _build_sources(self, keyword: str, entities: dict[str, Any]) -> dict[str, Any]:
         connector_rows = self.connectors.collect(keyword, entities)
+        verified_registry = self.verified_sources.acquire(keyword, entities)
         trusted_sources = {
             "official_documentation": connector_rows["official_docs"],
             "pricing_pages": connector_rows["pricing_page"],
@@ -517,6 +529,17 @@ class ResearchIntelligencePlatform:
             "reference_count": verified,
             "estimated_source_count": estimated,
             "missing_source_count": missing,
+            "verified_registry_records": verified_registry.get("registry_records", {}),
+            "verified_sources": verified_registry.get("verified_sources", []),
+            "missing_verified_sources": verified_registry.get("missing_verified_sources", []),
+            "source_confidence": verified_registry.get("source_confidence", 0),
+            "source_status": verified_registry.get("source_status", "missing"),
+            "official_docs_score": verified_registry.get("official_docs_score", 0),
+            "pricing_source_score": verified_registry.get("pricing_source_score", 0),
+            "affiliate_source_score": verified_registry.get("affiliate_source_score", 0),
+            "changelog_source_score": verified_registry.get("changelog_source_score", 0),
+            "competitor_source_score": verified_registry.get("competitor_source_score", 0),
+            "total_verified_source_score": verified_registry.get("total_verified_source_score", 0),
         }
 
     def _build_outline(
@@ -617,12 +640,20 @@ class ResearchIntelligencePlatform:
         faq_coverage = min(100, 20 + sum(len(value) for key, value in faq.items() if isinstance(value, list)) * 4)
         outline_quality = min(100, 30 + len(outline.get("heading_hierarchy", [])) * 10)
         affiliate_readiness = min(100, 25 + int(writing_plan.get("affiliate_value", 0)) // 2)
-        source_quality = min(100, 10 + int(sources.get("reference_count", 0)) * 14 + int(sources.get("estimated_source_count", 0)) * 4)
+        verified_source_quality = int(sources.get("total_verified_source_score", 0))
+        connector_source_quality = min(100, 10 + int(sources.get("reference_count", 0)) * 14 + int(sources.get("estimated_source_count", 0)) * 4)
+        source_quality = round((verified_source_quality + connector_source_quality) / 2, 2)
         competitor_quality = 70 if competitors.get("coverage_status") == "available" else 10
         overall = round((coverage + entity_coverage + faq_coverage + outline_quality + affiliate_readiness + source_quality + competitor_quality) / 7, 2)
         missing: list[str] = []
         if source_quality < 40:
             missing.append("trusted sources are thin")
+        if int(sources.get("official_docs_score", 0)) < 20:
+            missing.append("official sources are insufficiently verified")
+        if int(sources.get("pricing_source_score", 0)) < 20:
+            missing.append("pricing sources need verification")
+        if int(sources.get("affiliate_source_score", 0)) < 10:
+            missing.append("affiliate sources need verification")
         if competitor_quality < 40:
             missing.append("competitor coverage is limited")
         if entity_coverage < 45:
@@ -637,6 +668,14 @@ class ResearchIntelligencePlatform:
             "outline_quality": outline_quality,
             "affiliate_readiness": affiliate_readiness,
             "source_quality": source_quality,
+            "official_docs_score": sources.get("official_docs_score", 0),
+            "pricing_source_score": sources.get("pricing_source_score", 0),
+            "affiliate_source_score": sources.get("affiliate_source_score", 0),
+            "changelog_source_score": sources.get("changelog_source_score", 0),
+            "competitor_source_score": sources.get("competitor_source_score", 0),
+            "total_verified_source_score": sources.get("total_verified_source_score", 0),
+            "source_confidence": sources.get("source_confidence", 0),
+            "source_status": sources.get("source_status", "missing"),
             "competitor_quality": competitor_quality,
             "missing_information": missing,
             "status": "ready" if overall >= 60 else "needs enrichment",
@@ -709,6 +748,22 @@ class ResearchIntelligencePlatform:
         }
         return merged
 
+    def _passes_verified_source_gate(self, sources: dict[str, Any], gate_config: dict[str, Any]) -> tuple[bool, list[str]]:
+        if not bool(gate_config.get("enabled", True)):
+            return True, []
+        thresholds = {
+            "official_docs_score": float(gate_config.get("minimum_official_docs_score", 20)),
+            "pricing_source_score": float(gate_config.get("minimum_pricing_source_score", 20)),
+            "affiliate_source_score": float(gate_config.get("minimum_affiliate_source_score", 10)),
+            "total_verified_source_score": float(gate_config.get("minimum_total_score", 35)),
+        }
+        failures: list[str] = []
+        for key, threshold in thresholds.items():
+            actual = float(sources.get(key, 0))
+            if actual < threshold:
+                failures.append(f"{key} {actual} below {threshold}")
+        return not failures, failures
+
     def _entity_coverage_score(self, entities: dict[str, Any]) -> int:
         entity_types = (
             "ai_tools",
@@ -756,6 +811,7 @@ class ResearchIntelligencePlatform:
             "topic": str(topic.get("topic") or package.keyword),
             "slug": str(topic.get("slug") or package.slug),
             "missing_sources": package.sources.get("missing_source_count", 0),
+            "missing_verified_sources": package.sources.get("missing_verified_sources", []),
             "missing_competitors": 0 if package.competitors.get("coverage_status") == "available" else 1,
             "missing_entities": len(package.entities.get("missing_entity_types", [])),
             "missing_affiliate_data": 0 if _coerce_list(package.entities.get("affiliate_networks")) else 1,
@@ -764,6 +820,8 @@ class ResearchIntelligencePlatform:
             "created_at": datetime.now(UTC).isoformat(),
             "status": str(queue_config.get("default_status", "pending")),
             "score": score,
+            "source_status": package.sources.get("source_status", "missing"),
+            "source_confidence": package.sources.get("source_confidence", 0),
         }
 
     def _write_enrichment_report(self, rows: list[dict[str, Any]]) -> None:
@@ -771,7 +829,10 @@ class ResearchIntelligencePlatform:
         _write_csv(self.data_dir / "research_enrichment_report.csv", rows)
         lines = ["# Research Enrichment Report", "", f"- Topics processed: {len(rows)}", ""]
         for row in rows[:20]:
-            lines.append(f"- `{row['slug']}`: score {row['score']} -> {row['status']}")
+            lines.append(
+                f"- `{row['slug']}`: score {row['score']} -> {row['status']} "
+                f"(verified sources {row.get('total_verified_source_score', 0)}, {row.get('source_status', 'missing')})"
+            )
         _write_md(self.data_dir / "research_enrichment_report.md", lines)
 
     def _find_offer_row(self, brand: str) -> dict[str, Any]:
@@ -825,6 +886,12 @@ class ResearchIntelligencePlatform:
                     "outline_quality": package.quality.get("outline_quality", 0),
                     "affiliate_readiness": package.quality.get("affiliate_readiness", 0),
                     "source_quality": package.quality.get("source_quality", 0),
+                    "official_docs_score": package.quality.get("official_docs_score", 0),
+                    "pricing_source_score": package.quality.get("pricing_source_score", 0),
+                    "affiliate_source_score": package.quality.get("affiliate_source_score", 0),
+                    "total_verified_source_score": package.quality.get("total_verified_source_score", 0),
+                    "source_confidence": package.quality.get("source_confidence", 0),
+                    "source_status": package.quality.get("source_status", ""),
                     "status": package.quality.get("status", ""),
                     "missing_information": package.quality.get("missing_information", []),
                     "cache_hits": package.cache_hits,

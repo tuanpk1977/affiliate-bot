@@ -511,6 +511,8 @@ def render_article(
         <li><strong>Research quality score:</strong> {html.escape(str(research_quality.get("overall_score") or 0))}</li>
         <li><strong>Quality gate:</strong> {html.escape(str(research.get("quality_gate", {}).get("status") or "unknown"))}</li>
         <li><strong>Source quality:</strong> {html.escape(str(research_quality.get("source_quality") or 0))}</li>
+        <li><strong>Verified source score:</strong> {html.escape(str(research_quality.get("total_verified_source_score") or 0))}</li>
+        <li><strong>Verified source status:</strong> {html.escape(str(research_quality.get("source_status") or "missing"))}</li>
         <li><strong>Entity coverage:</strong> {html.escape(str(research_quality.get("entity_coverage") or 0))}</li>
         <li><strong>Outline quality:</strong> {html.escape(str(research_quality.get("outline_quality") or 0))}</li>
         <li><strong>Products detected:</strong> {html.escape(', '.join(coerce_text_list(research_entities.get("products"))) or topic_name)}</li>

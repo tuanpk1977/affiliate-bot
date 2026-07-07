@@ -47,6 +47,13 @@
       "threshold": 60,
       "allow_override": false
     },
+    "verified_source_gate": {
+      "enabled": true,
+      "minimum_official_docs_score": 20,
+      "minimum_pricing_source_score": 20,
+      "minimum_affiliate_source_score": 10,
+      "minimum_total_score": 35
+    },
     "enrichment_queue": {
       "default_status": "pending",
       "high_priority_below_score": 45,

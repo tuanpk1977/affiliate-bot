@@ -288,12 +288,15 @@ Monday cycle
   -> weekly trend discovery
   -> top 10 weekly topics
   -> research packages
+  -> verified source acquisition from source_registry
+  -> verified source gate
   -> quality gate
   -> schedule only approved topics
 
 Tuesday-Sunday cycle
   -> continue approved deep-dive articles
   -> queue failed topics for enrichment
+  -> run verified source acquisition first
   -> run offline enrichment and recheck quality
 ```
 
@@ -356,6 +359,12 @@ Run research enrichment:
 python scripts/run_research_enrichment.py
 ```
 
+Normalize the verified source registry and generate source reports:
+
+```powershell
+python scripts/import_verified_sources.py
+```
+
 Run the full test suite:
 
 ```powershell
@@ -363,6 +372,13 @@ python -m pytest
 ```
 
 ### Validation
+
+### Autonomous Content Agency
+
+- `data/source_registry.json` and `data/source_registry.csv` are the curated local registry for official docs, pricing pages, affiliate program pages, release notes, competitor articles, API docs, and product pages.
+- `modules/verified_source_acquisition.py` matches local entity signals against the registry and attaches `verified_sources`, `missing_verified_sources`, `source_confidence`, `source_status`, and per-source trust scores to each research package.
+- `ResearchIntelligencePlatform.evaluate_quality_gate()` now checks both research quality and the verified source gate configured in `config/editorial_system.json`.
+- `scripts/run_research_enrichment.py` reuses the same verified-source-first flow before retrying queued topics.
 
 Production validation checks:
 

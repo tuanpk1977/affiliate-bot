@@ -36,6 +36,46 @@ class ResearchIntelligenceTests(unittest.TestCase):
                 ),
                 encoding="utf-8",
             )
+            (data_dir / "source_registry.json").write_text(
+                json.dumps(
+                    [
+                        {
+                            "brand": "Cursor",
+                            "slug": "cursor",
+                            "source_type": "official_docs",
+                            "source_name": "Cursor docs",
+                            "source_url": "https://cursor.com/docs",
+                            "source_status": "verified",
+                            "confidence": 92,
+                            "notes": "fixture registry",
+                            "last_verified_at": "2026-07-07",
+                        },
+                        {
+                            "brand": "Cursor",
+                            "slug": "cursor",
+                            "source_type": "pricing_page",
+                            "source_name": "Cursor pricing",
+                            "source_url": "https://cursor.com/pricing",
+                            "source_status": "verified",
+                            "confidence": 92,
+                            "notes": "fixture registry",
+                            "last_verified_at": "2026-07-07",
+                        },
+                        {
+                            "brand": "Cursor",
+                            "slug": "cursor",
+                            "source_type": "affiliate_program_page",
+                            "source_name": "Cursor affiliate",
+                            "source_url": "https://cursor.com/affiliates",
+                            "source_status": "verified",
+                            "confidence": 88,
+                            "notes": "fixture registry",
+                            "last_verified_at": "2026-07-07",
+                        },
+                    ]
+                ),
+                encoding="utf-8",
+            )
 
             engine = ResearchIntelligencePlatform(
                 data_dir=data_dir,
@@ -67,6 +107,8 @@ class ResearchIntelligenceTests(unittest.TestCase):
             self.assertIn("Cursor", package.entities["products"])
             self.assertTrue(package.sources["reference_count"] >= 1)
             self.assertIn("overall_score", package.quality)
+            self.assertEqual(package.sources["source_status"], "verified")
+            self.assertGreaterEqual(package.quality["total_verified_source_score"], 35)
 
             package_dir = Path(package.package_dir)
             self.assertTrue((package_dir / "keyword.json").exists())
@@ -109,6 +151,35 @@ class ResearchIntelligenceTests(unittest.TestCase):
                 ),
                 encoding="utf-8",
             )
+            (data_dir / "source_registry.json").write_text(
+                json.dumps(
+                    [
+                        {
+                            "brand": "Cursor",
+                            "slug": "cursor",
+                            "source_type": "official_docs",
+                            "source_name": "Cursor docs",
+                            "source_url": "https://cursor.com/docs",
+                            "source_status": "verified",
+                            "confidence": 92,
+                            "notes": "fixture registry",
+                            "last_verified_at": "2026-07-07",
+                        },
+                        {
+                            "brand": "Cursor",
+                            "slug": "cursor",
+                            "source_type": "pricing_page",
+                            "source_name": "Cursor pricing",
+                            "source_url": "https://cursor.com/pricing",
+                            "source_status": "verified",
+                            "confidence": 92,
+                            "notes": "fixture registry",
+                            "last_verified_at": "2026-07-07",
+                        },
+                    ]
+                ),
+                encoding="utf-8",
+            )
             engine = ResearchIntelligencePlatform(
                 data_dir=data_dir,
                 offers_file=offers_file,
@@ -134,7 +205,18 @@ class ResearchIntelligenceTests(unittest.TestCase):
                 data_dir=data_dir,
                 offers_file=offers_file,
                 affiliate_links_file=affiliate_links_file,
-                config={"research_intelligence": {"quality_gate": {"threshold": 90, "enabled": True, "allow_override": False}}},
+                config={
+                    "research_intelligence": {
+                        "quality_gate": {"threshold": 90, "enabled": True, "allow_override": False},
+                        "verified_source_gate": {
+                            "enabled": True,
+                            "minimum_official_docs_score": 20,
+                            "minimum_pricing_source_score": 20,
+                            "minimum_affiliate_source_score": 10,
+                            "minimum_total_score": 35,
+                        },
+                    }
+                },
             )
             package = engine.build_research_package({"topic": "unknown ai workflow", "slug": "unknown-ai-workflow"})
             gate = engine.evaluate_quality_gate(package, topic={"topic": package.keyword, "slug": package.slug})
@@ -143,6 +225,56 @@ class ResearchIntelligenceTests(unittest.TestCase):
             self.assertEqual(gate.status, "needs_enrichment")
             queue = json.loads((data_dir / "research_enrichment_queue.json").read_text(encoding="utf-8"))
             self.assertEqual(queue[0]["slug"], "unknown-ai-workflow")
+            self.assertIn("missing_verified_sources", queue[0])
+
+    def test_verified_source_gate_blocks_when_registry_is_missing(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            offers_file = data_dir / "offers.csv"
+            affiliate_links_file = data_dir / "affiliate_links.csv"
+            offers_file.parent.mkdir(parents=True, exist_ok=True)
+            offers_file.write_text(
+                "\n".join(
+                    [
+                        "offer_id,brand_name,website,affiliate_url,niche,commission_type,commission_rate,flat_commission,cookie_days,recurring,traffic_policy,direct_linking_allowed,brand_bidding_allowed,vendor_trust,buyer_intent,notes",
+                        "cursor,Cursor,https://cursor.com,https://cursor.com/aff,AI Coding,recurring,25,0,30,True,allowed,False,False,88,84,fixture",
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            affiliate_links_file.write_text(
+                "\n".join(
+                    [
+                        "tool_slug,tool_name,brand,slug,official_url,affiliate_url,affiliate_status,status,notes,commission_note,network,approved",
+                        "cursor,Cursor,Cursor,cursor,https://cursor.com,https://cursor.com/aff,active,active,fixture,25% recurring,PartnerStack,True",
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            engine = ResearchIntelligencePlatform(
+                data_dir=data_dir,
+                offers_file=offers_file,
+                affiliate_links_file=affiliate_links_file,
+                config={
+                    "research_intelligence": {
+                        "quality_gate": {"threshold": 0, "enabled": True, "allow_override": False},
+                        "verified_source_gate": {
+                            "enabled": True,
+                            "minimum_official_docs_score": 20,
+                            "minimum_pricing_source_score": 20,
+                            "minimum_affiliate_source_score": 10,
+                            "minimum_total_score": 35,
+                        },
+                    }
+                },
+            )
+
+            package = engine.build_research_package({"topic": "cursor pricing", "slug": "cursor-pricing"})
+            gate = engine.evaluate_quality_gate(package, topic={"topic": package.keyword, "slug": package.slug})
+
+            self.assertFalse(gate.passed)
+            self.assertEqual(gate.status, "needs_enrichment")
 
     def test_enrichment_runner_updates_status_when_local_snapshot_improves_quality(self) -> None:
         with TemporaryDirectory() as temp_dir:
@@ -173,7 +305,18 @@ class ResearchIntelligenceTests(unittest.TestCase):
                 data_dir=data_dir,
                 offers_file=offers_file,
                 affiliate_links_file=affiliate_links_file,
-                config={"research_intelligence": {"quality_gate": {"threshold": 60, "enabled": True, "allow_override": False}}},
+                config={
+                    "research_intelligence": {
+                        "quality_gate": {"threshold": 60, "enabled": True, "allow_override": False},
+                        "verified_source_gate": {
+                            "enabled": True,
+                            "minimum_official_docs_score": 20,
+                            "minimum_pricing_source_score": 20,
+                            "minimum_affiliate_source_score": 10,
+                            "minimum_total_score": 35,
+                        },
+                    }
+                },
             )
             topic = {"topic": "cursor pricing", "slug": "cursor-pricing"}
             package = engine.build_research_package(topic)
@@ -201,11 +344,62 @@ class ResearchIntelligenceTests(unittest.TestCase):
                 ),
                 encoding="utf-8",
             )
+            (data_dir / "source_registry.json").write_text(
+                json.dumps(
+                    [
+                        {
+                            "brand": "Cursor",
+                            "slug": "cursor",
+                            "source_type": "official_docs",
+                            "source_name": "Cursor docs",
+                            "source_url": "https://cursor.com/docs",
+                            "source_status": "verified",
+                            "confidence": 92,
+                            "notes": "fixture registry",
+                            "last_verified_at": "2026-07-07",
+                        },
+                        {
+                            "brand": "Cursor",
+                            "slug": "cursor",
+                            "source_type": "pricing_page",
+                            "source_name": "Cursor pricing",
+                            "source_url": "https://cursor.com/pricing",
+                            "source_status": "verified",
+                            "confidence": 92,
+                            "notes": "fixture registry",
+                            "last_verified_at": "2026-07-07",
+                        },
+                        {
+                            "brand": "Cursor",
+                            "slug": "cursor",
+                            "source_type": "affiliate_program_page",
+                            "source_name": "Cursor affiliate",
+                            "source_url": "https://cursor.com/affiliates",
+                            "source_status": "verified",
+                            "confidence": 88,
+                            "notes": "fixture registry",
+                            "last_verified_at": "2026-07-07",
+                        },
+                    ]
+                ),
+                encoding="utf-8",
+            )
             engine = ResearchIntelligencePlatform(
                 data_dir=data_dir,
                 offers_file=offers_file,
                 affiliate_links_file=affiliate_links_file,
-                config={"research_intelligence": {"quality_gate": {"threshold": 60, "enabled": True, "allow_override": False}}},
+                config={
+                    "research_intelligence": {
+                        "quality_gate": {"threshold": 60, "enabled": True, "allow_override": False},
+                        "verified_source_gate": {
+                            "enabled": True,
+                            "minimum_official_docs_score": 20,
+                            "minimum_pricing_source_score": 20,
+                            "minimum_affiliate_source_score": 10,
+                            "minimum_total_score": 35,
+                        },
+                    }
+                },
             )
             result = engine.run_enrichment()
 

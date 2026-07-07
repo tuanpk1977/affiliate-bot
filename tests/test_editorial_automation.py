@@ -57,9 +57,12 @@ class EditorialAutomationTests(unittest.TestCase):
                 affiliate_links_file=data_dir / "affiliate_links.csv",
                 editorial_config={
                     "business_intelligence": {"evergreen": {"min_word_count": 100, "min_readability_score": 10}},
-                    "research_intelligence": {"quality_gate": {"threshold": 0, "enabled": True, "allow_override": False}},
+                    "research_intelligence": {
+                        "quality_gate": {"threshold": 0, "enabled": True, "allow_override": False},
+                        "verified_source_gate": {"enabled": False},
+                    },
                 },
-                editorial_research_config={"quality_gate": {"threshold": 0, "enabled": True, "allow_override": False}},
+                editorial_research_config={"quality_gate": {"threshold": 0, "enabled": True, "allow_override": False}, "verified_source_gate": {"enabled": False}},
                 editorial_candidate_limit=200,
                 editorial_max_per_source=40,
                 editorial_top_topics=10,
@@ -128,9 +131,12 @@ class EditorialAutomationTests(unittest.TestCase):
                 affiliate_links_file=data_dir / "affiliate_links.csv",
                 editorial_config={
                     "business_intelligence": {"evergreen": {"min_word_count": 100, "min_readability_score": 10}},
-                    "research_intelligence": {"quality_gate": {"threshold": 0, "enabled": True, "allow_override": False}},
+                    "research_intelligence": {
+                        "quality_gate": {"threshold": 0, "enabled": True, "allow_override": False},
+                        "verified_source_gate": {"enabled": False},
+                    },
                 },
-                editorial_research_config={"quality_gate": {"threshold": 0, "enabled": True, "allow_override": False}},
+                editorial_research_config={"quality_gate": {"threshold": 0, "enabled": True, "allow_override": False}, "verified_source_gate": {"enabled": False}},
                 editorial_candidate_limit=200,
                 editorial_max_per_source=40,
                 editorial_top_topics=10,
@@ -138,6 +144,7 @@ class EditorialAutomationTests(unittest.TestCase):
             )
             with ExitStack() as stack:
                 stack.enter_context(patch.object(editorial_automation, "settings", fake_settings))
+                stack.enter_context(patch.object(pipeline, "settings", fake_settings))
                 stack.enter_context(patch.object(pipeline, "ROOT", root))
                 stack.enter_context(patch.object(pipeline, "DATA_DIR", data_dir))
                 stack.enter_context(patch.object(pipeline, "PUBLISHED_DIR", data_dir / "published_static_pages"))
@@ -176,11 +183,13 @@ class EditorialAutomationTests(unittest.TestCase):
                     "research_intelligence": {
                         "quality_gate": {"threshold": 0, "enabled": True, "allow_override": False},
                         "auto_refresh_weekly_on_monday": True,
+                        "verified_source_gate": {"enabled": False},
                     },
                 },
                 editorial_research_config={
                     "quality_gate": {"threshold": 0, "enabled": True, "allow_override": False},
                     "auto_refresh_weekly_on_monday": True,
+                    "verified_source_gate": {"enabled": False},
                 },
                 editorial_candidate_limit=200,
                 editorial_max_per_source=40,
@@ -207,6 +216,7 @@ class EditorialAutomationTests(unittest.TestCase):
             ]
             with ExitStack() as stack:
                 stack.enter_context(patch.object(editorial_automation, "settings", fake_settings))
+                stack.enter_context(patch.object(pipeline, "settings", fake_settings))
                 stack.enter_context(patch.object(pipeline, "ROOT", root))
                 stack.enter_context(patch.object(pipeline, "DATA_DIR", data_dir))
                 stack.enter_context(patch.object(pipeline, "PUBLISHED_DIR", data_dir / "published_static_pages"))

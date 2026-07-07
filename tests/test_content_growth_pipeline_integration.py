@@ -78,7 +78,12 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
                     site_output_dir=site_output,
                     offers_file=data_dir / "offers.csv",
                     affiliate_links_file=data_dir / "affiliate_links.csv",
-                    config={"research_intelligence": {"quality_gate": {"threshold": 0, "enabled": True, "allow_override": False}}},
+                    config={
+                        "research_intelligence": {
+                            "quality_gate": {"threshold": 0, "enabled": True, "allow_override": False},
+                            "verified_source_gate": {"enabled": False},
+                        }
+                    },
                 )
                 stack.enter_context(patch.object(pipeline, "get_research_platform", return_value=research_platform))
 
@@ -179,7 +184,12 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
                     site_output_dir=site_output,
                     offers_file=data_dir / "offers.csv",
                     affiliate_links_file=data_dir / "affiliate_links.csv",
-                    config={"research_intelligence": {"quality_gate": {"threshold": 95, "enabled": True, "allow_override": False}}},
+                    config={
+                        "research_intelligence": {
+                            "quality_gate": {"threshold": 95, "enabled": True, "allow_override": False},
+                            "verified_source_gate": {"enabled": False},
+                        }
+                    },
                 )
                 stack.enter_context(patch.object(pipeline, "get_research_platform", return_value=research_platform))
                 with self.assertRaises(RuntimeError):
