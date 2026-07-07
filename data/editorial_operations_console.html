@@ -10,13 +10,29 @@
     .hero { background: #17324d; color: #fef8ee; border-radius: 18px; padding: 24px; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin: 18px 0 26px; }
     .card { background: #fff; border: 1px solid #e7dac6; border-radius: 16px; padding: 18px; box-shadow: 0 8px 28px rgba(23, 50, 77, 0.08); }
-    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 18px; overflow: hidden; }
-    th, td { border-bottom: 1px solid #eee4d3; padding: 14px 12px; vertical-align: top; text-align: left; }
-    th { background: #f5eee1; }
+    .draft-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 18px; }
+    .draft-card { background: #fff; border: 1px solid #e7dac6; border-radius: 18px; padding: 20px; box-shadow: 0 8px 28px rgba(23, 50, 77, 0.08); }
+    .status-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 14px; }
+    .badge { display: inline-block; padding: 6px 10px; border-radius: 999px; font-size: 13px; font-weight: 700; }
+    .badge.blocked { background: #fee2e2; color: #991b1b; }
+    .badge.waiting { background: #fef3c7; color: #92400e; }
+    .badge.approved { background: #dcfce7; color: #166534; }
+    .badge.published { background: #dbeafe; color: #1d4ed8; }
+    .button-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 16px; }
+    .button { display: inline-block; padding: 10px 14px; border-radius: 10px; text-decoration: none; font-weight: 700; border: 1px solid #d9c9b2; background: #fcfaf6; color: #17324d; }
+    .button.primary { background: #17324d; color: #fff; border-color: #17324d; }
+    .button.success { background: #dff7e6; color: #166534; border-color: #b6e6c3; }
+    .button.warn { background: #fff1c2; color: #92400e; border-color: #f1da89; }
+    .button.danger { background: #fee2e2; color: #991b1b; border-color: #f5b6b6; }
+    .button.disabled { pointer-events: none; opacity: 0.45; }
+    .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; }
+    .stat { background: #faf6ef; border: 1px solid #eee4d3; border-radius: 12px; padding: 10px; }
+    .stat strong { display: block; margin-bottom: 4px; }
     code { background: #f3ebde; padding: 2px 6px; border-radius: 6px; }
-    a { color: #0f5f63; text-decoration: none; margin-right: 8px; display: inline-block; margin-bottom: 6px; }
+    a { color: #0f5f63; text-decoration: none; }
     .panel { margin-top: 20px; }
-    @media (max-width: 900px) { table, thead, tbody, tr, td, th { font-size: 14px; } }
+    .small { color: #6b5d4a; font-size: 14px; }
+    @media (max-width: 900px) { .stats { grid-template-columns: 1fr; } .draft-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -37,43 +53,32 @@
       <p>If approved but not published: <code>python scripts/editorial_console.py --publish best-ai-productivity-software</code></p>
       <p>To refresh the console only: <code>python scripts/editorial_console.py --build</code></p>
     </section>
+    <section class="card panel">
+      <h2>Console Actions</h2>
+      <div class="button-row">
+        <a class="button primary" href="../site_output/index.html">Preview Website</a>
+        <a class="button success" href="editorial_console_actions/publish-all-approved.cmd">Publish All Approved</a>
+        <a class="button warn" href="editorial_console_actions/rebuild-console.cmd">Rebuild Console</a>
+      </div>
+      <p class="small">Publish All Approved only runs for rows already in <code>approved_for_publish</code>. It never auto-approves drafts.</p>
+    </section>
     <section class="panel">
-      <table>
-        <thead>
-          <tr>
-            <th>Draft</th>
-            <th>Status</th>
-            <th>Research</th>
-            <th>AI Review</th>
-            <th>Human Approval</th>
-            <th>Publish Gate</th>
-            <th>Words</th>
-            <th>Last Updated</th>
-            <th>Open Files</th>
-            <th>Next Command</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr>
-              <td><strong>best ai productivity software 2026: Pricing, Pros, Cons</strong><br><code>best-ai-productivity-software</code></td>
-              <td>blocked</td>
-              <td>passed</td>
-              <td>needs_human_review</td>
-              <td>needs_human_review</td>
-              <td>blocked</td>
-              <td>3418</td>
-              <td>2026-07-07T11:51:48.189145+00:00</td>
-              <td>
-                <a href="production_article_drafts/best-ai-productivity-software/article.md">article.md</a>
-                <a href="production_article_drafts/best-ai-productivity-software/index.html">index.html</a>
-                <a href="production_article_drafts/best-ai-productivity-software/metadata.json">metadata.json</a>
-                <a href="production_article_drafts/best-ai-productivity-software/review_summary.md">review_summary.md</a>
-                <a href="production_article_drafts/best-ai-productivity-software/publish_readiness_report.md">publish_readiness_report.md</a>
-              </td>
-              <td><code>python scripts/editorial_console.py --approve best-ai-productivity-software</code></td>
-            </tr>
-            </tbody>
-      </table>
+      <div class="draft-grid">
+        <article class="draft-card">
+          <p class="small">Slug</p>
+          <h2>best ai productivity software 2026: Pricing, Pros, Cons</h2>
+          <p><code>best-ai-productivity-software</code></p>
+          <div class="status-row"><span class="badge blocked">Overall: blocked</span><span class="badge approved">Research: passed</span><span class="badge waiting">AI Review: needs_human_review</span><span class="badge waiting">Human: needs_human_review</span><span class="badge blocked">Publish Gate: blocked</span></div>
+          <div class="button-row"><a class="button" href="production_article_drafts/best-ai-productivity-software/article.md">Open Draft</a><a class="button" href="production_article_drafts/best-ai-productivity-software/index.html">Open HTML Preview</a><a class="button" href="production_article_drafts/best-ai-productivity-software/review_summary.md">Open Review Summary</a><a class="button success" href="editorial_console_actions/approve-best-ai-productivity-software.cmd">Approve</a><a class="button danger" href="editorial_console_actions/reject-best-ai-productivity-software.cmd">Reject</a><span class="button primary disabled">Publish</span></div>
+          <div class="button-row">
+            <a class="button warn" href="production_article_drafts/best-ai-productivity-software/index.html">Preview Website</a>
+            <a class="button" href="production_article_drafts/best-ai-productivity-software/metadata.json">Open Metadata</a>
+            <a class="button" href="production_article_drafts/best-ai-productivity-software/publish_readiness_report.md">Open Publish Report</a>
+          </div>
+          <div class="stats"><div class="stat"><strong>Word Count</strong><span>3418</span></div><div class="stat"><strong>SEO Score</strong><span>100.0</span></div><div class="stat"><strong>Reading Time</strong><span>16 min</span></div><div class="stat"><strong>Internal Links</strong><span>13</span></div><div class="stat"><strong>External Links</strong><span>5</span></div><div class="stat"><strong>Affiliate Links</strong><span>1</span></div><div class="stat"><strong>Featured Image</strong><span>prompt_ready</span></div><div class="stat"><strong>Schema Status</strong><span>present</span></div><div class="stat"><strong>Meta Description</strong><span>Independent best ai productivity software guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice.</span></div><div class="stat"><strong>OG Image</strong><span>https://smileaireviewhub.com/assets/og/site.svg</span></div><div class="stat"><strong>Canonical URL</strong><span>https://smileaireviewhub.com/best-ai-productivity-software/</span></div><div class="stat"><strong>Last Updated</strong><span>2026-07-07T11:51:48.189145+00:00</span></div></div>
+          <p class="small">Next command: <code>python scripts/editorial_console.py --approve best-ai-productivity-software</code></p>
+        </article>
+        </div>
     </section>
   </main>
 </body>

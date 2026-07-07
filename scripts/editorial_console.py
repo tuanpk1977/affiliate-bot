@@ -20,6 +20,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--reject", metavar="SLUG", help="Reject one slug for human review.")
     parser.add_argument("--reason", default="", help="Reason to store when rejecting a slug.")
     parser.add_argument("--publish", metavar="SLUG", help="Publish one locally approved slug to local output only.")
+    parser.add_argument("--publish-all", action="store_true", help="Publish all slugs already approved for local publish.")
     parser.add_argument("--approver", default="editor", help="Name to record for approval or rejection actions.")
     return parser
 
@@ -47,7 +48,11 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(console.publish_slug(args.publish), indent=2, ensure_ascii=False))
         return 0
 
-    if args.build or not any((args.list, args.approve, args.reject, args.publish)):
+    if args.publish_all:
+        print(json.dumps(console.publish_all_approved(), indent=2, ensure_ascii=False))
+        return 0
+
+    if args.build or not any((args.list, args.approve, args.reject, args.publish, args.publish_all)):
         print(json.dumps(console.rebuild_outputs(), indent=2, ensure_ascii=False))
         return 0
 

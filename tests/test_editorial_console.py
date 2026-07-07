@@ -22,11 +22,27 @@ def _seed_console_state(root: Path) -> EditorialOperationsConsole:
     draft_dir.mkdir(parents=True, exist_ok=True)
     (draft_dir / "article.md").write_text("# Draft\n", encoding="utf-8")
     (draft_dir / "index.html").write_text(
-        "<html><body><h2>Affiliate disclosure</h2><p>We may earn a commission.</p></body></html>",
+        """
+        <html>
+          <head>
+            <meta name="description" content="Independent best ai productivity software guide with pricing checks.">
+            <meta property="og:image" content="https://example.com/assets/og/site.svg">
+            <link rel="canonical" href="https://example.com/best-ai-productivity-software/">
+            <script type="application/ld+json">{"@context":"https://schema.org"}</script>
+          </head>
+          <body>
+            <h2>Affiliate disclosure</h2>
+            <p>We may earn a commission.</p>
+            <a href="/reviews/">Reviews</a>
+            <a href="https://notion.com/pricing?ref=affiliate">Pricing</a>
+          </body>
+        </html>
+        """,
         encoding="utf-8",
     )
     (draft_dir / "review_summary.md").write_text("# Review Summary\n", encoding="utf-8")
     (draft_dir / "publish_readiness_report.md").write_text("# Publish Readiness Report\n", encoding="utf-8")
+    (draft_dir / "featured_image_prompt.txt").write_text("hero prompt\n", encoding="utf-8")
 
     review = {
         "slug": slug,
@@ -146,6 +162,10 @@ class EditorialOperationsConsoleTests(unittest.TestCase):
             self.assertTrue((root / "data" / "editorial_operations_console.json").exists())
             self.assertTrue((root / "data" / "editorial_operations_console.csv").exists())
             self.assertTrue((root / "data" / "editorial_operations_console.html").exists())
+            self.assertTrue((root / "data" / "editorial_console_actions" / "approve-best-ai-productivity-software.cmd").exists())
+            self.assertFalse(payload["items"][0]["publish_enabled"])
+            self.assertEqual(payload["items"][0]["stats"]["schema_status"], "present")
+            self.assertEqual(payload["items"][0]["stats"]["affiliate_links"], 1)
 
     def test_publish_queue_transition_to_published_local(self) -> None:
         with TemporaryDirectory() as temp_dir:
@@ -158,6 +178,17 @@ class EditorialOperationsConsoleTests(unittest.TestCase):
             self.assertEqual(result["publish_gate"]["status"], "published_local")
             self.assertTrue((root / "data" / "published_static_pages" / "best-ai-productivity-software" / "index.html").exists())
             self.assertTrue((root / "site_output" / "best-ai-productivity-software" / "index.html").exists())
+
+    def test_publish_all_approved_only_publishes_approved_rows(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            console = _seed_console_state(root)
+            console.approve_slug("best-ai-productivity-software", approver="editor")
+
+            result = console.publish_all_approved()
+
+            self.assertEqual(result["approved_count"], 1)
+            self.assertEqual(result["published"][0]["publish_gate"]["status"], "published_local")
 
 
 if __name__ == "__main__":

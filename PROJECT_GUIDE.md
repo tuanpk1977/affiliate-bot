@@ -1586,6 +1586,15 @@ Use the local operator console to review and move drafts without deploy, push, o
   - `data/production_article_drafts/<slug>/article.md`
 - Open the operator dashboard:
   - `data/editorial_operations_console.html`
+- Use the built-in console action buttons:
+  - `Open Draft`
+  - `Open HTML Preview`
+  - `Open Review Summary`
+  - `Approve`
+  - `Reject`
+  - `Publish`
+  - `Publish All Approved`
+  - `Preview Website`
 
 Commands:
 
@@ -1595,6 +1604,7 @@ python scripts/editorial_console.py --build
 python scripts/editorial_console.py --approve best-ai-productivity-software
 python scripts/editorial_console.py --reject best-ai-productivity-software --reason "Needs pricing fix"
 python scripts/editorial_console.py --publish best-ai-productivity-software
+python scripts/editorial_console.py --publish-all
 ```
 
 Operator rules:
@@ -1605,6 +1615,12 @@ Operator rules:
 - Informational and tutorial articles can move forward automatically only when every gate passes.
 - Do not publish failed, rejected, blocked, or `needs_enrichment` topics.
 - `--publish` writes only to local outputs and updates the publish queue. It does not deploy, push, or submit IndexNow.
+- `--publish-all` publishes only rows already in `approved_for_publish`. It never approves drafts automatically.
+- The console shows status colors:
+  - red = blocked
+  - yellow = waiting
+  - green = approved
+  - blue = published
 
 Monday workflow:
 
