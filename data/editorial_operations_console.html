@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Editorial Operations Console</title>
+  <style>
+    body { margin: 0; font-family: Georgia, 'Segoe UI', serif; background: linear-gradient(180deg, #f4efe6, #fffdfa); color: #201a14; }
+    .wrap { max-width: 1320px; margin: 0 auto; padding: 28px 20px 48px; }
+    .hero { background: #17324d; color: #fef8ee; border-radius: 18px; padding: 24px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin: 18px 0 26px; }
+    .card { background: #fff; border: 1px solid #e7dac6; border-radius: 16px; padding: 18px; box-shadow: 0 8px 28px rgba(23, 50, 77, 0.08); }
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 18px; overflow: hidden; }
+    th, td { border-bottom: 1px solid #eee4d3; padding: 14px 12px; vertical-align: top; text-align: left; }
+    th { background: #f5eee1; }
+    code { background: #f3ebde; padding: 2px 6px; border-radius: 6px; }
+    a { color: #0f5f63; text-decoration: none; margin-right: 8px; display: inline-block; margin-bottom: 6px; }
+    .panel { margin-top: 20px; }
+    @media (max-width: 900px) { table, thead, tbody, tr, td, th { font-size: 14px; } }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <p>Local-only operator console</p>
+      <h1>Editorial Operations Console</h1>
+      <p>Open draft files directly from disk, review state across queues, and move approved content forward without deploy, push, or IndexNow.</p>
+    </section>
+    <section class="grid"><div class="card"><h2>1</h2><p>Drafts</p></div>
+<div class="card"><h2>1</h2><p>Pending Human Review</p></div>
+<div class="card"><h2>0</h2><p>Approved For Publish</p></div>
+<div class="card"><h2>0</h2><p>Published Local</p></div>
+<div class="card"><h2>1</h2><p>Blocked</p></div></section>
+    <section class="card panel">
+      <h2>Next Command</h2>
+      <p>If pending human review: <code>python scripts/editorial_console.py --approve best-ai-productivity-software</code></p>
+      <p>If approved but not published: <code>python scripts/editorial_console.py --publish best-ai-productivity-software</code></p>
+      <p>To refresh the console only: <code>python scripts/editorial_console.py --build</code></p>
+    </section>
+    <section class="panel">
+      <table>
+        <thead>
+          <tr>
+            <th>Draft</th>
+            <th>Status</th>
+            <th>Research</th>
+            <th>AI Review</th>
+            <th>Human Approval</th>
+            <th>Publish Gate</th>
+            <th>Words</th>
+            <th>Last Updated</th>
+            <th>Open Files</th>
+            <th>Next Command</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td><strong>best ai productivity software 2026: Pricing, Pros, Cons</strong><br><code>best-ai-productivity-software</code></td>
+              <td>blocked</td>
+              <td>passed</td>
+              <td>needs_human_review</td>
+              <td>needs_human_review</td>
+              <td>blocked</td>
+              <td>3418</td>
+              <td>2026-07-07T11:51:48.189145+00:00</td>
+              <td>
+                <a href="production_article_drafts/best-ai-productivity-software/article.md">article.md</a>
+                <a href="production_article_drafts/best-ai-productivity-software/index.html">index.html</a>
+                <a href="production_article_drafts/best-ai-productivity-software/metadata.json">metadata.json</a>
+                <a href="production_article_drafts/best-ai-productivity-software/review_summary.md">review_summary.md</a>
+                <a href="production_article_drafts/best-ai-productivity-software/publish_readiness_report.md">publish_readiness_report.md</a>
+              </td>
+              <td><code>python scripts/editorial_console.py --approve best-ai-productivity-software</code></td>
+            </tr>
+            </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "summary": {
+    "generated_at": "2026-07-07T12:21:33.617000+00:00",
+    "drafts": 1,
+    "pending_human_review": 1,
+    "approved_for_publish": 0,
+    "published_local": 0,
+    "blocked": 1
+  },
+  "items": [
+    {
+      "title": "best ai productivity software 2026: Pricing, Pros, Cons",
+      "slug": "best-ai-productivity-software",
+      "status": "blocked",
+      "research_quality_status": "passed",
+      "ai_review_status": "needs_human_review",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "blocked",
+      "word_count": 3418,
+      "last_updated": "2026-07-07T11:51:48.189145+00:00",
+      "article_markdown": "production_article_drafts/best-ai-productivity-software/article.md",
+      "article_html": "production_article_drafts/best-ai-productivity-software/index.html",
+      "metadata_json": "production_article_drafts/best-ai-productivity-software/metadata.json",
+      "review_summary": "production_article_drafts/best-ai-productivity-software/review_summary.md",
+      "publish_readiness_report": "production_article_drafts/best-ai-productivity-software/publish_readiness_report.md",
+      "next_command": "python scripts/editorial_console.py --approve best-ai-productivity-software"
+    }
+  ]
+}

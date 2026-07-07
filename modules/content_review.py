@@ -79,6 +79,9 @@ class ContentReviewEngine:
     def save_queue(self, rows: list[dict[str, Any]]) -> None:
         _write_json(self.queue_path, rows)
 
+    def refresh_reports(self) -> None:
+        self._write_report(self.load_queue())
+
     def review_content(
         self,
         *,

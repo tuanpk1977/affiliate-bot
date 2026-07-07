@@ -1570,6 +1570,57 @@ After every publish batch, the bot must also:
 
 This daily instruction block is the first thing the bot should read before doing daily content work.
 
+### Editorial Operations Console
+
+Human approval already exists through:
+
+- `data/content_review_queue.json`
+- `data/human_approval_queue.json`
+- `data/publish_queue.json`
+
+Use the local operator console to review and move drafts without deploy, push, or IndexNow:
+
+- Open the review preview:
+  - `data/production_article_drafts/<slug>/index.html`
+- Open the source markdown:
+  - `data/production_article_drafts/<slug>/article.md`
+- Open the operator dashboard:
+  - `data/editorial_operations_console.html`
+
+Commands:
+
+```bash
+python scripts/editorial_console.py --list
+python scripts/editorial_console.py --build
+python scripts/editorial_console.py --approve best-ai-productivity-software
+python scripts/editorial_console.py --reject best-ai-productivity-software --reason "Needs pricing fix"
+python scripts/editorial_console.py --publish best-ai-productivity-software
+```
+
+Operator rules:
+
+- Review the draft HTML before approving.
+- Review `metadata.json`, `review_summary.md`, and `publish_readiness_report.md` in the same draft folder when the article is affiliate, pricing, comparison, review, or product recommendation content.
+- Human approval is required for affiliate review, pricing, comparison, and product recommendation articles.
+- Informational and tutorial articles can move forward automatically only when every gate passes.
+- Do not publish failed, rejected, blocked, or `needs_enrichment` topics.
+- `--publish` writes only to local outputs and updates the publish queue. It does not deploy, push, or submit IndexNow.
+
+Monday workflow:
+
+1. Discover 10 hottrend topics.
+2. Build the weekly calendar.
+3. Run research, verified source checks, AI review, and human approval routing.
+4. Approve only valid Monday drafts.
+5. Publish locally only the approved Monday articles.
+
+Tuesday-Sunday workflow:
+
+1. Reuse the approved weekly topic set from Monday.
+2. Generate one deeper follow-up article per scheduled topic.
+3. Route failures to enrichment, review, human approval, or publish queues.
+4. Publish locally only after all gates pass and required human approval is complete.
+
 ## 12B. CONTENT QUALITY FIRST WORKFLOW
 
 This section defines the required quality-first workflow for future Codex/Copilot runs before any new article is written or published.
