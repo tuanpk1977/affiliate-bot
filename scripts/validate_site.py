@@ -22,6 +22,13 @@ AFFILIATE_LINKS = ROOT / "data" / "affiliate_links.csv"
 TRACK_CLICK_FUNCTION = ROOT / "netlify" / "functions" / "track-click.js"
 VALID_DRAFT_STATUSES = {"Draft", "Pending Review", "Need Edit", "Approved", "Rejected", "Published"}
 WEBSITE_DRAFT_TYPES = {"Review page", "Comparison page", "FAQ page", "Blog article", "Website article"}
+PUBLIC_HTML_FORBIDDEN_MARKERS = (
+    "Research package snapshot",
+    "Content planning snapshot",
+    "Affiliate placeholder fields",
+    "{{",
+    "}}",
+)
 
 
 class LinkParser(HTMLParser):
@@ -109,6 +116,9 @@ def main() -> int:
                 errors.append(f"{rel}: missing CTA")
             if ("FAQ" in text or "<details" in text) and not has_schema_type(text, "FAQPage") and rel not in FAQ_SCHEMA_DISABLED:
                 errors.append(f"{rel}: FAQ section present but FAQPage schema missing")
+            for marker in PUBLIC_HTML_FORBIDDEN_MARKERS:
+                if marker in text:
+                    errors.append(f"{rel}: contains forbidden public HTML marker {marker!r}")
             errors.extend(validate_json_ld(rel, text))
 
         for link in parser.links:

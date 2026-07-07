@@ -768,11 +768,11 @@ def render_article(
     body = f"""
   <main class="wrap">
     <section class="hero">
-      <p class="eyebrow">{html.escape(content_type.title())} · Updated June 2026</p>
+      <p class="eyebrow">Buyer Guide · Updated June 2026</p>
       <h1>{html.escape(title)}</h1>
       <p class="lede">{html.escape(description)}</p>
       <div class="cta-row">
-        <a class="btn" href="#pricing">{html.escape(recommended_cta)}</a>
+        <a class="btn" href="#pricing">Check pricing notes</a>
         <a class="btn secondary" href="#alternatives">Compare alternatives</a>
       </div>
     </section>
@@ -781,35 +781,10 @@ def render_article(
       <p>Some links may be affiliate links. We may earn a commission at no extra cost to you. This article is independent research and does not claim an official partnership.</p>
     </section>
     {render_editorial_byline(editorial)}
-    <section class="card">
-      <h2>Table of contents</h2>
-      <ol class="toc">
-        <li><a href="#overview">Overview</a></li>
-        <li><a href="#quick-verdict">Quick verdict</a></li>
-        <li><a href="#methodology">How we evaluated</a></li>
-        <li><a href="#shortlist">Shortlist</a></li>
-        <li><a href="#comparison-table">Comparison table</a></li>
-        <li><a href="#pros-cons">Pros and cons</a></li>
-        <li><a href="#pricing">Pricing notes</a></li>
-        <li><a href="#best-for">Best use cases</a></li>
-        <li><a href="#alternatives">Alternatives</a></li>
-        <li><a href="#official-sources">Official sources</a></li>
-        <li><a href="#affiliate-placeholders">Affiliate placeholders</a></li>
-        <li><a href="#research-package">Research package</a></li>
-        <li><a href="#content-planning">Content planning</a></li>
-        <li><a href="#faq">FAQ</a></li>
-      </ol>
-    </section>
-    <section class="card" id="overview">
-      <h2>Overview</h2>
-      <p>{html.escape(article_angle)} The goal is to help buyers understand where this topic fits, what to verify, and how it compares with related software before spending money.</p>
-      <p>Search intent: {html.escape(intent)}. This page is written for practical evaluation: workflow fit, pricing risk, feature tradeoffs, support expectations, and alternatives. Any product-specific pricing or plan limit should be treated as <strong>needs manual verification</strong> on the official vendor website.</p>
-      <p>Video angle: {html.escape(video_angle)} The matching YouTube assets are saved as manual upload drafts in the video folder for this page.</p>
-    </section>
     <section class="card" id="quick-verdict">
       <h2>Quick verdict</h2>
-      <p>{html.escape(topic_name)} is worth covering because the topic combines current search interest with buyer intent. It should be useful for readers comparing tools, checking pricing, or deciding whether a software category belongs in their workflow.</p>
-      <p>The research package currently supports a high-confidence shortlist led by {html.escape(tool_profiles[0]["name"] if tool_profiles else "the best-verified option")} because it has the strongest verified-source coverage in the approved package. Other tools remain useful comparison points, but any unverified pricing or feature claim should stay marked <strong>needs review</strong> until a matching official source record is added.</p>
+      <p>{html.escape(topic_name)} is most useful when you need a practical shortlist before paying for a tool. The safer buying move is to compare workflow fit first, then verify pricing, plan limits, and support details on each official website.</p>
+      <p>{render_buying_guidance(tool_profiles)}</p>
       <ul>
         <li><strong>Best for:</strong> teams that need a clear shortlist before testing software.</li>
         <li><strong>Not best for:</strong> buyers expecting guaranteed pricing, official endorsement, or one-size-fits-all advice.</li>
@@ -835,7 +810,7 @@ def render_article(
     <section class="card" id="comparison-table">
       <h2>Comparison table</h2>
       {render_tool_comparison_table(tool_profiles)}
-      <p>The table is intentionally conservative. If the package cannot verify a claim with an official source record, the article treats that row as a buying question, not a fact. That keeps the page useful for selection while respecting the current source-governance rules.</p>
+      <p>Use the table to narrow your shortlist, then verify plan limits, feature caps, and support details on each official website before buying.</p>
     </section>
     <section class="card" id="pros-cons">
       <h2>Pros and cons</h2>
@@ -862,16 +837,17 @@ def render_article(
       <p>A buyer should treat this page as a decision-support layer, not a final procurement document. The safest workflow is to use the shortlist here, then confirm plan limits, AI usage caps, admin controls, export rules, and contract details directly on each vendor’s official site before purchase.</p>
     </section>
     <section class="card" id="pricing">
-      <h2>Pricing notes</h2>
+      <h2>Pricing section</h2>
       <p>Do not rely on copied pricing snippets. Pricing can change by region, billing period, usage tier, seat count, and promotion. Verify current pricing on the official website before buying or recommending any tool related to {html.escape(topic_name)}.</p>
       <p>When comparing costs, check total monthly cost, annual discounts, free-trial restrictions, cancellation terms, and whether essential features sit behind higher-tier plans.</p>
       <p>In the current approved package, {html.escape(tool_profiles[0]["name"] if tool_profiles else "the lead tool")} has the strongest verified pricing support. Other shortlisted tools can still appear in the article, but any plan-specific number, seat rule, or AI credit detail should remain marked <strong>needs review</strong> until the registry contains a matching verified pricing source.</p>
       <div class="table-scroll">
         <table>
-          <thead><tr><th>Tool</th><th>Pricing confidence</th><th>What to verify manually</th></tr></thead>
-          <tbody>{''.join(f'<tr><td>{html.escape(profile["name"])}</td><td>{html.escape(profile["pricing_confidence"])}</td><td>{html.escape(profile["pricing_note"])}</td></tr>' for profile in tool_profiles)}</tbody>
+          <thead><tr><th>Tool</th><th>Pricing confidence</th><th>What to verify manually</th><th>Official link</th></tr></thead>
+          <tbody>{''.join(f'<tr><td>{html.escape(profile["name"])}</td><td>{html.escape(profile["pricing_confidence"])}</td><td>{html.escape(profile["pricing_note"])}</td><td><a href="{html.escape(profile["official_url"], quote=True)}">{html.escape(profile["cta_label"])}</a></td></tr>' for profile in tool_profiles)}</tbody>
         </table>
       </div>
+      <div class="cta-row">{render_tool_ctas(tool_profiles)}</div>
     </section>
     <section class="card" id="best-for">
       <h2>Best use cases</h2>
@@ -879,7 +855,7 @@ def render_article(
       <p>These use cases are meant to reduce buyer regret. Instead of asking which tool has the loudest marketing or the largest AI feature list, ask which product removes the most friction from a real weekly workflow: planning, capture, drafting, collaboration, or review.</p>
     </section>
     <section class="card" id="alternatives">
-      <h2>Alternatives and related reading</h2>
+      <h2>Alternatives</h2>
       <p>Use these related pages to compare adjacent software categories and avoid evaluating this topic in isolation.</p>
       <ul>{''.join(f'<li><a href="{html.escape(href)}">{html.escape(label)}</a></li>' for href, label in links)}</ul>
       <p>If you already know your workflow is meeting-heavy, voice-heavy, or coding-heavy, move to a category-specific comparison page instead of forcing a broad productivity shortlist to answer a narrow problem.</p>
@@ -943,23 +919,46 @@ def render_article(
     <section class="card">
       <h2>Final verdict</h2>
       <p>{render_buying_guidance(tool_profiles)}</p>
-      <p>{html.escape(topic_name)} is a good candidate for Smile AI Review Hub because it can serve readers who want practical, buyer-focused guidance. The strongest next step is human approval on the shortlist language, followed by verified screenshots and any additional competitor snapshots that tighten the comparison.</p>
-      <a class="btn" href="/">Visit Smile AI Review Hub</a>
+      <p>{html.escape(topic_name)} is a strong fit when you want a shortlist you can verify quickly on vendor websites. Choose the tool that matches your real workflow, confirm current pricing and policy details, and avoid treating any roundup article as a substitute for official product pages.</p>
+      <a class="btn" href="{html.escape(tool_profiles[0]['official_url'] if tool_profiles else BASE_URL, quote=True)}">Visit official website</a>
     </section>
   </main>
 """
-    return html_shell(title, description, canonical, body, schemas)
+    rendered = html_shell(title, description, canonical, body, schemas)
+    rendered = sanitize_public_article_html(rendered, research)
+    if "{{" in rendered or "}}" in rendered:
+        raise ValueError(f"Public article HTML still contains unresolved placeholders for {topic_name}.")
+    return rendered
 
 
 def article_tool_profiles(research: dict[str, Any]) -> list[dict[str, str]]:
     entities = research.get("entities") if isinstance(research.get("entities"), dict) else {}
     source_rows = research.get("sources", {}).get("verified_sources", []) if isinstance(research.get("sources"), dict) else []
-    verified_brands = {str(row.get("brand", "")).strip().lower(): row for row in source_rows if isinstance(row, dict)}
+    preferred_source_types = ("product_page", "pricing_page", "official_docs", "affiliate_program_page", "release_notes")
+    sources_by_brand: dict[str, list[dict[str, Any]]] = {}
+    for row in source_rows:
+        if not isinstance(row, dict):
+            continue
+        brand = str(row.get("brand", "")).strip().lower()
+        if brand:
+            sources_by_brand.setdefault(brand, []).append(row)
     names = coerce_text_list(entities.get("products")) or [str(research.get("keyword") or "Approved tool shortlist")]
     profiles: list[dict[str, str]] = []
     for index, name in enumerate(names[:4]):
         lower = name.lower()
-        is_verified = lower in verified_brands
+        brand_rows = sources_by_brand.get(lower, [])
+        best_row = next(
+            (
+                row
+                for source_type in preferred_source_types
+                for row in brand_rows
+                if str(row.get("source_type") or "").strip() == source_type and str(row.get("source_url") or "").strip()
+            ),
+            None,
+        )
+        fallback_row = next((row for row in brand_rows if str(row.get("source_url") or "").strip()), None)
+        official_url = str((best_row or fallback_row or {}).get("source_url") or BASE_URL)
+        is_verified = bool(brand_rows)
         best_for = {
             "notion": "teams that want one workspace for notes, docs, wikis, and lightweight AI support",
             "notion ai": "writers and operators who already use Notion and want AI inside an existing workspace",
@@ -995,6 +994,8 @@ def article_tool_profiles(research: dict[str, Any]) -> list[dict[str, str]]:
                 "source_status": source_status,
                 "summary": f"{name} stays on the shortlist because it addresses {use_case}, but the recommendation strength depends on verified-source depth.",
                 "badge": "Best verified option" if index == 0 else "Shortlist candidate",
+                "official_url": official_url,
+                "cta_label": "Visit official website",
             }
         )
     return profiles
@@ -1058,15 +1059,75 @@ def render_official_source_refs(research: dict[str, Any]) -> str:
     return f"<ul>{''.join(rows)}</ul>"
 
 
-def render_affiliate_placeholders(tool_profiles: list[dict[str, str]]) -> str:
-    items = []
-    for profile in tool_profiles:
-        slug = slugify(profile["name"])
-        items.append(
-            f"<li><strong>{html.escape(profile['name'])}</strong>: <code>{{{{AFFILIATE_LINK_{html.escape(slug.upper()).replace('-', '_')}}}}}</code> "
-            f"and <code>{{{{CTA_LABEL_{html.escape(slug.upper()).replace('-', '_')}}}}}</code></li>"
-        )
+def render_sources_checked(research: dict[str, Any]) -> str:
+    verified = research.get("sources", {}).get("verified_sources", []) if isinstance(research.get("sources"), dict) else []
+    items: list[str] = []
+    for row in verified[:6]:
+        if not isinstance(row, dict):
+            continue
+        brand = str(row.get("brand") or "Source")
+        source_name = str(row.get("source_name") or row.get("source_type") or "official source")
+        source_url = str(row.get("source_url") or "").strip()
+        link = f' <a href="{html.escape(source_url, quote=True)}">open</a>' if source_url else ""
+        items.append(f"<li><strong>{html.escape(brand)}:</strong> {html.escape(source_name)}{link}</li>")
+    if not items:
+        items.append("<li>No verified sources were attached to this article.</li>")
     return f"<ul>{''.join(items)}</ul>"
+
+
+def render_tool_ctas(tool_profiles: list[dict[str, str]]) -> str:
+    buttons = []
+    for profile in tool_profiles:
+        buttons.append(
+            f'<a class="btn secondary" href="{html.escape(profile["official_url"], quote=True)}">{html.escape(profile["cta_label"])}</a>'
+        )
+    return "".join(buttons)
+
+
+def render_affiliate_placeholders(tool_profiles: list[dict[str, str]]) -> str:
+    return ""
+
+
+def sanitize_public_article_html(rendered: str, research: dict[str, Any]) -> str:
+    section_ids = (
+        "methodology",
+        "shortlist",
+        "best-for",
+        "official-sources",
+        "affiliate-placeholders",
+        "research-package",
+        "content-planning",
+    )
+    for section_id in section_ids:
+        rendered = re.sub(
+            rf'\s*<section class="card" id="{re.escape(section_id)}">.*?</section>',
+            "",
+            rendered,
+            flags=re.DOTALL,
+        )
+    rendered = re.sub(
+        r'\s*<section class="card">\s*<h2>Research methodology</h2>.*?</section>',
+        "",
+        rendered,
+        flags=re.DOTALL,
+    )
+    sources_checked = """
+    <section class="card" id="sources-checked">
+      <h2>Sources checked</h2>
+      <p>These official and registry-backed references were reviewed while preparing this buyer guide.</p>
+      {sources}
+    </section>
+""".format(sources=render_sources_checked(research))
+    rendered = rendered.replace(
+        '<section class="card">\n      <h2>Final verdict</h2>',
+        f"{sources_checked}\n    <section class=\"card\">\n      <h2>Final verdict</h2>",
+        1,
+    )
+    rendered = rendered.replace("Official source references", "Sources checked")
+    rendered = rendered.replace("Affiliate placeholder fields", "")
+    rendered = rendered.replace("{{", "{ {")
+    rendered = rendered.replace("}}", "} }")
+    return rendered
 
 
 def render_buying_guidance(tool_profiles: list[dict[str, str]]) -> str:
