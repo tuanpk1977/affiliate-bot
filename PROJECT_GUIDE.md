@@ -10,6 +10,7 @@ The system is designed around two repeating workflows:
 
 - Weekly editorial intelligence
 - Daily scheduled production
+- Weekly business intelligence
 
 The rule for future work is:
 
@@ -25,6 +26,7 @@ Core platform modules:
 - `modules/content_planning_engine.py`: keyword planning, intent, cluster, coverage, outline, and reasoning.
 - `modules/content_growth_pipeline.py`: content generation, SEO metadata, local publish, and reusable content assets.
 - `modules/editorial_automation.py`: weekly candidate collection, weekly ranking, editorial calendar generation, and daily scheduled execution.
+- `modules/editorial_business_intelligence.py`: evergreen evaluation, affiliate opportunity scoring, lifecycle logging, history retention, gap analysis, affiliate coverage analysis, and weekly dashboards.
 - `modules/topic_cluster_engine.py`: topic clustering support.
 - `scripts/validate_production_content_pipeline.py`: end-to-end production validation against real keywords.
 
@@ -48,6 +50,23 @@ Editorial automation files:
 - `data/editorial_calendar.csv`
 - `data/editorial_calendar.json`
 - `data/daily_editorial_report_<date>.json`
+- `data/evergreen_report.csv`
+- `data/evergreen_report.json`
+- `data/evergreen_report.md`
+- `data/affiliate_opportunities.csv`
+- `data/affiliate_opportunities.json`
+- `data/content_gap_report.csv`
+- `data/content_gap_report.json`
+- `data/content_gap_report.md`
+- `data/affiliate_coverage_report.csv`
+- `data/affiliate_coverage_report.json`
+- `data/affiliate_coverage_report.md`
+- `data/weekly_dashboard.csv`
+- `data/weekly_dashboard.json`
+- `data/weekly_dashboard.md`
+- `data/content_lifecycle.jsonl`
+- `data/content_lifecycle_state.json`
+- `data/weekly_history.jsonl`
 - `data/content_growth_reports/production-pipeline-validation-*.json`
 - `data/content_growth_reports/production-pipeline-validation-*.md`
 - `data/content_growth_reports/production-pipeline-validation-*.csv`
@@ -70,9 +89,54 @@ provider signals
   -> weekly_topics.csv/json
   -> editorial calendar expansion
   -> editorial_calendar.csv/json
+  -> evergreen/opportunity/gap/coverage analysis
+  -> weekly_dashboard.csv/json/md
 ```
 
 Weekly outputs are generated without publishing articles. Every candidate topic is persisted so discovery history is never discarded.
+
+### Evergreen Workflow
+
+```text
+published site_output pages
+  -> evergreen scan
+  -> freshness and issue classification
+  -> evergreen_report.csv/json/md
+```
+
+Each scanned article stores publish date, last updated, last validation, topic, cluster, affiliate products, traffic estimate placeholder, and lifecycle status.
+
+Statuses:
+
+- Fresh
+- Needs Review
+- Needs Update
+- Outdated
+- Deprecated
+- Broken
+
+### Business Intelligence Workflow
+
+```text
+weekly topics + published articles + affiliate offer data
+  -> affiliate opportunity scoring
+  -> content gap analysis
+  -> affiliate coverage analysis
+  -> weekly history append
+  -> weekly executive dashboard
+```
+
+### Lifecycle Workflow
+
+```text
+editorial calendar row
+  -> planned
+  -> research
+  -> generated
+  -> reviewed
+  -> published
+  -> evergreen status transitions when quality declines
+```
 
 ### Daily Workflow
 
@@ -101,6 +165,7 @@ Weekly cycle
     -> WeeklyTrendIntelligenceEngine.collect_candidates()
     -> WeeklyTrendIntelligenceEngine.rank_topics()
     -> WeeklyTrendIntelligenceEngine.generate_editorial_calendar()
+    -> EditorialBusinessIntelligence.run_weekly_intelligence()
 
 Daily cycle
   python run_daily_content.py
@@ -108,6 +173,7 @@ Daily cycle
     -> content_growth_pipeline.generate_topic_package()
       -> ContentPlanningEngine.create_plan()
       -> render article + assets
+    -> ContentLifecycleManager.record_transition()
     -> optional build_site.incremental_build()
 ```
 
@@ -119,6 +185,8 @@ external/local trend providers
   -> CandidateTopicRecord snapshots
   -> WeeklyTopicRecord shortlist
   -> EditorialCalendarEntry schedule
+  -> Evergreen / opportunity / gap / coverage reports
+  -> Weekly dashboard
   -> GeneratedPage outputs
   -> validation reports
 ```
@@ -155,6 +223,12 @@ Run end-to-end production validation:
 python scripts/validate_production_content_pipeline.py
 ```
 
+Generate weekly intelligence and business-intelligence reports:
+
+```powershell
+python scripts/run_weekly_editorial_cycle.py
+```
+
 Run the full test suite:
 
 ```powershell
@@ -176,6 +250,15 @@ Production validation checks:
 - broken links
 - duplicate titles
 - duplicate descriptions
+
+Business-intelligence checks include:
+
+- evergreen freshness and update status
+- affiliate opportunity score and monetization priority
+- missing content gaps
+- affiliate disclosure, link, and CTA coverage
+- lifecycle transition logging
+- weekly trend history retention
 
 Reports are written in:
 
@@ -201,6 +284,13 @@ Editorial automation values now live in config:
 - `EDITORIAL_CALENDAR_DAYS`
 - `EDITORIAL_VALIDATION_KEYWORDS`
 
+Business-intelligence thresholds also live in `config/editorial_system.json` under:
+
+- `business_intelligence.evergreen`
+- `business_intelligence.affiliate_opportunity`
+- `business_intelligence.content_gap`
+- `business_intelligence.affiliate_coverage`
+
 ### Future Roadmap
 
 Planned follow-up work:
@@ -220,6 +310,12 @@ The repository is no longer only a set of separate article scripts. It now has a
 - expand those topics into an editorial calendar
 - generate only today’s scheduled content
 - validate production output end to end
+
+- score evergreen health of published pages
+- log lifecycle transitions
+- estimate affiliate opportunity by weekly topic
+- detect content gaps and coverage issues
+- generate a weekly executive dashboard
 
 ## 1. Project overview
 

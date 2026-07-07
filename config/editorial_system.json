@@ -3,5 +3,35 @@
   "max_per_source": 40,
   "top_topics": 10,
   "calendar_days": 7,
-  "validation_keywords": 10
+  "validation_keywords": 10,
+  "business_intelligence": {
+    "evergreen": {
+      "review_after_days": 30,
+      "update_after_days": 90,
+      "outdated_after_days": 180,
+      "deprecated_after_days": 365,
+      "broken_links_threshold": 1,
+      "min_word_count": 500,
+      "min_readability_score": 45,
+      "duplicate_similarity_threshold": 0.72
+    },
+    "affiliate_opportunity": {
+      "commercial_intent_weight": 0.18,
+      "search_intent_weight": 0.10,
+      "existing_programs_weight": 0.14,
+      "estimated_commission_weight": 0.12,
+      "estimated_conversion_weight": 0.10,
+      "competition_weight": 0.10,
+      "estimated_article_value_weight": 0.12,
+      "content_difficulty_weight": 0.08,
+      "topic_freshness_weight": 0.04,
+      "seasonality_weight": 0.02
+    },
+    "content_gap": {
+      "max_report_rows": 100
+    },
+    "affiliate_coverage": {
+      "max_missing_products": 5
+    }
+  }
 }

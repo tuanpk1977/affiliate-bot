@@ -50,7 +50,12 @@ class EditorialAutomationTests(unittest.TestCase):
         with TemporaryDirectory() as temp_dir:
             data_dir = Path(temp_dir) / "data"
             fake_settings = SimpleNamespace(
+                base_dir=Path(temp_dir),
                 data_dir=data_dir,
+                site_output_dir=Path(temp_dir) / "site_output",
+                offers_file=data_dir / "offers.csv",
+                affiliate_links_file=data_dir / "affiliate_links.csv",
+                editorial_config={"business_intelligence": {"evergreen": {"min_word_count": 100, "min_readability_score": 10}}},
                 editorial_candidate_limit=200,
                 editorial_max_per_source=40,
                 editorial_top_topics=10,
@@ -65,6 +70,11 @@ class EditorialAutomationTests(unittest.TestCase):
             self.assertEqual(result["calendar_entries"], 70)
             self.assertTrue((data_dir / "weekly_topics.csv").exists())
             self.assertTrue((data_dir / "editorial_calendar.json").exists())
+            self.assertTrue((data_dir / "evergreen_report.json").exists())
+            self.assertTrue((data_dir / "affiliate_opportunities.json").exists())
+            self.assertTrue((data_dir / "weekly_dashboard.md").exists())
+            self.assertTrue((data_dir / "weekly_history.jsonl").exists())
+            self.assertTrue((data_dir / "content_lifecycle.jsonl").exists())
 
             weekly_topics = json.loads((data_dir / "weekly_topics.json").read_text(encoding="utf-8"))
             calendar = json.loads((data_dir / "editorial_calendar.json").read_text(encoding="utf-8"))
@@ -106,7 +116,12 @@ class EditorialAutomationTests(unittest.TestCase):
             )
 
             fake_settings = SimpleNamespace(
+                base_dir=root,
                 data_dir=data_dir,
+                site_output_dir=root / "site_output",
+                offers_file=data_dir / "offers.csv",
+                affiliate_links_file=data_dir / "affiliate_links.csv",
+                editorial_config={"business_intelligence": {"evergreen": {"min_word_count": 100, "min_readability_score": 10}}},
                 editorial_candidate_limit=200,
                 editorial_max_per_source=40,
                 editorial_top_topics=10,
@@ -128,6 +143,7 @@ class EditorialAutomationTests(unittest.TestCase):
             self.assertEqual(result["calendar_rows"], 1)
             self.assertEqual(len(result["generated_pages"]), 1)
             self.assertTrue((data_dir / f"daily_editorial_report_{target_date.isoformat()}.json").exists())
+            self.assertTrue((data_dir / "content_lifecycle.jsonl").exists())
             page = result["generated_pages"][0]
             self.assertIn("planning", page)
             self.assertEqual(page["slug"], "best-ai-coding-assistants-for-teams-pricing")

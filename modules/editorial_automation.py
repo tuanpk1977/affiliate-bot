@@ -9,6 +9,7 @@ from typing import Any, Protocol
 
 from config import settings
 from modules.ai_trend_discovery import TopicCandidate, TrendDiscoveryEngine, classify_content_type, slugify
+from modules.editorial_business_intelligence import ContentLifecycleManager, EditorialBusinessIntelligence
 from modules.content_growth_pipeline import generate_topic_package, normalize_topic_record, page_to_dict
 from modules.content_planning_engine import ContentPlanningEngine
 
@@ -222,6 +223,7 @@ class WeeklyTrendIntelligenceEngine:
         self.candidate_limit = candidate_limit or settings.editorial_candidate_limit
         self.top_topics = top_topics or settings.editorial_top_topics
         self.planner = ContentPlanningEngine()
+        self.lifecycle = ContentLifecycleManager(settings.data_dir)
 
     def collect_candidates(self) -> list[CandidateTopicRecord]:
         engine = TrendDiscoveryEngine(timeout=self.timeout, max_per_source=self.max_per_source)
@@ -296,6 +298,14 @@ class WeeklyTrendIntelligenceEngine:
                         reasoning=reasoning,
                     )
                 )
+                self.lifecycle.record_transition(
+                    slug=slug,
+                    keyword=keyword,
+                    to_stage="planned",
+                    publish_date=publish_date.isoformat(),
+                    article_type=article_type,
+                    priority=topic.priority,
+                )
         self._write_editorial_calendar(entries)
         return entries
 
@@ -303,12 +313,25 @@ class WeeklyTrendIntelligenceEngine:
         candidates = self.collect_candidates()
         weekly_topics = self.rank_topics(candidates)
         calendar = self.generate_editorial_calendar(weekly_topics)
+        intelligence = EditorialBusinessIntelligence(
+            base_dir=getattr(settings, "base_dir", None),
+            data_dir=settings.data_dir,
+            site_output_dir=getattr(settings, "site_output_dir", None),
+            offers_file=getattr(settings, "offers_file", None),
+            affiliate_links_file=getattr(settings, "affiliate_links_file", None),
+            config=getattr(settings, "editorial_config", None),
+        ).run_weekly_intelligence(
+            weekly_topics=[asdict(item) for item in weekly_topics],
+            candidate_topics=[asdict(item) for item in candidates],
+            editorial_calendar=[asdict(item) for item in calendar],
+        )
         return {
             "candidates": len(candidates),
             "weekly_topics": len(weekly_topics),
             "calendar_entries": len(calendar),
             "weekly_topics_json": str(_output_path("weekly_topics.json")),
             "editorial_calendar_json": str(_output_path("editorial_calendar.json")),
+            **intelligence,
         }
 
     def _candidate_record(self, candidate: TopicCandidate, generated_at: str) -> CandidateTopicRecord:
@@ -380,6 +403,7 @@ def run_daily_editorial_content(
 ) -> dict[str, Any]:
     rows = load_editorial_calendar(target_date or date.today())
     generated: list[dict[str, Any]] = []
+    lifecycle = ContentLifecycleManager(settings.data_dir)
     for row in rows:
         topic = normalize_topic_record(
             {
@@ -391,7 +415,16 @@ def run_daily_editorial_content(
                 "suggested_internal_links": [],
             }
         )
+        lifecycle.record_transition(
+            slug=str(topic.get("slug", "")),
+            keyword=str(topic.get("topic", "")),
+            to_stage="research",
+            scheduled_date=str(row.get("publish_date", "")),
+        )
         page = generate_topic_package(topic)
+        lifecycle.record_transition(slug=page.slug, keyword=page.topic, to_stage="generated", url=page.url)
+        lifecycle.record_transition(slug=page.slug, keyword=page.topic, to_stage="reviewed", url=page.url)
+        lifecycle.record_transition(slug=page.slug, keyword=page.topic, to_stage="published", url=page.url)
         generated.append(page_to_dict(page))
 
     build_result: dict[str, Any] = {"skipped": not build}

@@ -131,6 +131,10 @@ class Settings:
         value = os.getenv("EDITORIAL_VALIDATION_KEYWORDS") or self.editorial_config.get("validation_keywords", 10)
         return max(5, min(30, int(value)))
 
+    @property
+    def editorial_business_intelligence_config(self) -> dict:
+        return dict(self.editorial_config.get("business_intelligence", {}))
+
 
 settings = Settings()
 

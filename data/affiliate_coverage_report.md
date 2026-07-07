@@ -1,0 +1,22 @@
+# Affiliate Coverage Report
+
+- `about`: missing affiliate links, broken links, missing CTA
+- `about-author`: missing affiliate links, broken links, missing CTA
+- `activecampaign`: broken links
+- `adcreative-ai`: broken links
+- `aeo-action-plan`: missing affiliate links, broken links, missing CTA
+- `ahrefs-ai`: broken links
+- `ai-app-builder-alternatives`: broken links
+- `ai-app-builder-software-review`: broken links
+- `ai-assistant-alternatives`: broken links
+- `ai-assistant-software-comparison`: missing affiliate links, broken links, missing CTA
+- `ai-assistant-software-review`: broken links
+- `ai-coding-alternatives`: broken links
+- `ai-coding-software-comparison`: missing affiliate links, broken links, missing CTA
+- `ai-coding-software-review`: broken links
+- `ai-design-alternatives`: broken links
+- `ai-design-software-review`: missing affiliate links, broken links, missing CTA
+- `ai-image-alternatives`: broken links
+- `ai-image-software-review`: broken links
+- `ai-meeting-alternatives`: broken links
+- `ai-meeting-software-review`: broken links
