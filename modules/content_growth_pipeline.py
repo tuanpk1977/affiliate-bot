@@ -488,7 +488,8 @@ def page_css() -> str:
     return """:root{--bg:#f7f9fc;--text:#17202a;--muted:#596579;--line:#dbe3ef;--card:#fff;--accent:#0f766e;--warn:#9a3412}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}.wrap{max-width:1120px;margin:0 auto;padding:0 20px}.nav{background:#fff;border-bottom:1px solid var(--line)}.nav-inner{min-height:64px;display:flex;justify-content:space-between;align-items:center;gap:16px}.nav a{color:#0f172a;font-weight:700;text-decoration:none;margin-right:16px}.logo{font-size:20px}.hero{padding:54px 0 22px}.eyebrow{font-weight:800;color:#0f766e;text-transform:uppercase;letter-spacing:.02em}.lede{font-size:19px;max-width:920px}.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:22px;margin:18px 0;box-shadow:0 1px 2px rgba(15,23,42,.04)}.trust{border-left:4px solid var(--warn)}h1{font-size:44px;line-height:1.08;margin:12px 0;color:#111827}h2{font-size:27px;margin:0 0 12px;color:#111827}h3{font-size:19px;margin:0 0 8px}p,li{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:11px 15px;border-radius:6px;font-weight:800;margin:5px 8px 5px 0}.btn.secondary{background:#e2e8f0;color:#0f172a}.table-scroll{overflow-x:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;border-bottom:1px solid #e6edf5;padding:12px;vertical-align:top}th{background:#f1f5f9;color:#334155}.toc a{color:#0f766e;text-decoration:none}details{border-top:1px solid #e6edf5;padding:12px 0}summary{cursor:pointer;font-weight:800;color:#334155}footer{margin-top:36px;background:#0f172a;color:#cbd5e1;padding:28px 0}footer p,footer a{color:#cbd5e1}@media(max-width:760px){h1{font-size:32px}.nav-inner{align-items:flex-start;flex-direction:column;padding:14px 0}}"""
 
 
-def write_article(path: str, text: str, output: Path = PUBLISHED_DIR) -> Path:
+def write_article(path: str, text: str, output: Path | None = None) -> Path:
+    output = output or PUBLISHED_DIR
     folder = output / path.strip("/")
     folder.mkdir(parents=True, exist_ok=True)
     target = folder / "index.html"
@@ -647,7 +648,7 @@ def resolve_internal_links(topic: dict[str, Any]) -> list[tuple[str, str]]:
         if clean in seen:
             continue
         target = SITE_OUTPUT / clean.strip("/") / "index.html" if clean != "/" else SITE_OUTPUT / "index.html"
-        if target.exists() or len(result) < 5:
+        if target.exists():
             result.append((clean, label_from_path(clean)))
             seen.add(clean)
         if len(result) >= 8:

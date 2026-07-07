@@ -10,6 +10,26 @@ from modules import content_growth_pipeline as pipeline
 
 
 class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
+    def test_resolve_internal_links_excludes_missing_targets(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            site_output = Path(temp_dir) / "site_output"
+            existing = site_output / "reviews" / "index.html"
+            existing.parent.mkdir(parents=True, exist_ok=True)
+            existing.write_text("<html></html>", encoding="utf-8")
+
+            with patch.object(pipeline, "SITE_OUTPUT", site_output):
+                links = pipeline.resolve_internal_links(
+                    {
+                        "suggested_internal_links": [
+                            "/reviews/",
+                            "/missing-page/",
+                        ]
+                    }
+                )
+
+        self.assertIn(("/reviews/", "Reviews"), links)
+        self.assertNotIn(("/missing-page/", "Missing Page"), links)
+
     def test_run_daily_content_growth_attaches_planning_and_publishes_locally(self) -> None:
         topic = {
             "topic": "best ai coding assistants for teams",
@@ -83,6 +103,8 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
             self.assertTrue(video_folder.exists())
             self.assertTrue(social_folder.exists())
             self.assertTrue(tracking_csv.exists())
+            self.assertEqual(article_file.parent.parent, published_dir)
+            self.assertEqual(site_file.parent.parent, site_output)
 
             article_html = article_file.read_text(encoding="utf-8")
             self.assertIn("<title>best ai coding assistants for teams 2026</title>", article_html.lower())
