@@ -20,6 +20,7 @@ from modules.ai_trend_discovery import (
     save_discovery_result,
     slugify,
 )
+from modules.content_planning_engine import ContentPlanningEngine
 from modules.indexing_policy import INDEXABLE_ROBOTS_META
 
 
@@ -33,6 +34,7 @@ SOCIAL_DRAFTS = ROOT / "social_drafts"
 REPORT_DIR = DATA_DIR / "content_growth_reports"
 TRACKING_CSV = DATA_DIR / "content_growth_performance_log.csv"
 TRENDING_JSON = DATA_DIR / "trending_topics.json"
+_CONTENT_PLANNER: ContentPlanningEngine | None = None
 
 
 @dataclass(frozen=True)
@@ -45,6 +47,7 @@ class GeneratedPage:
     social_folder: Path
     content_type: str
     focus_keyword: str
+    planning: dict[str, Any]
     warnings: list[str]
 
 
@@ -184,21 +187,97 @@ def existing_slugs() -> set[str]:
     return slugs
 
 
+def get_content_planner() -> ContentPlanningEngine:
+    global _CONTENT_PLANNER
+    if _CONTENT_PLANNER is None:
+        _CONTENT_PLANNER = ContentPlanningEngine()
+    return _CONTENT_PLANNER
+
+
+def coerce_text_list(value: Any) -> list[str]:
+    if isinstance(value, str):
+        items = re.split(r"[,;\n]", value)
+    elif isinstance(value, (list, tuple, set)):
+        items = list(value)
+    else:
+        items = []
+    result: list[str] = []
+    seen: set[str] = set()
+    for item in items:
+        text = str(item).strip()
+        normalized = text.lower()
+        if not text or normalized in seen:
+            continue
+        seen.add(normalized)
+        result.append(text)
+    return result
+
+
+def extract_related_keywords(topic: dict[str, Any]) -> list[str]:
+    for key in ("related_keywords", "secondary_keywords", "keywords"):
+        values = coerce_text_list(topic.get(key))
+        if values:
+            return values
+    return []
+
+
+def extract_entities(topic: dict[str, Any]) -> list[str]:
+    values = coerce_text_list(topic.get("entities"))
+    if values:
+        return values
+    links = coerce_text_list(topic.get("suggested_internal_links"))
+    derived = [segment for link in links for segment in link.strip("/").split("/") if segment]
+    return derived[:5]
+
+
+def enrich_topic_with_planning(topic: dict[str, Any], planner: ContentPlanningEngine | None = None) -> dict[str, Any]:
+    planner = planner or get_content_planner()
+    keyword = str(topic.get("topic") or "").strip()
+    plan = planner.create_plan(
+        keyword=keyword,
+        related_keywords=extract_related_keywords(topic),
+        entities=extract_entities(topic),
+    )
+    planning = {
+        "keyword": plan.keyword,
+        "intent": plan.search_intent,
+        "article_type": plan.article_type,
+        "topic_cluster": plan.cluster,
+        "coverage_score": plan.coverage_score,
+        "outline_sections": plan.outline_sections,
+        "reasoning": plan.reasoning,
+        "related_keywords": extract_related_keywords(topic) or coerce_text_list(plan.cluster.get("keywords")),
+        "recommended_cta": plan.recommended_cta,
+        "confidence": plan.confidence,
+    }
+    return {
+        **topic,
+        "search_intent": plan.search_intent or str(topic.get("search_intent") or ""),
+        "planning": planning,
+    }
+
+
+def planning_payload(topic: dict[str, Any]) -> dict[str, Any]:
+    value = topic.get("planning")
+    return value if isinstance(value, dict) else {}
+
+
 def generate_topic_package(topic: dict[str, Any]) -> GeneratedPage:
-    topic_name = str(topic["topic"])
-    slug = str(topic["slug"])
+    enriched_topic = enrich_topic_with_planning(topic)
+    topic_name = str(enriched_topic["topic"])
+    slug = str(enriched_topic["slug"])
     path = f"/{slug}/"
     url = BASE_URL + path
     title = seo_title(topic_name)
     description = meta_description(topic_name)
-    links = resolve_internal_links(topic)
+    links = resolve_internal_links(enriched_topic)
     warnings = fact_warnings(topic_name)
 
-    article_html = render_article(topic, title, description, path, links, warnings)
+    article_html = render_article(enriched_topic, title, description, path, links, warnings)
     article_file = write_article(path, article_html)
     write_article(path, article_html, output=SITE_OUTPUT)
-    video_folder = write_video_drafts(topic, url, title)
-    social_folder = write_social_drafts(topic, url, title)
+    video_folder = write_video_drafts(enriched_topic, url, title)
+    social_folder = write_social_drafts(enriched_topic, url, title)
     return GeneratedPage(
         topic=topic_name,
         slug=slug,
@@ -206,8 +285,9 @@ def generate_topic_package(topic: dict[str, Any]) -> GeneratedPage:
         article_file=article_file,
         video_folder=video_folder,
         social_folder=social_folder,
-        content_type=str(topic.get("content_type") or "article"),
+        content_type=str(enriched_topic.get("content_type") or "article"),
         focus_keyword=focus_keyword(topic_name),
+        planning=planning_payload(enriched_topic),
         warnings=warnings,
     )
 
@@ -223,6 +303,12 @@ def render_article(
     topic_name = str(topic["topic"])
     content_type = str(topic.get("content_type") or "article")
     intent = str(topic.get("search_intent") or "commercial investigation")
+    planning = planning_payload(topic)
+    planning_cluster = planning.get("topic_cluster") if isinstance(planning.get("topic_cluster"), dict) else {}
+    planning_outline = coerce_text_list(planning.get("outline_sections"))
+    planning_reasoning = coerce_text_list(planning.get("reasoning"))
+    related_keywords = coerce_text_list(planning.get("related_keywords"))
+    recommended_cta = str(planning.get("recommended_cta") or "Check pricing notes")
     article_angle = str(topic.get("suggested_article_angle") or default_article_angle(topic_name, content_type))
     video_angle = str(topic.get("suggested_video_angle") or default_video_angle(topic_name, content_type))
     canonical = BASE_URL + path
@@ -239,7 +325,7 @@ def render_article(
       <h1>{html.escape(title)}</h1>
       <p class="lede">{html.escape(description)}</p>
       <div class="cta-row">
-        <a class="btn" href="#pricing">Check pricing notes</a>
+        <a class="btn" href="#pricing">{html.escape(recommended_cta)}</a>
         <a class="btn secondary" href="#alternatives">Compare alternatives</a>
       </div>
     </section>
@@ -257,6 +343,7 @@ def render_article(
         <li><a href="#pricing">Pricing notes</a></li>
         <li><a href="#best-for">Best use cases</a></li>
         <li><a href="#alternatives">Alternatives</a></li>
+        <li><a href="#content-planning">Content planning</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ol>
     </section>
@@ -328,6 +415,21 @@ def render_article(
       <h2>Alternatives and related reading</h2>
       <p>Use these related pages to compare adjacent software categories and avoid evaluating this topic in isolation.</p>
       <ul>{''.join(f'<li><a href="{html.escape(href)}">{html.escape(label)}</a></li>' for href, label in links)}</ul>
+    </section>
+    <section class="card" id="content-planning">
+      <h2>Content planning snapshot</h2>
+      <p>This page keeps the planning stage attached to the generated article so review, SEO checks, and publishing can use the same context.</p>
+      <ul>
+        <li><strong>Keyword:</strong> {html.escape(str(planning.get("keyword") or topic_name))}</li>
+        <li><strong>Intent:</strong> {html.escape(str(planning.get("intent") or intent))}</li>
+        <li><strong>Topic cluster:</strong> {html.escape(str(planning_cluster.get("name") or topic_name))}</li>
+        <li><strong>Coverage score:</strong> {html.escape(str(planning.get("coverage_score") or 0))}</li>
+        <li><strong>Related keywords:</strong> {html.escape(', '.join(related_keywords) if related_keywords else topic_name)}</li>
+      </ul>
+      <h3>Planned outline sections</h3>
+      <ol>{''.join(f'<li>{html.escape(section)}</li>' for section in planning_outline)}</ol>
+      <h3>Planning reasoning</h3>
+      <ul>{''.join(f'<li>{html.escape(reason)}</li>' for reason in planning_reasoning[:6])}</ul>
     </section>
     <section class="card">
       <h2>Research methodology</h2>
@@ -672,6 +774,7 @@ def page_to_dict(page: GeneratedPage) -> dict[str, Any]:
         "social_folder": str(page.social_folder),
         "content_type": page.content_type,
         "focus_keyword": page.focus_keyword,
+        "planning": page.planning,
         "warnings": page.warnings,
     }
 
