@@ -1,0 +1,976 @@
+{
+  "generated_at": "2026-07-07T09:38:59.243824+00:00",
+  "summary": {
+    "weekly_topics": 10,
+    "monday_calendar_articles": 0,
+    "published_local": 0,
+    "publish_blocked": 0,
+    "needs_human_review": 0,
+    "needs_enrichment": 9,
+    "content_review_items": 0,
+    "publish_queue_items": 0,
+    "optimization_actions": 1
+  },
+  "weekly_topics": [
+    {
+      "rank": 1,
+      "keyword": "meetily Review 2026",
+      "title": "meetily Review 2026",
+      "slug": "meetily-review-2026",
+      "intent": "commercial research",
+      "category": "AI Software",
+      "cluster": "meetily Review 2026",
+      "score": 62.5,
+      "affiliate_score": "low",
+      "estimated_article_count": 7,
+      "priority": "P2",
+      "article_type": "review",
+      "related_keywords": [
+        "meetily review 2026 faq",
+        "how to use meetily review 2026",
+        "meetily review 2026 pricing",
+        "meetily review 2026 comparison",
+        "meetily review 2026 alternatives"
+      ],
+      "planning_reasoning": [
+        "Detected search intent 'commercial' from the query.",
+        "Matched intent terms: review.",
+        "Matched article-type terms: review.",
+        "Intent confidence 0.9; article-type confidence 0.95.",
+        "Detected search intent 'commercial' from the query.",
+        "Intent depth classified as shallow based on query specificity."
+      ]
+    },
+    {
+      "rank": 2,
+      "keyword": "system_prompts_leaks Review 2026",
+      "title": "system_prompts_leaks Review 2026",
+      "slug": "system-prompts-leaks-review-2026",
+      "intent": "commercial research",
+      "category": "AI Software",
+      "cluster": "system_prompts_leaks Review 2026",
+      "score": 62.3,
+      "affiliate_score": "low",
+      "estimated_article_count": 7,
+      "priority": "P2",
+      "article_type": "review",
+      "related_keywords": [
+        "system prompts leaks review 2026 comparison",
+        "how to use system prompts leaks review 2026",
+        "system prompts leaks review 2026 pricing",
+        "system prompts leaks review 2026 alternatives",
+        "system prompts leaks review 2026 faq"
+      ],
+      "planning_reasoning": [
+        "Detected search intent 'commercial' from the query.",
+        "Matched intent terms: review.",
+        "Matched article-type terms: review.",
+        "Intent confidence 0.9; article-type confidence 0.95.",
+        "Detected search intent 'commercial' from the query.",
+        "Intent depth classified as shallow based on query specificity."
+      ]
+    },
+    {
+      "rank": 3,
+      "keyword": "agent-skills Review 2026",
+      "title": "agent-skills Review 2026",
+      "slug": "agent-skills-review-2026",
+      "intent": "commercial research",
+      "category": "AI Agents",
+      "cluster": "agent-skills Review 2026",
+      "score": 61.5,
+      "affiliate_score": "low",
+      "estimated_article_count": 7,
+      "priority": "P2",
+      "article_type": "review",
+      "related_keywords": [
+        "agent-skills review 2026 faq",
+        "agent-skills review 2026 alternatives",
+        "agent-skills review 2026 comparison",
+        "how to use agent-skills review 2026",
+        "agent-skills review 2026 pricing"
+      ],
+      "planning_reasoning": [
+        "Detected search intent 'commercial' from the query.",
+        "Matched intent terms: review.",
+        "Matched article-type terms: review.",
+        "Intent confidence 0.9; article-type confidence 0.95.",
+        "Detected search intent 'commercial' from the query.",
+        "Intent depth classified as shallow based on query specificity."
+      ]
+    },
+    {
+      "rank": 4,
+      "keyword": "last30days-skill Review 2026",
+      "title": "last30days-skill Review 2026",
+      "slug": "last30days-skill-review-2026",
+      "intent": "commercial research",
+      "category": "AI Software",
+      "cluster": "last30days-skill Review 2026",
+      "score": 60.5,
+      "affiliate_score": "low",
+      "estimated_article_count": 7,
+      "priority": "P2",
+      "article_type": "review",
+      "related_keywords": [
+        "last30days-skill review 2026 pricing",
+        "last30days-skill review 2026 alternatives",
+        "last30days-skill review 2026 comparison",
+        "how to use last30days-skill review 2026",
+        "last30days-skill review 2026 faq"
+      ],
+      "planning_reasoning": [
+        "Detected search intent 'commercial' from the query.",
+        "Matched intent terms: review.",
+        "Matched article-type terms: review.",
+        "Intent confidence 0.9; article-type confidence 0.95.",
+        "Detected search intent 'commercial' from the query.",
+        "Intent depth classified as shallow based on query specificity."
+      ]
+    },
+    {
+      "rank": 5,
+      "keyword": "taste-skill Review 2026",
+      "title": "taste-skill Review 2026",
+      "slug": "taste-skill-review-2026",
+      "intent": "commercial research",
+      "category": "AI Software",
+      "cluster": "taste-skill Review 2026",
+      "score": 58.0,
+      "affiliate_score": "low",
+      "estimated_article_count": 7,
+      "priority": "P2",
+      "article_type": "review",
+      "related_keywords": [
+        "taste-skill review 2026 faq",
+        "taste-skill review 2026 comparison",
+        "taste-skill review 2026 pricing",
+        "taste-skill review 2026 alternatives",
+        "how to use taste-skill review 2026"
+      ],
+      "planning_reasoning": [
+        "Detected search intent 'commercial' from the query.",
+        "Matched intent terms: review.",
+        "Matched article-type terms: review.",
+        "Intent confidence 0.9; article-type confidence 0.95.",
+        "Detected search intent 'commercial' from the query.",
+        "Intent depth classified as shallow based on query specificity."
+      ]
+    },
+    {
+      "rank": 6,
+      "keyword": "karakeep Review 2026",
+      "title": "karakeep Review 2026",
+      "slug": "karakeep-review-2026",
+      "intent": "commercial research",
+      "category": "AI Software",
+      "cluster": "karakeep Review 2026",
+      "score": 55.7,
+      "affiliate_score": "low",
+      "estimated_article_count": 7,
+      "priority": "P2",
+      "article_type": "review",
+      "related_keywords": [
+        "karakeep review 2026 alternatives",
+        "how to use karakeep review 2026",
+        "karakeep review 2026 faq",
+        "karakeep review 2026 comparison",
+        "karakeep review 2026 pricing"
+      ],
+      "planning_reasoning": [
+        "Detected search intent 'commercial' from the query.",
+        "Matched intent terms: review.",
+        "Matched article-type terms: review.",
+        "Intent confidence 0.9; article-type confidence 0.95.",
+        "Detected search intent 'commercial' from the query.",
+        "Intent depth classified as shallow based on query specificity."
+      ]
+    },
+    {
+      "rank": 7,
+      "keyword": "The SaaS Apocalypse Is Real. Causal AI Is the Escape Route",
+      "title": "The SaaS Apocalypse Is Real. Causal AI Is the Escape Route",
+      "slug": "the-saas-apocalypse-is-real-causal-ai-is-the-escape-route",
+      "intent": "mixed informational and commercial",
+      "category": "AI Software",
+      "cluster": "The SaaS Apocalypse Is Real. Causal AI Is the Escape Route",
+      "score": 54.1,
+      "affiliate_score": "low",
+      "estimated_article_count": 7,
+      "priority": "P3",
+      "article_type": "review",
+      "related_keywords": [
+        "the saas apocalypse is real causal ai is the escape route pricing",
+        "the saas apocalypse is real causal ai is the escape route comparison",
+        "the saas apocalypse is real causal ai is the escape route alternatives",
+        "the saas apocalypse is real causal ai is the escape route faq",
+        "how to use the saas apocalypse is real causal ai is the escape route"
+      ],
+      "planning_reasoning": [
+        "Detected search intent 'commercial' from the query.",
+        "Intent confidence 0.0; article-type confidence 0.0.",
+        "Detected search intent 'informational' from the query.",
+        "Intent depth classified as shallow based on query specificity.",
+        "Scope classified as broad based on narrowing terms and product intent.",
+        "Buyer journey stage is awareness and funnel stage is top."
+      ]
+    },
+    {
+      "rank": 8,
+      "keyword": "best ai productivity software",
+      "title": "best ai productivity software",
+      "slug": "best-ai-productivity-software",
+      "intent": "commercial research",
+      "category": "AI Software",
+      "cluster": "best ai productivity software",
+      "score": 51.7,
+      "affiliate_score": "low",
+      "estimated_article_count": 7,
+      "priority": "P3",
+      "article_type": "listicle",
+      "related_keywords": [
+        "best ai productivity software comparison",
+        "how to use best ai productivity software",
+        "best ai productivity software faq",
+        "best ai productivity software alternatives",
+        "best ai productivity software pricing"
+      ],
+      "planning_reasoning": [
+        "Detected search intent 'commercial' from the query.",
+        "Matched intent terms: best.",
+        "Matched article-type terms: best.",
+        "Intent confidence 0.95; article-type confidence 1.25.",
+        "Detected search intent 'commercial' from the query.",
+        "Intent depth classified as medium based on query specificity."
+      ]
+    },
+    {
+      "rank": 9,
+      "keyword": "best ai meeting software",
+      "title": "best ai meeting software",
+      "slug": "best-ai-meeting-software",
+      "intent": "commercial research",
+      "category": "AI Software",
+      "cluster": "best ai meeting software",
+      "score": 50.5,
+      "affiliate_score": "low",
+      "estimated_article_count": 7,
+      "priority": "P3",
+      "article_type": "listicle",
+      "related_keywords": [
+        "how to use best ai meeting software",
+        "best ai meeting software pricing",
+        "best ai meeting software faq",
+        "best ai meeting software alternatives",
+        "best ai meeting software comparison"
+      ],
+      "planning_reasoning": [
+        "Detected search intent 'commercial' from the query.",
+        "Matched intent terms: best.",
+        "Matched article-type terms: best.",
+        "Intent confidence 0.95; article-type confidence 1.25.",
+        "Detected search intent 'commercial' from the query.",
+        "Intent depth classified as medium based on query specificity."
+      ]
+    },
+    {
+      "rank": 10,
+      "keyword": "best ai voice software",
+      "title": "best ai voice software",
+      "slug": "best-ai-voice-software",
+      "intent": "commercial research",
+      "category": "AI Software",
+      "cluster": "best ai voice software",
+      "score": 50.5,
+      "affiliate_score": "low",
+      "estimated_article_count": 7,
+      "priority": "P3",
+      "article_type": "listicle",
+      "related_keywords": [
+        "best ai voice software comparison",
+        "how to use best ai voice software",
+        "best ai voice software pricing",
+        "best ai voice software faq",
+        "best ai voice software alternatives"
+      ],
+      "planning_reasoning": [
+        "Detected search intent 'commercial' from the query.",
+        "Matched intent terms: best.",
+        "Matched article-type terms: best.",
+        "Intent confidence 0.95; article-type confidence 1.25.",
+        "Detected search intent 'commercial' from the query.",
+        "Intent depth classified as medium based on query specificity."
+      ]
+    }
+  ],
+  "monday_calendar": [],
+  "blocked_publish": [],
+  "needs_human_review": [],
+  "needs_enrichment": [
+    {
+      "topic": "meetily Review 2026",
+      "slug": "meetily-review-2026",
+      "missing_sources": 7,
+      "missing_competitors": 1,
+      "missing_entities": 8,
+      "missing_affiliate_data": 1,
+      "priority": "medium",
+      "reason": "trusted sources are thin; official sources are insufficiently verified; pricing sources need verification; affiliate sources need verification; competitor coverage is limited; entity extraction needs richer tool coverage; official_docs_score 0.0 below 20.0; pricing_source_score 0.0 below 20.0; affiliate_source_score 0.0 below 10.0; total_verified_source_score 0.0 below 35.0; verified_sources 0 below 1; official_verified_sources 0 below 1",
+      "created_at": "2026-07-07T09:38:56.586490+00:00",
+      "status": "needs_enrichment",
+      "score": 45.14,
+      "started_at": "2026-07-07T09:38:56.464596+00:00",
+      "checked_at": "2026-07-07T09:38:56.621091+00:00",
+      "latest_score": 45.14,
+      "latest_missing_information": [
+        "trusted sources are thin",
+        "official sources are insufficiently verified",
+        "pricing sources need verification",
+        "affiliate sources need verification",
+        "competitor coverage is limited",
+        "entity extraction needs richer tool coverage"
+      ],
+      "missing_verified_sources": [
+        "official_docs",
+        "pricing_page",
+        "affiliate_program_page",
+        "release_notes",
+        "competitor_article"
+      ],
+      "source_status": "missing",
+      "source_confidence": 0.0
+    },
+    {
+      "topic": "system_prompts_leaks Review 2026",
+      "slug": "system-prompts-leaks-review-2026",
+      "missing_sources": 12,
+      "missing_competitors": 1,
+      "missing_entities": 8,
+      "missing_affiliate_data": 1,
+      "priority": "medium",
+      "reason": "trusted sources are thin; official sources are insufficiently verified; pricing sources need verification; affiliate sources need verification; competitor coverage is limited; entity extraction needs richer tool coverage; official_docs_score 0.0 below 20.0; pricing_source_score 0.0 below 20.0; affiliate_source_score 0.0 below 10.0; total_verified_source_score 0.0 below 35.0; verified_sources 0 below 1; official_verified_sources 0 below 1",
+      "created_at": "2026-07-07T09:38:56.859663+00:00",
+      "status": "needs_enrichment",
+      "score": 45.14,
+      "started_at": "2026-07-07T09:38:56.645213+00:00",
+      "checked_at": "2026-07-07T09:38:56.888756+00:00",
+      "latest_score": 45.14,
+      "latest_missing_information": [
+        "trusted sources are thin",
+        "official sources are insufficiently verified",
+        "pricing sources need verification",
+        "affiliate sources need verification",
+        "competitor coverage is limited",
+        "entity extraction needs richer tool coverage"
+      ],
+      "missing_verified_sources": [
+        "official_docs",
+        "pricing_page",
+        "affiliate_program_page",
+        "release_notes",
+        "competitor_article"
+      ],
+      "source_status": "missing",
+      "source_confidence": 0.0
+    },
+    {
+      "topic": "agent-skills Review 2026",
+      "slug": "agent-skills-review-2026",
+      "missing_sources": 7,
+      "missing_competitors": 1,
+      "missing_entities": 8,
+      "missing_affiliate_data": 1,
+      "priority": "medium",
+      "reason": "trusted sources are thin; official sources are insufficiently verified; pricing sources need verification; affiliate sources need verification; competitor coverage is limited; entity extraction needs richer tool coverage; official_docs_score 0.0 below 20.0; pricing_source_score 0.0 below 20.0; affiliate_source_score 0.0 below 10.0; total_verified_source_score 0.0 below 35.0; verified_sources 0 below 1; official_verified_sources 0 below 1",
+      "created_at": "2026-07-07T09:38:57.100585+00:00",
+      "status": "needs_enrichment",
+      "score": 45.14,
+      "started_at": "2026-07-07T09:38:56.917709+00:00",
+      "checked_at": "2026-07-07T09:38:57.134982+00:00",
+      "latest_score": 45.14,
+      "latest_missing_information": [
+        "trusted sources are thin",
+        "official sources are insufficiently verified",
+        "pricing sources need verification",
+        "affiliate sources need verification",
+        "competitor coverage is limited",
+        "entity extraction needs richer tool coverage"
+      ],
+      "missing_verified_sources": [
+        "official_docs",
+        "pricing_page",
+        "affiliate_program_page",
+        "release_notes",
+        "competitor_article"
+      ],
+      "source_status": "missing",
+      "source_confidence": 0.0
+    },
+    {
+      "topic": "last30days-skill Review 2026",
+      "slug": "last30days-skill-review-2026",
+      "missing_sources": 7,
+      "missing_competitors": 1,
+      "missing_entities": 8,
+      "missing_affiliate_data": 1,
+      "priority": "medium",
+      "reason": "trusted sources are thin; official sources are insufficiently verified; pricing sources need verification; affiliate sources need verification; competitor coverage is limited; entity extraction needs richer tool coverage; official_docs_score 0.0 below 20.0; pricing_source_score 0.0 below 20.0; affiliate_source_score 0.0 below 10.0; total_verified_source_score 0.0 below 35.0; verified_sources 0 below 1; official_verified_sources 0 below 1",
+      "created_at": "2026-07-07T09:38:57.305735+00:00",
+      "status": "needs_enrichment",
+      "score": 45.14,
+      "started_at": "2026-07-07T09:38:57.168661+00:00",
+      "checked_at": "2026-07-07T09:38:57.331513+00:00",
+      "latest_score": 45.14,
+      "latest_missing_information": [
+        "trusted sources are thin",
+        "official sources are insufficiently verified",
+        "pricing sources need verification",
+        "affiliate sources need verification",
+        "competitor coverage is limited",
+        "entity extraction needs richer tool coverage"
+      ],
+      "missing_verified_sources": [
+        "official_docs",
+        "pricing_page",
+        "affiliate_program_page",
+        "release_notes",
+        "competitor_article"
+      ],
+      "source_status": "missing",
+      "source_confidence": 0.0
+    },
+    {
+      "topic": "taste-skill Review 2026",
+      "slug": "taste-skill-review-2026",
+      "missing_sources": 7,
+      "missing_competitors": 1,
+      "missing_entities": 8,
+      "missing_affiliate_data": 1,
+      "priority": "medium",
+      "reason": "trusted sources are thin; official sources are insufficiently verified; pricing sources need verification; affiliate sources need verification; competitor coverage is limited; entity extraction needs richer tool coverage; official_docs_score 0.0 below 20.0; pricing_source_score 0.0 below 20.0; affiliate_source_score 0.0 below 10.0; total_verified_source_score 0.0 below 35.0; verified_sources 0 below 1; official_verified_sources 0 below 1",
+      "created_at": "2026-07-07T09:38:57.498105+00:00",
+      "status": "needs_enrichment",
+      "score": 45.14,
+      "started_at": "2026-07-07T09:38:57.363197+00:00",
+      "checked_at": "2026-07-07T09:38:57.526114+00:00",
+      "latest_score": 45.14,
+      "latest_missing_information": [
+        "trusted sources are thin",
+        "official sources are insufficiently verified",
+        "pricing sources need verification",
+        "affiliate sources need verification",
+        "competitor coverage is limited",
+        "entity extraction needs richer tool coverage"
+      ],
+      "missing_verified_sources": [
+        "official_docs",
+        "pricing_page",
+        "affiliate_program_page",
+        "release_notes",
+        "competitor_article"
+      ],
+      "source_status": "missing",
+      "source_confidence": 0.0
+    },
+    {
+      "topic": "karakeep Review 2026",
+      "slug": "karakeep-review-2026",
+      "missing_sources": 7,
+      "missing_competitors": 1,
+      "missing_entities": 8,
+      "missing_affiliate_data": 1,
+      "priority": "medium",
+      "reason": "trusted sources are thin; official sources are insufficiently verified; pricing sources need verification; affiliate sources need verification; competitor coverage is limited; entity extraction needs richer tool coverage; official_docs_score 0.0 below 20.0; pricing_source_score 0.0 below 20.0; affiliate_source_score 0.0 below 10.0; total_verified_source_score 0.0 below 35.0; verified_sources 0 below 1; official_verified_sources 0 below 1",
+      "created_at": "2026-07-07T09:38:57.719879+00:00",
+      "status": "needs_enrichment",
+      "score": 45.14,
+      "started_at": "2026-07-07T09:38:57.561816+00:00",
+      "checked_at": "2026-07-07T09:38:57.752632+00:00",
+      "latest_score": 45.14,
+      "latest_missing_information": [
+        "trusted sources are thin",
+        "official sources are insufficiently verified",
+        "pricing sources need verification",
+        "affiliate sources need verification",
+        "competitor coverage is limited",
+        "entity extraction needs richer tool coverage"
+      ],
+      "missing_verified_sources": [
+        "official_docs",
+        "pricing_page",
+        "affiliate_program_page",
+        "release_notes",
+        "competitor_article"
+      ],
+      "source_status": "missing",
+      "source_confidence": 0.0
+    },
+    {
+      "topic": "best ai meeting software",
+      "slug": "best-ai-meeting-software",
+      "missing_sources": 9,
+      "missing_competitors": 1,
+      "missing_entities": 5,
+      "missing_affiliate_data": 1,
+      "priority": "medium",
+      "reason": "competitor coverage is limited",
+      "created_at": "2026-07-07T09:38:57.945870+00:00",
+      "status": "needs_enrichment",
+      "score": 57.79,
+      "started_at": "2026-07-07T09:38:57.779286+00:00",
+      "checked_at": "2026-07-07T09:38:57.989936+00:00",
+      "latest_score": 57.79,
+      "latest_missing_information": [
+        "competitor coverage is limited"
+      ],
+      "missing_verified_sources": [
+        "competitor_article"
+      ],
+      "source_status": "verified",
+      "source_confidence": 91.6
+    },
+    {
+      "topic": "best ai voice software",
+      "slug": "best-ai-voice-software",
+      "missing_sources": 9,
+      "missing_competitors": 1,
+      "missing_entities": 5,
+      "missing_affiliate_data": 1,
+      "priority": "medium",
+      "reason": "competitor coverage is limited",
+      "created_at": "2026-07-07T09:38:58.268317+00:00",
+      "status": "needs_enrichment",
+      "score": 57.79,
+      "started_at": "2026-07-07T09:38:58.035479+00:00",
+      "checked_at": "2026-07-07T09:38:58.300049+00:00",
+      "latest_score": 57.79,
+      "latest_missing_information": [
+        "competitor coverage is limited"
+      ],
+      "missing_verified_sources": [
+        "competitor_article"
+      ],
+      "source_status": "verified",
+      "source_confidence": 92.0
+    },
+    {
+      "topic": "The SaaS Apocalypse Is Real. Causal AI Is the Escape Route",
+      "slug": "the-saas-apocalypse-is-real-causal-ai-is-the-escape-route",
+      "missing_sources": 12,
+      "missing_verified_sources": [
+        "official_docs",
+        "pricing_page",
+        "affiliate_program_page",
+        "release_notes",
+        "competitor_article"
+      ],
+      "missing_competitors": 1,
+      "missing_entities": 8,
+      "missing_affiliate_data": 1,
+      "priority": "high",
+      "reason": "trusted sources are thin; official sources are insufficiently verified; pricing sources need verification; affiliate sources need verification; competitor coverage is limited; entity extraction needs richer tool coverage; official_docs_score 0.0 below 20.0; pricing_source_score 0.0 below 20.0; affiliate_source_score 0.0 below 10.0; total_verified_source_score 0.0 below 35.0; verified_sources 0 below 1; official_verified_sources 0 below 1",
+      "created_at": "2026-07-07T09:38:58.460659+00:00",
+      "status": "needs_enrichment",
+      "score": 43.71,
+      "source_status": "missing",
+      "source_confidence": 0.0,
+      "started_at": "2026-07-07T09:38:58.325848+00:00",
+      "checked_at": "2026-07-07T09:38:58.485959+00:00",
+      "latest_score": 43.71,
+      "latest_missing_information": [
+        "trusted sources are thin",
+        "official sources are insufficiently verified",
+        "pricing sources need verification",
+        "affiliate sources need verification",
+        "competitor coverage is limited",
+        "entity extraction needs richer tool coverage"
+      ]
+    }
+  ],
+  "optimization_actions": [
+    {
+      "slug": "sample-ai-topic",
+      "topic": "sample ai topic",
+      "topic_roi_score": 23.7,
+      "update_priority": "medium",
+      "next_recommended_action": "improve affiliate section",
+      "reason": "ROI 23.7; freshness decay 0.0"
+    }
+  ],
+  "research_quality": [
+    {
+      "slug": "the-saas-apocalypse-is-real-causal-ai-is-the-escape-route",
+      "keyword": "The SaaS Apocalypse Is Real. Causal AI Is the Escape Route",
+      "overall_score": 43.71,
+      "coverage": 72,
+      "entity_coverage": 36,
+      "entity_coverage_score": 36,
+      "missing_entity_types": [
+        "ai_tools",
+        "companies",
+        "affiliate_networks",
+        "integrations",
+        "use_cases",
+        "target_audience",
+        "competitors",
+        "product_categories"
+      ],
+      "faq_coverage": 68,
+      "outline_quality": 70,
+      "affiliate_readiness": 45,
+      "source_quality": 5.0,
+      "official_docs_score": 0,
+      "pricing_source_score": 0,
+      "affiliate_source_score": 0,
+      "total_verified_source_score": 0,
+      "source_confidence": 0.0,
+      "source_status": "missing",
+      "status": "needs enrichment",
+      "missing_information": [
+        "trusted sources are thin",
+        "official sources are insufficiently verified",
+        "pricing sources need verification",
+        "affiliate sources need verification",
+        "competitor coverage is limited",
+        "entity extraction needs richer tool coverage"
+      ],
+      "cache_hits": [],
+      "package_dir": "D:\\AFFILATE BOT\\data\\research\\the-saas-apocalypse-is-real-causal-ai-is-the-escape-route"
+    },
+    {
+      "slug": "best-ai-voice-software",
+      "keyword": "best ai voice software",
+      "overall_score": 57.79,
+      "coverage": 72,
+      "entity_coverage": 60,
+      "entity_coverage_score": 60,
+      "missing_entity_types": [
+        "affiliate_networks",
+        "integrations",
+        "use_cases",
+        "target_audience",
+        "competitors"
+      ],
+      "faq_coverage": 68,
+      "outline_quality": 80,
+      "affiliate_readiness": 49,
+      "source_quality": 65.5,
+      "official_docs_score": 100,
+      "pricing_source_score": 100,
+      "affiliate_source_score": 99,
+      "total_verified_source_score": 79,
+      "source_confidence": 92.0,
+      "source_status": "verified",
+      "status": "needs enrichment",
+      "missing_information": [
+        "competitor coverage is limited"
+      ],
+      "cache_hits": [
+        "ElevenLabs"
+      ],
+      "package_dir": "D:\\AFFILATE BOT\\data\\research\\best-ai-voice-software"
+    },
+    {
+      "slug": "best-ai-meeting-software",
+      "keyword": "best ai meeting software",
+      "overall_score": 57.79,
+      "coverage": 72,
+      "entity_coverage": 60,
+      "entity_coverage_score": 60,
+      "missing_entity_types": [
+        "affiliate_networks",
+        "integrations",
+        "use_cases",
+        "target_audience",
+        "competitors"
+      ],
+      "faq_coverage": 68,
+      "outline_quality": 80,
+      "affiliate_readiness": 49,
+      "source_quality": 65.5,
+      "official_docs_score": 99,
+      "pricing_source_score": 100,
+      "affiliate_source_score": 99,
+      "total_verified_source_score": 79,
+      "source_confidence": 91.6,
+      "source_status": "verified",
+      "status": "needs enrichment",
+      "missing_information": [
+        "competitor coverage is limited"
+      ],
+      "cache_hits": [
+        "Reclaim AI"
+      ],
+      "package_dir": "D:\\AFFILATE BOT\\data\\research\\best-ai-meeting-software"
+    },
+    {
+      "slug": "karakeep-review-2026",
+      "keyword": "karakeep Review 2026",
+      "overall_score": 45.14,
+      "coverage": 72,
+      "entity_coverage": 36,
+      "entity_coverage_score": 36,
+      "missing_entity_types": [
+        "ai_tools",
+        "companies",
+        "affiliate_networks",
+        "integrations",
+        "use_cases",
+        "target_audience",
+        "competitors",
+        "product_categories"
+      ],
+      "faq_coverage": 68,
+      "outline_quality": 80,
+      "affiliate_readiness": 45,
+      "source_quality": 5.0,
+      "official_docs_score": 0,
+      "pricing_source_score": 0,
+      "affiliate_source_score": 0,
+      "total_verified_source_score": 0,
+      "source_confidence": 0.0,
+      "source_status": "missing",
+      "status": "needs enrichment",
+      "missing_information": [
+        "trusted sources are thin",
+        "official sources are insufficiently verified",
+        "pricing sources need verification",
+        "affiliate sources need verification",
+        "competitor coverage is limited",
+        "entity extraction needs richer tool coverage"
+      ],
+      "cache_hits": [],
+      "package_dir": "D:\\AFFILATE BOT\\data\\research\\karakeep-review-2026"
+    },
+    {
+      "slug": "taste-skill-review-2026",
+      "keyword": "taste-skill Review 2026",
+      "overall_score": 45.14,
+      "coverage": 72,
+      "entity_coverage": 36,
+      "entity_coverage_score": 36,
+      "missing_entity_types": [
+        "ai_tools",
+        "companies",
+        "affiliate_networks",
+        "integrations",
+        "use_cases",
+        "target_audience",
+        "competitors",
+        "product_categories"
+      ],
+      "faq_coverage": 68,
+      "outline_quality": 80,
+      "affiliate_readiness": 45,
+      "source_quality": 5.0,
+      "official_docs_score": 0,
+      "pricing_source_score": 0,
+      "affiliate_source_score": 0,
+      "total_verified_source_score": 0,
+      "source_confidence": 0.0,
+      "source_status": "missing",
+      "status": "needs enrichment",
+      "missing_information": [
+        "trusted sources are thin",
+        "official sources are insufficiently verified",
+        "pricing sources need verification",
+        "affiliate sources need verification",
+        "competitor coverage is limited",
+        "entity extraction needs richer tool coverage"
+      ],
+      "cache_hits": [],
+      "package_dir": "D:\\AFFILATE BOT\\data\\research\\taste-skill-review-2026"
+    },
+    {
+      "slug": "last30days-skill-review-2026",
+      "keyword": "last30days-skill Review 2026",
+      "overall_score": 45.14,
+      "coverage": 72,
+      "entity_coverage": 36,
+      "entity_coverage_score": 36,
+      "missing_entity_types": [
+        "ai_tools",
+        "companies",
+        "affiliate_networks",
+        "integrations",
+        "use_cases",
+        "target_audience",
+        "competitors",
+        "product_categories"
+      ],
+      "faq_coverage": 68,
+      "outline_quality": 80,
+      "affiliate_readiness": 45,
+      "source_quality": 5.0,
+      "official_docs_score": 0,
+      "pricing_source_score": 0,
+      "affiliate_source_score": 0,
+      "total_verified_source_score": 0,
+      "source_confidence": 0.0,
+      "source_status": "missing",
+      "status": "needs enrichment",
+      "missing_information": [
+        "trusted sources are thin",
+        "official sources are insufficiently verified",
+        "pricing sources need verification",
+        "affiliate sources need verification",
+        "competitor coverage is limited",
+        "entity extraction needs richer tool coverage"
+      ],
+      "cache_hits": [],
+      "package_dir": "D:\\AFFILATE BOT\\data\\research\\last30days-skill-review-2026"
+    },
+    {
+      "slug": "agent-skills-review-2026",
+      "keyword": "agent-skills Review 2026",
+      "overall_score": 45.14,
+      "coverage": 72,
+      "entity_coverage": 36,
+      "entity_coverage_score": 36,
+      "missing_entity_types": [
+        "ai_tools",
+        "companies",
+        "affiliate_networks",
+        "integrations",
+        "use_cases",
+        "target_audience",
+        "competitors",
+        "product_categories"
+      ],
+      "faq_coverage": 68,
+      "outline_quality": 80,
+      "affiliate_readiness": 45,
+      "source_quality": 5.0,
+      "official_docs_score": 0,
+      "pricing_source_score": 0,
+      "affiliate_source_score": 0,
+      "total_verified_source_score": 0,
+      "source_confidence": 0.0,
+      "source_status": "missing",
+      "status": "needs enrichment",
+      "missing_information": [
+        "trusted sources are thin",
+        "official sources are insufficiently verified",
+        "pricing sources need verification",
+        "affiliate sources need verification",
+        "competitor coverage is limited",
+        "entity extraction needs richer tool coverage"
+      ],
+      "cache_hits": [],
+      "package_dir": "D:\\AFFILATE BOT\\data\\research\\agent-skills-review-2026"
+    },
+    {
+      "slug": "system-prompts-leaks-review-2026",
+      "keyword": "system_prompts_leaks Review 2026",
+      "overall_score": 45.14,
+      "coverage": 72,
+      "entity_coverage": 36,
+      "entity_coverage_score": 36,
+      "missing_entity_types": [
+        "ai_tools",
+        "companies",
+        "affiliate_networks",
+        "integrations",
+        "use_cases",
+        "target_audience",
+        "competitors",
+        "product_categories"
+      ],
+      "faq_coverage": 68,
+      "outline_quality": 80,
+      "affiliate_readiness": 45,
+      "source_quality": 5.0,
+      "official_docs_score": 0,
+      "pricing_source_score": 0,
+      "affiliate_source_score": 0,
+      "total_verified_source_score": 0,
+      "source_confidence": 0.0,
+      "source_status": "missing",
+      "status": "needs enrichment",
+      "missing_information": [
+        "trusted sources are thin",
+        "official sources are insufficiently verified",
+        "pricing sources need verification",
+        "affiliate sources need verification",
+        "competitor coverage is limited",
+        "entity extraction needs richer tool coverage"
+      ],
+      "cache_hits": [],
+      "package_dir": "D:\\AFFILATE BOT\\data\\research\\system-prompts-leaks-review-2026"
+    },
+    {
+      "slug": "meetily-review-2026",
+      "keyword": "meetily Review 2026",
+      "overall_score": 45.14,
+      "coverage": 72,
+      "entity_coverage": 36,
+      "entity_coverage_score": 36,
+      "missing_entity_types": [
+        "ai_tools",
+        "companies",
+        "affiliate_networks",
+        "integrations",
+        "use_cases",
+        "target_audience",
+        "competitors",
+        "product_categories"
+      ],
+      "faq_coverage": 68,
+      "outline_quality": 80,
+      "affiliate_readiness": 45,
+      "source_quality": 5.0,
+      "official_docs_score": 0,
+      "pricing_source_score": 0,
+      "affiliate_source_score": 0,
+      "total_verified_source_score": 0,
+      "source_confidence": 0.0,
+      "source_status": "missing",
+      "status": "needs enrichment",
+      "missing_information": [
+        "trusted sources are thin",
+        "official sources are insufficiently verified",
+        "pricing sources need verification",
+        "affiliate sources need verification",
+        "competitor coverage is limited",
+        "entity extraction needs richer tool coverage"
+      ],
+      "cache_hits": [],
+      "package_dir": "D:\\AFFILATE BOT\\data\\research\\meetily-review-2026"
+    },
+    {
+      "slug": "best-ai-productivity-software",
+      "keyword": "best ai productivity software",
+      "overall_score": 62.36,
+      "coverage": 72,
+      "entity_coverage": 60,
+      "entity_coverage_score": 60,
+      "missing_entity_types": [
+        "affiliate_networks",
+        "integrations",
+        "use_cases",
+        "target_audience",
+        "competitors"
+      ],
+      "faq_coverage": 68,
+      "outline_quality": 80,
+      "affiliate_readiness": 57,
+      "source_quality": 89.5,
+      "official_docs_score": 100,
+      "pricing_source_score": 100,
+      "affiliate_source_score": 98,
+      "total_verified_source_score": 79,
+      "source_confidence": 91.6,
+      "source_status": "verified",
+      "status": "ready",
+      "missing_information": [
+        "competitor coverage is limited"
+      ],
+      "cache_hits": [
+        "Notion",
+        "Gamma",
+        "Notion AI"
+      ],
+      "package_dir": "D:\\AFFILATE BOT\\data\\research\\best-ai-productivity-software"
+    }
+  ]
+}

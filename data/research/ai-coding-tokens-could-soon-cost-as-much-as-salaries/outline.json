@@ -1,0 +1,94 @@
+{
+  "seo_outline": [
+    "Pricing",
+    "Best fit",
+    "Pros and cons",
+    "CTA"
+  ],
+  "article_structure": [
+    "Clarify plans and value",
+    "Explain who should buy",
+    "Highlight tradeoffs",
+    "Guide the next step"
+  ],
+  "heading_hierarchy": [
+    {
+      "level": 2,
+      "heading": "Pricing",
+      "purpose": "Clarify plans and value"
+    },
+    {
+      "level": 2,
+      "heading": "Best fit",
+      "purpose": "Explain who should buy"
+    },
+    {
+      "level": 2,
+      "heading": "Pros and cons",
+      "purpose": "Highlight tradeoffs"
+    },
+    {
+      "level": 2,
+      "heading": "CTA",
+      "purpose": "Guide the next step"
+    }
+  ],
+  "faq_placement": "After alternatives and before final CTA",
+  "cta_placement": "Hero CTA and final verdict CTA",
+  "internal_link_opportunities": [],
+  "affiliate_blocks": [
+    "affiliate disclosure",
+    "pricing verification note",
+    "comparison shortlist CTA"
+  ],
+  "product_comparison_tables": [
+    "feature comparison table",
+    "pricing and plan limits table"
+  ],
+  "images_required": [
+    "hero visual",
+    "comparison table screenshot",
+    "pricing checklist visual"
+  ],
+  "infographic_suggestions": [
+    "AI coding tokens could soon cost as much as salaries buyer checklist infographic",
+    "AI coding tokens could soon cost as much as salaries comparison flow infographic"
+  ],
+  "video_suggestions": [
+    "AI coding tokens could soon cost as much as salaries walkthrough",
+    "AI coding tokens could soon cost as much as salaries comparison short"
+  ],
+  "faq_groups": {
+    "beginner": [
+      "What is AI coding tokens could soon cost as much as salaries and who is it for?",
+      "How should beginners evaluate AI coding tokens could soon cost as much as salaries before buying?"
+    ],
+    "intermediate": [
+      "What workflow problems does AI coding tokens could soon cost as much as salaries solve best?",
+      "Which integrations matter most when using AI coding tokens could soon cost as much as salaries?"
+    ],
+    "advanced": [
+      "What implementation risks appear when teams scale AI coding tokens could soon cost as much as salaries?",
+      "How often should AI coding tokens could soon cost as much as salaries content be updated after product changes?"
+    ],
+    "comparison": [
+      "How does AI coding tokens could soon cost as much as salaries compare with alternatives?",
+      "When should a buyer choose an alternative instead of AI coding tokens could soon cost as much as salaries?"
+    ],
+    "pricing": [
+      "What should readers verify on the pricing page for Cursor?",
+      "Which hidden cost risks matter most when evaluating AI coding tokens could soon cost as much as salaries?"
+    ],
+    "troubleshooting": [
+      "What should the writer do if official pricing or feature details conflict for AI coding tokens could soon cost as much as salaries?",
+      "How should broken links or outdated claims about AI coding tokens could soon cost as much as salaries be handled before publishing?"
+    ]
+  },
+  "recommended_cta": "Compare plans and choose the option that fits your needs.",
+  "confidence": 0.95,
+  "reasoning": [
+    "Built an outline for 'AI coding tokens could soon cost as much as salaries' using the 'transactional' template.",
+    "Used keyword signals: AI coding tokens could soon cost as much as salaries for teams, AI coding tokens could soon cost as much as salaries free trial.",
+    "Included 4 planned sections for the article structure."
+  ]
+}

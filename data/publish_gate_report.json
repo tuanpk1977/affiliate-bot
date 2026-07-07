@@ -1,11 +1,37 @@
 {
   "summary": {
-    "items": 0,
-    "blocked": 0,
+    "items": 1,
+    "blocked": 1,
     "ready_for_publish": 0,
     "approved_for_publish": 0,
     "published_local": 0,
     "publish_failed": 0
   },
-  "items": []
+  "items": [
+    {
+      "slug": "best-ai-productivity-software",
+      "topic": "best ai productivity software",
+      "status": "blocked",
+      "checked_at": "2026-07-07T09:40:42.302611+00:00",
+      "failures": [
+        "human approval missing"
+      ],
+      "research_quality_passed": true,
+      "verified_source_score_passed": true,
+      "knowledge_freshness_passed": true,
+      "ai_review_passed": true,
+      "human_approval_passed": false,
+      "broken_links": [],
+      "duplicate_title_meta": false,
+      "affiliate_disclosure_present": true,
+      "minimum_business_score_passed": true,
+      "minimum_readability_score_passed": true,
+      "business_score": 52.1,
+      "readability_score": 60.07,
+      "publish_ready": false,
+      "url": "https://smileaireviewhub.com/best-ai-productivity-software/",
+      "title": "best ai productivity software 2026: Pricing, Pros, Cons",
+      "description": "Independent best ai productivity software guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice."
+    }
+  ]
 }

@@ -11,7 +11,15 @@ class ContentReviewTests(unittest.TestCase):
     def test_ai_review_passes_for_complete_content(self) -> None:
         with TemporaryDirectory() as temp_dir:
             data_dir = Path(temp_dir) / "data"
-            engine = ContentReviewEngine(data_dir=data_dir, config={"minimum_word_count": 50, "minimum_publish_readiness": 50})
+            engine = ContentReviewEngine(
+                data_dir=data_dir,
+                config={
+                    "minimum_word_count": 50,
+                    "minimum_publish_readiness": 50,
+                    "manual_approval_article_types": [],
+                    "manual_approval_title_markers": [],
+                },
+            )
             html = """
             <html><body>
             <section><h2>Affiliate disclosure</h2><p>We may earn a commission.</p></section>
@@ -58,6 +66,47 @@ class ContentReviewTests(unittest.TestCase):
             self.assertEqual(result["status"], "needs_revision")
             self.assertFalse(result["publishable"])
             self.assertTrue(result["failures"])
+
+    def test_pricing_and_comparison_content_require_human_review_when_ai_passes(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            data_dir = Path(temp_dir) / "data"
+            engine = ContentReviewEngine(
+                data_dir=data_dir,
+                config={
+                    "minimum_word_count": 40,
+                    "minimum_publish_readiness": 50,
+                    "minimum_source_quality": 0,
+                    "minimum_factual_quality": 0,
+                    "minimum_seo_quality": 0,
+                    "minimum_business_value": 0,
+                    "minimum_readability_score": 0,
+                    "minimum_publish_readiness": 40,
+                    "manual_approval_article_types": ["pricing", "comparison", "review", "product_recommendation"],
+                    "manual_approval_title_markers": [],
+                },
+            )
+            html = """
+            <html><body>
+            <section><h2>Affiliate disclosure</h2><p>We may earn a commission.</p></section>
+            <p>Comprehensive comparison with enough text to pass all local review thresholds for this test fixture.</p>
+            <p>Additional content about pricing, alternatives, and buying decisions to ensure the draft is reviewable.</p>
+            <p>Internal link context and source verification notes are present for the review engine.</p>
+            </body></html>
+            """
+            result = engine.review_content(
+                topic={"topic": "cursor vs windsurf pricing comparison", "slug": "cursor-vs-windsurf-pricing-comparison", "content_type": "comparison", "estimated_business_value": "high"},
+                html=html,
+                title="Cursor vs Windsurf Pricing Comparison 2026",
+                description="Comparison of Cursor and Windsurf pricing, workflow fit, and internal links for buyers.",
+                url="https://example.com/cursor-vs-windsurf-pricing-comparison/",
+                internal_links=[("/comparisons/", "Comparisons")],
+                warnings=[],
+                research={"quality": {"overall_score": 82, "source_quality": 76, "total_verified_source_score": 72, "affiliate_readiness": 80}},
+                planning={"coverage_score": 78, "keyword": "cursor vs windsurf pricing comparison"},
+            )
+
+            self.assertEqual(result["status"], "needs_human_review")
+            self.assertTrue(result["requires_human_approval"])
 
 
 if __name__ == "__main__":

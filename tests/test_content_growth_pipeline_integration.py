@@ -36,10 +36,10 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
 
     def test_run_daily_content_growth_attaches_planning_and_publishes_locally(self) -> None:
         topic = {
-            "topic": "best ai coding assistants for teams",
+            "topic": "how to onboard ai coding assistants for teams",
             "slug": "best-ai-coding-assistants-for-teams",
-            "content_type": "comparison",
-            "search_intent": "commercial",
+            "content_type": "tutorial",
+            "search_intent": "informational",
             "total_score": 91,
             "related_keywords": [
                 "ai coding tools for teams",
@@ -97,6 +97,8 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
                             "minimum_seo_quality": 0,
                             "minimum_business_value": 0,
                             "minimum_readability_score": 0,
+                            "manual_approval_article_types": ["pricing", "comparison", "review", "product_recommendation"],
+                            "manual_approval_title_markers": [],
                         },
                     },
                 )
@@ -115,6 +117,8 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
                                 "minimum_seo_quality": 0,
                                 "minimum_business_value": 0,
                                 "minimum_readability_score": 0,
+                                "manual_approval_article_types": ["pricing", "comparison", "review", "product_recommendation"],
+                                "manual_approval_title_markers": [],
                             },
                         ),
                     )
@@ -173,7 +177,7 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
             self.assertIn("source_status", research["quality"])
 
             self.assertEqual(planning["keyword"], topic["topic"])
-            self.assertEqual(planning["intent"], "commercial")
+            self.assertEqual(planning["intent"], "informational")
             self.assertIn("coverage_score", planning)
             self.assertTrue(planning["outline_sections"])
             self.assertTrue(planning["reasoning"])
@@ -194,7 +198,7 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
             self.assertEqual(site_file.parent.parent, site_output)
 
             article_html = article_file.read_text(encoding="utf-8")
-            self.assertIn("<title>best ai coding assistants for teams 2026</title>", article_html.lower())
+            self.assertIn("<title>how to onboard ai coding assistants for teams 2026</title>", article_html.lower())
             self.assertIn('<meta name="description"', article_html)
             self.assertIn("Research package snapshot", article_html)
             self.assertIn("Research quality score", article_html)

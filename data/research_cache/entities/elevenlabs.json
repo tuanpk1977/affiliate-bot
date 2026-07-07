@@ -146,7 +146,410 @@
     },
     "reference_count": 3,
     "estimated_source_count": 0,
-    "missing_source_count": 9
+    "missing_source_count": 9,
+    "verified_registry_records": [
+      {
+        "id": "elevenlabs:affiliate_program_page:elevenlabs-io-affiliates",
+        "brand": "ElevenLabs",
+        "slug": "elevenlabs",
+        "source_type": "affiliate_program_page",
+        "source_name": "ElevenLabs Affiliates Program",
+        "source_url": "https://elevenlabs.io/affiliates",
+        "canonical_source": "elevenlabs.io/affiliates",
+        "verification_status": "verified",
+        "verification_date": "2026-07-07T00:00:00+00:00",
+        "verified_by": "system",
+        "confidence": 93.0,
+        "freshness_score": 100,
+        "trust_score": 99,
+        "official_score": 0,
+        "pricing_score": 0,
+        "affiliate_score": 99,
+        "release_notes_score": 0,
+        "competitor_score": 0,
+        "duplicate_of": "",
+        "last_seen": "2026-07-07T09:37:31.258087+00:00",
+        "first_seen": "2026-07-07T00:00:00+00:00",
+        "version": 2,
+        "history": [
+          {
+            "at": "2026-07-07T09:37:31.261385+00:00",
+            "action": "updated",
+            "version": 2,
+            "changed_fields": [
+              "verified_by"
+            ]
+          }
+        ],
+        "notes": "Official ElevenLabs affiliate program page reviewed on 2026-07-07.",
+        "reason": ""
+      },
+      {
+        "id": "elevenlabs:official_docs:elevenlabs-io-docs-overview-intro",
+        "brand": "ElevenLabs",
+        "slug": "elevenlabs",
+        "source_type": "official_docs",
+        "source_name": "ElevenLabs Documentation",
+        "source_url": "https://elevenlabs.io/docs/overview/intro",
+        "canonical_source": "elevenlabs.io/docs/overview/intro",
+        "verification_status": "verified",
+        "verification_date": "2026-07-07T00:00:00+00:00",
+        "verified_by": "system",
+        "confidence": 94.0,
+        "freshness_score": 100,
+        "trust_score": 100,
+        "official_score": 100,
+        "pricing_score": 0,
+        "affiliate_score": 0,
+        "release_notes_score": 0,
+        "competitor_score": 0,
+        "duplicate_of": "",
+        "last_seen": "2026-07-07T09:37:31.258087+00:00",
+        "first_seen": "2026-07-07T00:00:00+00:00",
+        "version": 2,
+        "history": [
+          {
+            "at": "2026-07-07T09:37:31.258286+00:00",
+            "action": "updated",
+            "version": 2,
+            "changed_fields": [
+              "verified_by"
+            ]
+          }
+        ],
+        "notes": "Official ElevenLabs documentation entrypoint reviewed on 2026-07-07.",
+        "reason": ""
+      },
+      {
+        "id": "elevenlabs:pricing_page:elevenlabs-io-pricing",
+        "brand": "ElevenLabs",
+        "slug": "elevenlabs",
+        "source_type": "pricing_page",
+        "source_name": "ElevenLabs Pricing",
+        "source_url": "https://elevenlabs.io/pricing",
+        "canonical_source": "elevenlabs.io/pricing",
+        "verification_status": "verified",
+        "verification_date": "2026-07-07T00:00:00+00:00",
+        "verified_by": "system",
+        "confidence": 95.0,
+        "freshness_score": 100,
+        "trust_score": 100,
+        "official_score": 0,
+        "pricing_score": 100,
+        "affiliate_score": 0,
+        "release_notes_score": 0,
+        "competitor_score": 0,
+        "duplicate_of": "",
+        "last_seen": "2026-07-07T09:37:31.258087+00:00",
+        "first_seen": "2026-07-07T00:00:00+00:00",
+        "version": 2,
+        "history": [
+          {
+            "at": "2026-07-07T09:37:31.260712+00:00",
+            "action": "updated",
+            "version": 2,
+            "changed_fields": [
+              "verified_by"
+            ]
+          }
+        ],
+        "notes": "Official ElevenLabs pricing page reviewed on 2026-07-07.",
+        "reason": ""
+      },
+      {
+        "id": "elevenlabs:product_page:elevenlabs-io",
+        "brand": "ElevenLabs",
+        "slug": "elevenlabs",
+        "source_type": "product_page",
+        "source_name": "ElevenLabs Product Homepage",
+        "source_url": "https://elevenlabs.io/",
+        "canonical_source": "elevenlabs.io/",
+        "verification_status": "verified",
+        "verification_date": "2026-07-07T00:00:00+00:00",
+        "verified_by": "system",
+        "confidence": 88.0,
+        "freshness_score": 100,
+        "trust_score": 96,
+        "official_score": 96,
+        "pricing_score": 0,
+        "affiliate_score": 0,
+        "release_notes_score": 0,
+        "competitor_score": 0,
+        "duplicate_of": "",
+        "last_seen": "2026-07-07T09:37:31.258087+00:00",
+        "first_seen": "2026-07-07T00:00:00+00:00",
+        "version": 2,
+        "history": [
+          {
+            "at": "2026-07-07T09:37:31.262541+00:00",
+            "action": "updated",
+            "version": 2,
+            "changed_fields": [
+              "verified_by"
+            ]
+          }
+        ],
+        "notes": "Official ElevenLabs product reference page reviewed on 2026-07-07.",
+        "reason": ""
+      },
+      {
+        "id": "elevenlabs:release_notes:elevenlabs-io-docs-changelog",
+        "brand": "ElevenLabs",
+        "slug": "elevenlabs",
+        "source_type": "release_notes",
+        "source_name": "ElevenLabs Changelog",
+        "source_url": "https://elevenlabs.io/docs/changelog",
+        "canonical_source": "elevenlabs.io/docs/changelog",
+        "verification_status": "verified",
+        "verification_date": "2026-07-07T00:00:00+00:00",
+        "verified_by": "system",
+        "confidence": 90.0,
+        "freshness_score": 100,
+        "trust_score": 98,
+        "official_score": 0,
+        "pricing_score": 0,
+        "affiliate_score": 0,
+        "release_notes_score": 98,
+        "competitor_score": 0,
+        "duplicate_of": "",
+        "last_seen": "2026-07-07T09:37:31.258087+00:00",
+        "first_seen": "2026-07-07T00:00:00+00:00",
+        "version": 2,
+        "history": [
+          {
+            "at": "2026-07-07T09:37:31.261965+00:00",
+            "action": "updated",
+            "version": 2,
+            "changed_fields": [
+              "verified_by"
+            ]
+          }
+        ],
+        "notes": "Official ElevenLabs changelog reviewed on 2026-07-07.",
+        "reason": ""
+      }
+    ],
+    "verified_sources": [
+      {
+        "id": "elevenlabs:affiliate_program_page:elevenlabs-io-affiliates",
+        "brand": "ElevenLabs",
+        "slug": "elevenlabs",
+        "source_type": "affiliate_program_page",
+        "source_name": "ElevenLabs Affiliates Program",
+        "source_url": "https://elevenlabs.io/affiliates",
+        "canonical_source": "elevenlabs.io/affiliates",
+        "verification_status": "verified",
+        "verification_date": "2026-07-07T00:00:00+00:00",
+        "verified_by": "system",
+        "confidence": 93.0,
+        "freshness_score": 100,
+        "trust_score": 99,
+        "official_score": 0,
+        "pricing_score": 0,
+        "affiliate_score": 99,
+        "release_notes_score": 0,
+        "competitor_score": 0,
+        "duplicate_of": "",
+        "last_seen": "2026-07-07T09:37:31.258087+00:00",
+        "first_seen": "2026-07-07T00:00:00+00:00",
+        "version": 2,
+        "history": [
+          {
+            "at": "2026-07-07T09:37:31.261385+00:00",
+            "action": "updated",
+            "version": 2,
+            "changed_fields": [
+              "verified_by"
+            ]
+          }
+        ],
+        "notes": "Official ElevenLabs affiliate program page reviewed on 2026-07-07.",
+        "reason": ""
+      },
+      {
+        "id": "elevenlabs:official_docs:elevenlabs-io-docs-overview-intro",
+        "brand": "ElevenLabs",
+        "slug": "elevenlabs",
+        "source_type": "official_docs",
+        "source_name": "ElevenLabs Documentation",
+        "source_url": "https://elevenlabs.io/docs/overview/intro",
+        "canonical_source": "elevenlabs.io/docs/overview/intro",
+        "verification_status": "verified",
+        "verification_date": "2026-07-07T00:00:00+00:00",
+        "verified_by": "system",
+        "confidence": 94.0,
+        "freshness_score": 100,
+        "trust_score": 100,
+        "official_score": 100,
+        "pricing_score": 0,
+        "affiliate_score": 0,
+        "release_notes_score": 0,
+        "competitor_score": 0,
+        "duplicate_of": "",
+        "last_seen": "2026-07-07T09:37:31.258087+00:00",
+        "first_seen": "2026-07-07T00:00:00+00:00",
+        "version": 2,
+        "history": [
+          {
+            "at": "2026-07-07T09:37:31.258286+00:00",
+            "action": "updated",
+            "version": 2,
+            "changed_fields": [
+              "verified_by"
+            ]
+          }
+        ],
+        "notes": "Official ElevenLabs documentation entrypoint reviewed on 2026-07-07.",
+        "reason": ""
+      },
+      {
+        "id": "elevenlabs:pricing_page:elevenlabs-io-pricing",
+        "brand": "ElevenLabs",
+        "slug": "elevenlabs",
+        "source_type": "pricing_page",
+        "source_name": "ElevenLabs Pricing",
+        "source_url": "https://elevenlabs.io/pricing",
+        "canonical_source": "elevenlabs.io/pricing",
+        "verification_status": "verified",
+        "verification_date": "2026-07-07T00:00:00+00:00",
+        "verified_by": "system",
+        "confidence": 95.0,
+        "freshness_score": 100,
+        "trust_score": 100,
+        "official_score": 0,
+        "pricing_score": 100,
+        "affiliate_score": 0,
+        "release_notes_score": 0,
+        "competitor_score": 0,
+        "duplicate_of": "",
+        "last_seen": "2026-07-07T09:37:31.258087+00:00",
+        "first_seen": "2026-07-07T00:00:00+00:00",
+        "version": 2,
+        "history": [
+          {
+            "at": "2026-07-07T09:37:31.260712+00:00",
+            "action": "updated",
+            "version": 2,
+            "changed_fields": [
+              "verified_by"
+            ]
+          }
+        ],
+        "notes": "Official ElevenLabs pricing page reviewed on 2026-07-07.",
+        "reason": ""
+      },
+      {
+        "id": "elevenlabs:product_page:elevenlabs-io",
+        "brand": "ElevenLabs",
+        "slug": "elevenlabs",
+        "source_type": "product_page",
+        "source_name": "ElevenLabs Product Homepage",
+        "source_url": "https://elevenlabs.io/",
+        "canonical_source": "elevenlabs.io/",
+        "verification_status": "verified",
+        "verification_date": "2026-07-07T00:00:00+00:00",
+        "verified_by": "system",
+        "confidence": 88.0,
+        "freshness_score": 100,
+        "trust_score": 96,
+        "official_score": 96,
+        "pricing_score": 0,
+        "affiliate_score": 0,
+        "release_notes_score": 0,
+        "competitor_score": 0,
+        "duplicate_of": "",
+        "last_seen": "2026-07-07T09:37:31.258087+00:00",
+        "first_seen": "2026-07-07T00:00:00+00:00",
+        "version": 2,
+        "history": [
+          {
+            "at": "2026-07-07T09:37:31.262541+00:00",
+            "action": "updated",
+            "version": 2,
+            "changed_fields": [
+              "verified_by"
+            ]
+          }
+        ],
+        "notes": "Official ElevenLabs product reference page reviewed on 2026-07-07.",
+        "reason": ""
+      },
+      {
+        "id": "elevenlabs:release_notes:elevenlabs-io-docs-changelog",
+        "brand": "ElevenLabs",
+        "slug": "elevenlabs",
+        "source_type": "release_notes",
+        "source_name": "ElevenLabs Changelog",
+        "source_url": "https://elevenlabs.io/docs/changelog",
+        "canonical_source": "elevenlabs.io/docs/changelog",
+        "verification_status": "verified",
+        "verification_date": "2026-07-07T00:00:00+00:00",
+        "verified_by": "system",
+        "confidence": 90.0,
+        "freshness_score": 100,
+        "trust_score": 98,
+        "official_score": 0,
+        "pricing_score": 0,
+        "affiliate_score": 0,
+        "release_notes_score": 98,
+        "competitor_score": 0,
+        "duplicate_of": "",
+        "last_seen": "2026-07-07T09:37:31.258087+00:00",
+        "first_seen": "2026-07-07T00:00:00+00:00",
+        "version": 2,
+        "history": [
+          {
+            "at": "2026-07-07T09:37:31.261965+00:00",
+            "action": "updated",
+            "version": 2,
+            "changed_fields": [
+              "verified_by"
+            ]
+          }
+        ],
+        "notes": "Official ElevenLabs changelog reviewed on 2026-07-07.",
+        "reason": ""
+      }
+    ],
+    "pending_sources": [],
+    "expired_sources": [],
+    "duplicate_sources": [],
+    "missing_verified_sources": [
+      "competitor_article"
+    ],
+    "source_confidence": 92.0,
+    "source_status": "verified",
+    "official_docs_score": 100,
+    "pricing_source_score": 100,
+    "affiliate_source_score": 99,
+    "changelog_source_score": 98,
+    "competitor_source_score": 0,
+    "total_verified_source_score": 79,
+    "review_queue_size": 12,
+    "knowledge_dashboard": {
+      "verified_sources": 15,
+      "pending_review": 0,
+      "expired_sources": 0,
+      "duplicate_sources": 0,
+      "coverage": 100.0,
+      "average_trust": 98.47,
+      "average_freshness": 100.0,
+      "verified_percent": 100.0,
+      "pending_percent": 0.0,
+      "expired_percent": 0.0,
+      "duplicate_percent": 0.0,
+      "official_docs_percent": 20.0,
+      "pricing_percent": 20.0,
+      "affiliate_percent": 20.0,
+      "competitor_percent": 0.0,
+      "missing_official_docs": 0,
+      "missing_pricing": 0,
+      "missing_release_notes": 0,
+      "missing_affiliate": 0,
+      "missing_competitor_snapshots": 3,
+      "top_weak_topics": [],
+      "queue_items": 12
+    }
   },
   "competitors": {
     "keyword": "best ai voice software",

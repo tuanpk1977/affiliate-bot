@@ -59,11 +59,24 @@ def _write_csv(path: Path, rows: list[dict[str, Any]]) -> Path:
     if not rows:
         path.write_text("", encoding="utf-8")
         return path
+    fieldnames: list[str] = []
+    seen: set[str] = set()
+    for row in rows:
+        for key in row.keys():
+            if key in seen:
+                continue
+            seen.add(key)
+            fieldnames.append(key)
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(rows[0].keys()))
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
         writer.writeheader()
         for row in rows:
-            writer.writerow({key: "; ".join(value) if isinstance(value, list) else value for key, value in row.items()})
+            writer.writerow(
+                {
+                    key: "; ".join(value) if isinstance(value, list) else row.get(key, "")
+                    for key, value in {field: row.get(field, "") for field in fieldnames}.items()
+                }
+            )
     return path
 
 

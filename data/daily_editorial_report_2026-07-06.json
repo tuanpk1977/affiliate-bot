@@ -1,0 +1,115 @@
+{
+  "date": "2026-07-06",
+  "weekly_refresh": {
+    "candidates": 91,
+    "weekly_topics": 10,
+    "approved_topics": 1,
+    "blocked_topics": [
+      {
+        "topic": "The SaaS Apocalypse Is Real. Causal AI Is the Escape Route",
+        "slug": "the-saas-apocalypse-is-real-causal-ai-is-the-escape-route",
+        "score": 43.71,
+        "threshold": 60.0,
+        "status": "needs_enrichment"
+      },
+      {
+        "topic": "best ai meeting software",
+        "slug": "best-ai-meeting-software",
+        "score": 57.79,
+        "threshold": 60.0,
+        "status": "needs_enrichment"
+      },
+      {
+        "topic": "best ai voice software",
+        "slug": "best-ai-voice-software",
+        "score": 57.79,
+        "threshold": 60.0,
+        "status": "needs_enrichment"
+      },
+      {
+        "topic": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue",
+        "slug": "impartner-redefines-partner-marketing-automation-with-full-automation-adtech-and-ai-to-drive-measurable-revenue",
+        "score": 62.43,
+        "threshold": 60.0,
+        "status": "needs_enrichment"
+      },
+      {
+        "topic": "AI coding tokens could soon cost as much as salaries",
+        "slug": "ai-coding-tokens-could-soon-cost-as-much-as-salaries",
+        "score": 54.86,
+        "threshold": 60.0,
+        "status": "needs_enrichment"
+      },
+      {
+        "topic": "How AI is upending SaaS tools",
+        "slug": "how-ai-is-upending-saas-tools",
+        "score": 43.71,
+        "threshold": 60.0,
+        "status": "needs_enrichment"
+      },
+      {
+        "topic": "Shopify launches AI-powered marketing automation tool",
+        "slug": "shopify-launches-ai-powered-marketing-automation-tool",
+        "score": 56.43,
+        "threshold": 60.0,
+        "status": "needs_enrichment"
+      },
+      {
+        "topic": "best ai meeting tools",
+        "slug": "best-ai-meeting-tools",
+        "score": 57.79,
+        "threshold": 60.0,
+        "status": "needs_enrichment"
+      },
+      {
+        "topic": "AI coding costs could exceed developer salaries by 2028",
+        "slug": "ai-coding-costs-could-exceed-developer-salaries-by-2028",
+        "score": 54.86,
+        "threshold": 60.0,
+        "status": "needs_enrichment"
+      }
+    ],
+    "calendar_entries": 7,
+    "content_performance_json": "D:\\AFFILATE BOT\\data\\content_performance.json",
+    "optimization_report_json": "D:\\AFFILATE BOT\\data\\optimization_report.json",
+    "performance_rows": 1,
+    "weekly_topics_json": "D:\\AFFILATE BOT\\data\\weekly_topics.json",
+    "editorial_calendar_json": "D:\\AFFILATE BOT\\data\\editorial_calendar.json",
+    "knowledge_dashboard_json": "D:\\AFFILATE BOT\\data\\knowledge_dashboard.json",
+    "source_review_report_json": "D:\\AFFILATE BOT\\data\\source_review_report.json",
+    "actions": [
+      {
+        "slug": "sample-ai-topic",
+        "topic": "sample ai topic",
+        "topic_roi_score": 23.7,
+        "update_priority": "medium",
+        "next_recommended_action": "improve affiliate section",
+        "reason": "ROI 23.7; freshness decay 0.0"
+      }
+    ],
+    "report_json": "D:\\AFFILATE BOT\\data\\optimization_report.json",
+    "evergreen_report_json": "D:\\AFFILATE BOT\\data\\evergreen_report.json",
+    "affiliate_opportunities_json": "D:\\AFFILATE BOT\\data\\affiliate_opportunities.json",
+    "content_gap_report_json": "D:\\AFFILATE BOT\\data\\content_gap_report.json",
+    "affiliate_coverage_report_json": "D:\\AFFILATE BOT\\data\\affiliate_coverage_report.json",
+    "weekly_dashboard_json": "D:\\AFFILATE BOT\\data\\weekly_dashboard.json",
+    "weekly_history_jsonl": "D:\\AFFILATE BOT\\data\\weekly_history.jsonl",
+    "evergreen_articles": 761,
+    "affiliate_opportunities": 10,
+    "content_gaps": 10,
+    "affiliate_coverage_rows": 761,
+    "historical_topics_logged": 10
+  },
+  "calendar_rows": 1,
+  "generated_pages": [],
+  "blocked_topics": [
+    {
+      "topic": "best ai productivity software",
+      "slug": "best-ai-productivity-software",
+      "reason": "Publish gate blocked generation for best ai productivity software: human approval missing."
+    }
+  ],
+  "build": {
+    "skipped": true
+  }
+}

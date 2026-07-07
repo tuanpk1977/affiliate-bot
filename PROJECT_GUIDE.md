@@ -1494,13 +1494,26 @@ the bot should treat that as the default daily content workflow below, using the
 
 Use `data/master_dashboard.xlsx` as the source of truth for the day.
 
-1. Open the master dashboard and select the 10 strongest AI topics available that day.
-2. Write 10 main review articles for those topics.
-3. Publish the articles through the existing website workflow.
-4. Refresh sitemap and submit index after the publish step.
-5. Push the updated website to GitHub so Cloudflare Pages can redeploy from `docs/`.
-6. Save the 10 selected topics as the week’s `Weekly Topic Cluster`.
-
+1. Run `python scripts/run_weekly_editorial_cycle.py`.
+2. Discover and rank 10 hottrend topics for the current week.
+3. Build research packages, verified source checks, and quality-gate decisions for those topics.
+4. Create the weekly editorial calendar only from approved topics.
+5. For Monday only, run `python run_daily_content.py --date YYYY-MM-DD` using the Monday date of the current week.
+6. Generate up to 10 Monday hottrend articles through:
+   - research
+   - planning
+   - article generation
+   - SEO title/meta
+   - internal links
+   - AI review
+   - human approval if required
+   - publish gate
+7. Publish locally only when all gates pass.
+8. Do not publish topics in `needs_enrichment`, `needs_revision`, `needs_human_review`, `rejected`, or `blocked` states.
+9. Rebuild the local operational dashboards:
+   - `python scripts/build_ceo_dashboard.py`
+   - `data/daily_ceo_dashboard.html`
+   - `data/master_dashboard.xlsx`
 Current cluster storage in this repo is represented by the cluster outputs under:
 
 ```text
@@ -1512,9 +1525,9 @@ If a separate weekly cluster file is added later, the Monday selection should be
 
 ### Tuesday through Sunday workflow
 
-Do not pull new topics from `master-dashboard.xlsx` on these days.
+Do not discover a new weekly cluster on these days.
 
-1. Read the current week’s `Weekly Topic Cluster` from the cluster output files.
+1. Read the current week’s approved topic set from the weekly cluster output files and editorial calendar.
 2. For each topic in that cluster, write one deeper article that has not already been covered.
 3. Choose the deeper angle from:
    - pricing
@@ -1525,9 +1538,14 @@ Do not pull new topics from `master-dashboard.xlsx` on these days.
    - FAQ
    - pros and cons
    - integration
-4. Publish the 10 articles through the existing website workflow.
-5. Refresh sitemap and submit index after publish.
-6. Push the updated website to GitHub.
+4. Run only the scheduled day through research, planning, generation, AI review, optional human approval, and the publish gate.
+5. Publish locally only if all gates pass.
+6. Send failures to the correct queue:
+   - `data/research_enrichment_queue.json`
+   - `data/content_review_queue.json`
+   - `data/human_approval_queue.json`
+   - `data/publish_queue.json`
+7. Do not deploy, push, or submit IndexNow from this workflow.
 
 ### Required checks after each publish batch
 
@@ -1536,8 +1554,8 @@ After every publish batch, the bot must also:
 1. Add internal links between each new article and its original review article.
 2. Check for duplicate title and duplicate meta description issues before finalizing.
 3. Report:
-   - the 10 new URLs
-   - the commit hash
+   - locally published URLs
+   - queued or rejected topics
    - any errors or warnings
 
 ### Practical rule for future runs
@@ -1545,15 +1563,10 @@ After every publish batch, the bot must also:
 - If the article already exists, treat the task as `REFRESH`, not `CREATE`.
 - If the article does not exist, treat the task as `CREATE`.
 - Never show the same slug as both `CREATE` and `REFRESH`.
-- Use the existing publish workflow:
-
-```powershell
-python build_site.py
-python scripts/sync_site_output_to_docs.py
-git add docs
-git commit -m "Update website"
-git push origin main
-```
+- Human approval is required for affiliate review, pricing, comparison, and product recommendation articles.
+- Informational and tutorial articles can publish automatically if all gates pass.
+- Do not publish failed, rejected, blocked, or `needs_enrichment` topics.
+- No auto deploy is allowed until explicitly enabled in a future workflow.
 
 This daily instruction block is the first thing the bot should read before doing daily content work.
 

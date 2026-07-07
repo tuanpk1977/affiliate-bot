@@ -1,0 +1,13 @@
+id,source,type,status,priority,confidence,reason,last_review,next_review,review_count,version
+elevenlabs:affiliate_program_page:elevenlabs-io-affiliates,ElevenLabs Affiliates Program,affiliate,verified,low,93.0,verified source,2026-07-07T00:00:00+00:00,2026-10-05T00:00:00+00:00,0,2
+notion:affiliate_program_page:www-notion-com-partners,Notion Partner Programs,affiliate,verified,low,90.0,verified source,2026-07-07T00:00:00+00:00,2026-10-05T00:00:00+00:00,0,2
+reclaim-ai:affiliate_program_page:reclaim-ai-affiliate-program,Reclaim AI Affiliate Program,affiliate,verified,low,93.0,verified source,2026-07-07T00:00:00+00:00,2026-10-05T00:00:00+00:00,0,2
+elevenlabs:official_docs:elevenlabs-io-docs-overview-intro,ElevenLabs Documentation,official_docs,verified,low,94.0,verified source,2026-07-07T00:00:00+00:00,2026-11-19T00:00:00+00:00,0,2
+notion:official_docs:www-notion-com-help,Notion Help Center,official_docs,verified,low,94.0,verified source,2026-07-07T00:00:00+00:00,2026-11-19T00:00:00+00:00,0,2
+reclaim-ai:official_docs:help-reclaim-ai,Reclaim AI Help Center,official_docs,verified,low,92.0,verified source,2026-07-07T00:00:00+00:00,2026-11-19T00:00:00+00:00,0,2
+elevenlabs:pricing_page:elevenlabs-io-pricing,ElevenLabs Pricing,pricing,verified,low,95.0,verified source,2026-07-07T00:00:00+00:00,2026-10-05T00:00:00+00:00,0,2
+notion:pricing_page:www-notion-com-pricing,Notion Pricing,pricing,verified,low,95.0,verified source,2026-07-07T00:00:00+00:00,2026-10-05T00:00:00+00:00,0,2
+reclaim-ai:pricing_page:reclaim-ai-pricing,Reclaim AI Pricing,pricing,verified,low,95.0,verified source,2026-07-07T00:00:00+00:00,2026-10-05T00:00:00+00:00,0,2
+elevenlabs:release_notes:elevenlabs-io-docs-changelog,ElevenLabs Changelog,release_notes,verified,low,90.0,verified source,2026-07-07T00:00:00+00:00,2026-09-12T00:00:00+00:00,0,2
+notion:release_notes:www-notion-com-releases,Notion Releases,release_notes,verified,low,91.0,verified source,2026-07-07T00:00:00+00:00,2026-09-12T00:00:00+00:00,0,2
+reclaim-ai:release_notes:updates-reclaim-ai,Reclaim AI Product Updates,release_notes,verified,low,90.0,verified source,2026-07-07T00:00:00+00:00,2026-09-12T00:00:00+00:00,0,2

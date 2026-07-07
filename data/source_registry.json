@@ -1,1 +1,542 @@
-[]
+[
+  {
+    "id": "elevenlabs:affiliate_program_page:elevenlabs-io-affiliates",
+    "brand": "ElevenLabs",
+    "slug": "elevenlabs",
+    "source_type": "affiliate_program_page",
+    "source_name": "ElevenLabs Affiliates Program",
+    "source_url": "https://elevenlabs.io/affiliates",
+    "canonical_source": "elevenlabs.io/affiliates",
+    "verification_status": "verified",
+    "verification_date": "2026-07-07T00:00:00+00:00",
+    "verified_by": "system",
+    "confidence": 93.0,
+    "freshness_score": 100,
+    "trust_score": 99,
+    "official_score": 0,
+    "pricing_score": 0,
+    "affiliate_score": 99,
+    "release_notes_score": 0,
+    "competitor_score": 0,
+    "duplicate_of": "",
+    "last_seen": "2026-07-07T09:37:31.258087+00:00",
+    "first_seen": "2026-07-07T00:00:00+00:00",
+    "version": 2,
+    "history": [
+      {
+        "at": "2026-07-07T09:37:31.261385+00:00",
+        "action": "updated",
+        "version": 2,
+        "changed_fields": [
+          "verified_by"
+        ]
+      }
+    ],
+    "notes": "Official ElevenLabs affiliate program page reviewed on 2026-07-07.",
+    "reason": ""
+  },
+  {
+    "id": "elevenlabs:official_docs:elevenlabs-io-docs-overview-intro",
+    "brand": "ElevenLabs",
+    "slug": "elevenlabs",
+    "source_type": "official_docs",
+    "source_name": "ElevenLabs Documentation",
+    "source_url": "https://elevenlabs.io/docs/overview/intro",
+    "canonical_source": "elevenlabs.io/docs/overview/intro",
+    "verification_status": "verified",
+    "verification_date": "2026-07-07T00:00:00+00:00",
+    "verified_by": "system",
+    "confidence": 94.0,
+    "freshness_score": 100,
+    "trust_score": 100,
+    "official_score": 100,
+    "pricing_score": 0,
+    "affiliate_score": 0,
+    "release_notes_score": 0,
+    "competitor_score": 0,
+    "duplicate_of": "",
+    "last_seen": "2026-07-07T09:37:31.258087+00:00",
+    "first_seen": "2026-07-07T00:00:00+00:00",
+    "version": 2,
+    "history": [
+      {
+        "at": "2026-07-07T09:37:31.258286+00:00",
+        "action": "updated",
+        "version": 2,
+        "changed_fields": [
+          "verified_by"
+        ]
+      }
+    ],
+    "notes": "Official ElevenLabs documentation entrypoint reviewed on 2026-07-07.",
+    "reason": ""
+  },
+  {
+    "id": "elevenlabs:pricing_page:elevenlabs-io-pricing",
+    "brand": "ElevenLabs",
+    "slug": "elevenlabs",
+    "source_type": "pricing_page",
+    "source_name": "ElevenLabs Pricing",
+    "source_url": "https://elevenlabs.io/pricing",
+    "canonical_source": "elevenlabs.io/pricing",
+    "verification_status": "verified",
+    "verification_date": "2026-07-07T00:00:00+00:00",
+    "verified_by": "system",
+    "confidence": 95.0,
+    "freshness_score": 100,
+    "trust_score": 100,
+    "official_score": 0,
+    "pricing_score": 100,
+    "affiliate_score": 0,
+    "release_notes_score": 0,
+    "competitor_score": 0,
+    "duplicate_of": "",
+    "last_seen": "2026-07-07T09:37:31.258087+00:00",
+    "first_seen": "2026-07-07T00:00:00+00:00",
+    "version": 2,
+    "history": [
+      {
+        "at": "2026-07-07T09:37:31.260712+00:00",
+        "action": "updated",
+        "version": 2,
+        "changed_fields": [
+          "verified_by"
+        ]
+      }
+    ],
+    "notes": "Official ElevenLabs pricing page reviewed on 2026-07-07.",
+    "reason": ""
+  },
+  {
+    "id": "elevenlabs:product_page:elevenlabs-io",
+    "brand": "ElevenLabs",
+    "slug": "elevenlabs",
+    "source_type": "product_page",
+    "source_name": "ElevenLabs Product Homepage",
+    "source_url": "https://elevenlabs.io/",
+    "canonical_source": "elevenlabs.io/",
+    "verification_status": "verified",
+    "verification_date": "2026-07-07T00:00:00+00:00",
+    "verified_by": "system",
+    "confidence": 88.0,
+    "freshness_score": 100,
+    "trust_score": 96,
+    "official_score": 96,
+    "pricing_score": 0,
+    "affiliate_score": 0,
+    "release_notes_score": 0,
+    "competitor_score": 0,
+    "duplicate_of": "",
+    "last_seen": "2026-07-07T09:37:31.258087+00:00",
+    "first_seen": "2026-07-07T00:00:00+00:00",
+    "version": 2,
+    "history": [
+      {
+        "at": "2026-07-07T09:37:31.262541+00:00",
+        "action": "updated",
+        "version": 2,
+        "changed_fields": [
+          "verified_by"
+        ]
+      }
+    ],
+    "notes": "Official ElevenLabs product reference page reviewed on 2026-07-07.",
+    "reason": ""
+  },
+  {
+    "id": "elevenlabs:release_notes:elevenlabs-io-docs-changelog",
+    "brand": "ElevenLabs",
+    "slug": "elevenlabs",
+    "source_type": "release_notes",
+    "source_name": "ElevenLabs Changelog",
+    "source_url": "https://elevenlabs.io/docs/changelog",
+    "canonical_source": "elevenlabs.io/docs/changelog",
+    "verification_status": "verified",
+    "verification_date": "2026-07-07T00:00:00+00:00",
+    "verified_by": "system",
+    "confidence": 90.0,
+    "freshness_score": 100,
+    "trust_score": 98,
+    "official_score": 0,
+    "pricing_score": 0,
+    "affiliate_score": 0,
+    "release_notes_score": 98,
+    "competitor_score": 0,
+    "duplicate_of": "",
+    "last_seen": "2026-07-07T09:37:31.258087+00:00",
+    "first_seen": "2026-07-07T00:00:00+00:00",
+    "version": 2,
+    "history": [
+      {
+        "at": "2026-07-07T09:37:31.261965+00:00",
+        "action": "updated",
+        "version": 2,
+        "changed_fields": [
+          "verified_by"
+        ]
+      }
+    ],
+    "notes": "Official ElevenLabs changelog reviewed on 2026-07-07.",
+    "reason": ""
+  },
+  {
+    "id": "notion:affiliate_program_page:www-notion-com-partners",
+    "brand": "Notion",
+    "slug": "notion",
+    "source_type": "affiliate_program_page",
+    "source_name": "Notion Partner Programs",
+    "source_url": "https://www.notion.com/partners",
+    "canonical_source": "www.notion.com/partners",
+    "verification_status": "verified",
+    "verification_date": "2026-07-07T00:00:00+00:00",
+    "verified_by": "system",
+    "confidence": 90.0,
+    "freshness_score": 100,
+    "trust_score": 98,
+    "official_score": 0,
+    "pricing_score": 0,
+    "affiliate_score": 98,
+    "release_notes_score": 0,
+    "competitor_score": 0,
+    "duplicate_of": "",
+    "last_seen": "2026-07-07T09:37:31.712900+00:00",
+    "first_seen": "2026-07-07T00:00:00+00:00",
+    "version": 2,
+    "history": [
+      {
+        "at": "2026-07-07T09:37:31.714461+00:00",
+        "action": "updated",
+        "version": 2,
+        "changed_fields": [
+          "verified_by"
+        ]
+      }
+    ],
+    "notes": "Official Notion partner page includes affiliate and builder partner information; reviewed on 2026-07-07.",
+    "reason": ""
+  },
+  {
+    "id": "notion:official_docs:www-notion-com-help",
+    "brand": "Notion",
+    "slug": "notion",
+    "source_type": "official_docs",
+    "source_name": "Notion Help Center",
+    "source_url": "https://www.notion.com/help",
+    "canonical_source": "www.notion.com/help",
+    "verification_status": "verified",
+    "verification_date": "2026-07-07T00:00:00+00:00",
+    "verified_by": "system",
+    "confidence": 94.0,
+    "freshness_score": 100,
+    "trust_score": 100,
+    "official_score": 100,
+    "pricing_score": 0,
+    "affiliate_score": 0,
+    "release_notes_score": 0,
+    "competitor_score": 0,
+    "duplicate_of": "",
+    "last_seen": "2026-07-07T09:37:31.712900+00:00",
+    "first_seen": "2026-07-07T00:00:00+00:00",
+    "version": 2,
+    "history": [
+      {
+        "at": "2026-07-07T09:37:31.713081+00:00",
+        "action": "updated",
+        "version": 2,
+        "changed_fields": [
+          "verified_by"
+        ]
+      }
+    ],
+    "notes": "Official Notion documentation and help center reviewed on 2026-07-07.",
+    "reason": ""
+  },
+  {
+    "id": "notion:pricing_page:www-notion-com-pricing",
+    "brand": "Notion",
+    "slug": "notion",
+    "source_type": "pricing_page",
+    "source_name": "Notion Pricing",
+    "source_url": "https://www.notion.com/pricing",
+    "canonical_source": "www.notion.com/pricing",
+    "verification_status": "verified",
+    "verification_date": "2026-07-07T00:00:00+00:00",
+    "verified_by": "system",
+    "confidence": 95.0,
+    "freshness_score": 100,
+    "trust_score": 100,
+    "official_score": 0,
+    "pricing_score": 100,
+    "affiliate_score": 0,
+    "release_notes_score": 0,
+    "competitor_score": 0,
+    "duplicate_of": "",
+    "last_seen": "2026-07-07T09:37:31.712900+00:00",
+    "first_seen": "2026-07-07T00:00:00+00:00",
+    "version": 2,
+    "history": [
+      {
+        "at": "2026-07-07T09:37:31.713802+00:00",
+        "action": "updated",
+        "version": 2,
+        "changed_fields": [
+          "verified_by"
+        ]
+      }
+    ],
+    "notes": "Official Notion pricing page reviewed on 2026-07-07.",
+    "reason": ""
+  },
+  {
+    "id": "notion:product_page:www-notion-com",
+    "brand": "Notion",
+    "slug": "notion",
+    "source_type": "product_page",
+    "source_name": "Notion Product Homepage",
+    "source_url": "https://www.notion.com/",
+    "canonical_source": "www.notion.com/",
+    "verification_status": "verified",
+    "verification_date": "2026-07-07T00:00:00+00:00",
+    "verified_by": "system",
+    "confidence": 88.0,
+    "freshness_score": 100,
+    "trust_score": 96,
+    "official_score": 96,
+    "pricing_score": 0,
+    "affiliate_score": 0,
+    "release_notes_score": 0,
+    "competitor_score": 0,
+    "duplicate_of": "",
+    "last_seen": "2026-07-07T09:37:31.712900+00:00",
+    "first_seen": "2026-07-07T00:00:00+00:00",
+    "version": 2,
+    "history": [
+      {
+        "at": "2026-07-07T09:37:31.715804+00:00",
+        "action": "updated",
+        "version": 2,
+        "changed_fields": [
+          "verified_by"
+        ]
+      }
+    ],
+    "notes": "Official Notion product reference page reviewed on 2026-07-07.",
+    "reason": ""
+  },
+  {
+    "id": "notion:release_notes:www-notion-com-releases",
+    "brand": "Notion",
+    "slug": "notion",
+    "source_type": "release_notes",
+    "source_name": "Notion Releases",
+    "source_url": "https://www.notion.com/releases",
+    "canonical_source": "www.notion.com/releases",
+    "verification_status": "verified",
+    "verification_date": "2026-07-07T00:00:00+00:00",
+    "verified_by": "system",
+    "confidence": 91.0,
+    "freshness_score": 100,
+    "trust_score": 98,
+    "official_score": 0,
+    "pricing_score": 0,
+    "affiliate_score": 0,
+    "release_notes_score": 98,
+    "competitor_score": 0,
+    "duplicate_of": "",
+    "last_seen": "2026-07-07T09:37:31.712900+00:00",
+    "first_seen": "2026-07-07T00:00:00+00:00",
+    "version": 2,
+    "history": [
+      {
+        "at": "2026-07-07T09:37:31.715156+00:00",
+        "action": "updated",
+        "version": 2,
+        "changed_fields": [
+          "verified_by"
+        ]
+      }
+    ],
+    "notes": "Official Notion release notes page reviewed on 2026-07-07.",
+    "reason": ""
+  },
+  {
+    "id": "reclaim-ai:affiliate_program_page:reclaim-ai-affiliate-program",
+    "brand": "Reclaim AI",
+    "slug": "reclaim-ai",
+    "source_type": "affiliate_program_page",
+    "source_name": "Reclaim AI Affiliate Program",
+    "source_url": "https://reclaim.ai/affiliate-program",
+    "canonical_source": "reclaim.ai/affiliate-program",
+    "verification_status": "verified",
+    "verification_date": "2026-07-07T00:00:00+00:00",
+    "verified_by": "system",
+    "confidence": 93.0,
+    "freshness_score": 100,
+    "trust_score": 99,
+    "official_score": 0,
+    "pricing_score": 0,
+    "affiliate_score": 99,
+    "release_notes_score": 0,
+    "competitor_score": 0,
+    "duplicate_of": "",
+    "last_seen": "2026-07-07T09:37:30.979129+00:00",
+    "first_seen": "2026-07-07T00:00:00+00:00",
+    "version": 2,
+    "history": [
+      {
+        "at": "2026-07-07T09:37:30.981214+00:00",
+        "action": "updated",
+        "version": 2,
+        "changed_fields": [
+          "verified_by"
+        ]
+      }
+    ],
+    "notes": "Official Reclaim AI affiliate program page reviewed on 2026-07-07.",
+    "reason": ""
+  },
+  {
+    "id": "reclaim-ai:official_docs:help-reclaim-ai",
+    "brand": "Reclaim AI",
+    "slug": "reclaim-ai",
+    "source_type": "official_docs",
+    "source_name": "Reclaim AI Help Center",
+    "source_url": "https://help.reclaim.ai/",
+    "canonical_source": "help.reclaim.ai/",
+    "verification_status": "verified",
+    "verification_date": "2026-07-07T00:00:00+00:00",
+    "verified_by": "system",
+    "confidence": 92.0,
+    "freshness_score": 100,
+    "trust_score": 99,
+    "official_score": 99,
+    "pricing_score": 0,
+    "affiliate_score": 0,
+    "release_notes_score": 0,
+    "competitor_score": 0,
+    "duplicate_of": "",
+    "last_seen": "2026-07-07T09:37:30.979129+00:00",
+    "first_seen": "2026-07-07T00:00:00+00:00",
+    "version": 2,
+    "history": [
+      {
+        "at": "2026-07-07T09:37:30.979325+00:00",
+        "action": "updated",
+        "version": 2,
+        "changed_fields": [
+          "verified_by"
+        ]
+      }
+    ],
+    "notes": "Official Reclaim AI help center entrypoint reviewed on 2026-07-07.",
+    "reason": ""
+  },
+  {
+    "id": "reclaim-ai:pricing_page:reclaim-ai-pricing",
+    "brand": "Reclaim AI",
+    "slug": "reclaim-ai",
+    "source_type": "pricing_page",
+    "source_name": "Reclaim AI Pricing",
+    "source_url": "https://reclaim.ai/pricing",
+    "canonical_source": "reclaim.ai/pricing",
+    "verification_status": "verified",
+    "verification_date": "2026-07-07T00:00:00+00:00",
+    "verified_by": "system",
+    "confidence": 95.0,
+    "freshness_score": 100,
+    "trust_score": 100,
+    "official_score": 0,
+    "pricing_score": 100,
+    "affiliate_score": 0,
+    "release_notes_score": 0,
+    "competitor_score": 0,
+    "duplicate_of": "",
+    "last_seen": "2026-07-07T09:37:30.979129+00:00",
+    "first_seen": "2026-07-07T00:00:00+00:00",
+    "version": 2,
+    "history": [
+      {
+        "at": "2026-07-07T09:37:30.980414+00:00",
+        "action": "updated",
+        "version": 2,
+        "changed_fields": [
+          "verified_by"
+        ]
+      }
+    ],
+    "notes": "Official Reclaim AI pricing page reviewed on 2026-07-07.",
+    "reason": ""
+  },
+  {
+    "id": "reclaim-ai:product_page:reclaim-ai",
+    "brand": "Reclaim AI",
+    "slug": "reclaim-ai",
+    "source_type": "product_page",
+    "source_name": "Reclaim AI Product Homepage",
+    "source_url": "https://reclaim.ai/",
+    "canonical_source": "reclaim.ai/",
+    "verification_status": "verified",
+    "verification_date": "2026-07-07T00:00:00+00:00",
+    "verified_by": "system",
+    "confidence": 88.0,
+    "freshness_score": 100,
+    "trust_score": 96,
+    "official_score": 96,
+    "pricing_score": 0,
+    "affiliate_score": 0,
+    "release_notes_score": 0,
+    "competitor_score": 0,
+    "duplicate_of": "",
+    "last_seen": "2026-07-07T09:37:30.979129+00:00",
+    "first_seen": "2026-07-07T00:00:00+00:00",
+    "version": 2,
+    "history": [
+      {
+        "at": "2026-07-07T09:37:30.982604+00:00",
+        "action": "updated",
+        "version": 2,
+        "changed_fields": [
+          "verified_by"
+        ]
+      }
+    ],
+    "notes": "Official Reclaim AI product reference page reviewed on 2026-07-07.",
+    "reason": ""
+  },
+  {
+    "id": "reclaim-ai:release_notes:updates-reclaim-ai",
+    "brand": "Reclaim AI",
+    "slug": "reclaim-ai",
+    "source_type": "release_notes",
+    "source_name": "Reclaim AI Product Updates",
+    "source_url": "https://updates.reclaim.ai/",
+    "canonical_source": "updates.reclaim.ai/",
+    "verification_status": "verified",
+    "verification_date": "2026-07-07T00:00:00+00:00",
+    "verified_by": "system",
+    "confidence": 90.0,
+    "freshness_score": 100,
+    "trust_score": 98,
+    "official_score": 0,
+    "pricing_score": 0,
+    "affiliate_score": 0,
+    "release_notes_score": 98,
+    "competitor_score": 0,
+    "duplicate_of": "",
+    "last_seen": "2026-07-07T09:37:30.979129+00:00",
+    "first_seen": "2026-07-07T00:00:00+00:00",
+    "version": 2,
+    "history": [
+      {
+        "at": "2026-07-07T09:37:30.981888+00:00",
+        "action": "updated",
+        "version": 2,
+        "changed_fields": [
+          "verified_by"
+        ]
+      }
+    ],
+    "notes": "Official Reclaim AI changelog page reviewed on 2026-07-07.",
+    "reason": ""
+  }
+]

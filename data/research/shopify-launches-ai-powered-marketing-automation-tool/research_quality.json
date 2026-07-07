@@ -1,0 +1,33 @@
+{
+  "overall_score": 56.43,
+  "coverage": 72,
+  "entity_coverage": 68,
+  "entity_coverage_score": 68,
+  "missing_entity_types": [
+    "affiliate_networks",
+    "use_cases",
+    "target_audience",
+    "competitors",
+    "integrations"
+  ],
+  "faq_coverage": 68,
+  "outline_quality": 70,
+  "affiliate_readiness": 57,
+  "source_quality": 50.0,
+  "official_docs_score": 0,
+  "pricing_source_score": 0,
+  "affiliate_source_score": 0,
+  "changelog_source_score": 0,
+  "competitor_source_score": 0,
+  "total_verified_source_score": 0,
+  "source_confidence": 0.0,
+  "source_status": "missing",
+  "competitor_quality": 10,
+  "missing_information": [
+    "official sources are insufficiently verified",
+    "pricing sources need verification",
+    "affiliate sources need verification",
+    "competitor coverage is limited"
+  ],
+  "status": "needs enrichment"
+}

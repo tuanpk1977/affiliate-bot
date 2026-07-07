@@ -20,8 +20,9 @@
     "signals": 40
   },
   "github_trending": {
-    "status": "ok",
-    "signals": 16
+    "status": "error",
+    "signals": 0,
+    "detail": "ConnectTimeout: HTTPSConnectionPool(host='github.com', port=443): Max retries exceeded with url: /trending?since=daily (Caused by ConnectTimeoutError(<HTTPSConnection(host='github.com', port=443) at 0x12c2a15a490>, 'Connection to github.com timed out. (connect timeout=20)'))"
   },
   "x_twitter": {
     "status": "error",

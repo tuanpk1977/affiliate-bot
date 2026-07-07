@@ -186,7 +186,7 @@ class ContentReviewEngine:
         if publish_readiness < minimum_publish_readiness:
             failures.append("publish readiness below threshold")
 
-        human_required = bool(self.config.get("require_human_approval", False))
+        human_required = self._requires_human_approval(topic)
         if failures:
             status = "needs_revision"
         elif human_required:
@@ -273,3 +273,14 @@ class ContentReviewEngine:
         coverage = float(planning.get("coverage_score", 0))
         affiliate_readiness = float(research_quality.get("affiliate_readiness", 0))
         return _clamp(estimated_score * 0.45 + coverage * 0.20 + affiliate_readiness * 0.35)
+
+    def _requires_human_approval(self, topic: dict[str, Any]) -> bool:
+        if bool(self.config.get("require_human_approval", False)):
+            return True
+        manual_types = {str(item).strip().lower() for item in self.config.get("manual_approval_article_types", ["affiliate", "review", "pricing", "comparison", "product_recommendation"])}
+        article_type = str(topic.get("content_type") or topic.get("article_type") or "").strip().lower()
+        if article_type in manual_types:
+            return True
+        title = str(topic.get("topic") or topic.get("title") or "").lower()
+        markers = tuple(str(item).strip().lower() for item in self.config.get("manual_approval_title_markers", [" pricing", " review", " comparison", " vs ", " best ", " alternative", " alternatives", "recommend"]))
+        return any(marker in title for marker in markers)

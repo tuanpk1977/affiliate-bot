@@ -1,54 +1,27 @@
 [
   {
-    "keyword": "meetily Review 2026",
-    "slug": "meetily-review-2026",
-    "category": "AI Software",
-    "roi_score": 46.58,
-    "recommended_article_type": "Review",
+    "keyword": "AI coding costs could exceed developer salaries by 2028",
+    "slug": "ai-coding-costs-could-exceed-developer-salaries-by-2028",
+    "category": "AI Coding",
+    "roi_score": 57.96,
+    "recommended_article_type": "Pricing",
     "monetization_priority": "Medium",
     "reason": "Weekly trend is not covered by an existing published article."
   },
   {
-    "keyword": "agent-skills Review 2026",
-    "slug": "agent-skills-review-2026",
-    "category": "AI Agents",
-    "roi_score": 46.44,
-    "recommended_article_type": "Review",
+    "keyword": "AI coding tokens could soon cost as much as salaries",
+    "slug": "ai-coding-tokens-could-soon-cost-as-much-as-salaries",
+    "category": "AI Coding",
+    "roi_score": 57.86,
+    "recommended_article_type": "Pricing",
     "monetization_priority": "Medium",
     "reason": "Weekly trend is not covered by an existing published article."
   },
   {
-    "keyword": "system_prompts_leaks Review 2026",
-    "slug": "system-prompts-leaks-review-2026",
+    "keyword": "The SaaS Apocalypse Is Real. Causal AI Is the Escape Route",
+    "slug": "the-saas-apocalypse-is-real-causal-ai-is-the-escape-route",
     "category": "AI Software",
-    "roi_score": 46.42,
-    "recommended_article_type": "Review",
-    "monetization_priority": "Medium",
-    "reason": "Weekly trend is not covered by an existing published article."
-  },
-  {
-    "keyword": "last30days-skill Review 2026",
-    "slug": "last30days-skill-review-2026",
-    "category": "AI Software",
-    "roi_score": 46.36,
-    "recommended_article_type": "Review",
-    "monetization_priority": "Medium",
-    "reason": "Weekly trend is not covered by an existing published article."
-  },
-  {
-    "keyword": "taste-skill Review 2026",
-    "slug": "taste-skill-review-2026",
-    "category": "AI Software",
-    "roi_score": 44.68,
-    "recommended_article_type": "Review",
-    "monetization_priority": "Low",
-    "reason": "Weekly trend is not covered by an existing published article."
-  },
-  {
-    "keyword": "karakeep Review 2026",
-    "slug": "karakeep-review-2026",
-    "category": "AI Software",
-    "roi_score": 44.24,
+    "roi_score": 42.7,
     "recommended_article_type": "Review",
     "monetization_priority": "Low",
     "reason": "Weekly trend is not covered by an existing published article."
@@ -63,11 +36,29 @@
     "reason": "Weekly trend is not covered by an existing published article."
   },
   {
+    "keyword": "Shopify launches AI-powered marketing automation tool",
+    "slug": "shopify-launches-ai-powered-marketing-automation-tool",
+    "category": "AI Software",
+    "roi_score": 40.66,
+    "recommended_article_type": "News/Update",
+    "monetization_priority": "Low",
+    "reason": "Weekly trend is not covered by an existing published article."
+  },
+  {
     "keyword": "best ai productivity software",
     "slug": "best-ai-productivity-software",
     "category": "AI Software",
     "roi_score": 39.94,
     "recommended_article_type": "Best Of",
+    "monetization_priority": "Low",
+    "reason": "Weekly trend is not covered by an existing published article."
+  },
+  {
+    "keyword": "How AI is upending SaaS tools",
+    "slug": "how-ai-is-upending-saas-tools",
+    "category": "AI Software",
+    "roi_score": 39.9,
+    "recommended_article_type": "Listicle",
     "monetization_priority": "Low",
     "reason": "Weekly trend is not covered by an existing published article."
   },
@@ -85,6 +76,15 @@
     "slug": "best-ai-voice-software",
     "category": "AI Software",
     "roi_score": 39.64,
+    "recommended_article_type": "Best Of",
+    "monetization_priority": "Low",
+    "reason": "Weekly trend is not covered by an existing published article."
+  },
+  {
+    "keyword": "best ai meeting tools",
+    "slug": "best-ai-meeting-tools",
+    "category": "AI Software",
+    "roi_score": 39.4,
     "recommended_article_type": "Best Of",
     "monetization_priority": "Low",
     "reason": "Weekly trend is not covered by an existing published article."

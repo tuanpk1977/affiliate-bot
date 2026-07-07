@@ -1,29 +1,28 @@
 {
   "keyword": "best ai productivity software",
   "slug": "best-ai-productivity-software",
-  "generated_at": "2026-07-07T06:23:39.493835+00:00",
+  "generated_at": "2026-07-07T09:37:31.777487+00:00",
   "package_dir": "D:\\AFFILATE BOT\\data\\research\\best-ai-productivity-software",
   "keyword_intelligence": {
     "primary_keyword": "best ai productivity software",
     "secondary_keywords": [],
     "semantic_keywords": [
-      "best ai productivity software faq",
-      "how to use best ai productivity software",
       "best ai productivity software pricing",
       "best ai productivity software alternatives",
       "best ai productivity software comparison",
       "best ai productivity software review",
+      "how to use best ai productivity software",
       "best ai productivity software for teams",
-      "best ai productivity software free trial"
+      "best ai productivity software free trial",
+      "best ai productivity software vs competitors"
     ],
     "long_tail_keywords": [
       "best ai productivity software",
-      "best ai productivity software faq",
-      "how to use best ai productivity software",
       "best ai productivity software pricing",
       "best ai productivity software alternatives",
       "best ai productivity software comparison",
       "best ai productivity software review",
+      "how to use best ai productivity software",
       "best ai productivity software for teams",
       "best ai productivity software free trial",
       "best ai productivity software vs competitors"
@@ -33,12 +32,11 @@
     ],
     "buyer_keywords": [
       "best ai productivity software",
-      "best ai productivity software faq",
-      "how to use best ai productivity software",
       "best ai productivity software pricing",
       "best ai productivity software alternatives",
       "best ai productivity software comparison",
       "best ai productivity software review",
+      "how to use best ai productivity software",
       "best ai productivity software for teams",
       "best ai productivity software free trial",
       "best ai productivity software vs competitors"
@@ -65,18 +63,18 @@
       "seed_topic": "best ai productivity software",
       "parent_topic": "best ai productivity software",
       "supporting_topics": [
-        "best ai productivity software faq",
-        "how to use best ai productivity software",
         "best ai productivity software pricing",
         "best ai productivity software alternatives",
-        "best ai productivity software comparison"
+        "best ai productivity software comparison",
+        "best ai productivity software review",
+        "how to use best ai productivity software"
       ],
       "pillar_page_suggestion": "Pillar page: best ai productivity software hub with supporting guides, comparisons, and buyer-intent content",
       "supporting_article_ideas": [
         "Buyer-guide article for best ai productivity software with pricing and comparison context",
         "How-to article for best ai productivity software with practical setup and beginner guidance",
         "Comparison article for best ai productivity software versus top alternatives",
-        "Supporting article on best ai productivity software faq for deeper topical coverage"
+        "Supporting article on best ai productivity software pricing for deeper topical coverage"
       ]
     }
   },
@@ -217,12 +215,11 @@
     "keyword_groups_used": {
       "buyer_keywords": [
         "best ai productivity software",
-        "best ai productivity software faq",
-        "how to use best ai productivity software",
         "best ai productivity software pricing",
         "best ai productivity software alternatives",
         "best ai productivity software comparison",
         "best ai productivity software review",
+        "how to use best ai productivity software",
         "best ai productivity software for teams",
         "best ai productivity software free trial",
         "best ai productivity software vs competitors"
@@ -468,16 +465,419 @@
     },
     "reference_count": 7,
     "estimated_source_count": 0,
-    "missing_source_count": 15
+    "missing_source_count": 15,
+    "verified_registry_records": [
+      {
+        "id": "notion:affiliate_program_page:www-notion-com-partners",
+        "brand": "Notion",
+        "slug": "notion",
+        "source_type": "affiliate_program_page",
+        "source_name": "Notion Partner Programs",
+        "source_url": "https://www.notion.com/partners",
+        "canonical_source": "www.notion.com/partners",
+        "verification_status": "verified",
+        "verification_date": "2026-07-07T00:00:00+00:00",
+        "verified_by": "system",
+        "confidence": 90.0,
+        "freshness_score": 100,
+        "trust_score": 98,
+        "official_score": 0,
+        "pricing_score": 0,
+        "affiliate_score": 98,
+        "release_notes_score": 0,
+        "competitor_score": 0,
+        "duplicate_of": "",
+        "last_seen": "2026-07-07T09:37:31.712900+00:00",
+        "first_seen": "2026-07-07T00:00:00+00:00",
+        "version": 2,
+        "history": [
+          {
+            "at": "2026-07-07T09:37:31.714461+00:00",
+            "action": "updated",
+            "version": 2,
+            "changed_fields": [
+              "verified_by"
+            ]
+          }
+        ],
+        "notes": "Official Notion partner page includes affiliate and builder partner information; reviewed on 2026-07-07.",
+        "reason": ""
+      },
+      {
+        "id": "notion:official_docs:www-notion-com-help",
+        "brand": "Notion",
+        "slug": "notion",
+        "source_type": "official_docs",
+        "source_name": "Notion Help Center",
+        "source_url": "https://www.notion.com/help",
+        "canonical_source": "www.notion.com/help",
+        "verification_status": "verified",
+        "verification_date": "2026-07-07T00:00:00+00:00",
+        "verified_by": "system",
+        "confidence": 94.0,
+        "freshness_score": 100,
+        "trust_score": 100,
+        "official_score": 100,
+        "pricing_score": 0,
+        "affiliate_score": 0,
+        "release_notes_score": 0,
+        "competitor_score": 0,
+        "duplicate_of": "",
+        "last_seen": "2026-07-07T09:37:31.712900+00:00",
+        "first_seen": "2026-07-07T00:00:00+00:00",
+        "version": 2,
+        "history": [
+          {
+            "at": "2026-07-07T09:37:31.713081+00:00",
+            "action": "updated",
+            "version": 2,
+            "changed_fields": [
+              "verified_by"
+            ]
+          }
+        ],
+        "notes": "Official Notion documentation and help center reviewed on 2026-07-07.",
+        "reason": ""
+      },
+      {
+        "id": "notion:pricing_page:www-notion-com-pricing",
+        "brand": "Notion",
+        "slug": "notion",
+        "source_type": "pricing_page",
+        "source_name": "Notion Pricing",
+        "source_url": "https://www.notion.com/pricing",
+        "canonical_source": "www.notion.com/pricing",
+        "verification_status": "verified",
+        "verification_date": "2026-07-07T00:00:00+00:00",
+        "verified_by": "system",
+        "confidence": 95.0,
+        "freshness_score": 100,
+        "trust_score": 100,
+        "official_score": 0,
+        "pricing_score": 100,
+        "affiliate_score": 0,
+        "release_notes_score": 0,
+        "competitor_score": 0,
+        "duplicate_of": "",
+        "last_seen": "2026-07-07T09:37:31.712900+00:00",
+        "first_seen": "2026-07-07T00:00:00+00:00",
+        "version": 2,
+        "history": [
+          {
+            "at": "2026-07-07T09:37:31.713802+00:00",
+            "action": "updated",
+            "version": 2,
+            "changed_fields": [
+              "verified_by"
+            ]
+          }
+        ],
+        "notes": "Official Notion pricing page reviewed on 2026-07-07.",
+        "reason": ""
+      },
+      {
+        "id": "notion:product_page:www-notion-com",
+        "brand": "Notion",
+        "slug": "notion",
+        "source_type": "product_page",
+        "source_name": "Notion Product Homepage",
+        "source_url": "https://www.notion.com/",
+        "canonical_source": "www.notion.com/",
+        "verification_status": "verified",
+        "verification_date": "2026-07-07T00:00:00+00:00",
+        "verified_by": "system",
+        "confidence": 88.0,
+        "freshness_score": 100,
+        "trust_score": 96,
+        "official_score": 96,
+        "pricing_score": 0,
+        "affiliate_score": 0,
+        "release_notes_score": 0,
+        "competitor_score": 0,
+        "duplicate_of": "",
+        "last_seen": "2026-07-07T09:37:31.712900+00:00",
+        "first_seen": "2026-07-07T00:00:00+00:00",
+        "version": 2,
+        "history": [
+          {
+            "at": "2026-07-07T09:37:31.715804+00:00",
+            "action": "updated",
+            "version": 2,
+            "changed_fields": [
+              "verified_by"
+            ]
+          }
+        ],
+        "notes": "Official Notion product reference page reviewed on 2026-07-07.",
+        "reason": ""
+      },
+      {
+        "id": "notion:release_notes:www-notion-com-releases",
+        "brand": "Notion",
+        "slug": "notion",
+        "source_type": "release_notes",
+        "source_name": "Notion Releases",
+        "source_url": "https://www.notion.com/releases",
+        "canonical_source": "www.notion.com/releases",
+        "verification_status": "verified",
+        "verification_date": "2026-07-07T00:00:00+00:00",
+        "verified_by": "system",
+        "confidence": 91.0,
+        "freshness_score": 100,
+        "trust_score": 98,
+        "official_score": 0,
+        "pricing_score": 0,
+        "affiliate_score": 0,
+        "release_notes_score": 98,
+        "competitor_score": 0,
+        "duplicate_of": "",
+        "last_seen": "2026-07-07T09:37:31.712900+00:00",
+        "first_seen": "2026-07-07T00:00:00+00:00",
+        "version": 2,
+        "history": [
+          {
+            "at": "2026-07-07T09:37:31.715156+00:00",
+            "action": "updated",
+            "version": 2,
+            "changed_fields": [
+              "verified_by"
+            ]
+          }
+        ],
+        "notes": "Official Notion release notes page reviewed on 2026-07-07.",
+        "reason": ""
+      }
+    ],
+    "verified_sources": [
+      {
+        "id": "notion:affiliate_program_page:www-notion-com-partners",
+        "brand": "Notion",
+        "slug": "notion",
+        "source_type": "affiliate_program_page",
+        "source_name": "Notion Partner Programs",
+        "source_url": "https://www.notion.com/partners",
+        "canonical_source": "www.notion.com/partners",
+        "verification_status": "verified",
+        "verification_date": "2026-07-07T00:00:00+00:00",
+        "verified_by": "system",
+        "confidence": 90.0,
+        "freshness_score": 100,
+        "trust_score": 98,
+        "official_score": 0,
+        "pricing_score": 0,
+        "affiliate_score": 98,
+        "release_notes_score": 0,
+        "competitor_score": 0,
+        "duplicate_of": "",
+        "last_seen": "2026-07-07T09:37:31.712900+00:00",
+        "first_seen": "2026-07-07T00:00:00+00:00",
+        "version": 2,
+        "history": [
+          {
+            "at": "2026-07-07T09:37:31.714461+00:00",
+            "action": "updated",
+            "version": 2,
+            "changed_fields": [
+              "verified_by"
+            ]
+          }
+        ],
+        "notes": "Official Notion partner page includes affiliate and builder partner information; reviewed on 2026-07-07.",
+        "reason": ""
+      },
+      {
+        "id": "notion:official_docs:www-notion-com-help",
+        "brand": "Notion",
+        "slug": "notion",
+        "source_type": "official_docs",
+        "source_name": "Notion Help Center",
+        "source_url": "https://www.notion.com/help",
+        "canonical_source": "www.notion.com/help",
+        "verification_status": "verified",
+        "verification_date": "2026-07-07T00:00:00+00:00",
+        "verified_by": "system",
+        "confidence": 94.0,
+        "freshness_score": 100,
+        "trust_score": 100,
+        "official_score": 100,
+        "pricing_score": 0,
+        "affiliate_score": 0,
+        "release_notes_score": 0,
+        "competitor_score": 0,
+        "duplicate_of": "",
+        "last_seen": "2026-07-07T09:37:31.712900+00:00",
+        "first_seen": "2026-07-07T00:00:00+00:00",
+        "version": 2,
+        "history": [
+          {
+            "at": "2026-07-07T09:37:31.713081+00:00",
+            "action": "updated",
+            "version": 2,
+            "changed_fields": [
+              "verified_by"
+            ]
+          }
+        ],
+        "notes": "Official Notion documentation and help center reviewed on 2026-07-07.",
+        "reason": ""
+      },
+      {
+        "id": "notion:pricing_page:www-notion-com-pricing",
+        "brand": "Notion",
+        "slug": "notion",
+        "source_type": "pricing_page",
+        "source_name": "Notion Pricing",
+        "source_url": "https://www.notion.com/pricing",
+        "canonical_source": "www.notion.com/pricing",
+        "verification_status": "verified",
+        "verification_date": "2026-07-07T00:00:00+00:00",
+        "verified_by": "system",
+        "confidence": 95.0,
+        "freshness_score": 100,
+        "trust_score": 100,
+        "official_score": 0,
+        "pricing_score": 100,
+        "affiliate_score": 0,
+        "release_notes_score": 0,
+        "competitor_score": 0,
+        "duplicate_of": "",
+        "last_seen": "2026-07-07T09:37:31.712900+00:00",
+        "first_seen": "2026-07-07T00:00:00+00:00",
+        "version": 2,
+        "history": [
+          {
+            "at": "2026-07-07T09:37:31.713802+00:00",
+            "action": "updated",
+            "version": 2,
+            "changed_fields": [
+              "verified_by"
+            ]
+          }
+        ],
+        "notes": "Official Notion pricing page reviewed on 2026-07-07.",
+        "reason": ""
+      },
+      {
+        "id": "notion:product_page:www-notion-com",
+        "brand": "Notion",
+        "slug": "notion",
+        "source_type": "product_page",
+        "source_name": "Notion Product Homepage",
+        "source_url": "https://www.notion.com/",
+        "canonical_source": "www.notion.com/",
+        "verification_status": "verified",
+        "verification_date": "2026-07-07T00:00:00+00:00",
+        "verified_by": "system",
+        "confidence": 88.0,
+        "freshness_score": 100,
+        "trust_score": 96,
+        "official_score": 96,
+        "pricing_score": 0,
+        "affiliate_score": 0,
+        "release_notes_score": 0,
+        "competitor_score": 0,
+        "duplicate_of": "",
+        "last_seen": "2026-07-07T09:37:31.712900+00:00",
+        "first_seen": "2026-07-07T00:00:00+00:00",
+        "version": 2,
+        "history": [
+          {
+            "at": "2026-07-07T09:37:31.715804+00:00",
+            "action": "updated",
+            "version": 2,
+            "changed_fields": [
+              "verified_by"
+            ]
+          }
+        ],
+        "notes": "Official Notion product reference page reviewed on 2026-07-07.",
+        "reason": ""
+      },
+      {
+        "id": "notion:release_notes:www-notion-com-releases",
+        "brand": "Notion",
+        "slug": "notion",
+        "source_type": "release_notes",
+        "source_name": "Notion Releases",
+        "source_url": "https://www.notion.com/releases",
+        "canonical_source": "www.notion.com/releases",
+        "verification_status": "verified",
+        "verification_date": "2026-07-07T00:00:00+00:00",
+        "verified_by": "system",
+        "confidence": 91.0,
+        "freshness_score": 100,
+        "trust_score": 98,
+        "official_score": 0,
+        "pricing_score": 0,
+        "affiliate_score": 0,
+        "release_notes_score": 98,
+        "competitor_score": 0,
+        "duplicate_of": "",
+        "last_seen": "2026-07-07T09:37:31.712900+00:00",
+        "first_seen": "2026-07-07T00:00:00+00:00",
+        "version": 2,
+        "history": [
+          {
+            "at": "2026-07-07T09:37:31.715156+00:00",
+            "action": "updated",
+            "version": 2,
+            "changed_fields": [
+              "verified_by"
+            ]
+          }
+        ],
+        "notes": "Official Notion release notes page reviewed on 2026-07-07.",
+        "reason": ""
+      }
+    ],
+    "pending_sources": [],
+    "expired_sources": [],
+    "duplicate_sources": [],
+    "missing_verified_sources": [
+      "competitor_article"
+    ],
+    "source_confidence": 91.6,
+    "source_status": "verified",
+    "official_docs_score": 100,
+    "pricing_source_score": 100,
+    "affiliate_source_score": 98,
+    "changelog_source_score": 98,
+    "competitor_source_score": 0,
+    "total_verified_source_score": 79,
+    "review_queue_size": 12,
+    "knowledge_dashboard": {
+      "verified_sources": 15,
+      "pending_review": 0,
+      "expired_sources": 0,
+      "duplicate_sources": 0,
+      "coverage": 100.0,
+      "average_trust": 98.47,
+      "average_freshness": 100.0,
+      "verified_percent": 100.0,
+      "pending_percent": 0.0,
+      "expired_percent": 0.0,
+      "duplicate_percent": 0.0,
+      "official_docs_percent": 20.0,
+      "pricing_percent": 20.0,
+      "affiliate_percent": 20.0,
+      "competitor_percent": 0.0,
+      "missing_official_docs": 0,
+      "missing_pricing": 0,
+      "missing_release_notes": 0,
+      "missing_affiliate": 0,
+      "missing_competitor_snapshots": 3,
+      "top_weak_topics": [],
+      "queue_items": 12
+    }
   },
   "writing_plan": {
-    "recommended_word_count": 2410,
-    "difficulty": 55,
-    "reading_level": "Intermediate",
+    "recommended_word_count": 2370,
+    "difficulty": 53,
+    "reading_level": "Beginner-friendly",
     "affiliate_value": 64,
-    "seo_opportunity": 86,
+    "seo_opportunity": 85,
     "commercial_intent": 90,
-    "estimated_writing_time_minutes": 68,
+    "estimated_writing_time_minutes": 67,
     "estimated_update_frequency_days": 60,
     "article_type": "best list",
     "intent": "commercial",
@@ -487,7 +887,7 @@
     ]
   },
   "quality": {
-    "overall_score": 63.86,
+    "overall_score": 62.36,
     "coverage": 72,
     "entity_coverage": 60,
     "entity_coverage_score": 60,
@@ -501,12 +901,24 @@
     "faq_coverage": 68,
     "outline_quality": 80,
     "affiliate_readiness": 57,
-    "source_quality": 100,
+    "source_quality": 89.5,
+    "official_docs_score": 100,
+    "pricing_source_score": 100,
+    "affiliate_source_score": 98,
+    "changelog_source_score": 98,
+    "competitor_source_score": 0,
+    "total_verified_source_score": 79,
+    "source_confidence": 91.6,
+    "source_status": "verified",
     "competitor_quality": 10,
     "missing_information": [
       "competitor coverage is limited"
     ],
     "status": "ready"
   },
-  "cache_hits": []
+  "cache_hits": [
+    "Notion",
+    "Gamma",
+    "Notion AI"
+  ]
 }

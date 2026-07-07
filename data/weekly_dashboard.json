@@ -1,182 +1,37 @@
 {
-  "generated_at": "2026-07-07T06:24:29.560160+00:00",
+  "generated_at": "2026-07-07T09:40:42.186794+00:00",
   "top_topics": [
     {
       "rank": 1,
-      "keyword": "meetily Review 2026",
-      "title": "meetily Review 2026",
-      "slug": "meetily-review-2026",
-      "intent": "commercial research",
+      "keyword": "The SaaS Apocalypse Is Real. Causal AI Is the Escape Route",
+      "title": "The SaaS Apocalypse Is Real. Causal AI Is the Escape Route",
+      "slug": "the-saas-apocalypse-is-real-causal-ai-is-the-escape-route",
+      "intent": "mixed informational and commercial",
       "category": "AI Software",
-      "cluster": "meetily Review 2026",
-      "score": 62.5,
+      "cluster": "The SaaS Apocalypse Is Real. Causal AI Is the Escape Route",
+      "score": 54.1,
       "affiliate_score": "low",
       "estimated_article_count": 7,
-      "priority": "P2",
+      "priority": "P3",
       "article_type": "review",
       "related_keywords": [
-        "meetily review 2026 alternatives",
-        "meetily review 2026 comparison",
-        "meetily review 2026 pricing",
-        "how to use meetily review 2026",
-        "meetily review 2026 faq"
+        "the saas apocalypse is real causal ai is the escape route comparison",
+        "the saas apocalypse is real causal ai is the escape route faq",
+        "how to use the saas apocalypse is real causal ai is the escape route",
+        "the saas apocalypse is real causal ai is the escape route alternatives",
+        "the saas apocalypse is real causal ai is the escape route pricing"
       ],
       "planning_reasoning": [
         "Detected search intent 'commercial' from the query.",
-        "Matched intent terms: review.",
-        "Matched article-type terms: review.",
-        "Intent confidence 0.9; article-type confidence 0.95.",
-        "Detected search intent 'commercial' from the query.",
-        "Intent depth classified as shallow based on query specificity."
+        "Intent confidence 0.0; article-type confidence 0.0.",
+        "Detected search intent 'informational' from the query.",
+        "Intent depth classified as shallow based on query specificity.",
+        "Scope classified as broad based on narrowing terms and product intent.",
+        "Buyer journey stage is awareness and funnel stage is top."
       ]
     },
     {
       "rank": 2,
-      "keyword": "system_prompts_leaks Review 2026",
-      "title": "system_prompts_leaks Review 2026",
-      "slug": "system-prompts-leaks-review-2026",
-      "intent": "commercial research",
-      "category": "AI Software",
-      "cluster": "system_prompts_leaks Review 2026",
-      "score": 62.3,
-      "affiliate_score": "low",
-      "estimated_article_count": 7,
-      "priority": "P2",
-      "article_type": "review",
-      "related_keywords": [
-        "system prompts leaks review 2026 comparison",
-        "system prompts leaks review 2026 faq",
-        "system prompts leaks review 2026 alternatives",
-        "system prompts leaks review 2026 pricing",
-        "how to use system prompts leaks review 2026"
-      ],
-      "planning_reasoning": [
-        "Detected search intent 'commercial' from the query.",
-        "Matched intent terms: review.",
-        "Matched article-type terms: review.",
-        "Intent confidence 0.9; article-type confidence 0.95.",
-        "Detected search intent 'commercial' from the query.",
-        "Intent depth classified as shallow based on query specificity."
-      ]
-    },
-    {
-      "rank": 3,
-      "keyword": "agent-skills Review 2026",
-      "title": "agent-skills Review 2026",
-      "slug": "agent-skills-review-2026",
-      "intent": "commercial research",
-      "category": "AI Agents",
-      "cluster": "agent-skills Review 2026",
-      "score": 61.5,
-      "affiliate_score": "low",
-      "estimated_article_count": 7,
-      "priority": "P2",
-      "article_type": "review",
-      "related_keywords": [
-        "agent-skills review 2026 pricing",
-        "agent-skills review 2026 faq",
-        "agent-skills review 2026 comparison",
-        "agent-skills review 2026 alternatives",
-        "how to use agent-skills review 2026"
-      ],
-      "planning_reasoning": [
-        "Detected search intent 'commercial' from the query.",
-        "Matched intent terms: review.",
-        "Matched article-type terms: review.",
-        "Intent confidence 0.9; article-type confidence 0.95.",
-        "Detected search intent 'commercial' from the query.",
-        "Intent depth classified as shallow based on query specificity."
-      ]
-    },
-    {
-      "rank": 4,
-      "keyword": "last30days-skill Review 2026",
-      "title": "last30days-skill Review 2026",
-      "slug": "last30days-skill-review-2026",
-      "intent": "commercial research",
-      "category": "AI Software",
-      "cluster": "last30days-skill Review 2026",
-      "score": 60.5,
-      "affiliate_score": "low",
-      "estimated_article_count": 7,
-      "priority": "P2",
-      "article_type": "review",
-      "related_keywords": [
-        "last30days-skill review 2026 pricing",
-        "last30days-skill review 2026 comparison",
-        "last30days-skill review 2026 alternatives",
-        "last30days-skill review 2026 faq",
-        "how to use last30days-skill review 2026"
-      ],
-      "planning_reasoning": [
-        "Detected search intent 'commercial' from the query.",
-        "Matched intent terms: review.",
-        "Matched article-type terms: review.",
-        "Intent confidence 0.9; article-type confidence 0.95.",
-        "Detected search intent 'commercial' from the query.",
-        "Intent depth classified as shallow based on query specificity."
-      ]
-    },
-    {
-      "rank": 5,
-      "keyword": "taste-skill Review 2026",
-      "title": "taste-skill Review 2026",
-      "slug": "taste-skill-review-2026",
-      "intent": "commercial research",
-      "category": "AI Software",
-      "cluster": "taste-skill Review 2026",
-      "score": 58.0,
-      "affiliate_score": "low",
-      "estimated_article_count": 7,
-      "priority": "P2",
-      "article_type": "review",
-      "related_keywords": [
-        "taste-skill review 2026 alternatives",
-        "taste-skill review 2026 pricing",
-        "how to use taste-skill review 2026",
-        "taste-skill review 2026 comparison",
-        "taste-skill review 2026 faq"
-      ],
-      "planning_reasoning": [
-        "Detected search intent 'commercial' from the query.",
-        "Matched intent terms: review.",
-        "Matched article-type terms: review.",
-        "Intent confidence 0.9; article-type confidence 0.95.",
-        "Detected search intent 'commercial' from the query.",
-        "Intent depth classified as shallow based on query specificity."
-      ]
-    },
-    {
-      "rank": 6,
-      "keyword": "karakeep Review 2026",
-      "title": "karakeep Review 2026",
-      "slug": "karakeep-review-2026",
-      "intent": "commercial research",
-      "category": "AI Software",
-      "cluster": "karakeep Review 2026",
-      "score": 55.7,
-      "affiliate_score": "low",
-      "estimated_article_count": 7,
-      "priority": "P2",
-      "article_type": "review",
-      "related_keywords": [
-        "karakeep review 2026 pricing",
-        "karakeep review 2026 comparison",
-        "how to use karakeep review 2026",
-        "karakeep review 2026 alternatives",
-        "karakeep review 2026 faq"
-      ],
-      "planning_reasoning": [
-        "Detected search intent 'commercial' from the query.",
-        "Matched intent terms: review.",
-        "Matched article-type terms: review.",
-        "Intent confidence 0.9; article-type confidence 0.95.",
-        "Detected search intent 'commercial' from the query.",
-        "Intent depth classified as shallow based on query specificity."
-      ]
-    },
-    {
-      "rank": 7,
       "keyword": "best ai productivity software",
       "title": "best ai productivity software",
       "slug": "best-ai-productivity-software",
@@ -189,11 +44,11 @@
       "priority": "P3",
       "article_type": "listicle",
       "related_keywords": [
-        "best ai productivity software faq",
         "how to use best ai productivity software",
-        "best ai productivity software pricing",
+        "best ai productivity software comparison",
+        "best ai productivity software faq",
         "best ai productivity software alternatives",
-        "best ai productivity software comparison"
+        "best ai productivity software pricing"
       ],
       "planning_reasoning": [
         "Detected search intent 'commercial' from the query.",
@@ -205,7 +60,7 @@
       ]
     },
     {
-      "rank": 8,
+      "rank": 3,
       "keyword": "best ai meeting software",
       "title": "best ai meeting software",
       "slug": "best-ai-meeting-software",
@@ -218,10 +73,10 @@
       "priority": "P3",
       "article_type": "listicle",
       "related_keywords": [
+        "best ai meeting software alternatives",
+        "best ai meeting software comparison",
         "best ai meeting software pricing",
         "how to use best ai meeting software",
-        "best ai meeting software comparison",
-        "best ai meeting software alternatives",
         "best ai meeting software faq"
       ],
       "planning_reasoning": [
@@ -234,7 +89,7 @@
       ]
     },
     {
-      "rank": 9,
+      "rank": 4,
       "keyword": "best ai voice software",
       "title": "best ai voice software",
       "slug": "best-ai-voice-software",
@@ -247,11 +102,11 @@
       "priority": "P3",
       "article_type": "listicle",
       "related_keywords": [
+        "best ai voice software pricing",
         "best ai voice software alternatives",
         "best ai voice software faq",
-        "best ai voice software comparison",
-        "best ai voice software pricing",
-        "how to use best ai voice software"
+        "how to use best ai voice software",
+        "best ai voice software comparison"
       ],
       "planning_reasoning": [
         "Detected search intent 'commercial' from the query.",
@@ -263,7 +118,7 @@
       ]
     },
     {
-      "rank": 10,
+      "rank": 5,
       "keyword": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue",
       "title": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue",
       "slug": "impartner-redefines-partner-marketing-automation-with-full-automation-adtech-and-ai-to-drive-measurable-revenue",
@@ -276,11 +131,11 @@
       "priority": "P3",
       "article_type": "review",
       "related_keywords": [
-        "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue alternatives",
         "how to use impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue",
-        "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue pricing",
         "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue faq",
-        "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue comparison"
+        "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue alternatives",
+        "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue comparison",
+        "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue pricing"
       ],
       "planning_reasoning": [
         "Detected search intent 'commercial' from the query.",
@@ -290,151 +145,232 @@
         "Scope classified as broad based on narrowing terms and product intent.",
         "Buyer journey stage is awareness and funnel stage is top."
       ]
+    },
+    {
+      "rank": 6,
+      "keyword": "AI coding tokens could soon cost as much as salaries",
+      "title": "AI coding tokens could soon cost as much as salaries",
+      "slug": "ai-coding-tokens-could-soon-cost-as-much-as-salaries",
+      "intent": "commercial investigation",
+      "category": "AI Coding",
+      "cluster": "AI coding tokens could soon cost as much as salaries",
+      "score": 49.8,
+      "affiliate_score": "low",
+      "estimated_article_count": 7,
+      "priority": "P3",
+      "article_type": "pricing",
+      "related_keywords": [
+        "ai coding tokens could soon cost as much as salaries pricing",
+        "ai coding tokens could soon cost as much as salaries faq",
+        "how to use ai coding tokens could soon cost as much as salaries",
+        "ai coding tokens could soon cost as much as salaries comparison",
+        "ai coding tokens could soon cost as much as salaries alternatives"
+      ],
+      "planning_reasoning": [
+        "Detected search intent 'transactional' from the query.",
+        "Matched intent terms: cost.",
+        "Matched article-type terms: cost.",
+        "Intent confidence 0.95; article-type confidence 0.95.",
+        "Detected search intent 'transactional' from the query.",
+        "Intent depth classified as deep based on query specificity."
+      ]
+    },
+    {
+      "rank": 7,
+      "keyword": "How AI is upending SaaS tools",
+      "title": "How AI is upending SaaS tools",
+      "slug": "how-ai-is-upending-saas-tools",
+      "intent": "commercial research",
+      "category": "AI Software",
+      "cluster": "How AI is upending SaaS tools",
+      "score": 49.3,
+      "affiliate_score": "low",
+      "estimated_article_count": 7,
+      "priority": "P3",
+      "article_type": "listicle",
+      "related_keywords": [
+        "how ai is upending saas tools pricing",
+        "how ai is upending saas tools faq",
+        "how ai is upending saas tools alternatives",
+        "how to use how ai is upending saas tools",
+        "how ai is upending saas tools comparison"
+      ],
+      "planning_reasoning": [
+        "Detected search intent 'commercial' from the query.",
+        "Intent confidence 0.0; article-type confidence 0.0.",
+        "Detected search intent 'informational' from the query.",
+        "Intent depth classified as shallow based on query specificity.",
+        "Scope classified as broad based on narrowing terms and product intent.",
+        "Buyer journey stage is awareness and funnel stage is top."
+      ]
+    },
+    {
+      "rank": 8,
+      "keyword": "Shopify launches AI-powered marketing automation tool",
+      "title": "Shopify launches AI-powered marketing automation tool",
+      "slug": "shopify-launches-ai-powered-marketing-automation-tool",
+      "intent": "commercial research",
+      "category": "AI Software",
+      "cluster": "Shopify launches AI-powered marketing automation tool",
+      "score": 48.9,
+      "affiliate_score": "low",
+      "estimated_article_count": 7,
+      "priority": "P3",
+      "article_type": "news/update",
+      "related_keywords": [
+        "shopify launches ai-powered marketing automation tool comparison",
+        "how to use shopify launches ai-powered marketing automation tool",
+        "shopify launches ai-powered marketing automation tool alternatives",
+        "shopify launches ai-powered marketing automation tool faq",
+        "shopify launches ai-powered marketing automation tool pricing"
+      ],
+      "planning_reasoning": [
+        "Detected search intent 'commercial' from the query.",
+        "Intent confidence 0.0; article-type confidence 0.0.",
+        "Detected search intent 'informational' from the query.",
+        "Intent depth classified as shallow based on query specificity.",
+        "Scope classified as broad based on narrowing terms and product intent.",
+        "Buyer journey stage is awareness and funnel stage is top."
+      ]
+    },
+    {
+      "rank": 9,
+      "keyword": "best ai meeting tools",
+      "title": "best ai meeting tools",
+      "slug": "best-ai-meeting-tools",
+      "intent": "commercial research",
+      "category": "AI Software",
+      "cluster": "best ai meeting tools",
+      "score": 48.8,
+      "affiliate_score": "low",
+      "estimated_article_count": 7,
+      "priority": "P3",
+      "article_type": "listicle",
+      "related_keywords": [
+        "how to use best ai meeting tools",
+        "best ai meeting tools comparison",
+        "best ai meeting tools alternatives",
+        "best ai meeting tools faq",
+        "best ai meeting tools pricing"
+      ],
+      "planning_reasoning": [
+        "Detected search intent 'commercial' from the query.",
+        "Matched intent terms: best.",
+        "Matched article-type terms: best.",
+        "Intent confidence 0.95; article-type confidence 1.25.",
+        "Detected search intent 'commercial' from the query.",
+        "Intent depth classified as medium based on query specificity."
+      ]
+    },
+    {
+      "rank": 10,
+      "keyword": "AI coding costs could exceed developer salaries by 2028",
+      "title": "AI coding costs could exceed developer salaries by 2028",
+      "slug": "ai-coding-costs-could-exceed-developer-salaries-by-2028",
+      "intent": "commercial investigation",
+      "category": "AI Coding",
+      "cluster": "AI coding costs could exceed developer salaries by 2028",
+      "score": 48.6,
+      "affiliate_score": "low",
+      "estimated_article_count": 7,
+      "priority": "P3",
+      "article_type": "pricing",
+      "related_keywords": [
+        "ai coding costs could exceed developer salaries by 2028 pricing",
+        "ai coding costs could exceed developer salaries by 2028 faq",
+        "how to use ai coding costs could exceed developer salaries by 2028",
+        "ai coding costs could exceed developer salaries by 2028 alternatives",
+        "ai coding costs could exceed developer salaries by 2028 comparison"
+      ],
+      "planning_reasoning": [
+        "Detected search intent 'transactional' from the query.",
+        "Matched intent terms: cost.",
+        "Matched article-type terms: cost.",
+        "Intent confidence 0.95; article-type confidence 0.95.",
+        "Detected search intent 'transactional' from the query.",
+        "Intent depth classified as deep based on query specificity."
+      ]
     }
   ],
   "affiliate_opportunities": [
     {
-      "keyword": "meetily Review 2026",
-      "slug": "meetily-review-2026",
+      "keyword": "AI coding costs could exceed developer salaries by 2028",
+      "slug": "ai-coding-costs-could-exceed-developer-salaries-by-2028",
+      "category": "AI Coding",
+      "article_type": "Pricing",
+      "affiliate_opportunity_score": 57.96,
+      "monetization_priority": "Medium",
+      "matched_programs": [
+        "Cursor",
+        "GitHub Copilot",
+        "Windsurf"
+      ],
+      "commercial_intent": 46,
+      "search_intent": 90,
+      "existing_affiliate_programs": 75,
+      "estimated_commission": 0,
+      "estimated_conversion": 87,
+      "competition": 47,
+      "estimated_article_value": 66,
+      "content_difficulty": 36,
+      "topic_freshness": 46,
+      "seasonality": 65,
+      "reasoning": [
+        "Matched 3 affiliate programs.",
+        "Commercial intent scored 46.",
+        "Competition scored 47."
+      ]
+    },
+    {
+      "keyword": "AI coding tokens could soon cost as much as salaries",
+      "slug": "ai-coding-tokens-could-soon-cost-as-much-as-salaries",
+      "category": "AI Coding",
+      "article_type": "Pricing",
+      "affiliate_opportunity_score": 57.86,
+      "monetization_priority": "Medium",
+      "matched_programs": [
+        "Cursor",
+        "GitHub Copilot",
+        "Windsurf"
+      ],
+      "commercial_intent": 47,
+      "search_intent": 90,
+      "existing_affiliate_programs": 75,
+      "estimated_commission": 0,
+      "estimated_conversion": 87,
+      "competition": 47,
+      "estimated_article_value": 67,
+      "content_difficulty": 36,
+      "topic_freshness": 46,
+      "seasonality": 45,
+      "reasoning": [
+        "Matched 3 affiliate programs.",
+        "Commercial intent scored 47.",
+        "Competition scored 47."
+      ]
+    },
+    {
+      "keyword": "The SaaS Apocalypse Is Real. Causal AI Is the Escape Route",
+      "slug": "the-saas-apocalypse-is-real-causal-ai-is-the-escape-route",
       "category": "AI Software",
       "article_type": "Review",
-      "affiliate_opportunity_score": 46.58,
-      "monetization_priority": "Medium",
+      "affiliate_opportunity_score": 42.7,
+      "monetization_priority": "Low",
       "matched_programs": [],
       "commercial_intent": 54,
       "search_intent": 90,
       "existing_affiliate_programs": 0,
       "estimated_commission": 0,
       "estimated_conversion": 35,
-      "competition": 37,
-      "estimated_article_value": 70,
-      "content_difficulty": 29,
-      "topic_freshness": 67,
-      "seasonality": 65,
+      "competition": 47,
+      "estimated_article_value": 61,
+      "content_difficulty": 36,
+      "topic_freshness": 46,
+      "seasonality": 45,
       "reasoning": [
         "Matched 0 affiliate programs.",
         "Commercial intent scored 54.",
-        "Competition scored 37."
-      ]
-    },
-    {
-      "keyword": "agent-skills Review 2026",
-      "slug": "agent-skills-review-2026",
-      "category": "AI Agents",
-      "article_type": "Review",
-      "affiliate_opportunity_score": 46.44,
-      "monetization_priority": "Medium",
-      "matched_programs": [],
-      "commercial_intent": 55,
-      "search_intent": 90,
-      "existing_affiliate_programs": 0,
-      "estimated_commission": 0,
-      "estimated_conversion": 35,
-      "competition": 37,
-      "estimated_article_value": 68,
-      "content_difficulty": 29,
-      "topic_freshness": 65,
-      "seasonality": 65,
-      "reasoning": [
-        "Matched 0 affiliate programs.",
-        "Commercial intent scored 55.",
-        "Competition scored 37."
-      ]
-    },
-    {
-      "keyword": "system_prompts_leaks Review 2026",
-      "slug": "system-prompts-leaks-review-2026",
-      "category": "AI Software",
-      "article_type": "Review",
-      "affiliate_opportunity_score": 46.42,
-      "monetization_priority": "Medium",
-      "matched_programs": [],
-      "commercial_intent": 54,
-      "search_intent": 90,
-      "existing_affiliate_programs": 0,
-      "estimated_commission": 0,
-      "estimated_conversion": 35,
-      "competition": 37,
-      "estimated_article_value": 69,
-      "content_difficulty": 29,
-      "topic_freshness": 66,
-      "seasonality": 65,
-      "reasoning": [
-        "Matched 0 affiliate programs.",
-        "Commercial intent scored 54.",
-        "Competition scored 37."
-      ]
-    },
-    {
-      "keyword": "last30days-skill Review 2026",
-      "slug": "last30days-skill-review-2026",
-      "category": "AI Software",
-      "article_type": "Review",
-      "affiliate_opportunity_score": 46.36,
-      "monetization_priority": "Medium",
-      "matched_programs": [],
-      "commercial_intent": 55,
-      "search_intent": 90,
-      "existing_affiliate_programs": 0,
-      "estimated_commission": 0,
-      "estimated_conversion": 35,
-      "competition": 37,
-      "estimated_article_value": 68,
-      "content_difficulty": 29,
-      "topic_freshness": 63,
-      "seasonality": 65,
-      "reasoning": [
-        "Matched 0 affiliate programs.",
-        "Commercial intent scored 55.",
-        "Competition scored 37."
-      ]
-    },
-    {
-      "keyword": "taste-skill Review 2026",
-      "slug": "taste-skill-review-2026",
-      "category": "AI Software",
-      "article_type": "Review",
-      "affiliate_opportunity_score": 44.68,
-      "monetization_priority": "Low",
-      "matched_programs": [],
-      "commercial_intent": 47,
-      "search_intent": 90,
-      "existing_affiliate_programs": 0,
-      "estimated_commission": 0,
-      "estimated_conversion": 35,
-      "competition": 37,
-      "estimated_article_value": 65,
-      "content_difficulty": 29,
-      "topic_freshness": 66,
-      "seasonality": 65,
-      "reasoning": [
-        "Matched 0 affiliate programs.",
-        "Commercial intent scored 47.",
-        "Competition scored 37."
-      ]
-    },
-    {
-      "keyword": "karakeep Review 2026",
-      "slug": "karakeep-review-2026",
-      "category": "AI Software",
-      "article_type": "Review",
-      "affiliate_opportunity_score": 44.24,
-      "monetization_priority": "Low",
-      "matched_programs": [],
-      "commercial_intent": 47,
-      "search_intent": 90,
-      "existing_affiliate_programs": 0,
-      "estimated_commission": 0,
-      "estimated_conversion": 35,
-      "competition": 37,
-      "estimated_article_value": 63,
-      "content_difficulty": 29,
-      "topic_freshness": 61,
-      "seasonality": 65,
-      "reasoning": [
-        "Matched 0 affiliate programs.",
-        "Commercial intent scored 47.",
-        "Competition scored 37."
+        "Competition scored 47."
       ]
     },
     {
@@ -452,6 +388,30 @@
       "estimated_conversion": 35,
       "competition": 47,
       "estimated_article_value": 57,
+      "content_difficulty": 36,
+      "topic_freshness": 46,
+      "seasonality": 45,
+      "reasoning": [
+        "Matched 0 affiliate programs.",
+        "Commercial intent scored 46.",
+        "Competition scored 47."
+      ]
+    },
+    {
+      "keyword": "Shopify launches AI-powered marketing automation tool",
+      "slug": "shopify-launches-ai-powered-marketing-automation-tool",
+      "category": "AI Software",
+      "article_type": "News/Update",
+      "affiliate_opportunity_score": 40.66,
+      "monetization_priority": "Low",
+      "matched_programs": [],
+      "commercial_intent": 46,
+      "search_intent": 90,
+      "existing_affiliate_programs": 0,
+      "estimated_commission": 0,
+      "estimated_conversion": 35,
+      "competition": 47,
+      "estimated_article_value": 56,
       "content_difficulty": 36,
       "topic_freshness": 46,
       "seasonality": 45,
@@ -486,6 +446,30 @@
       ]
     },
     {
+      "keyword": "How AI is upending SaaS tools",
+      "slug": "how-ai-is-upending-saas-tools",
+      "category": "AI Software",
+      "article_type": "Listicle",
+      "affiliate_opportunity_score": 39.9,
+      "monetization_priority": "Low",
+      "matched_programs": [],
+      "commercial_intent": 52,
+      "search_intent": 90,
+      "existing_affiliate_programs": 0,
+      "estimated_commission": 0,
+      "estimated_conversion": 35,
+      "competition": 59,
+      "estimated_article_value": 56,
+      "content_difficulty": 44,
+      "topic_freshness": 46,
+      "seasonality": 45,
+      "reasoning": [
+        "Matched 0 affiliate programs.",
+        "Commercial intent scored 52.",
+        "Competition scored 59."
+      ]
+    },
+    {
       "keyword": "best ai meeting software",
       "slug": "best-ai-meeting-software",
       "category": "AI Software",
@@ -532,59 +516,56 @@
         "Commercial intent scored 47.",
         "Competition scored 59."
       ]
+    },
+    {
+      "keyword": "best ai meeting tools",
+      "slug": "best-ai-meeting-tools",
+      "category": "AI Software",
+      "article_type": "Best Of",
+      "affiliate_opportunity_score": 39.4,
+      "monetization_priority": "Low",
+      "matched_programs": [],
+      "commercial_intent": 47,
+      "search_intent": 90,
+      "existing_affiliate_programs": 0,
+      "estimated_commission": 0,
+      "estimated_conversion": 35,
+      "competition": 59,
+      "estimated_article_value": 56,
+      "content_difficulty": 44,
+      "topic_freshness": 56,
+      "seasonality": 45,
+      "reasoning": [
+        "Matched 0 affiliate programs.",
+        "Commercial intent scored 47.",
+        "Competition scored 59."
+      ]
     }
   ],
   "content_gaps": [
     {
-      "keyword": "meetily Review 2026",
-      "slug": "meetily-review-2026",
-      "category": "AI Software",
-      "roi_score": 46.58,
-      "recommended_article_type": "Review",
+      "keyword": "AI coding costs could exceed developer salaries by 2028",
+      "slug": "ai-coding-costs-could-exceed-developer-salaries-by-2028",
+      "category": "AI Coding",
+      "roi_score": 57.96,
+      "recommended_article_type": "Pricing",
       "monetization_priority": "Medium",
       "reason": "Weekly trend is not covered by an existing published article."
     },
     {
-      "keyword": "agent-skills Review 2026",
-      "slug": "agent-skills-review-2026",
-      "category": "AI Agents",
-      "roi_score": 46.44,
-      "recommended_article_type": "Review",
+      "keyword": "AI coding tokens could soon cost as much as salaries",
+      "slug": "ai-coding-tokens-could-soon-cost-as-much-as-salaries",
+      "category": "AI Coding",
+      "roi_score": 57.86,
+      "recommended_article_type": "Pricing",
       "monetization_priority": "Medium",
       "reason": "Weekly trend is not covered by an existing published article."
     },
     {
-      "keyword": "system_prompts_leaks Review 2026",
-      "slug": "system-prompts-leaks-review-2026",
+      "keyword": "The SaaS Apocalypse Is Real. Causal AI Is the Escape Route",
+      "slug": "the-saas-apocalypse-is-real-causal-ai-is-the-escape-route",
       "category": "AI Software",
-      "roi_score": 46.42,
-      "recommended_article_type": "Review",
-      "monetization_priority": "Medium",
-      "reason": "Weekly trend is not covered by an existing published article."
-    },
-    {
-      "keyword": "last30days-skill Review 2026",
-      "slug": "last30days-skill-review-2026",
-      "category": "AI Software",
-      "roi_score": 46.36,
-      "recommended_article_type": "Review",
-      "monetization_priority": "Medium",
-      "reason": "Weekly trend is not covered by an existing published article."
-    },
-    {
-      "keyword": "taste-skill Review 2026",
-      "slug": "taste-skill-review-2026",
-      "category": "AI Software",
-      "roi_score": 44.68,
-      "recommended_article_type": "Review",
-      "monetization_priority": "Low",
-      "reason": "Weekly trend is not covered by an existing published article."
-    },
-    {
-      "keyword": "karakeep Review 2026",
-      "slug": "karakeep-review-2026",
-      "category": "AI Software",
-      "roi_score": 44.24,
+      "roi_score": 42.7,
       "recommended_article_type": "Review",
       "monetization_priority": "Low",
       "reason": "Weekly trend is not covered by an existing published article."
@@ -599,11 +580,29 @@
       "reason": "Weekly trend is not covered by an existing published article."
     },
     {
+      "keyword": "Shopify launches AI-powered marketing automation tool",
+      "slug": "shopify-launches-ai-powered-marketing-automation-tool",
+      "category": "AI Software",
+      "roi_score": 40.66,
+      "recommended_article_type": "News/Update",
+      "monetization_priority": "Low",
+      "reason": "Weekly trend is not covered by an existing published article."
+    },
+    {
       "keyword": "best ai productivity software",
       "slug": "best-ai-productivity-software",
       "category": "AI Software",
       "roi_score": 39.94,
       "recommended_article_type": "Best Of",
+      "monetization_priority": "Low",
+      "reason": "Weekly trend is not covered by an existing published article."
+    },
+    {
+      "keyword": "How AI is upending SaaS tools",
+      "slug": "how-ai-is-upending-saas-tools",
+      "category": "AI Software",
+      "roi_score": 39.9,
+      "recommended_article_type": "Listicle",
       "monetization_priority": "Low",
       "reason": "Weekly trend is not covered by an existing published article."
     },
@@ -621,6 +620,15 @@
       "slug": "best-ai-voice-software",
       "category": "AI Software",
       "roi_score": 39.64,
+      "recommended_article_type": "Best Of",
+      "monetization_priority": "Low",
+      "reason": "Weekly trend is not covered by an existing published article."
+    },
+    {
+      "keyword": "best ai meeting tools",
+      "slug": "best-ai-meeting-tools",
+      "category": "AI Software",
+      "roi_score": 39.4,
       "recommended_article_type": "Best Of",
       "monetization_priority": "Low",
       "reason": "Weekly trend is not covered by an existing published article."
@@ -895,10 +903,10 @@
     }
   ],
   "evergreen_score": 2.63,
-  "business_score": 43.47,
+  "business_score": 43.85,
   "production_summary": {
     "weekly_topics": 10,
-    "calendar_entries": 14,
+    "calendar_entries": 7,
     "gaps": 10,
     "articles_needing_updates": 761
   },
@@ -913,33 +921,34 @@
   },
   "historical_comparison": {
     "returning_topics": [
-      "agent-skills Review 2026",
+      "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue",
+      "The SaaS Apocalypse Is Real. Causal AI Is the Escape Route",
       "best ai meeting software",
       "best ai productivity software",
-      "best ai voice software",
-      "karakeep Review 2026",
-      "last30days-skill Review 2026",
-      "meetily Review 2026",
-      "system_prompts_leaks Review 2026",
-      "taste-skill Review 2026"
+      "best ai voice software"
     ],
     "evergreen_topics": [
-      "agent-skills Review 2026",
       "best ai meeting software",
+      "best ai meeting tools",
       "best ai productivity software",
-      "best ai voice software",
-      "karakeep Review 2026",
-      "last30days-skill Review 2026",
-      "meetily Review 2026",
-      "system_prompts_leaks Review 2026",
-      "taste-skill Review 2026"
+      "best ai voice software"
     ],
     "seasonal_topics": [],
     "emerging_topics": [
-      "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue"
+      "AI coding costs could exceed developer salaries by 2028",
+      "AI coding tokens could soon cost as much as salaries",
+      "How AI is upending SaaS tools",
+      "Shopify launches AI-powered marketing automation tool",
+      "best ai meeting tools"
     ],
     "dead_topics": [
-      "SaaS stocks are rallying on AI optimism. 3 stocks to buy now."
+      "SaaS stocks are rallying on AI optimism. 3 stocks to buy now.",
+      "agent-skills Review 2026",
+      "karakeep Review 2026",
+      "last30days-skill Review 2026",
+      "meetily Review 2026",
+      "system_prompts_leaks Review 2026",
+      "taste-skill Review 2026"
     ]
   },
   "affiliate_coverage_issues": [

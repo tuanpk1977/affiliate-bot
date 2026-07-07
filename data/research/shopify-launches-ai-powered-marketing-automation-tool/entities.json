@@ -1,0 +1,57 @@
+{
+  "companies": [
+    "Make",
+    "AdCreative AI",
+    "Zapier"
+  ],
+  "products": [
+    "Make",
+    "AdCreative AI",
+    "Zapier"
+  ],
+  "ai_tools": [
+    "Make",
+    "AdCreative AI",
+    "Zapier"
+  ],
+  "people": [],
+  "organizations": [
+    "Make",
+    "AdCreative AI",
+    "Zapier"
+  ],
+  "technologies": [
+    "Automation"
+  ],
+  "frameworks": [],
+  "pricing_plans": [
+    "shopify launches ai-powered marketing automation tool pricing",
+    "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue pricing",
+    "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue pricing"
+  ],
+  "affiliate_networks": [],
+  "integrations": [
+    "Shopify"
+  ],
+  "use_cases": [],
+  "target_audience": [],
+  "versions": [],
+  "competitors": [],
+  "alternatives": [
+    "shopify launches ai-powered marketing automation tool alternatives",
+    "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue alternatives",
+    "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue alternatives"
+  ],
+  "product_categories": [
+    "Automation",
+    "Marketing"
+  ],
+  "entity_coverage_score": 68,
+  "missing_entity_types": [
+    "affiliate_networks",
+    "use_cases",
+    "target_audience",
+    "competitors",
+    "integrations"
+  ]
+}

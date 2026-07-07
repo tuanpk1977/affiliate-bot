@@ -75,7 +75,24 @@
     "minimum_publish_readiness": 65,
     "minimum_readability_score": 35,
     "maximum_duplicate_risk": 65,
-    "require_human_approval": false
+    "require_human_approval": false,
+    "manual_approval_article_types": [
+      "affiliate",
+      "review",
+      "pricing",
+      "comparison",
+      "product_recommendation"
+    ],
+    "manual_approval_title_markers": [
+      " pricing",
+      " review",
+      " comparison",
+      " vs ",
+      " best ",
+      " alternative",
+      " alternatives",
+      "recommend"
+    ]
   },
   "human_approval": {
     "required": false

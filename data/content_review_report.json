@@ -1,11 +1,32 @@
 {
   "summary": {
-    "items": 0,
+    "items": 1,
     "needs_revision": 0,
     "ai_review_passed": 0,
-    "needs_human_review": 0,
+    "needs_human_review": 1,
     "human_approved": 0,
     "rejected": 0
   },
-  "items": []
+  "items": [
+    {
+      "slug": "best-ai-productivity-software",
+      "topic": "best ai productivity software",
+      "url": "https://smileaireviewhub.com/best-ai-productivity-software/",
+      "status": "needs_human_review",
+      "reviewed_at": "2026-07-07T09:40:42.294614+00:00",
+      "word_count": 2149,
+      "factual_quality": 70.0,
+      "source_quality": 89.5,
+      "seo_title_meta_quality": 100,
+      "affiliate_disclosure_present": true,
+      "internal_link_count": 5,
+      "duplicate_content_risk": 10.0,
+      "readability": 60.07,
+      "business_value": 52.1,
+      "publish_readiness": 82.71,
+      "publishable": true,
+      "requires_human_approval": true,
+      "failures": []
+    }
+  ]
 }

@@ -1,9 +1,9 @@
 # Verified Source Registry Report
 
-- Records: 0
-- Verified: 0
+- Records: 15
+- Verified: 15
 - Pending: 0
 - Needs review: 0
 - Expired: 0
 - Duplicate: 0
-- Brands: none
+- Brands: ElevenLabs, Notion, Reclaim AI

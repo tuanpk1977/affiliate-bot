@@ -1,5 +1,5 @@
 {
-  "overall_score": 63.86,
+  "overall_score": 62.36,
   "coverage": 72,
   "entity_coverage": 60,
   "entity_coverage_score": 60,
@@ -13,7 +13,15 @@
   "faq_coverage": 68,
   "outline_quality": 80,
   "affiliate_readiness": 57,
-  "source_quality": 100,
+  "source_quality": 89.5,
+  "official_docs_score": 100,
+  "pricing_source_score": 100,
+  "affiliate_source_score": 98,
+  "changelog_source_score": 98,
+  "competitor_source_score": 0,
+  "total_verified_source_score": 79,
+  "source_confidence": 91.6,
+  "source_status": "verified",
   "competitor_quality": 10,
   "missing_information": [
     "competitor coverage is limited"

@@ -27,16 +27,20 @@
     ],
     "frameworks": [],
     "pricing_plans": [
+      "shopify launches ai-powered marketing automation tool pricing",
       "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue pricing",
       "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue pricing"
     ],
     "affiliate_networks": [],
-    "integrations": [],
+    "integrations": [
+      "Shopify"
+    ],
     "use_cases": [],
     "target_audience": [],
     "versions": [],
     "competitors": [],
     "alternatives": [
+      "shopify launches ai-powered marketing automation tool alternatives",
       "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue alternatives",
       "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue alternatives"
     ],
@@ -44,17 +48,17 @@
       "Automation",
       "Marketing"
     ],
-    "entity_coverage_score": 60,
+    "entity_coverage_score": 68,
     "missing_entity_types": [
       "affiliate_networks",
-      "integrations",
       "use_cases",
       "target_audience",
-      "competitors"
+      "competitors",
+      "integrations"
     ]
   },
   "sources": {
-    "topic": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue",
+    "topic": "Shopify launches AI-powered marketing automation tool",
     "trusted_sources": {
       "official_documentation": [
         {
@@ -80,14 +84,7 @@
         },
         {
           "connector_type": "official_docs",
-          "label": "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue alternatives official docs",
-          "url": "",
-          "status": "missing",
-          "evidence": "No live fetch; requires manual confirmation"
-        },
-        {
-          "connector_type": "official_docs",
-          "label": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue alternatives official docs",
+          "label": "shopify launches ai-powered marketing automation tool alternatives official docs",
           "url": "",
           "status": "missing",
           "evidence": "No live fetch; requires manual confirmation"
@@ -117,14 +114,7 @@
         },
         {
           "connector_type": "pricing_page",
-          "label": "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue alternatives pricing page",
-          "url": "",
-          "status": "missing",
-          "evidence": "Pricing should be verified on official site; local source only"
-        },
-        {
-          "connector_type": "pricing_page",
-          "label": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue alternatives pricing page",
+          "label": "shopify launches ai-powered marketing automation tool alternatives pricing page",
           "url": "",
           "status": "missing",
           "evidence": "Pricing should be verified on official site; local source only"
@@ -154,14 +144,7 @@
         },
         {
           "connector_type": "product_page",
-          "label": "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue alternatives product page",
-          "url": "",
-          "status": "missing",
-          "evidence": "Brand website from local offers/affiliate data"
-        },
-        {
-          "connector_type": "product_page",
-          "label": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue alternatives product page",
+          "label": "shopify launches ai-powered marketing automation tool alternatives product page",
           "url": "",
           "status": "missing",
           "evidence": "Brand website from local offers/affiliate data"
@@ -191,14 +174,7 @@
         },
         {
           "connector_type": "release_notes",
-          "label": "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue alternatives release notes",
-          "url": "",
-          "status": "missing",
-          "evidence": "No offline release-note source available"
-        },
-        {
-          "connector_type": "release_notes",
-          "label": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue alternatives release notes",
+          "label": "shopify launches ai-powered marketing automation tool alternatives release notes",
           "url": "",
           "status": "missing",
           "evidence": "No offline release-note source available"
@@ -207,7 +183,7 @@
       "api_docs": [
         {
           "connector_type": "api_docs",
-          "label": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue API docs",
+          "label": "Shopify launches AI-powered marketing automation tool API docs",
           "url": "",
           "status": "missing",
           "evidence": "No API signal in keyword"
@@ -217,7 +193,7 @@
       "blog_articles": [
         {
           "connector_type": "competitor_article",
-          "label": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue competitor article",
+          "label": "Shopify launches AI-powered marketing automation tool competitor article",
           "url": "",
           "status": "missing",
           "evidence": "Requires local competitor snapshot input"
@@ -248,14 +224,7 @@
         },
         {
           "connector_type": "affiliate_program_page",
-          "label": "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue alternatives affiliate program page",
-          "url": "",
-          "status": "missing",
-          "evidence": "Affiliate page from local offers/affiliate data"
-        },
-        {
-          "connector_type": "affiliate_program_page",
-          "label": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue alternatives affiliate program page",
+          "label": "shopify launches ai-powered marketing automation tool alternatives affiliate program page",
           "url": "",
           "status": "missing",
           "evidence": "Affiliate page from local offers/affiliate data"
@@ -264,10 +233,55 @@
     },
     "reference_count": 7,
     "estimated_source_count": 0,
-    "missing_source_count": 20
+    "missing_source_count": 15,
+    "verified_registry_records": [],
+    "verified_sources": [],
+    "pending_sources": [],
+    "expired_sources": [],
+    "duplicate_sources": [],
+    "missing_verified_sources": [
+      "official_docs",
+      "pricing_page",
+      "affiliate_program_page",
+      "release_notes",
+      "competitor_article"
+    ],
+    "source_confidence": 0.0,
+    "source_status": "missing",
+    "official_docs_score": 0,
+    "pricing_source_score": 0,
+    "affiliate_source_score": 0,
+    "changelog_source_score": 0,
+    "competitor_source_score": 0,
+    "total_verified_source_score": 0,
+    "review_queue_size": 12,
+    "knowledge_dashboard": {
+      "verified_sources": 15,
+      "pending_review": 0,
+      "expired_sources": 0,
+      "duplicate_sources": 0,
+      "coverage": 100.0,
+      "average_trust": 98.47,
+      "average_freshness": 100.0,
+      "verified_percent": 100.0,
+      "pending_percent": 0.0,
+      "expired_percent": 0.0,
+      "duplicate_percent": 0.0,
+      "official_docs_percent": 20.0,
+      "pricing_percent": 20.0,
+      "affiliate_percent": 20.0,
+      "competitor_percent": 0.0,
+      "missing_official_docs": 0,
+      "missing_pricing": 0,
+      "missing_release_notes": 0,
+      "missing_affiliate": 0,
+      "missing_competitor_snapshots": 3,
+      "top_weak_topics": [],
+      "queue_items": 12
+    }
   },
   "competitors": {
-    "keyword": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue",
+    "keyword": "Shopify launches AI-powered marketing automation tool",
     "coverage_status": "missing",
     "profiles": [],
     "report": "competitor coverage is missing",

@@ -9,6 +9,29 @@ from modules.research_intelligence import ResearchIntelligencePlatform
 
 
 class ResearchIntelligenceTests(unittest.TestCase):
+    def test_research_enrichment_queue_csv_handles_mixed_row_fields(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            queue = (data_dir / "research_enrichment_queue.json")
+            queue.parent.mkdir(parents=True, exist_ok=True)
+            queue.write_text(
+                json.dumps(
+                    [
+                        {"slug": "topic-a", "topic": "topic a", "status": "needs_enrichment"},
+                        {"slug": "topic-b", "topic": "topic b", "status": "approved", "approved_at": "2026-07-07T00:00:00+00:00"},
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            platform = ResearchIntelligencePlatform(data_dir=data_dir)
+
+            platform.queue.save(platform.queue.load())
+
+            csv_text = (data_dir / "research_enrichment_queue.csv").read_text(encoding="utf-8")
+            self.assertIn("approved_at", csv_text)
+            self.assertIn("topic-b", csv_text)
+
     def test_builds_research_package_and_quality_report(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

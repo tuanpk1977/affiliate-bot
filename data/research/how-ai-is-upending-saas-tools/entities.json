@@ -1,0 +1,33 @@
+{
+  "companies": [],
+  "products": [],
+  "ai_tools": [],
+  "people": [],
+  "organizations": [],
+  "technologies": [],
+  "frameworks": [],
+  "pricing_plans": [
+    "how ai is upending saas tools pricing"
+  ],
+  "affiliate_networks": [],
+  "integrations": [],
+  "use_cases": [],
+  "target_audience": [],
+  "versions": [],
+  "competitors": [],
+  "alternatives": [
+    "how ai is upending saas tools alternatives"
+  ],
+  "product_categories": [],
+  "entity_coverage_score": 36,
+  "missing_entity_types": [
+    "ai_tools",
+    "companies",
+    "affiliate_networks",
+    "integrations",
+    "use_cases",
+    "target_audience",
+    "competitors",
+    "product_categories"
+  ]
+}

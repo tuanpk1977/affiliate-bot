@@ -1,0 +1,94 @@
+{
+  "seo_outline": [
+    "What is it",
+    "How to use",
+    "Use cases",
+    "FAQ"
+  ],
+  "article_structure": [
+    "Define the topic clearly",
+    "Provide actionable steps",
+    "Show practical scenarios",
+    "Answer common questions"
+  ],
+  "heading_hierarchy": [
+    {
+      "level": 2,
+      "heading": "What is it",
+      "purpose": "Define the topic clearly"
+    },
+    {
+      "level": 2,
+      "heading": "How to use",
+      "purpose": "Provide actionable steps"
+    },
+    {
+      "level": 2,
+      "heading": "Use cases",
+      "purpose": "Show practical scenarios"
+    },
+    {
+      "level": 2,
+      "heading": "FAQ",
+      "purpose": "Answer common questions"
+    }
+  ],
+  "faq_placement": "After alternatives and before final CTA",
+  "cta_placement": "Hero CTA and final verdict CTA",
+  "internal_link_opportunities": [],
+  "affiliate_blocks": [
+    "affiliate disclosure",
+    "pricing verification note",
+    "comparison shortlist CTA"
+  ],
+  "product_comparison_tables": [
+    "feature comparison table",
+    "pricing and plan limits table"
+  ],
+  "images_required": [
+    "hero visual",
+    "comparison table screenshot",
+    "pricing checklist visual"
+  ],
+  "infographic_suggestions": [
+    "Shopify launches AI-powered marketing automation tool buyer checklist infographic",
+    "Shopify launches AI-powered marketing automation tool comparison flow infographic"
+  ],
+  "video_suggestions": [
+    "Shopify launches AI-powered marketing automation tool walkthrough",
+    "Shopify launches AI-powered marketing automation tool comparison short"
+  ],
+  "faq_groups": {
+    "beginner": [
+      "What is Shopify launches AI-powered marketing automation tool and who is it for?",
+      "How should beginners evaluate Shopify launches AI-powered marketing automation tool before buying?"
+    ],
+    "intermediate": [
+      "What workflow problems does Shopify launches AI-powered marketing automation tool solve best?",
+      "Which integrations matter most when using Shopify launches AI-powered marketing automation tool?"
+    ],
+    "advanced": [
+      "What implementation risks appear when teams scale Shopify launches AI-powered marketing automation tool?",
+      "How often should Shopify launches AI-powered marketing automation tool content be updated after product changes?"
+    ],
+    "comparison": [
+      "How does Shopify launches AI-powered marketing automation tool compare with alternatives?",
+      "When should a buyer choose an alternative instead of Shopify launches AI-powered marketing automation tool?"
+    ],
+    "pricing": [
+      "What should readers verify on the pricing page for Make?",
+      "Which hidden cost risks matter most when evaluating Shopify launches AI-powered marketing automation tool?"
+    ],
+    "troubleshooting": [
+      "What should the writer do if official pricing or feature details conflict for Shopify launches AI-powered marketing automation tool?",
+      "How should broken links or outdated claims about Shopify launches AI-powered marketing automation tool be handled before publishing?"
+    ]
+  },
+  "recommended_cta": "Read through the guide and apply the steps that match your use case.",
+  "confidence": 0.95,
+  "reasoning": [
+    "Built an outline for 'Shopify launches AI-powered marketing automation tool' using the 'informational' template.",
+    "Used keyword signals: shopify launches ai-powered marketing automation tool comparison, how to use shopify launches ai-powered marketing automation tool, shopify launches ai-powered marketing automation tool alternatives.",
+    "Included 4 planned sections for the article structure."
+  ]
+}
