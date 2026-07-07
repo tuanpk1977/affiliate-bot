@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "meetily-review-2026",
+    "topic": "meetily Review 2026",
+    "score": 45.86,
+    "status": "needs_enrichment",
+    "missing_information": [
+      "trusted sources are thin",
+      "competitor coverage is limited",
+      "entity extraction needs richer tool coverage"
+    ]
+  },
+  {
+    "slug": "system-prompts-leaks-review-2026",
+    "topic": "system_prompts_leaks Review 2026",
+    "score": 45.86,
+    "status": "needs_enrichment",
+    "missing_information": [
+      "trusted sources are thin",
+      "competitor coverage is limited",
+      "entity extraction needs richer tool coverage"
+    ]
+  },
+  {
+    "slug": "agent-skills-review-2026",
+    "topic": "agent-skills Review 2026",
+    "score": 45.86,
+    "status": "needs_enrichment",
+    "missing_information": [
+      "trusted sources are thin",
+      "competitor coverage is limited",
+      "entity extraction needs richer tool coverage"
+    ]
+  },
+  {
+    "slug": "last30days-skill-review-2026",
+    "topic": "last30days-skill Review 2026",
+    "score": 45.86,
+    "status": "needs_enrichment",
+    "missing_information": [
+      "trusted sources are thin",
+      "competitor coverage is limited",
+      "entity extraction needs richer tool coverage"
+    ]
+  },
+  {
+    "slug": "taste-skill-review-2026",
+    "topic": "taste-skill Review 2026",
+    "score": 45.86,
+    "status": "needs_enrichment",
+    "missing_information": [
+      "trusted sources are thin",
+      "competitor coverage is limited",
+      "entity extraction needs richer tool coverage"
+    ]
+  },
+  {
+    "slug": "karakeep-review-2026",
+    "topic": "karakeep Review 2026",
+    "score": 45.86,
+    "status": "needs_enrichment",
+    "missing_information": [
+      "trusted sources are thin",
+      "competitor coverage is limited",
+      "entity extraction needs richer tool coverage"
+    ]
+  },
+  {
+    "slug": "best-ai-meeting-software",
+    "topic": "best ai meeting software",
+    "score": 55.86,
+    "status": "needs_enrichment",
+    "missing_information": [
+      "competitor coverage is limited"
+    ]
+  },
+  {
+    "slug": "best-ai-voice-software",
+    "topic": "best ai voice software",
+    "score": 55.86,
+    "status": "needs_enrichment",
+    "missing_information": [
+      "competitor coverage is limited"
+    ]
+  }
+]

@@ -1,0 +1,280 @@
+{
+  "entity": "Zapier",
+  "entities": {
+    "companies": [
+      "Make",
+      "AdCreative AI",
+      "Zapier"
+    ],
+    "products": [
+      "Make",
+      "AdCreative AI",
+      "Zapier"
+    ],
+    "ai_tools": [
+      "Make",
+      "AdCreative AI",
+      "Zapier"
+    ],
+    "people": [],
+    "organizations": [
+      "Make",
+      "AdCreative AI",
+      "Zapier"
+    ],
+    "technologies": [
+      "Automation"
+    ],
+    "frameworks": [],
+    "pricing_plans": [
+      "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue pricing",
+      "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue pricing"
+    ],
+    "affiliate_networks": [],
+    "integrations": [],
+    "use_cases": [],
+    "target_audience": [],
+    "versions": [],
+    "competitors": [],
+    "alternatives": [
+      "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue alternatives",
+      "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue alternatives"
+    ],
+    "product_categories": [
+      "Automation",
+      "Marketing"
+    ],
+    "entity_coverage_score": 60,
+    "missing_entity_types": [
+      "affiliate_networks",
+      "integrations",
+      "use_cases",
+      "target_audience",
+      "competitors"
+    ]
+  },
+  "sources": {
+    "topic": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue",
+    "trusted_sources": {
+      "official_documentation": [
+        {
+          "connector_type": "official_docs",
+          "label": "Make official docs",
+          "url": "https://www.make.com",
+          "status": "needs_review",
+          "evidence": "No live fetch; requires manual confirmation"
+        },
+        {
+          "connector_type": "official_docs",
+          "label": "AdCreative AI official docs",
+          "url": "https://www.adcreative.ai",
+          "status": "needs_review",
+          "evidence": "No live fetch; requires manual confirmation"
+        },
+        {
+          "connector_type": "official_docs",
+          "label": "Zapier official docs",
+          "url": "https://zapier.com",
+          "status": "needs_review",
+          "evidence": "No live fetch; requires manual confirmation"
+        },
+        {
+          "connector_type": "official_docs",
+          "label": "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue alternatives official docs",
+          "url": "",
+          "status": "missing",
+          "evidence": "No live fetch; requires manual confirmation"
+        },
+        {
+          "connector_type": "official_docs",
+          "label": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue alternatives official docs",
+          "url": "",
+          "status": "missing",
+          "evidence": "No live fetch; requires manual confirmation"
+        }
+      ],
+      "pricing_pages": [
+        {
+          "connector_type": "pricing_page",
+          "label": "Make pricing page",
+          "url": "https://www.make.com",
+          "status": "verified",
+          "evidence": "Pricing should be verified on official site; local source only"
+        },
+        {
+          "connector_type": "pricing_page",
+          "label": "AdCreative AI pricing page",
+          "url": "https://www.adcreative.ai",
+          "status": "verified",
+          "evidence": "Pricing should be verified on official site; local source only"
+        },
+        {
+          "connector_type": "pricing_page",
+          "label": "Zapier pricing page",
+          "url": "https://zapier.com",
+          "status": "verified",
+          "evidence": "Pricing should be verified on official site; local source only"
+        },
+        {
+          "connector_type": "pricing_page",
+          "label": "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue alternatives pricing page",
+          "url": "",
+          "status": "missing",
+          "evidence": "Pricing should be verified on official site; local source only"
+        },
+        {
+          "connector_type": "pricing_page",
+          "label": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue alternatives pricing page",
+          "url": "",
+          "status": "missing",
+          "evidence": "Pricing should be verified on official site; local source only"
+        }
+      ],
+      "product_pages": [
+        {
+          "connector_type": "product_page",
+          "label": "Make product page",
+          "url": "https://www.make.com",
+          "status": "verified",
+          "evidence": "Brand website from local offers/affiliate data"
+        },
+        {
+          "connector_type": "product_page",
+          "label": "AdCreative AI product page",
+          "url": "https://www.adcreative.ai",
+          "status": "verified",
+          "evidence": "Brand website from local offers/affiliate data"
+        },
+        {
+          "connector_type": "product_page",
+          "label": "Zapier product page",
+          "url": "https://zapier.com",
+          "status": "verified",
+          "evidence": "Brand website from local offers/affiliate data"
+        },
+        {
+          "connector_type": "product_page",
+          "label": "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue alternatives product page",
+          "url": "",
+          "status": "missing",
+          "evidence": "Brand website from local offers/affiliate data"
+        },
+        {
+          "connector_type": "product_page",
+          "label": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue alternatives product page",
+          "url": "",
+          "status": "missing",
+          "evidence": "Brand website from local offers/affiliate data"
+        }
+      ],
+      "release_notes": [
+        {
+          "connector_type": "release_notes",
+          "label": "Make release notes",
+          "url": "",
+          "status": "missing",
+          "evidence": "No offline release-note source available"
+        },
+        {
+          "connector_type": "release_notes",
+          "label": "AdCreative AI release notes",
+          "url": "",
+          "status": "missing",
+          "evidence": "No offline release-note source available"
+        },
+        {
+          "connector_type": "release_notes",
+          "label": "Zapier release notes",
+          "url": "",
+          "status": "missing",
+          "evidence": "No offline release-note source available"
+        },
+        {
+          "connector_type": "release_notes",
+          "label": "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue alternatives release notes",
+          "url": "",
+          "status": "missing",
+          "evidence": "No offline release-note source available"
+        },
+        {
+          "connector_type": "release_notes",
+          "label": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue alternatives release notes",
+          "url": "",
+          "status": "missing",
+          "evidence": "No offline release-note source available"
+        }
+      ],
+      "api_docs": [
+        {
+          "connector_type": "api_docs",
+          "label": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue API docs",
+          "url": "",
+          "status": "missing",
+          "evidence": "No API signal in keyword"
+        }
+      ],
+      "research_papers": [],
+      "blog_articles": [
+        {
+          "connector_type": "competitor_article",
+          "label": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue competitor article",
+          "url": "",
+          "status": "missing",
+          "evidence": "Requires local competitor snapshot input"
+        }
+      ],
+      "community": [],
+      "affiliate_program_pages": [
+        {
+          "connector_type": "affiliate_program_page",
+          "label": "Make affiliate program page",
+          "url": "https://www.make.com/en/affiliates",
+          "status": "verified",
+          "evidence": "Affiliate page from local offers/affiliate data"
+        },
+        {
+          "connector_type": "affiliate_program_page",
+          "label": "AdCreative AI affiliate program page",
+          "url": "",
+          "status": "missing",
+          "evidence": "Affiliate page from local offers/affiliate data"
+        },
+        {
+          "connector_type": "affiliate_program_page",
+          "label": "Zapier affiliate program page",
+          "url": "",
+          "status": "missing",
+          "evidence": "Affiliate page from local offers/affiliate data"
+        },
+        {
+          "connector_type": "affiliate_program_page",
+          "label": "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue alternatives affiliate program page",
+          "url": "",
+          "status": "missing",
+          "evidence": "Affiliate page from local offers/affiliate data"
+        },
+        {
+          "connector_type": "affiliate_program_page",
+          "label": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue alternatives affiliate program page",
+          "url": "",
+          "status": "missing",
+          "evidence": "Affiliate page from local offers/affiliate data"
+        }
+      ]
+    },
+    "reference_count": 7,
+    "estimated_source_count": 0,
+    "missing_source_count": 20
+  },
+  "competitors": {
+    "keyword": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue",
+    "coverage_status": "missing",
+    "profiles": [],
+    "report": "competitor coverage is missing",
+    "missing_topics": [
+      "pricing verification",
+      "feature limitations",
+      "ideal buyer fit"
+    ]
+  }
+}

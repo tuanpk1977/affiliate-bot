@@ -55,7 +55,11 @@ class EditorialAutomationTests(unittest.TestCase):
                 site_output_dir=Path(temp_dir) / "site_output",
                 offers_file=data_dir / "offers.csv",
                 affiliate_links_file=data_dir / "affiliate_links.csv",
-                editorial_config={"business_intelligence": {"evergreen": {"min_word_count": 100, "min_readability_score": 10}}},
+                editorial_config={
+                    "business_intelligence": {"evergreen": {"min_word_count": 100, "min_readability_score": 10}},
+                    "research_intelligence": {"quality_gate": {"threshold": 0, "enabled": True, "allow_override": False}},
+                },
+                editorial_research_config={"quality_gate": {"threshold": 0, "enabled": True, "allow_override": False}},
                 editorial_candidate_limit=200,
                 editorial_max_per_source=40,
                 editorial_top_topics=10,
@@ -67,6 +71,7 @@ class EditorialAutomationTests(unittest.TestCase):
                     result = engine.run_weekly_cycle()
 
             self.assertEqual(result["weekly_topics"], 10)
+            self.assertEqual(result["approved_topics"], 10)
             self.assertEqual(result["calendar_entries"], 70)
             self.assertTrue((data_dir / "weekly_topics.csv").exists())
             self.assertTrue((data_dir / "editorial_calendar.json").exists())
@@ -121,7 +126,11 @@ class EditorialAutomationTests(unittest.TestCase):
                 site_output_dir=root / "site_output",
                 offers_file=data_dir / "offers.csv",
                 affiliate_links_file=data_dir / "affiliate_links.csv",
-                editorial_config={"business_intelligence": {"evergreen": {"min_word_count": 100, "min_readability_score": 10}}},
+                editorial_config={
+                    "business_intelligence": {"evergreen": {"min_word_count": 100, "min_readability_score": 10}},
+                    "research_intelligence": {"quality_gate": {"threshold": 0, "enabled": True, "allow_override": False}},
+                },
+                editorial_research_config={"quality_gate": {"threshold": 0, "enabled": True, "allow_override": False}},
                 editorial_candidate_limit=200,
                 editorial_max_per_source=40,
                 editorial_top_topics=10,
@@ -143,12 +152,83 @@ class EditorialAutomationTests(unittest.TestCase):
 
             self.assertEqual(result["calendar_rows"], 1)
             self.assertEqual(len(result["generated_pages"]), 1)
+            self.assertIsNone(result["weekly_refresh"])
             self.assertTrue((data_dir / f"daily_editorial_report_{target_date.isoformat()}.json").exists())
             self.assertTrue((data_dir / "content_lifecycle.jsonl").exists())
             page = result["generated_pages"][0]
             self.assertIn("research", page)
             self.assertIn("planning", page)
             self.assertEqual(page["slug"], "best-ai-coding-assistants-for-teams-pricing")
+
+    def test_monday_runner_refreshes_weekly_topics_before_generation(self) -> None:
+        target_date = date(2026, 7, 6)
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            fake_settings = SimpleNamespace(
+                base_dir=root,
+                data_dir=data_dir,
+                site_output_dir=root / "site_output",
+                offers_file=data_dir / "offers.csv",
+                affiliate_links_file=data_dir / "affiliate_links.csv",
+                editorial_config={
+                    "business_intelligence": {"evergreen": {"min_word_count": 100, "min_readability_score": 10}},
+                    "research_intelligence": {
+                        "quality_gate": {"threshold": 0, "enabled": True, "allow_override": False},
+                        "auto_refresh_weekly_on_monday": True,
+                    },
+                },
+                editorial_research_config={
+                    "quality_gate": {"threshold": 0, "enabled": True, "allow_override": False},
+                    "auto_refresh_weekly_on_monday": True,
+                },
+                editorial_candidate_limit=200,
+                editorial_max_per_source=40,
+                editorial_top_topics=10,
+                editorial_calendar_days=7,
+            )
+            monday_rows = [
+                {
+                    "publish_date": target_date.isoformat(),
+                    "day_of_week": "Monday",
+                    "parent_keyword": "best ai coding assistants for teams",
+                    "parent_slug": "best-ai-coding-assistants-for-teams",
+                    "keyword": "best ai coding assistants for teams",
+                    "title": "best ai coding assistants for teams",
+                    "slug": "best-ai-coding-assistants-for-teams",
+                    "stage": "pillar",
+                    "article_type": "comparison",
+                    "cluster": "best ai coding assistants for teams",
+                    "priority": "P1",
+                    "intent": "commercial",
+                    "related_keywords": ["ai coding tools for teams"],
+                    "reasoning": ["calendar test"],
+                }
+            ]
+            with ExitStack() as stack:
+                stack.enter_context(patch.object(editorial_automation, "settings", fake_settings))
+                stack.enter_context(patch.object(pipeline, "ROOT", root))
+                stack.enter_context(patch.object(pipeline, "DATA_DIR", data_dir))
+                stack.enter_context(patch.object(pipeline, "PUBLISHED_DIR", data_dir / "published_static_pages"))
+                stack.enter_context(patch.object(pipeline, "SITE_OUTPUT", root / "site_output"))
+                stack.enter_context(patch.object(pipeline, "VIDEO_OUTPUT", root / "video_output"))
+                stack.enter_context(patch.object(pipeline, "SOCIAL_DRAFTS", root / "social_drafts"))
+                stack.enter_context(patch.object(pipeline, "REPORT_DIR", data_dir / "content_growth_reports"))
+                stack.enter_context(patch.object(pipeline, "TRACKING_CSV", data_dir / "content_growth_performance_log.csv"))
+                stack.enter_context(patch.object(pipeline, "_CONTENT_PLANNER", None))
+                stack.enter_context(patch.object(pipeline, "_RESEARCH_PLATFORM", None))
+                stack.enter_context(patch.object(editorial_automation, "load_editorial_calendar", return_value=monday_rows))
+                stack.enter_context(
+                    patch.object(
+                        editorial_automation.WeeklyTrendIntelligenceEngine,
+                        "run_weekly_cycle",
+                        return_value={"weekly_topics": 10, "approved_topics": 3, "calendar_entries": 21},
+                    )
+                )
+                result = editorial_automation.run_daily_editorial_content(target_date=target_date, build=False)
+
+            self.assertIsNotNone(result["weekly_refresh"])
+            self.assertEqual(result["weekly_refresh"]["approved_topics"], 3)
 
 
 if __name__ == "__main__":

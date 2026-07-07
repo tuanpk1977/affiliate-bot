@@ -1,3 +1,11 @@
 {
-  "profiles": []
+  "keyword": "meetily Review 2026",
+  "coverage_status": "missing",
+  "profiles": [],
+  "report": "competitor coverage is missing",
+  "missing_topics": [
+    "pricing verification",
+    "feature limitations",
+    "ideal buyer fit"
+  ]
 }

@@ -1,12 +1,23 @@
 {
-  "overall_score": 47.0,
+  "overall_score": 45.86,
   "coverage": 72,
-  "entity_coverage": 29,
+  "entity_coverage": 36,
+  "entity_coverage_score": 36,
+  "missing_entity_types": [
+    "ai_tools",
+    "companies",
+    "affiliate_networks",
+    "integrations",
+    "use_cases",
+    "target_audience",
+    "competitors",
+    "product_categories"
+  ],
   "faq_coverage": 68,
   "outline_quality": 80,
   "affiliate_readiness": 45,
-  "source_quality": 15,
-  "competitor_quality": 20,
+  "source_quality": 10,
+  "competitor_quality": 10,
   "missing_information": [
     "trusted sources are thin",
     "competitor coverage is limited",

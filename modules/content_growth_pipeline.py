@@ -77,12 +77,18 @@ def run_daily_content_growth(
     topics = load_or_discover_topics(limit=max(limit * 3, 20), discover=discover)
     selected = select_daily_topics(topics, limit=limit)
     generated: list[GeneratedPage] = []
+    blocked_topics: list[dict[str, Any]] = []
     warnings: list[str] = []
 
     for topic in selected:
         if dry_run:
             continue
-        page = generate_topic_package(topic)
+        try:
+            page = generate_topic_package(topic)
+        except RuntimeError as exc:
+            blocked_topics.append({"topic": str(topic.get("topic", "")), "slug": str(topic.get("slug", "")), "reason": str(exc)})
+            warnings.append(str(exc))
+            continue
         generated.append(page)
         warnings.extend(page.warnings)
         append_tracking_row(page)
@@ -101,6 +107,7 @@ def run_daily_content_growth(
         "dry_run": dry_run,
         "selected_topics": selected,
         "generated_pages": [page_to_dict(page) for page in generated],
+        "blocked_topics": blocked_topics,
         "build": build_result,
         "indexnow": indexnow_result,
         "warnings": warnings,
@@ -277,6 +284,18 @@ def enrich_topic_with_research_and_planning(topic: dict[str, Any], planner: Cont
         "quality": research_package.quality,
         "cache_hits": research_package.cache_hits,
     }
+    gate = research_platform.evaluate_quality_gate(research_package, topic=topic)
+    research["quality_gate"] = {
+        "passed": gate.passed,
+        "score": gate.score,
+        "threshold": gate.threshold,
+        "override_used": gate.override_used,
+        "status": gate.status,
+    }
+    if not gate.passed:
+        raise RuntimeError(
+            f"Research quality gate blocked generation for {keyword}: score {gate.score} below threshold {gate.threshold}. Topic added to enrichment queue."
+        )
     research_keywords = []
     for key in (
         "secondary_keywords",
@@ -490,6 +509,7 @@ def render_article(
       <p>Research is mandatory before planning and drafting. The package is stored at <code>{html.escape(str(research.get("package_dir") or ""))}</code>.</p>
       <ul>
         <li><strong>Research quality score:</strong> {html.escape(str(research_quality.get("overall_score") or 0))}</li>
+        <li><strong>Quality gate:</strong> {html.escape(str(research.get("quality_gate", {}).get("status") or "unknown"))}</li>
         <li><strong>Source quality:</strong> {html.escape(str(research_quality.get("source_quality") or 0))}</li>
         <li><strong>Entity coverage:</strong> {html.escape(str(research_quality.get("entity_coverage") or 0))}</li>
         <li><strong>Outline quality:</strong> {html.escape(str(research_quality.get("outline_quality") or 0))}</li>

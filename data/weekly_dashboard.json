@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-07T03:21:16.306557+00:00",
+  "generated_at": "2026-07-07T06:24:29.560160+00:00",
   "top_topics": [
     {
       "rank": 1,
@@ -15,11 +15,11 @@
       "priority": "P2",
       "article_type": "review",
       "related_keywords": [
-        "meetily review 2026 faq",
         "meetily review 2026 alternatives",
-        "meetily review 2026 pricing",
         "meetily review 2026 comparison",
-        "how to use meetily review 2026"
+        "meetily review 2026 pricing",
+        "how to use meetily review 2026",
+        "meetily review 2026 faq"
       ],
       "planning_reasoning": [
         "Detected search intent 'commercial' from the query.",
@@ -44,10 +44,10 @@
       "priority": "P2",
       "article_type": "review",
       "related_keywords": [
+        "system prompts leaks review 2026 comparison",
         "system prompts leaks review 2026 faq",
         "system prompts leaks review 2026 alternatives",
         "system prompts leaks review 2026 pricing",
-        "system prompts leaks review 2026 comparison",
         "how to use system prompts leaks review 2026"
       ],
       "planning_reasoning": [
@@ -73,11 +73,11 @@
       "priority": "P2",
       "article_type": "review",
       "related_keywords": [
-        "agent-skills review 2026 alternatives",
+        "agent-skills review 2026 pricing",
         "agent-skills review 2026 faq",
-        "how to use agent-skills review 2026",
         "agent-skills review 2026 comparison",
-        "agent-skills review 2026 pricing"
+        "agent-skills review 2026 alternatives",
+        "how to use agent-skills review 2026"
       ],
       "planning_reasoning": [
         "Detected search intent 'commercial' from the query.",
@@ -102,11 +102,11 @@
       "priority": "P2",
       "article_type": "review",
       "related_keywords": [
-        "how to use last30days-skill review 2026",
         "last30days-skill review 2026 pricing",
         "last30days-skill review 2026 comparison",
         "last30days-skill review 2026 alternatives",
-        "last30days-skill review 2026 faq"
+        "last30days-skill review 2026 faq",
+        "how to use last30days-skill review 2026"
       ],
       "planning_reasoning": [
         "Detected search intent 'commercial' from the query.",
@@ -131,11 +131,11 @@
       "priority": "P2",
       "article_type": "review",
       "related_keywords": [
-        "taste-skill review 2026 pricing",
-        "taste-skill review 2026 faq",
         "taste-skill review 2026 alternatives",
+        "taste-skill review 2026 pricing",
         "how to use taste-skill review 2026",
-        "taste-skill review 2026 comparison"
+        "taste-skill review 2026 comparison",
+        "taste-skill review 2026 faq"
       ],
       "planning_reasoning": [
         "Detected search intent 'commercial' from the query.",
@@ -160,11 +160,11 @@
       "priority": "P2",
       "article_type": "review",
       "related_keywords": [
-        "karakeep review 2026 faq",
         "karakeep review 2026 pricing",
+        "karakeep review 2026 comparison",
         "how to use karakeep review 2026",
         "karakeep review 2026 alternatives",
-        "karakeep review 2026 comparison"
+        "karakeep review 2026 faq"
       ],
       "planning_reasoning": [
         "Detected search intent 'commercial' from the query.",
@@ -177,35 +177,6 @@
     },
     {
       "rank": 7,
-      "keyword": "SaaS stocks are rallying on AI optimism. 3 stocks to buy now.",
-      "title": "SaaS stocks are rallying on AI optimism. 3 stocks to buy now.",
-      "slug": "saas-stocks-are-rallying-on-ai-optimism-3-stocks-to-buy-now",
-      "intent": "mixed informational and commercial",
-      "category": "AI Software",
-      "cluster": "SaaS stocks are rallying on AI optimism. 3 stocks to buy now.",
-      "score": 55.5,
-      "affiliate_score": "low",
-      "estimated_article_count": 7,
-      "priority": "P2",
-      "article_type": "review",
-      "related_keywords": [
-        "saas stocks are rallying on ai optimism 3 stocks to buy now faq",
-        "saas stocks are rallying on ai optimism 3 stocks to buy now alternatives",
-        "how to use saas stocks are rallying on ai optimism 3 stocks to buy now",
-        "saas stocks are rallying on ai optimism 3 stocks to buy now pricing",
-        "saas stocks are rallying on ai optimism 3 stocks to buy now comparison"
-      ],
-      "planning_reasoning": [
-        "Detected search intent 'transactional' from the query.",
-        "Matched intent terms: buy.",
-        "Intent confidence 0.9; article-type confidence 0.0.",
-        "Detected search intent 'transactional' from the query.",
-        "Intent depth classified as deep based on query specificity.",
-        "Scope classified as narrow based on narrowing terms and product intent."
-      ]
-    },
-    {
-      "rank": 8,
       "keyword": "best ai productivity software",
       "title": "best ai productivity software",
       "slug": "best-ai-productivity-software",
@@ -218,11 +189,11 @@
       "priority": "P3",
       "article_type": "listicle",
       "related_keywords": [
-        "best ai productivity software pricing",
-        "best ai productivity software comparison",
         "best ai productivity software faq",
+        "how to use best ai productivity software",
+        "best ai productivity software pricing",
         "best ai productivity software alternatives",
-        "how to use best ai productivity software"
+        "best ai productivity software comparison"
       ],
       "planning_reasoning": [
         "Detected search intent 'commercial' from the query.",
@@ -234,7 +205,7 @@
       ]
     },
     {
-      "rank": 9,
+      "rank": 8,
       "keyword": "best ai meeting software",
       "title": "best ai meeting software",
       "slug": "best-ai-meeting-software",
@@ -247,11 +218,11 @@
       "priority": "P3",
       "article_type": "listicle",
       "related_keywords": [
-        "best ai meeting software alternatives",
+        "best ai meeting software pricing",
         "how to use best ai meeting software",
-        "best ai meeting software faq",
         "best ai meeting software comparison",
-        "best ai meeting software pricing"
+        "best ai meeting software alternatives",
+        "best ai meeting software faq"
       ],
       "planning_reasoning": [
         "Detected search intent 'commercial' from the query.",
@@ -263,7 +234,7 @@
       ]
     },
     {
-      "rank": 10,
+      "rank": 9,
       "keyword": "best ai voice software",
       "title": "best ai voice software",
       "slug": "best-ai-voice-software",
@@ -276,11 +247,11 @@
       "priority": "P3",
       "article_type": "listicle",
       "related_keywords": [
+        "best ai voice software alternatives",
         "best ai voice software faq",
-        "how to use best ai voice software",
-        "best ai voice software pricing",
         "best ai voice software comparison",
-        "best ai voice software alternatives"
+        "best ai voice software pricing",
+        "how to use best ai voice software"
       ],
       "planning_reasoning": [
         "Detected search intent 'commercial' from the query.",
@@ -289,6 +260,35 @@
         "Intent confidence 0.95; article-type confidence 1.25.",
         "Detected search intent 'commercial' from the query.",
         "Intent depth classified as medium based on query specificity."
+      ]
+    },
+    {
+      "rank": 10,
+      "keyword": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue",
+      "title": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue",
+      "slug": "impartner-redefines-partner-marketing-automation-with-full-automation-adtech-and-ai-to-drive-measurable-revenue",
+      "intent": "mixed informational and commercial",
+      "category": "AI Software",
+      "cluster": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue",
+      "score": 50.3,
+      "affiliate_score": "low",
+      "estimated_article_count": 7,
+      "priority": "P3",
+      "article_type": "review",
+      "related_keywords": [
+        "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue alternatives",
+        "how to use impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue",
+        "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue pricing",
+        "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue faq",
+        "impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue comparison"
+      ],
+      "planning_reasoning": [
+        "Detected search intent 'commercial' from the query.",
+        "Intent confidence 0.0; article-type confidence 0.0.",
+        "Detected search intent 'informational' from the query.",
+        "Intent depth classified as shallow based on query specificity.",
+        "Scope classified as broad based on narrowing terms and product intent.",
+        "Buyer journey stage is awareness and funnel stage is top."
       ]
     }
   ],
@@ -414,30 +414,6 @@
       ]
     },
     {
-      "keyword": "SaaS stocks are rallying on AI optimism. 3 stocks to buy now.",
-      "slug": "saas-stocks-are-rallying-on-ai-optimism-3-stocks-to-buy-now",
-      "category": "AI Software",
-      "article_type": "Review",
-      "affiliate_opportunity_score": 44.44,
-      "monetization_priority": "Low",
-      "matched_programs": [],
-      "commercial_intent": 63,
-      "search_intent": 90,
-      "existing_affiliate_programs": 0,
-      "estimated_commission": 0,
-      "estimated_conversion": 35,
-      "competition": 47,
-      "estimated_article_value": 62,
-      "content_difficulty": 36,
-      "topic_freshness": 46,
-      "seasonality": 45,
-      "reasoning": [
-        "Matched 0 affiliate programs.",
-        "Commercial intent scored 63.",
-        "Competition scored 47."
-      ]
-    },
-    {
       "keyword": "karakeep Review 2026",
       "slug": "karakeep-review-2026",
       "category": "AI Software",
@@ -459,6 +435,30 @@
         "Matched 0 affiliate programs.",
         "Commercial intent scored 47.",
         "Competition scored 37."
+      ]
+    },
+    {
+      "keyword": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue",
+      "slug": "impartner-redefines-partner-marketing-automation-with-full-automation-adtech-and-ai-to-drive-measurable-revenue",
+      "category": "AI Software",
+      "article_type": "Review",
+      "affiliate_opportunity_score": 40.78,
+      "monetization_priority": "Low",
+      "matched_programs": [],
+      "commercial_intent": 46,
+      "search_intent": 90,
+      "existing_affiliate_programs": 0,
+      "estimated_commission": 0,
+      "estimated_conversion": 35,
+      "competition": 47,
+      "estimated_article_value": 57,
+      "content_difficulty": 36,
+      "topic_freshness": 46,
+      "seasonality": 45,
+      "reasoning": [
+        "Matched 0 affiliate programs.",
+        "Commercial intent scored 46.",
+        "Competition scored 47."
       ]
     },
     {
@@ -581,19 +581,19 @@
       "reason": "Weekly trend is not covered by an existing published article."
     },
     {
-      "keyword": "SaaS stocks are rallying on AI optimism. 3 stocks to buy now.",
-      "slug": "saas-stocks-are-rallying-on-ai-optimism-3-stocks-to-buy-now",
+      "keyword": "karakeep Review 2026",
+      "slug": "karakeep-review-2026",
       "category": "AI Software",
-      "roi_score": 44.44,
+      "roi_score": 44.24,
       "recommended_article_type": "Review",
       "monetization_priority": "Low",
       "reason": "Weekly trend is not covered by an existing published article."
     },
     {
-      "keyword": "karakeep Review 2026",
-      "slug": "karakeep-review-2026",
+      "keyword": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue",
+      "slug": "impartner-redefines-partner-marketing-automation-with-full-automation-adtech-and-ai-to-drive-measurable-revenue",
       "category": "AI Software",
-      "roi_score": 44.24,
+      "roi_score": 40.78,
       "recommended_article_type": "Review",
       "monetization_priority": "Low",
       "reason": "Weekly trend is not covered by an existing published article."
@@ -895,10 +895,10 @@
     }
   ],
   "evergreen_score": 2.63,
-  "business_score": 43.84,
+  "business_score": 43.47,
   "production_summary": {
     "weekly_topics": 10,
-    "calendar_entries": 70,
+    "calendar_entries": 14,
     "gaps": 10,
     "articles_needing_updates": 761
   },
@@ -912,7 +912,17 @@
     "duplicate_descriptions": {}
   },
   "historical_comparison": {
-    "returning_topics": [],
+    "returning_topics": [
+      "agent-skills Review 2026",
+      "best ai meeting software",
+      "best ai productivity software",
+      "best ai voice software",
+      "karakeep Review 2026",
+      "last30days-skill Review 2026",
+      "meetily Review 2026",
+      "system_prompts_leaks Review 2026",
+      "taste-skill Review 2026"
+    ],
     "evergreen_topics": [
       "agent-skills Review 2026",
       "best ai meeting software",
@@ -926,18 +936,11 @@
     ],
     "seasonal_topics": [],
     "emerging_topics": [
-      "SaaS stocks are rallying on AI optimism. 3 stocks to buy now.",
-      "agent-skills Review 2026",
-      "best ai meeting software",
-      "best ai productivity software",
-      "best ai voice software",
-      "karakeep Review 2026",
-      "last30days-skill Review 2026",
-      "meetily Review 2026",
-      "system_prompts_leaks Review 2026",
-      "taste-skill Review 2026"
+      "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue"
     ],
-    "dead_topics": []
+    "dead_topics": [
+      "SaaS stocks are rallying on AI optimism. 3 stocks to buy now."
+    ]
   },
   "affiliate_coverage_issues": [
     {

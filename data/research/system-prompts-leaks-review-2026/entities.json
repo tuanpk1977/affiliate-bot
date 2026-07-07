@@ -7,11 +7,30 @@
   "technologies": [],
   "frameworks": [],
   "pricing_plans": [
-    "system prompts leaks review 2026 pricing",
     "system_prompts_leaks Review 2026 pricing"
   ],
+  "affiliate_networks": [],
+  "integrations": [],
+  "use_cases": [],
+  "target_audience": [],
   "versions": [
     "2026"
   ],
-  "competitors": []
+  "competitors": [],
+  "alternatives": [
+    "system prompts leaks review 2026 alternatives",
+    "system_prompts_leaks Review 2026 alternatives"
+  ],
+  "product_categories": [],
+  "entity_coverage_score": 36,
+  "missing_entity_types": [
+    "ai_tools",
+    "companies",
+    "affiliate_networks",
+    "integrations",
+    "use_cases",
+    "target_audience",
+    "competitors",
+    "product_categories"
+  ]
 }

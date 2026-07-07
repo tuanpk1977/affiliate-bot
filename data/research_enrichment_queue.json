@@ -1,0 +1,166 @@
+[
+  {
+    "topic": "meetily Review 2026",
+    "slug": "meetily-review-2026",
+    "missing_sources": 7,
+    "missing_competitors": 1,
+    "missing_entities": 8,
+    "missing_affiliate_data": 1,
+    "priority": "medium",
+    "reason": "trusted sources are thin; competitor coverage is limited; entity extraction needs richer tool coverage",
+    "created_at": "2026-07-07T06:24:34.222312+00:00",
+    "status": "needs_enrichment",
+    "score": 45.86,
+    "started_at": "2026-07-07T06:24:34.172374+00:00",
+    "checked_at": "2026-07-07T06:24:34.237373+00:00",
+    "latest_score": 45.86,
+    "latest_missing_information": [
+      "trusted sources are thin",
+      "competitor coverage is limited",
+      "entity extraction needs richer tool coverage"
+    ]
+  },
+  {
+    "topic": "system_prompts_leaks Review 2026",
+    "slug": "system-prompts-leaks-review-2026",
+    "missing_sources": 12,
+    "missing_competitors": 1,
+    "missing_entities": 8,
+    "missing_affiliate_data": 1,
+    "priority": "medium",
+    "reason": "trusted sources are thin; competitor coverage is limited; entity extraction needs richer tool coverage",
+    "created_at": "2026-07-07T06:24:34.303821+00:00",
+    "status": "needs_enrichment",
+    "score": 45.86,
+    "started_at": "2026-07-07T06:24:34.251808+00:00",
+    "checked_at": "2026-07-07T06:24:34.318725+00:00",
+    "latest_score": 45.86,
+    "latest_missing_information": [
+      "trusted sources are thin",
+      "competitor coverage is limited",
+      "entity extraction needs richer tool coverage"
+    ]
+  },
+  {
+    "topic": "agent-skills Review 2026",
+    "slug": "agent-skills-review-2026",
+    "missing_sources": 7,
+    "missing_competitors": 1,
+    "missing_entities": 8,
+    "missing_affiliate_data": 1,
+    "priority": "medium",
+    "reason": "trusted sources are thin; competitor coverage is limited; entity extraction needs richer tool coverage",
+    "created_at": "2026-07-07T06:24:34.391982+00:00",
+    "status": "needs_enrichment",
+    "score": 45.86,
+    "started_at": "2026-07-07T06:24:34.333874+00:00",
+    "checked_at": "2026-07-07T06:24:34.406795+00:00",
+    "latest_score": 45.86,
+    "latest_missing_information": [
+      "trusted sources are thin",
+      "competitor coverage is limited",
+      "entity extraction needs richer tool coverage"
+    ]
+  },
+  {
+    "topic": "last30days-skill Review 2026",
+    "slug": "last30days-skill-review-2026",
+    "missing_sources": 7,
+    "missing_competitors": 1,
+    "missing_entities": 8,
+    "missing_affiliate_data": 1,
+    "priority": "medium",
+    "reason": "trusted sources are thin; competitor coverage is limited; entity extraction needs richer tool coverage",
+    "created_at": "2026-07-07T06:24:34.474547+00:00",
+    "status": "needs_enrichment",
+    "score": 45.86,
+    "started_at": "2026-07-07T06:24:34.421579+00:00",
+    "checked_at": "2026-07-07T06:24:34.491285+00:00",
+    "latest_score": 45.86,
+    "latest_missing_information": [
+      "trusted sources are thin",
+      "competitor coverage is limited",
+      "entity extraction needs richer tool coverage"
+    ]
+  },
+  {
+    "topic": "taste-skill Review 2026",
+    "slug": "taste-skill-review-2026",
+    "missing_sources": 7,
+    "missing_competitors": 1,
+    "missing_entities": 8,
+    "missing_affiliate_data": 1,
+    "priority": "medium",
+    "reason": "trusted sources are thin; competitor coverage is limited; entity extraction needs richer tool coverage",
+    "created_at": "2026-07-07T06:24:34.558335+00:00",
+    "status": "needs_enrichment",
+    "score": 45.86,
+    "started_at": "2026-07-07T06:24:34.509043+00:00",
+    "checked_at": "2026-07-07T06:24:34.573971+00:00",
+    "latest_score": 45.86,
+    "latest_missing_information": [
+      "trusted sources are thin",
+      "competitor coverage is limited",
+      "entity extraction needs richer tool coverage"
+    ]
+  },
+  {
+    "topic": "karakeep Review 2026",
+    "slug": "karakeep-review-2026",
+    "missing_sources": 7,
+    "missing_competitors": 1,
+    "missing_entities": 8,
+    "missing_affiliate_data": 1,
+    "priority": "medium",
+    "reason": "trusted sources are thin; competitor coverage is limited; entity extraction needs richer tool coverage",
+    "created_at": "2026-07-07T06:24:34.638020+00:00",
+    "status": "needs_enrichment",
+    "score": 45.86,
+    "started_at": "2026-07-07T06:24:34.589254+00:00",
+    "checked_at": "2026-07-07T06:24:34.653267+00:00",
+    "latest_score": 45.86,
+    "latest_missing_information": [
+      "trusted sources are thin",
+      "competitor coverage is limited",
+      "entity extraction needs richer tool coverage"
+    ]
+  },
+  {
+    "topic": "best ai meeting software",
+    "slug": "best-ai-meeting-software",
+    "missing_sources": 9,
+    "missing_competitors": 1,
+    "missing_entities": 5,
+    "missing_affiliate_data": 1,
+    "priority": "medium",
+    "reason": "competitor coverage is limited",
+    "created_at": "2026-07-07T06:24:34.751155+00:00",
+    "status": "needs_enrichment",
+    "score": 55.86,
+    "started_at": "2026-07-07T06:24:34.668500+00:00",
+    "checked_at": "2026-07-07T06:24:34.768990+00:00",
+    "latest_score": 55.86,
+    "latest_missing_information": [
+      "competitor coverage is limited"
+    ]
+  },
+  {
+    "topic": "best ai voice software",
+    "slug": "best-ai-voice-software",
+    "missing_sources": 9,
+    "missing_competitors": 1,
+    "missing_entities": 5,
+    "missing_affiliate_data": 1,
+    "priority": "medium",
+    "reason": "competitor coverage is limited",
+    "created_at": "2026-07-07T06:24:34.871374+00:00",
+    "status": "needs_enrichment",
+    "score": 55.86,
+    "started_at": "2026-07-07T06:24:34.797941+00:00",
+    "checked_at": "2026-07-07T06:24:34.888200+00:00",
+    "latest_score": 55.86,
+    "latest_missing_information": [
+      "competitor coverage is limited"
+    ]
+  }
+]

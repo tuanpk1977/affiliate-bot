@@ -39,6 +39,18 @@
     "max_semantic_keywords": 8,
     "max_long_tail_keywords": 10,
     "max_competitors": 5,
-    "min_research_quality_score": 60
+    "min_research_quality_score": 60,
+    "allow_generation_override": false,
+    "auto_refresh_weekly_on_monday": true,
+    "quality_gate": {
+      "enabled": true,
+      "threshold": 60,
+      "allow_override": false
+    },
+    "enrichment_queue": {
+      "default_status": "pending",
+      "high_priority_below_score": 45,
+      "medium_priority_below_score": 60
+    }
   }
 }

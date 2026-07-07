@@ -1,0 +1,49 @@
+{
+  "companies": [
+    "Notion",
+    "Gamma",
+    "Notion AI"
+  ],
+  "products": [
+    "Notion",
+    "Gamma",
+    "Notion AI"
+  ],
+  "ai_tools": [
+    "Notion",
+    "Gamma",
+    "Notion AI"
+  ],
+  "people": [],
+  "organizations": [
+    "Notion",
+    "Gamma",
+    "Notion AI"
+  ],
+  "technologies": [],
+  "frameworks": [],
+  "pricing_plans": [
+    "best ai productivity software pricing"
+  ],
+  "affiliate_networks": [],
+  "integrations": [],
+  "use_cases": [],
+  "target_audience": [],
+  "versions": [],
+  "competitors": [],
+  "alternatives": [
+    "best ai productivity software alternatives"
+  ],
+  "product_categories": [
+    "Productivity",
+    "AI Productivity"
+  ],
+  "entity_coverage_score": 60,
+  "missing_entity_types": [
+    "affiliate_networks",
+    "integrations",
+    "use_cases",
+    "target_audience",
+    "competitors"
+  ]
+}

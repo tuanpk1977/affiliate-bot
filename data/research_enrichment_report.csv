@@ -1,0 +1,9 @@
+slug,topic,score,status,missing_information
+meetily-review-2026,meetily Review 2026,45.86,needs_enrichment,trusted sources are thin; competitor coverage is limited; entity extraction needs richer tool coverage
+system-prompts-leaks-review-2026,system_prompts_leaks Review 2026,45.86,needs_enrichment,trusted sources are thin; competitor coverage is limited; entity extraction needs richer tool coverage
+agent-skills-review-2026,agent-skills Review 2026,45.86,needs_enrichment,trusted sources are thin; competitor coverage is limited; entity extraction needs richer tool coverage
+last30days-skill-review-2026,last30days-skill Review 2026,45.86,needs_enrichment,trusted sources are thin; competitor coverage is limited; entity extraction needs richer tool coverage
+taste-skill-review-2026,taste-skill Review 2026,45.86,needs_enrichment,trusted sources are thin; competitor coverage is limited; entity extraction needs richer tool coverage
+karakeep-review-2026,karakeep Review 2026,45.86,needs_enrichment,trusted sources are thin; competitor coverage is limited; entity extraction needs richer tool coverage
+best-ai-meeting-software,best ai meeting software,55.86,needs_enrichment,competitor coverage is limited
+best-ai-voice-software,best ai voice software,55.86,needs_enrichment,competitor coverage is limited

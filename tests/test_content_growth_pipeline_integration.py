@@ -7,6 +7,7 @@ from unittest.mock import patch
 import unittest
 
 from modules import content_growth_pipeline as pipeline
+from modules.research_intelligence import ResearchIntelligencePlatform
 
 
 class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
@@ -72,6 +73,14 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
                 stack.enter_context(patch.object(pipeline, "_CONTENT_PLANNER", None))
                 stack.enter_context(patch.object(pipeline, "_RESEARCH_PLATFORM", None))
                 stack.enter_context(patch.object(pipeline, "load_or_discover_topics", return_value=[topic]))
+                research_platform = ResearchIntelligencePlatform(
+                    data_dir=data_dir,
+                    site_output_dir=site_output,
+                    offers_file=data_dir / "offers.csv",
+                    affiliate_links_file=data_dir / "affiliate_links.csv",
+                    config={"research_intelligence": {"quality_gate": {"threshold": 0, "enabled": True, "allow_override": False}}},
+                )
+                stack.enter_context(patch.object(pipeline, "get_research_platform", return_value=research_platform))
 
                 report = pipeline.run_daily_content_growth(
                     limit=1,
@@ -133,6 +142,51 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
             self.assertTrue((research_dir / "entities.json").exists())
             self.assertTrue((research_dir / "sources.json").exists())
             self.assertTrue((data_dir / "research_quality_report.json").exists())
+
+    def test_low_quality_research_is_blocked_and_queued(self) -> None:
+        topic = {
+            "topic": "unknown ai workflow",
+            "slug": "unknown-ai-workflow",
+            "content_type": "comparison",
+            "search_intent": "commercial",
+            "total_score": 91,
+            "related_keywords": ["unknown ai workflow pricing"],
+            "suggested_internal_links": ["/comparisons/cursor-vs-windsurf/"],
+        }
+
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            site_output = root / "site_output"
+            published_dir = data_dir / "published_static_pages"
+            video_output = root / "video_output"
+            social_drafts = root / "social_drafts"
+            report_dir = data_dir / "content_growth_reports"
+            tracking_csv = data_dir / "content_growth_performance_log.csv"
+            with ExitStack() as stack:
+                stack.enter_context(patch.object(pipeline, "ROOT", root))
+                stack.enter_context(patch.object(pipeline, "DATA_DIR", data_dir))
+                stack.enter_context(patch.object(pipeline, "SITE_OUTPUT", site_output))
+                stack.enter_context(patch.object(pipeline, "PUBLISHED_DIR", published_dir))
+                stack.enter_context(patch.object(pipeline, "VIDEO_OUTPUT", video_output))
+                stack.enter_context(patch.object(pipeline, "SOCIAL_DRAFTS", social_drafts))
+                stack.enter_context(patch.object(pipeline, "REPORT_DIR", report_dir))
+                stack.enter_context(patch.object(pipeline, "TRACKING_CSV", tracking_csv))
+                stack.enter_context(patch.object(pipeline, "_CONTENT_PLANNER", None))
+                stack.enter_context(patch.object(pipeline, "_RESEARCH_PLATFORM", None))
+                research_platform = ResearchIntelligencePlatform(
+                    data_dir=data_dir,
+                    site_output_dir=site_output,
+                    offers_file=data_dir / "offers.csv",
+                    affiliate_links_file=data_dir / "affiliate_links.csv",
+                    config={"research_intelligence": {"quality_gate": {"threshold": 95, "enabled": True, "allow_override": False}}},
+                )
+                stack.enter_context(patch.object(pipeline, "get_research_platform", return_value=research_platform))
+                with self.assertRaises(RuntimeError):
+                    pipeline.generate_topic_package(topic)
+
+            queue_file = data_dir / "research_enrichment_queue.json"
+            self.assertTrue(queue_file.exists())
 
 
 if __name__ == "__main__":

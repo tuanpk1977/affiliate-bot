@@ -1,14 +1,108 @@
 {
   "topic": "system_prompts_leaks Review 2026",
   "trusted_sources": {
-    "official_documentation": [],
-    "pricing_pages": [],
-    "product_pages": [],
-    "release_notes": [],
-    "api_docs": [],
+    "official_documentation": [
+      {
+        "connector_type": "official_docs",
+        "label": "system prompts leaks review 2026 alternatives official docs",
+        "url": "",
+        "status": "missing",
+        "evidence": "No live fetch; requires manual confirmation"
+      },
+      {
+        "connector_type": "official_docs",
+        "label": "system_prompts_leaks Review 2026 alternatives official docs",
+        "url": "",
+        "status": "missing",
+        "evidence": "No live fetch; requires manual confirmation"
+      }
+    ],
+    "pricing_pages": [
+      {
+        "connector_type": "pricing_page",
+        "label": "system prompts leaks review 2026 alternatives pricing page",
+        "url": "",
+        "status": "missing",
+        "evidence": "Pricing should be verified on official site; local source only"
+      },
+      {
+        "connector_type": "pricing_page",
+        "label": "system_prompts_leaks Review 2026 alternatives pricing page",
+        "url": "",
+        "status": "missing",
+        "evidence": "Pricing should be verified on official site; local source only"
+      }
+    ],
+    "product_pages": [
+      {
+        "connector_type": "product_page",
+        "label": "system prompts leaks review 2026 alternatives product page",
+        "url": "",
+        "status": "missing",
+        "evidence": "Brand website from local offers/affiliate data"
+      },
+      {
+        "connector_type": "product_page",
+        "label": "system_prompts_leaks Review 2026 alternatives product page",
+        "url": "",
+        "status": "missing",
+        "evidence": "Brand website from local offers/affiliate data"
+      }
+    ],
+    "release_notes": [
+      {
+        "connector_type": "release_notes",
+        "label": "system prompts leaks review 2026 alternatives release notes",
+        "url": "",
+        "status": "missing",
+        "evidence": "No offline release-note source available"
+      },
+      {
+        "connector_type": "release_notes",
+        "label": "system_prompts_leaks Review 2026 alternatives release notes",
+        "url": "",
+        "status": "missing",
+        "evidence": "No offline release-note source available"
+      }
+    ],
+    "api_docs": [
+      {
+        "connector_type": "api_docs",
+        "label": "system_prompts_leaks Review 2026 API docs",
+        "url": "",
+        "status": "missing",
+        "evidence": "No API signal in keyword"
+      }
+    ],
     "research_papers": [],
-    "blog_articles": [],
-    "community": []
+    "blog_articles": [
+      {
+        "connector_type": "competitor_article",
+        "label": "system_prompts_leaks Review 2026 competitor article",
+        "url": "",
+        "status": "missing",
+        "evidence": "Requires local competitor snapshot input"
+      }
+    ],
+    "community": [],
+    "affiliate_program_pages": [
+      {
+        "connector_type": "affiliate_program_page",
+        "label": "system prompts leaks review 2026 alternatives affiliate program page",
+        "url": "",
+        "status": "missing",
+        "evidence": "Affiliate page from local offers/affiliate data"
+      },
+      {
+        "connector_type": "affiliate_program_page",
+        "label": "system_prompts_leaks Review 2026 alternatives affiliate program page",
+        "url": "",
+        "status": "missing",
+        "evidence": "Affiliate page from local offers/affiliate data"
+      }
+    ]
   },
-  "reference_count": 0
+  "reference_count": 0,
+  "estimated_source_count": 0,
+  "missing_source_count": 12
 }

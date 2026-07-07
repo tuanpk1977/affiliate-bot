@@ -8,10 +8,12 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from modules.competitor_snapshot_ingestion import CompetitorSnapshotIngestion
 from config import settings
 from modules.content_outline_engine import ContentOutlineEngine
 from modules.keyword_intent_engine import KeywordIntentEngine
 from modules.search_intent_analyzer import SearchIntentAnalyzer
+from modules.source_connectors import SourceConnectorFramework
 from modules.topic_cluster_engine import TopicClusterEngine
 
 
@@ -94,6 +96,64 @@ class ResearchPackage:
     cache_hits: list[str] = field(default_factory=list)
 
 
+@dataclass(frozen=True)
+class ResearchQualityGateResult:
+    passed: bool
+    score: float
+    threshold: float
+    override_used: bool
+    status: str
+    queue_entry: dict[str, Any] | None = None
+
+
+class ResearchEnrichmentQueue:
+    def __init__(self, data_dir: Path, config: dict[str, Any] | None = None) -> None:
+        self.data_dir = data_dir
+        self.config = config or {}
+        self.queue_path = data_dir / "research_enrichment_queue.json"
+        self.csv_path = data_dir / "research_enrichment_queue.csv"
+        self.history_path = data_dir / "research_enrichment_history.jsonl"
+
+    def load(self) -> list[dict[str, Any]]:
+        return _read_json(self.queue_path, [])
+
+    def save(self, rows: list[dict[str, Any]]) -> None:
+        _write_json(self.queue_path, rows)
+        _write_csv(self.csv_path, rows)
+
+    def enqueue(self, entry: dict[str, Any]) -> dict[str, Any]:
+        rows = self.load()
+        replaced = False
+        for index, row in enumerate(rows):
+            if str(row.get("slug", "")) == str(entry.get("slug", "")) and str(row.get("status", "")) not in {"resolved", "approved"}:
+                rows[index] = {**row, **entry}
+                replaced = True
+                break
+        if not replaced:
+            rows.append(entry)
+        self.save(rows)
+        self.append_history({**entry, "event": "enqueued"})
+        return entry
+
+    def update_status(self, slug: str, status: str, **extra: Any) -> None:
+        rows = self.load()
+        for row in rows:
+            if str(row.get("slug", "")) == slug:
+                row["status"] = status
+                row.update(extra)
+                self.append_history({**row, "event": "status_updated"})
+                break
+        self.save(rows)
+
+    def pending(self) -> list[dict[str, Any]]:
+        return [row for row in self.load() if str(row.get("status", "")) in {"pending", "enriching", "needs_enrichment"}]
+
+    def append_history(self, row: dict[str, Any]) -> None:
+        self.history_path.parent.mkdir(parents=True, exist_ok=True)
+        with self.history_path.open("a", encoding="utf-8") as handle:
+            handle.write(json.dumps(row, ensure_ascii=False) + "\n")
+
+
 class ResearchIntelligencePlatform:
     def __init__(
         self,
@@ -116,13 +176,19 @@ class ResearchIntelligencePlatform:
         self.outline_engine = ContentOutlineEngine()
         self.research_root = self.data_dir / "research"
         self.cache_root = self.data_dir / "research_cache"
+        self.queue = ResearchEnrichmentQueue(self.data_dir, self.research_config.get("enrichment_queue", {}))
+        self.connectors = SourceConnectorFramework(offers_file=self.offers_file, affiliate_links_file=self.affiliate_links_file)
+        self.snapshot_ingestion = CompetitorSnapshotIngestion(
+            json_path=self.data_dir / "competitor_snapshots.json",
+            csv_path=self.data_dir / "competitor_snapshots.csv",
+        )
         self.offer_rows = self._load_offer_rows()
 
-    def build_research_package(self, topic: dict[str, Any]) -> ResearchPackage:
+    def build_research_package(self, topic: dict[str, Any], *, force_refresh: bool = False) -> ResearchPackage:
         keyword = str(topic.get("topic") or topic.get("title") or "").strip()
         slug = str(topic.get("slug") or _slugify(keyword))
         package_dir = self.research_root / slug
-        existing = self._load_existing_package(package_dir)
+        existing = None if force_refresh else self._load_existing_package(package_dir)
         if existing is not None:
             self._update_quality_report([existing])
             return existing
@@ -137,14 +203,16 @@ class ResearchIntelligencePlatform:
         sources = self._build_sources(keyword, entities)
         faq = self._build_faq(keyword, keyword_intelligence, search_result.search_intent, entities)
         outline = self._build_outline(keyword, search_result.search_intent, keyword_intelligence, faq, topic)
-        writing_plan = self._build_writing_plan(keyword, keyword_result, search_result, topic, entities, sources)
+        merged_entities = self._merge_cached_entities(entities, cache_enrichment)
+        merged_sources = self._merge_cached_sources(sources, cache_enrichment)
+        writing_plan = self._build_writing_plan(keyword, keyword_result, search_result, topic, merged_entities, merged_sources)
         quality = self._score_research(
             keyword_intelligence=keyword_intelligence,
-            entities=entities,
+            entities=merged_entities,
             faq=faq,
             outline=outline,
             writing_plan=writing_plan,
-            sources=sources,
+            sources=merged_sources,
             competitors=competitors,
         )
         generated_at = datetime.now(UTC).isoformat()
@@ -164,9 +232,9 @@ class ResearchIntelligencePlatform:
             },
             outline=outline,
             faq=faq,
-            entities=self._merge_cached_entities(entities, cache_enrichment),
+            entities=merged_entities,
             competitors=competitors,
-            sources=self._merge_cached_sources(sources, cache_enrichment),
+            sources=merged_sources,
             writing_plan=writing_plan,
             quality=quality,
             cache_hits=cache_hits,
@@ -180,6 +248,63 @@ class ResearchIntelligencePlatform:
         packages = [self.build_research_package(topic) for topic in topics]
         self._update_quality_report(packages)
         return packages
+
+    def evaluate_quality_gate(self, package: ResearchPackage, *, topic: dict[str, Any] | None = None, allow_override: bool | None = None) -> ResearchQualityGateResult:
+        gate_config = self.research_config.get("quality_gate", {})
+        enabled = bool(gate_config.get("enabled", True))
+        threshold = float(gate_config.get("threshold", self.research_config.get("min_research_quality_score", 60)))
+        override_allowed = bool(
+            self.research_config.get("allow_generation_override", False)
+            if allow_override is None
+            else allow_override
+        ) or bool(gate_config.get("allow_override", False))
+        score = float(package.quality.get("overall_score", 0))
+        if not enabled:
+            return ResearchQualityGateResult(True, score, threshold, False, "passed")
+        if score >= threshold:
+            self.queue.update_status(package.slug, "approved", approved_at=datetime.now(UTC).isoformat())
+            return ResearchQualityGateResult(True, score, threshold, False, "passed")
+        if override_allowed:
+            return ResearchQualityGateResult(True, score, threshold, True, "override_allowed")
+        entry = self._queue_entry_for_package(package, topic or {"topic": package.keyword, "slug": package.slug})
+        self.queue.enqueue(entry)
+        return ResearchQualityGateResult(False, score, threshold, False, "needs_enrichment", queue_entry=entry)
+
+    def run_enrichment(self, *, topics: list[dict[str, Any]] | None = None) -> dict[str, Any]:
+        targets = topics or self.queue.pending()
+        results: list[dict[str, Any]] = []
+        for row in targets:
+            slug = str(row.get("slug", "")).strip()
+            keyword = str(row.get("topic") or row.get("keyword") or "").strip()
+            if not slug or not keyword:
+                continue
+            self.queue.update_status(slug, "enriching", started_at=datetime.now(UTC).isoformat())
+            package = self.build_research_package({"topic": keyword, "slug": slug}, force_refresh=True)
+            gate = self.evaluate_quality_gate(package, topic={"topic": keyword, "slug": slug}, allow_override=False)
+            final_status = "approved" if gate.passed else "needs_enrichment"
+            self.queue.update_status(
+                slug,
+                final_status,
+                checked_at=datetime.now(UTC).isoformat(),
+                latest_score=package.quality.get("overall_score", 0),
+                latest_missing_information=package.quality.get("missing_information", []),
+            )
+            results.append(
+                {
+                    "slug": slug,
+                    "topic": keyword,
+                    "score": package.quality.get("overall_score", 0),
+                    "status": final_status,
+                    "missing_information": package.quality.get("missing_information", []),
+                }
+            )
+        self._write_enrichment_report(results)
+        return {
+            "topics_processed": len(results),
+            "approved": sum(1 for row in results if row["status"] == "approved"),
+            "needs_enrichment": sum(1 for row in results if row["status"] == "needs_enrichment"),
+            "report_json": str(self.data_dir / "research_enrichment_report.json"),
+        }
 
     def _load_offer_rows(self) -> list[dict[str, Any]]:
         rows: list[dict[str, Any]] = []
@@ -270,16 +395,26 @@ class ResearchIntelligencePlatform:
         companies: list[str] = []
         products: list[str] = []
         competitors: list[str] = []
+        categories: list[str] = []
+        affiliate_networks: list[str] = []
         for row in self.offer_rows:
             brand = str(row.get("brand_name") or row.get("brand") or row.get("tool_name") or "").strip()
             niche = str(row.get("niche") or row.get("category") or "").strip()
+            network = str(row.get("network") or "").strip()
             if brand and brand.lower() in text_pool.lower():
                 companies.append(brand)
                 products.append(brand)
                 competitors.append(brand)
+                if niche:
+                    categories.append(niche)
+                if network:
+                    affiliate_networks.append(network)
             elif niche and niche.lower() in keyword.lower():
                 companies.append(brand)
                 products.append(brand)
+                categories.append(niche)
+                if network:
+                    affiliate_networks.append(network)
         ai_tools = list(dict.fromkeys(products))[:10]
         technologies = [token.title() for token in re.findall(r"\b(api|sdk|workflow|automation|agent|model|plugin|framework|cloud)\b", text_pool.lower())]
         frameworks = [token for token in ("React", "Next.js", "Python", "API", "SDK") if token.lower() in text_pool.lower()]
@@ -287,7 +422,11 @@ class ResearchIntelligencePlatform:
         versions = re.findall(r"\b20\d{2}\b|\bv?\d+(?:\.\d+){0,2}\b", keyword)
         people = []
         organizations = list(dict.fromkeys(companies))[:10]
-        return {
+        integrations = [token.title() for token in re.findall(r"\b(slack|github|gitlab|notion|zapier|make|jira|webflow|shopify|hubspot|salesforce)\b", text_pool.lower())]
+        use_cases = [token for token in ("teams", "developers", "marketers", "agencies", "founders", "small business") if token in text_pool.lower()]
+        target_audience = [token for token in ("teams", "developers", "creators", "marketers", "startups", "small business") if token in text_pool.lower()]
+        alternatives = [item for item in keyword_intelligence.get("comparison_keywords", []) if "alternative" in item.lower()][:8]
+        result = {
             "companies": list(dict.fromkeys(companies))[:10],
             "products": list(dict.fromkeys(products))[:10],
             "ai_tools": ai_tools,
@@ -296,9 +435,18 @@ class ResearchIntelligencePlatform:
             "technologies": list(dict.fromkeys(technologies))[:10],
             "frameworks": list(dict.fromkeys(frameworks))[:10],
             "pricing_plans": list(dict.fromkeys(pricing_plans))[:10],
+            "affiliate_networks": list(dict.fromkeys(affiliate_networks))[:10],
+            "integrations": list(dict.fromkeys(integrations))[:10],
+            "use_cases": list(dict.fromkeys(use_cases))[:10],
+            "target_audience": list(dict.fromkeys(target_audience))[:10],
             "versions": list(dict.fromkeys(versions))[:10],
             "competitors": list(dict.fromkeys(competitors))[:10],
+            "alternatives": list(dict.fromkeys(alternatives))[:10],
+            "product_categories": list(dict.fromkeys(categories))[:10],
         }
+        result["entity_coverage_score"] = self._entity_coverage_score(result)
+        result["missing_entity_types"] = self._missing_entity_types(result)
+        return result
 
     def _build_faq(self, keyword: str, keyword_intelligence: dict[str, Any], intent: str, entities: dict[str, Any]) -> dict[str, Any]:
         competitor = next(iter(entities.get("competitors") or []), "alternatives")
@@ -336,57 +484,39 @@ class ResearchIntelligencePlatform:
         }
 
     def _build_competitors(self, keyword: str, entities: dict[str, Any], topic: dict[str, Any]) -> dict[str, Any]:
-        brands = entities.get("competitors") or entities.get("products") or []
-        profiles: list[dict[str, Any]] = []
-        for brand in list(dict.fromkeys(brands))[:5]:
-            row = self._find_offer_row(brand)
-            site = str(row.get("website") or row.get("official_url") or "").strip()
-            niche = str(row.get("niche") or row.get("category") or "AI software").strip()
-            profiles.append(
-                {
-                    "site": site,
-                    "title": f"{brand} overview",
-                    "description": f"{brand} in the {niche} category relevant to {keyword}.",
-                    "estimated_angle": f"Commercial comparison against {keyword} with workflow and pricing focus.",
-                    "estimated_word_count": 1600 if "pricing" in keyword.lower() else 2200,
-                    "missing_topics": ["pricing verification", "feature limitations", "ideal buyer fit"],
-                    "content_strengths": ["clear brand recognition", "high buyer intent", "commercial relevance"],
-                    "content_weaknesses": ["pricing may change", "requires fact verification", "needs differentiated examples"],
-                }
-            )
-        return {"profiles": profiles}
+        snapshots = self.snapshot_ingestion.for_keyword(keyword)
+        if snapshots.get("coverage_status") == "available":
+            return snapshots
+        return {
+            "keyword": keyword,
+            "coverage_status": "missing",
+            "profiles": [],
+            "report": "competitor coverage is missing",
+            "missing_topics": ["pricing verification", "feature limitations", "ideal buyer fit"],
+        }
 
     def _build_sources(self, keyword: str, entities: dict[str, Any]) -> dict[str, Any]:
-        buckets = {
-            "official_documentation": [],
-            "pricing_pages": [],
-            "product_pages": [],
-            "release_notes": [],
-            "api_docs": [],
+        connector_rows = self.connectors.collect(keyword, entities)
+        trusted_sources = {
+            "official_documentation": connector_rows["official_docs"],
+            "pricing_pages": connector_rows["pricing_page"],
+            "product_pages": connector_rows["product_page"],
+            "release_notes": connector_rows["release_notes"],
+            "api_docs": connector_rows["api_docs"],
             "research_papers": [],
-            "blog_articles": [],
+            "blog_articles": connector_rows["competitor_article"],
             "community": [],
+            "affiliate_program_pages": connector_rows["affiliate_program_page"],
         }
-        for brand in entities.get("products", []):
-            row = self._find_offer_row(brand)
-            official = str(row.get("website") or row.get("official_url") or "").strip()
-            if official:
-                buckets["product_pages"].append({"label": brand, "url": official})
-                buckets["pricing_pages"].append({"label": f"{brand} pricing source", "url": official})
-        for key, items in buckets.items():
-            seen: set[str] = set()
-            unique: list[dict[str, str]] = []
-            for item in items:
-                url = str(item.get("url", "")).strip()
-                if not url or url in seen:
-                    continue
-                seen.add(url)
-                unique.append(item)
-            buckets[key] = unique
+        verified = sum(1 for items in trusted_sources.values() for item in items if str(item.get("status", "")) == "verified")
+        estimated = sum(1 for items in trusted_sources.values() for item in items if str(item.get("status", "")) == "estimated")
+        missing = sum(1 for items in trusted_sources.values() for item in items if str(item.get("status", "")) in {"missing", "needs_review"})
         return {
             "topic": keyword,
-            "trusted_sources": buckets,
-            "reference_count": sum(len(items) for items in buckets.values()),
+            "trusted_sources": trusted_sources,
+            "reference_count": verified,
+            "estimated_source_count": estimated,
+            "missing_source_count": missing,
         }
 
     def _build_outline(
@@ -483,12 +613,12 @@ class ResearchIntelligencePlatform:
         competitors: dict[str, Any],
     ) -> dict[str, Any]:
         coverage = min(100, 40 + len(keyword_intelligence.get("semantic_keywords", [])) * 4)
-        entity_coverage = min(100, 20 + sum(len(value) for value in entities.values() if isinstance(value, list)) * 3)
+        entity_coverage = int(entities.get("entity_coverage_score", 0))
         faq_coverage = min(100, 20 + sum(len(value) for key, value in faq.items() if isinstance(value, list)) * 4)
         outline_quality = min(100, 30 + len(outline.get("heading_hierarchy", [])) * 10)
         affiliate_readiness = min(100, 25 + int(writing_plan.get("affiliate_value", 0)) // 2)
-        source_quality = min(100, 15 + int(sources.get("reference_count", 0)) * 12)
-        competitor_quality = min(100, 20 + len(competitors.get("profiles", [])) * 12)
+        source_quality = min(100, 10 + int(sources.get("reference_count", 0)) * 14 + int(sources.get("estimated_source_count", 0)) * 4)
+        competitor_quality = 70 if competitors.get("coverage_status") == "available" else 10
         overall = round((coverage + entity_coverage + faq_coverage + outline_quality + affiliate_readiness + source_quality + competitor_quality) / 7, 2)
         missing: list[str] = []
         if source_quality < 40:
@@ -501,6 +631,8 @@ class ResearchIntelligencePlatform:
             "overall_score": overall,
             "coverage": coverage,
             "entity_coverage": entity_coverage,
+            "entity_coverage_score": entity_coverage,
+            "missing_entity_types": entities.get("missing_entity_types", []),
             "faq_coverage": faq_coverage,
             "outline_quality": outline_quality,
             "affiliate_readiness": affiliate_readiness,
@@ -571,9 +703,76 @@ class ResearchIntelligencePlatform:
         merged = {
             **sources,
             "trusted_sources": trusted,
-            "reference_count": sum(len(items) for items in trusted.values()),
+            "reference_count": sum(1 for items in trusted.values() for item in items if str(item.get("status", "")) == "verified"),
+            "estimated_source_count": sum(1 for items in trusted.values() for item in items if str(item.get("status", "")) == "estimated"),
+            "missing_source_count": sum(1 for items in trusted.values() for item in items if str(item.get("status", "")) in {"missing", "needs_review"}),
         }
         return merged
+
+    def _entity_coverage_score(self, entities: dict[str, Any]) -> int:
+        entity_types = (
+            "ai_tools",
+            "companies",
+            "pricing_plans",
+            "affiliate_networks",
+            "integrations",
+            "use_cases",
+            "target_audience",
+            "competitors",
+            "alternatives",
+            "product_categories",
+        )
+        present = sum(1 for key in entity_types if _coerce_list(entities.get(key)))
+        return min(100, 20 + present * 8)
+
+    def _missing_entity_types(self, entities: dict[str, Any]) -> list[str]:
+        entity_types = (
+            "ai_tools",
+            "companies",
+            "pricing_plans",
+            "affiliate_networks",
+            "integrations",
+            "use_cases",
+            "target_audience",
+            "competitors",
+            "alternatives",
+            "product_categories",
+        )
+        return [key for key in entity_types if not _coerce_list(entities.get(key))]
+
+    def _queue_entry_for_package(self, package: ResearchPackage, topic: dict[str, Any]) -> dict[str, Any]:
+        missing_info = [str(item) for item in package.quality.get("missing_information", [])]
+        score = float(package.quality.get("overall_score", 0))
+        queue_config = self.research_config.get("enrichment_queue", {})
+        high = float(queue_config.get("high_priority_below_score", 45))
+        medium = float(queue_config.get("medium_priority_below_score", 60))
+        if score < high:
+            priority = "high"
+        elif score < medium:
+            priority = "medium"
+        else:
+            priority = "low"
+        return {
+            "topic": str(topic.get("topic") or package.keyword),
+            "slug": str(topic.get("slug") or package.slug),
+            "missing_sources": package.sources.get("missing_source_count", 0),
+            "missing_competitors": 0 if package.competitors.get("coverage_status") == "available" else 1,
+            "missing_entities": len(package.entities.get("missing_entity_types", [])),
+            "missing_affiliate_data": 0 if _coerce_list(package.entities.get("affiliate_networks")) else 1,
+            "priority": priority,
+            "reason": "; ".join(missing_info) if missing_info else "research quality below threshold",
+            "created_at": datetime.now(UTC).isoformat(),
+            "status": str(queue_config.get("default_status", "pending")),
+            "score": score,
+        }
+
+    def _write_enrichment_report(self, rows: list[dict[str, Any]]) -> None:
+        _write_json(self.data_dir / "research_enrichment_report.json", rows)
+        _write_csv(self.data_dir / "research_enrichment_report.csv", rows)
+        lines = ["# Research Enrichment Report", "", f"- Topics processed: {len(rows)}", ""]
+        for row in rows[:20]:
+            lines.append(f"- `{row['slug']}`: score {row['score']} -> {row['status']}")
+        _write_md(self.data_dir / "research_enrichment_report.md", lines)
 
     def _find_offer_row(self, brand: str) -> dict[str, Any]:
         for row in self.offer_rows:
@@ -620,6 +819,8 @@ class ResearchIntelligencePlatform:
                     "overall_score": package.quality.get("overall_score", 0),
                     "coverage": package.quality.get("coverage", 0),
                     "entity_coverage": package.quality.get("entity_coverage", 0),
+                    "entity_coverage_score": package.quality.get("entity_coverage_score", 0),
+                    "missing_entity_types": package.quality.get("missing_entity_types", []),
                     "faq_coverage": package.quality.get("faq_coverage", 0),
                     "outline_quality": package.quality.get("outline_quality", 0),
                     "affiliate_readiness": package.quality.get("affiliate_readiness", 0),
@@ -637,4 +838,3 @@ class ResearchIntelligencePlatform:
             missing = ", ".join(row["missing_information"]) if row["missing_information"] else "none"
             lines.append(f"- `{row['slug']}`: score {row['overall_score']} ({row['status']}); missing: {missing}")
         _write_md(self.data_dir / "research_quality_report.md", lines)
-

@@ -12,6 +12,7 @@ from modules.ai_trend_discovery import TopicCandidate, TrendDiscoveryEngine, cla
 from modules.editorial_business_intelligence import ContentLifecycleManager, EditorialBusinessIntelligence
 from modules.content_growth_pipeline import generate_topic_package, normalize_topic_record, page_to_dict
 from modules.content_planning_engine import ContentPlanningEngine
+from modules.research_intelligence import ResearchIntelligencePlatform
 
 
 UTC = timezone.utc
@@ -224,6 +225,13 @@ class WeeklyTrendIntelligenceEngine:
         self.top_topics = top_topics or settings.editorial_top_topics
         self.planner = ContentPlanningEngine()
         self.lifecycle = ContentLifecycleManager(settings.data_dir)
+        self.research = ResearchIntelligencePlatform(
+            data_dir=settings.data_dir,
+            site_output_dir=getattr(settings, "site_output_dir", None),
+            offers_file=getattr(settings, "offers_file", None),
+            affiliate_links_file=getattr(settings, "affiliate_links_file", None),
+            config=getattr(settings, "editorial_config", None),
+        )
 
     def collect_candidates(self) -> list[CandidateTopicRecord]:
         engine = TrendDiscoveryEngine(timeout=self.timeout, max_per_source=self.max_per_source)
@@ -312,7 +320,26 @@ class WeeklyTrendIntelligenceEngine:
     def run_weekly_cycle(self) -> dict[str, Any]:
         candidates = self.collect_candidates()
         weekly_topics = self.rank_topics(candidates)
-        calendar = self.generate_editorial_calendar(weekly_topics)
+        approved_topics: list[WeeklyTopicRecord] = []
+        blocked_topics: list[dict[str, Any]] = []
+        for topic in weekly_topics:
+            package = self.research.build_research_package(
+                {"topic": topic.keyword, "slug": topic.slug, "related_keywords": topic.related_keywords}
+            )
+            gate = self.research.evaluate_quality_gate(package, topic={"topic": topic.keyword, "slug": topic.slug})
+            if gate.passed:
+                approved_topics.append(topic)
+            else:
+                blocked_topics.append(
+                    {
+                        "topic": topic.keyword,
+                        "slug": topic.slug,
+                        "score": gate.score,
+                        "threshold": gate.threshold,
+                        "status": gate.status,
+                    }
+                )
+        calendar = self.generate_editorial_calendar(approved_topics)
         intelligence = EditorialBusinessIntelligence(
             base_dir=getattr(settings, "base_dir", None),
             data_dir=settings.data_dir,
@@ -328,6 +355,8 @@ class WeeklyTrendIntelligenceEngine:
         return {
             "candidates": len(candidates),
             "weekly_topics": len(weekly_topics),
+            "approved_topics": len(approved_topics),
+            "blocked_topics": blocked_topics,
             "calendar_entries": len(calendar),
             "weekly_topics_json": str(_output_path("weekly_topics.json")),
             "editorial_calendar_json": str(_output_path("editorial_calendar.json")),
@@ -401,8 +430,14 @@ def run_daily_editorial_content(
     target_date: date | None = None,
     build: bool = False,
 ) -> dict[str, Any]:
-    rows = load_editorial_calendar(target_date or date.today())
+    run_date = target_date or date.today()
+    weekly_refresh: dict[str, Any] | None = None
+    research_config = getattr(settings, "editorial_research_config", getattr(settings, "editorial_config", {}).get("research_intelligence", {}))
+    if run_date.weekday() == 0 and bool(research_config.get("auto_refresh_weekly_on_monday", True)):
+        weekly_refresh = WeeklyTrendIntelligenceEngine().run_weekly_cycle()
+    rows = load_editorial_calendar(run_date)
     generated: list[dict[str, Any]] = []
+    blocked_topics: list[dict[str, Any]] = []
     lifecycle = ContentLifecycleManager(settings.data_dir)
     for row in rows:
         topic = normalize_topic_record(
@@ -421,7 +456,11 @@ def run_daily_editorial_content(
             to_stage="research",
             scheduled_date=str(row.get("publish_date", "")),
         )
-        page = generate_topic_package(topic)
+        try:
+            page = generate_topic_package(topic)
+        except RuntimeError as exc:
+            blocked_topics.append({"topic": str(topic.get("topic", "")), "slug": str(topic.get("slug", "")), "reason": str(exc)})
+            continue
         lifecycle.record_transition(slug=page.slug, keyword=page.topic, to_stage="generated", url=page.url)
         lifecycle.record_transition(slug=page.slug, keyword=page.topic, to_stage="reviewed", url=page.url)
         lifecycle.record_transition(slug=page.slug, keyword=page.topic, to_stage="published", url=page.url)
@@ -436,8 +475,10 @@ def run_daily_editorial_content(
     stamp = (target_date or date.today()).isoformat()
     report = {
         "date": stamp,
+        "weekly_refresh": weekly_refresh,
         "calendar_rows": len(rows),
         "generated_pages": generated,
+        "blocked_topics": blocked_topics,
         "build": build_result,
     }
     _write_json(_output_path(f"daily_editorial_report_{stamp}.json"), report)

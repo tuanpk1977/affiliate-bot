@@ -1,0 +1,94 @@
+{
+  "seo_outline": [
+    "What is it",
+    "How to use",
+    "Use cases",
+    "FAQ"
+  ],
+  "article_structure": [
+    "Define the topic clearly",
+    "Provide actionable steps",
+    "Show practical scenarios",
+    "Answer common questions"
+  ],
+  "heading_hierarchy": [
+    {
+      "level": 2,
+      "heading": "What is it",
+      "purpose": "Define the topic clearly"
+    },
+    {
+      "level": 2,
+      "heading": "How to use",
+      "purpose": "Provide actionable steps"
+    },
+    {
+      "level": 2,
+      "heading": "Use cases",
+      "purpose": "Show practical scenarios"
+    },
+    {
+      "level": 2,
+      "heading": "FAQ",
+      "purpose": "Answer common questions"
+    }
+  ],
+  "faq_placement": "After alternatives and before final CTA",
+  "cta_placement": "Hero CTA and final verdict CTA",
+  "internal_link_opportunities": [],
+  "affiliate_blocks": [
+    "affiliate disclosure",
+    "pricing verification note",
+    "comparison shortlist CTA"
+  ],
+  "product_comparison_tables": [
+    "feature comparison table",
+    "pricing and plan limits table"
+  ],
+  "images_required": [
+    "hero visual",
+    "comparison table screenshot",
+    "pricing checklist visual"
+  ],
+  "infographic_suggestions": [
+    "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue buyer checklist infographic",
+    "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue comparison flow infographic"
+  ],
+  "video_suggestions": [
+    "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue walkthrough",
+    "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue comparison short"
+  ],
+  "faq_groups": {
+    "beginner": [
+      "What is Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue and who is it for?",
+      "How should beginners evaluate Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue before buying?"
+    ],
+    "intermediate": [
+      "What workflow problems does Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue solve best?",
+      "Which integrations matter most when using Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue?"
+    ],
+    "advanced": [
+      "What implementation risks appear when teams scale Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue?",
+      "How often should Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue content be updated after product changes?"
+    ],
+    "comparison": [
+      "How does Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue compare with alternatives?",
+      "When should a buyer choose an alternative instead of Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue?"
+    ],
+    "pricing": [
+      "What should readers verify on the pricing page for Make?",
+      "Which hidden cost risks matter most when evaluating Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue?"
+    ],
+    "troubleshooting": [
+      "What should the writer do if official pricing or feature details conflict for Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue?",
+      "How should broken links or outdated claims about Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue be handled before publishing?"
+    ]
+  },
+  "recommended_cta": "Read through the guide and apply the steps that match your use case.",
+  "confidence": 0.95,
+  "reasoning": [
+    "Built an outline for 'Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue' using the 'informational' template.",
+    "Used keyword signals: impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue alternatives, how to use impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue, impartner redefines partner marketing automation with full automation adtech and ai to drive measurable revenue faq.",
+    "Included 4 planned sections for the article structure."
+  ]
+}

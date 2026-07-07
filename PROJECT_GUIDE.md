@@ -29,6 +29,8 @@ Core platform modules:
 - `modules/editorial_automation.py`: weekly candidate collection, weekly ranking, editorial calendar generation, and daily scheduled execution.
 - `modules/editorial_business_intelligence.py`: evergreen evaluation, affiliate opportunity scoring, lifecycle logging, history retention, gap analysis, affiliate coverage analysis, and weekly dashboards.
 - `modules/research_intelligence.py`: pre-generation research packaging, keyword intelligence, entity extraction, FAQ building, competitor/source assembly, cache reuse, and research quality scoring.
+- `modules/source_connectors.py`: offline-safe source connector framework with status labels for trusted-source discovery.
+- `modules/competitor_snapshot_ingestion.py`: local competitor snapshot ingestion from JSON/CSV files.
 - `modules/topic_cluster_engine.py`: topic clustering support.
 - `scripts/validate_production_content_pipeline.py`: end-to-end production validation against real keywords.
 
@@ -64,6 +66,14 @@ Editorial automation files:
 - `data/research_quality_report.json`
 - `data/research_quality_report.csv`
 - `data/research_quality_report.md`
+- `data/research_enrichment_queue.json`
+- `data/research_enrichment_queue.csv`
+- `data/research_enrichment_history.jsonl`
+- `data/research_enrichment_report.json`
+- `data/research_enrichment_report.csv`
+- `data/research_enrichment_report.md`
+- `data/competitor_snapshots.json`
+- `data/competitor_snapshots.csv`
 - `data/evergreen_report.csv`
 - `data/evergreen_report.json`
 - `data/evergreen_report.md`
@@ -169,6 +179,18 @@ topic
 
 Research becomes mandatory before planning and article generation. The writer should not start from only a keyword.
 
+### Research Quality Gate
+
+```text
+research package
+  -> quality score
+  -> threshold check
+  -> pass: planning and generation continue
+  -> fail: topic enters enrichment queue
+```
+
+Low-quality topics are blocked from article generation unless config explicitly allows an override.
+
 ### Research Cache
 
 Reusable knowledge lives in:
@@ -178,6 +200,46 @@ Reusable knowledge lives in:
 
 If another article targets the same tool or entity, the pipeline reuses cached entities and trusted sources instead of rebuilding from zero.
 
+### Enrichment Queue
+
+Failed research topics are added to:
+
+- `data/research_enrichment_queue.json`
+- `data/research_enrichment_queue.csv`
+- `data/research_enrichment_history.jsonl`
+
+Queue rows store topic, slug, missing source/competitor/entity signals, affiliate-data gaps, priority, reason, timestamps, and status.
+
+### Source Connector Framework
+
+The current source-connector layer is offline-safe and deterministic.
+
+Supported connector types:
+
+- `official_docs`
+- `pricing_page`
+- `product_page`
+- `release_notes`
+- `affiliate_program_page`
+- `competitor_article`
+- `api_docs`
+
+Every source item is labeled as one of:
+
+- `verified`
+- `estimated`
+- `missing`
+- `needs_review`
+
+### Competitor Snapshot Ingestion
+
+Competitor coverage can be imported from:
+
+- `data/competitor_snapshots.json`
+- `data/competitor_snapshots.csv`
+
+If no local snapshots exist, the system reports missing competitor coverage instead of fabricating profiles.
+
 ### Daily Workflow
 
 The daily workflow is:
@@ -186,6 +248,7 @@ The daily workflow is:
 editorial_calendar.json
   -> today's scheduled rows
   -> mandatory research package
+  -> research quality gate
   -> planning
   -> generation
   -> SEO title/meta
@@ -214,11 +277,24 @@ Daily cycle
   python run_daily_content.py
     -> load editorial_calendar.json
     -> ResearchIntelligencePlatform.build_research_package()
+    -> ResearchIntelligencePlatform.evaluate_quality_gate()
     -> content_growth_pipeline.generate_topic_package()
       -> ContentPlanningEngine.create_plan()
       -> render article + assets
     -> ContentLifecycleManager.record_transition()
     -> optional build_site.incremental_build()
+
+Monday cycle
+  -> weekly trend discovery
+  -> top 10 weekly topics
+  -> research packages
+  -> quality gate
+  -> schedule only approved topics
+
+Tuesday-Sunday cycle
+  -> continue approved deep-dive articles
+  -> queue failed topics for enrichment
+  -> run offline enrichment and recheck quality
 ```
 
 ### Data Flow
@@ -274,6 +350,12 @@ Generate weekly intelligence and business-intelligence reports:
 python scripts/run_weekly_editorial_cycle.py
 ```
 
+Run research enrichment:
+
+```powershell
+python scripts/run_research_enrichment.py
+```
+
 Run the full test suite:
 
 ```powershell
@@ -301,6 +383,8 @@ Business-intelligence checks include:
 - research quality score
 - knowledge cache reuse
 - keyword/entity/source completeness
+- source connector status labels
+- competitor snapshot coverage
 - evergreen freshness and update status
 - affiliate opportunity score and monetization priority
 - missing content gaps
@@ -343,6 +427,15 @@ Research thresholds and limits also live there under:
 
 - `research_intelligence`
 
+The autonomous content agency roadmap for the current repo is:
+
+- research package
+- quality gate
+- enrichment queue
+- offline source connectors
+- competitor snapshots
+- approved-topic scheduling
+
 ### Future Roadmap
 
 Planned follow-up work:
@@ -370,6 +463,8 @@ The repository is no longer only a set of separate article scripts. It now has a
 - generate a weekly executive dashboard
 
 - build a mandatory research package before planning
+- block low-quality research from article generation
+- route failed topics into an enrichment loop
 - reuse cached research across shared tools/entities
 - score research completeness before article generation
 

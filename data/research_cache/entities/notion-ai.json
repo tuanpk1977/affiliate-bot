@@ -1,0 +1,241 @@
+{
+  "entity": "Notion AI",
+  "entities": {
+    "companies": [
+      "Notion",
+      "Gamma",
+      "Notion AI"
+    ],
+    "products": [
+      "Notion",
+      "Gamma",
+      "Notion AI"
+    ],
+    "ai_tools": [
+      "Notion",
+      "Gamma",
+      "Notion AI"
+    ],
+    "people": [],
+    "organizations": [
+      "Notion",
+      "Gamma",
+      "Notion AI"
+    ],
+    "technologies": [],
+    "frameworks": [],
+    "pricing_plans": [
+      "best ai productivity software pricing"
+    ],
+    "affiliate_networks": [],
+    "integrations": [],
+    "use_cases": [],
+    "target_audience": [],
+    "versions": [],
+    "competitors": [],
+    "alternatives": [
+      "best ai productivity software alternatives"
+    ],
+    "product_categories": [
+      "Productivity",
+      "AI Productivity"
+    ],
+    "entity_coverage_score": 60,
+    "missing_entity_types": [
+      "affiliate_networks",
+      "integrations",
+      "use_cases",
+      "target_audience",
+      "competitors"
+    ]
+  },
+  "sources": {
+    "topic": "best ai productivity software",
+    "trusted_sources": {
+      "official_documentation": [
+        {
+          "connector_type": "official_docs",
+          "label": "Notion official docs",
+          "url": "https://www.notion.com",
+          "status": "needs_review",
+          "evidence": "No live fetch; requires manual confirmation"
+        },
+        {
+          "connector_type": "official_docs",
+          "label": "Gamma official docs",
+          "url": "https://gamma.app",
+          "status": "needs_review",
+          "evidence": "No live fetch; requires manual confirmation"
+        },
+        {
+          "connector_type": "official_docs",
+          "label": "Notion AI official docs",
+          "url": "https://www.notion.com/product/ai",
+          "status": "needs_review",
+          "evidence": "No live fetch; requires manual confirmation"
+        },
+        {
+          "connector_type": "official_docs",
+          "label": "best ai productivity software alternatives official docs",
+          "url": "",
+          "status": "missing",
+          "evidence": "No live fetch; requires manual confirmation"
+        }
+      ],
+      "pricing_pages": [
+        {
+          "connector_type": "pricing_page",
+          "label": "Notion pricing page",
+          "url": "https://www.notion.com",
+          "status": "verified",
+          "evidence": "Pricing should be verified on official site; local source only"
+        },
+        {
+          "connector_type": "pricing_page",
+          "label": "Gamma pricing page",
+          "url": "https://gamma.app",
+          "status": "verified",
+          "evidence": "Pricing should be verified on official site; local source only"
+        },
+        {
+          "connector_type": "pricing_page",
+          "label": "Notion AI pricing page",
+          "url": "https://www.notion.com/product/ai",
+          "status": "verified",
+          "evidence": "Pricing should be verified on official site; local source only"
+        },
+        {
+          "connector_type": "pricing_page",
+          "label": "best ai productivity software alternatives pricing page",
+          "url": "",
+          "status": "missing",
+          "evidence": "Pricing should be verified on official site; local source only"
+        }
+      ],
+      "product_pages": [
+        {
+          "connector_type": "product_page",
+          "label": "Notion product page",
+          "url": "https://www.notion.com",
+          "status": "verified",
+          "evidence": "Brand website from local offers/affiliate data"
+        },
+        {
+          "connector_type": "product_page",
+          "label": "Gamma product page",
+          "url": "https://gamma.app",
+          "status": "verified",
+          "evidence": "Brand website from local offers/affiliate data"
+        },
+        {
+          "connector_type": "product_page",
+          "label": "Notion AI product page",
+          "url": "https://www.notion.com/product/ai",
+          "status": "verified",
+          "evidence": "Brand website from local offers/affiliate data"
+        },
+        {
+          "connector_type": "product_page",
+          "label": "best ai productivity software alternatives product page",
+          "url": "",
+          "status": "missing",
+          "evidence": "Brand website from local offers/affiliate data"
+        }
+      ],
+      "release_notes": [
+        {
+          "connector_type": "release_notes",
+          "label": "Notion release notes",
+          "url": "",
+          "status": "missing",
+          "evidence": "No offline release-note source available"
+        },
+        {
+          "connector_type": "release_notes",
+          "label": "Gamma release notes",
+          "url": "",
+          "status": "missing",
+          "evidence": "No offline release-note source available"
+        },
+        {
+          "connector_type": "release_notes",
+          "label": "Notion AI release notes",
+          "url": "",
+          "status": "missing",
+          "evidence": "No offline release-note source available"
+        },
+        {
+          "connector_type": "release_notes",
+          "label": "best ai productivity software alternatives release notes",
+          "url": "",
+          "status": "missing",
+          "evidence": "No offline release-note source available"
+        }
+      ],
+      "api_docs": [
+        {
+          "connector_type": "api_docs",
+          "label": "best ai productivity software API docs",
+          "url": "",
+          "status": "missing",
+          "evidence": "No API signal in keyword"
+        }
+      ],
+      "research_papers": [],
+      "blog_articles": [
+        {
+          "connector_type": "competitor_article",
+          "label": "best ai productivity software competitor article",
+          "url": "",
+          "status": "missing",
+          "evidence": "Requires local competitor snapshot input"
+        }
+      ],
+      "community": [],
+      "affiliate_program_pages": [
+        {
+          "connector_type": "affiliate_program_page",
+          "label": "Notion affiliate program page",
+          "url": "https://www.notion.com/affiliates",
+          "status": "verified",
+          "evidence": "Affiliate page from local offers/affiliate data"
+        },
+        {
+          "connector_type": "affiliate_program_page",
+          "label": "Gamma affiliate program page",
+          "url": "",
+          "status": "missing",
+          "evidence": "Affiliate page from local offers/affiliate data"
+        },
+        {
+          "connector_type": "affiliate_program_page",
+          "label": "Notion AI affiliate program page",
+          "url": "",
+          "status": "missing",
+          "evidence": "Affiliate page from local offers/affiliate data"
+        },
+        {
+          "connector_type": "affiliate_program_page",
+          "label": "best ai productivity software alternatives affiliate program page",
+          "url": "",
+          "status": "missing",
+          "evidence": "Affiliate page from local offers/affiliate data"
+        }
+      ]
+    },
+    "reference_count": 7,
+    "estimated_source_count": 0,
+    "missing_source_count": 15
+  },
+  "competitors": {
+    "keyword": "best ai productivity software",
+    "coverage_status": "missing",
+    "profiles": [],
+    "report": "competitor coverage is missing",
+    "missing_topics": [
+      "pricing verification",
+      "feature limitations",
+      "ideal buyer fit"
+    ]
+  }
+}

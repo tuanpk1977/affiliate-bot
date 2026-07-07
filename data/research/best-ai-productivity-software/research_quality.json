@@ -1,0 +1,22 @@
+{
+  "overall_score": 63.86,
+  "coverage": 72,
+  "entity_coverage": 60,
+  "entity_coverage_score": 60,
+  "missing_entity_types": [
+    "affiliate_networks",
+    "integrations",
+    "use_cases",
+    "target_audience",
+    "competitors"
+  ],
+  "faq_coverage": 68,
+  "outline_quality": 80,
+  "affiliate_readiness": 57,
+  "source_quality": 100,
+  "competitor_quality": 10,
+  "missing_information": [
+    "competitor coverage is limited"
+  ],
+  "status": "ready"
+}

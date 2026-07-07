@@ -1,0 +1,101 @@
+{
+  "seo_outline": [
+    "Quick verdict",
+    "Comparison",
+    "Pros and cons",
+    "Pricing",
+    "FAQ"
+  ],
+  "article_structure": [
+    "State the top recommendation early",
+    "Compare options and tradeoffs",
+    "Cover strengths and drawbacks",
+    "Explain cost and value",
+    "Address buyer concerns"
+  ],
+  "heading_hierarchy": [
+    {
+      "level": 2,
+      "heading": "Quick verdict",
+      "purpose": "State the top recommendation early"
+    },
+    {
+      "level": 2,
+      "heading": "Comparison",
+      "purpose": "Compare options and tradeoffs"
+    },
+    {
+      "level": 2,
+      "heading": "Pros and cons",
+      "purpose": "Cover strengths and drawbacks"
+    },
+    {
+      "level": 2,
+      "heading": "Pricing",
+      "purpose": "Explain cost and value"
+    },
+    {
+      "level": 2,
+      "heading": "FAQ",
+      "purpose": "Address buyer concerns"
+    }
+  ],
+  "faq_placement": "After alternatives and before final CTA",
+  "cta_placement": "Hero CTA and final verdict CTA",
+  "internal_link_opportunities": [],
+  "affiliate_blocks": [
+    "affiliate disclosure",
+    "pricing verification note",
+    "comparison shortlist CTA"
+  ],
+  "product_comparison_tables": [
+    "feature comparison table",
+    "pricing and plan limits table"
+  ],
+  "images_required": [
+    "hero visual",
+    "comparison table screenshot",
+    "pricing checklist visual"
+  ],
+  "infographic_suggestions": [
+    "karakeep Review 2026 buyer checklist infographic",
+    "karakeep Review 2026 comparison flow infographic"
+  ],
+  "video_suggestions": [
+    "karakeep Review 2026 walkthrough",
+    "karakeep Review 2026 comparison short"
+  ],
+  "faq_groups": {
+    "beginner": [
+      "What is karakeep Review 2026 and who is it for?",
+      "How should beginners evaluate karakeep Review 2026 before buying?"
+    ],
+    "intermediate": [
+      "What workflow problems does karakeep Review 2026 solve best?",
+      "Which integrations matter most when using karakeep Review 2026?"
+    ],
+    "advanced": [
+      "What implementation risks appear when teams scale karakeep Review 2026?",
+      "How often should karakeep Review 2026 content be updated after product changes?"
+    ],
+    "comparison": [
+      "How does karakeep Review 2026 compare with alternatives?",
+      "When should a buyer choose an alternative instead of karakeep Review 2026?"
+    ],
+    "pricing": [
+      "What should readers verify on the pricing page for karakeep Review 2026?",
+      "Which hidden cost risks matter most when evaluating karakeep Review 2026?"
+    ],
+    "troubleshooting": [
+      "What should the writer do if official pricing or feature details conflict for karakeep Review 2026?",
+      "How should broken links or outdated claims about karakeep Review 2026 be handled before publishing?"
+    ]
+  },
+  "recommended_cta": "Review the comparison and shortlist the best option for your workflow.",
+  "confidence": 0.95,
+  "reasoning": [
+    "Built an outline for 'karakeep Review 2026' using the 'commercial' template.",
+    "Used keyword signals: karakeep Review 2026 pricing, karakeep Review 2026 alternatives, karakeep Review 2026 comparison.",
+    "Included 5 planned sections for the article structure."
+  ]
+}

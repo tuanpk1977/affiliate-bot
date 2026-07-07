@@ -1,0 +1,162 @@
+{
+  "entity": "ElevenLabs",
+  "entities": {
+    "companies": [
+      "ElevenLabs"
+    ],
+    "products": [
+      "ElevenLabs"
+    ],
+    "ai_tools": [
+      "ElevenLabs"
+    ],
+    "people": [],
+    "organizations": [
+      "ElevenLabs"
+    ],
+    "technologies": [],
+    "frameworks": [],
+    "pricing_plans": [
+      "best ai voice software pricing"
+    ],
+    "affiliate_networks": [],
+    "integrations": [],
+    "use_cases": [],
+    "target_audience": [],
+    "versions": [],
+    "competitors": [],
+    "alternatives": [
+      "best ai voice software alternatives"
+    ],
+    "product_categories": [
+      "AI Voice"
+    ],
+    "entity_coverage_score": 60,
+    "missing_entity_types": [
+      "affiliate_networks",
+      "integrations",
+      "use_cases",
+      "target_audience",
+      "competitors"
+    ]
+  },
+  "sources": {
+    "topic": "best ai voice software",
+    "trusted_sources": {
+      "official_documentation": [
+        {
+          "connector_type": "official_docs",
+          "label": "ElevenLabs official docs",
+          "url": "https://elevenlabs.io",
+          "status": "needs_review",
+          "evidence": "No live fetch; requires manual confirmation"
+        },
+        {
+          "connector_type": "official_docs",
+          "label": "best ai voice software alternatives official docs",
+          "url": "",
+          "status": "missing",
+          "evidence": "No live fetch; requires manual confirmation"
+        }
+      ],
+      "pricing_pages": [
+        {
+          "connector_type": "pricing_page",
+          "label": "ElevenLabs pricing page",
+          "url": "https://elevenlabs.io",
+          "status": "verified",
+          "evidence": "Pricing should be verified on official site; local source only"
+        },
+        {
+          "connector_type": "pricing_page",
+          "label": "best ai voice software alternatives pricing page",
+          "url": "",
+          "status": "missing",
+          "evidence": "Pricing should be verified on official site; local source only"
+        }
+      ],
+      "product_pages": [
+        {
+          "connector_type": "product_page",
+          "label": "ElevenLabs product page",
+          "url": "https://elevenlabs.io",
+          "status": "verified",
+          "evidence": "Brand website from local offers/affiliate data"
+        },
+        {
+          "connector_type": "product_page",
+          "label": "best ai voice software alternatives product page",
+          "url": "",
+          "status": "missing",
+          "evidence": "Brand website from local offers/affiliate data"
+        }
+      ],
+      "release_notes": [
+        {
+          "connector_type": "release_notes",
+          "label": "ElevenLabs release notes",
+          "url": "",
+          "status": "missing",
+          "evidence": "No offline release-note source available"
+        },
+        {
+          "connector_type": "release_notes",
+          "label": "best ai voice software alternatives release notes",
+          "url": "",
+          "status": "missing",
+          "evidence": "No offline release-note source available"
+        }
+      ],
+      "api_docs": [
+        {
+          "connector_type": "api_docs",
+          "label": "best ai voice software API docs",
+          "url": "",
+          "status": "missing",
+          "evidence": "No API signal in keyword"
+        }
+      ],
+      "research_papers": [],
+      "blog_articles": [
+        {
+          "connector_type": "competitor_article",
+          "label": "best ai voice software competitor article",
+          "url": "",
+          "status": "missing",
+          "evidence": "Requires local competitor snapshot input"
+        }
+      ],
+      "community": [],
+      "affiliate_program_pages": [
+        {
+          "connector_type": "affiliate_program_page",
+          "label": "ElevenLabs affiliate program page",
+          "url": "https://elevenlabs.io/affiliate",
+          "status": "verified",
+          "evidence": "Affiliate page from local offers/affiliate data"
+        },
+        {
+          "connector_type": "affiliate_program_page",
+          "label": "best ai voice software alternatives affiliate program page",
+          "url": "",
+          "status": "missing",
+          "evidence": "Affiliate page from local offers/affiliate data"
+        }
+      ]
+    },
+    "reference_count": 3,
+    "estimated_source_count": 0,
+    "missing_source_count": 9
+  },
+  "competitors": {
+    "keyword": "best ai voice software",
+    "coverage_status": "missing",
+    "profiles": [],
+    "report": "competitor coverage is missing",
+    "missing_topics": [
+      "pricing verification",
+      "feature limitations",
+      "ideal buyer fit"
+    ]
+  }
+}
