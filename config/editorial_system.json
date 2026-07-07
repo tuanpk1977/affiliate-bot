@@ -33,5 +33,12 @@
     "affiliate_coverage": {
       "max_missing_products": 5
     }
+  },
+  "research_intelligence": {
+    "cache_enabled": true,
+    "max_semantic_keywords": 8,
+    "max_long_tail_keywords": 10,
+    "max_competitors": 5,
+    "min_research_quality_score": 60
   }
 }

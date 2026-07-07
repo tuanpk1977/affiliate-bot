@@ -135,6 +135,10 @@ class Settings:
     def editorial_business_intelligence_config(self) -> dict:
         return dict(self.editorial_config.get("business_intelligence", {}))
 
+    @property
+    def editorial_research_config(self) -> dict:
+        return dict(self.editorial_config.get("research_intelligence", {}))
+
 
 settings = Settings()
 

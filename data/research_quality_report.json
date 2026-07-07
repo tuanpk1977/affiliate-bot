@@ -1,0 +1,97 @@
+[
+  {
+    "slug": "meetily-review-2026",
+    "keyword": "meetily Review 2026",
+    "overall_score": 46.57,
+    "coverage": 72,
+    "entity_coverage": 26,
+    "faq_coverage": 68,
+    "outline_quality": 80,
+    "affiliate_readiness": 45,
+    "source_quality": 15,
+    "status": "needs enrichment",
+    "missing_information": [
+      "trusted sources are thin",
+      "competitor coverage is limited",
+      "entity extraction needs richer tool coverage"
+    ],
+    "cache_hits": [],
+    "package_dir": "D:\\AFFILATE BOT\\data\\research\\meetily-review-2026"
+  },
+  {
+    "slug": "system-prompts-leaks-review-2026",
+    "keyword": "system_prompts_leaks Review 2026",
+    "overall_score": 47.0,
+    "coverage": 72,
+    "entity_coverage": 29,
+    "faq_coverage": 68,
+    "outline_quality": 80,
+    "affiliate_readiness": 45,
+    "source_quality": 15,
+    "status": "needs enrichment",
+    "missing_information": [
+      "trusted sources are thin",
+      "competitor coverage is limited",
+      "entity extraction needs richer tool coverage"
+    ],
+    "cache_hits": [],
+    "package_dir": "D:\\AFFILATE BOT\\data\\research\\system-prompts-leaks-review-2026"
+  },
+  {
+    "slug": "agent-skills-review-2026",
+    "keyword": "agent-skills Review 2026",
+    "overall_score": 47.0,
+    "coverage": 72,
+    "entity_coverage": 29,
+    "faq_coverage": 68,
+    "outline_quality": 80,
+    "affiliate_readiness": 45,
+    "source_quality": 15,
+    "status": "needs enrichment",
+    "missing_information": [
+      "trusted sources are thin",
+      "competitor coverage is limited",
+      "entity extraction needs richer tool coverage"
+    ],
+    "cache_hits": [],
+    "package_dir": "D:\\AFFILATE BOT\\data\\research\\agent-skills-review-2026"
+  },
+  {
+    "slug": "last30days-skill-review-2026",
+    "keyword": "last30days-skill Review 2026",
+    "overall_score": 46.57,
+    "coverage": 72,
+    "entity_coverage": 26,
+    "faq_coverage": 68,
+    "outline_quality": 80,
+    "affiliate_readiness": 45,
+    "source_quality": 15,
+    "status": "needs enrichment",
+    "missing_information": [
+      "trusted sources are thin",
+      "competitor coverage is limited",
+      "entity extraction needs richer tool coverage"
+    ],
+    "cache_hits": [],
+    "package_dir": "D:\\AFFILATE BOT\\data\\research\\last30days-skill-review-2026"
+  },
+  {
+    "slug": "taste-skill-review-2026",
+    "keyword": "taste-skill Review 2026",
+    "overall_score": 46.57,
+    "coverage": 72,
+    "entity_coverage": 26,
+    "faq_coverage": 68,
+    "outline_quality": 80,
+    "affiliate_readiness": 45,
+    "source_quality": 15,
+    "status": "needs enrichment",
+    "missing_information": [
+      "trusted sources are thin",
+      "competitor coverage is limited",
+      "entity extraction needs richer tool coverage"
+    ],
+    "cache_hits": [],
+    "package_dir": "D:\\AFFILATE BOT\\data\\research\\taste-skill-review-2026"
+  }
+]

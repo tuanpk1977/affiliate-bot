@@ -22,6 +22,7 @@ from modules.ai_trend_discovery import (
 )
 from modules.content_planning_engine import ContentPlanningEngine
 from modules.indexing_policy import INDEXABLE_ROBOTS_META
+from modules.research_intelligence import ResearchIntelligencePlatform
 
 
 BASE_URL = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
@@ -35,6 +36,7 @@ REPORT_DIR = DATA_DIR / "content_growth_reports"
 TRACKING_CSV = DATA_DIR / "content_growth_performance_log.csv"
 TRENDING_JSON = DATA_DIR / "trending_topics.json"
 _CONTENT_PLANNER: ContentPlanningEngine | None = None
+_RESEARCH_PLATFORM: ResearchIntelligencePlatform | None = None
 
 
 @dataclass(frozen=True)
@@ -47,6 +49,7 @@ class GeneratedPage:
     social_folder: Path
     content_type: str
     focus_keyword: str
+    research: dict[str, Any]
     planning: dict[str, Any]
     warnings: list[str]
 
@@ -194,6 +197,19 @@ def get_content_planner() -> ContentPlanningEngine:
     return _CONTENT_PLANNER
 
 
+def get_research_platform() -> ResearchIntelligencePlatform:
+    global _RESEARCH_PLATFORM
+    if _RESEARCH_PLATFORM is None:
+        _RESEARCH_PLATFORM = ResearchIntelligencePlatform(
+            data_dir=DATA_DIR,
+            site_output_dir=SITE_OUTPUT,
+            offers_file=settings.offers_file,
+            affiliate_links_file=settings.affiliate_links_file,
+            config=settings.editorial_config,
+        )
+    return _RESEARCH_PLATFORM
+
+
 def coerce_text_list(value: Any) -> list[str]:
     if isinstance(value, str):
         items = re.split(r"[,;\n]", value)
@@ -225,18 +241,58 @@ def extract_entities(topic: dict[str, Any]) -> list[str]:
     values = coerce_text_list(topic.get("entities"))
     if values:
         return values
+    research_entities = topic.get("research", {}).get("entities") if isinstance(topic.get("research"), dict) else {}
+    if isinstance(research_entities, dict):
+        products = coerce_text_list(research_entities.get("products"))
+        companies = coerce_text_list(research_entities.get("companies"))
+        merged = products + [item for item in companies if item not in products]
+        if merged:
+            return merged[:8]
     links = coerce_text_list(topic.get("suggested_internal_links"))
     derived = [segment for link in links for segment in link.strip("/").split("/") if segment]
     return derived[:5]
 
+def research_payload(topic: dict[str, Any]) -> dict[str, Any]:
+    value = topic.get("research")
+    return value if isinstance(value, dict) else {}
 
-def enrich_topic_with_planning(topic: dict[str, Any], planner: ContentPlanningEngine | None = None) -> dict[str, Any]:
+
+def enrich_topic_with_research_and_planning(topic: dict[str, Any], planner: ContentPlanningEngine | None = None) -> dict[str, Any]:
     planner = planner or get_content_planner()
+    research_platform = get_research_platform()
     keyword = str(topic.get("topic") or "").strip()
+    research_package = research_platform.build_research_package(topic)
+    research = {
+        "keyword": research_package.keyword,
+        "slug": research_package.slug,
+        "package_dir": research_package.package_dir,
+        "generated_at": research_package.generated_at,
+        "keyword_intelligence": research_package.keyword_intelligence,
+        "outline": research_package.outline,
+        "faq": research_package.faq,
+        "entities": research_package.entities,
+        "competitors": research_package.competitors,
+        "sources": research_package.sources,
+        "writing_plan": research_package.writing_plan,
+        "quality": research_package.quality,
+        "cache_hits": research_package.cache_hits,
+    }
+    research_keywords = []
+    for key in (
+        "secondary_keywords",
+        "semantic_keywords",
+        "long_tail_keywords",
+        "question_keywords",
+        "buyer_keywords",
+        "comparison_keywords",
+        "transactional_keywords",
+        "informational_keywords",
+    ):
+        research_keywords.extend(coerce_text_list(research_package.keyword_intelligence.get(key)))
     plan = planner.create_plan(
         keyword=keyword,
-        related_keywords=extract_related_keywords(topic),
-        entities=extract_entities(topic),
+        related_keywords=extract_related_keywords(topic) or research_keywords,
+        entities=extract_entities({**topic, "research": research}),
     )
     planning = {
         "keyword": plan.keyword,
@@ -244,15 +300,17 @@ def enrich_topic_with_planning(topic: dict[str, Any], planner: ContentPlanningEn
         "article_type": plan.article_type,
         "topic_cluster": plan.cluster,
         "coverage_score": plan.coverage_score,
-        "outline_sections": plan.outline_sections,
-        "reasoning": plan.reasoning,
-        "related_keywords": extract_related_keywords(topic) or coerce_text_list(plan.cluster.get("keywords")),
+        "outline_sections": coerce_text_list(research_package.outline.get("seo_outline")) or plan.outline_sections,
+        "reasoning": [*coerce_text_list(research_package.outline.get("reasoning")), *plan.reasoning],
+        "related_keywords": extract_related_keywords(topic) or coerce_text_list(research_package.keyword_intelligence.get("secondary_keywords")) or coerce_text_list(plan.cluster.get("keywords")),
         "recommended_cta": plan.recommended_cta,
         "confidence": plan.confidence,
+        "research_quality_score": research_package.quality.get("overall_score", 0),
     }
     return {
         **topic,
         "search_intent": plan.search_intent or str(topic.get("search_intent") or ""),
+        "research": research,
         "planning": planning,
     }
 
@@ -263,7 +321,7 @@ def planning_payload(topic: dict[str, Any]) -> dict[str, Any]:
 
 
 def generate_topic_package(topic: dict[str, Any]) -> GeneratedPage:
-    enriched_topic = enrich_topic_with_planning(topic)
+    enriched_topic = enrich_topic_with_research_and_planning(topic)
     topic_name = str(enriched_topic["topic"])
     slug = str(enriched_topic["slug"])
     path = f"/{slug}/"
@@ -287,6 +345,7 @@ def generate_topic_package(topic: dict[str, Any]) -> GeneratedPage:
         social_folder=social_folder,
         content_type=str(enriched_topic.get("content_type") or "article"),
         focus_keyword=focus_keyword(topic_name),
+        research=research_payload(enriched_topic),
         planning=planning_payload(enriched_topic),
         warnings=warnings,
     )
@@ -309,10 +368,19 @@ def render_article(
     planning_reasoning = coerce_text_list(planning.get("reasoning"))
     related_keywords = coerce_text_list(planning.get("related_keywords"))
     recommended_cta = str(planning.get("recommended_cta") or "Check pricing notes")
+    research = research_payload(topic)
+    research_quality = research.get("quality") if isinstance(research.get("quality"), dict) else {}
+    research_entities = research.get("entities") if isinstance(research.get("entities"), dict) else {}
+    research_outline = research.get("outline") if isinstance(research.get("outline"), dict) else {}
     article_angle = str(topic.get("suggested_article_angle") or default_article_angle(topic_name, content_type))
     video_angle = str(topic.get("suggested_video_angle") or default_video_angle(topic_name, content_type))
     canonical = BASE_URL + path
-    faq_items = faq_questions(topic_name)
+    faq_groups = research.get("faq") if isinstance(research.get("faq"), dict) else {}
+    faq_items = []
+    for key in ("beginner", "intermediate", "advanced", "comparison", "pricing", "troubleshooting"):
+        faq_items.extend(coerce_text_list(faq_groups.get(key)))
+    if not faq_items:
+        faq_items = faq_questions(topic_name)
     schemas = [
         article_schema(title, description, canonical, topic_name),
         faq_schema(faq_items),
@@ -343,6 +411,7 @@ def render_article(
         <li><a href="#pricing">Pricing notes</a></li>
         <li><a href="#best-for">Best use cases</a></li>
         <li><a href="#alternatives">Alternatives</a></li>
+        <li><a href="#research-package">Research package</a></li>
         <li><a href="#content-planning">Content planning</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ol>
@@ -416,6 +485,23 @@ def render_article(
       <p>Use these related pages to compare adjacent software categories and avoid evaluating this topic in isolation.</p>
       <ul>{''.join(f'<li><a href="{html.escape(href)}">{html.escape(label)}</a></li>' for href, label in links)}</ul>
     </section>
+    <section class="card" id="research-package">
+      <h2>Research package snapshot</h2>
+      <p>Research is mandatory before planning and drafting. The package is stored at <code>{html.escape(str(research.get("package_dir") or ""))}</code>.</p>
+      <ul>
+        <li><strong>Research quality score:</strong> {html.escape(str(research_quality.get("overall_score") or 0))}</li>
+        <li><strong>Source quality:</strong> {html.escape(str(research_quality.get("source_quality") or 0))}</li>
+        <li><strong>Entity coverage:</strong> {html.escape(str(research_quality.get("entity_coverage") or 0))}</li>
+        <li><strong>Outline quality:</strong> {html.escape(str(research_quality.get("outline_quality") or 0))}</li>
+        <li><strong>Products detected:</strong> {html.escape(', '.join(coerce_text_list(research_entities.get("products"))) or topic_name)}</li>
+      </ul>
+      <h3>Research outline assets</h3>
+      <ul>
+        <li><strong>FAQ placement:</strong> {html.escape(str(research_outline.get("faq_placement") or "Before final CTA"))}</li>
+        <li><strong>CTA placement:</strong> {html.escape(str(research_outline.get("cta_placement") or "Hero and final verdict"))}</li>
+        <li><strong>Internal link opportunities:</strong> {html.escape(', '.join(coerce_text_list(research_outline.get("internal_link_opportunities"))) or 'None')}</li>
+      </ul>
+    </section>
     <section class="card" id="content-planning">
       <h2>Content planning snapshot</h2>
       <p>This page keeps the planning stage attached to the generated article so review, SEO checks, and publishing can use the same context.</p>
@@ -424,6 +510,7 @@ def render_article(
         <li><strong>Intent:</strong> {html.escape(str(planning.get("intent") or intent))}</li>
         <li><strong>Topic cluster:</strong> {html.escape(str(planning_cluster.get("name") or topic_name))}</li>
         <li><strong>Coverage score:</strong> {html.escape(str(planning.get("coverage_score") or 0))}</li>
+        <li><strong>Research quality score:</strong> {html.escape(str(planning.get("research_quality_score") or 0))}</li>
         <li><strong>Related keywords:</strong> {html.escape(', '.join(related_keywords) if related_keywords else topic_name)}</li>
       </ul>
       <h3>Planned outline sections</h3>
@@ -775,6 +862,7 @@ def page_to_dict(page: GeneratedPage) -> dict[str, Any]:
         "social_folder": str(page.social_folder),
         "content_type": page.content_type,
         "focus_keyword": page.focus_keyword,
+        "research": page.research,
         "planning": page.planning,
         "warnings": page.warnings,
     }

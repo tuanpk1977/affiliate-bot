@@ -1,0 +1,16 @@
+{
+  "overall_score": 46.57,
+  "coverage": 72,
+  "entity_coverage": 26,
+  "faq_coverage": 68,
+  "outline_quality": 80,
+  "affiliate_readiness": 45,
+  "source_quality": 15,
+  "competitor_quality": 20,
+  "missing_information": [
+    "trusted sources are thin",
+    "competitor coverage is limited",
+    "entity extraction needs richer tool coverage"
+  ],
+  "status": "needs enrichment"
+}

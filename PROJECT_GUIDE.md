@@ -9,6 +9,7 @@ The repository now includes an AI Editorial Automation Platform layered on top o
 The system is designed around two repeating workflows:
 
 - Weekly editorial intelligence
+- Mandatory research packaging
 - Daily scheduled production
 - Weekly business intelligence
 
@@ -27,6 +28,7 @@ Core platform modules:
 - `modules/content_growth_pipeline.py`: content generation, SEO metadata, local publish, and reusable content assets.
 - `modules/editorial_automation.py`: weekly candidate collection, weekly ranking, editorial calendar generation, and daily scheduled execution.
 - `modules/editorial_business_intelligence.py`: evergreen evaluation, affiliate opportunity scoring, lifecycle logging, history retention, gap analysis, affiliate coverage analysis, and weekly dashboards.
+- `modules/research_intelligence.py`: pre-generation research packaging, keyword intelligence, entity extraction, FAQ building, competitor/source assembly, cache reuse, and research quality scoring.
 - `modules/topic_cluster_engine.py`: topic clustering support.
 - `scripts/validate_production_content_pipeline.py`: end-to-end production validation against real keywords.
 
@@ -50,6 +52,18 @@ Editorial automation files:
 - `data/editorial_calendar.csv`
 - `data/editorial_calendar.json`
 - `data/daily_editorial_report_<date>.json`
+- `data/research/<slug>/keyword.json`
+- `data/research/<slug>/keyword_intelligence.json`
+- `data/research/<slug>/outline.json`
+- `data/research/<slug>/faq.json`
+- `data/research/<slug>/entities.json`
+- `data/research/<slug>/competitors.json`
+- `data/research/<slug>/sources.json`
+- `data/research/<slug>/writing_plan.json`
+- `data/research_cache/entities/*.json`
+- `data/research_quality_report.json`
+- `data/research_quality_report.csv`
+- `data/research_quality_report.md`
 - `data/evergreen_report.csv`
 - `data/evergreen_report.json`
 - `data/evergreen_report.md`
@@ -138,6 +152,32 @@ editorial calendar row
   -> evergreen status transitions when quality declines
 ```
 
+### Research Workflow
+
+```text
+topic
+  -> research_intelligence.build_research_package()
+  -> keyword intelligence
+  -> entities
+  -> FAQ groups
+  -> competitor analysis
+  -> trusted sources
+  -> writing plan
+  -> research quality score
+  -> cache reuse by entity/tool
+```
+
+Research becomes mandatory before planning and article generation. The writer should not start from only a keyword.
+
+### Research Cache
+
+Reusable knowledge lives in:
+
+- `data/research/<slug>/`
+- `data/research_cache/entities/*.json`
+
+If another article targets the same tool or entity, the pipeline reuses cached entities and trusted sources instead of rebuilding from zero.
+
 ### Daily Workflow
 
 The daily workflow is:
@@ -145,6 +185,7 @@ The daily workflow is:
 ```text
 editorial_calendar.json
   -> today's scheduled rows
+  -> mandatory research package
   -> planning
   -> generation
   -> SEO title/meta
@@ -156,6 +197,8 @@ editorial_calendar.json
 ```
 
 `run_daily_content.py` reads the existing weekly calendar and generates only today’s scheduled content. It does not regenerate weekly topic selection.
+
+Research packages are built automatically during article generation and saved under `data/research/`.
 
 ### Sequence Diagram
 
@@ -170,6 +213,7 @@ Weekly cycle
 Daily cycle
   python run_daily_content.py
     -> load editorial_calendar.json
+    -> ResearchIntelligencePlatform.build_research_package()
     -> content_growth_pipeline.generate_topic_package()
       -> ContentPlanningEngine.create_plan()
       -> render article + assets
@@ -185,6 +229,7 @@ external/local trend providers
   -> CandidateTopicRecord snapshots
   -> WeeklyTopicRecord shortlist
   -> EditorialCalendarEntry schedule
+  -> ResearchPackage outputs
   -> Evergreen / opportunity / gap / coverage reports
   -> Weekly dashboard
   -> GeneratedPage outputs
@@ -253,6 +298,9 @@ Production validation checks:
 
 Business-intelligence checks include:
 
+- research quality score
+- knowledge cache reuse
+- keyword/entity/source completeness
 - evergreen freshness and update status
 - affiliate opportunity score and monetization priority
 - missing content gaps
@@ -291,6 +339,10 @@ Business-intelligence thresholds also live in `config/editorial_system.json` und
 - `business_intelligence.content_gap`
 - `business_intelligence.affiliate_coverage`
 
+Research thresholds and limits also live there under:
+
+- `research_intelligence`
+
 ### Future Roadmap
 
 Planned follow-up work:
@@ -316,6 +368,10 @@ The repository is no longer only a set of separate article scripts. It now has a
 - estimate affiliate opportunity by weekly topic
 - detect content gaps and coverage issues
 - generate a weekly executive dashboard
+
+- build a mandatory research package before planning
+- reuse cached research across shared tools/entities
+- score research completeness before article generation
 
 ## 1. Project overview
 

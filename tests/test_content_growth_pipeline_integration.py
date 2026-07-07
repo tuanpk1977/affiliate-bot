@@ -70,6 +70,7 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
                 stack.enter_context(patch.object(pipeline, "TRACKING_CSV", tracking_csv))
                 stack.enter_context(patch.object(pipeline, "TRENDING_JSON", trending_json))
                 stack.enter_context(patch.object(pipeline, "_CONTENT_PLANNER", None))
+                stack.enter_context(patch.object(pipeline, "_RESEARCH_PLATFORM", None))
                 stack.enter_context(patch.object(pipeline, "load_or_discover_topics", return_value=[topic]))
 
                 report = pipeline.run_daily_content_growth(
@@ -85,11 +86,18 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
             self.assertTrue(report["indexnow"]["skipped"])
 
             page = report["generated_pages"][0]
+            research = page["research"]
             planning = page["planning"]
             article_file = Path(page["article_file"])
             site_file = site_output / topic["slug"] / "index.html"
             social_folder = Path(page["social_folder"])
             video_folder = Path(page["video_folder"])
+
+            self.assertEqual(research["keyword"], topic["topic"])
+            self.assertTrue(Path(research["package_dir"]).exists())
+            self.assertTrue(research["keyword_intelligence"]["primary_keyword"])
+            self.assertTrue(research["outline"]["heading_hierarchy"])
+            self.assertIn("overall_score", research["quality"])
 
             self.assertEqual(planning["keyword"], topic["topic"])
             self.assertEqual(planning["intent"], "commercial")
@@ -109,12 +117,22 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
             article_html = article_file.read_text(encoding="utf-8")
             self.assertIn("<title>best ai coding assistants for teams 2026</title>", article_html.lower())
             self.assertIn('<meta name="description"', article_html)
+            self.assertIn("Research package snapshot", article_html)
+            self.assertIn("Research quality score", article_html)
             self.assertIn("Content planning snapshot", article_html)
             self.assertIn("Planned outline sections", article_html)
             self.assertIn("Planning reasoning", article_html)
             self.assertIn("Coverage score", article_html)
             self.assertIn("Related keywords", article_html)
             self.assertIn("Quick verdict", article_html)
+
+            research_dir = Path(research["package_dir"])
+            self.assertTrue((research_dir / "keyword.json").exists())
+            self.assertTrue((research_dir / "outline.json").exists())
+            self.assertTrue((research_dir / "faq.json").exists())
+            self.assertTrue((research_dir / "entities.json").exists())
+            self.assertTrue((research_dir / "sources.json").exists())
+            self.assertTrue((data_dir / "research_quality_report.json").exists())
 
 
 if __name__ == "__main__":

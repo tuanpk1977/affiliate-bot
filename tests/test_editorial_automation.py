@@ -138,6 +138,7 @@ class EditorialAutomationTests(unittest.TestCase):
                 stack.enter_context(patch.object(pipeline, "REPORT_DIR", data_dir / "content_growth_reports"))
                 stack.enter_context(patch.object(pipeline, "TRACKING_CSV", data_dir / "content_growth_performance_log.csv"))
                 stack.enter_context(patch.object(pipeline, "_CONTENT_PLANNER", None))
+                stack.enter_context(patch.object(pipeline, "_RESEARCH_PLATFORM", None))
                 result = editorial_automation.run_daily_editorial_content(target_date=target_date, build=False)
 
             self.assertEqual(result["calendar_rows"], 1)
@@ -145,6 +146,7 @@ class EditorialAutomationTests(unittest.TestCase):
             self.assertTrue((data_dir / f"daily_editorial_report_{target_date.isoformat()}.json").exists())
             self.assertTrue((data_dir / "content_lifecycle.jsonl").exists())
             page = result["generated_pages"][0]
+            self.assertIn("research", page)
             self.assertIn("planning", page)
             self.assertEqual(page["slug"], "best-ai-coding-assistants-for-teams-pricing")
 
