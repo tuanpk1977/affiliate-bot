@@ -75,9 +75,11 @@ class VerifiedSourceRecord:
             "source_name": self.source_name,
             "source_url": self.source_url,
             "source_status": self.source_status,
+            "verification_status": self.source_status,
             "confidence": self.confidence,
             "notes": self.notes,
             "last_verified_at": self.last_verified_at,
+            "verification_date": self.last_verified_at,
         }
 
 
@@ -154,7 +156,7 @@ class VerifiedSourceAcquisition:
         source_type = str(row.get("source_type") or "").strip().lower()
         if source_type not in SOURCE_TYPES:
             source_type = "product_page"
-        source_status = str(row.get("source_status") or row.get("status") or "needs_review").strip().lower()
+        source_status = str(row.get("verification_status") or row.get("source_status") or row.get("status") or "needs_review").strip().lower()
         if source_status not in SOURCE_STATUSES:
             source_status = "needs_review"
         confidence_raw = row.get("confidence", 0)
@@ -172,7 +174,7 @@ class VerifiedSourceAcquisition:
             source_status=source_status,
             confidence=confidence,
             notes=str(row.get("notes") or row.get("evidence") or "").strip(),
-            last_verified_at=str(row.get("last_verified_at") or row.get("last_checked") or "").strip(),
+            last_verified_at=str(row.get("verification_date") or row.get("last_verified_at") or row.get("last_checked") or "").strip(),
         )
 
     def _brands_for_entities(self, keyword: str, entities: dict[str, Any]) -> set[str]:

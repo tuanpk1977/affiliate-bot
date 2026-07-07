@@ -1,7 +1,10 @@
-brand,slug,source_type,source_name,source_url,source_status,confidence,notes,last_verified_at
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
+metric,value
+records,0
+verified,0
+pending,0
+needs_review,0
+expired,0
+duplicate,0
+brands,
+average_trust,0.0
+average_freshness,0.0

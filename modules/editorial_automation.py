@@ -360,6 +360,8 @@ class WeeklyTrendIntelligenceEngine:
             "calendar_entries": len(calendar),
             "weekly_topics_json": str(_output_path("weekly_topics.json")),
             "editorial_calendar_json": str(_output_path("editorial_calendar.json")),
+            "knowledge_dashboard_json": str(settings.data_dir / "knowledge_dashboard.json"),
+            "source_review_report_json": str(settings.data_dir / "source_review_report.json"),
             **intelligence,
         }
 

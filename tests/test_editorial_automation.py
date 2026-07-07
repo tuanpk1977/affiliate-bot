@@ -83,6 +83,8 @@ class EditorialAutomationTests(unittest.TestCase):
             self.assertTrue((data_dir / "weekly_dashboard.md").exists())
             self.assertTrue((data_dir / "weekly_history.jsonl").exists())
             self.assertTrue((data_dir / "content_lifecycle.jsonl").exists())
+            self.assertTrue((data_dir / "knowledge_dashboard.json").exists())
+            self.assertTrue((data_dir / "source_review_report.json").exists())
 
             weekly_topics = json.loads((data_dir / "weekly_topics.json").read_text(encoding="utf-8"))
             calendar = json.loads((data_dir / "editorial_calendar.json").read_text(encoding="utf-8"))

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import argparse
-import csv
 import json
 import sys
 from pathlib import Path
@@ -11,32 +10,14 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from modules.verified_source_acquisition import VerifiedSourceAcquisition  # noqa: E402
+from modules.knowledge_dashboard import KnowledgeDashboard  # noqa: E402
+from modules.knowledge_registry import KnowledgeRegistry, _write_csv as registry_write_csv  # noqa: E402
+from modules.source_review import SourceReview  # noqa: E402
 
 
 def _write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-
-
-def _write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    fieldnames = [
-        "brand",
-        "slug",
-        "source_type",
-        "source_name",
-        "source_url",
-        "source_status",
-        "confidence",
-        "notes",
-        "last_verified_at",
-    ]
-    with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
-        writer.writeheader()
-        for row in rows:
-            writer.writerow({key: row.get(key, "") for key in fieldnames})
 
 
 def _write_md(path: Path, lines: list[str]) -> None:
@@ -50,25 +31,27 @@ def main() -> int:
     args = parser.parse_args()
 
     data_dir = Path(args.data_dir)
-    acquisition = VerifiedSourceAcquisition(
-        registry_json=data_dir / "source_registry.json",
-        registry_csv=data_dir / "source_registry.csv",
-    )
-    rows = acquisition.load_registry()
-    normalized = acquisition.normalize_rows([row.to_dict() for row in rows])
-    _write_json(data_dir / "source_registry.json", normalized)
-    _write_csv(data_dir / "source_registry.csv", normalized)
+    registry = KnowledgeRegistry(data_dir)
+    review = SourceReview(data_dir, registry=registry)
+    dashboard = KnowledgeDashboard(data_dir, registry=registry)
+    normalized = registry.normalize_rows(registry.load_registry())
+    registry.save_registry(normalized)
+    review.sync_from_registry(normalized)
+    dashboard_report = dashboard.generate()
 
     report = {
         "records": len(normalized),
-        "verified": sum(1 for row in normalized if str(row.get("source_status", "")) == "verified"),
-        "estimated": sum(1 for row in normalized if str(row.get("source_status", "")) == "estimated"),
-        "needs_review": sum(1 for row in normalized if str(row.get("source_status", "")) == "needs_review"),
-        "missing": sum(1 for row in normalized if str(row.get("source_status", "")) == "missing"),
+        "verified": sum(1 for row in normalized if str(row.get("verification_status", "")) == "verified"),
+        "pending": sum(1 for row in normalized if str(row.get("verification_status", "")) == "pending"),
+        "needs_review": sum(1 for row in normalized if str(row.get("verification_status", "")) == "needs_review"),
+        "expired": sum(1 for row in normalized if str(row.get("verification_status", "")) == "expired"),
+        "duplicate": sum(1 for row in normalized if str(row.get("verification_status", "")) == "duplicate"),
         "brands": sorted({str(row.get("brand", "")) for row in normalized if str(row.get("brand", "")).strip()}),
+        "average_trust": dashboard_report.get("average_trust", 0),
+        "average_freshness": dashboard_report.get("average_freshness", 0),
     }
     _write_json(data_dir / "source_registry_report.json", report)
-    _write_csv(
+    registry_write_csv(
         data_dir / "source_registry_report.csv",
         [{"metric": key, "value": ", ".join(value) if isinstance(value, list) else value} for key, value in report.items()],
     )
@@ -79,9 +62,10 @@ def main() -> int:
             "",
             f"- Records: {report['records']}",
             f"- Verified: {report['verified']}",
-            f"- Estimated: {report['estimated']}",
+            f"- Pending: {report['pending']}",
             f"- Needs review: {report['needs_review']}",
-            f"- Missing: {report['missing']}",
+            f"- Expired: {report['expired']}",
+            f"- Duplicate: {report['duplicate']}",
             f"- Brands: {', '.join(report['brands']) if report['brands'] else 'none'}",
         ],
     )

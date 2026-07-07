@@ -112,6 +112,7 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
             self.assertTrue(research["keyword_intelligence"]["primary_keyword"])
             self.assertTrue(research["outline"]["heading_hierarchy"])
             self.assertIn("overall_score", research["quality"])
+            self.assertIn("source_status", research["quality"])
 
             self.assertEqual(planning["keyword"], topic["topic"])
             self.assertEqual(planning["intent"], "commercial")

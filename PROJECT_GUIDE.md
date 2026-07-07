@@ -377,8 +377,34 @@ python -m pytest
 
 - `data/source_registry.json` and `data/source_registry.csv` are the curated local registry for official docs, pricing pages, affiliate program pages, release notes, competitor articles, API docs, and product pages.
 - `modules/verified_source_acquisition.py` matches local entity signals against the registry and attaches `verified_sources`, `missing_verified_sources`, `source_confidence`, `source_status`, and per-source trust scores to each research package.
+- `modules/knowledge_registry.py` is the long-term governance layer. It normalizes records, computes freshness and trust, detects duplicates, assigns canonical sources, and maintains version history in `data/source_registry_history.jsonl`.
+- `modules/source_review.py` creates and updates `data/source_review_queue.json` plus `data/source_review_report.{json,csv,md}` so pending, duplicate, expired, and rejected sources can be reviewed without changing the generation pipeline.
+- `modules/knowledge_dashboard.py` writes `data/knowledge_dashboard.{json,csv,md}` with verified %, pending %, expired %, duplicate %, average trust, average freshness, missing source-type coverage, and top weak topics.
 - `ResearchIntelligencePlatform.evaluate_quality_gate()` now checks both research quality and the verified source gate configured in `config/editorial_system.json`.
 - `scripts/run_research_enrichment.py` reuses the same verified-source-first flow before retrying queued topics.
+- `scripts/import_verified_sources.py` now upgrades raw registry rows into governed records, refreshes the review queue, and rebuilds the knowledge dashboard.
+
+Governance flow:
+
+```text
+Verified Source Acquisition
+  -> Knowledge Registry
+  -> Knowledge Review Queue
+  -> Knowledge Health Dashboard
+  -> Research Package
+  -> Research Quality Gate
+```
+
+Key governance config in `config/editorial_system.json`:
+
+- `knowledge_review.freshness_threshold`
+- `knowledge_review.review_after_days`
+- `knowledge_review.expire_after_days`
+- `knowledge_review.minimum_verified_sources`
+- `knowledge_review.minimum_official_sources`
+- `knowledge_review.minimum_trust_score`
+- `knowledge_review.minimum_freshness`
+- `knowledge_review.duplicate_similarity`
 
 Production validation checks:
 

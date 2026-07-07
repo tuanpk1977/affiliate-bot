@@ -59,5 +59,15 @@
       "high_priority_below_score": 45,
       "medium_priority_below_score": 60
     }
+  },
+  "knowledge_review": {
+    "freshness_threshold": 35,
+    "review_after_days": 90,
+    "expire_after_days": 365,
+    "minimum_verified_sources": 1,
+    "minimum_official_sources": 1,
+    "minimum_trust_score": 50,
+    "minimum_freshness": 35,
+    "duplicate_similarity": 0.88
   }
 }

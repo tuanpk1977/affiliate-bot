@@ -1,8 +1,11 @@
 {
   "records": 0,
   "verified": 0,
-  "estimated": 0,
+  "pending": 0,
   "needs_review": 0,
-  "missing": 0,
-  "brands": []
+  "expired": 0,
+  "duplicate": 0,
+  "brands": [],
+  "average_trust": 0.0,
+  "average_freshness": 0.0
 }

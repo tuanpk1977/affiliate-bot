@@ -105,10 +105,14 @@ class VerifiedSourceAcquisitionTests(unittest.TestCase):
             self.assertEqual(result, 0)
             normalized = json.loads((data_dir / "source_registry.json").read_text(encoding="utf-8"))
             self.assertEqual(len(normalized), 1)
+            self.assertIn("verification_status", normalized[0])
+            self.assertIn("freshness_score", normalized[0])
             self.assertTrue((data_dir / "source_registry.csv").exists())
             self.assertTrue((data_dir / "source_registry_report.json").exists())
             self.assertTrue((data_dir / "source_registry_report.csv").exists())
             self.assertTrue((data_dir / "source_registry_report.md").exists())
+            self.assertTrue((data_dir / "source_review_queue.json").exists())
+            self.assertTrue((data_dir / "knowledge_dashboard.json").exists())
 
 
 if __name__ == "__main__":

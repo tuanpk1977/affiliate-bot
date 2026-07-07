@@ -11,9 +11,12 @@ from typing import Any
 from modules.competitor_snapshot_ingestion import CompetitorSnapshotIngestion
 from config import settings
 from modules.content_outline_engine import ContentOutlineEngine
+from modules.knowledge_dashboard import KnowledgeDashboard
+from modules.knowledge_registry import KnowledgeRegistry
 from modules.keyword_intent_engine import KeywordIntentEngine
 from modules.search_intent_analyzer import SearchIntentAnalyzer
 from modules.source_connectors import SourceConnectorFramework
+from modules.source_review import SourceReview
 from modules.topic_cluster_engine import TopicClusterEngine
 from modules.verified_source_acquisition import VerifiedSourceAcquisition
 
@@ -179,6 +182,10 @@ class ResearchIntelligencePlatform:
         self.cache_root = self.data_dir / "research_cache"
         self.queue = ResearchEnrichmentQueue(self.data_dir, self.research_config.get("enrichment_queue", {}))
         self.connectors = SourceConnectorFramework(offers_file=self.offers_file, affiliate_links_file=self.affiliate_links_file)
+        self.knowledge_config = self.config.get("knowledge_review", {})
+        self.knowledge_registry = KnowledgeRegistry(self.data_dir, self.knowledge_config)
+        self.source_review = SourceReview(self.data_dir, self.knowledge_config, self.knowledge_registry)
+        self.knowledge_dashboard = KnowledgeDashboard(self.data_dir, self.knowledge_config, self.knowledge_registry)
         self.verified_sources = VerifiedSourceAcquisition(
             registry_json=self.data_dir / "source_registry.json",
             registry_csv=self.data_dir / "source_registry.csv",
@@ -509,6 +516,9 @@ class ResearchIntelligencePlatform:
     def _build_sources(self, keyword: str, entities: dict[str, Any]) -> dict[str, Any]:
         connector_rows = self.connectors.collect(keyword, entities)
         verified_registry = self.verified_sources.acquire(keyword, entities)
+        governance = self.knowledge_registry.sync_acquisition(keyword, verified_registry)
+        review_queue = self.source_review.sync_from_registry(self.knowledge_registry.load_registry())
+        knowledge_health = self.knowledge_dashboard.generate()
         trusted_sources = {
             "official_documentation": connector_rows["official_docs"],
             "pricing_pages": connector_rows["pricing_page"],
@@ -529,17 +539,22 @@ class ResearchIntelligencePlatform:
             "reference_count": verified,
             "estimated_source_count": estimated,
             "missing_source_count": missing,
-            "verified_registry_records": verified_registry.get("registry_records", {}),
-            "verified_sources": verified_registry.get("verified_sources", []),
-            "missing_verified_sources": verified_registry.get("missing_verified_sources", []),
-            "source_confidence": verified_registry.get("source_confidence", 0),
-            "source_status": verified_registry.get("source_status", "missing"),
-            "official_docs_score": verified_registry.get("official_docs_score", 0),
-            "pricing_source_score": verified_registry.get("pricing_source_score", 0),
-            "affiliate_source_score": verified_registry.get("affiliate_source_score", 0),
-            "changelog_source_score": verified_registry.get("changelog_source_score", 0),
-            "competitor_source_score": verified_registry.get("competitor_source_score", 0),
-            "total_verified_source_score": verified_registry.get("total_verified_source_score", 0),
+            "verified_registry_records": governance.get("registry_rows", []),
+            "verified_sources": governance.get("verified_sources", []),
+            "pending_sources": governance.get("pending_sources", []),
+            "expired_sources": governance.get("expired_sources", []),
+            "duplicate_sources": governance.get("duplicate_sources", []),
+            "missing_verified_sources": governance.get("missing_verified_sources", []),
+            "source_confidence": governance.get("source_confidence", 0),
+            "source_status": governance.get("source_status", "missing"),
+            "official_docs_score": governance.get("official_docs_score", 0),
+            "pricing_source_score": governance.get("pricing_source_score", 0),
+            "affiliate_source_score": governance.get("affiliate_source_score", 0),
+            "changelog_source_score": governance.get("changelog_source_score", 0),
+            "competitor_source_score": governance.get("competitor_source_score", 0),
+            "total_verified_source_score": governance.get("total_verified_source_score", 0),
+            "review_queue_size": len(review_queue),
+            "knowledge_dashboard": knowledge_health,
         }
 
     def _build_outline(
@@ -751,6 +766,7 @@ class ResearchIntelligencePlatform:
     def _passes_verified_source_gate(self, sources: dict[str, Any], gate_config: dict[str, Any]) -> tuple[bool, list[str]]:
         if not bool(gate_config.get("enabled", True)):
             return True, []
+        knowledge_gate = self.config.get("knowledge_review", {})
         thresholds = {
             "official_docs_score": float(gate_config.get("minimum_official_docs_score", 20)),
             "pricing_source_score": float(gate_config.get("minimum_pricing_source_score", 20)),
@@ -762,6 +778,25 @@ class ResearchIntelligencePlatform:
             actual = float(sources.get(key, 0))
             if actual < threshold:
                 failures.append(f"{key} {actual} below {threshold}")
+        verified_sources = [row for row in sources.get("verified_sources", []) if isinstance(row, dict)]
+        minimum_verified_sources = int(float(knowledge_gate.get("minimum_verified_sources", 1)))
+        minimum_official_sources = int(float(knowledge_gate.get("minimum_official_sources", 1)))
+        minimum_trust_score = float(knowledge_gate.get("minimum_trust_score", 50))
+        minimum_freshness = float(knowledge_gate.get("minimum_freshness", 35))
+        if len(verified_sources) < minimum_verified_sources:
+            failures.append(f"verified_sources {len(verified_sources)} below {minimum_verified_sources}")
+        official_verified = [
+            row for row in verified_sources if str(row.get("source_type", "")) in {"official_docs", "api_docs", "product_page"}
+        ]
+        if len(official_verified) < minimum_official_sources:
+            failures.append(f"official_verified_sources {len(official_verified)} below {minimum_official_sources}")
+        if verified_sources:
+            average_trust = sum(float(row.get("trust_score", 0)) for row in verified_sources) / len(verified_sources)
+            average_freshness = sum(float(row.get("freshness_score", 0)) for row in verified_sources) / len(verified_sources)
+            if average_trust < minimum_trust_score:
+                failures.append(f"average_trust {round(average_trust, 2)} below {minimum_trust_score}")
+            if average_freshness < minimum_freshness:
+                failures.append(f"average_freshness {round(average_freshness, 2)} below {minimum_freshness}")
         return not failures, failures
 
     def _entity_coverage_score(self, entities: dict[str, Any]) -> int:

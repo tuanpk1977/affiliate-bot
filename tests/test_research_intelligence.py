@@ -109,6 +109,9 @@ class ResearchIntelligenceTests(unittest.TestCase):
             self.assertIn("overall_score", package.quality)
             self.assertEqual(package.sources["source_status"], "verified")
             self.assertGreaterEqual(package.quality["total_verified_source_score"], 35)
+            self.assertTrue((data_dir / "source_review_queue.json").exists())
+            self.assertTrue((data_dir / "source_review_report.json").exists())
+            self.assertTrue((data_dir / "knowledge_dashboard.json").exists())
 
             package_dir = Path(package.package_dir)
             self.assertTrue((package_dir / "keyword.json").exists())
@@ -275,6 +278,91 @@ class ResearchIntelligenceTests(unittest.TestCase):
 
             self.assertFalse(gate.passed)
             self.assertEqual(gate.status, "needs_enrichment")
+
+    def test_expired_verified_sources_do_not_raise_confidence(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            offers_file = data_dir / "offers.csv"
+            affiliate_links_file = data_dir / "affiliate_links.csv"
+            offers_file.parent.mkdir(parents=True, exist_ok=True)
+            offers_file.write_text(
+                "\n".join(
+                    [
+                        "offer_id,brand_name,website,affiliate_url,niche,commission_type,commission_rate,flat_commission,cookie_days,recurring,traffic_policy,direct_linking_allowed,brand_bidding_allowed,vendor_trust,buyer_intent,notes",
+                        "cursor,Cursor,https://cursor.com,https://cursor.com/aff,AI Coding,recurring,25,0,30,True,allowed,False,False,88,84,fixture",
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            affiliate_links_file.write_text(
+                "\n".join(
+                    [
+                        "tool_slug,tool_name,brand,slug,official_url,affiliate_url,affiliate_status,status,notes,commission_note,network,approved",
+                        "cursor,Cursor,Cursor,cursor,https://cursor.com,https://cursor.com/aff,active,active,fixture,25% recurring,PartnerStack,True",
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            (data_dir / "source_registry.json").write_text(
+                json.dumps(
+                    [
+                        {
+                            "brand": "Cursor",
+                            "slug": "cursor",
+                            "source_type": "official_docs",
+                            "source_name": "Cursor docs",
+                            "source_url": "https://cursor.com/docs",
+                            "verification_status": "verified",
+                            "confidence": 92,
+                            "verification_date": "2024-01-01T00:00:00+00:00",
+                        },
+                        {
+                            "brand": "Cursor",
+                            "slug": "cursor",
+                            "source_type": "pricing_page",
+                            "source_name": "Cursor pricing",
+                            "source_url": "https://cursor.com/pricing",
+                            "verification_status": "verified",
+                            "confidence": 92,
+                            "verification_date": "2024-01-01T00:00:00+00:00",
+                        },
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            engine = ResearchIntelligencePlatform(
+                data_dir=data_dir,
+                offers_file=offers_file,
+                affiliate_links_file=affiliate_links_file,
+                config={
+                    "research_intelligence": {
+                        "quality_gate": {"threshold": 0, "enabled": True, "allow_override": False},
+                        "verified_source_gate": {
+                            "enabled": True,
+                            "minimum_official_docs_score": 20,
+                            "minimum_pricing_source_score": 20,
+                            "minimum_affiliate_source_score": 0,
+                            "minimum_total_score": 35,
+                        },
+                    },
+                    "knowledge_review": {
+                        "minimum_verified_sources": 1,
+                        "minimum_official_sources": 1,
+                        "minimum_trust_score": 50,
+                        "minimum_freshness": 35,
+                        "review_after_days": 90,
+                        "expire_after_days": 365,
+                    },
+                },
+            )
+
+            package = engine.build_research_package({"topic": "cursor pricing", "slug": "cursor-pricing"})
+            gate = engine.evaluate_quality_gate(package, topic={"topic": package.keyword, "slug": package.slug})
+
+            self.assertFalse(gate.passed)
+            self.assertIn(package.sources["source_status"], {"needs_review", "missing"})
+            self.assertLessEqual(float(package.sources["source_confidence"]), 45)
 
     def test_enrichment_runner_updates_status_when_local_snapshot_improves_quality(self) -> None:
         with TemporaryDirectory() as temp_dir:
