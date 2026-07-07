@@ -21,6 +21,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--reason", default="", help="Reason to store when rejecting a slug.")
     parser.add_argument("--publish", metavar="SLUG", help="Publish one locally approved slug to local output only.")
     parser.add_argument("--publish-all", action="store_true", help="Publish all slugs already approved for local publish.")
+    parser.add_argument("--request-topic", metavar="TOPIC", help="Create a research package and draft for a custom requested topic.")
+    parser.add_argument("--category", default="", help="Optional category for a custom requested topic.")
+    parser.add_argument("--intent", default="", help="Optional intent hint for a custom requested topic.")
     parser.add_argument("--approver", default="editor", help="Name to record for approval or rejection actions.")
     return parser
 
@@ -52,7 +55,17 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(console.publish_all_approved(), indent=2, ensure_ascii=False))
         return 0
 
-    if args.build or not any((args.list, args.approve, args.reject, args.publish, args.publish_all)):
+    if args.request_topic:
+        print(
+            json.dumps(
+                console.request_custom_topic(args.request_topic, category=args.category, intent=args.intent),
+                indent=2,
+                ensure_ascii=False,
+            )
+        )
+        return 0
+
+    if args.build or not any((args.list, args.approve, args.reject, args.publish, args.publish_all, args.request_topic)):
         print(json.dumps(console.rebuild_outputs(), indent=2, ensure_ascii=False))
         return 0
 

@@ -8,7 +8,7 @@
     "slug": "best-ai-productivity-software",
     "topic": "best ai productivity software",
     "url": "https://smileaireviewhub.com/best-ai-productivity-software/",
-    "status": "needs_human_review",
+    "status": "human_approved",
     "reviewed_at": "2026-07-07T11:51:48.162268+00:00",
     "word_count": 3418,
     "factual_quality": 70.0,
@@ -27,26 +27,24 @@
   "human_approval": {
     "slug": "best-ai-productivity-software",
     "topic": "best ai productivity software",
-    "status": "needs_human_review",
+    "status": "human_approved",
     "required": true,
     "reviewed_at": "2026-07-07T11:51:48.162268+00:00",
-    "approved_at": "",
-    "approved_by": "",
+    "approved_at": "2026-07-07T12:43:34.629475+00:00",
+    "approved_by": "editor",
     "reason": ""
   },
   "publish_gate": {
     "slug": "best-ai-productivity-software",
     "topic": "best ai productivity software",
-    "status": "blocked",
-    "checked_at": "2026-07-07T11:51:48.169437+00:00",
-    "failures": [
-      "human approval missing"
-    ],
+    "status": "published_local",
+    "checked_at": "2026-07-07T12:43:34.632224+00:00",
+    "failures": [],
     "research_quality_passed": true,
     "verified_source_score_passed": true,
     "knowledge_freshness_passed": true,
     "ai_review_passed": true,
-    "human_approval_passed": false,
+    "human_approval_passed": true,
     "broken_links": [],
     "duplicate_title_meta": false,
     "affiliate_disclosure_present": true,
@@ -54,10 +52,11 @@
     "minimum_readability_score_passed": true,
     "business_score": 61.35,
     "readability_score": 58.37,
-    "publish_ready": false,
+    "publish_ready": true,
     "url": "https://smileaireviewhub.com/best-ai-productivity-software/",
     "title": "best ai productivity software 2026: Pricing, Pros, Cons",
-    "description": "Independent best ai productivity software guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice."
+    "description": "Independent best ai productivity software guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice.",
+    "published_at": "2026-07-07T12:45:19.295693+00:00"
   },
   "research_quality_gate": {
     "passed": true,
@@ -65,5 +64,15 @@
     "threshold": 60.0,
     "override_used": false,
     "status": "passed"
-  }
+  },
+  "editorial": {
+    "author_name": "Nguyen Quoc Tuan",
+    "author_profile_url": "https://smileaireviewhub.com/about-author/",
+    "author_bio": "Independent AI & SaaS researcher covering software, automation, and practical buyer workflows.",
+    "reviewed_by": "editor",
+    "last_updated": "2026-07-07T12:45:19.295693+00:00",
+    "editorial_policy_url": "https://smileaireviewhub.com/editorial-policy/",
+    "affiliate_disclosure_url": "https://smileaireviewhub.com/affiliate-disclosure/"
+  },
+  "social_folder": "D:\\AFFILATE BOT\\social_drafts\\2026-07-07\\best-ai-productivity-software"
 }

@@ -4,6 +4,7 @@ import csv
 import html
 import json
 import math
+import os
 import re
 from datetime import UTC, datetime
 from pathlib import Path
@@ -67,6 +68,7 @@ class EditorialOperationsConsole:
         self.site_output_dir = site_output_dir or settings.site_output_dir
         self.published_dir = published_dir or (self.data_dir / "published_static_pages")
         self.drafts_dir = self.data_dir / "production_article_drafts"
+        self.social_root = settings.base_dir / "social_drafts"
         self.console_json = self.data_dir / "editorial_operations_console.json"
         self.console_html = self.data_dir / "editorial_operations_console.html"
         self.console_csv = self.data_dir / "editorial_operations_console.csv"
@@ -114,6 +116,52 @@ class EditorialOperationsConsole:
         self.rebuild_outputs()
         return {"approved_count": len(approved), "published": published}
 
+    def request_custom_topic(self, topic_name: str, *, category: str = "", intent: str = "") -> dict[str, Any]:
+        from modules.content_growth_pipeline import generate_production_article_draft_from_package, get_research_platform
+
+        keyword = topic_name.strip()
+        if not keyword:
+            raise ValueError("Topic name is required.")
+        slug = self._slugify(keyword)
+        topic = {
+            "topic": keyword,
+            "slug": slug,
+            "title": keyword,
+            "category": category.strip(),
+            "search_intent": intent.strip(),
+            "requested_intent": intent.strip(),
+        }
+        platform = get_research_platform()
+        package = platform.build_research_package(topic, force_refresh=True)
+        package_path = Path(package.package_dir) / "package.json"
+        payload = _read_json(package_path, {})
+        payload["request_context"] = {
+            "requested_topic": keyword,
+            "category": category.strip(),
+            "intent": intent.strip(),
+            "created_via": "editorial_console",
+        }
+        _write_json(package_path, payload)
+        gate = platform.evaluate_quality_gate(package, topic=topic, allow_override=False)
+        result: dict[str, Any] = {
+            "slug": slug,
+            "topic": keyword,
+            "category": category.strip(),
+            "intent": intent.strip(),
+            "quality_gate": {
+                "passed": gate.passed,
+                "score": gate.score,
+                "threshold": gate.threshold,
+                "status": gate.status,
+            },
+        }
+        if gate.passed:
+            result["draft"] = generate_production_article_draft_from_package(slug)
+        else:
+            result["queue"] = str(self.data_dir / "research_enrichment_queue.json")
+        self.rebuild_outputs()
+        return result
+
     def _publish_slug(self, slug: str, *, rebuild: bool) -> dict[str, Any]:
         publish_rows = _read_json(self.publish_queue_path, [])
         publish_row = next((row for row in publish_rows if str(row.get("slug", "")) == slug), None)
@@ -148,6 +196,7 @@ class EditorialOperationsConsole:
         slugs = sorted({*review_rows.keys(), *human_rows.keys(), *publish_rows.keys(), *draft_slugs})
         rows: list[dict[str, Any]] = []
         for slug in slugs:
+            self._ensure_operator_assets(slug)
             metadata = self._load_metadata(slug)
             review = review_rows.get(slug) or metadata.get("review") or {}
             human = human_rows.get(slug) or metadata.get("human_approval") or {}
@@ -158,6 +207,8 @@ class EditorialOperationsConsole:
             draft_dir = self.drafts_dir / slug
             html_stats = self._extract_html_stats(draft_dir / "index.html", metadata=metadata, review=review)
             command_paths = self._build_action_launchers(slug)
+            social = self._collect_social_drafts(slug)
+            social_actions = self._build_social_actions(slug, social)
             publish_enabled = self._publish_enabled(review, quality_gate, human, publish)
             rows.append(
                 {
@@ -178,6 +229,11 @@ class EditorialOperationsConsole:
                     "next_command": self._next_command(slug, human, publish),
                     "website_preview": self._website_preview_link(slug, publish),
                     "stats": html_stats,
+                    "review_score": round(float(review.get("publish_readiness") or 0), 2),
+                    "business_score": round(float(review.get("business_value") or 0), 2),
+                    "author": metadata.get("editorial") if isinstance(metadata.get("editorial"), dict) else {},
+                    "social_drafts": social,
+                    "social_actions": social_actions,
                     "actions": {
                         "approve": self._relative_link(command_paths["approve"]),
                         "reject": self._relative_link(command_paths["reject"]),
@@ -357,11 +413,127 @@ class EditorialOperationsConsole:
             return ""
         return path.relative_to(self.data_dir).as_posix()
 
+    def _href_for_path(self, path: Path, *, from_dir: Path | None = None) -> str:
+        base = from_dir or self.data_dir
+        try:
+            return os.path.relpath(path, base).replace("\\", "/")
+        except Exception:
+            return path.as_posix()
+
+    def _slugify(self, value: str) -> str:
+        cleaned = re.sub(r"[^a-z0-9]+", "-", value.strip().lower())
+        return cleaned.strip("-")
+
+    def _ensure_operator_assets(self, slug: str) -> None:
+        draft_dir = self.drafts_dir / slug
+        metadata = self._load_metadata(slug)
+        needs_sync = (
+            draft_dir.exists()
+            and (
+                not isinstance(metadata.get("editorial"), dict)
+                or not str(metadata.get("social_folder") or "").strip()
+                or not (draft_dir / "social_drafts_index.html").exists()
+            )
+        )
+        if needs_sync:
+            try:
+                from modules.content_growth_pipeline import sync_production_draft_assets
+
+                sync_production_draft_assets(slug)
+                metadata = self._load_metadata(slug)
+            except Exception:
+                metadata = self._load_metadata(slug)
+        social = self._collect_social_drafts(slug)
+        self._write_social_index(slug, social)
+
     def _preview_website_link(self) -> str:
         target = self.site_output_dir / "index.html"
         if not target.exists():
             return ""
         return "../site_output/index.html"
+
+    def _social_folder_for_slug(self, slug: str) -> Path | None:
+        metadata = self._load_metadata(slug)
+        metadata_folder = str(metadata.get("social_folder") or "").strip()
+        if metadata_folder:
+            path = Path(metadata_folder)
+            if path.exists():
+                return path
+        if not self.social_root.exists():
+            return None
+        candidates = sorted(self.social_root.glob(f"*/{slug}"), key=lambda path: path.stat().st_mtime, reverse=True)
+        return candidates[0] if candidates else None
+
+    def _collect_social_drafts(self, slug: str) -> dict[str, str]:
+        folder = self._social_folder_for_slug(slug)
+        if folder is None or not folder.exists():
+            return {}
+        result: dict[str, str] = {}
+        label_map = {
+            "facebook.md": "facebook",
+            "quora.md": "quora",
+            "linkedin.md": "linkedin",
+            "x-twitter.md": "x",
+            "reddit.md": "reddit",
+            "devto.md": "devto",
+            "product-hunt.md": "product_hunt",
+            "qiita.md": "qiita",
+            "medium.md": "medium",
+            "threads.md": "threads",
+            "pinterest.md": "pinterest",
+        }
+        for file_name, label in label_map.items():
+            path = folder / file_name
+            if path.exists():
+                result[label] = self._href_for_path(path)
+        return result
+
+    def _write_social_index(self, slug: str, social: dict[str, str]) -> Path:
+        draft_dir = self.drafts_dir / slug
+        draft_dir.mkdir(parents=True, exist_ok=True)
+        target = draft_dir / "social_drafts_index.html"
+        folder = self._social_folder_for_slug(slug)
+        lines = [
+            "<!doctype html>",
+            "<html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">",
+            f"<title>Social Drafts - {html.escape(slug)}</title>",
+            "<style>body{font-family:Georgia,'Segoe UI',serif;background:#faf6ef;color:#201a14;margin:0;padding:24px}.card{max-width:860px;margin:0 auto;background:#fff;border:1px solid #e7dac6;border-radius:16px;padding:20px}a{display:inline-block;margin:6px 10px 6px 0;color:#0f5f63;text-decoration:none}.platform{padding:12px 0;border-top:1px solid #eee4d3}</style></head><body>",
+            "<main class='card'><h1>Social Drafts</h1>",
+        ]
+        if not social:
+            lines.append("<p>No social drafts found.</p>")
+        else:
+            for label, rel_path in social.items():
+                href = rel_path
+                if folder is not None:
+                    file_name = f"{label.replace('_', '-')}.md" if label not in {"x"} else "x-twitter.md"
+                    if label == "product_hunt":
+                        file_name = "product-hunt.md"
+                    elif label == "devto":
+                        file_name = "devto.md"
+                    elif label == "facebook":
+                        file_name = "facebook.md"
+                    elif label == "linkedin":
+                        file_name = "linkedin.md"
+                    elif label == "quora":
+                        file_name = "quora.md"
+                    elif label == "reddit":
+                        file_name = "reddit.md"
+                    elif label == "qiita":
+                        file_name = "qiita.md"
+                    elif label == "medium":
+                        file_name = "medium.md"
+                    elif label == "threads":
+                        file_name = "threads.md"
+                    elif label == "pinterest":
+                        file_name = "pinterest.md"
+                    href = self._href_for_path(folder / file_name, from_dir=draft_dir)
+                lines.append(
+                    f"<div class='platform'><strong>{html.escape(label.replace('_', ' ').title())}</strong><br><a href='{html.escape(href, quote=True)}'>Open Draft</a></div>"
+                )
+        lines.append("</main></body></html>")
+        target.write_text("".join(lines), encoding="utf-8")
+        return target
 
     def _last_updated(self, slug: str, review: dict[str, Any], human: dict[str, Any], publish: dict[str, Any]) -> str:
         candidates = [
@@ -429,6 +601,28 @@ class EditorialOperationsConsole:
             "publish": self._build_slug_launcher(f"publish-{slug}", f"python scripts/editorial_console.py --publish {slug}"),
         }
 
+    def _build_social_actions(self, slug: str, social: dict[str, str]) -> dict[str, str]:
+        folder = self._social_folder_for_slug(slug)
+        actions: dict[str, str] = {
+            "open_social_drafts": self._relative_link(self.drafts_dir / slug / "social_drafts_index.html"),
+            "open_all_social_drafts": self._relative_link(self._build_open_folder_launcher(slug, folder)) if folder else "",
+        }
+        copy_platforms = {
+            "facebook": "Copy Facebook Draft",
+            "quora": "Copy Quora Draft",
+            "linkedin": "Copy LinkedIn Draft",
+            "x": "Copy X Draft",
+        }
+        for platform in copy_platforms:
+            rel_path = social.get(platform, "")
+            if rel_path:
+                actions[f"copy_{platform}"] = self._relative_link(
+                    self._build_copy_draft_launcher(slug, platform, (self.data_dir / rel_path).resolve())
+                )
+        for platform, rel_path in social.items():
+            actions[f"open_{platform}"] = rel_path
+        return actions
+
     def _build_slug_launcher(self, name: str, command: str) -> Path:
         self.actions_dir.mkdir(parents=True, exist_ok=True)
         path = self.actions_dir / f"{name}.cmd"
@@ -448,6 +642,38 @@ class EditorialOperationsConsole:
 
     def _build_global_launcher(self, name: str, command: str) -> Path:
         return self._build_slug_launcher(name, command)
+
+    def _build_open_folder_launcher(self, slug: str, folder: Path) -> Path:
+        self.actions_dir.mkdir(parents=True, exist_ok=True)
+        path = self.actions_dir / f"open-social-{slug}.cmd"
+        path.write_text(
+            "\n".join(
+                [
+                    "@echo off",
+                    f'explorer "{folder}"',
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
+        return path
+
+    def _build_copy_draft_launcher(self, slug: str, platform: str, source_file: Path) -> Path:
+        self.actions_dir.mkdir(parents=True, exist_ok=True)
+        path = self.actions_dir / f"copy-{platform}-{slug}.cmd"
+        path.write_text(
+            "\n".join(
+                [
+                    "@echo off",
+                    f'powershell -NoProfile -Command "Get-Content -LiteralPath \\"{source_file}\\" -Raw | Set-Clipboard"',
+                    "echo Draft copied to clipboard.",
+                    "pause",
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
+        return path
 
     def _build_slug_reject_launcher(self, slug: str) -> Path:
         self.actions_dir.mkdir(parents=True, exist_ok=True)
@@ -554,7 +780,19 @@ class EditorialOperationsConsole:
                 ("blocked", "Blocked"),
             )
         )
-        rows_html = "".join(self._draft_card_html(row) for row in payload["items"])
+        list_rows = "".join(
+            f"""
+            <tr class="row-link" data-slug="{html.escape(str(row['slug']), quote=True)}">
+              <td><strong>{html.escape(str(row['title']))}</strong><br><code>{html.escape(str(row['slug']))}</code></td>
+              <td>{self._badge_html(row['status'], self._status_tone(row['status']))}</td>
+              <td>{html.escape(str(row['word_count']))}</td>
+              <td>{html.escape(str(row['review_score']))}</td>
+              <td>{html.escape(str(row['last_updated']))}</td>
+            </tr>
+            """
+            for row in payload["items"]
+        )
+        payload_json = json.dumps(payload, ensure_ascii=False).replace("</", "<\\/")
         html_text = f"""<!doctype html>
 <html lang="en">
 <head>
@@ -563,12 +801,12 @@ class EditorialOperationsConsole:
   <title>Editorial Operations Console</title>
   <style>
     body {{ margin: 0; font-family: Georgia, 'Segoe UI', serif; background: linear-gradient(180deg, #f4efe6, #fffdfa); color: #201a14; }}
-    .wrap {{ max-width: 1320px; margin: 0 auto; padding: 28px 20px 48px; }}
+    .wrap {{ max-width: 1380px; margin: 0 auto; padding: 28px 20px 48px; }}
     .hero {{ background: #17324d; color: #fef8ee; border-radius: 18px; padding: 24px; }}
     .grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin: 18px 0 26px; }}
     .card {{ background: #fff; border: 1px solid #e7dac6; border-radius: 16px; padding: 18px; box-shadow: 0 8px 28px rgba(23, 50, 77, 0.08); }}
-    .draft-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 18px; }}
-    .draft-card {{ background: #fff; border: 1px solid #e7dac6; border-radius: 18px; padding: 20px; box-shadow: 0 8px 28px rgba(23, 50, 77, 0.08); }}
+    .layout {{ display: grid; grid-template-columns: minmax(340px, 460px) minmax(0, 1fr); gap: 18px; align-items: start; }}
+    .detail-card {{ background: #fff; border: 1px solid #e7dac6; border-radius: 18px; padding: 20px; box-shadow: 0 8px 28px rgba(23, 50, 77, 0.08); position: sticky; top: 18px; }}
     .status-row {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 14px; }}
     .badge {{ display: inline-block; padding: 6px 10px; border-radius: 999px; font-size: 13px; font-weight: 700; }}
     .badge.blocked {{ background: #fee2e2; color: #991b1b; }}
@@ -585,11 +823,18 @@ class EditorialOperationsConsole:
     .stats {{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; }}
     .stat {{ background: #faf6ef; border: 1px solid #eee4d3; border-radius: 12px; padding: 10px; }}
     .stat strong {{ display: block; margin-bottom: 4px; }}
+    .author-box {{ background: #faf6ef; border: 1px solid #eee4d3; border-radius: 12px; padding: 12px; margin: 12px 0 16px; }}
+    .social-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }}
+    table {{ width: 100%; border-collapse: collapse; }}
+    th, td {{ text-align: left; padding: 12px; border-bottom: 1px solid #eee4d3; vertical-align: top; }}
+    th {{ background: #f8f2e8; }}
+    .row-link {{ cursor: pointer; }}
+    .row-link.active {{ background: #f5eee1; }}
     code {{ background: #f3ebde; padding: 2px 6px; border-radius: 6px; }}
     a {{ color: #0f5f63; text-decoration: none; }}
     .panel {{ margin-top: 20px; }}
     .small {{ color: #6b5d4a; font-size: 14px; }}
-    @media (max-width: 900px) {{ .stats {{ grid-template-columns: 1fr; }} .draft-grid {{ grid-template-columns: 1fr; }} }}
+    @media (max-width: 980px) {{ .layout {{ grid-template-columns: 1fr; }} .detail-card {{ position: static; }} .stats {{ grid-template-columns: 1fr; }} }}
   </style>
 </head>
 <body>
@@ -597,14 +842,15 @@ class EditorialOperationsConsole:
     <section class="hero">
       <p>Local-only operator console</p>
       <h1>Editorial Operations Console</h1>
-      <p>Open draft files directly from disk, review state across queues, and move approved content forward without deploy, push, or IndexNow.</p>
+      <p>Review drafts, approve or reject safely, inspect social drafts, and publish locally only after the existing gates pass.</p>
     </section>
     <section class="grid">{cards}</section>
     <section class="card panel">
-      <h2>Next Command</h2>
-      <p>If pending human review: <code>python scripts/editorial_console.py --approve best-ai-productivity-software</code></p>
-      <p>If approved but not published: <code>python scripts/editorial_console.py --publish best-ai-productivity-software</code></p>
-      <p>To refresh the console only: <code>python scripts/editorial_console.py --build</code></p>
+      <h2>Core Commands</h2>
+      <p><code>python scripts/editorial_console.py --build</code></p>
+      <p><code>python scripts/editorial_console.py --request-topic "best AI tools for small business" --category "AI Tools" --intent "commercial"</code></p>
+      <p><code>python scripts/editorial_console.py --approve best-ai-productivity-software</code></p>
+      <p><code>python scripts/editorial_console.py --publish best-ai-productivity-software</code></p>
     </section>
     <section class="card panel">
       <h2>Console Actions</h2>
@@ -613,70 +859,136 @@ class EditorialOperationsConsole:
         {self._button_html(global_actions.get('publish_all_approved', ''), 'Publish All Approved', 'success')}
         {self._button_html(global_actions.get('rebuild_console', ''), 'Rebuild Console', 'warn')}
       </div>
-      <p class="small">Publish All Approved only runs for rows already in <code>approved_for_publish</code>. It never auto-approves drafts.</p>
+      <p class="small">Publish All Approved only runs for rows already in <code>approved_for_publish</code>. It never auto-approves drafts or posts to social platforms.</p>
     </section>
     <section class="panel">
-      <div class="draft-grid">{rows_html or '<div class="draft-card"><p>No draft rows found.</p></div>'}</div>
+      <div class="layout">
+        <section class="card">
+          <h2>All Articles</h2>
+          <table>
+            <thead>
+              <tr><th>Article</th><th>Status</th><th>Words</th><th>Review</th><th>Updated</th></tr>
+            </thead>
+            <tbody>{list_rows or '<tr><td colspan="5">No article rows found.</td></tr>'}</tbody>
+          </table>
+        </section>
+        <section class="detail-card">
+          <div id="detail-panel"><p>Select an article from the list.</p></div>
+        </section>
+      </div>
     </section>
   </main>
+  <script>
+    const consoleData = {payload_json};
+    const items = consoleData.items || [];
+    const panel = document.getElementById('detail-panel');
+    const rows = Array.from(document.querySelectorAll('.row-link'));
+
+    function esc(value) {{
+      return String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
+    }}
+
+    function button(href, label, tone, disabled) {{
+      const cls = `button ${{tone || ''}} ${{disabled || !href ? 'disabled' : ''}}`.trim();
+      if (disabled || !href) return `<span class="${{cls}}">${{esc(label)}}</span>`;
+      return `<a class="${{cls}}" href="${{esc(href)}}">${{esc(label)}}</a>`;
+    }}
+
+    function badge(label, tone) {{
+      return `<span class="badge ${{esc(tone)}}">${{esc(label)}}</span>`;
+    }}
+
+    function stat(label, value) {{
+      return `<div class="stat"><strong>${{esc(label)}}</strong><span>${{esc(value)}}</span></div>`;
+    }}
+
+    function statusTone(value) {{
+      const normalized = String(value || '').toLowerCase();
+      if (normalized === 'published_local' || normalized === 'published') return 'published';
+      if (['approved_for_publish', 'human_approved', 'ai_review_passed', 'passed'].includes(normalized)) return 'approved';
+      if (['needs_human_review', 'pending', 'waiting', 'needs_revision'].includes(normalized)) return 'waiting';
+      return 'blocked';
+    }}
+
+    function renderDetail(item) {{
+      const author = item.author || {{}};
+      const stats = item.stats || {{}};
+      const social = item.social_actions || {{}};
+      const socialDrafts = item.social_drafts || {{}};
+      panel.innerHTML = `
+        <p class="small">Selected article</p>
+        <h2>${{esc(item.title)}}</h2>
+        <p><code>${{esc(item.slug)}}</code></p>
+        <div class="status-row">
+          ${{badge('Overall: ' + item.status, statusTone(item.status))}}
+          ${{badge('Research: ' + item.research_quality_status, statusTone(item.research_quality_status))}}
+          ${{badge('AI Review: ' + item.ai_review_status, statusTone(item.ai_review_status))}}
+          ${{badge('Human: ' + item.human_approval_status, statusTone(item.human_approval_status))}}
+          ${{badge('Publish: ' + item.publish_gate_status, statusTone(item.publish_gate_status))}}
+        </div>
+        <div class="button-row">
+          ${{button(item.article_markdown, 'Open Draft', '', false)}}
+          ${{button(item.article_html, 'Open HTML Preview', '', false)}}
+          ${{button(item.review_summary, 'Open Review Summary', '', false)}}
+          ${{button(item.metadata_json, 'Open Metadata', '', false)}}
+          ${{button(social.open_social_drafts, 'Open Social Drafts', 'warn', false)}}
+          ${{button(item.actions.approve, 'Approve', 'success', item.human_approval_status !== 'needs_human_review')}}
+          ${{button(item.actions.reject, 'Reject', 'danger', item.publish_gate_status === 'published_local')}}
+          ${{button(item.actions.publish, 'Publish', 'primary', !item.publish_enabled)}}
+        </div>
+        <div class="button-row">
+          ${{button(item.website_preview, 'Preview Website', 'warn', !item.website_preview)}}
+          ${{button(social.open_all_social_drafts, 'Open All Social Drafts', '', !social.open_all_social_drafts)}}
+          ${{button(social.copy_facebook, 'Copy Facebook Draft', '', !social.copy_facebook)}}
+          ${{button(social.copy_quora, 'Copy Quora Draft', '', !social.copy_quora)}}
+          ${{button(social.copy_linkedin, 'Copy LinkedIn Draft', '', !social.copy_linkedin)}}
+          ${{button(social.copy_x, 'Copy X Draft', '', !social.copy_x)}}
+        </div>
+        <div class="author-box">
+          <p><strong>Author:</strong> ${{esc(author.author_name || '')}}</p>
+          <p><strong>Author profile:</strong> ${{author.author_profile_url ? `<a href="${{esc(author.author_profile_url)}}">${{esc(author.author_profile_url)}}</a>` : 'Not set'}}</p>
+          <p><strong>Author bio:</strong> ${{esc(author.author_bio || '')}}</p>
+          <p><strong>Reviewed by:</strong> ${{esc(author.reviewed_by || '')}}</p>
+          <p><strong>Last updated:</strong> ${{esc(author.last_updated || item.last_updated || '')}}</p>
+          <p><strong>Editorial policy:</strong> ${{author.editorial_policy_url ? `<a href="${{esc(author.editorial_policy_url)}}">${{esc(author.editorial_policy_url)}}</a>` : 'Not set'}}</p>
+          <p><strong>Affiliate disclosure:</strong> ${{author.affiliate_disclosure_url ? `<a href="${{esc(author.affiliate_disclosure_url)}}">${{esc(author.affiliate_disclosure_url)}}</a>` : 'Not set'}}</p>
+        </div>
+        <div class="stats">
+          ${{stat('Word Count', item.word_count)}}
+          ${{stat('SEO Score', stats.seo_score || 0)}}
+          ${{stat('Review Score', item.review_score || 0)}}
+          ${{stat('Business Score', item.business_score || 0)}}
+          ${{stat('Reading Time', (stats.reading_time_minutes || 0) + ' min')}}
+          ${{stat('Internal Links', stats.internal_links || 0)}}
+          ${{stat('External Links', stats.external_links || 0)}}
+          ${{stat('Affiliate Links', stats.affiliate_links || 0)}}
+          ${{stat('Featured Image', stats.featured_image || 'missing')}}
+          ${{stat('Schema Status', stats.schema_status || 'missing')}}
+          ${{stat('Meta Description', stats.meta_description || 'missing')}}
+          ${{stat('OG Image', stats.og_image || 'missing')}}
+          ${{stat('Canonical URL', stats.canonical_url || 'missing')}}
+        </div>
+        <h3>Social Drafts</h3>
+        <div class="social-grid">
+          ${{Object.entries(socialDrafts).map(([platform, href]) => button(href, platform.replaceAll('_', ' ').toUpperCase(), '', false)).join('') || '<p class="small">No social drafts found.</p>'}}
+        </div>
+        <p class="small">Next command: <code>${{esc(item.next_command)}}</code></p>
+      `;
+    }}
+
+    function selectSlug(slug) {{
+      const item = items.find((row) => row.slug === slug);
+      rows.forEach((row) => row.classList.toggle('active', row.dataset.slug === slug));
+      if (item) renderDetail(item);
+    }}
+
+    rows.forEach((row) => row.addEventListener('click', () => selectSlug(row.dataset.slug)));
+    if (items.length) selectSlug(items[0].slug);
+  </script>
 </body>
 </html>
 """
         self.console_html.write_text(html_text, encoding="utf-8")
-
-    def _draft_card_html(self, row: dict[str, Any]) -> str:
-        stats = row["stats"]
-        action_buttons = "".join(
-            [
-                self._button_html(row["article_markdown"], "Open Draft"),
-                self._button_html(row["article_html"], "Open HTML Preview"),
-                self._button_html(row["review_summary"], "Open Review Summary"),
-                self._button_html(row["actions"]["approve"], "Approve", "success", disabled=row["human_approval_status"] != "needs_human_review"),
-                self._button_html(row["actions"]["reject"], "Reject", "danger", disabled=row["publish_gate_status"] == "published_local"),
-                self._button_html(row["actions"]["publish"], "Publish", "primary", disabled=not bool(row["publish_enabled"])),
-            ]
-        )
-        status_chips = "".join(
-            [
-                self._badge_html(f"Overall: {row['status']}", self._status_tone(row["status"])),
-                self._badge_html(f"Research: {row['research_quality_status']}", self._status_tone(row["research_quality_status"])),
-                self._badge_html(f"AI Review: {row['ai_review_status']}", self._status_tone(row["ai_review_status"])),
-                self._badge_html(f"Human: {row['human_approval_status']}", self._status_tone(row["human_approval_status"])),
-                self._badge_html(f"Publish Gate: {row['publish_gate_status']}", self._status_tone(row["publish_gate_status"])),
-            ]
-        )
-        stats_html = "".join(
-            [
-                self._stat_html("Word Count", row["word_count"]),
-                self._stat_html("SEO Score", stats["seo_score"]),
-                self._stat_html("Reading Time", f"{stats['reading_time_minutes']} min"),
-                self._stat_html("Internal Links", stats["internal_links"]),
-                self._stat_html("External Links", stats["external_links"]),
-                self._stat_html("Affiliate Links", stats["affiliate_links"]),
-                self._stat_html("Featured Image", stats["featured_image"]),
-                self._stat_html("Schema Status", stats["schema_status"]),
-                self._stat_html("Meta Description", stats["meta_description"] or "missing"),
-                self._stat_html("OG Image", stats["og_image"]),
-                self._stat_html("Canonical URL", stats["canonical_url"] or "missing"),
-                self._stat_html("Last Updated", row["last_updated"]),
-            ]
-        )
-        return f"""
-        <article class="draft-card">
-          <p class="small">Slug</p>
-          <h2>{html.escape(str(row['title']))}</h2>
-          <p><code>{html.escape(str(row['slug']))}</code></p>
-          <div class="status-row">{status_chips}</div>
-          <div class="button-row">{action_buttons}</div>
-          <div class="button-row">
-            {self._button_html(row["website_preview"], "Preview Website", "warn", disabled=not bool(row["website_preview"]))}
-            {self._button_html(row["metadata_json"], "Open Metadata")}
-            {self._button_html(row["publish_readiness_report"], "Open Publish Report")}
-          </div>
-          <div class="stats">{stats_html}</div>
-          <p class="small">Next command: <code>{html.escape(str(row['next_command']))}</code></p>
-        </article>
-        """
 
     def _button_html(self, href: str, label: str, tone: str = "", *, disabled: bool = False) -> str:
         safe_label = html.escape(label)

@@ -1590,11 +1590,26 @@ Use the local operator console to review and move drafts without deploy, push, o
   - `Open Draft`
   - `Open HTML Preview`
   - `Open Review Summary`
+  - `Open Metadata`
+  - `Open Social Drafts`
+  - `Open All Social Drafts`
+  - `Copy Facebook Draft`
+  - `Copy Quora Draft`
+  - `Copy LinkedIn Draft`
+  - `Copy X Draft`
   - `Approve`
   - `Reject`
   - `Publish`
   - `Publish All Approved`
   - `Preview Website`
+
+The console now has:
+
+- a top-level article list
+- a same-page detail panel for the selected article
+- author/byline metadata visibility
+- social draft visibility
+- local launcher buttons for approve, reject, publish, and copy-to-clipboard social drafts
 
 Commands:
 
@@ -1605,17 +1620,29 @@ python scripts/editorial_console.py --approve best-ai-productivity-software
 python scripts/editorial_console.py --reject best-ai-productivity-software --reason "Needs pricing fix"
 python scripts/editorial_console.py --publish best-ai-productivity-software
 python scripts/editorial_console.py --publish-all
+python scripts/editorial_console.py --request-topic "best AI tools for small business" --category "AI Tools" --intent "commercial"
 ```
 
 Operator rules:
 
 - Review the draft HTML before approving.
+- Use `data/editorial_operations_console.html` as the default operator surface for non-technical review.
 - Review `metadata.json`, `review_summary.md`, and `publish_readiness_report.md` in the same draft folder when the article is affiliate, pricing, comparison, review, or product recommendation content.
+- Review author/byline fields before approving:
+  - `author_name`
+  - `author_profile_url`
+  - `author_bio`
+  - `reviewed_by`
+  - `last_updated`
+  - `editorial_policy_url`
+  - `affiliate_disclosure_url`
+- Social drafts are manual-only. The console can open or copy them, but it must not auto-post to Facebook, Quora, LinkedIn, X, Reddit, DEV.to, Product Hunt, Qiita, or any other network.
 - Human approval is required for affiliate review, pricing, comparison, and product recommendation articles.
 - Informational and tutorial articles can move forward automatically only when every gate passes.
 - Do not publish failed, rejected, blocked, or `needs_enrichment` topics.
 - `--publish` writes only to local outputs and updates the publish queue. It does not deploy, push, or submit IndexNow.
 - `--publish-all` publishes only rows already in `approved_for_publish`. It never approves drafts automatically.
+- `--request-topic` is for off-calendar requests. It builds a research package, runs source and research gates, generates a draft only if the topic passes, and then sends the result into the normal review / approval / publish workflow.
 - The console shows status colors:
   - red = blocked
   - yellow = waiting

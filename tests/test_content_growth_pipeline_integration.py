@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from contextlib import ExitStack
+import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest.mock import patch
@@ -387,6 +388,7 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
             root = Path(temp_dir)
             data_dir = root / "data"
             site_output = root / "site_output"
+            social_drafts = root / "social_drafts"
             slug = "best-ai-productivity-software"
             package_dir = data_dir / "research" / slug
             package_dir.mkdir(parents=True, exist_ok=True)
@@ -597,6 +599,14 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
             self.assertIn("human approval missing", result["page"]["publish_gate"]["failures"])
             self.assertTrue((data_dir / "production_article_drafts" / slug / "article.md").exists())
             self.assertTrue((data_dir / "production_article_drafts" / slug / "index.html").exists())
+            metadata = json.loads((data_dir / "production_article_drafts" / slug / "metadata.json").read_text(encoding="utf-8"))
+            self.assertIn("editorial", metadata)
+            self.assertEqual(metadata["editorial"]["author_name"], "Nguyen Quoc Tuan")
+            self.assertTrue(str(metadata.get("social_folder", "")).endswith(slug))
+            article_html = (data_dir / "production_article_drafts" / slug / "index.html").read_text(encoding="utf-8")
+            self.assertIn("Author and editorial review", article_html)
+            self.assertTrue((social_drafts / "2026-07-07" / slug / "devto.md").exists())
+            self.assertTrue((social_drafts / "2026-07-07" / slug / "product-hunt.md").exists())
 
 
 if __name__ == "__main__":

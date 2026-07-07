@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import patch
 
 from modules.editorial_operations_console import EditorialOperationsConsole
 
@@ -17,9 +18,12 @@ def _seed_console_state(root: Path) -> EditorialOperationsConsole:
     data_dir = root / "data"
     site_output = root / "site_output"
     published_dir = data_dir / "published_static_pages"
+    social_root = root / "social_drafts" / "2026-07-07"
     slug = "best-ai-productivity-software"
     draft_dir = data_dir / "production_article_drafts" / slug
+    social_dir = social_root / slug
     draft_dir.mkdir(parents=True, exist_ok=True)
+    social_dir.mkdir(parents=True, exist_ok=True)
     (draft_dir / "article.md").write_text("# Draft\n", encoding="utf-8")
     (draft_dir / "index.html").write_text(
         """
@@ -43,6 +47,9 @@ def _seed_console_state(root: Path) -> EditorialOperationsConsole:
     (draft_dir / "review_summary.md").write_text("# Review Summary\n", encoding="utf-8")
     (draft_dir / "publish_readiness_report.md").write_text("# Publish Readiness Report\n", encoding="utf-8")
     (draft_dir / "featured_image_prompt.txt").write_text("hero prompt\n", encoding="utf-8")
+    (draft_dir / "social_drafts_index.html").write_text("<html></html>", encoding="utf-8")
+    for file_name in ("facebook.md", "quora.md", "linkedin.md", "x-twitter.md", "reddit.md", "devto.md", "product-hunt.md"):
+        (social_dir / file_name).write_text(f"# {file_name}\n", encoding="utf-8")
 
     review = {
         "slug": slug,
@@ -102,6 +109,16 @@ def _seed_console_state(root: Path) -> EditorialOperationsConsole:
         "title": publish["title"],
         "description": publish["description"],
         "url": publish["url"],
+        "editorial": {
+            "author_name": "Nguyen Quoc Tuan",
+            "author_profile_url": "https://example.com/about-author/",
+            "author_bio": "Independent AI & SaaS researcher.",
+            "reviewed_by": "editor",
+            "last_updated": "2026-07-07T12:45:19+00:00",
+            "editorial_policy_url": "https://example.com/editorial-policy/",
+            "affiliate_disclosure_url": "https://example.com/affiliate-disclosure/",
+        },
+        "social_folder": str(social_dir),
         "review": review,
         "human_approval": human,
         "publish_gate": publish,
@@ -166,6 +183,12 @@ class EditorialOperationsConsoleTests(unittest.TestCase):
             self.assertFalse(payload["items"][0]["publish_enabled"])
             self.assertEqual(payload["items"][0]["stats"]["schema_status"], "present")
             self.assertEqual(payload["items"][0]["stats"]["affiliate_links"], 1)
+            self.assertEqual(payload["items"][0]["author"]["author_name"], "Nguyen Quoc Tuan")
+            self.assertIn("facebook", payload["items"][0]["social_drafts"])
+            html = (root / "data" / "editorial_operations_console.html").read_text(encoding="utf-8")
+            self.assertIn("detail-panel", html)
+            self.assertIn("Copy Facebook Draft", html)
+            self.assertIn("Open Social Drafts", html)
 
     def test_publish_queue_transition_to_published_local(self) -> None:
         with TemporaryDirectory() as temp_dir:
@@ -189,6 +212,38 @@ class EditorialOperationsConsoleTests(unittest.TestCase):
 
             self.assertEqual(result["approved_count"], 1)
             self.assertEqual(result["published"][0]["publish_gate"]["status"], "published_local")
+
+    def test_request_custom_topic_generates_draft_when_gate_passes(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            console = _seed_console_state(root)
+            package_dir = root / "data" / "research" / "best-ai-tools-for-small-business"
+            package_dir.mkdir(parents=True, exist_ok=True)
+
+            class FakePlatform:
+                def build_research_package(self, topic: dict, force_refresh: bool = False):
+                    (package_dir / "package.json").write_text(json.dumps({"slug": topic["slug"], "keyword": topic["topic"]}), encoding="utf-8")
+                    return type("Pkg", (), {"package_dir": str(package_dir)})
+
+                def evaluate_quality_gate(self, package, topic: dict, allow_override: bool = False):
+                    return type("Gate", (), {"passed": True, "score": 80, "threshold": 60, "status": "passed"})
+
+            with patch("modules.content_growth_pipeline.get_research_platform", return_value=FakePlatform()):
+                with patch(
+                    "modules.content_growth_pipeline.generate_production_article_draft_from_package",
+                    return_value={"draft_dir": "fixture", "page": {"slug": "best-ai-tools-for-small-business"}},
+                ):
+                    result = console.request_custom_topic(
+                        "best AI tools for small business",
+                        category="AI Tools",
+                        intent="commercial",
+                    )
+
+            self.assertEqual(result["slug"], "best-ai-tools-for-small-business")
+            self.assertTrue(result["quality_gate"]["passed"])
+            self.assertIn("draft", result)
+            payload = json.loads((package_dir / "package.json").read_text(encoding="utf-8"))
+            self.assertEqual(payload["request_context"]["category"], "AI Tools")
 
 
 if __name__ == "__main__":

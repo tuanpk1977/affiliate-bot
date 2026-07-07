@@ -6,12 +6,12 @@
   <title>Editorial Operations Console</title>
   <style>
     body { margin: 0; font-family: Georgia, 'Segoe UI', serif; background: linear-gradient(180deg, #f4efe6, #fffdfa); color: #201a14; }
-    .wrap { max-width: 1320px; margin: 0 auto; padding: 28px 20px 48px; }
+    .wrap { max-width: 1380px; margin: 0 auto; padding: 28px 20px 48px; }
     .hero { background: #17324d; color: #fef8ee; border-radius: 18px; padding: 24px; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin: 18px 0 26px; }
     .card { background: #fff; border: 1px solid #e7dac6; border-radius: 16px; padding: 18px; box-shadow: 0 8px 28px rgba(23, 50, 77, 0.08); }
-    .draft-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 18px; }
-    .draft-card { background: #fff; border: 1px solid #e7dac6; border-radius: 18px; padding: 20px; box-shadow: 0 8px 28px rgba(23, 50, 77, 0.08); }
+    .layout { display: grid; grid-template-columns: minmax(340px, 460px) minmax(0, 1fr); gap: 18px; align-items: start; }
+    .detail-card { background: #fff; border: 1px solid #e7dac6; border-radius: 18px; padding: 20px; box-shadow: 0 8px 28px rgba(23, 50, 77, 0.08); position: sticky; top: 18px; }
     .status-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 14px; }
     .badge { display: inline-block; padding: 6px 10px; border-radius: 999px; font-size: 13px; font-weight: 700; }
     .badge.blocked { background: #fee2e2; color: #991b1b; }
@@ -28,11 +28,18 @@
     .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; }
     .stat { background: #faf6ef; border: 1px solid #eee4d3; border-radius: 12px; padding: 10px; }
     .stat strong { display: block; margin-bottom: 4px; }
+    .author-box { background: #faf6ef; border: 1px solid #eee4d3; border-radius: 12px; padding: 12px; margin: 12px 0 16px; }
+    .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 12px; border-bottom: 1px solid #eee4d3; vertical-align: top; }
+    th { background: #f8f2e8; }
+    .row-link { cursor: pointer; }
+    .row-link.active { background: #f5eee1; }
     code { background: #f3ebde; padding: 2px 6px; border-radius: 6px; }
     a { color: #0f5f63; text-decoration: none; }
     .panel { margin-top: 20px; }
     .small { color: #6b5d4a; font-size: 14px; }
-    @media (max-width: 900px) { .stats { grid-template-columns: 1fr; } .draft-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 980px) { .layout { grid-template-columns: 1fr; } .detail-card { position: static; } .stats { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -40,18 +47,19 @@
     <section class="hero">
       <p>Local-only operator console</p>
       <h1>Editorial Operations Console</h1>
-      <p>Open draft files directly from disk, review state across queues, and move approved content forward without deploy, push, or IndexNow.</p>
+      <p>Review drafts, approve or reject safely, inspect social drafts, and publish locally only after the existing gates pass.</p>
     </section>
     <section class="grid"><div class="card"><h2>1</h2><p>Drafts</p></div>
-<div class="card"><h2>1</h2><p>Pending Human Review</p></div>
+<div class="card"><h2>0</h2><p>Pending Human Review</p></div>
 <div class="card"><h2>0</h2><p>Approved For Publish</p></div>
-<div class="card"><h2>0</h2><p>Published Local</p></div>
-<div class="card"><h2>1</h2><p>Blocked</p></div></section>
+<div class="card"><h2>1</h2><p>Published Local</p></div>
+<div class="card"><h2>0</h2><p>Blocked</p></div></section>
     <section class="card panel">
-      <h2>Next Command</h2>
-      <p>If pending human review: <code>python scripts/editorial_console.py --approve best-ai-productivity-software</code></p>
-      <p>If approved but not published: <code>python scripts/editorial_console.py --publish best-ai-productivity-software</code></p>
-      <p>To refresh the console only: <code>python scripts/editorial_console.py --build</code></p>
+      <h2>Core Commands</h2>
+      <p><code>python scripts/editorial_console.py --build</code></p>
+      <p><code>python scripts/editorial_console.py --request-topic "best AI tools for small business" --category "AI Tools" --intent "commercial"</code></p>
+      <p><code>python scripts/editorial_console.py --approve best-ai-productivity-software</code></p>
+      <p><code>python scripts/editorial_console.py --publish best-ai-productivity-software</code></p>
     </section>
     <section class="card panel">
       <h2>Console Actions</h2>
@@ -60,26 +68,139 @@
         <a class="button success" href="editorial_console_actions/publish-all-approved.cmd">Publish All Approved</a>
         <a class="button warn" href="editorial_console_actions/rebuild-console.cmd">Rebuild Console</a>
       </div>
-      <p class="small">Publish All Approved only runs for rows already in <code>approved_for_publish</code>. It never auto-approves drafts.</p>
+      <p class="small">Publish All Approved only runs for rows already in <code>approved_for_publish</code>. It never auto-approves drafts or posts to social platforms.</p>
     </section>
     <section class="panel">
-      <div class="draft-grid">
-        <article class="draft-card">
-          <p class="small">Slug</p>
-          <h2>best ai productivity software 2026: Pricing, Pros, Cons</h2>
-          <p><code>best-ai-productivity-software</code></p>
-          <div class="status-row"><span class="badge blocked">Overall: blocked</span><span class="badge approved">Research: passed</span><span class="badge waiting">AI Review: needs_human_review</span><span class="badge waiting">Human: needs_human_review</span><span class="badge blocked">Publish Gate: blocked</span></div>
-          <div class="button-row"><a class="button" href="production_article_drafts/best-ai-productivity-software/article.md">Open Draft</a><a class="button" href="production_article_drafts/best-ai-productivity-software/index.html">Open HTML Preview</a><a class="button" href="production_article_drafts/best-ai-productivity-software/review_summary.md">Open Review Summary</a><a class="button success" href="editorial_console_actions/approve-best-ai-productivity-software.cmd">Approve</a><a class="button danger" href="editorial_console_actions/reject-best-ai-productivity-software.cmd">Reject</a><span class="button primary disabled">Publish</span></div>
-          <div class="button-row">
-            <a class="button warn" href="production_article_drafts/best-ai-productivity-software/index.html">Preview Website</a>
-            <a class="button" href="production_article_drafts/best-ai-productivity-software/metadata.json">Open Metadata</a>
-            <a class="button" href="production_article_drafts/best-ai-productivity-software/publish_readiness_report.md">Open Publish Report</a>
-          </div>
-          <div class="stats"><div class="stat"><strong>Word Count</strong><span>3418</span></div><div class="stat"><strong>SEO Score</strong><span>100.0</span></div><div class="stat"><strong>Reading Time</strong><span>16 min</span></div><div class="stat"><strong>Internal Links</strong><span>13</span></div><div class="stat"><strong>External Links</strong><span>5</span></div><div class="stat"><strong>Affiliate Links</strong><span>1</span></div><div class="stat"><strong>Featured Image</strong><span>prompt_ready</span></div><div class="stat"><strong>Schema Status</strong><span>present</span></div><div class="stat"><strong>Meta Description</strong><span>Independent best ai productivity software guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice.</span></div><div class="stat"><strong>OG Image</strong><span>https://smileaireviewhub.com/assets/og/site.svg</span></div><div class="stat"><strong>Canonical URL</strong><span>https://smileaireviewhub.com/best-ai-productivity-software/</span></div><div class="stat"><strong>Last Updated</strong><span>2026-07-07T11:51:48.189145+00:00</span></div></div>
-          <p class="small">Next command: <code>python scripts/editorial_console.py --approve best-ai-productivity-software</code></p>
-        </article>
-        </div>
+      <div class="layout">
+        <section class="card">
+          <h2>All Articles</h2>
+          <table>
+            <thead>
+              <tr><th>Article</th><th>Status</th><th>Words</th><th>Review</th><th>Updated</th></tr>
+            </thead>
+            <tbody>
+            <tr class="row-link" data-slug="best-ai-productivity-software">
+              <td><strong>best ai productivity software 2026: Pricing, Pros, Cons</strong><br><code>best-ai-productivity-software</code></td>
+              <td><span class="badge published">published_local</span></td>
+              <td>3418</td>
+              <td>83.65</td>
+              <td>2026-07-07T13:23:19.868352+00:00</td>
+            </tr>
+            </tbody>
+          </table>
+        </section>
+        <section class="detail-card">
+          <div id="detail-panel"><p>Select an article from the list.</p></div>
+        </section>
+      </div>
     </section>
   </main>
+  <script>
+    const consoleData = {"summary": {"generated_at": "2026-07-07T13:23:19.947349+00:00", "drafts": 1, "pending_human_review": 0, "approved_for_publish": 0, "published_local": 1, "blocked": 0}, "items": [{"title": "best ai productivity software 2026: Pricing, Pros, Cons", "slug": "best-ai-productivity-software", "status": "published_local", "research_quality_status": "passed", "ai_review_status": "human_approved", "human_approval_status": "human_approved", "publish_gate_status": "published_local", "word_count": 3418, "last_updated": "2026-07-07T13:23:19.868352+00:00", "article_markdown": "production_article_drafts/best-ai-productivity-software/article.md", "article_html": "production_article_drafts/best-ai-productivity-software/index.html", "metadata_json": "production_article_drafts/best-ai-productivity-software/metadata.json", "review_summary": "production_article_drafts/best-ai-productivity-software/review_summary.md", "publish_readiness_report": "production_article_drafts/best-ai-productivity-software/publish_readiness_report.md", "next_command": "No further action required.", "website_preview": "../site_output/best-ai-productivity-software/index.html", "stats": {"seo_score": 100.0, "reading_time_minutes": 16, "internal_links": 16, "external_links": 5, "affiliate_links": 1, "featured_image": "prompt_ready", "schema_status": "present", "meta_description": "Independent best ai productivity software guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice.", "og_image": "https://smileaireviewhub.com/assets/og/site.svg", "canonical_url": "https://smileaireviewhub.com/best-ai-productivity-software/"}, "review_score": 83.65, "business_score": 61.35, "author": {"author_name": "Nguyen Quoc Tuan", "author_profile_url": "https://smileaireviewhub.com/about-author/", "author_bio": "Independent AI & SaaS researcher covering software, automation, and practical buyer workflows.", "reviewed_by": "editor", "last_updated": "2026-07-07T12:45:19.295693+00:00", "editorial_policy_url": "https://smileaireviewhub.com/editorial-policy/", "affiliate_disclosure_url": "https://smileaireviewhub.com/affiliate-disclosure/"}, "social_drafts": {"facebook": "../social_drafts/2026-07-07/best-ai-productivity-software/facebook.md", "quora": "../social_drafts/2026-07-07/best-ai-productivity-software/quora.md", "linkedin": "../social_drafts/2026-07-07/best-ai-productivity-software/linkedin.md", "x": "../social_drafts/2026-07-07/best-ai-productivity-software/x-twitter.md", "reddit": "../social_drafts/2026-07-07/best-ai-productivity-software/reddit.md", "devto": "../social_drafts/2026-07-07/best-ai-productivity-software/devto.md", "product_hunt": "../social_drafts/2026-07-07/best-ai-productivity-software/product-hunt.md", "medium": "../social_drafts/2026-07-07/best-ai-productivity-software/medium.md", "threads": "../social_drafts/2026-07-07/best-ai-productivity-software/threads.md", "pinterest": "../social_drafts/2026-07-07/best-ai-productivity-software/pinterest.md"}, "social_actions": {"open_social_drafts": "production_article_drafts/best-ai-productivity-software/social_drafts_index.html", "open_all_social_drafts": "editorial_console_actions/open-social-best-ai-productivity-software.cmd", "copy_facebook": "editorial_console_actions/copy-facebook-best-ai-productivity-software.cmd", "copy_quora": "editorial_console_actions/copy-quora-best-ai-productivity-software.cmd", "copy_linkedin": "editorial_console_actions/copy-linkedin-best-ai-productivity-software.cmd", "copy_x": "editorial_console_actions/copy-x-best-ai-productivity-software.cmd", "open_facebook": "../social_drafts/2026-07-07/best-ai-productivity-software/facebook.md", "open_quora": "../social_drafts/2026-07-07/best-ai-productivity-software/quora.md", "open_linkedin": "../social_drafts/2026-07-07/best-ai-productivity-software/linkedin.md", "open_x": "../social_drafts/2026-07-07/best-ai-productivity-software/x-twitter.md", "open_reddit": "../social_drafts/2026-07-07/best-ai-productivity-software/reddit.md", "open_devto": "../social_drafts/2026-07-07/best-ai-productivity-software/devto.md", "open_product_hunt": "../social_drafts/2026-07-07/best-ai-productivity-software/product-hunt.md", "open_medium": "../social_drafts/2026-07-07/best-ai-productivity-software/medium.md", "open_threads": "../social_drafts/2026-07-07/best-ai-productivity-software/threads.md", "open_pinterest": "../social_drafts/2026-07-07/best-ai-productivity-software/pinterest.md"}, "actions": {"approve": "editorial_console_actions/approve-best-ai-productivity-software.cmd", "reject": "editorial_console_actions/reject-best-ai-productivity-software.cmd", "publish": "editorial_console_actions/publish-best-ai-productivity-software.cmd"}, "publish_enabled": false}], "global_actions": {"publish_all_approved": "editorial_console_actions/publish-all-approved.cmd", "rebuild_console": "editorial_console_actions/rebuild-console.cmd", "preview_website": "../site_output/index.html"}};
+    const items = consoleData.items || [];
+    const panel = document.getElementById('detail-panel');
+    const rows = Array.from(document.querySelectorAll('.row-link'));
+
+    function esc(value) {
+      return String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
+    }
+
+    function button(href, label, tone, disabled) {
+      const cls = `button ${tone || ''} ${disabled || !href ? 'disabled' : ''}`.trim();
+      if (disabled || !href) return `<span class="${cls}">${esc(label)}</span>`;
+      return `<a class="${cls}" href="${esc(href)}">${esc(label)}</a>`;
+    }
+
+    function badge(label, tone) {
+      return `<span class="badge ${esc(tone)}">${esc(label)}</span>`;
+    }
+
+    function stat(label, value) {
+      return `<div class="stat"><strong>${esc(label)}</strong><span>${esc(value)}</span></div>`;
+    }
+
+    function statusTone(value) {
+      const normalized = String(value || '').toLowerCase();
+      if (normalized === 'published_local' || normalized === 'published') return 'published';
+      if (['approved_for_publish', 'human_approved', 'ai_review_passed', 'passed'].includes(normalized)) return 'approved';
+      if (['needs_human_review', 'pending', 'waiting', 'needs_revision'].includes(normalized)) return 'waiting';
+      return 'blocked';
+    }
+
+    function renderDetail(item) {
+      const author = item.author || {};
+      const stats = item.stats || {};
+      const social = item.social_actions || {};
+      const socialDrafts = item.social_drafts || {};
+      panel.innerHTML = `
+        <p class="small">Selected article</p>
+        <h2>${esc(item.title)}</h2>
+        <p><code>${esc(item.slug)}</code></p>
+        <div class="status-row">
+          ${badge('Overall: ' + item.status, statusTone(item.status))}
+          ${badge('Research: ' + item.research_quality_status, statusTone(item.research_quality_status))}
+          ${badge('AI Review: ' + item.ai_review_status, statusTone(item.ai_review_status))}
+          ${badge('Human: ' + item.human_approval_status, statusTone(item.human_approval_status))}
+          ${badge('Publish: ' + item.publish_gate_status, statusTone(item.publish_gate_status))}
+        </div>
+        <div class="button-row">
+          ${button(item.article_markdown, 'Open Draft', '', false)}
+          ${button(item.article_html, 'Open HTML Preview', '', false)}
+          ${button(item.review_summary, 'Open Review Summary', '', false)}
+          ${button(item.metadata_json, 'Open Metadata', '', false)}
+          ${button(social.open_social_drafts, 'Open Social Drafts', 'warn', false)}
+          ${button(item.actions.approve, 'Approve', 'success', item.human_approval_status !== 'needs_human_review')}
+          ${button(item.actions.reject, 'Reject', 'danger', item.publish_gate_status === 'published_local')}
+          ${button(item.actions.publish, 'Publish', 'primary', !item.publish_enabled)}
+        </div>
+        <div class="button-row">
+          ${button(item.website_preview, 'Preview Website', 'warn', !item.website_preview)}
+          ${button(social.open_all_social_drafts, 'Open All Social Drafts', '', !social.open_all_social_drafts)}
+          ${button(social.copy_facebook, 'Copy Facebook Draft', '', !social.copy_facebook)}
+          ${button(social.copy_quora, 'Copy Quora Draft', '', !social.copy_quora)}
+          ${button(social.copy_linkedin, 'Copy LinkedIn Draft', '', !social.copy_linkedin)}
+          ${button(social.copy_x, 'Copy X Draft', '', !social.copy_x)}
+        </div>
+        <div class="author-box">
+          <p><strong>Author:</strong> ${esc(author.author_name || '')}</p>
+          <p><strong>Author profile:</strong> ${author.author_profile_url ? `<a href="${esc(author.author_profile_url)}">${esc(author.author_profile_url)}</a>` : 'Not set'}</p>
+          <p><strong>Author bio:</strong> ${esc(author.author_bio || '')}</p>
+          <p><strong>Reviewed by:</strong> ${esc(author.reviewed_by || '')}</p>
+          <p><strong>Last updated:</strong> ${esc(author.last_updated || item.last_updated || '')}</p>
+          <p><strong>Editorial policy:</strong> ${author.editorial_policy_url ? `<a href="${esc(author.editorial_policy_url)}">${esc(author.editorial_policy_url)}</a>` : 'Not set'}</p>
+          <p><strong>Affiliate disclosure:</strong> ${author.affiliate_disclosure_url ? `<a href="${esc(author.affiliate_disclosure_url)}">${esc(author.affiliate_disclosure_url)}</a>` : 'Not set'}</p>
+        </div>
+        <div class="stats">
+          ${stat('Word Count', item.word_count)}
+          ${stat('SEO Score', stats.seo_score || 0)}
+          ${stat('Review Score', item.review_score || 0)}
+          ${stat('Business Score', item.business_score || 0)}
+          ${stat('Reading Time', (stats.reading_time_minutes || 0) + ' min')}
+          ${stat('Internal Links', stats.internal_links || 0)}
+          ${stat('External Links', stats.external_links || 0)}
+          ${stat('Affiliate Links', stats.affiliate_links || 0)}
+          ${stat('Featured Image', stats.featured_image || 'missing')}
+          ${stat('Schema Status', stats.schema_status || 'missing')}
+          ${stat('Meta Description', stats.meta_description || 'missing')}
+          ${stat('OG Image', stats.og_image || 'missing')}
+          ${stat('Canonical URL', stats.canonical_url || 'missing')}
+        </div>
+        <h3>Social Drafts</h3>
+        <div class="social-grid">
+          ${Object.entries(socialDrafts).map(([platform, href]) => button(href, platform.replaceAll('_', ' ').toUpperCase(), '', false)).join('') || '<p class="small">No social drafts found.</p>'}
+        </div>
+        <p class="small">Next command: <code>${esc(item.next_command)}</code></p>
+      `;
+    }
+
+    function selectSlug(slug) {
+      const item = items.find((row) => row.slug === slug);
+      rows.forEach((row) => row.classList.toggle('active', row.dataset.slug === slug));
+      if (item) renderDetail(item);
+    }
+
+    rows.forEach((row) => row.addEventListener('click', () => selectSlug(row.dataset.slug)));
+    if (items.length) selectSlug(items[0].slug);
+  </script>
 </body>
 </html>

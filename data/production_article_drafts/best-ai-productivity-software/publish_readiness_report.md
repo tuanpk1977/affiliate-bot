@@ -1,14 +1,8 @@
 # Publish Readiness Report
 
 - Slug: `best-ai-productivity-software`
-- Title: `best ai productivity software 2026: Pricing, Pros, Cons`
-- Review status: `needs_human_review`
-- Human approval status: `needs_human_review`
-- Publish gate status: `blocked`
-- Research quality score: `62.36`
-- Verified source score: `79`
-- Word count: `3418`
-
-## Blocking Issues
-
-- human approval missing
+- Review status: `human_approved`
+- Human approval: `human_approved`
+- Publish gate: `published_local`
+- Failures: none
+- Word count: 3418

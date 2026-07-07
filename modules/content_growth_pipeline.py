@@ -26,6 +26,7 @@ from modules.publish_gate import PublishGate
 from modules.human_approval import HumanApprovalWorkflow
 from modules.indexing_policy import INDEXABLE_ROBOTS_META
 from modules.research_intelligence import ResearchIntelligencePlatform, ResearchPackage
+from modules.site_stats import load_site_stats
 
 
 BASE_URL = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
@@ -545,6 +546,7 @@ def generate_production_article_draft_from_package(slug: str) -> dict[str, Any]:
     url = BASE_URL + path
     warnings = fact_warnings(str(topic.get("topic") or slug))
     links = resolve_internal_links(topic)
+    topic = {**topic, "editorial": build_editorial_metadata(reviewed_by="Human review pending")}
     article_html = render_article(topic, title, description, path, links, warnings)
     article_markdown = render_article_markdown(topic, title, description, url, links, warnings)
 
@@ -571,6 +573,13 @@ def generate_production_article_draft_from_package(slug: str) -> dict[str, Any]:
         human_approval=human_approval,
         internal_links=links,
     )
+    editorial = build_editorial_metadata(
+        reviewed_by=str(human_approval.get("approved_by") or human_approval.get("status") or "Human review pending"),
+        last_updated=str(human_approval.get("approved_at") or review.get("reviewed_at") or datetime.now(timezone.utc).isoformat()),
+    )
+    topic = {**topic, "editorial": editorial}
+    article_html = render_article(topic, title, description, path, links, warnings)
+    article_markdown = render_article_markdown(topic, title, description, url, links, warnings)
 
     draft_dir = PRODUCTION_DRAFTS / slug
     draft_dir.mkdir(parents=True, exist_ok=True)
@@ -614,6 +623,8 @@ def generate_production_article_draft_from_package(slug: str) -> dict[str, Any]:
                 "description": description,
                 "url": url,
                 "featured_image_prompt": featured_prompt,
+                "editorial": editorial,
+                "social_folder": str(social_folder),
                 "review": review,
                 "human_approval": human_approval,
                 "publish_gate": publish_gate,
@@ -666,6 +677,57 @@ def generate_production_article_draft_from_package(slug: str) -> dict[str, Any]:
     }
 
 
+def sync_production_draft_assets(slug: str) -> dict[str, Any]:
+    topic, _research_package = build_topic_from_research_package(slug)
+    draft_dir = PRODUCTION_DRAFTS / slug
+    metadata_path = draft_dir / "metadata.json"
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8")) if metadata_path.exists() else {}
+    review = metadata.get("review") if isinstance(metadata.get("review"), dict) else {}
+    human_approval = metadata.get("human_approval") if isinstance(metadata.get("human_approval"), dict) else {}
+    publish_gate = metadata.get("publish_gate") if isinstance(metadata.get("publish_gate"), dict) else {}
+    title = str(metadata.get("title") or seo_title(str(topic.get("topic") or slug.replace("-", " "))))
+    description = str(metadata.get("description") or meta_description(str(topic.get("topic") or slug.replace("-", " "))))
+    path = f"/{slug}/"
+    url = str(metadata.get("url") or (BASE_URL + path))
+    warnings = fact_warnings(str(topic.get("topic") or slug))
+    links = resolve_internal_links(topic)
+    editorial = build_editorial_metadata(
+        reviewed_by=str(human_approval.get("approved_by") or human_approval.get("status") or "Human review pending"),
+        last_updated=str(
+            publish_gate.get("published_at")
+            or human_approval.get("approved_at")
+            or review.get("reviewed_at")
+            or metadata.get("editorial", {}).get("last_updated")
+            or datetime.now(timezone.utc).isoformat()
+        ),
+    )
+    topic = {**topic, "editorial": editorial}
+    article_html = render_article(topic, title, description, path, links, warnings)
+    article_markdown = render_article_markdown(topic, title, description, url, links, warnings)
+    draft_dir.mkdir(parents=True, exist_ok=True)
+    article_file = draft_dir / "index.html"
+    article_file.write_text(article_html, encoding="utf-8")
+    markdown_file = draft_dir / "article.md"
+    markdown_file.write_text(article_markdown, encoding="utf-8")
+    social_folder = write_social_drafts(topic, url, title)
+    (draft_dir / "featured_image_prompt.txt").write_text(featured_image_prompt(topic, research_payload(topic), planning_payload(topic)) + "\n", encoding="utf-8")
+    metadata.update(
+        {
+            "slug": slug,
+            "title": title,
+            "description": description,
+            "url": url,
+            "editorial": editorial,
+            "social_folder": str(social_folder),
+        }
+    )
+    metadata_path.write_text(json.dumps(metadata, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    if str(publish_gate.get("status", "")) == "published_local":
+        write_article(path, article_html)
+        write_article(path, article_html, output=SITE_OUTPUT)
+    return {"slug": slug, "draft_dir": str(draft_dir), "social_folder": str(social_folder), "metadata_file": str(metadata_path)}
+
+
 def render_article(
     topic: dict[str, Any],
     title: str,
@@ -691,6 +753,7 @@ def render_article(
     article_angle = str(topic.get("suggested_article_angle") or default_article_angle(topic_name, content_type))
     video_angle = str(topic.get("suggested_video_angle") or default_video_angle(topic_name, content_type))
     canonical = BASE_URL + path
+    editorial = topic.get("editorial") if isinstance(topic.get("editorial"), dict) else build_editorial_metadata()
     faq_groups = research.get("faq") if isinstance(research.get("faq"), dict) else {}
     faq_items = []
     for key in ("beginner", "intermediate", "advanced", "comparison", "pricing", "troubleshooting"):
@@ -698,7 +761,7 @@ def render_article(
     if not faq_items:
         faq_items = faq_questions(topic_name)
     schemas = [
-        article_schema(title, description, canonical, topic_name),
+        article_schema(title, description, canonical, topic_name, editorial),
         faq_schema(faq_items),
         breadcrumb_schema(title, canonical),
     ]
@@ -717,6 +780,7 @@ def render_article(
       <h2>Affiliate disclosure</h2>
       <p>Some links may be affiliate links. We may earn a commission at no extra cost to you. This article is independent research and does not claim an official partnership.</p>
     </section>
+    {render_editorial_byline(editorial)}
     <section class="card">
       <h2>Table of contents</h2>
       <ol class="toc">
@@ -1026,6 +1090,7 @@ def render_article_markdown(
 ) -> str:
     research = research_payload(topic)
     planning = planning_payload(topic)
+    editorial = topic.get("editorial") if isinstance(topic.get("editorial"), dict) else build_editorial_metadata()
     tool_profiles = article_tool_profiles(research)
     faq_groups = research.get("faq") if isinstance(research.get("faq"), dict) else {}
     faq_items: list[str] = []
@@ -1060,6 +1125,12 @@ def render_article_markdown(
 {description}
 
 - Canonical URL: {url}
+- Author: {editorial.get('author_name', '')}
+- Author profile: {editorial.get('author_profile_url', '')}
+- Reviewed by: {editorial.get('reviewed_by', '')}
+- Last updated: {editorial.get('last_updated', '')}
+- Editorial policy: {editorial.get('editorial_policy_url', '')}
+- Affiliate disclosure: {editorial.get('affiliate_disclosure_url', '')}
 - Review status target: human approval before publish
 - Research quality score: {research.get('quality', {}).get('overall_score', 0)}
 - Verified source score: {research.get('quality', {}).get('total_verified_source_score', 0)}
@@ -1221,6 +1292,60 @@ Read the article draft:
 """
 
 
+def build_editorial_metadata(*, reviewed_by: str = "", last_updated: str = "") -> dict[str, str]:
+    stats = load_site_stats()
+    author = stats.get("author", {}) if isinstance(stats.get("author"), dict) else {}
+    author_name = str(author.get("name") or "Nguyen Quoc Tuan")
+    author_profile_url = str(author.get("profileUrl") or f"{BASE_URL}/about-author/")
+    author_bio = str(author.get("bio") or "Independent AI & SaaS researcher covering software, automation, and practical buyer workflows.")
+    updated = last_updated or datetime.now(timezone.utc).isoformat()
+    return {
+        "author_name": author_name,
+        "author_profile_url": author_profile_url,
+        "author_bio": author_bio,
+        "reviewed_by": reviewed_by,
+        "last_updated": updated,
+        "editorial_policy_url": f"{BASE_URL}/editorial-policy/",
+        "affiliate_disclosure_url": f"{BASE_URL}/affiliate-disclosure/",
+    }
+
+
+def render_editorial_byline(editorial: dict[str, Any]) -> str:
+    author_name = str(editorial.get("author_name") or "Nguyen Quoc Tuan")
+    profile = str(editorial.get("author_profile_url") or "").strip()
+    author_bio = str(editorial.get("author_bio") or "").strip()
+    reviewed_by = str(editorial.get("reviewed_by") or "Human review pending").strip()
+    last_updated = str(editorial.get("last_updated") or "").strip()
+    editorial_policy_url = str(editorial.get("editorial_policy_url") or "/editorial-policy/").strip()
+    affiliate_disclosure_url = str(editorial.get("affiliate_disclosure_url") or "/affiliate-disclosure/").strip()
+    author_html = html.escape(author_name)
+    if profile:
+        author_html = f'<a href="{html.escape(profile, quote=True)}">{author_html}</a>'
+    return f"""
+    <section class="card trust">
+      <h2>Author and editorial review</h2>
+      <p><strong>Author:</strong> {author_html}</p>
+      <p><strong>Reviewed by:</strong> {html.escape(reviewed_by)}</p>
+      <p><strong>Last updated:</strong> {html.escape(last_updated)}</p>
+      <p>{html.escape(author_bio)}</p>
+      <p><a href="{html.escape(editorial_policy_url, quote=True)}">Editorial policy</a> · <a href="{html.escape(affiliate_disclosure_url, quote=True)}">Affiliate disclosure</a></p>
+    </section>
+    """
+
+
+def qiita_relevant(topic: dict[str, Any]) -> bool:
+    haystack = " ".join(
+        [
+            str(topic.get("topic") or ""),
+            str(topic.get("article_type") or ""),
+            str(topic.get("content_type") or ""),
+            str(topic.get("search_intent") or ""),
+        ]
+    ).lower()
+    markers = ("developer", "coding", "code", "api", "sdk", "cli", "automation", "technical", "programming")
+    return any(marker in haystack for marker in markers)
+
+
 def html_shell(title: str, description: str, canonical: str, body: str, schemas: list[dict[str, Any]]) -> str:
     schema_tags = "\n".join(
         f'<script type="application/ld+json">{json.dumps(schema, ensure_ascii=False)}</script>' for schema in schemas
@@ -1301,8 +1426,12 @@ def write_social_drafts(topic: dict[str, Any], url: str, title: str) -> Path:
         "x-twitter.md": x_draft(title, url),
         "threads.md": threads_draft(title, url),
         "medium.md": medium_draft(title, url),
+        "devto.md": devto_draft(title, url),
+        "product-hunt.md": product_hunt_draft(title, url),
         "pinterest.md": pinterest_draft(title, url),
     }
+    if qiita_relevant(topic):
+        platforms["qiita.md"] = qiita_draft(title, url)
     for name, content in platforms.items():
         (folder / name).write_text(content, encoding="utf-8")
     return folder
@@ -1428,7 +1557,10 @@ def resolve_internal_links(topic: dict[str, Any]) -> list[tuple[str, str]]:
     return result
 
 
-def article_schema(title: str, description: str, url: str, topic: str) -> dict[str, Any]:
+def article_schema(title: str, description: str, url: str, topic: str, editorial: dict[str, Any] | None = None) -> dict[str, Any]:
+    editorial = editorial or {}
+    author_name = str(editorial.get("author_name") or "Nguyen Quoc Tuan")
+    author_url = str(editorial.get("author_profile_url") or f"{BASE_URL}/about-author/")
     return {
         "@context": "https://schema.org",
         "@type": "Article",
@@ -1436,8 +1568,8 @@ def article_schema(title: str, description: str, url: str, topic: str) -> dict[s
         "description": description,
         "url": url,
         "datePublished": date.today().isoformat(),
-        "dateModified": date.today().isoformat(),
-        "author": {"@type": "Person", "name": "Nguyen Quoc Tuan"},
+        "dateModified": str(editorial.get("last_updated") or date.today().isoformat()),
+        "author": {"@type": "Person", "name": author_name, "url": author_url},
         "publisher": {"@type": "Organization", "name": "MS Smile AI Review Hub", "url": BASE_URL},
         "about": topic,
     }
@@ -1633,6 +1765,18 @@ def threads_draft(title: str, url: str) -> str:
 
 def medium_draft(title: str, url: str) -> str:
     return f"# {title}\n\nThis is a manual repost draft. Summarize the buyer checklist, pricing verification steps, alternatives, and link back to the canonical article:\n\n{url}\n"
+
+
+def devto_draft(title: str, url: str) -> str:
+    return f"# {title}\n\nManual DEV.to draft. Keep the technical or workflow angle practical, explain what to verify before buying, and link back to the canonical article:\n\n{url}\n"
+
+
+def product_hunt_draft(title: str, url: str) -> str:
+    return f"Product Hunt discussion draft for {title}\n\nFocus on the buyer problem, what makes the shortlist useful, and where readers should verify pricing or limits before choosing a tool.\n\nCanonical article: {url}\n"
+
+
+def qiita_draft(title: str, url: str) -> str:
+    return f"# {title}\n\nQiita note draft. Explain the workflow, setup questions, and official verification steps for technical readers, then point back to the canonical article.\n\n{url}\n"
 
 
 def pinterest_draft(title: str, url: str) -> str:
