@@ -61,6 +61,7 @@ class EditorialAutomationTests(unittest.TestCase):
                         "quality_gate": {"threshold": 0, "enabled": True, "allow_override": False},
                         "verified_source_gate": {"enabled": False},
                     },
+                    "analytics_optimization": {"enabled": True, "conversion_rate_estimate": 0.08, "average_conversion_value": 12.5},
                 },
                 editorial_research_config={"quality_gate": {"threshold": 0, "enabled": True, "allow_override": False}, "verified_source_gate": {"enabled": False}},
                 editorial_candidate_limit=200,
@@ -85,6 +86,8 @@ class EditorialAutomationTests(unittest.TestCase):
             self.assertTrue((data_dir / "content_lifecycle.jsonl").exists())
             self.assertTrue((data_dir / "knowledge_dashboard.json").exists())
             self.assertTrue((data_dir / "source_review_report.json").exists())
+            self.assertTrue((data_dir / "content_performance.json").exists())
+            self.assertTrue((data_dir / "optimization_report.json").exists())
 
             weekly_topics = json.loads((data_dir / "weekly_topics.json").read_text(encoding="utf-8"))
             calendar = json.loads((data_dir / "editorial_calendar.json").read_text(encoding="utf-8"))
@@ -137,6 +140,7 @@ class EditorialAutomationTests(unittest.TestCase):
                         "quality_gate": {"threshold": 0, "enabled": True, "allow_override": False},
                         "verified_source_gate": {"enabled": False},
                     },
+                    "analytics_optimization": {"enabled": True, "conversion_rate_estimate": 0.08, "average_conversion_value": 12.5},
                 },
                 editorial_research_config={"quality_gate": {"threshold": 0, "enabled": True, "allow_override": False}, "verified_source_gate": {"enabled": False}},
                 editorial_candidate_limit=200,
@@ -193,6 +197,7 @@ class EditorialAutomationTests(unittest.TestCase):
                         "auto_refresh_weekly_on_monday": True,
                         "verified_source_gate": {"enabled": False},
                     },
+                    "analytics_optimization": {"enabled": True, "conversion_rate_estimate": 0.08, "average_conversion_value": 12.5},
                 },
                 editorial_research_config={
                     "quality_gate": {"threshold": 0, "enabled": True, "allow_override": False},
@@ -250,6 +255,46 @@ class EditorialAutomationTests(unittest.TestCase):
 
             self.assertIsNotNone(result["weekly_refresh"])
             self.assertEqual(result["weekly_refresh"]["approved_topics"], 3)
+
+    def test_analytics_feedback_can_boost_weekly_ranking(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            data_dir = Path(temp_dir) / "data"
+            tracking_csv = data_dir / "content_growth_performance_log.csv"
+            tracking_csv.parent.mkdir(parents=True, exist_ok=True)
+            tracking_csv.write_text(
+                "\n".join(
+                    [
+                        "publish_date,url,topic,article_type,source_keyword,google_indexed_status,bing_discovered_status,bing_indexed_status,yandex_index_status,impressions,clicks,ctr,average_position,social_views,youtube_views,affiliate_clicks,revenue,notes",
+                        "2026-07-01,https://example.com/validation-editorial-topic-2/,validation editorial topic 2,comparison,validation editorial topic 2,pending,pending,pending,pending,300,20,6,14,0,0,12,60,fixture",
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            fake_settings = SimpleNamespace(
+                base_dir=Path(temp_dir),
+                data_dir=data_dir,
+                site_output_dir=Path(temp_dir) / "site_output",
+                offers_file=data_dir / "offers.csv",
+                affiliate_links_file=data_dir / "affiliate_links.csv",
+                editorial_config={
+                    "business_intelligence": {"evergreen": {"min_word_count": 100, "min_readability_score": 10}},
+                    "research_intelligence": {
+                        "quality_gate": {"threshold": 0, "enabled": True, "allow_override": False},
+                        "verified_source_gate": {"enabled": False},
+                    },
+                    "analytics_optimization": {"enabled": True, "conversion_rate_estimate": 0.08, "average_conversion_value": 12.5},
+                },
+                editorial_research_config={"quality_gate": {"threshold": 0, "enabled": True, "allow_override": False}, "verified_source_gate": {"enabled": False}},
+                editorial_candidate_limit=200,
+                editorial_max_per_source=40,
+                editorial_top_topics=10,
+                editorial_calendar_days=7,
+            )
+            with patch.object(editorial_automation, "settings", fake_settings):
+                engine = editorial_automation.WeeklyTrendIntelligenceEngine(providers=[])
+                ranked = engine.rank_topics(make_candidates(), top_n=2)
+
+            self.assertEqual(ranked[0].slug, "validation-editorial-topic-2")
 
 
 if __name__ == "__main__":

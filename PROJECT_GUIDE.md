@@ -393,6 +393,12 @@ Verified Source Acquisition
   -> Knowledge Health Dashboard
   -> Research Package
   -> Research Quality Gate
+  -> AI Content Review
+  -> Human Approval (optional)
+  -> Publish Gate
+  -> Local publish only
+  -> Analytics feedback
+  -> Self-optimization
 ```
 
 Key governance config in `config/editorial_system.json`:
@@ -405,6 +411,51 @@ Key governance config in `config/editorial_system.json`:
 - `knowledge_review.minimum_trust_score`
 - `knowledge_review.minimum_freshness`
 - `knowledge_review.duplicate_similarity`
+
+Review workflow:
+
+- `modules/content_review.py` evaluates factual quality, source quality, SEO title/meta quality, affiliate disclosure, internal links, duplicate content risk, readability, word count, business value, and publish readiness.
+- Review artifacts are written to `data/content_review_queue.json` and `data/content_review_report.{json,csv,md}`.
+- `modules/human_approval.py` maintains `data/human_approval_queue.json`. Human approval is optional by config, but supported as a first-class gate.
+- Content is not considered publishable unless AI review passes. If human approval is required, the publish path remains blocked until a human marks the item approved.
+
+Publish gate workflow:
+
+- `modules/publish_gate.py` checks research quality, verified source score, knowledge freshness, AI review status, optional human approval, broken links, duplicate title/meta, affiliate disclosure, business score, and readability.
+- Publish artifacts are written to `data/publish_queue.json` and `data/publish_gate_report.{json,csv,md}`.
+- Blocked content does not reach the local publish step.
+- Auto deploy remains disabled. No GitHub push, no live deploy, and no IndexNow behavior was enabled by these checkpoints.
+
+Analytics and self-optimization workflow:
+
+- `modules/content_analytics.py` builds `data/content_performance.json`, `data/content_performance.csv`, and appends `data/topic_feedback_history.jsonl` from local tracking data only.
+- `modules/self_optimization.py` creates `data/optimization_report.{json,csv,md}` and feeds score adjustments back into weekly topic ranking.
+- Recommended actions include:
+  `write new article`, `update old article`, `improve affiliate section`, `refresh pricing`, `add comparison table`, `add internal links`, `hold / do nothing`.
+
+Operational flow:
+
+```text
+Monday
+  trend discovery
+  -> top 10 topics
+  -> research
+  -> source verification
+  -> knowledge review
+  -> AI review gate
+  -> schedule approved topics
+
+Tuesday to Sunday
+  generate deeper articles only from approved topics
+  -> optional human approval
+  -> publish gate
+  -> local publish only
+  -> analytics feedback
+```
+
+Manual approval rule:
+
+- If `content_review.require_human_approval` or `publish_gate.require_human_approval` is true, a page must remain in `needs_human_review` until a human changes it to `human_approved`.
 
 Production validation checks:
 
@@ -439,6 +490,35 @@ Reports are written in:
 - JSON
 - Markdown
 - CSV
+
+Current report families include:
+
+- research quality and enrichment reports
+- source registry, source review, and knowledge dashboard reports
+- content review and human approval queues
+- publish gate queue and publish gate reports
+- content performance and optimization reports
+
+Current commands:
+
+- `python scripts/run_weekly_editorial_cycle.py`
+- `python scripts/import_verified_sources.py`
+- `python scripts/run_research_enrichment.py`
+- `python run_daily_content.py`
+- `python run_daily_content.py --build`
+- `python scripts/validate_production_content_pipeline.py`
+- `python -m pytest`
+
+Remaining blockers:
+
+- Verified source and knowledge governance are operational, but production value still depends on richer curated registry coverage.
+- Human approval is supported locally, but there is not yet a dedicated editor UI or inbox workflow.
+- Publish gate is local-only and intentionally does not trigger deployment.
+- Analytics are based on local/mock tracking until a future checkpoint adds real data connectors safely.
+
+Recommended Checkpoint 21:
+
+- Add a local-safe source change detection and editorial operations console that can diff registry versions, surface top review blockers, and orchestrate approval/publish decisions from one operational dashboard.
 
 ### Troubleshooting
 

@@ -9,10 +9,12 @@ from typing import Any, Protocol
 
 from config import settings
 from modules.ai_trend_discovery import TopicCandidate, TrendDiscoveryEngine, classify_content_type, slugify
+from modules.content_analytics import ContentAnalytics
 from modules.editorial_business_intelligence import ContentLifecycleManager, EditorialBusinessIntelligence
 from modules.content_growth_pipeline import generate_topic_package, normalize_topic_record, page_to_dict
 from modules.content_planning_engine import ContentPlanningEngine
 from modules.research_intelligence import ResearchIntelligencePlatform
+from modules.self_optimization import SelfOptimization
 
 
 UTC = timezone.utc
@@ -225,6 +227,16 @@ class WeeklyTrendIntelligenceEngine:
         self.top_topics = top_topics or settings.editorial_top_topics
         self.planner = ContentPlanningEngine()
         self.lifecycle = ContentLifecycleManager(settings.data_dir)
+        self.analytics = ContentAnalytics(
+            data_dir=settings.data_dir,
+            tracking_csv=settings.data_dir / "content_growth_performance_log.csv",
+            config=getattr(settings, "editorial_config", {}).get("analytics_optimization", {}),
+        )
+        self.optimizer = SelfOptimization(
+            data_dir=settings.data_dir,
+            config=getattr(settings, "editorial_config", {}).get("analytics_optimization", {}),
+            analytics=self.analytics,
+        )
         self.research = ResearchIntelligencePlatform(
             data_dir=settings.data_dir,
             site_output_dir=getattr(settings, "site_output_dir", None),
@@ -251,6 +263,7 @@ class WeeklyTrendIntelligenceEngine:
         return records
 
     def rank_topics(self, candidates: list[CandidateTopicRecord], top_n: int | None = None) -> list[WeeklyTopicRecord]:
+        candidates = self.optimizer.reweight_candidates(candidates)
         chosen = sorted(
             [item for item in candidates if not item.already_published],
             key=lambda item: (-item.score, item.competition, item.keyword),
@@ -318,6 +331,7 @@ class WeeklyTrendIntelligenceEngine:
         return entries
 
     def run_weekly_cycle(self) -> dict[str, Any]:
+        performance = self.analytics.build_performance_report()
         candidates = self.collect_candidates()
         weekly_topics = self.rank_topics(candidates)
         approved_topics: list[WeeklyTopicRecord] = []
@@ -352,16 +366,21 @@ class WeeklyTrendIntelligenceEngine:
             candidate_topics=[asdict(item) for item in candidates],
             editorial_calendar=[asdict(item) for item in calendar],
         )
+        optimization = self.optimizer.generate_report()
         return {
             "candidates": len(candidates),
             "weekly_topics": len(weekly_topics),
             "approved_topics": len(approved_topics),
             "blocked_topics": blocked_topics,
             "calendar_entries": len(calendar),
+            "content_performance_json": str(settings.data_dir / "content_performance.json"),
+            "optimization_report_json": str(settings.data_dir / "optimization_report.json"),
+            "performance_rows": len(performance),
             "weekly_topics_json": str(_output_path("weekly_topics.json")),
             "editorial_calendar_json": str(_output_path("editorial_calendar.json")),
             "knowledge_dashboard_json": str(settings.data_dir / "knowledge_dashboard.json"),
             "source_review_report_json": str(settings.data_dir / "source_review_report.json"),
+            **optimization,
             **intelligence,
         }
 

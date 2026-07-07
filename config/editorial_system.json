@@ -87,5 +87,10 @@
     "require_human_approval": false,
     "minimum_business_score": 35,
     "minimum_readability_score": 30
+  },
+  "analytics_optimization": {
+    "enabled": true,
+    "conversion_rate_estimate": 0.08,
+    "average_conversion_value": 12.5
   }
 }

@@ -1,0 +1,12 @@
+{
+  "actions": [
+    {
+      "slug": "sample-ai-topic",
+      "topic": "sample ai topic",
+      "topic_roi_score": 23.7,
+      "update_priority": "medium",
+      "next_recommended_action": "improve affiliate section",
+      "reason": "ROI 23.7; freshness decay 0.0"
+    }
+  ]
+}
