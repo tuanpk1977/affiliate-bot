@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Live Status Report</title>
+  <style>
+    body{font-family:Arial,sans-serif;background:#f6f8fb;color:#152033;margin:0;padding:24px}
+    .wrap{max-width:1400px;margin:0 auto}
+    .card{background:#fff;border:1px solid #d8e1ec;border-radius:14px;padding:20px;margin:16px 0}
+    .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+    .kpi{background:#f8fafc;border:1px solid #d8e1ec;border-radius:10px;padding:12px}
+    .kpi strong{display:block;font-size:1.4rem;margin-top:6px}
+    table{width:100%;border-collapse:collapse}
+    th,td{border-bottom:1px solid #e5edf6;padding:12px;text-align:left;vertical-align:top}
+    th{background:#f1f5f9}
+    code{white-space:pre-wrap;word-break:break-word}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <h1>Live Status Report - 2026-07-09</h1>
+      <p>Dung bao cao nay de biet bai nao chi dang local, bai nao da sync docs, bai nao da co trong git/origin, va bai nao dang tra ve tu domain that.</p>
+      <div class="kpis">
+        <div class="kpi">Total items<strong>11</strong></div>
+        <div class="kpi">Local only<strong>0</strong></div>
+        <div class="kpi">Docs synced<strong>3</strong></div>
+        <div class="kpi">Git pushed<strong>0</strong></div>
+        <div class="kpi">Live OK<strong>0</strong></div>
+        <div class="kpi">Live 404<strong>11</strong></div>
+      </div>
+    </section>
+    <section class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Article</th>
+            <th>Queue</th>
+            <th>Local</th>
+            <th>Docs</th>
+            <th>Git</th>
+            <th>Live domain</th>
+            <th>Block reason</th>
+            <th>How to fix</th>
+            <th>URL</th>
+            <th>Docs path</th>
+          </tr>
+        </thead>
+        <tbody><tr><td><strong>best ai productivity software 2026: Pricing, Pros, Cons</strong><br><code>best-ai-productivity-software</code></td><td>published_local</td><td>docs_synced</td><td>yes</td><td>not_committed<br><small>file not tracked by git</small></td><td>404<br><small>404</small></td><td>File docs chưa lên origin/main: file not tracked by git</td><td>Chạy lại bước publish để bot git add, commit và push các file docs/site cần thiết.<br><code>python editorial_console.py publish-ready --date 2026-07-09</code></td><td><a href='https://smileaireviewhub.com/best-ai-productivity-software/'>https://smileaireviewhub.com/best-ai-productivity-software/</a></td><td><code>D:\AFFILATE BOT\docs\best-ai-productivity-software\index.html</code></td></tr><tr><td><strong>agent-skills Review 2026: Pricing, Pros, Cons</strong><br><code>agent-skills-review-2026</code></td><td>blocked</td><td>missing_local</td><td>no</td><td>not_synced<br><small>file missing from docs/site_output</small></td><td>404<br><small>404</small></td><td>Publish gate đang chặn: verified source score failed; knowledge freshness failed; AI review failed</td><td>Mở báo cáo review/publish, sửa đúng điều kiện đang fail, rồi duyệt lại bài trước khi publish.<br><code>python editorial_console.py serve --date 2026-07-09 --open</code></td><td><a href='https://smileaireviewhub.com/agent-skills-review-2026/'>https://smileaireviewhub.com/agent-skills-review-2026/</a></td><td><code>D:\AFFILATE BOT\docs\agent-skills-review-2026\index.html</code></td></tr><tr><td><strong>meetily Review 2026: Pricing, Pros, Cons</strong><br><code>meetily-review-2026</code></td><td>blocked</td><td>missing_local</td><td>no</td><td>not_synced<br><small>file missing from docs/site_output</small></td><td>404<br><small>404</small></td><td>Publish gate đang chặn: verified source score failed; knowledge freshness failed; AI review failed</td><td>Mở báo cáo review/publish, sửa đúng điều kiện đang fail, rồi duyệt lại bài trước khi publish.<br><code>python editorial_console.py serve --date 2026-07-09 --open</code></td><td><a href='https://smileaireviewhub.com/meetily-review-2026/'>https://smileaireviewhub.com/meetily-review-2026/</a></td><td><code>D:\AFFILATE BOT\docs\meetily-review-2026\index.html</code></td></tr><tr><td><strong>system_prompts_leaks Review 2026: Pricing, Pros, Cons</strong><br><code>system-prompts-leaks-review-2026</code></td><td>blocked</td><td>missing_local</td><td>no</td><td>not_synced<br><small>file missing from docs/site_output</small></td><td>404<br><small>404</small></td><td>Publish gate đang chặn: verified source score failed; knowledge freshness failed; AI review failed</td><td>Mở báo cáo review/publish, sửa đúng điều kiện đang fail, rồi duyệt lại bài trước khi publish.<br><code>python editorial_console.py serve --date 2026-07-09 --open</code></td><td><a href='https://smileaireviewhub.com/system-prompts-leaks-review-2026/'>https://smileaireviewhub.com/system-prompts-leaks-review-2026/</a></td><td><code>D:\AFFILATE BOT\docs\system-prompts-leaks-review-2026\index.html</code></td></tr><tr><td><strong>ai-job-search Review 2026: Pricing, Pros, Cons</strong><br><code>ai-job-search-review-2026</code></td><td>blocked</td><td>missing_local</td><td>no</td><td>not_synced<br><small>file missing from docs/site_output</small></td><td>404<br><small>404</small></td><td>Publish gate đang chặn: verified source score failed; knowledge freshness failed; AI review failed</td><td>Mở báo cáo review/publish, sửa đúng điều kiện đang fail, rồi duyệt lại bài trước khi publish.<br><code>python editorial_console.py serve --date 2026-07-09 --open</code></td><td><a href='https://smileaireviewhub.com/ai-job-search-review-2026/'>https://smileaireviewhub.com/ai-job-search-review-2026/</a></td><td><code>D:\AFFILATE BOT\docs\ai-job-search-review-2026\index.html</code></td></tr><tr><td><strong>OfficeCLI Review 2026: Pricing, Pros, Cons</strong><br><code>officecli-review-2026</code></td><td>blocked</td><td>missing_local</td><td>no</td><td>not_synced<br><small>file missing from docs/site_output</small></td><td>404<br><small>404</small></td><td>Publish gate đang chặn: verified source score failed; knowledge freshness failed; AI review failed</td><td>Mở báo cáo review/publish, sửa đúng điều kiện đang fail, rồi duyệt lại bài trước khi publish.<br><code>python editorial_console.py serve --date 2026-07-09 --open</code></td><td><a href='https://smileaireviewhub.com/officecli-review-2026/'>https://smileaireviewhub.com/officecli-review-2026/</a></td><td><code>D:\AFFILATE BOT\docs\officecli-review-2026\index.html</code></td></tr><tr><td><strong>CubeSandbox Review 2026: Pricing, Pros, Cons</strong><br><code>cubesandbox-review-2026</code></td><td>blocked</td><td>missing_local</td><td>no</td><td>not_synced<br><small>file missing from docs/site_output</small></td><td>404<br><small>404</small></td><td>Publish gate đang chặn: verified source score failed; knowledge freshness failed; AI review failed</td><td>Mở báo cáo review/publish, sửa đúng điều kiện đang fail, rồi duyệt lại bài trước khi publish.<br><code>python editorial_console.py serve --date 2026-07-09 --open</code></td><td><a href='https://smileaireviewhub.com/cubesandbox-review-2026/'>https://smileaireviewhub.com/cubesandbox-review-2026/</a></td><td><code>D:\AFFILATE BOT\docs\cubesandbox-review-2026\index.html</code></td></tr><tr><td><strong>skills Review 2026: Pricing, Pros, Cons</strong><br><code>skills-review-2026</code></td><td>blocked</td><td>missing_local</td><td>no</td><td>not_synced<br><small>file missing from docs/site_output</small></td><td>404<br><small>404</small></td><td>Publish gate đang chặn: verified source score failed; knowledge freshness failed; AI review failed</td><td>Mở báo cáo review/publish, sửa đúng điều kiện đang fail, rồi duyệt lại bài trước khi publish.<br><code>python editorial_console.py serve --date 2026-07-09 --open</code></td><td><a href='https://smileaireviewhub.com/skills-review-2026/'>https://smileaireviewhub.com/skills-review-2026/</a></td><td><code>D:\AFFILATE BOT\docs\skills-review-2026\index.html</code></td></tr><tr><td><strong>Companies are buying AI tools. That doesn&#x27;t mean they kn</strong><br><code>companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them</code></td><td>blocked</td><td>missing_local</td><td>no</td><td>not_synced<br><small>file missing from docs/site_output</small></td><td>404<br><small>404</small></td><td>Publish gate đang chặn: verified source score failed; knowledge freshness failed; AI review failed</td><td>Mở báo cáo review/publish, sửa đúng điều kiện đang fail, rồi duyệt lại bài trước khi publish.<br><code>python editorial_console.py serve --date 2026-07-09 --open</code></td><td><a href='https://smileaireviewhub.com/companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them/'>https://smileaireviewhub.com/companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them/</a></td><td><code>D:\AFFILATE BOT\docs\companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them\index.html</code></td></tr><tr><td><strong>best ai meeting software 2026: Pricing, Pros, Cons</strong><br><code>best-ai-meeting-software</code></td><td>published_local</td><td>docs_synced</td><td>yes</td><td>not_committed<br><small>file not tracked by git</small></td><td>404<br><small>404</small></td><td>File docs chưa lên origin/main: file not tracked by git</td><td>Chạy lại bước publish để bot git add, commit và push các file docs/site cần thiết.<br><code>python editorial_console.py publish-ready --date 2026-07-09</code></td><td><a href='https://smileaireviewhub.com/best-ai-meeting-software/'>https://smileaireviewhub.com/best-ai-meeting-software/</a></td><td><code>D:\AFFILATE BOT\docs\best-ai-meeting-software\index.html</code></td></tr><tr><td><strong>best ai meeting tools 2026: Pricing, Pros, Cons</strong><br><code>best-ai-meeting-tools</code></td><td>published_local</td><td>docs_synced</td><td>yes</td><td>not_committed<br><small>file not tracked by git</small></td><td>404<br><small>404</small></td><td>File docs chưa lên origin/main: file not tracked by git</td><td>Chạy lại bước publish để bot git add, commit và push các file docs/site cần thiết.<br><code>python editorial_console.py publish-ready --date 2026-07-09</code></td><td><a href='https://smileaireviewhub.com/best-ai-meeting-tools/'>https://smileaireviewhub.com/best-ai-meeting-tools/</a></td><td><code>D:\AFFILATE BOT\docs\best-ai-meeting-tools\index.html</code></td></tr></tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

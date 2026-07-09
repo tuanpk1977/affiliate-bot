@@ -1,7 +1,7 @@
 # Publish Gate Report
 
-- Items: 1
-- Blocked: 0
+- Items: 11
+- Blocked: 8
 - Approved For Publish: 0
-- Published Local: 1
+- Published Local: 3
 - Publish Failed: 0

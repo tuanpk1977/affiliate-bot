@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Editorial Review Dashboard 2026-07-09</title>
+  <style>
+    body{font-family:Arial,sans-serif;background:#f6f8fb;color:#152033;margin:0;padding:24px}
+    .wrap{max-width:1600px;margin:0 auto}
+    .card{background:#fff;border:1px solid #d8e1ec;border-radius:14px;padding:20px;margin:16px 0}
+    .layout{display:grid;grid-template-columns:1.15fr 1fr;gap:18px;align-items:start}
+    table{width:100%;border-collapse:collapse}
+    th,td{border-bottom:1px solid #e5edf6;padding:12px;text-align:left;vertical-align:top}
+    th{background:#f1f5f9}
+    .button{display:inline-block;padding:10px 14px;border-radius:8px;border:1px solid #cbd5e1;background:#fff;color:#17324d;text-decoration:none;font-weight:700}
+    .button.success{background:#dcfce7;border-color:#86efac;color:#166534}
+    .button.danger{background:#fee2e2;border-color:#fca5a5;color:#991b1b}
+    .button.primary{background:#17324d;border-color:#17324d;color:#fff}
+    .button.warn{background:#fef3c7;border-color:#fcd34d;color:#92400e}
+    .button.disabled{opacity:.55;pointer-events:none;background:#e2e8f0;color:#64748b}
+    .button:disabled{opacity:.45}
+    .filter-btn{cursor:pointer}
+    .filter-btn.active{background:#17324d;border-color:#17324d;color:#fff}
+    .status{display:inline-block;padding:4px 10px;border-radius:999px;font-weight:700}
+    .status.selected,.status.drafted{background:#fef3c7;color:#92400e}
+    .status.approved,.status.published{background:#dcfce7;color:#166534}
+    .status.rejected,.status.needs_enrichment,.status.draft_failed{background:#fee2e2;color:#991b1b}
+    .preview-frame{width:100%;height:720px;border:1px solid #d8e1ec;border-radius:10px;background:#fff}
+    .empty-preview{border:1px dashed #cbd5e1;border-radius:10px;padding:18px;background:#f8fafc;color:#475569}
+    .detail-note{color:#991b1b;font-weight:600}
+    .form-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+    .form-row form{display:flex;gap:8px;align-items:center}
+    .actions{display:flex;gap:10px;flex-wrap:wrap}
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+    .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:16px 0}
+    .kpi{background:#f8fafc;border:1px solid #d8e1ec;border-radius:10px;padding:12px}
+    .kpi strong{display:block;font-size:1.5rem;margin-top:6px}
+    .kpi .small{font-size:.9rem;line-height:1.35}
+    .notice{background:#e0f2fe;color:#075985;border:1px solid #7dd3fc;padding:10px 12px;border-radius:8px;margin:12px 0}
+    input[type=text]{padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;min-width:220px}
+    code{white-space:pre-wrap;word-break:break-word}
+    @media (max-width:1100px){.layout{grid-template-columns:1fr} .preview-frame{height:520px}}
+        </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <h1>Editorial Review Dashboard - 2026-07-09</h1>
+      <p>Weekly batch: <strong>2026-07-06</strong> -> <strong>2026-07-12</strong></p>
+      <p>Today's angle: <strong>Week-start hottrend / pillar batch</strong></p>
+      <div class='kpis'><div class='kpi'>Total drafts<strong>10</strong></div><div class='kpi'>Approved<strong>0</strong></div><div class='kpi'>Blocked<strong>10</strong></div><div class='kpi'>Ready to publish<strong>0</strong></div><div class='kpi'>Published<strong>0</strong></div><div class='kpi'>Top block reasons<strong class='small'>human approval missing (10); AI review failed (8); knowledge freshness failed (8); verified source score failed (8)</strong></div></div>
+      <p>Total topics: <strong>10</strong> - Drafted: <strong>10</strong> - Approved by human: <strong>0</strong> - Ready for publish: <strong>0</strong> - Publish blocked: <strong>10</strong> - Published: <strong>0</strong></p>
+      <p>Next recommended command: <code>python editorial_console.py approve --slug &lt;slug&gt; --date 2026-07-09</code></p>
+      <div class="actions">
+        <a class="button warn" href="actions/open-operator-console.cmd">Open Operator Console</a>
+        <a class="button primary" href="actions/publish-batch.cmd">Publish Ready Articles</a>
+        <a class="button" href="actions/refresh-status.cmd">Refresh Status</a>
+      </div>
+      <p>Open each preview, review it, approve or reject it, then click <strong>Publish Ready Articles</strong>. Only rows that already passed the publish gate will go live.</p>
+    </section>
+    <section class="card">
+      
+        <div class="filters">
+          <button type="button" class="button filter-btn active" data-filter-target="all">All</button>
+          <button type="button" class="button filter-btn" data-filter-target="ready">Ready to publish</button>
+          <button type="button" class="button filter-btn" data-filter-target="blocked">Blocked</button>
+          <button type="button" class="button filter-btn" data-filter-target="needs-revision">Needs revision</button>
+          <button type="button" class="button filter-btn" data-filter-target="published">Published</button>
+        </div>
+        
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Keyword</th>
+            <th>Score</th>
+            <th>Status</th>
+            <th>Block reason</th>
+            <th>Next action</th>
+            <th>Preview</th>
+            <th>Approve</th>
+            <th>Reject</th>
+            <th>Source file path</th>
+            <th>Upload file path</th>
+          </tr>
+        </thead>
+        <tbody id="article-rows"><tr data-filter='blocked'><td><strong>agent-skills Review 2026: Pricing, Pros, Cons</strong><br><code>agent-skills-review-2026</code></td><td>agent-skills Review 2026</td><td>65.1</td><td><span class='status drafted'>drafted</span></td><td>verified source score failed, knowledge freshness failed, AI review failed, human approval missing</td><td><code>python editorial_console.py approve --slug agent-skills-review-2026 --date 2026-07-09</code></td><td><a class="button" href="./agent-skills-review-2026/index.html">Open Preview</a></td><td><a class='button success' href='actions/approve-agent-skills-review-2026.cmd'>Approve</a><br><code>python editorial_console.py approve --slug agent-skills-review-2026 --date 2026-07-09</code></td><td><a class='button danger' href='actions/reject-agent-skills-review-2026.cmd'>Reject</a><br><code>python editorial_console.py reject --slug agent-skills-review-2026 --date 2026-07-09 --reason &quot;Needs fixes&quot;</code></td><td><code>D:\AFFILATE BOT\data\production_article_drafts\agent-skills-review-2026\index.html</code></td><td><code>D:\AFFILATE BOT\upload\2026-07-09\review\agent-skills-review-2026\index.html</code></td></tr><tr data-filter='blocked'><td><strong>meetily Review 2026: Pricing, Pros, Cons</strong><br><code>meetily-review-2026</code></td><td>meetily Review 2026</td><td>65.1</td><td><span class='status drafted'>drafted</span></td><td>verified source score failed, knowledge freshness failed, AI review failed, human approval missing</td><td><code>python editorial_console.py approve --slug meetily-review-2026 --date 2026-07-09</code></td><td><a class="button" href="./meetily-review-2026/index.html">Open Preview</a></td><td><a class='button success' href='actions/approve-meetily-review-2026.cmd'>Approve</a><br><code>python editorial_console.py approve --slug meetily-review-2026 --date 2026-07-09</code></td><td><a class='button danger' href='actions/reject-meetily-review-2026.cmd'>Reject</a><br><code>python editorial_console.py reject --slug meetily-review-2026 --date 2026-07-09 --reason &quot;Needs fixes&quot;</code></td><td><code>D:\AFFILATE BOT\data\production_article_drafts\meetily-review-2026\index.html</code></td><td><code>D:\AFFILATE BOT\upload\2026-07-09\review\meetily-review-2026\index.html</code></td></tr><tr data-filter='blocked'><td><strong>system_prompts_leaks Review 2026: Pricing, Pros, Cons</strong><br><code>system-prompts-leaks-review-2026</code></td><td>system_prompts_leaks Review 2026</td><td>65.1</td><td><span class='status drafted'>drafted</span></td><td>verified source score failed, knowledge freshness failed, AI review failed, human approval missing</td><td><code>python editorial_console.py approve --slug system-prompts-leaks-review-2026 --date 2026-07-09</code></td><td><a class="button" href="./system-prompts-leaks-review-2026/index.html">Open Preview</a></td><td><a class='button success' href='actions/approve-system-prompts-leaks-review-2026.cmd'>Approve</a><br><code>python editorial_console.py approve --slug system-prompts-leaks-review-2026 --date 2026-07-09</code></td><td><a class='button danger' href='actions/reject-system-prompts-leaks-review-2026.cmd'>Reject</a><br><code>python editorial_console.py reject --slug system-prompts-leaks-review-2026 --date 2026-07-09 --reason &quot;Needs fixes&quot;</code></td><td><code>D:\AFFILATE BOT\data\production_article_drafts\system-prompts-leaks-review-2026\index.html</code></td><td><code>D:\AFFILATE BOT\upload\2026-07-09\review\system-prompts-leaks-review-2026\index.html</code></td></tr><tr data-filter='blocked'><td><strong>ai-job-search Review 2026: Pricing, Pros, Cons</strong><br><code>ai-job-search-review-2026</code></td><td>ai-job-search Review 2026</td><td>64.0</td><td><span class='status drafted'>drafted</span></td><td>verified source score failed, knowledge freshness failed, AI review failed, human approval missing</td><td><code>python editorial_console.py approve --slug ai-job-search-review-2026 --date 2026-07-09</code></td><td><a class="button" href="./ai-job-search-review-2026/index.html">Open Preview</a></td><td><a class='button success' href='actions/approve-ai-job-search-review-2026.cmd'>Approve</a><br><code>python editorial_console.py approve --slug ai-job-search-review-2026 --date 2026-07-09</code></td><td><a class='button danger' href='actions/reject-ai-job-search-review-2026.cmd'>Reject</a><br><code>python editorial_console.py reject --slug ai-job-search-review-2026 --date 2026-07-09 --reason &quot;Needs fixes&quot;</code></td><td><code>D:\AFFILATE BOT\data\production_article_drafts\ai-job-search-review-2026\index.html</code></td><td><code>D:\AFFILATE BOT\upload\2026-07-09\review\ai-job-search-review-2026\index.html</code></td></tr><tr data-filter='blocked'><td><strong>OfficeCLI Review 2026: Pricing, Pros, Cons</strong><br><code>officecli-review-2026</code></td><td>OfficeCLI Review 2026</td><td>63.7</td><td><span class='status drafted'>drafted</span></td><td>verified source score failed, knowledge freshness failed, AI review failed, human approval missing</td><td><code>python editorial_console.py approve --slug officecli-review-2026 --date 2026-07-09</code></td><td><a class="button" href="./officecli-review-2026/index.html">Open Preview</a></td><td><a class='button success' href='actions/approve-officecli-review-2026.cmd'>Approve</a><br><code>python editorial_console.py approve --slug officecli-review-2026 --date 2026-07-09</code></td><td><a class='button danger' href='actions/reject-officecli-review-2026.cmd'>Reject</a><br><code>python editorial_console.py reject --slug officecli-review-2026 --date 2026-07-09 --reason &quot;Needs fixes&quot;</code></td><td><code>D:\AFFILATE BOT\data\production_article_drafts\officecli-review-2026\index.html</code></td><td><code>D:\AFFILATE BOT\upload\2026-07-09\review\officecli-review-2026\index.html</code></td></tr><tr data-filter='blocked'><td><strong>CubeSandbox Review 2026: Pricing, Pros, Cons</strong><br><code>cubesandbox-review-2026</code></td><td>CubeSandbox Review 2026</td><td>63.5</td><td><span class='status drafted'>drafted</span></td><td>verified source score failed, knowledge freshness failed, AI review failed, human approval missing</td><td><code>python editorial_console.py approve --slug cubesandbox-review-2026 --date 2026-07-09</code></td><td><a class="button" href="./cubesandbox-review-2026/index.html">Open Preview</a></td><td><a class='button success' href='actions/approve-cubesandbox-review-2026.cmd'>Approve</a><br><code>python editorial_console.py approve --slug cubesandbox-review-2026 --date 2026-07-09</code></td><td><a class='button danger' href='actions/reject-cubesandbox-review-2026.cmd'>Reject</a><br><code>python editorial_console.py reject --slug cubesandbox-review-2026 --date 2026-07-09 --reason &quot;Needs fixes&quot;</code></td><td><code>D:\AFFILATE BOT\data\production_article_drafts\cubesandbox-review-2026\index.html</code></td><td><code>D:\AFFILATE BOT\upload\2026-07-09\review\cubesandbox-review-2026\index.html</code></td></tr><tr data-filter='blocked'><td><strong>skills Review 2026: Pricing, Pros, Cons</strong><br><code>skills-review-2026</code></td><td>skills Review 2026</td><td>62.6</td><td><span class='status drafted'>drafted</span></td><td>verified source score failed, knowledge freshness failed, AI review failed, human approval missing</td><td><code>python editorial_console.py approve --slug skills-review-2026 --date 2026-07-09</code></td><td><a class="button" href="./skills-review-2026/index.html">Open Preview</a></td><td><a class='button success' href='actions/approve-skills-review-2026.cmd'>Approve</a><br><code>python editorial_console.py approve --slug skills-review-2026 --date 2026-07-09</code></td><td><a class='button danger' href='actions/reject-skills-review-2026.cmd'>Reject</a><br><code>python editorial_console.py reject --slug skills-review-2026 --date 2026-07-09 --reason &quot;Needs fixes&quot;</code></td><td><code>D:\AFFILATE BOT\data\production_article_drafts\skills-review-2026\index.html</code></td><td><code>D:\AFFILATE BOT\upload\2026-07-09\review\skills-review-2026\index.html</code></td></tr><tr data-filter='blocked'><td><strong>Companies are buying AI tools. That doesn&#x27;t mean they kn</strong><br><code>companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them</code></td><td>Companies are buying AI tools. That doesn&#x27;t mean they know what to do with them.</td><td>59.6</td><td><span class='status drafted'>drafted</span></td><td>verified source score failed, knowledge freshness failed, AI review failed, human approval missing</td><td><code>python editorial_console.py approve --slug companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them --date 2026-07-09</code></td><td><a class="button" href="./companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them/index.html">Open Preview</a></td><td><a class='button success' href='actions/approve-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them.cmd'>Approve</a><br><code>python editorial_console.py approve --slug companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them --date 2026-07-09</code></td><td><a class='button danger' href='actions/reject-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them.cmd'>Reject</a><br><code>python editorial_console.py reject --slug companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them --date 2026-07-09 --reason &quot;Needs fixes&quot;</code></td><td><code>D:\AFFILATE BOT\data\production_article_drafts\companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them\index.html</code></td><td><code>D:\AFFILATE BOT\upload\2026-07-09\review\companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them\index.html</code></td></tr><tr data-filter='blocked'><td><strong>best ai meeting software 2026: Pricing, Pros, Cons</strong><br><code>best-ai-meeting-software</code></td><td>best ai meeting software</td><td>58.3</td><td><span class='status drafted'>drafted</span></td><td>human approval missing</td><td><code>python editorial_console.py approve --slug best-ai-meeting-software --date 2026-07-09</code></td><td><a class="button" href="./best-ai-meeting-software/index.html">Open Preview</a></td><td><a class='button success' href='actions/approve-best-ai-meeting-software.cmd'>Approve</a><br><code>python editorial_console.py approve --slug best-ai-meeting-software --date 2026-07-09</code></td><td><a class='button danger' href='actions/reject-best-ai-meeting-software.cmd'>Reject</a><br><code>python editorial_console.py reject --slug best-ai-meeting-software --date 2026-07-09 --reason &quot;Needs fixes&quot;</code></td><td><code>D:\AFFILATE BOT\data\production_article_drafts\best-ai-meeting-software\index.html</code></td><td><code>D:\AFFILATE BOT\upload\2026-07-09\review\best-ai-meeting-software\index.html</code></td></tr><tr data-filter='blocked'><td><strong>best ai meeting tools 2026: Pricing, Pros, Cons</strong><br><code>best-ai-meeting-tools</code></td><td>best ai meeting tools</td><td>58.3</td><td><span class='status drafted'>drafted</span></td><td>human approval missing</td><td><code>python editorial_console.py approve --slug best-ai-meeting-tools --date 2026-07-09</code></td><td><a class="button" href="./best-ai-meeting-tools/index.html">Open Preview</a></td><td><a class='button success' href='actions/approve-best-ai-meeting-tools.cmd'>Approve</a><br><code>python editorial_console.py approve --slug best-ai-meeting-tools --date 2026-07-09</code></td><td><a class='button danger' href='actions/reject-best-ai-meeting-tools.cmd'>Reject</a><br><code>python editorial_console.py reject --slug best-ai-meeting-tools --date 2026-07-09 --reason &quot;Needs fixes&quot;</code></td><td><code>D:\AFFILATE BOT\data\production_article_drafts\best-ai-meeting-tools\index.html</code></td><td><code>D:\AFFILATE BOT\upload\2026-07-09\review\best-ai-meeting-tools\index.html</code></td></tr></tbody>
+      </table>
+    </section>
+  </main>
+  
+  <script>
+    const filterButtons = Array.from(document.querySelectorAll('.filter-btn'));
+    const rowsEl = Array.from(document.querySelectorAll('#article-rows tr'));
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const target = button.getAttribute('data-filter-target') || 'all';
+        filterButtons.forEach((item) => item.classList.toggle('active', item === button));
+        rowsEl.forEach((row) => {
+          const rowFilter = row.getAttribute('data-filter') || 'all';
+          row.style.display = target === 'all' || rowFilter === target ? '' : 'none';
+        });
+      });
+    });
+  </script>
+        
+</body>
+</html>
