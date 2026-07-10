@@ -21,6 +21,7 @@ from modules.affiliate_links import load_affiliate_links
 from modules.ai_trend_discovery import TrendDiscoveryEngine, classify_content_type, classify_search_intent, load_affiliate_brands, slugify
 from modules.content_growth_pipeline import generate_production_article_draft_from_package, get_research_platform, is_near_duplicate
 from modules.editorial_operations_console import EditorialOperationsConsole
+from modules.publish_gate import PublishGate
 from modules.publishing_indexing import normalize_public_url, validate_page
 
 
@@ -547,11 +548,12 @@ class DailyEditorialWorkflow:
             str(row.get("slug") or ""): row
             for row in _read_json(self.data_dir / "publish_queue.json", [])
         }
-        ready_items = [
-            item
-            for item in topics
-            if str((publish_rows.get(str(item.get("slug") or "")) or {}).get("status") or "") in {"approved_for_publish", "published_local"}
-        ]
+        ready_items = []
+        for item in topics:
+            publish_row = publish_rows.get(str(item.get("slug") or "")) or {}
+            normalized = PublishGate.normalize_existing_row(publish_row)
+            if str(normalized.get("normalized_status") or publish_row.get("status") or "") in {"approved_for_publish", "published_local"}:
+                ready_items.append(item)
         carry_forward_items = self._carry_forward_publish_candidates(batch_date=batch_date, topics=topics, publish_rows=publish_rows)
         selected_items = ready_items + [item for item in carry_forward_items if str(item.get("slug") or "") not in {str(row.get("slug") or "") for row in ready_items}]
         if not selected_items:
@@ -574,7 +576,8 @@ class DailyEditorialWorkflow:
             if slug in selected_slugs:
                 continue
             publish_row = publish_rows.get(slug) or {}
-            publish_status = str(publish_row.get("status") or "missing")
+            normalized = PublishGate.normalize_existing_row(publish_row)
+            publish_status = str(normalized.get("normalized_status") or publish_row.get("status") or "missing")
             skipped.append(
                 {
                     "slug": slug,
@@ -587,7 +590,8 @@ class DailyEditorialWorkflow:
             slug = str(item.get("slug") or "")
             self._report_progress(f"[prepare {index}/{total_topics}] Checking publish readiness for: {slug}")
             publish_row = publish_rows.get(slug) or {}
-            publish_status = str(publish_row.get("status") or "missing")
+            normalized = PublishGate.normalize_existing_row(publish_row)
+            publish_status = str(normalized.get("normalized_status") or publish_row.get("status") or "missing")
             if publish_status not in {"approved_for_publish", "published_local"}:
                 skipped.append(
                     {
@@ -711,8 +715,10 @@ class DailyEditorialWorkflow:
         }
         batch_publish_rows = [publish_rows.get(str(item.get("slug") or ""), {}) for item in topics]
         editorial_statuses = [self._editorial_status_for_item(item, publish_rows.get(str(item.get("slug") or ""), {})) for item in topics]
-        summary["ready_for_publish"] = sum(1 for row in batch_publish_rows if str(row.get("status") or "") == "approved_for_publish")
-        summary["publish_blocked"] = sum(1 for row in batch_publish_rows if str(row.get("status") or "") == "blocked")
+        normalized_publish_rows = [PublishGate.normalize_existing_row(row) for row in batch_publish_rows if row]
+        summary["ready_for_publish"] = sum(1 for row in normalized_publish_rows if str(row.get("normalized_status") or "") == "approved_for_publish")
+        summary["publish_blocked"] = sum(1 for row in normalized_publish_rows if str(row.get("normalized_status") or "") == "blocked")
+        summary["human_approval_required"] = sum(1 for row in normalized_publish_rows if str(row.get("normalized_status") or "") == "needs_human_review")
         summary["published_local"] = sum(1 for row in batch_publish_rows if str(row.get("status") or "") == "published_local")
         summary["drafts"] = sum(1 for status in editorial_statuses if status == "Draft")
         summary["needs_review"] = sum(1 for status in editorial_statuses if status == "Needs Review")
@@ -721,6 +727,72 @@ class DailyEditorialWorkflow:
         summary["top_block_reasons"] = self._top_block_reasons(batch_publish_rows)
         summary["next_recommended_command"] = self._recommended_command(summary, batch_date=resolved_date)
         return summary
+
+    def diagnose_article(self, *, batch_date: str, slug: str) -> dict[str, Any]:
+        payload = self._load_queue(batch_date)
+        topics = payload.get("topics", [])
+        queue_item = next((item for item in topics if str(item.get("slug") or "") == slug), None)
+        if queue_item is None:
+            raise ValueError(f"Slug not found in batch {batch_date}: {slug}")
+        review_rows = {str(row.get("slug") or ""): row for row in _read_json(self.data_dir / "content_review_queue.json", [])}
+        human_rows = {str(row.get("slug") or ""): row for row in _read_json(self.data_dir / "human_approval_queue.json", [])}
+        publish_rows = {str(row.get("slug") or ""): row for row in _read_json(self.data_dir / "publish_queue.json", [])}
+        metadata_path = self.data_dir / "production_article_drafts" / slug / "metadata.json"
+        metadata = self.console._load_metadata(slug)
+        review = review_rows.get(slug) or metadata.get("review") or {}
+        human = human_rows.get(slug) or metadata.get("human_approval") or {}
+        publish_row = publish_rows.get(slug) or metadata.get("publish_gate") or {}
+        normalized = PublishGate.normalize_existing_row(publish_row)
+        raw_scores = {
+            "publish_queue_total_score": publish_row.get("total_score"),
+            "publish_readiness": review.get("publish_readiness"),
+            "business_score": publish_row.get("business_score", review.get("business_value")),
+            "readability_score": publish_row.get("readability_score", review.get("readability")),
+            "verified_source_score": publish_row.get("verified_source_score"),
+            "knowledge_freshness_score": publish_row.get("knowledge_freshness_score"),
+            "research_quality_score": metadata.get("research_quality_gate", {}).get("score"),
+        }
+        normalized_scores = {
+            "total_score": publish_row.get("total_score") or review.get("publish_readiness") or 0,
+            "score_band": publish_row.get("score_band") or "legacy_row",
+        }
+        files_used = {
+            "batch_queue": str(self._queue_dir(batch_date) / "topics.json"),
+            "content_review_queue": str(self.data_dir / "content_review_queue.json"),
+            "human_approval_queue": str(self.data_dir / "human_approval_queue.json"),
+            "publish_queue": str(self.data_dir / "publish_queue.json"),
+            "metadata": str(metadata_path),
+            "draft_html": str(self.data_dir / "production_article_drafts" / slug / "index.html"),
+            "source_review": str(self.data_dir / "research" / slug / "sources.json"),
+        }
+        return {
+            "date": batch_date,
+            "slug": slug,
+            "current_publish_queue_status": str(publish_row.get("status") or "missing"),
+            "normalized_publish_status": normalized["normalized_status"],
+            "final_gate_decision": normalized["final_gate"],
+            "raw_scores": raw_scores,
+            "normalized_scores": normalized_scores,
+            "review_states": publish_row.get("review_states") or {
+                "ai_review": "not_run" if not review else ("passed" if str(review.get("status") or "") in {"ai_review_passed", "needs_human_review", "human_approved"} else "warning"),
+                "source_review": "not_run" if raw_scores.get("verified_source_score") in {None, ""} else ("passed" if float(raw_scores.get("verified_source_score") or 0) > 0 else "failed"),
+                "freshness_review": "not_run" if raw_scores.get("knowledge_freshness_score") in {None, ""} else "passed",
+            },
+            "hard_blockers": normalized["hard_blockers"],
+            "warnings": normalized["warnings"],
+            "pending_reviews": normalized["pending_reviews"],
+            "recommended_action": self._recommended_action_for_failures(normalized["hard_blockers"] or normalized["pending_reviews"] or normalized["warnings"]),
+            "fields_used": {
+                "review_status": review.get("status", "missing"),
+                "human_approval_status": human.get("status", "missing"),
+                "publish_failures": publish_row.get("failures", []),
+                "hard_blockers": publish_row.get("hard_blockers", []),
+                "warnings": publish_row.get("warnings", []),
+                "pending_reviews": publish_row.get("pending_reviews", []),
+            },
+            "files_used": files_used,
+            "note": "Diagnostic only; no files were modified and no article was published.",
+        }
 
     def _publish_validation_candidates(self, *, batch_date: str) -> list[dict[str, Any]]:
         payload = self._load_queue(batch_date)
@@ -735,7 +807,8 @@ class DailyEditorialWorkflow:
             if not slug:
                 continue
             publish_row = publish_rows.get(slug) or {}
-            publish_status = str(publish_row.get("status") or "")
+            normalized = PublishGate.normalize_existing_row(publish_row)
+            publish_status = str(normalized.get("normalized_status") or publish_row.get("status") or "")
             if publish_status not in {"approved_for_publish", "published_local"}:
                 continue
             metadata = self.console._load_metadata(slug)
@@ -1205,7 +1278,7 @@ class DailyEditorialWorkflow:
             "docs_synced": sum(1 for item in items if item["docs_synced"]),
             "git_pushed": sum(1 for item in items if item["git_status"] == "pushed"),
             "live_200": sum(1 for item in items if item["display_status"] == "Live 200"),
-            "awaiting_first_publish": sum(1 for item in items if item["display_status"] == "Awaiting First Publish"),
+            "awaiting_publish": sum(1 for item in items if item["display_status"] == "Awaiting Publish"),
             "awaiting_push": sum(1 for item in items if item["display_status"] == "Awaiting Push"),
             "missing_local_output": sum(1 for item in items if item["display_status"] == "Missing Local Output"),
             "missing_docs": sum(1 for item in items if item["display_status"] == "Missing Docs"),
@@ -1215,8 +1288,9 @@ class DailyEditorialWorkflow:
             "ready_for_publish": sum(1 for item in items if item["publish_gate_status"] == "Ready for Publish"),
             "publish_blocked": sum(1 for item in items if item["publish_gate_status"] == "Publish Blocked"),
             "rejected": sum(1 for item in items if item["editorial_status"] == "Rejected"),
-            "published_this_batch": sum(1 for item in items if item["publish_gate_status"] == "Published in Current Batch"),
+            "published_this_batch": sum(1 for item in items if item["publish_gate_status"] == "Published"),
         }
+        summary["awaiting_first_publish"] = summary["awaiting_publish"]
         report = {
             "generated_at": datetime.now(UTC).isoformat(),
             "date": target_date,
@@ -2552,10 +2626,11 @@ class DailyEditorialWorkflow:
         return f"python editorial_console.py approve --slug <slug> --date {batch_date}"
 
     def _row_block_reason(self, item: dict[str, Any], publish_row: dict[str, Any]) -> str:
-        failures = [str(reason).strip() for reason in list(publish_row.get("failures") or []) if str(reason).strip()]
-        if failures:
-            title = self._operator_block_title(failures[0])
-            action = self._recommended_action_for_reason(failures[0])
+        normalized = PublishGate.normalize_existing_row(publish_row)
+        reasons = list(normalized.get("hard_blockers") or []) or list(normalized.get("pending_reviews") or []) or list(normalized.get("warnings") or [])
+        if reasons:
+            title = self._operator_block_title(str(reasons[0]))
+            action = self._recommended_action_for_reason(str(reasons[0]))
             return f"{title}. Recommended Action: {action}"
         error = str(item.get("error") or "").strip()
         if error:
@@ -2567,14 +2642,18 @@ class DailyEditorialWorkflow:
         slug = str(item.get("slug") or "")
         status = str(item.get("status") or "")
         publish_status = str(publish_row.get("status") or "")
-        if publish_status == "approved_for_publish":
+        normalized_status = str(PublishGate.normalize_existing_row(publish_row).get("normalized_status") or publish_status)
+        if normalized_status == "approved_for_publish":
             return f"python editorial_console.py publish-ready --date {batch_date}"
-        if publish_status == "published_local" or status == "published":
+        if normalized_status == "published_local" or status == "published":
             return "Already published"
         if self._has_reviewable_preview(item) and status in {"drafted", "selected"}:
             return f"python editorial_console.py approve --slug {slug} --date {batch_date}"
-        if publish_status == "blocked":
-            return self._recommended_action_for_failures(list(publish_row.get("failures") or []))
+        if normalized_status == "blocked":
+            normalized = PublishGate.normalize_existing_row(publish_row)
+            return self._recommended_action_for_failures(list(normalized.get("hard_blockers") or []))
+        if normalized_status == "needs_human_review":
+            return f"python editorial_console.py approve --slug {slug} --date {batch_date}"
         if status == "rejected":
             return f"python editorial_console.py reject --slug {slug} --date {batch_date} --reason \"Need revision\""
         return f"python editorial_console.py draft --date {batch_date}"
@@ -2582,9 +2661,10 @@ class DailyEditorialWorkflow:
     def _top_block_reasons(self, publish_rows: list[dict[str, Any]]) -> list[str]:
         counts: dict[str, int] = {}
         for row in publish_rows:
-            if str(row.get("status") or "") != "blocked":
+            normalized = PublishGate.normalize_existing_row(row)
+            if str(normalized.get("normalized_status") or "") != "blocked":
                 continue
-            failures = [str(reason).strip() for reason in list(row.get("failures") or []) if str(reason).strip()]
+            failures = [str(reason).strip() for reason in list(normalized.get("hard_blockers") or []) if str(reason).strip()]
             if not failures:
                 failures = ["blocked"]
             for reason in failures:
@@ -2612,14 +2692,19 @@ class DailyEditorialWorkflow:
 
     def _publish_gate_status_for_item(self, item: dict[str, Any], publish_row: dict[str, Any] | None = None) -> str:
         status = str(item.get("status") or "").strip().lower()
-        publish_status = str((publish_row or {}).get("status") or "missing").strip().lower()
+        if not publish_row:
+            return "Review Pending" if self._has_reviewable_preview(item) else "Draft"
+        normalized = PublishGate.normalize_existing_row(publish_row or {})
+        publish_status = str(normalized.get("normalized_status") or (publish_row or {}).get("status") or "missing").strip().lower()
         if status == "published" or publish_status in {"published_local", "published"}:
-            return "Published in Current Batch" if status == "published" else "Ready for Publish"
+            return "Published"
         if publish_status == "approved_for_publish":
             return "Ready for Publish"
         if publish_status == "blocked":
             return "Publish Blocked"
-        return "Publish Blocked"
+        if publish_status == "needs_human_review":
+            return "Human Approval Required"
+        return "Review Pending"
 
     def _deployment_status_for_item(self, item: dict[str, Any], publish_row: dict[str, Any] | None = None) -> str:
         slug = str(item.get("slug") or "").strip()
@@ -2657,7 +2742,7 @@ class DailyEditorialWorkflow:
             return "approved"
         if normalized in {"published in current batch", "published", "local output ready"}:
             return "published"
-        if normalized in {"needs review", "draft", "awaiting push", "unknown"}:
+        if normalized in {"needs review", "draft", "awaiting push", "awaiting publish", "human approval required", "review pending", "unknown"}:
             return "selected"
         return "rejected"
 
@@ -2975,8 +3060,8 @@ class DailyEditorialWorkflow:
                     "title": str(metadata.get("title") or publish_row.get("title") or slug),
                     "editorial_status": self._editorial_status_for_item(queue_item, publish_row),
                     "publish_gate_status": self._publish_gate_status_for_item(queue_item, publish_row),
-                    "publish_queue_status": str(publish_row.get("status") or "missing"),
-                    "publish_queue_label": self._operator_status_label(str(publish_row.get("status") or "missing")),
+                    "publish_queue_status": str(PublishGate.normalize_existing_row(publish_row).get("normalized_status") or publish_row.get("status") or "missing"),
+                    "publish_queue_label": self._operator_status_label(str(PublishGate.normalize_existing_row(publish_row).get("normalized_status") or publish_row.get("status") or "missing")),
                     "local_status": local_status,
                     "site_output_exists": site_file.exists(),
                     "published_static_exists": local_article_file.exists(),
@@ -3007,7 +3092,8 @@ class DailyEditorialWorkflow:
         git_status: dict[str, str],
         live_probe: dict[str, Any],
     ) -> str:
-        queue_status = str(publish_row.get("status") or "missing")
+        normalized = PublishGate.normalize_existing_row(publish_row)
+        queue_status = str(normalized.get("normalized_status") or publish_row.get("status") or "missing")
         git_state = str(git_status.get("status") or "")
         live_state = str(live_probe.get("status") or "")
         published_states = {"published_local", "published"}
@@ -3019,15 +3105,15 @@ class DailyEditorialWorkflow:
         if local_status == "missing_local":
             return "Missing Local Output"
         if queue_status in awaiting_states:
-            return "Awaiting First Publish"
+            return "Awaiting Publish"
         if queue_status == "blocked":
-            return "Awaiting First Publish"
+            return "Awaiting Publish"
         if not docs_exists or local_status == "local_only":
             return "Missing Docs"
         if git_state in {"not_synced", "not_committed", "not_pushed"}:
             return "Awaiting Push"
         if queue_status == "approved_for_publish":
-            return "Awaiting First Publish"
+            return "Awaiting Publish"
         return "Unknown"
 
     def _diagnose_live_item(
@@ -3041,13 +3127,16 @@ class DailyEditorialWorkflow:
         live_probe: dict[str, Any],
         url: str,
     ) -> dict[str, str]:
-        queue_status = str(publish_row.get("status") or "missing")
-        failures = [str(item).strip() for item in list(publish_row.get("failures") or []) if str(item).strip()]
+        normalized = PublishGate.normalize_existing_row(publish_row)
+        queue_status = str(normalized.get("normalized_status") or publish_row.get("status") or "missing")
+        failures = [str(item).strip() for item in list(normalized.get("hard_blockers") or []) if str(item).strip()]
+        warnings = [str(item).strip() for item in list(normalized.get("warnings") or []) if str(item).strip()]
+        pending = [str(item).strip() for item in list(normalized.get("pending_reviews") or []) if str(item).strip()]
         git_state = str(git_status.get("status") or "")
         live_state = str(live_probe.get("status") or "")
 
         if queue_status == "blocked":
-            failure_titles = [self._operator_block_title(reason) for reason in failures]
+            failure_titles = [self._operator_block_title(reason) for reason in [*failures, *warnings]]
             failure_text = "; ".join(dict.fromkeys(failure_titles)) if failure_titles else "Publish gate is still blocking this article."
             recommended = self._recommended_action_for_reason(failures[0]) if failures else "Open Review"
             return {
@@ -3056,9 +3145,10 @@ class DailyEditorialWorkflow:
                 "next_action_command": f"python editorial_console.py serve --date {batch_date} --open",
             }
         if queue_status in {"needs_human_review", "needs_revision"}:
+            reason = pending[0] if pending else "human approval missing"
             return {
-                "block_reason": self._operator_status_label(queue_status),
-                "resolution": "Recommended Action: Open Review, then approve or send back for revision before publish.",
+                "block_reason": self._operator_block_title(reason),
+                "resolution": f"Recommended Action: {self._recommended_action_for_reason(reason)}. Review warnings: {', '.join(self._operator_block_title(item) for item in warnings) or 'none'}.",
                 "next_action_command": f"python editorial_console.py serve --date {batch_date} --open",
             }
         if queue_status in {"missing", "selected", "drafted"} or local_status == "missing_local":
@@ -3216,7 +3306,7 @@ class DailyEditorialWorkflow:
             f"- Total items: {summary['total_items']}",
             "## Deployment summary",
             f"- Live 200: {summary['live_200']}",
-            f"- Awaiting First Publish: {summary['awaiting_first_publish']}",
+            f"- Awaiting Publish: {summary['awaiting_publish']}",
             f"- Awaiting Push: {summary['awaiting_push']}",
             f"- Missing Local Output: {summary['missing_local_output']}",
             f"- Missing Docs: {summary['missing_docs']}",
@@ -3285,7 +3375,7 @@ class DailyEditorialWorkflow:
       <h2>Deployment summary</h2>
       <div class="kpis">
         <div class="kpi">Live 200<strong>{summary['live_200']}</strong></div>
-        <div class="kpi">Awaiting First Publish<strong>{summary['awaiting_first_publish']}</strong></div>
+        <div class="kpi">Awaiting Publish<strong>{summary['awaiting_publish']}</strong></div>
         <div class="kpi">Awaiting Push<strong>{summary['awaiting_push']}</strong></div>
         <div class="kpi">Missing Local Output<strong>{summary['missing_local_output']}</strong></div>
         <div class="kpi">Missing Docs<strong>{summary['missing_docs']}</strong></div>

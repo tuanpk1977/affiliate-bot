@@ -1152,7 +1152,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             )
             _write_json(
                 data_dir / "publish_queue.json",
-                [{"slug": "agent-skills-review-2026", "status": "blocked", "failures": ["AI review failed", "verified source score too low"]}],
+                [{"slug": "agent-skills-review-2026", "status": "blocked", "failures": ["affiliate disclosure missing", "verified source score too low"]}],
             )
 
             with patch.object(workflow, "_probe_live_url", return_value={"status": "404", "http_status": 404, "reason": "HTTP Error 404"}):
@@ -1161,7 +1161,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             item = report["items"][0]
             self.assertEqual(item["display_status"], "Missing Local Output")
             self.assertIn("Publish Blocked", item["block_reason"])
-            self.assertIn("AI quality review required", item["block_reason"])
+            self.assertIn("affiliate disclosure missing", item["block_reason"])
             self.assertIn("Need better verified sources", item["block_reason"])
             self.assertIn("Recommended Action", item["resolution"])
             self.assertIn("serve --date 2026-07-07 --open", item["next_action_command"])
@@ -1187,7 +1187,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             _write_json(
                 data_dir / "publish_queue.json",
                 [
-                    {"slug": "one", "status": "blocked", "failures": ["AI review failed"]},
+                    {"slug": "one", "status": "blocked", "failures": ["affiliate disclosure missing"]},
                     {"slug": "two", "status": "published_local", "failures": []},
                 ],
             )
@@ -1333,7 +1333,8 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertEqual(summary["needs_review"], 1)
             self.assertEqual(summary["human_approved"], 1)
             self.assertEqual(summary["ready_for_publish"], 1)
-            self.assertEqual(summary["publish_blocked"], 1)
+            self.assertEqual(summary["publish_blocked"], 0)
+            self.assertEqual(summary["human_approval_required"], 1)
             self.assertEqual(summary["published_this_batch"], 0)
 
     def test_live_200_blocked_article_is_not_counted_as_unpublished_error(self) -> None:

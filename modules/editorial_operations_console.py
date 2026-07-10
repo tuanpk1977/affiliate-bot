@@ -78,7 +78,7 @@ class EditorialOperationsConsole:
         self.publish_queue_path = self.data_dir / "publish_queue.json"
         self.review_engine = ContentReviewEngine(data_dir=self.data_dir)
         self.human_workflow = HumanApprovalWorkflow(data_dir=self.data_dir)
-        self.publish_gate = PublishGate(data_dir=self.data_dir, site_output_dir=self.site_output_dir)
+        self.publish_gate = PublishGate(data_dir=self.data_dir, site_output_dir=self.site_output_dir, config=getattr(settings, "editorial_config", {}).get("publish_gate", {}))
 
     def list_pending_approvals(self) -> list[dict[str, Any]]:
         rows = self.collect_rows()
@@ -212,8 +212,11 @@ class EditorialOperationsConsole:
         publish_row = next((row for row in publish_rows if str(row.get("slug", "")) == slug), None)
         if not publish_row:
             raise ValueError(f"Unknown publish slug: {slug}")
-        if str(publish_row.get("status", "")) != "approved_for_publish":
+        normalized = PublishGate.normalize_existing_row(publish_row)
+        if str(normalized.get("normalized_status") or publish_row.get("status", "")) != "approved_for_publish":
             raise ValueError(f"Slug is not approved for publish: {slug}")
+        if normalized.get("hard_blockers"):
+            raise ValueError(f"Slug has hard publish blockers: {slug}")
         draft_dir = self.drafts_dir / slug
         draft_html = draft_dir / "index.html"
         if not draft_html.exists():
@@ -366,11 +369,27 @@ class EditorialOperationsConsole:
         for row in rows:
             if str(row.get("slug", "")) != slug:
                 continue
-            failures = [item for item in row.get("failures", []) if str(item).strip().lower() != "human approval missing"]
+            normalized = PublishGate.normalize_existing_row(row)
+            hard_blockers = list(normalized.get("hard_blockers") or [])
+            warnings = list(normalized.get("warnings") or [])
+            pending_reviews = [
+                item
+                for item in list(normalized.get("pending_reviews") or [])
+                if str(item).strip().lower() != "human approval missing"
+            ]
             row["human_approval_passed"] = True
-            row["failures"] = failures
-            row["publish_ready"] = not failures
-            row["status"] = "approved_for_publish" if not failures else "blocked"
+            row["hard_blockers"] = hard_blockers
+            row["warnings"] = warnings
+            row["pending_reviews"] = pending_reviews
+            row["failures"] = hard_blockers
+            row["publish_ready"] = not hard_blockers
+            row["status"] = "approved_for_publish" if not hard_blockers else "blocked"
+            row["final_gate"] = "Ready for Publish" if not hard_blockers else "Publish Blocked"
+            row["severity_counts"] = {
+                "BLOCK": len(hard_blockers),
+                "WARNING": len(warnings),
+                "HUMAN_REVIEW_REQUIRED": len(pending_reviews),
+            }
             row["checked_at"] = datetime.now(UTC).isoformat()
             updated = row
             break
@@ -385,13 +404,24 @@ class EditorialOperationsConsole:
         for row in rows:
             if str(row.get("slug", "")) != slug:
                 continue
-            failures = [item for item in row.get("failures", []) if str(item).strip().lower() != "human approval missing"]
+            normalized = PublishGate.normalize_existing_row(row)
+            failures = list(normalized.get("hard_blockers") or [])
             failures = [item for item in failures if not str(item).strip().lower().startswith("human approval rejected:")]
-            failures.append(reason)
+            if reason not in failures:
+                failures.append(reason)
             row["human_approval_passed"] = False
+            row["hard_blockers"] = failures
+            row["warnings"] = list(normalized.get("warnings") or [])
+            row["pending_reviews"] = ["human approval rejected"]
             row["failures"] = failures
             row["publish_ready"] = False
             row["status"] = "blocked"
+            row["final_gate"] = "Publish Blocked"
+            row["severity_counts"] = {
+                "BLOCK": len(failures),
+                "WARNING": len(row["warnings"]),
+                "HUMAN_REVIEW_REQUIRED": len(row["pending_reviews"]),
+            }
             row["checked_at"] = datetime.now(UTC).isoformat()
             updated = row
             break

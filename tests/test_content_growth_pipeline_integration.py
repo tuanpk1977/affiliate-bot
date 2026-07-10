@@ -620,8 +620,8 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
 
             self.assertEqual(result["page"]["review"]["status"], "needs_human_review")
             self.assertEqual(result["page"]["human_approval"]["status"], "needs_human_review")
-            self.assertEqual(result["page"]["publish_gate"]["status"], "blocked")
-            self.assertIn("human approval missing", result["page"]["publish_gate"]["failures"])
+            self.assertEqual(result["page"]["publish_gate"]["status"], "needs_human_review")
+            self.assertIn("human approval missing", result["page"]["publish_gate"]["pending_reviews"])
             self.assertTrue((data_dir / "production_article_drafts" / slug / "article.md").exists())
             self.assertTrue((data_dir / "production_article_drafts" / slug / "index.html").exists())
             metadata = json.loads((data_dir / "production_article_drafts" / slug / "metadata.json").read_text(encoding="utf-8"))

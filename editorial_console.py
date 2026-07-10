@@ -95,6 +95,10 @@ def build_parser() -> argparse.ArgumentParser:
     check_live.add_argument("--blocked-only", action="store_true", help="Show only blocked articles inside the live-status report.")
     check_live.add_argument("--open", action="store_true", help="Open the generated HTML live-status report.")
 
+    diagnose = subparsers.add_parser("diagnose-article", help="Inspect one article publish-gate decision without modifying files.")
+    diagnose.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
+    diagnose.add_argument("--slug", required=True, help="Article slug.")
+
     open_cmd = subparsers.add_parser("open", help="Show or open the daily dashboard paths.")
     open_cmd.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
     open_cmd.add_argument("--master", action="store_true", help="Open upload/dashboard.html instead of the daily review dashboard.")
@@ -365,6 +369,9 @@ def main(argv: list[str] | None = None) -> int:
         if args.open:
             _open_local_path(payload["html_report"])
         print(json.dumps(payload, indent=2, ensure_ascii=False))
+        return 0
+    if args.command == "diagnose-article":
+        print(json.dumps(workflow.diagnose_article(batch_date=args.date, slug=args.slug), indent=2, ensure_ascii=False))
         return 0
     if args.command == "open":
         payload = workflow.get_dashboard_paths(batch_date=args.date)

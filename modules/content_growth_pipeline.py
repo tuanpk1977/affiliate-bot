@@ -505,9 +505,9 @@ def generate_topic_package(topic: dict[str, Any]) -> GeneratedPage:
         human_approval=human_approval,
         internal_links=links,
     )
-    if str(publish_gate.get("status", "")) == "blocked":
+    if str(publish_gate.get("status", "")) != "approved_for_publish":
         raise RuntimeError(
-            f"Publish gate blocked generation for {topic_name}: {'; '.join(publish_gate.get('failures', [])) or 'publish checks failed'}."
+            f"Publish gate blocked generation for {topic_name}: {'; '.join(publish_gate.get('failures', [])) or '; '.join(publish_gate.get('pending_reviews', [])) or 'publish checks failed'}."
         )
     article_file = write_article(path, article_html)
     site_file = write_article(path, article_html, output=SITE_OUTPUT)
