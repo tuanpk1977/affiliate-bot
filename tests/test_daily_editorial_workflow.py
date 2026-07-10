@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import json
+import io
 import unittest
+from contextlib import redirect_stdout
 from datetime import date
 from importlib.util import module_from_spec, spec_from_file_location
 from pathlib import Path
@@ -17,6 +19,7 @@ assert EDITORIAL_CONSOLE_SPEC and EDITORIAL_CONSOLE_SPEC.loader
 EDITORIAL_CONSOLE_MODULE = module_from_spec(EDITORIAL_CONSOLE_SPEC)
 EDITORIAL_CONSOLE_SPEC.loader.exec_module(EDITORIAL_CONSOLE_MODULE)
 build_parser = EDITORIAL_CONSOLE_MODULE.build_parser
+editorial_console_main = EDITORIAL_CONSOLE_MODULE.main
 
 
 def _write_json(path: Path, payload: object) -> None:
@@ -201,6 +204,80 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
         self.assertEqual(parsed.intent, "commercial research")
         self.assertEqual(parsed.source_url, "https://ugcvideo.ai")
         self.assertTrue(parsed.open)
+
+    def test_publish_ready_cli_handles_no_ready_without_traceback(self) -> None:
+        class FakeWorkflow:
+            def set_progress_reporter(self, reporter):
+                self.reporter = reporter
+
+            def publish_ready(self, *, batch_date: str, validation_mode: str = "smart"):
+                raise ValueError(f"No articles are ready for publish in batch {batch_date}. Blocked: one, two")
+
+            def status(self, *, batch_date: str):
+                return {
+                    "date": batch_date,
+                    "total_topics": 10,
+                    "human_approved": 3,
+                    "ready_for_publish": 0,
+                    "publish_blocked": 7,
+                    "top_block_reasons": [
+                        "AI quality review required",
+                        "Knowledge needs refresh",
+                        "Need better verified sources",
+                    ],
+                }
+
+        stdout = io.StringIO()
+        with patch.object(EDITORIAL_CONSOLE_MODULE, "DailyEditorialWorkflow", return_value=FakeWorkflow()):
+            with redirect_stdout(stdout):
+                exit_code = editorial_console_main(["publish-ready", "--date", "2026-07-10"])
+
+        output = stdout.getvalue()
+        self.assertEqual(exit_code, 2)
+        self.assertIn("[INFO] Hôm nay chưa có bài nào đủ điều kiện Ready for Publish.", output)
+        self.assertIn("Batch 2026-07-10", output)
+        self.assertIn("Human Approved: 3", output)
+        self.assertIn("Ready for Publish: 0", output)
+        self.assertIn("Publish Blocked: 7", output)
+        self.assertIn("- AI quality review required", output)
+        self.assertIn("Open menu 4 and review the blocked articles.", output)
+        self.assertNotIn("Traceback", output)
+        self.assertNotIn("git add", output)
+        self.assertNotIn("git commit", output)
+        self.assertNotIn("git push", output)
+
+    def test_publish_ready_cli_reports_unexpected_errors_as_failures(self) -> None:
+        class FakeWorkflow:
+            def set_progress_reporter(self, reporter):
+                self.reporter = reporter
+
+            def publish_ready(self, *, batch_date: str, validation_mode: str = "smart"):
+                raise RuntimeError("git push failed")
+
+        stdout = io.StringIO()
+        with patch.object(EDITORIAL_CONSOLE_MODULE, "DailyEditorialWorkflow", return_value=FakeWorkflow()):
+            with redirect_stdout(stdout):
+                exit_code = editorial_console_main(["publish-ready", "--date", "2026-07-10"])
+
+        output = stdout.getvalue()
+        self.assertEqual(exit_code, 1)
+        self.assertIn("[ERROR] Publish-ready failed: git push failed", output)
+        self.assertNotIn("[INFO] Hôm nay chưa có bài nào đủ điều kiện Ready for Publish.", output)
+
+    def test_runbot_menu_handles_no_ready_exit_code_before_generic_failure(self) -> None:
+        menu_text = (Path(__file__).resolve().parents[1] / "runbot_menu.bat").read_text(encoding="utf-8")
+
+        today_publish = menu_text.index("python editorial_console.py publish-ready --validation-mode smart")
+        today_no_ready = menu_text.index("if errorlevel 2 goto publish_no_ready_today", today_publish)
+        today_failure = menu_text.index("if errorlevel 1 goto publish_failed_today", today_publish)
+        custom_publish = menu_text.index("python editorial_console.py publish-ready --date %PUBLISH_DATE% --validation-mode smart")
+        custom_no_ready = menu_text.index("if errorlevel 2 goto publish_no_ready_custom", custom_publish)
+        custom_failure = menu_text.index("if errorlevel 1 goto publish_failed_custom", custom_publish)
+
+        self.assertLess(today_no_ready, today_failure)
+        self.assertLess(custom_no_ready, custom_failure)
+        self.assertIn(":publish_no_ready_today", menu_text)
+        self.assertIn(":publish_no_ready_custom", menu_text)
 
     def test_editorial_console_partner_intake_parser(self) -> None:
         parser = build_parser()

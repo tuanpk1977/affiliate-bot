@@ -184,6 +184,42 @@ def _start_publish_watch(workflow: DailyEditorialWorkflow) -> tuple[threading.Ev
     return stop_event, watcher, started_at
 
 
+def _is_no_ready_publish_error(exc: Exception) -> bool:
+    message = str(exc)
+    return message.startswith("No articles are ready for publish in batch ")
+
+
+def _print_no_ready_publish_summary(workflow: DailyEditorialWorkflow, *, batch_date: str) -> None:
+    try:
+        summary = workflow.status(batch_date=batch_date)
+    except Exception as exc:
+        print("[INFO] Hôm nay chưa có bài nào đủ điều kiện Ready for Publish.", flush=True)
+        print("[INFO] Hãy mở menu 4 để xem Publish Gate và lý do bị chặn.", flush=True)
+        print("[INFO] Không có file nào được commit hoặc push.", flush=True)
+        print(f"[INFO] Không đọc được tóm tắt batch: {exc}", flush=True)
+        return
+    top_reasons = list(summary.get("top_block_reasons") or [])[:3]
+    print("[INFO] Hôm nay chưa có bài nào đủ điều kiện Ready for Publish.", flush=True)
+    print("[INFO] Hãy mở menu 4 để xem Publish Gate và lý do bị chặn.", flush=True)
+    print("[INFO] Không có file nào được commit hoặc push.", flush=True)
+    print("", flush=True)
+    print(f"Batch {summary.get('date', batch_date)}", flush=True)
+    print(f"Total articles: {summary.get('total_topics', 0)}", flush=True)
+    print(f"Human Approved: {summary.get('human_approved', summary.get('approved', 0))}", flush=True)
+    print(f"Ready for Publish: {summary.get('ready_for_publish', 0)}", flush=True)
+    print(f"Publish Blocked: {summary.get('publish_blocked', 0)}", flush=True)
+    print("", flush=True)
+    print("Top reasons:", flush=True)
+    if top_reasons:
+        for reason in top_reasons:
+            print(f"- {reason}", flush=True)
+    else:
+        print("- No publish-gate block reasons found.", flush=True)
+    print("", flush=True)
+    print("Next action:", flush=True)
+    print("Open menu 4 and review the blocked articles.", flush=True)
+
+
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     workflow = DailyEditorialWorkflow()
@@ -256,6 +292,15 @@ def main(argv: list[str] | None = None) -> int:
         stop_event, watcher, started_at = _start_publish_watch(workflow)
         try:
             result = workflow.publish_ready(batch_date=args.date, validation_mode=args.validation_mode)
+        except ValueError as exc:
+            if _is_no_ready_publish_error(exc):
+                _print_no_ready_publish_summary(workflow, batch_date=args.date)
+                return 2
+            print(f"[ERROR] Publish-ready failed: {exc}", flush=True)
+            return 1
+        except Exception as exc:
+            print(f"[ERROR] Publish-ready failed: {exc}", flush=True)
+            return 1
         finally:
             stop_event.set()
             watcher.join(timeout=1)

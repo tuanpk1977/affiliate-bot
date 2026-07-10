@@ -80,6 +80,7 @@ set /p PUBLISH_DATE=Nhap ngay can publish (YYYY-MM-DD, de trong = hom nay):
 if "%PUBLISH_DATE%"=="" (
     echo Dang publish cac bai da approved cua hom nay bang smart validation, va se push len GitHub neu thanh cong...
     python editorial_console.py publish-ready --validation-mode smart
+    if errorlevel 2 goto publish_no_ready_today
     if errorlevel 1 goto publish_failed_today
     echo.
     echo [OK] Publish + push GitHub da chay xong cho hom nay.
@@ -88,12 +89,25 @@ if "%PUBLISH_DATE%"=="" (
 ) else (
     echo Dang publish cac bai da approved cua ngay %PUBLISH_DATE% bang smart validation, va se push len GitHub neu thanh cong...
     python editorial_console.py publish-ready --date %PUBLISH_DATE% --validation-mode smart
+    if errorlevel 2 goto publish_no_ready_custom
     if errorlevel 1 goto publish_failed_custom
     echo.
     echo [OK] Publish + push GitHub da chay xong cho ngay %PUBLISH_DATE%.
     echo [INFO] Dang mo live status report de kiem tra trang thai thuc te...
     python editorial_console.py check-live --all --open
 )
+pause
+goto menu
+
+:publish_no_ready_today
+echo.
+echo [INFO] Khong co bai nao du dieu kien publish. Quay lai menu chinh.
+pause
+goto menu
+
+:publish_no_ready_custom
+echo.
+echo [INFO] Khong co bai nao du dieu kien publish cho ngay %PUBLISH_DATE%. Quay lai menu chinh.
 pause
 goto menu
 
