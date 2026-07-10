@@ -76,12 +76,13 @@ def post_process_internal_links(output: Path) -> dict[str, int]:
             continue
         text = page.path.read_text(encoding="utf-8", errors="ignore")
         text = remove_previous_block(text)
-        related = related_for_page(page, pages)
-        block = related_block(page, related)
-        if block:
-            text = inject_before_footer(text, block)
-            links_added += block.count("<a ")
-        text = inject_seo_footer(text, footer_links, page.url)
+        if not is_canonical_article(text):
+            related = related_for_page(page, pages)
+            block = related_block(page, related)
+            if block:
+                text = inject_before_footer(text, block)
+                links_added += block.count("<a ")
+            text = inject_seo_footer(text, footer_links, page.url)
         text = ensure_breadcrumb_schema(text, page)
         text = ensure_visible_breadcrumb(text, page)
         text = ensure_sticky_toc(text, page)
@@ -157,6 +158,8 @@ def classify(url: str, slug: str) -> str:
 
 def related_for_page(page: PageInfo, pages: list[PageInfo]) -> dict[str, list[PageInfo]]:
     candidates = [item for item in pages if item.url != page.url and item.kind not in {"asset", "home", "tracking"}]
+    if not page.url.startswith("/vi/"):
+        candidates = [item for item in candidates if not item.url.startswith("/vi/") and not contains_vietnamese_label(item.title)]
     if page.kind == "review":
         return {
             "Popular reviews": rank(page, candidates, {"review"}, 5),
@@ -233,12 +236,12 @@ def related_block(page: PageInfo, groups: dict[str, list[PageInfo]]) -> str:
             seen.add(item.url)
             title = html.escape(clean_title(item.title))
             description = html.escape(related_description(item))
-            links.append(f"<article class='related-research-card'><h4>{title}</h4><p>{description}</p><a href='{html.escape(item.url)}'>Open guide</a></article>")
+            links.append(f"<article class='related-card'><h3>{title}</h3><p>{description}</p><a href='{html.escape(item.url)}'>Read guide</a></article>")
         if links:
-            sections.append(f"<div class='related-card-section'><h3>{html.escape(label)}</h3><div class='related-card-grid'>{''.join(links)}</div></div>")
+            sections.append(f"<div class='related-card-section'><h3>{html.escape(label)}</h3><div class='related-grid'>{''.join(links)}</div></div>")
     if not sections:
         return ""
-    return "\n<section class='card internal-links related-research' data-auto-internal-links='1'><h2>Related research</h2>" + "".join(sections) + "</section>\n"
+    return "\n<section class='article-card article-section internal-links related-research' data-auto-internal-links='1'><h2>Related research</h2>" + "".join(sections) + "</section>\n"
 
 
 def related_description(item: PageInfo) -> str:
@@ -254,6 +257,7 @@ def related_description(item: PageInfo) -> str:
 
 
 def seo_footer_links(pages: list[PageInfo]) -> dict[str, list[PageInfo]]:
+    pages = [p for p in pages if not p.url.startswith("/vi/") and not contains_vietnamese_label(p.title)]
     return {
         "Popular reviews": [p for p in pages if p.kind == "review"][:6],
         "Popular comparisons": [p for p in pages if p.kind == "comparison"][:6],
@@ -296,7 +300,7 @@ def ensure_visible_breadcrumb(text: str, page: PageInfo) -> str:
         return text
     if "data-auto-breadcrumb=\"1\"" in text or "data-auto-breadcrumb='1'" in text:
         return text
-    if re.search(r"<nav\b[^>]*class=['\"][^'\"]*\bbreadcrumb\b[^'\"]*['\"]", text, flags=re.IGNORECASE):
+    if re.search(r"<nav\b[^>]*class=['\"][^'\"]*\b(?:breadcrumb|breadcrumbs)\b[^'\"]*['\"]", text, flags=re.IGNORECASE):
         return text
     parent_label = {
         "review": "Reviews",
@@ -315,7 +319,7 @@ def ensure_visible_breadcrumb(text: str, page: PageInfo) -> str:
         "hub": "/hubs/",
     }.get(page.kind, "/")
     crumb = (
-        f"<nav class='breadcrumb' data-auto-breadcrumb='1'>"
+        f"<nav class='breadcrumbs' data-auto-breadcrumb='1' aria-label='Breadcrumb'>"
         f"<a href='/'>Home</a> / <a href='{html.escape(parent_url)}'>{html.escape(parent_label)}</a> / "
         f"<span>{html.escape(clean_title(page.title))}</span></nav>"
     )
@@ -345,7 +349,7 @@ def ensure_sticky_toc(text: str, page: PageInfo) -> str:
         if f'id="{anchor}"' not in updated and pattern.search(updated):
             updated = pattern.sub(rf'\1 id="{anchor}"\2\3', updated, count=1)
         links.append(f"<a href='#{html.escape(anchor)}'>{html.escape(heading)}</a>")
-    toc = "<section class='card toc auto-toc-block' data-auto-toc='1'><h2>Contents</h2>" + "".join(links) + "</section>"
+    toc = "<section class='article-card toc-links auto-toc-block' data-auto-toc='1'><h2>Contents</h2>" + "".join(links) + "</section>"
     main_match = re.search(r"(<main\b[^>]*>)", updated, flags=re.IGNORECASE)
     if main_match:
         return updated[: main_match.end()] + toc + updated[main_match.end() :]
@@ -360,6 +364,8 @@ def has_existing_toc(text: str) -> bool:
         "class='toc card'",
         "class=\"table-of-contents\"",
         "class='table-of-contents'",
+        "class=\"article-card toc-links\"",
+        "class='article-card toc-links'",
         "review-layout",
     ]
     return any(marker in text for marker in toc_markers)
@@ -377,8 +383,27 @@ def ensure_go_link_attributes(text: str) -> str:
 
 def merge_rel(value: str) -> str:
     tokens = set(str(value or "").split())
-    tokens.update({"nofollow", "sponsored"})
+    tokens.update({"nofollow", "sponsored", "noopener", "noreferrer"})
     return " ".join(sorted(tokens))
+
+
+def is_canonical_article(text: str) -> bool:
+    return "article-layout" in text and ("article-container" in text or "/assets/article.css" in text)
+
+
+def contains_vietnamese_label(text: str) -> bool:
+    lowered = html.unescape(str(text or "")).lower()
+    markers = (
+        "đánh giá",
+        "giá",
+        "lựa chọn",
+        "những điểm",
+        "kiểm tra trước khi mua",
+        "thay thế",
+        "Ä",
+        "giã",
+    )
+    return any(marker.lower() in lowered for marker in markers)
 
 
 def slugify_fragment(text: str) -> str:

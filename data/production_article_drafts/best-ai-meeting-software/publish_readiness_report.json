@@ -3,13 +3,19 @@
   "title": "best ai meeting software 2026: Pricing, Pros, Cons",
   "description": "Independent best ai meeting software guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice.",
   "url": "https://smileaireviewhub.com/best-ai-meeting-software/",
-  "review_status": "human_approved",
-  "human_approval_status": "human_approved",
-  "publish_gate_status": "published_local",
-  "publish_failures": [],
+  "review_status": "needs_revision",
+  "human_approval_status": "needs_revision",
+  "publish_gate_status": "blocked",
+  "publish_failures": [
+    "AI review failed",
+    "human approval missing"
+  ],
   "research_quality_score": 57.79,
-  "verified_source_score": 0,
-  "word_count": 2153,
+  "verified_source_score": 79,
+  "word_count": 2034,
+  "featured_image_prompt_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-ai-meeting-software\\featured_image_prompt.txt",
+  "social_folder": "D:\\AFFILATE BOT\\social_drafts\\2026-07-07\\best-ai-meeting-software",
+  "video_folder": "D:\\AFFILATE BOT\\video_output\\best-ai-meeting-software",
   "article_markdown": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-ai-meeting-software\\article.md",
   "article_html": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-ai-meeting-software\\index.html"
 }

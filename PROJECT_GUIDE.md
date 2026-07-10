@@ -1623,6 +1623,286 @@ python scripts/editorial_console.py --publish-all
 python scripts/editorial_console.py --request-topic "best AI tools for small business" --category "AI Tools" --intent "commercial"
 ```
 
+### Simplest Morning Workflow
+
+For the current local operator flow, the easiest daily path is:
+
+```text
+1. Run one morning command
+2. Open one dashboard
+3. Review each article
+4. Approve or reject each row
+5. Publish the batch only after every row is approved
+```
+
+Use this command to start the weekly batch on Monday, or on the first day you begin a new week:
+
+```powershell
+python editorial_console.py morning --count 10
+```
+
+If you want the daily review dashboard to open immediately after generation:
+
+```powershell
+python editorial_console.py morning --count 10 --open
+```
+
+`--open` now starts the local interactive review dashboard. This is the easiest operator mode because you can:
+
+- open an article inside the same dashboard
+- approve it
+- reject it
+- return to the list automatically
+- continue until the full batch is done
+- publish the batch from the same dashboard when every row is approved
+
+On the first run of a week, this command now does all of the following:
+
+- discovers trending topics
+- scores and selects the batch
+- freezes one weekly batch of 10 core topics for the full week
+- runs research and quality gates
+- generates the day-one drafts
+- builds the daily review dashboard
+- copies review and upload-ready files into `upload/YYYY-MM-DD/`
+- refreshes `upload/dashboard.html`
+
+From Tuesday to Sunday, do not discover a new weekly batch. Reuse the same 10 weekly topics and generate follow-up articles with:
+
+```powershell
+python editorial_console.py morning --count 10 --mode advanced
+python editorial_console.py morning --count 10 --mode advanced --open
+```
+
+`advanced` mode reuses the same weekly topic batch and rotates the angle by day:
+
+- Tuesday: pricing
+- Wednesday: alternatives
+- Thursday: comparison
+- Friday: tutorial
+- Saturday: best-for-use-case
+- Sunday: review/deep-dive
+
+After the morning command finishes, use one of these files:
+
+- Daily review dashboard:
+  `site_output/review/YYYY-MM-DD/index.html`
+- Upload master dashboard:
+  `upload/dashboard.html`
+- Operator console:
+  `data/editorial_operations_console.html`
+
+The `upload/YYYY-MM-DD/` folder now contains helper files so you do not need to remember long commands:
+
+- `open_dashboard.cmd`
+- `publish_approved.cmd`
+- `status.cmd`
+
+You can also ask the CLI to show or open the current dashboards:
+
+```powershell
+python editorial_console.py open
+python editorial_console.py open --master
+python editorial_console.py open --operator
+python editorial_console.py open --run
+python editorial_console.py serve --open
+```
+
+Practical operator sequence:
+
+```text
+Morning
+  -> python editorial_console.py morning --count 10 --open
+  -> browser opens the interactive local dashboard
+  -> click Xem nội dung
+  -> read the article inside the dashboard
+  -> click Approve or Reject
+  -> dashboard returns to the list and continues to the next article
+  -> click Publish Ready Articles to publish only rows that already passed every gate
+```
+
+Current daily operator diagram:
+
+One-click BAT files:
+
+```text
+runbot_menu.bat
+  -> main non-technical launcher
+  -> opens a simple numbered menu
+  -> 1 = week start batch
+  -> 2 = Tue-Sun advanced follow-up batch
+  -> 3 = custom topic
+  -> 4 = open dashboard
+  -> 5 = status
+  -> 6 = check live status
+  -> 7 = publish approved + push GitHub
+  -> 8 = exit
+
+runbot_week_start.bat
+  -> use on the first working day of the week
+  -> runs python editorial_console.py morning --count 10 --mode standard --open
+  -> opens the interactive review dashboard and the operator console
+
+runbot_tue_to_sun.bat
+  -> use on Tuesday to Sunday
+  -> runs python editorial_console.py morning --count 10 --mode advanced --open
+  -> reuses the same 10 weekly topics and creates deep-dive follow-up drafts
+
+runbot_custom_topic.bat
+  -> asks for a custom topic
+  -> optionally asks for an official/source URL
+  -> runs python editorial_console.py request-topic ... --open
+  -> opens the operator console for review
+```
+
+```text
+python editorial_console.py morning --count 10
+  -> trend discovery
+  -> topic scoring
+  -> top 10 selection
+  -> research package
+  -> quality gates
+  -> draft generation
+  -> daily review dashboard
+  -> upload/YYYY-MM-DD/
+  -> upload/dashboard.html
+
+operator opens dashboard
+  -> preview each article
+  -> approve or reject each slug
+
+articles that pass publish gate
+  -> python editorial_console.py publish-ready --date YYYY-MM-DD
+  -> copy final pages into site_output/<slug>/index.html
+  -> sync site_output/ into docs/ with scripts/sync_site_output_to_docs.py
+  -> copy final pages into upload/YYYY-MM-DD/published/<slug>/index.html
+  -> validate site_output/ and docs/
+  -> git add docs site_output data upload
+  -> git commit -m "Publish ready daily articles YYYY-MM-DD"
+  -> git push origin main
+  -> write upload/YYYY-MM-DD/publish_report.md
+
+strict full-batch mode if needed
+  -> python editorial_console.py publish --date YYYY-MM-DD
+  -> blocks unless every topic in the batch is ready for publish
+```
+
+Most useful commands right now:
+
+```powershell
+python editorial_console.py morning --count 10
+python editorial_console.py morning --count 10 --open
+python editorial_console.py status
+python editorial_console.py approve --slug <slug>
+python editorial_console.py reject --slug <slug> --reason "Need revision"
+python editorial_console.py publish-ready
+python editorial_console.py publish
+python editorial_console.py request-topic --topic "UGCVideo AI review" --category "AI Video Tools" --intent "commercial research" --open
+python editorial_console.py open --run
+python editorial_console.py serve --open
+```
+
+Simplest daily operating method:
+
+```text
+Double-click runbot_menu.bat
+  -> easiest entrypoint for normal operation
+  -> choose option 1 on the first working day of the week
+  -> choose option 2 on Tuesday to Sunday
+  -> choose option 3 when you want one custom affiliate article
+  -> choose option 4 to reopen the dashboard
+  -> choose option 6 to check live status
+  -> choose option 7 to open only blocked reasons
+  -> choose option 8 to publish approved rows and push GitHub
+  -> when choosing option 8, enter the batch date if you want to publish an older day such as 2026-07-07
+  -> leave it blank to publish today's approved batch
+  -> option 7 rebuilds the live report and opens only blocked rows with reason + fix suggestion
+  -> after option 8 finishes, the bot now prints OK/ERROR and opens the live-status report automatically
+  -> while option 8 is running, it prints the current step and a heartbeat every 60 seconds
+  -> after 5 minutes it prints a progress reminder
+  -> after 10 minutes it prints a long-running warning
+  -> after git push, it waits through short checkpoints and checks the real domain automatically
+  -> it now reports either "GitHub push OK nhưng Pages chưa cập nhật" or "Website live OK"
+  -> when Website live OK is detected, it prints the final live URLs directly in the terminal
+  -> it also saves live-link history into:
+     - data/published_live_urls.jsonl
+     - data/published_live_urls_latest.json
+  -> when creating a new weekly batch, it compares new topics against data/published_live_urls.jsonl
+  -> if slug, keyword, or URL path is near-duplicate with an already-live article, it prints a warning immediately
+  -> duplicate warnings are saved into the weekly manifest and daily queue before drafting
+  -> near-duplicate topics also get a small score penalty so fresh topics float higher automatically
+
+Double-click runbot_week_start.bat
+  -> on the first day of the week
+
+Double-click runbot_tue_to_sun.bat
+  -> on Tuesday to Sunday
+
+Double-click runbot_custom_topic.bat
+  -> when you want to create a custom affiliate article outside the weekly batch
+  -> enter topic
+  -> enter link if you have one
+  -> the system creates research + draft + opens review console
+
+Browser dashboard opens
+  -> read article
+  -> approve or reject
+  -> click Publish Ready Articles
+
+Only articles already in ready_for_publish can go live that day.
+Blocked rows stay in review or enrichment until fixed.
+```
+
+Exact daily click workflow:
+
+```text
+1. Double-click runbot_menu.bat
+2. Pick:
+   - 1 for the first working day of the week
+   - 2 for Tue-Sun deep-dive follow-up articles
+   - 3 for a manual/custom affiliate topic
+   - 4 to reopen the dashboard
+   - 6 to open the live-status report
+   - 7 to open only blocked reasons
+   - 8 to publish approved rows and push GitHub
+   - when choosing 8, type the batch date you want to publish, or leave it blank for today
+   - after publishing, review the auto-opened live-status report
+3. Wait for the browser dashboard to open
+4. Use the filters:
+   - Ready to publish
+   - Blocked
+   - Needs revision
+   - Published
+5. Click Xem nội dung on each row
+6. Read the article in the right-side preview panel
+7. Click Approve or Reject
+8. Continue until the list is fully reviewed
+9. Click Publish Ready Articles
+10. The system will:
+    - build site_output
+    - sync site_output into docs
+    - validate site_output and docs
+    - git add docs site_output data upload
+    - create a git commit
+    - git push origin main
+11. Open upload/dashboard.html to verify the publish report and copied files
+```
+
+Live status check:
+
+```powershell
+python editorial_console.py check-live
+python editorial_console.py check-live --all
+python editorial_console.py check-live --open
+```
+
+This report tells you clearly:
+
+- which article is only local
+- which article is already synced into `docs/`
+- which article is already included in git / `origin/main`
+- which article returns `200`, `404`, or `unknown` on the real domain
+
 Operator rules:
 
 - Review the draft HTML before approving.
@@ -1640,29 +1920,171 @@ Operator rules:
 - Human approval is required for affiliate review, pricing, comparison, and product recommendation articles.
 - Informational and tutorial articles can move forward automatically only when every gate passes.
 - Do not publish failed, rejected, blocked, or `needs_enrichment` topics.
-- `--publish` writes only to local outputs and updates the publish queue. It does not deploy, push, or submit IndexNow.
+- `serve --open` intentionally keeps the PowerShell window busy because it is running the local dashboard server.
+- Open a second PowerShell window for `status`, `approve`, `reject`, or `publish-ready`.
+- `publish-ready` is the default operator command because it publishes only rows that already passed every gate.
+- `publish-ready --validation-mode smart` là chế độ publish hằng ngày nên dùng mặc định.
+  - Chỉ kiểm tra các bài đang được publish trong batch hôm đó.
+  - Không để các trang cũ lỗi ở chỗ khác chặn cả batch.
+  - Bài nào fail validation sẽ bị skip riêng, các bài còn lại vẫn có thể push.
+- `publish-ready --validation-mode strict` là chế độ audit/publish nghiêm ngặt.
+  - Quét toàn bộ `site_output/` và `docs/`.
+  - Chỉ dùng khi bạn muốn kiểm tra toàn site, không nên dùng cho publish nhanh mỗi ngày.
+- `validate-batch --mode smart` dùng để kiểm tra trước khi push.
+- `validate-batch --mode strict` dùng để audit toàn site trước các đợt cleanup lớn.
+- `autofix-batch` sẽ tự sửa các lỗi đơn giản trước khi publish:
+  - thiếu CTA cuối bài
+  - thiếu FAQ schema khi đã có FAQ hiển thị
+  - thiếu meta description
+  - CTA đang đi thẳng ra official URL thay vì route `/go/` nếu hệ thống đã biết affiliate mapping
+  - còn sót marker nội bộ như `Research package snapshot`, `Content planning snapshot`, `Affiliate placeholder fields`, `{{`, `}}`
+- Nếu bài bị skip trong bước smart validation:
+  - mở `data/live_status_report.html`
+  - xem cột `Block reason`
+  - sửa đúng lỗi được ghi
+  - chạy lại `python editorial_console.py autofix-batch --date YYYY-MM-DD`
+  - sau đó chạy lại `python editorial_console.py publish-ready --date YYYY-MM-DD --validation-mode smart`
+- `publish` is strict full-batch mode and blocks if even one row still fails the publish gate.
 - `--publish-all` publishes only rows already in `approved_for_publish`. It never approves drafts automatically.
-- `--request-topic` is for off-calendar requests. It builds a research package, runs source and research gates, generates a draft only if the topic passes, and then sends the result into the normal review / approval / publish workflow.
+- `request-topic` is for off-calendar requests. It builds a research package, runs source and research gates, generates a draft only if the topic passes, and then sends the result into the normal review / approval / publish workflow.
 - The console shows status colors:
   - red = blocked
   - yellow = waiting
   - green = approved
   - blue = published
 
-Monday workflow:
+Monday or week-start workflow:
 
 1. Discover 10 hottrend topics.
-2. Build the weekly calendar.
+2. Freeze those 10 topics as the active weekly batch.
 3. Run research, verified source checks, AI review, and human approval routing.
-4. Approve only valid Monday drafts.
-5. Publish locally only the approved Monday articles.
+4. Approve only valid day-one drafts.
+5. Publish locally only the approved day-one articles.
 
 Tuesday-Sunday workflow:
 
-1. Reuse the approved weekly topic set from Monday.
-2. Generate one deeper follow-up article per scheduled topic.
+1. Reuse the same weekly batch of 10 topics created at week start.
+2. Generate one deeper follow-up article per topic for that day.
 3. Route failures to enrichment, review, human approval, or publish queues.
 4. Publish locally only after all gates pass and required human approval is complete.
+
+Lệnh publish/validation nên dùng:
+
+```powershell
+python editorial_console.py autofix-batch --date YYYY-MM-DD
+python editorial_console.py validate-batch --date YYYY-MM-DD --mode smart
+python editorial_console.py publish-ready --date YYYY-MM-DD --validation-mode smart
+python editorial_console.py validate-batch --date YYYY-MM-DD --mode strict
+python editorial_console.py publish-ready --date YYYY-MM-DD --validation-mode strict
+```
+
+Giải thích nhanh:
+
+1. `autofix-batch`:
+   sửa lỗi HTML đơn giản trước.
+2. `validate-batch --mode smart`:
+   kiểm tra riêng batch hôm nay, chưa push.
+3. `publish-ready --validation-mode smart`:
+   publish các bài hợp lệ và push GitHub nếu các bài được chọn đều ổn.
+4. `validate-batch --mode strict`:
+   audit toàn site.
+5. `publish-ready --validation-mode strict`:
+   chỉ dùng khi bạn muốn bắt luôn cả lỗi cũ trên site.
+
+Custom affiliate site or brand workflow:
+
+Use this when you want to create an article for a website or tool that is not part of the current weekly batch.
+
+```powershell
+python editorial_console.py request-topic --topic "UGCVideo AI review" --official-url "https://ugcvideo.ai" --affiliate-url "https://ugcvideo.ai/affiliates" --pricing-url "https://ugcvideo.ai/pricing" --category "AI Video Tools" --intent "commercial research" --count 1 --open
+```
+
+What this does:
+
+1. Creates a research package for the requested topic.
+2. Runs the research and source quality gates.
+3. Generates a draft only if the topic passes.
+4. Saves the request into `data/custom_topic_history.json`.
+5. Adds the draft into the daily review dashboard and copies files into `upload/YYYY-MM-DD/`.
+6. Rebuilds the operator console.
+7. Opens `data/editorial_operations_console.html` when `--open` is used.
+
+If you do not have all URLs yet, you can leave `--affiliate-url` or `--pricing-url` empty.
+
+New affiliate partner workflow:
+
+Use this when you have a new affiliate partner and want a whole content cluster, not just one article.
+
+```powershell
+python editorial_console.py partner-intake --name "UGCVideo.ai" --official-url "https://ugcvideo.ai" --affiliate-url "https://ugcvideo.ai/affiliates" --pricing-url "https://ugcvideo.ai/pricing" --contact-note "Reached out by email" --commission-note "Use verified commission terms only" --payout-note "Add payout schedule if known" --count 8 --open
+```
+
+What this does:
+
+1. Saves partner profile into `data/partners/<partner-slug>/partner.json`.
+2. Appends a row into `data/partner_intake_history.json`.
+3. Creates a research package from official/pricing/affiliate URLs plus notes.
+4. Builds a content cluster such as review, pricing, alternatives, tutorial, affiliate program, comparison, and FAQ.
+5. Runs research, planning, AI review, and publish gate for each draft.
+6. Adds all drafts into the daily review dashboard.
+7. Copies partner outputs into `upload/YYYY-MM-DD/<partner-slug>/`.
+8. Does not push GitHub automatically.
+
+How to publish a custom affiliate article:
+
+1. Run `request-topic`.
+2. Open the preview in the operator console.
+3. Approve the article.
+4. Publish it only if the publish gate shows ready.
+
+Affiliate link management:
+
+1. Update `data/affiliate_links.csv` when you receive a real affiliate URL.
+2. Keep `official_url` filled even if `affiliate_url` is empty.
+3. If `approved=true` and `affiliate_url` exists, the article CTA can use the affiliate URL.
+4. If no approved affiliate URL exists, the CTA falls back to the official website safely.
+
+Runbot menu workflow (Vietnamese):
+
+1. `runbot_menu.bat`
+   - `1`: đầu tuần, chọn 10 chủ đề tuần và tạo draft.
+   - `2`: Tue-Sun, tạo bài chuyên sâu tiếp theo từ 10 chủ đề tuần đó.
+   - `3`: Custom topic, nhập topic + official/affiliate/pricing URL.
+   - `4`: mở dashboard duyệt bài.
+   - `5`: xem trạng thái batch hiện tại.
+   - `6`: check live status.
+   - `7`: chỉ xem các bài bị block và cách sửa.
+   - `8`: publish các bài đã approved rồi build/sync docs/commit/push GitHub.
+   - `9`: New Affiliate Partner, nhập một brand/tool để bot tạo cả cụm bài.
+   - `10`: thoát menu.
+
+Ví dụ UGCVideo.ai:
+
+1. Chạy `runbot_menu.bat`
+2. Chọn `9`
+3. Nhập:
+   - Partner/Product name: `UGCVideo.ai`
+   - Official website URL: `https://ugcvideo.ai`
+   - Affiliate program URL: `https://ugcvideo.ai/affiliates`
+   - Pricing page URL: `https://ugcvideo.ai/pricing`
+4. Bot sẽ tạo cluster bài và đưa tất cả vào dashboard để duyệt.
+5. Chỉ sau khi approve xong mới quay lại menu và chọn `8` để publish + push GitHub.
+
+Recommended topic patterns for a new affiliate partner:
+
+- `<brand> review`
+- `<brand> pricing`
+- `<brand> alternatives`
+- `<brand> comparison`
+- `best <brand> for small business`
+- `how to use <brand>`
+
+Rules for custom affiliate articles:
+
+- never invent commission numbers, discounts, or pricing
+- if terms are unclear, keep the article informational until verified
+- use official URLs as fallback when no affiliate link is configured
+- do not publish if verified-source, AI review, or publish gates still fail
 
 ## 12B. CONTENT QUALITY FIRST WORKFLOW
 
@@ -1782,3 +2204,109 @@ video_output/trex-an-ai-code-reviewer-that-runs-your-code/
 ```
 
 Each folder should contain `review_video.mp4` plus supporting metadata/subtitle files.
+
+## 15. Canonical Public Article Renderer
+
+Public article rendering now follows this source-first flow:
+
+```text
+research package + article data
+  -> modules/content_growth_pipeline.render_article()
+  -> public presentation boundary / sanitize_public_article_html()
+  -> data/production_article_drafts/<slug>/index.html
+  -> data/published_static_pages/<slug>/index.html
+  -> build_site.py copies pages and /assets/article.css into site_output/
+  -> scripts/sync_site_output_to_docs.py copies site_output/ into docs/
+  -> editorial_console.py publish-ready --validation-mode smart
+  -> git commit / push
+  -> Cloudflare Pages
+```
+
+`docs/` remains generated deployment output. Fix public article layout in the renderer, CSS asset, validators, or post-process adapters first; do not hand-patch only `docs/`.
+
+Canonical article pages load:
+
+```html
+<link rel="stylesheet" href="/assets/article.css">
+```
+
+`assets/public-article.css` remains as a compatibility alias. The build copies both article stylesheets into `site_output/assets/`, and sync copies them into `docs/assets/`.
+
+Public English articles must use public labels only. Vietnamese labels belong under `/vi/`. Internal workflow states such as `needs_human_review`, `human_approved`, `published_local`, `approved_for_publish`, `needs_revision`, `needs_enrichment`, `research_score`, `source_confidence`, and planning/debug snapshots must never appear in public HTML. Public reviewer wording should be `Reviewed by: Editorial Team` or equivalent safe editorial wording.
+
+Canonical article markup uses:
+
+- `.site-header`
+- `.site-nav`
+- `.breadcrumbs`
+- `.article-layout`
+- `.article-container`
+- `.article-hero`
+- `.article-card`
+- `.article-section`
+- `.author-card`
+- `.disclosure-card`
+- `.toc-links`
+- `.table-wrapper`
+- `.article-table`
+- `.cta-group`
+- `.cta-button`
+- `.cta-button-secondary`
+- `.related-grid`
+- `.related-card`
+- `.faq-list`
+- `.source-list`
+- `.site-footer`
+
+Tables must use `<div class="table-wrapper"><table class="article-table">...</table></div>` with header scope attributes where practical. CTA links must use button classes. Affiliate redirect links under `/go/<merchant>/` must include `rel="sponsored noopener noreferrer"`; external non-affiliate links use `rel="noopener noreferrer"`.
+
+Related research must be deterministic, deduplicated, limited to six cards, exclude the current URL, and avoid mixing `/vi/` pages into English cards.
+
+## 16. Smart vs Strict Public Validation
+
+Daily publish uses smart validation:
+
+```powershell
+python editorial_console.py validate-batch --date YYYY-MM-DD --mode smart
+python editorial_console.py publish-ready --date YYYY-MM-DD --validation-mode smart
+```
+
+Smart mode validates only approved or publishable articles in the current batch plus required assets. If one approved article fails, it is skipped and reported; unrelated legacy pages must not block the batch.
+
+Strict mode remains the full-site audit path:
+
+```powershell
+python editorial_console.py validate-batch --date YYYY-MM-DD --mode strict
+```
+
+Runbot option 8 must continue to publish approved content with smart validation. Runbot option 11 is reserved for strict full-site audit.
+
+## 17. Indexing Policy
+
+Website deploy success is independent from search-engine indexing success. `scripts/post_deploy_indexing.py` writes reports and warnings when preflight, live validation, IndexNow, Bing, or Google submission fails. Non-strict indexing exits 0 so a successful website deployment is not marked broken. Strict indexing may exit nonzero only when explicitly enabled:
+
+```powershell
+$env:STRICT_INDEXING="true"
+python scripts/post_deploy_indexing.py --strict-indexing
+```
+
+## 18. Five-Module Architecture Direction
+
+Do not migrate the whole repository at once. Use adapters and clear boundaries:
+
+- AI Writer: research packages, outlines, article content, SEO title/meta, FAQ, product facts.
+- Website Builder: HTML templates, public layout, article CSS, table/CTA/TOC/related rendering, public-safe author/reviewer output, render validation.
+- Publisher: build, sync, smart validation, git add/commit/push, deploy status, indexing notification.
+- Affiliate Manager: merchant records, official URLs, affiliate redirects, CTA labels, disclosure policy.
+- Dashboard: queues, approvals, publish actions, blocked reasons, status reports.
+
+Current ownership mapping:
+
+- `modules/content_growth_pipeline.py`: AI Writer plus current canonical Website Builder adapter.
+- `build_site.py`: Website Builder build orchestration and public asset copy.
+- `modules/internal_linker.py`, `modules/trust_localization_upgrade.py`, `modules/structured_data_upgrade.py`: Website Builder post-process adapters. They must preserve canonical article markup.
+- `modules/daily_editorial_workflow.py` and `editorial_console.py`: Publisher and Dashboard orchestration.
+- `modules/affiliate_links.py` and `data/affiliate_links.csv`: Affiliate Manager data boundary.
+- `scripts/post_deploy_indexing.py`, `scripts/submit_indexnow.py`, `scripts/check_indexnow_status.py`: Publisher indexing boundary.
+
+Future migration should first extract a dedicated Website Builder interface around the canonical renderer and public validation, then move AI Writer and Publisher responsibilities behind adapters. Preserve the existing operator menu and commands during each phase.

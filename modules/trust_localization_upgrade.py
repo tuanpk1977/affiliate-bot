@@ -220,6 +220,10 @@ def should_skip(page: Path, root: Path) -> bool:
 
 def enhance_html(html_text: str, rel_path: str, scores: dict[str, str]) -> str:
     lang = "vi" if rel_path.startswith("vi/") else "en"
+    if is_canonical_article(html_text):
+        text = normalize_business_emails(html_text, rel_path, lang)
+        text = preserve_business_mailto_links(text)
+        return cleanup_public_status_text(text)
     text = ensure_upgrade_css(html_text)
     text = ensure_favicon(text)
     text = normalize_business_emails(text, rel_path, lang)
@@ -346,6 +350,8 @@ def ensure_favicon(html_text: str) -> str:
 
 
 def ensure_upgrade_css(html_text: str) -> str:
+    if is_canonical_article(html_text):
+        return html_text
     css = """
   <style id="trust-upgrade-css">
     .trust-upgrade-section{background:#fff;border:1px solid #dbe3ef;border-radius:8px;padding:18px;margin:18px 0;box-shadow:0 1px 2px rgba(15,23,42,.04)}
@@ -404,12 +410,32 @@ def ensure_upgrade_css(html_text: str) -> str:
 
 
 def replace_footer(html_text: str, lang: str) -> str:
+    if is_canonical_article(html_text):
+        return html_text
     footer = footer_html(lang)
     if re.search(r"<footer\b.*?</footer>", html_text, flags=re.I | re.S):
         return re.sub(r"<footer\b.*?</footer>", footer, html_text, count=1, flags=re.I | re.S)
     if "</body>" in html_text:
         return html_text.replace("</body>", footer + "\n</body>", 1)
     return html_text + footer
+
+
+def is_canonical_article(html_text: str) -> bool:
+    return "article-layout" in html_text and ("article-container" in html_text or "/assets/article.css" in html_text)
+
+
+def cleanup_public_status_text(html_text: str) -> str:
+    replacements = {
+        "needs_human_review": "Editorial Team",
+        "human_approved": "Editorial Team",
+        "ai_review_passed": "Editorial Team",
+        "approved_for_publish": "Editorial Team",
+        "published_local": "",
+    }
+    text = html_text
+    for source, target in replacements.items():
+        text = re.sub(re.escape(source), target, text, flags=re.I)
+    return text
 
 
 def footer_html(lang: str) -> str:
@@ -564,6 +590,8 @@ def homepage_card_section(title: str, items: list[tuple[str, str, str, str]]) ->
 
 
 def strengthen_review_page(html_text: str, rel_path: str, lang: str) -> str:
+    if is_canonical_article(html_text):
+        return html_text
     clean_rel = rel_path.removeprefix("vi/")
     if not is_review_like_page(html_text, clean_rel):
         return html_text
@@ -671,6 +699,8 @@ def review_support_section(section: str, tool: str, lang: str) -> str:
 
 
 def insert_trust_blocks(html_text: str, lang: str, rel_path: str) -> str:
+    if is_canonical_article(html_text):
+        return html_text
     html_text = ensure_youtube_before_author(html_text, lang, rel_path)
     blocks = ""
     if not re.search(r"<section\b[^>]*\bauthor-trust-card\b", html_text, flags=re.I):

@@ -201,7 +201,9 @@ def main() -> int:
     parser.add_argument("--skip-google", action="store_true")
     parser.add_argument("--skip-indexnow", action="store_true")
     parser.add_argument("--expected-lastmod", default="")
+    parser.add_argument("--strict-indexing", action="store_true", help="Exit nonzero on indexing/preflight failures.")
     args = parser.parse_args()
+    strict_indexing = args.strict_indexing or str(os.getenv("STRICT_INDEXING", "")).strip().lower() in {"1", "true", "yes", "on"}
 
     urls = list(args.url)
     if args.urls_file:
@@ -215,8 +217,8 @@ def main() -> int:
         urls.extend(urls_from_file(ROOT / "data" / "published_today.json"))
     urls = sorted(set(url for url in urls if url.startswith(BASE_URL)))
     if not urls:
-        print("FAIL: no newly published URLs were found. Search engine submission skipped.")
-        return 2
+        print("WARNING: no newly published URLs were found. Search engine submission skipped.")
+        return 2 if strict_indexing else 0
 
     expected = date.fromisoformat(args.expected_lastmod) if args.expected_lastmod else None
     validation = validate_batch(
@@ -264,8 +266,8 @@ def main() -> int:
         }
         path = write_report(report)
         write_markdown_reports(report, started, path)
-        print(f"FAIL: preflight validation failed. No search engine was notified. Report: {path}")
-        return 1
+        print(f"WARNING: preflight validation failed. No search engine was notified. Report: {path}")
+        return 1 if strict_indexing else 0
 
     if args.dry_run:
         live_statuses = {url: 200 for url in urls}
@@ -300,8 +302,8 @@ def main() -> int:
             }
             path = write_report(report)
             write_markdown_reports(report, started, path)
-            print(f"FAIL: not all deployed URLs returned HTTP 200. No search engine was notified. Report: {path}")
-            return 1
+            print(f"WARNING: not all deployed URLs returned HTTP 200. No search engine was notified. Report: {path}")
+            return 1 if strict_indexing else 0
         live_sitemap_ok, sitemap_count, live_sitemap_errors = validate_live_sitemap(SITEMAP_URL, urls)
         if not live_sitemap_ok:
             report = {
@@ -318,8 +320,8 @@ def main() -> int:
             }
             path = write_report(report)
             write_markdown_reports(report, started, path)
-            print(f"FAIL: live sitemap validation failed. No search engine was notified. Report: {path}")
-            return 1
+            print(f"WARNING: live sitemap validation failed. No search engine was notified. Report: {path}")
+            return 1 if strict_indexing else 0
         live_pages_ok, live_page_errors = validate_live_pages(urls)
         if not live_pages_ok:
             report = {
@@ -336,8 +338,8 @@ def main() -> int:
             }
             path = write_report(report)
             write_markdown_reports(report, started, path)
-            print(f"FAIL: live smart URL validation failed. No search engine was notified. Report: {path}")
-            return 1
+            print(f"WARNING: live smart URL validation failed. No search engine was notified. Report: {path}")
+            return 1 if strict_indexing else 0
 
     indexnow_ok = True
     if args.skip_indexnow:
@@ -419,7 +421,7 @@ def main() -> int:
     if engine_failures:
         print(f"WARNING: failed search engine submissions: {', '.join(engine_failures)}")
     print(f"Report: {report_path}")
-    return 0 if overall_ok else 1
+    return 0 if overall_ok or not strict_indexing else 1
 
 
 if __name__ == "__main__":

@@ -78,11 +78,23 @@ def sync_article_visuals() -> int:
     return changed
 
 
+def sync_public_article_assets() -> int:
+    source_root = Path(__file__).resolve().parent / "assets"
+    changed = 0
+    target_root = settings.site_output_dir / "assets"
+    for name in ("article.css", "public-article.css"):
+        source = source_root / name
+        if source.exists() and copy_if_changed(source, target_root / name):
+            changed += 1
+    return changed
+
+
 def incremental_build() -> dict[str, object]:
     settings.site_output_dir.mkdir(parents=True, exist_ok=True)
     verification_files_changed = sync_root_verification_files()
     sync_stats = sync_published_pages()
     article_visuals_changed = sync_article_visuals()
+    public_article_assets_changed = sync_public_article_assets()
     technical_stats = apply_technical_seo_cleanup(settings.site_output_dir)
     add_bilingual_pages(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     final_technical_stats = apply_technical_seo_cleanup(settings.site_output_dir)
@@ -106,6 +118,7 @@ def incremental_build() -> dict[str, object]:
         "published_pages_changed": sync_stats["changed"],
         "verification_files_changed": verification_files_changed,
         "article_visuals_changed": article_visuals_changed,
+        "public_article_assets_changed": public_article_assets_changed,
         "sitemap": str(sitemap_path),
         "facebook_meta_pages": facebook_stats.get("pages", 0),
         "facebook_meta_changed": facebook_stats.get("changed", 0),
@@ -139,6 +152,7 @@ def full_build() -> dict[str, object]:
     main()
     verification_files_changed = sync_root_verification_files()
     article_visuals_changed = sync_article_visuals()
+    public_article_assets_changed = sync_public_article_assets()
     hub_stats = write_topical_hubs(settings.site_output_dir)
     homepage_stats = enrich_homepage_crawl_sections(settings.site_output_dir)
     internal_link_stats = post_process_internal_links(settings.site_output_dir)
@@ -153,6 +167,7 @@ def full_build() -> dict[str, object]:
         "site_output": str(settings.site_output_dir),
         "verification_files_changed": verification_files_changed,
         "article_visuals_changed": article_visuals_changed,
+        "public_article_assets_changed": public_article_assets_changed,
         "sitemap": str(sitemap_path),
         "internal_link_pages": internal_link_stats.get("pages", 0),
         "internal_links_added": internal_link_stats.get("links_added", 0),
