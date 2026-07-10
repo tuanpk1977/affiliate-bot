@@ -1008,6 +1008,38 @@ class DailyEditorialWorkflow:
             errors.append(f"{scope} site header class is missing")
         if "article-layout" not in text:
             errors.append(f"{scope} article layout class is missing")
+        if "site-footer" not in text:
+            errors.append(f"{scope} canonical site footer is missing")
+        for footer_class in ("footer-grid", "footer-column", "footer-links", "footer-bottom", "footer-brand", "footer-description", "footer-social-links"):
+            if footer_class not in text:
+                errors.append(f"{scope} footer class is missing: {footer_class}")
+        if re.search(r"Affiliate Disclosure\s*Privacy Policy\s*About", _normalize_space(re.sub(r"<[^>]+>", " ", html.unescape(text))), flags=re.I):
+            errors.append(f"{scope} footer links appear concatenated")
+        if "community-signals" in text:
+            for community_class in ("community-signals-grid", "community-signal-card", "community-signal-value", "community-signal-label", "community-signals-note"):
+                if community_class not in text:
+                    errors.append(f"{scope} community signals class is missing: {community_class}")
+            if "Metrics reflect public content activity" not in text:
+                errors.append(f"{scope} community signals note is missing")
+        hero_images = re.findall(r"<img\b(?=[^>]*\bclass=['\"][^'\"]*\barticle-hero-image\b)[^>]*>", text, flags=re.I)
+        for image_tag in hero_images:
+            src_match = re.search(r"\bsrc=['\"]([^'\"]*)['\"]", image_tag, flags=re.I)
+            src = src_match.group(1).strip() if src_match else ""
+            if not src:
+                errors.append(f"{scope} hero image src is empty")
+            if re.search(r"placeholder|undefined|null|example\.com", src, flags=re.I):
+                errors.append(f"{scope} hero image src is invalid placeholder: {src}")
+            if not re.search(r"\bwidth=['\"]\d+['\"]", image_tag, flags=re.I) or not re.search(r"\bheight=['\"]\d+['\"]", image_tag, flags=re.I):
+                errors.append(f"{scope} hero image must include width and height")
+            if 'decoding="async"' not in image_tag.lower():
+                errors.append(f"{scope} hero image must include decoding async")
+            if src.startswith("/"):
+                candidates = [
+                    self.site_output_dir / src.lstrip("/"),
+                    self.root / "docs" / src.lstrip("/"),
+                ]
+                if not any(candidate.exists() and candidate.is_file() for candidate in candidates):
+                    errors.append(f"{scope} hero image local path is missing: {src}")
         if "<table" in text.lower() and ("table-wrapper" not in text or "article-table" not in text):
             errors.append(f"{scope} comparison tables must use table-wrapper and article-table")
         if re.search(r">\s*Visit official website\s*</a>", text, flags=re.I) and "cta-button" not in text:

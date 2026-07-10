@@ -155,24 +155,71 @@ def write_markdown_reports(report: dict[str, object], started: datetime, report_
     (reports / "indexing-report.md").write_text("\n".join(indexing_lines) + "\n", encoding="utf-8")
 
 
+def build_base_report(
+    *,
+    status: str,
+    urls: list[str],
+    warnings: list[str] | None = None,
+    errors: list[str] | None = None,
+    cloudflare: str = "not attempted",
+) -> dict[str, object]:
+    return {
+        "status": status,
+        "articles_published": len(urls),
+        "published_urls": urls,
+        "sitemap_url_count": 0,
+        "checks": {
+            "http_200": f"0/{len(urls)}",
+            "internal_links": "N/A",
+            "schema": "N/A",
+            "review_schema": "N/A",
+            "faq_schema": "N/A",
+            "breadcrumb": "N/A",
+            "author": "N/A",
+            "canonical": "N/A",
+            "sitemap": "N/A",
+        },
+        "indexnow": {"status": "skipped"},
+        "bing": {"engine": "bing", "status": "skipped", "message": ""},
+        "google": {"engine": "google", "status": "skipped", "message": ""},
+        "github": os.getenv("GITHUB_SHA", "dry-run/local"),
+        "cloudflare": cloudflare,
+        "warnings": warnings or [],
+        "errors": errors or [],
+        "finished": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+    }
+
+
 def print_summary(report: dict[str, object]) -> None:
-    checks = report["checks"]
+    checks = report.get("checks", {})
+    if not isinstance(checks, dict):
+        checks = {}
+    urls = list(report.get("published_urls", []) or [])
+    warnings = list(report.get("warnings", []) or [])
+    skipped = len(urls) if report.get("status") != "PASS" else 0
+    submitted = len(urls) if str(report.get("indexnow", {}).get("status", "")).endswith("submitted") else 0
+    print(f"Indexing mode: {report.get('indexing_mode', 'non-strict')}")
+    print(f"Changed URLs detected: {len(urls)}")
+    print(f"URLs validated: {len(urls) if str(report.get('status')) in {'PASS', 'PARTIAL'} else 0}")
+    print(f"URLs submitted: {submitted}")
+    print(f"URLs skipped: {skipped}")
+    print(f"Warnings: {len(warnings)}")
     print("----------------------------------")
     print("Publishing Report")
     print(f"Articles published: {report['articles_published']}")
-    print(f"HTTP 200: {checks['http_200']}")
-    print(f"Internal links: {checks['internal_links']}")
-    print(f"Schema: {checks['schema']}")
-    print(f"Review schema: {checks['review_schema']}")
-    print(f"FAQ schema: {checks['faq_schema']}")
-    print(f"Breadcrumb: {checks['breadcrumb']}")
-    print(f"Author: {checks['author']}")
-    print(f"Canonical: {checks['canonical']}")
-    print(f"Sitemap: {checks['sitemap']}")
-    print(f"URLs in sitemap: {report['sitemap_url_count']}")
-    print(f"IndexNow: {report['indexnow']['status']}")
-    print(f"Bing sitemap: {report['bing']['status']}")
-    print(f"Google sitemap: {report['google']['status']}")
+    print(f"HTTP 200: {checks.get('http_200', 'N/A')}")
+    print(f"Internal links: {checks.get('internal_links', 'N/A')}")
+    print(f"Schema: {checks.get('schema', 'N/A')}")
+    print(f"Review schema: {checks.get('review_schema', 'N/A')}")
+    print(f"FAQ schema: {checks.get('faq_schema', 'N/A')}")
+    print(f"Breadcrumb: {checks.get('breadcrumb', 'N/A')}")
+    print(f"Author: {checks.get('author', 'N/A')}")
+    print(f"Canonical: {checks.get('canonical', 'N/A')}")
+    print(f"Sitemap: {checks.get('sitemap', 'N/A')}")
+    print(f"URLs in sitemap: {report.get('sitemap_url_count', 0)}")
+    print(f"IndexNow: {report.get('indexnow', {}).get('status', 'skipped')}")
+    print(f"Bing sitemap: {report.get('bing', {}).get('status', 'skipped')}")
+    print(f"Google sitemap: {report.get('google', {}).get('status', 'skipped')}")
     print(f"GitHub: {report['github']}")
     print(f"Cloudflare: {report['cloudflare']}")
     print(f"Finished: {report['finished']}")
@@ -202,8 +249,10 @@ def main() -> int:
     parser.add_argument("--skip-indexnow", action="store_true")
     parser.add_argument("--expected-lastmod", default="")
     parser.add_argument("--strict-indexing", action="store_true", help="Exit nonzero on indexing/preflight failures.")
+    parser.add_argument("--strict", action="store_true", help="Alias for --strict-indexing.")
     args = parser.parse_args()
-    strict_indexing = args.strict_indexing or str(os.getenv("STRICT_INDEXING", "")).strip().lower() in {"1", "true", "yes", "on"}
+    strict_indexing = args.strict_indexing or args.strict or str(os.getenv("STRICT_INDEXING", "")).strip().lower() in {"1", "true", "yes", "on"}
+    indexing_mode = "strict" if strict_indexing else "non-strict"
 
     urls = list(args.url)
     if args.urls_file:
@@ -211,13 +260,33 @@ def main() -> int:
     if args.from_git:
         urls.extend(git_changed_urls(args.git_base, args.git_head))
         if not urls:
-            print("No changed public pages in this Git diff. Post-deploy indexing is not required.")
+            report = build_base_report(
+                status="SKIPPED_NO_CHANGED_URLS",
+                urls=[],
+                warnings=["No new public URLs require submission."],
+            )
+            report["indexing_mode"] = indexing_mode
+            path = write_report(report)
+            write_markdown_reports(report, started, path)
+            print("No new public URLs require submission.")
+            print_summary(report)
+            print(f"Report: {path}")
             return 0
     if not urls:
         urls.extend(urls_from_file(ROOT / "data" / "published_today.json"))
     urls = sorted(set(url for url in urls if url.startswith(BASE_URL)))
     if not urls:
-        print("WARNING: no newly published URLs were found. Search engine submission skipped.")
+        report = build_base_report(
+            status="SKIPPED_NO_CHANGED_URLS",
+            urls=[],
+            warnings=["No new public URLs require submission."],
+        )
+        report["indexing_mode"] = indexing_mode
+        path = write_report(report)
+        write_markdown_reports(report, started, path)
+        print("No new public URLs require submission.")
+        print_summary(report)
+        print(f"Report: {path}")
         return 2 if strict_indexing else 0
 
     expected = date.fromisoformat(args.expected_lastmod) if args.expected_lastmod else None
@@ -264,9 +333,11 @@ def main() -> int:
             "errors": ["preflight validation failed"],
             "finished": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         }
+        report["indexing_mode"] = indexing_mode
         path = write_report(report)
         write_markdown_reports(report, started, path)
         print(f"WARNING: preflight validation failed. No search engine was notified. Report: {path}")
+        print_summary(report)
         return 1 if strict_indexing else 0
 
     if args.dry_run:
@@ -279,7 +350,15 @@ def main() -> int:
             try:
                 recovery_delays = [max(0, int(value)) for value in args.recovery_delays.split(",") if value.strip()]
             except ValueError:
-                print("FAIL: --recovery-delays must contain comma-separated integers.")
+                report = build_base_report(
+                    status="FAILED_CONFIG",
+                    urls=urls,
+                    errors=["--recovery-delays must contain comma-separated integers."],
+                )
+                report["indexing_mode"] = indexing_mode
+                path = write_report(report)
+                write_markdown_reports(report, started, path)
+                print(f"FAIL: --recovery-delays must contain comma-separated integers. Report: {path}")
                 return 2
             live_statuses = wait_with_recovery(urls, recovery_delays)
         else:
@@ -300,9 +379,11 @@ def main() -> int:
                 "errors": ["not all URLs returned HTTP 200 with a valid canonical"],
                 "finished": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             }
+            report["indexing_mode"] = indexing_mode
             path = write_report(report)
             write_markdown_reports(report, started, path)
             print(f"WARNING: not all deployed URLs returned HTTP 200. No search engine was notified. Report: {path}")
+            print_summary(report)
             return 1 if strict_indexing else 0
         live_sitemap_ok, sitemap_count, live_sitemap_errors = validate_live_sitemap(SITEMAP_URL, urls)
         if not live_sitemap_ok:
@@ -318,9 +399,11 @@ def main() -> int:
                 "errors": live_sitemap_errors,
                 "finished": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             }
+            report["indexing_mode"] = indexing_mode
             path = write_report(report)
             write_markdown_reports(report, started, path)
             print(f"WARNING: live sitemap validation failed. No search engine was notified. Report: {path}")
+            print_summary(report)
             return 1 if strict_indexing else 0
         live_pages_ok, live_page_errors = validate_live_pages(urls)
         if not live_pages_ok:
@@ -336,9 +419,11 @@ def main() -> int:
                 "errors": [f"{url}: {', '.join(errors)}" for url, errors in live_page_errors.items()],
                 "finished": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             }
+            report["indexing_mode"] = indexing_mode
             path = write_report(report)
             write_markdown_reports(report, started, path)
             print(f"WARNING: live smart URL validation failed. No search engine was notified. Report: {path}")
+            print_summary(report)
             return 1 if strict_indexing else 0
 
     indexnow_ok = True
@@ -347,8 +432,13 @@ def main() -> int:
     elif args.dry_run:
         indexnow_status = f"dry_run ({len(urls)} URLs)"
     else:
-        indexnow_ok = submit_indexnow(urls, max_urls=len(urls), retries=3)
-        indexnow_status = f"{len(urls)}/{len(urls)} submitted" if indexnow_ok else "failed"
+        try:
+            indexnow_ok = submit_indexnow(urls, max_urls=len(urls), retries=3)
+            indexnow_status = f"{len(urls)}/{len(urls)} submitted" if indexnow_ok else "failed"
+        except Exception as exc:
+            indexnow_ok = False
+            indexnow_status = "skipped_missing_credentials" if isinstance(exc, (FileNotFoundError, ValueError)) else "failed"
+            print(f"WARNING: IndexNow submission unavailable: {type(exc).__name__}: {exc}")
     append_json_log(
         LOG_ROOT / "indexnow.log",
         {"timestamp": datetime.now(timezone.utc).isoformat(), "urls": urls, "status": indexnow_status},
@@ -382,8 +472,14 @@ def main() -> int:
         if result.get("status") == "failed"
     ]
     overall_ok = indexnow_ok and not engine_failures
+    warning_messages = []
+    if not indexnow_ok:
+        warning_messages.append(f"IndexNow {indexnow_status}")
+    if engine_failures:
+        warning_messages.append(f"failed search engine submissions: {', '.join(engine_failures)}")
     report = {
         "status": "PASS" if overall_ok else "PARTIAL",
+        "indexing_mode": indexing_mode,
         "articles_published": len(urls),
         "published_urls": urls,
         "live_http": live_statuses,
@@ -404,6 +500,8 @@ def main() -> int:
         "google": google,
         "github": os.getenv("GITHUB_SHA", "local verification"),
         "cloudflare": "Deployed" if not args.dry_run else "dry_run",
+        "warnings": warning_messages,
+        "errors": [] if not strict_indexing else warning_messages,
         "finished": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "validation": validation.to_dict(),
     }

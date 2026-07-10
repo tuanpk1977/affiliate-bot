@@ -219,6 +219,14 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
             self.assertIn('class="faq-list"', article_html)
             self.assertIn("Sources checked", article_html)
             self.assertIn('class="source-list"', article_html)
+            self.assertIn("Our Community Signals", article_html)
+            self.assertIn('class="community-signals-grid"', article_html)
+            self.assertIn("Metrics reflect public content activity", article_html)
+            self.assertIn('class="site-footer"', article_html)
+            self.assertIn("footer-grid", article_html)
+            self.assertIn('href="/editorial-policy/"', article_html)
+            self.assertIn('href="/privacy-policy/"', article_html)
+            self.assertNotIn("Affiliate DisclosurePrivacy PolicyAbout", article_html)
             self.assertIn("Visit official website", article_html)
             self.assertIn('class="cta-button"', article_html)
             self.assertNotIn("Research package snapshot", article_html)
@@ -624,6 +632,65 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
             self.assertIn("Author and editorial review", article_html)
             self.assertTrue((social_drafts / "2026-07-07" / slug / "devto.md").exists())
             self.assertTrue((social_drafts / "2026-07-07" / slug / "product-hunt.md").exists())
+
+    def test_community_signals_can_be_omitted_without_configured_values(self) -> None:
+        with patch.object(pipeline, "load_site_stats", return_value={"communityChannels": []}):
+            self.assertEqual(pipeline.render_community_signals(), "")
+
+    def test_community_signals_render_configured_public_channels_only(self) -> None:
+        stats = {
+            "communityChannels": [
+                {"name": "LinkedIn", "label": "Public", "url": "https://linkedin.example/profile"},
+                {"name": "Private", "label": "Internal", "url": "https://internal.example"},
+                {"name": "X", "label": "Active", "url": ""},
+            ]
+        }
+        with patch.object(pipeline, "load_site_stats", return_value=stats):
+            html_text = pipeline.render_community_signals()
+
+        self.assertIn("Our Community Signals", html_text)
+        self.assertIn("LinkedIn", html_text)
+        self.assertIn("Public", html_text)
+        self.assertNotIn("Private", html_text)
+        self.assertIn("Metrics reflect public content activity", html_text)
+
+    def test_footer_includes_required_links_without_concatenation(self) -> None:
+        html_text = pipeline.render_site_footer()
+
+        for href in (
+            "/about/",
+            "/editorial-policy/",
+            "/affiliate-disclosure/",
+            "/privacy-policy/",
+            "/contact/",
+            "/reviews/",
+            "/comparisons/",
+            "/pricing/",
+            "/categories/",
+        ):
+            self.assertIn(f'href="{href}"', html_text)
+        self.assertIn("footer-social-links", html_text)
+        self.assertNotIn("Affiliate DisclosurePrivacy PolicyAbout", html_text)
+
+    def test_broken_hero_image_is_not_rendered(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            with patch.object(pipeline, "ROOT", root), patch.object(pipeline, "SITE_OUTPUT", root / "site_output"):
+                self.assertEqual(pipeline.render_article_hero_image("missing", "Missing Hero"), "")
+
+    def test_valid_hero_image_renders_dimensions_and_decoding(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            image = root / "site_output" / "assets" / "og" / "pages" / "valid.png"
+            image.parent.mkdir(parents=True, exist_ok=True)
+            image.write_bytes(b"png")
+            with patch.object(pipeline, "ROOT", root), patch.object(pipeline, "SITE_OUTPUT", root / "site_output"):
+                html_text = pipeline.render_article_hero_image("valid", "Valid Hero")
+
+        self.assertIn('src="/assets/og/pages/valid.png"', html_text)
+        self.assertIn('width="1200"', html_text)
+        self.assertIn('height="630"', html_text)
+        self.assertIn('decoding="async"', html_text)
 
 
 if __name__ == "__main__":

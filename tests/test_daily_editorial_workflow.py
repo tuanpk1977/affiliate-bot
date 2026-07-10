@@ -38,7 +38,14 @@ def _canonical_article_html(title: str = "Good") -> str:
 <a class="cta-button" href="https://example.com" rel="noopener noreferrer">Visit official website</a>
 <div class="table-wrapper"><table class="article-table"><thead><tr><th scope="col">Tool</th></tr></thead><tbody><tr><th scope="row">One</th></tr></tbody></table></div>
 <section id="faq"><div class="faq-list"><details><summary>Question?</summary><p>Answer.</p></details></div></section>
-</article></main></body></html>"""
+</article></main>
+<footer class="site-footer">
+<div class="footer-grid"><div class="footer-column footer-brand"><p class="footer-description">Independent reviews.</p></div>
+<div class="footer-column"><ul class="footer-links"><li><a href="/reviews/">Reviews</a></li></ul></div>
+<div class="footer-column"><ul class="footer-links"><li><a href="/about/">About</a></li></ul></div>
+<div class="footer-column"><ul class="footer-links footer-social-links"><li><a href="https://example.com">LinkedIn</a></li></ul></div></div>
+<div class="footer-bottom"><p>Copyright</p></div>
+</footer></body></html>"""
 
 
 class DailyEditorialWorkflowTests(unittest.TestCase):
@@ -94,7 +101,52 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
 <div class="table-wrapper"><table class="article-table"><thead><tr><th scope="col">Tool</th></tr></thead><tbody><tr><th scope="row">Example</th></tr></tbody></table></div>
 <section class="article-card" id="faq"><div class="faq-list"><details><summary>Question?</summary><p>Answer.</p></details></div></section>
 <div class="related-grid"><article class="related-card"><h3>Related</h3><p>Useful.</p><a href="/related/">Read guide</a></article></div>
-</article></main></body></html>""",
+</article></main>
+<footer class="site-footer">
+<div class="footer-grid"><div class="footer-column footer-brand"><p class="footer-description">Independent reviews.</p></div>
+<div class="footer-column"><ul class="footer-links"><li><a href="/reviews/">Reviews</a></li></ul></div>
+<div class="footer-column"><ul class="footer-links"><li><a href="/about/">About</a></li></ul></div>
+<div class="footer-column"><ul class="footer-links footer-social-links"><li><a href="https://example.com">LinkedIn</a></li></ul></div></div>
+<div class="footer-bottom"><p>Copyright</p></div>
+</footer></body></html>""",
+                encoding="utf-8",
+            )
+
+            self.assertEqual(workflow._validate_single_html_file(page, scope="site_output"), [])
+
+    def test_public_render_validator_rejects_broken_hero_image(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
+            page = root / "site_output" / "example" / "index.html"
+            page.parent.mkdir(parents=True, exist_ok=True)
+            page.write_text(
+                _canonical_article_html("Broken").replace(
+                    "<main class=\"article-layout\">",
+                    '<main class="article-layout"><img class="article-hero-image" src="/assets/og/pages/missing.png" alt="Missing">',
+                ),
+                encoding="utf-8",
+            )
+
+            errors = workflow._validate_single_html_file(page, scope="site_output")
+
+            self.assertTrue(any("hero image local path is missing" in error for error in errors))
+            self.assertTrue(any("hero image must include width and height" in error for error in errors))
+
+    def test_public_render_validator_accepts_valid_hero_image(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
+            image = root / "site_output" / "assets" / "og" / "pages" / "valid.png"
+            image.parent.mkdir(parents=True, exist_ok=True)
+            image.write_bytes(b"png")
+            page = root / "site_output" / "example" / "index.html"
+            page.parent.mkdir(parents=True, exist_ok=True)
+            page.write_text(
+                _canonical_article_html("Valid").replace(
+                    "<main class=\"article-layout\">",
+                    '<main class="article-layout"><img class="article-hero-image" src="/assets/og/pages/valid.png" width="1200" height="630" alt="Valid" loading="eager" decoding="async">',
+                ),
                 encoding="utf-8",
             )
 

@@ -724,7 +724,8 @@ def sync_production_draft_assets(slug: str) -> dict[str, Any]:
         }
     )
     metadata_path.write_text(json.dumps(metadata, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    if str(publish_gate.get("status", "")) == "published_local":
+    existing_public_page = (PUBLISHED_DIR / path.strip("/") / "index.html").exists() or (SITE_OUTPUT / path.strip("/") / "index.html").exists()
+    if str(publish_gate.get("status", "")) == "published_local" or existing_public_page:
         write_article(path, article_html)
         write_article(path, article_html, output=SITE_OUTPUT)
     return {"slug": slug, "draft_dir": str(draft_dir), "social_folder": str(social_folder), "metadata_file": str(metadata_path)}
@@ -776,6 +777,8 @@ def render_article(
         f'<section class="article-card" id="section-{index}"><h2>{html.escape(section)}</h2><p>{html.escape(reasoning if reasoning else f"This section expands the {section.lower()} angle using the approved research package, verified sources, and buyer-fit framing.")}</p></section>'
         for index, (section, reasoning) in enumerate(zip(planning_outline[:6], planning_reasoning[:6] + [""] * 6), start=1)
     )
+    hero_image = render_article_hero_image(page_slug, title)
+    community_signals = render_community_signals()
     schemas = [
         article_schema(title, description, canonical, topic_name, editorial),
         faq_schema(faq_items),
@@ -788,7 +791,7 @@ def render_article(
       <p class="eyebrow">Buyer Guide · Updated June 2026</p>
       <h1>{html.escape(title)}</h1>
       <p class="lede">{html.escape(description)}</p>
-      <img class="article-hero-image" src="/assets/og/pages/{html.escape(page_slug, quote=True)}.png" alt="{html.escape(title, quote=True)}" loading="eager">
+      {hero_image}
       <div class="cta-row">
         <a class="cta-button" href="#pricing">Check pricing notes</a>
         <a class="cta-button cta-button-secondary" href="#alternatives">Compare alternatives</a>
@@ -799,6 +802,7 @@ def render_article(
       <p>Some links may be affiliate links. We may earn a commission at no extra cost to you. This article is independent research and does not claim an official partnership.</p>
     </section>
     {render_editorial_byline(editorial)}
+    {community_signals}
     <nav class="article-card toc-links" aria-label="Article sections">
       <a href="#quick-verdict">Quick verdict</a>
       <a href="#comparison-table">Comparison table</a>
@@ -1157,7 +1161,6 @@ def dedupe_related_links(links: list[tuple[str, str]], limit: int = 6) -> list[t
 
 def sanitize_public_article_html(rendered: str, research: dict[str, Any]) -> str:
     section_ids = (
-        "methodology",
         "shortlist",
         "official-sources",
         "affiliate-placeholders",
@@ -1480,6 +1483,115 @@ def render_editorial_byline(editorial: dict[str, Any]) -> str:
     """
 
 
+def render_article_hero_image(page_slug: str, title: str) -> str:
+    src = f"/assets/og/pages/{page_slug}.png"
+    candidates = (
+        SITE_OUTPUT / src.lstrip("/"),
+        ROOT / "docs" / src.lstrip("/"),
+        ROOT / src.lstrip("/"),
+    )
+    if not page_slug or any(marker in page_slug.lower() for marker in ("placeholder", "undefined", "none", "null")):
+        return ""
+    if not any(path.exists() and path.is_file() for path in candidates):
+        return ""
+    return (
+        f'<img class="article-hero-image" src="{html.escape(src, quote=True)}" '
+        f'width="1200" height="630" alt="{html.escape(title, quote=True)}" '
+        'loading="eager" decoding="async">'
+    )
+
+
+def configured_community_channels() -> list[dict[str, str]]:
+    stats = load_site_stats()
+    rows = stats.get("communityChannels") if isinstance(stats, dict) else []
+    allowed = {"facebook", "linkedin", "quora", "dev", "reddit", "x"}
+    channels: list[dict[str, str]] = []
+    seen: set[str] = set()
+    for row in rows if isinstance(rows, list) else []:
+        if not isinstance(row, dict):
+            continue
+        name = str(row.get("name") or "").strip()
+        key = name.lower()
+        label = str(row.get("label") or "Community presence").strip()
+        url = str(row.get("url") or "").strip()
+        if key not in allowed or key in seen or not url:
+            continue
+        if not url.startswith(("https://", "http://")):
+            continue
+        seen.add(key)
+        channels.append({"name": name, "label": label, "url": url})
+    return channels
+
+
+def render_community_signals() -> str:
+    channels = configured_community_channels()
+    if not channels:
+        return ""
+    cards = "".join(
+        f"""
+        <article class="community-signal-card">
+          <h3>{html.escape(channel["name"])}</h3>
+          <p class="community-signal-value">{html.escape(channel["label"])}</p>
+          <p class="community-signal-label"><a href="{html.escape(channel["url"], quote=True)}" rel="noopener noreferrer" target="_blank">Public profile</a></p>
+        </article>
+        """
+        for channel in channels
+    )
+    return f"""
+    <section class="community-signals article-card article-section">
+      <h2>Our Community Signals</h2>
+      <div class="community-signals-grid">{cards}</div>
+      <p class="community-signals-note">Metrics reflect public content activity and are updated periodically. They are not website visitor claims.</p>
+    </section>
+    """
+
+
+def render_site_footer() -> str:
+    channels = configured_community_channels()
+    social_links = "".join(
+        f'<li><a href="{html.escape(channel["url"], quote=True)}" rel="noopener noreferrer" target="_blank">{html.escape(channel["name"])}</a></li>'
+        for channel in channels
+    )
+    year = date.today().year
+    return f"""
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div class="footer-column footer-brand">
+        <p><strong>MS Smile AI Review Hub</strong></p>
+        <p class="footer-description">Independent AI and SaaS reviews, comparisons, pricing checks, and practical buyer guides.</p>
+        <p><a href="mailto:contact@smileaireviewhub.com">contact@smileaireviewhub.com</a></p>
+      </div>
+      <div class="footer-column">
+        <h2>Explore</h2>
+        <ul class="footer-links">
+          <li><a href="/reviews/">Reviews</a></li>
+          <li><a href="/comparisons/">Comparisons</a></li>
+          <li><a href="/pricing/">Pricing</a></li>
+          <li><a href="/categories/">Categories</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h2>Company</h2>
+        <ul class="footer-links">
+          <li><a href="/about/">About</a></li>
+          <li><a href="/editorial-policy/">Editorial Policy</a></li>
+          <li><a href="/affiliate-disclosure/">Affiliate Disclosure</a></li>
+          <li><a href="/privacy-policy/">Privacy Policy</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h2>Follow</h2>
+        <ul class="footer-links footer-social-links">{social_links}</ul>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <p>&copy; {year} MS Smile AI Review Hub. Independent editorial research for AI and SaaS buyers.</p>
+    </div>
+  </footer>
+"""
+
+
 def format_public_date(value: str) -> str:
     if not value:
         return date.today().strftime("%B %-d, %Y") if os.name != "nt" else date.today().strftime("%B %#d, %Y")
@@ -1549,7 +1661,7 @@ def html_shell(title: str, description: str, canonical: str, body: str, schemas:
     </ol>
   </nav>
   {body}
-  <footer class="site-footer"><div class="wrap"><p><strong>MS Smile AI Review Hub</strong></p><p>Contact: <a href="mailto:contact@smileaireviewhub.com">contact@smileaireviewhub.com</a></p><p><a href="/affiliate-disclosure/">Affiliate Disclosure</a> <a href="/privacy/">Privacy Policy</a> <a href="/about/">About</a></p></div></footer>
+  {render_site_footer()}
 </body>
 </html>
 """

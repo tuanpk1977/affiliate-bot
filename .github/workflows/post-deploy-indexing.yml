@@ -49,6 +49,7 @@ jobs:
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
           INDEXNOW_HOST: smileaireviewhub.com
           INDEXNOW_KEY_LOCATION: https://smileaireviewhub.com/indexnow-key.txt
+          STRICT_INDEXING: "false"
         run: >
           python scripts/post_deploy_indexing.py
           --from-git
