@@ -20,6 +20,7 @@ from modules.ai_trend_discovery import (
     save_discovery_result,
     slugify,
 )
+from modules.affiliate_links import link_for_brand, load_affiliate_links, slugify as affiliate_slugify
 from modules.content_review import ContentReviewEngine
 from modules.content_planning_engine import ContentPlanningEngine
 from modules.publish_gate import PublishGate
@@ -318,6 +319,7 @@ def build_topic_from_research_package(slug: str) -> tuple[dict[str, Any], Any]:
     topic = {
         "topic": str(payload.get("keyword") or slug.replace("-", " ")),
         "slug": str(payload.get("slug") or slug),
+        "generated_at": str(payload.get("generated_at") or research_package.generated_at),
         "title": str(payload.get("keyword") or slug.replace("-", " ")),
         "content_type": "listicle" if str(keyword_summary.get("article_type") or "").lower() == "best list" else str(keyword_summary.get("article_type") or "article"),
         "article_type": str(keyword_summary.get("article_type") or "article"),
@@ -753,6 +755,7 @@ def render_article(
     article_angle = str(topic.get("suggested_article_angle") or default_article_angle(topic_name, content_type))
     video_angle = str(topic.get("suggested_video_angle") or default_video_angle(topic_name, content_type))
     canonical = BASE_URL + path
+    page_slug = path.strip("/")
     editorial = topic.get("editorial") if isinstance(topic.get("editorial"), dict) else build_editorial_metadata()
     faq_groups = research.get("faq") if isinstance(research.get("faq"), dict) else {}
     faq_items = []
@@ -760,28 +763,51 @@ def render_article(
         faq_items.extend(coerce_text_list(faq_groups.get(key)))
     if not faq_items:
         faq_items = faq_questions(topic_name)
+    related_links = dedupe_related_links(links, limit=6)
+    related_cards = "".join(
+        f'<a class="related-card" href="{html.escape(href)}"><h3>{html.escape(label)}</h3><p>Use {html.escape(label)} to compare a narrower workflow angle.</p></a>'
+        for href, label in related_links
+    ) or '<div class="article-card"><p>No safe related pages are available yet.</p></div>'
+    outline_links = "".join(
+        f'<a href="#section-{index}">{html.escape(section)}</a>'
+        for index, section in enumerate(planning_outline[:6], start=1)
+    ) or '<a href="#comparison-table">Comparison table</a>'
+    outline_sections = "".join(
+        f'<section class="article-card" id="section-{index}"><h2>{html.escape(section)}</h2><p>{html.escape(reasoning if reasoning else f"This section expands the {section.lower()} angle using the approved research package, verified sources, and buyer-fit framing.")}</p></section>'
+        for index, (section, reasoning) in enumerate(zip(planning_outline[:6], planning_reasoning[:6] + [""] * 6), start=1)
+    )
     schemas = [
         article_schema(title, description, canonical, topic_name, editorial),
         faq_schema(faq_items),
         breadcrumb_schema(title, canonical),
     ]
     body = f"""
-  <main class="wrap">
+  <main class="wrap article-layout">
     <section class="hero">
       <p class="eyebrow">Buyer Guide · Updated June 2026</p>
       <h1>{html.escape(title)}</h1>
       <p class="lede">{html.escape(description)}</p>
+      <img class="article-hero-image" src="/assets/og/pages/{html.escape(page_slug, quote=True)}.png" alt="{html.escape(title, quote=True)}" loading="eager">
       <div class="cta-row">
-        <a class="btn" href="#pricing">Check pricing notes</a>
-        <a class="btn secondary" href="#alternatives">Compare alternatives</a>
+        <a class="cta-button" href="#pricing">Check pricing notes</a>
+        <a class="cta-button" href="#alternatives">Compare alternatives</a>
       </div>
     </section>
-    <section class="card trust">
+    <section class="article-card trust">
       <h2>Affiliate disclosure</h2>
       <p>Some links may be affiliate links. We may earn a commission at no extra cost to you. This article is independent research and does not claim an official partnership.</p>
     </section>
     {render_editorial_byline(editorial)}
-    <section class="card" id="quick-verdict">
+    <nav class="article-card toc-links" aria-label="Article sections">
+      <a href="#quick-verdict">Quick verdict</a>
+      <a href="#comparison-table">Comparison table</a>
+      <a href="#pros-cons">Pros and cons</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#alternatives">Alternatives</a>
+      <a href="#faq">FAQ</a>
+      {outline_links}
+    </nav>
+    <section class="article-card" id="quick-verdict">
       <h2>Quick verdict</h2>
       <p>{html.escape(topic_name)} is most useful when you need a practical shortlist before paying for a tool. The safer buying move is to compare workflow fit first, then verify pricing, plan limits, and support details on each official website.</p>
       <p>{render_buying_guidance(tool_profiles)}</p>
@@ -791,7 +817,7 @@ def render_article(
         <li><strong>Verification required:</strong> pricing, free-trial terms, refund rules, usage limits, integrations, and affiliate terms.</li>
       </ul>
     </section>
-    <section class="card" id="methodology">
+    <section class="article-card" id="methodology">
       <h2>How we evaluated the shortlist</h2>
       <p>This article uses the approved research package only. That means the shortlist is based on verified official pages already stored in the local registry, entity extraction from the approved package, and the current quality-gate output for this topic. It does not pull in a fresh weekly trend list or ad hoc live browsing during drafting.</p>
       <p>For each tool, the evaluation looks at three layers: workflow fit, pricing verification confidence, and editorial risk. Workflow fit asks whether a tool can realistically reduce planning, writing, coordination, or knowledge-management friction for a small team. Pricing verification confidence checks whether the current package contains an official pricing page, release notes, or partner-page context. Editorial risk asks whether a recommendation would still hold after a buyer verifies the official site.</p>
@@ -803,19 +829,19 @@ def render_article(
         <li><strong>Human review rule:</strong> because this is a “best” commercial article, it must stop at human approval even if AI review passes.</li>
       </ul>
     </section>
-    <section class="card" id="shortlist">
+    <section class="article-card" id="shortlist">
       <h2>Shortlist and editor notes</h2>
       {render_tool_profile_cards(tool_profiles)}
     </section>
-    <section class="card" id="comparison-table">
+    <section class="article-card" id="comparison-table">
       <h2>Comparison table</h2>
       {render_tool_comparison_table(tool_profiles)}
       <p>Use the table to narrow your shortlist, then verify plan limits, feature caps, and support details on each official website before buying.</p>
     </section>
-    <section class="card" id="pros-cons">
+    <section class="article-card" id="pros-cons">
       <h2>Pros and cons</h2>
       <div class="grid">
-        <div>
+        <div class="article-card">
           <h3>Pros</h3>
           <ul>
             <li>Useful for buyers already researching a real software decision.</li>
@@ -824,7 +850,7 @@ def render_article(
             <li>Current verified-source coverage is strong enough to frame a responsible shortlist instead of a shallow roundup.</li>
           </ul>
         </div>
-        <div>
+        <div class="article-card">
           <h3>Cons</h3>
           <ul>
             <li>Pricing and feature claims require manual verification.</li>
@@ -836,41 +862,41 @@ def render_article(
       </div>
       <p>A buyer should treat this page as a decision-support layer, not a final procurement document. The safest workflow is to use the shortlist here, then confirm plan limits, AI usage caps, admin controls, export rules, and contract details directly on each vendor’s official site before purchase.</p>
     </section>
-    <section class="card" id="pricing">
+    <section class="article-card" id="pricing">
       <h2>Pricing section</h2>
       <p>Do not rely on copied pricing snippets. Pricing can change by region, billing period, usage tier, seat count, and promotion. Verify current pricing on the official website before buying or recommending any tool related to {html.escape(topic_name)}.</p>
       <p>When comparing costs, check total monthly cost, annual discounts, free-trial restrictions, cancellation terms, and whether essential features sit behind higher-tier plans.</p>
       <p>In the current approved package, {html.escape(tool_profiles[0]["name"] if tool_profiles else "the lead tool")} has the strongest verified pricing support. Other shortlisted tools can still appear in the article, but any plan-specific number, seat rule, or AI credit detail should remain marked <strong>needs review</strong> until the registry contains a matching verified pricing source.</p>
-      <div class="table-scroll">
-        <table>
+      <div class="table-wrapper">
+        <table class="article-table">
           <thead><tr><th>Tool</th><th>Pricing confidence</th><th>What to verify manually</th><th>Official link</th></tr></thead>
-          <tbody>{''.join(f'<tr><td>{html.escape(profile["name"])}</td><td>{html.escape(profile["pricing_confidence"])}</td><td>{html.escape(profile["pricing_note"])}</td><td><a href="{html.escape(profile["official_url"], quote=True)}">{html.escape(profile["cta_label"])}</a></td></tr>' for profile in tool_profiles)}</tbody>
+          <tbody>{''.join(f'<tr><td>{html.escape(profile["name"])}</td><td>{html.escape(profile["pricing_confidence"])}</td><td>{html.escape(profile["pricing_note"])}</td><td><a href="{html.escape(profile.get("cta_url", profile["official_url"]), quote=True)}">{html.escape(profile["cta_label"])}</a></td></tr>' for profile in tool_profiles)}</tbody>
         </table>
       </div>
       <div class="cta-row">{render_tool_ctas(tool_profiles)}</div>
     </section>
-    <section class="card" id="best-for">
+    <section class="article-card" id="best-for">
       <h2>Best use cases</h2>
       {render_best_for_cards(tool_profiles)}
       <p>These use cases are meant to reduce buyer regret. Instead of asking which tool has the loudest marketing or the largest AI feature list, ask which product removes the most friction from a real weekly workflow: planning, capture, drafting, collaboration, or review.</p>
     </section>
-    <section class="card" id="alternatives">
+    <section class="article-card" id="alternatives">
       <h2>Alternatives</h2>
       <p>Use these related pages to compare adjacent software categories and avoid evaluating this topic in isolation.</p>
-      <ul>{''.join(f'<li><a href="{html.escape(href)}">{html.escape(label)}</a></li>' for href, label in links)}</ul>
+      <div class="related-grid">{related_cards}</div>
       <p>If you already know your workflow is meeting-heavy, voice-heavy, or coding-heavy, move to a category-specific comparison page instead of forcing a broad productivity shortlist to answer a narrow problem.</p>
     </section>
-    <section class="card" id="official-sources">
+    <section class="article-card" id="official-sources">
       <h2>Official source references</h2>
       <p>These are the strongest current source references attached to the approved package. They should be the first pages a human reviewer checks before approving any product recommendation copy.</p>
       {render_official_source_refs(research)}
     </section>
-    <section class="card" id="affiliate-placeholders">
+    <section class="article-card" id="affiliate-placeholders">
       <h2>Affiliate placeholder fields</h2>
       <p>This draft keeps monetization placeholders explicit so a reviewer can approve or replace them without altering the editorial body.</p>
       {render_affiliate_placeholders(tool_profiles)}
     </section>
-    <section class="card" id="research-package">
+    <section class="article-card" id="research-package">
       <h2>Research package snapshot</h2>
       <p>Research is mandatory before planning and drafting. The package is stored at <code>{html.escape(str(research.get("package_dir") or ""))}</code>.</p>
       <ul>
@@ -890,7 +916,7 @@ def render_article(
         <li><strong>Internal link opportunities:</strong> {html.escape(', '.join(coerce_text_list(research_outline.get("internal_link_opportunities"))) or 'None')}</li>
       </ul>
     </section>
-    <section class="card" id="content-planning">
+    <section class="article-card" id="content-planning">
       <h2>Content planning snapshot</h2>
       <p>This page keeps the planning stage attached to the generated article so review, SEO checks, and publishing can use the same context.</p>
       <ul>
@@ -906,27 +932,26 @@ def render_article(
       <h3>Planning reasoning</h3>
       <ul>{''.join(f'<li>{html.escape(reason)}</li>' for reason in planning_reasoning[:6])}</ul>
     </section>
-    <section class="card">
+    <section class="article-card">
       <h2>Research methodology</h2>
       <p>This page uses trend discovery signals, commercial-intent scoring, competition estimates, and existing Smile AI Review Hub topic coverage. It favors useful comparison-focused content over thin news summaries.</p>
       <p>Warnings: {html.escape('; '.join(warnings) if warnings else 'No critical warnings. Verify vendor facts before final promotion.')}</p>
       <p>EEAT note: recommendations in this draft are limited to what the current approved package can support. Where the package is thin, the article says so directly instead of claiming precision it does not have.</p>
     </section>
-    <section class="card" id="faq">
+    <section class="article-card" id="faq">
       <h2>FAQ</h2>
       {faq_html(faq_items)}
     </section>
-    <section class="card">
+    <section class="article-card">
       <h2>Final verdict</h2>
-      <p>{render_buying_guidance(tool_profiles)}</p>
       <p>{html.escape(topic_name)} is a strong fit when you want a shortlist you can verify quickly on vendor websites. Choose the tool that matches your real workflow, confirm current pricing and policy details, and avoid treating any roundup article as a substitute for official product pages.</p>
-      <a class="btn" href="{html.escape(tool_profiles[0]['official_url'] if tool_profiles else BASE_URL, quote=True)}">Visit official website</a>
+      <a class="cta-button" href="{html.escape(tool_profiles[0].get('cta_url', tool_profiles[0]['official_url']) if tool_profiles else BASE_URL, quote=True)}">Visit official website</a>
     </section>
   </main>
 """
     rendered = html_shell(title, description, canonical, body, schemas)
     rendered = sanitize_public_article_html(rendered, research)
-    if "{{" in rendered or "}}" in rendered:
+    if re.search(r"\{\{[A-Z0-9_:-]+\}\}", rendered):
         raise ValueError(f"Public article HTML still contains unresolved placeholders for {topic_name}.")
     return rendered
 
@@ -934,6 +959,7 @@ def render_article(
 def article_tool_profiles(research: dict[str, Any]) -> list[dict[str, str]]:
     entities = research.get("entities") if isinstance(research.get("entities"), dict) else {}
     source_rows = research.get("sources", {}).get("verified_sources", []) if isinstance(research.get("sources"), dict) else []
+    affiliate_links = load_affiliate_links()
     preferred_source_types = ("product_page", "pricing_page", "official_docs", "affiliate_program_page", "release_notes")
     sources_by_brand: dict[str, list[dict[str, Any]]] = {}
     for row in source_rows:
@@ -958,6 +984,16 @@ def article_tool_profiles(research: dict[str, Any]) -> list[dict[str, str]]:
         )
         fallback_row = next((row for row in brand_rows if str(row.get("source_url") or "").strip()), None)
         official_url = str((best_row or fallback_row or {}).get("source_url") or BASE_URL)
+        affiliate_link = link_for_brand(name, affiliate_links)
+        tracking_slug = affiliate_slugify(name)
+        tracked = not affiliate_links[
+            (affiliate_links["slug"] == tracking_slug)
+            | (affiliate_links["brand"].str.lower() == lower)
+        ].empty
+        cta_url = f"/go/{tracking_slug}/" if tracked else str(affiliate_link.get("cta_url") or official_url or BASE_URL)
+        cta_label = "Visit official website"
+        if str(affiliate_link.get("affiliate_url") or "").strip() and bool(affiliate_link.get("approved")):
+            cta_label = f"Visit {name}"
         is_verified = bool(brand_rows)
         best_for = {
             "notion": "teams that want one workspace for notes, docs, wikis, and lightweight AI support",
@@ -995,7 +1031,8 @@ def article_tool_profiles(research: dict[str, Any]) -> list[dict[str, str]]:
                 "summary": f"{name} stays on the shortlist because it addresses {use_case}, but the recommendation strength depends on verified-source depth.",
                 "badge": "Best verified option" if index == 0 else "Shortlist candidate",
                 "official_url": official_url,
-                "cta_label": "Visit official website",
+                "cta_url": cta_url,
+                "cta_label": cta_label,
             }
         )
     return profiles
@@ -1006,13 +1043,13 @@ def render_tool_profile_cards(tool_profiles: list[dict[str, str]]) -> str:
     for profile in tool_profiles:
         cards.append(
             f"""
-      <section class="card">
+      <section class="article-card">
         <h3>{html.escape(profile['name'])} <small>· {html.escape(profile['badge'])}</small></h3>
         <p><strong>Best for:</strong> {html.escape(profile['best_for'])}.</p>
         <p>{html.escape(profile['summary'])}</p>
         <p><strong>Strength:</strong> {html.escape(profile['pros'])}.</p>
         <p><strong>Risk:</strong> {html.escape(profile['cons'])}.</p>
-        <p><strong>Pricing confidence:</strong> {html.escape(profile['pricing_confidence'])}. {html.escape(profile['pricing_note'])}</p>
+        <p><strong>Pricing confidence for {html.escape(profile['name'])}:</strong> {html.escape(profile['pricing_confidence'])}. {html.escape(profile['pricing_note'])}</p>
       </section>
 """
         )
@@ -1025,8 +1062,8 @@ def render_tool_comparison_table(tool_profiles: list[dict[str, str]]) -> str:
         for profile in tool_profiles
     )
     return f"""
-      <div class="table-scroll">
-        <table>
+      <div class="table-wrapper">
+        <table class="article-table">
           <thead><tr><th>Tool</th><th>Best for</th><th>Pricing confidence</th><th>Source status</th><th>Use-case anchor</th></tr></thead>
           <tbody>{rows}</tbody>
         </table>
@@ -1036,10 +1073,10 @@ def render_tool_comparison_table(tool_profiles: list[dict[str, str]]) -> str:
 
 def render_best_for_cards(tool_profiles: list[dict[str, str]]) -> str:
     blocks = "".join(
-        f"<div><h3>{html.escape(profile['name'])}</h3><p>{html.escape(profile['best_for']).capitalize()}.</p><p>{html.escape(profile['use_case']).capitalize()}.</p></div>"
+        f'<div class="article-card"><h3>{html.escape(profile["name"])}</h3><p>{html.escape(profile["best_for"]).capitalize()}.</p><p>{html.escape(profile["use_case"]).capitalize()}.</p></div>'
         for profile in tool_profiles
     )
-    return f'<div class="grid">{blocks}</div>'
+    return f'<div class="related-grid">{blocks}</div>'
 
 
 def render_official_source_refs(research: dict[str, Any]) -> str:
@@ -1079,7 +1116,7 @@ def render_tool_ctas(tool_profiles: list[dict[str, str]]) -> str:
     buttons = []
     for profile in tool_profiles:
         buttons.append(
-            f'<a class="btn secondary" href="{html.escape(profile["official_url"], quote=True)}">{html.escape(profile["cta_label"])}</a>'
+            f'<a class="cta-button" href="{html.escape(profile.get("cta_url", profile["official_url"]), quote=True)}">{html.escape(profile["cta_label"])}</a>'
         )
     return "".join(buttons)
 
@@ -1088,11 +1125,28 @@ def render_affiliate_placeholders(tool_profiles: list[dict[str, str]]) -> str:
     return ""
 
 
+def dedupe_related_links(links: list[tuple[str, str]], limit: int = 6) -> list[tuple[str, str]]:
+    unique: list[tuple[str, str]] = []
+    seen: set[str] = set()
+    for href, label in links:
+        clean_href = str(href).strip()
+        clean_label = str(label).strip()
+        if not clean_href:
+            continue
+        key = clean_href.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        unique.append((clean_href, clean_label))
+        if len(unique) >= limit:
+            break
+    return unique
+
+
 def sanitize_public_article_html(rendered: str, research: dict[str, Any]) -> str:
     section_ids = (
         "methodology",
         "shortlist",
-        "best-for",
         "official-sources",
         "affiliate-placeholders",
         "research-package",
@@ -1100,33 +1154,45 @@ def sanitize_public_article_html(rendered: str, research: dict[str, Any]) -> str
     )
     for section_id in section_ids:
         rendered = re.sub(
-            rf'\s*<section class="card" id="{re.escape(section_id)}">.*?</section>',
+            rf'\s*<section class="[^"]*\b(?:card|article-card)\b[^"]*" id="{re.escape(section_id)}">.*?</section>',
             "",
             rendered,
             flags=re.DOTALL,
         )
     rendered = re.sub(
-        r'\s*<section class="card">\s*<h2>Research methodology</h2>.*?</section>',
+        r'\s*<section class="[^"]*\b(?:card|article-card)\b[^"]*">\s*<h2>Research methodology</h2>.*?</section>',
         "",
         rendered,
         flags=re.DOTALL,
     )
     sources_checked = """
-    <section class="card" id="sources-checked">
+    <section class="article-card" id="sources-checked">
       <h2>Sources checked</h2>
       <p>These official and registry-backed references were reviewed while preparing this buyer guide.</p>
       {sources}
     </section>
 """.format(sources=render_sources_checked(research))
     rendered = rendered.replace(
-        '<section class="card">\n      <h2>Final verdict</h2>',
-        f"{sources_checked}\n    <section class=\"card\">\n      <h2>Final verdict</h2>",
+        '<section class="article-card">\n      <h2>Final verdict</h2>',
+        f"{sources_checked}\n    <section class=\"article-card\">\n      <h2>Final verdict</h2>",
         1,
     )
     rendered = rendered.replace("Official source references", "Sources checked")
     rendered = rendered.replace("Affiliate placeholder fields", "")
-    rendered = rendered.replace("{{", "{ {")
-    rendered = rendered.replace("}}", "} }")
+    rendered = rendered.replace("Â·", "·").replace("â€”", "-").replace("â€™", "'").replace("â€œ", '"').replace("â€", '"')
+    rendered = re.sub(r">\s*(draft|needs_ai_review|ai_review_passed|needs_human_review|human_approved|rejected|needs_revision|published_local|ready_for_publish|approved_for_publish)\s*<", "><", rendered, flags=re.IGNORECASE)
+    rendered = rendered.replace("Â·", "&middot;").replace("â€”", "-").replace("â€™", "'").replace("â€œ", '"').replace("â€", '"')
+    internal_markers = (
+        "Research package snapshot",
+        "Content planning snapshot",
+        "Affiliate placeholder fields",
+        "needs_ai_review",
+        "needs_human_review",
+        "ready_for_publish",
+        "approved_for_publish",
+    )
+    if any(marker.lower() in rendered.lower() for marker in internal_markers):
+        raise ValueError("Public article HTML contains internal workflow content.")
     return rendered
 
 
@@ -1376,6 +1442,14 @@ def render_editorial_byline(editorial: dict[str, Any]) -> str:
     profile = str(editorial.get("author_profile_url") or "").strip()
     author_bio = str(editorial.get("author_bio") or "").strip()
     reviewed_by = str(editorial.get("reviewed_by") or "Human review pending").strip()
+    if reviewed_by.lower() in {
+        "human review pending",
+        "needs_human_review",
+        "human_approved",
+        "ai_review_passed",
+        "approved_for_publish",
+    }:
+        reviewed_by = "Smile AI Review Hub editorial team"
     last_updated = str(editorial.get("last_updated") or "").strip()
     editorial_policy_url = str(editorial.get("editorial_policy_url") or "/editorial-policy/").strip()
     affiliate_disclosure_url = str(editorial.get("affiliate_disclosure_url") or "/affiliate-disclosure/").strip()
@@ -1383,7 +1457,7 @@ def render_editorial_byline(editorial: dict[str, Any]) -> str:
     if profile:
         author_html = f'<a href="{html.escape(profile, quote=True)}">{author_html}</a>'
     return f"""
-    <section class="card trust">
+    <section class="article-card trust">
       <h2>Author and editorial review</h2>
       <p><strong>Author:</strong> {author_html}</p>
       <p><strong>Reviewed by:</strong> {html.escape(reviewed_by)}</p>
@@ -1409,7 +1483,7 @@ def qiita_relevant(topic: dict[str, Any]) -> bool:
 
 def html_shell(title: str, description: str, canonical: str, body: str, schemas: list[dict[str, Any]]) -> str:
     schema_tags = "\n".join(
-        f'<script type="application/ld+json">{json.dumps(schema, ensure_ascii=False)}</script>' for schema in schemas
+        f'<script type="application/ld+json">{json.dumps(schema, ensure_ascii=False, indent=2)}</script>' for schema in schemas
     )
     return f"""<!doctype html>
 <html lang="en">
@@ -1429,11 +1503,11 @@ def html_shell(title: str, description: str, canonical: str, body: str, schemas:
   <meta name="twitter:title" content="{html.escape(title)}">
   <meta name="twitter:description" content="{html.escape(description)}">
   <meta name="twitter:image" content="{html.escape(BASE_URL + '/assets/og/site.svg', quote=True)}">
+  <link rel="stylesheet" href="/assets/public-article.css?v=20260710">
   {schema_tags}
-  <style>{page_css()}</style>
 </head>
 <body>
-  <nav class="nav"><div class="wrap nav-inner"><a class="logo" href="/">MS Smile AI Review Hub</a><div><a href="/reviews/">Reviews</a><a href="/comparisons/">Comparisons</a><a href="/contact/">Contact</a></div></div></nav>
+  <nav class="site-header"><div class="wrap nav-inner"><a class="logo" href="/">MS Smile AI Review Hub</a><div><a href="/reviews/">Reviews</a><a href="/comparisons/">Comparisons</a><a href="/contact/">Contact</a></div></div></nav>
   {body}
   <footer><div class="wrap"><p><strong>MS Smile AI Review Hub</strong></p><p>Contact: <a href="mailto:contact@smileaireviewhub.com">contact@smileaireviewhub.com</a></p><p><a href="/affiliate-disclosure/">Affiliate Disclosure</a> <a href="/privacy/">Privacy Policy</a> <a href="/about/">About</a></p></div></footer>
 </body>
@@ -1442,11 +1516,23 @@ def html_shell(title: str, description: str, canonical: str, body: str, schemas:
 
 
 def page_css() -> str:
-    return """:root{--bg:#f7f9fc;--text:#17202a;--muted:#596579;--line:#dbe3ef;--card:#fff;--accent:#0f766e;--warn:#9a3412}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}.wrap{max-width:1120px;margin:0 auto;padding:0 20px}.nav{background:#fff;border-bottom:1px solid var(--line)}.nav-inner{min-height:64px;display:flex;justify-content:space-between;align-items:center;gap:16px}.nav a{color:#0f172a;font-weight:700;text-decoration:none;margin-right:16px}.logo{font-size:20px}.hero{padding:54px 0 22px}.eyebrow{font-weight:800;color:#0f766e;text-transform:uppercase;letter-spacing:.02em}.lede{font-size:19px;max-width:920px}.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:22px;margin:18px 0;box-shadow:0 1px 2px rgba(15,23,42,.04)}.trust{border-left:4px solid var(--warn)}h1{font-size:44px;line-height:1.08;margin:12px 0;color:#111827}h2{font-size:27px;margin:0 0 12px;color:#111827}h3{font-size:19px;margin:0 0 8px}p,li{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:11px 15px;border-radius:6px;font-weight:800;margin:5px 8px 5px 0}.btn.secondary{background:#e2e8f0;color:#0f172a}.table-scroll{overflow-x:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;border-bottom:1px solid #e6edf5;padding:12px;vertical-align:top}th{background:#f1f5f9;color:#334155}.toc a{color:#0f766e;text-decoration:none}details{border-top:1px solid #e6edf5;padding:12px 0}summary{cursor:pointer;font-weight:800;color:#334155}footer{margin-top:36px;background:#0f172a;color:#cbd5e1;padding:28px 0}footer p,footer a{color:#cbd5e1}@media(max-width:760px){h1{font-size:32px}.nav-inner{align-items:flex-start;flex-direction:column;padding:14px 0}}"""
+    return """:root{--bg:#f7f9fc;--text:#17202a;--muted:#596579;--line:#dbe3ef;--card:#fff;--accent:#0f766e;--accent-dark:#115e59;--soft:#eff6ff;--warn:#9a3412;--shadow:0 12px 30px rgba(15,23,42,.06)}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#f8fbff 0,#f7f9fc 35%,#f4f7fb 100%);color:var(--text);line-height:1.7}.wrap{max-width:1120px;margin:0 auto;padding:0 20px}.site-header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}.nav-inner{min-height:64px;display:flex;justify-content:space-between;align-items:center;gap:16px}.site-header a{color:#0f172a;font-weight:700;text-decoration:none;margin-right:16px}.logo{font-size:20px}.hero{padding:56px 0 20px}.eyebrow{font-weight:800;color:#0f766e;text-transform:uppercase;letter-spacing:.03em}.lede{font-size:19px;max-width:920px;color:#475569}.article-layout{padding:0 0 42px}.article-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin:18px 0;box-shadow:var(--shadow)}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin:18px 0;box-shadow:var(--shadow)}.trust{border-left:4px solid var(--warn)}h1{font-size:44px;line-height:1.08;margin:12px 0;color:#111827}h2{font-size:27px;margin:0 0 12px;color:#111827}h3{font-size:19px;margin:0 0 8px}p,li{color:var(--muted)}.grid,.related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}.related-card{display:block;background:#f8fafc;border:1px solid #d8e2ee;border-radius:14px;padding:18px;text-decoration:none;color:inherit;transition:transform .18s ease,box-shadow .18s ease}.related-card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(15,23,42,.08)}.cta-button,.btn{display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:#fff;text-decoration:none;padding:12px 16px;border-radius:10px;font-weight:800;margin:6px 10px 6px 0;border:none}.cta-button:hover,.btn:hover{background:var(--accent-dark)}.btn.secondary{background:#e2e8f0;color:#0f172a}.table-wrapper,.table-scroll{overflow-x:auto;border:1px solid #dbe4ef;border-radius:16px;background:#fff}.article-table,table{width:100%;border-collapse:collapse;min-width:700px}.article-table th,.article-table td,th,td{text-align:left;border-bottom:1px solid #e6edf5;padding:14px;vertical-align:top}.article-table th,th{background:#f1f5f9;color:#334155}.toc-links,.toc{display:flex;flex-wrap:wrap;gap:10px}.toc-links a,.toc a{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:var(--soft);color:#0f766e;text-decoration:none;font-weight:700}.toc-links a:hover,.toc a:hover{background:#dbeafe}details{border-top:1px solid #e6edf5;padding:12px 0}summary{cursor:pointer;font-weight:800;color:#334155}footer{margin-top:36px;background:#0f172a;color:#cbd5e1;padding:28px 0}footer p,footer a{color:#cbd5e1}@media(max-width:760px){h1{font-size:32px}.nav-inner{align-items:flex-start;flex-direction:column;padding:14px 0}.article-card,.card{padding:18px}.article-table,table{min-width:560px}}"""
+
+
+def ensure_public_stylesheet(output: Path | None = None) -> Path:
+    target_root = output or PUBLISHED_DIR
+    assets_dir = target_root / "assets"
+    assets_dir.mkdir(parents=True, exist_ok=True)
+    stylesheet = assets_dir / "public-article.css"
+    source_stylesheet = ROOT / "assets" / "public-article.css"
+    css = source_stylesheet.read_text(encoding="utf-8") if source_stylesheet.exists() else page_css()
+    stylesheet.write_text(css, encoding="utf-8")
+    return stylesheet
 
 
 def write_article(path: str, text: str, output: Path | None = None) -> Path:
     output = output or PUBLISHED_DIR
+    ensure_public_stylesheet(output)
     folder = output / path.strip("/")
     folder.mkdir(parents=True, exist_ok=True)
     target = folder / "index.html"
@@ -1477,7 +1563,8 @@ def write_video_drafts(topic: dict[str, Any], url: str, title: str) -> Path:
 
 
 def write_social_drafts(topic: dict[str, Any], url: str, title: str) -> Path:
-    folder = SOCIAL_DRAFTS / date.today().isoformat() / str(topic["slug"])
+    draft_date = str(topic.get("batch_date") or topic.get("generated_at") or date.today().isoformat())[:10]
+    folder = SOCIAL_DRAFTS / draft_date / str(topic["slug"])
     folder.mkdir(parents=True, exist_ok=True)
     platforms = {
         "facebook.md": facebook_draft(title, url),
@@ -1667,7 +1754,7 @@ def breadcrumb_schema(title: str, url: str) -> dict[str, Any]:
 
 def faq_html(items: list[str]) -> str:
     return "".join(
-        f"<details><summary>{html.escape(item)}</summary><p>Verify current pricing, terms, limits, integrations, and official policies before buying or promoting this tool.</p></details>"
+        f"<details><summary>{html.escape(item)}</summary><p>For {html.escape(item.rstrip('?').lower())}, verify current pricing, terms, limits, integrations, and official policies before buying or promoting the tool.</p></details>"
         for item in items
     )
 

@@ -1,0 +1,80 @@
+{
+  "ok": true,
+  "published_urls": [
+    "https://smileaireviewhub.com/best-ai-meeting-software/",
+    "https://smileaireviewhub.com/best-ai-meeting-tools/",
+    "https://smileaireviewhub.com/best-ai-productivity-software/"
+  ],
+  "sitemap": {
+    "path": "docs\\sitemap.xml",
+    "total_urls": 932,
+    "duplicate_urls": [],
+    "published_urls_missing": [],
+    "invalid_lastmod": [],
+    "canonical_mismatches": [],
+    "errors": [],
+    "ok": true
+  },
+  "pages": [
+    {
+      "url": "https://smileaireviewhub.com/best-ai-meeting-software/",
+      "file": "docs\\best-ai-meeting-software\\index.html",
+      "canonical": "https://smileaireviewhub.com/best-ai-meeting-software/",
+      "schema_types": [
+        "Answer",
+        "Article",
+        "BreadcrumbList",
+        "FAQPage",
+        "ListItem",
+        "Organization",
+        "Person",
+        "Question"
+      ],
+      "internal_links": 13,
+      "external_links": 5,
+      "images": 1,
+      "errors": [],
+      "ok": true
+    },
+    {
+      "url": "https://smileaireviewhub.com/best-ai-meeting-tools/",
+      "file": "docs\\best-ai-meeting-tools\\index.html",
+      "canonical": "https://smileaireviewhub.com/best-ai-meeting-tools/",
+      "schema_types": [
+        "Answer",
+        "Article",
+        "BreadcrumbList",
+        "FAQPage",
+        "ListItem",
+        "Organization",
+        "Person",
+        "Question"
+      ],
+      "internal_links": 13,
+      "external_links": 5,
+      "images": 1,
+      "errors": [],
+      "ok": true
+    },
+    {
+      "url": "https://smileaireviewhub.com/best-ai-productivity-software/",
+      "file": "docs\\best-ai-productivity-software\\index.html",
+      "canonical": "https://smileaireviewhub.com/best-ai-productivity-software/",
+      "schema_types": [
+        "Answer",
+        "Article",
+        "BreadcrumbList",
+        "FAQPage",
+        "ListItem",
+        "Organization",
+        "Person",
+        "Question"
+      ],
+      "internal_links": 13,
+      "external_links": 5,
+      "images": 1,
+      "errors": [],
+      "ok": true
+    }
+  ]
+}
