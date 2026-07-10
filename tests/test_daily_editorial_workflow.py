@@ -706,7 +706,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             html_text = (site_output / "review" / "2026-07-07" / "index.html").read_text(encoding="utf-8")
             self.assertIn("Publish Ready Articles", html_text)
             self.assertIn("Open Operator Console", html_text)
-            self.assertIn("Upload file path", html_text)
+            self.assertIn("Upload:", html_text)
             self.assertIn("Weekly batch", html_text)
             self.assertIn("Today's angle", html_text)
 
@@ -1051,7 +1051,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertEqual(report["items"][0]["local_status"], "docs_synced")
             self.assertEqual(report["items"][0]["git_status"], "pushed")
             self.assertEqual(report["items"][0]["live_status"], "404")
-            self.assertEqual(report["items"][0]["display_status"], "Live 404")
+            self.assertEqual(report["items"][0]["display_status"], "Unexpected Live 404")
             self.assertIn("Live 404", report["items"][0]["block_reason"])
             self.assertIn("check-live", report["items"][0]["next_action_command"])
             self.assertTrue((data_dir / "live_status_report.json").exists())
@@ -1082,7 +1082,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 report = workflow.check_live(batch_date="2026-07-07")
 
             item = report["items"][0]
-            self.assertEqual(item["display_status"], "Blocked")
+            self.assertEqual(item["display_status"], "Missing Local Output")
             self.assertIn("Publish Blocked", item["block_reason"])
             self.assertIn("AI quality review required", item["block_reason"])
             self.assertIn("Need better verified sources", item["block_reason"])
@@ -1181,8 +1181,12 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertIn("preview-frame", html_text)
             self.assertIn("Ready for Publish", html_text)
             self.assertIn("Top block reasons", html_text)
-            self.assertIn("Block reason", html_text)
+            self.assertIn("Main block reason", html_text)
             self.assertIn("data-filter", html_text)
+            self.assertIn("Editorial status", html_text)
+            self.assertIn("Publish gate", html_text)
+            self.assertIn("Deployment", html_text)
+            self.assertIn('method="post"', html_text)
 
     def test_render_interactive_dashboard_blocks_preview_for_needs_enrichment(self) -> None:
         with TemporaryDirectory() as temp_dir:
@@ -1214,6 +1218,121 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertIn("No draft preview yet.", html_text)
             self.assertIn("Research quality gate blocked draft generation", html_text)
             self.assertIn("disabled", html_text)
+
+    def test_status_counts_current_batch_without_live_200_as_published(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=root / "site_output")
+            _write_json(
+                data_dir / "editorial_queue" / "2026-07-07" / "topics.json",
+                {
+                    "generated_at": "",
+                    "date": "2026-07-07",
+                    "mode": "standard",
+                    "count": 4,
+                    "topics": [
+                        {"keyword": "draft", "slug": "draft", "status": "selected"},
+                        {"keyword": "review", "slug": "review", "status": "drafted", "review_preview": str(data_dir / "production_article_drafts" / "review" / "index.html")},
+                        {"keyword": "approved", "slug": "approved", "status": "approved"},
+                        {"keyword": "old live", "slug": "old-live", "status": "drafted"},
+                    ],
+                },
+            )
+            (data_dir / "production_article_drafts" / "review").mkdir(parents=True, exist_ok=True)
+            (data_dir / "production_article_drafts" / "review" / "index.html").write_text("<html></html>", encoding="utf-8")
+            _write_json(
+                data_dir / "publish_queue.json",
+                [
+                    {"slug": "approved", "status": "approved_for_publish", "failures": []},
+                    {"slug": "old-live", "status": "blocked", "failures": ["AI review failed"], "url": "https://example.com/old-live/"},
+                ],
+            )
+
+            summary = workflow.status(batch_date="2026-07-07")
+
+            self.assertEqual(summary["total_topics"], 4)
+            self.assertEqual(summary["drafts"], 2)
+            self.assertEqual(summary["needs_review"], 1)
+            self.assertEqual(summary["human_approved"], 1)
+            self.assertEqual(summary["ready_for_publish"], 1)
+            self.assertEqual(summary["publish_blocked"], 1)
+            self.assertEqual(summary["published_this_batch"], 0)
+
+    def test_live_200_blocked_article_is_not_counted_as_unpublished_error(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=root / "site_output")
+            _write_json(
+                data_dir / "editorial_queue" / "2026-07-07" / "topics.json",
+                {
+                    "generated_at": "",
+                    "date": "2026-07-07",
+                    "mode": "standard",
+                    "count": 1,
+                    "topics": [{"keyword": "old live", "slug": "old-live", "status": "drafted"}],
+                },
+            )
+            _write_json(
+                data_dir / "publish_queue.json",
+                [{"slug": "old-live", "status": "blocked", "failures": ["AI review failed"], "url": "https://example.com/old-live/"}],
+            )
+
+            with patch.object(workflow, "_probe_live_url", return_value={"status": "live", "http_status": 200, "reason": "reachable"}):
+                report = workflow.check_live(batch_date="2026-07-07")
+
+            self.assertEqual(report["items"][0]["display_status"], "Live 200")
+            self.assertEqual(report["summary"]["live_200"], 1)
+            self.assertEqual(report["summary"]["unexpected_live_404"], 0)
+
+    def test_draft_404_is_not_unexpected_live_404(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=root / "site_output")
+            _write_json(
+                data_dir / "editorial_queue" / "2026-07-07" / "topics.json",
+                {
+                    "generated_at": "",
+                    "date": "2026-07-07",
+                    "mode": "standard",
+                    "count": 1,
+                    "topics": [{"keyword": "draft", "slug": "draft", "status": "selected"}],
+                },
+            )
+            _write_json(data_dir / "publish_queue.json", [{"slug": "draft", "status": "missing", "url": "https://example.com/draft/"}])
+
+            with patch.object(workflow, "_probe_live_url", return_value={"status": "404", "http_status": 404, "reason": "HTTP Error 404"}):
+                report = workflow.check_live(batch_date="2026-07-07")
+
+            self.assertNotEqual(report["items"][0]["display_status"], "Unexpected Live 404")
+            self.assertEqual(report["summary"]["unexpected_live_404"], 0)
+
+    def test_already_approved_detail_does_not_show_active_approve_button(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=root / "site_output")
+            draft_dir = data_dir / "production_article_drafts" / "approved"
+            draft_dir.mkdir(parents=True, exist_ok=True)
+            (draft_dir / "index.html").write_text("<html><body>Draft</body></html>", encoding="utf-8")
+            _write_json(
+                data_dir / "editorial_queue" / "2026-07-07" / "topics.json",
+                {
+                    "generated_at": "",
+                    "date": "2026-07-07",
+                    "mode": "standard",
+                    "count": 1,
+                    "topics": [{"keyword": "approved", "slug": "approved", "status": "approved", "review_preview": str(draft_dir / "index.html")}],
+                },
+            )
+            _write_json(data_dir / "publish_queue.json", [{"slug": "approved", "status": "approved_for_publish", "failures": []}])
+
+            html_text = workflow.render_interactive_dashboard(batch_date="2026-07-07", selected_slug="approved")
+
+            self.assertIn(">Approved</span>", html_text)
+            self.assertNotIn(">Approve</button>", html_text)
 
 
 if __name__ == "__main__":
