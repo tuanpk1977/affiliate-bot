@@ -1186,6 +1186,13 @@ class DailyEditorialWorkflow:
             "live_ok": sum(1 for item in items if item["live_status"] == "live"),
             "live_404": sum(1 for item in items if item["live_status"] == "404"),
             "live_unknown": sum(1 for item in items if item["live_status"] == "unknown"),
+            "published": sum(1 for item in items if item["display_status"] == "Published"),
+            "awaiting_publish": sum(1 for item in items if item["display_status"] == "Awaiting Publish"),
+            "awaiting_push": sum(1 for item in items if item["display_status"] == "Awaiting Push"),
+            "missing_docs": sum(1 for item in items if item["display_status"] == "Docs Pending"),
+            "blocked": sum(1 for item in items if item["display_status"] == "Blocked"),
+            "ready": sum(1 for item in items if item["display_status"] == "Ready"),
+            "unknown": sum(1 for item in items if item["display_status"] == "Unknown"),
         }
         report = {
             "generated_at": datetime.now(UTC).isoformat(),
@@ -1344,7 +1351,7 @@ class DailyEditorialWorkflow:
       <h1>Editorial Review Dashboard - {html.escape(batch_date)}</h1>
       <p>Weekly batch: <strong>{html.escape(summary['week_start'])}</strong> -> <strong>{html.escape(summary['week_end'])}</strong></p>
       <p>Today's angle: <strong>{html.escape(summary['daily_angle'])}</strong></p>
-      <p>Total topics: <strong>{summary['total_topics']}</strong> - Drafted: <strong>{summary['drafted']}</strong> - Approved by human: <strong>{summary['approved']}</strong> - Ready for publish: <strong>{summary['ready_for_publish']}</strong> - Publish blocked: <strong>{summary['publish_blocked']}</strong> - Published: <strong>{summary['published']}</strong></p>
+      <p>Total topics: <strong>{summary['total_topics']}</strong> - Drafted: <strong>{summary['drafted']}</strong> - Human Approved: <strong>{summary['approved']}</strong> - Ready for Publish: <strong>{summary['ready_for_publish']}</strong> - Publish Blocked: <strong>{summary['publish_blocked']}</strong> - Published: <strong>{summary['published']}</strong></p>
       <div class="actions">
         <a class="button" href="/?date={html.escape(batch_date, quote=True)}">Quay về danh sách</a>
         <a class="button" href="/?date={html.escape(batch_date, quote=True)}&slug={html.escape(self.next_pending_slug(batch_date), quote=True)}">Tới bài cần duyệt tiếp theo</a>
@@ -1463,7 +1470,7 @@ class DailyEditorialWorkflow:
       <h1>Editorial Review Dashboard - {html.escape(batch_date)}</h1>
       <p>Weekly batch: <strong>{html.escape(summary['week_start'])}</strong> -> <strong>{html.escape(summary['week_end'])}</strong></p>
       <p>Today's angle: <strong>{html.escape(summary['daily_angle'])}</strong></p>
-      <p>Total topics: <strong>{summary['total_topics']}</strong> - Drafted: <strong>{summary['drafted']}</strong> - Approved by human: <strong>{summary['approved']}</strong> - Ready for publish: <strong>{summary['ready_for_publish']}</strong> - Publish blocked: <strong>{summary['publish_blocked']}</strong> - Published: <strong>{summary['published']}</strong></p>
+      <p>Total topics: <strong>{summary['total_topics']}</strong> - Drafted: <strong>{summary['drafted']}</strong> - Human Approved: <strong>{summary['approved']}</strong> - Ready for Publish: <strong>{summary['ready_for_publish']}</strong> - Publish Blocked: <strong>{summary['publish_blocked']}</strong> - Published: <strong>{summary['published']}</strong></p>
       <p>Next recommended command: <code>{html.escape(summary['next_recommended_command'])}</code></p>
       <div class="actions">
         <a class="button warn" href="{html.escape(self._relative_review_link(batch_date, open_console_launcher), quote=True)}">Open Operator Console</a>
@@ -1480,7 +1487,7 @@ class DailyEditorialWorkflow:
             <th>Keyword</th>
             <th>Score</th>
             <th>Status</th>
-            <th>Preview</th>
+            <th>Actions</th>
             <th>Approve</th>
             <th>Reject</th>
             <th>Source file path</th>
@@ -1491,9 +1498,10 @@ class DailyEditorialWorkflow:
       </table>
     </section>
   </main>
-</body>
+        </body>
 </html>
 """
+        html_text = self._clean_dashboard_text(html_text)
         dashboard_file = dashboard_dir / "index.html"
         dashboard_file.write_text(html_text, encoding="utf-8")
         data = {
@@ -1527,16 +1535,16 @@ class DailyEditorialWorkflow:
             f"meta={str(item.get('meta_description_status') or '-')}",
         ]
         view_cell = (
-            f"<a class='button' href='{html.escape(href, quote=True)}'>Xem ná»™i dung</a>"
+            f"<a class='button' href='{html.escape(href, quote=True)}'>Open Review</a>"
             if has_preview
-            else "<span class='button disabled'>ChÆ°a cÃ³ draft</span>"
+            else "<span class='button disabled'>No draft yet</span>"
         )
         return (
             f"<tr data-filter='{html.escape(row_filter, quote=True)}'>"
             f"<td><a href='{html.escape(href, quote=True)}'><strong>{html.escape(str(item.get('article_title') or item.get('keyword') or slug))}</strong></a><br><code>{html.escape(slug)}</code></td>"
             f"<td>{html.escape(str(item.get('keyword') or ''))}</td>"
             f"<td>{html.escape(str(item.get('total_score') or ''))}</td>"
-            f"<td><span class='status {html.escape(self._status_class(status))}'>{html.escape(status)}</span></td>"
+            f"<td><span class='status {html.escape(self._status_class(status))}'>{html.escape(self._operator_status_label(status))}</span></td>"
             f"<td>{html.escape(block_reason)}<br><small>{html.escape(' | '.join(validation_bits))}</small></td>"
             f"<td><code>{html.escape(str(item.get('next_action') or next_action))}</code></td>"
             f"<td><code>{html.escape(upload_path)}</code></td>"
@@ -1551,7 +1559,7 @@ class DailyEditorialWorkflow:
         has_preview = self._has_reviewable_preview(selected)
         status_message = str(selected.get("error") or "").strip()
         if not status_message and not has_preview:
-            status_message = "Topic nÃ y chÆ°a cÃ³ draft Ä‘á»ƒ duyá»‡t. NÃ³ váº«n Ä‘ang bá»‹ cháº·n á»Ÿ research/source quality gate."
+            status_message = "This topic does not have a reviewable draft yet. It is still waiting on the research/source quality gate."
         approve_disabled = selected_status not in {"drafted", "selected"} or not has_preview
         reject_disabled = selected_status == "published"
         publish_row = publish_rows.get(selected_slug_value) or {}
@@ -1566,19 +1574,21 @@ class DailyEditorialWorkflow:
         preview_block = (
             f"""
             <div class="detail-actions">
-              <a class="button" href="{html.escape(preview_src, quote=True)}" target="article-preview">Xem ná»™i dung</a>
+              <a class="button" href="{html.escape(preview_src, quote=True)}" target="article-preview">Open Review</a>
             </div>
             <iframe class="preview-frame" name="article-preview" src="{html.escape(preview_src, quote=True)}" title="Article preview"></iframe>
             """
             if has_preview
             else f"<div class='empty-preview'><strong>ChÆ°a cÃ³ draft preview.</strong><br>{html.escape(status_message)}</div>"
         )
+        if not has_preview:
+            preview_block = f"<div class='empty-preview'><strong>No draft preview yet.</strong><br>{html.escape(status_message)}</div>"
         return f"""
             <h2>{html.escape(str(selected.get('article_title') or selected.get('keyword') or selected_slug_value))}</h2>
             <p><code>{html.escape(selected_slug_value)}</code></p>
             <p>Keyword: <strong>{html.escape(str(selected.get('keyword') or ''))}</strong></p>
-            <p>Status: <span class="status {html.escape(self._status_class(selected_status))}">{html.escape(selected_status)}</span></p>
-            <p>Publish gate: <strong>{html.escape(str(publish_row.get('status') or 'missing'))}</strong></p>
+            <p>Status: <span class="status {html.escape(self._status_class(selected_status))}">{html.escape(self._operator_status_label(selected_status))}</span></p>
+            <p>Publish gate: <strong>{html.escape(self._operator_status_label(str(publish_row.get('status') or 'missing')))}</strong></p>
             <p>Block reason: <strong>{html.escape(block_reason)}</strong></p>
             <p>Validation: <strong>{html.escape(validation_status)}</strong> | Autofix: <strong>{html.escape(autofix_status)}</strong> | CTA: <strong>{html.escape(cta_status)}</strong> | FAQ schema: <strong>{html.escape(faq_status)}</strong> | Meta: <strong>{html.escape(meta_status)}</strong> | Redirect: <strong>{html.escape(redirect_status)}</strong></p>
             <p>Next action: <code>{html.escape(str(selected.get('next_action') or next_action))}</code></p>
@@ -1604,9 +1614,9 @@ class DailyEditorialWorkflow:
         return (
             "<div class='kpis'>"
             f"<div class='kpi'>Total drafts<strong>{summary['drafted']}</strong></div>"
-            f"<div class='kpi'>Approved<strong>{summary['approved']}</strong></div>"
-            f"<div class='kpi'>Blocked<strong>{summary['publish_blocked']}</strong></div>"
-            f"<div class='kpi'>Ready to publish<strong>{summary['ready_for_publish']}</strong></div>"
+            f"<div class='kpi'>Human Approved<strong>{summary['approved']}</strong></div>"
+            f"<div class='kpi'>Publish Blocked<strong>{summary['publish_blocked']}</strong></div>"
+            f"<div class='kpi'>Ready for Publish<strong>{summary['ready_for_publish']}</strong></div>"
             f"<div class='kpi'>Published<strong>{summary['published']}</strong></div>"
             f"<div class='kpi'>Top block reasons<strong class='small'>{html.escape(top_block_reasons)}</strong></div>"
             "</div>"
@@ -1616,8 +1626,8 @@ class DailyEditorialWorkflow:
         return """
         <div class="filters">
           <button type="button" class="button filter-btn active" data-filter-target="all">All</button>
-          <button type="button" class="button filter-btn" data-filter-target="ready">Ready to publish</button>
-          <button type="button" class="button filter-btn" data-filter-target="blocked">Blocked</button>
+          <button type="button" class="button filter-btn" data-filter-target="ready">Ready for Publish</button>
+          <button type="button" class="button filter-btn" data-filter-target="blocked">Publish Blocked</button>
           <button type="button" class="button filter-btn" data-filter-target="needs-revision">Needs revision</button>
           <button type="button" class="button filter-btn" data-filter-target="published">Published</button>
         </div>
@@ -1680,6 +1690,26 @@ class DailyEditorialWorkflow:
     @media (max-width:1100px){.layout{grid-template-columns:1fr} .preview-frame{height:520px}}
         """
 
+    def _clean_dashboard_text(self, html_text: str) -> str:
+        replacements = {
+            "Xem ná»™i dung": "Open Review",
+            "ChÆ°a cÃ³ draft": "No draft yet",
+            "ChÃ†Â°a cÃƒÂ³ draft preview.": "No draft preview yet.",
+            "KhÃ´ng cÃ³ bÃ i nÃ o trong batch.": "No articles found in this batch.",
+            "Quay vá» danh sÃ¡ch": "Back to list",
+            "TÃ¡Â»â€ºi bÃƒÂ i cÃ¡ÂºÂ§n duyÃ¡Â»â€¡t tiÃ¡ÂºÂ¿p theo": "Next article to review",
+            "Tá»›i bÃ i cáº§n duyá»‡t tiáº¿p theo": "Next article to review",
+            "ÄÃ³ng local dashboard": "Close local dashboard",
+            "Danh sÃ¡ch bÃ i": "Article list",
+            "Approved by human": "Human Approved",
+            "Ready for publish": "Ready for Publish",
+            "Publish blocked": "Publish Blocked",
+        }
+        cleaned = html_text
+        for before, after in replacements.items():
+            cleaned = cleaned.replace(before, after)
+        return cleaned
+
     def _render_interactive_dashboard_v2(self, *, batch_date: str, selected_slug: str = "", message: str = "") -> str:
         payload = self._load_queue(batch_date)
         topics = payload.get("topics", [])
@@ -1695,10 +1725,10 @@ class DailyEditorialWorkflow:
                 topics[0],
             )
         rows = [self._render_interactive_row(item, publish_rows=publish_rows, batch_date=batch_date) for item in topics]
-        detail_html = self._render_interactive_detail(selected, publish_rows=publish_rows, batch_date=batch_date) if selected is not None else "<p>KhÃ´ng cÃ³ bÃ i nÃ o trong batch.</p>"
+        detail_html = self._render_interactive_detail(selected, publish_rows=publish_rows, batch_date=batch_date) if selected is not None else "<p>No articles found in this batch.</p>"
         publish_disabled = summary["ready_for_publish"] == 0
         notice = f"<div class='notice'>{html.escape(message)}</div>" if message else ""
-        return f"""<!doctype html>
+        html_text = f"""<!doctype html>
 <html lang="vi">
 <head>
   <meta charset="utf-8">
@@ -1713,11 +1743,11 @@ class DailyEditorialWorkflow:
       <p>Weekly batch: <strong>{html.escape(summary['week_start'])}</strong> -> <strong>{html.escape(summary['week_end'])}</strong></p>
       <p>Today's angle: <strong>{html.escape(summary['daily_angle'])}</strong></p>
       {self._render_kpi_grid(summary)}
-      <p>Total topics: <strong>{summary['total_topics']}</strong> - Drafted: <strong>{summary['drafted']}</strong> - Approved by human: <strong>{summary['approved']}</strong> - Ready for publish: <strong>{summary['ready_for_publish']}</strong> - Publish blocked: <strong>{summary['publish_blocked']}</strong> - Published: <strong>{summary['published']}</strong></p>
+      <p>Total topics: <strong>{summary['total_topics']}</strong> - Drafted: <strong>{summary['drafted']}</strong> - Human Approved: <strong>{summary['approved']}</strong> - Ready for Publish: <strong>{summary['ready_for_publish']}</strong> - Publish Blocked: <strong>{summary['publish_blocked']}</strong> - Published: <strong>{summary['published']}</strong></p>
       <div class="actions">
-        <a class="button" href="/?date={html.escape(batch_date, quote=True)}">Quay vá» danh sÃ¡ch</a>
+        <a class="button" href="/?date={html.escape(batch_date, quote=True)}">Back to list</a>
         <a class="button" href="/?date={html.escape(batch_date, quote=True)}&slug={html.escape(self.next_pending_slug(batch_date), quote=True)}">Tá»›i bÃ i cáº§n duyá»‡t tiáº¿p theo</a>
-        <a class="button" href="/shutdown">ÄÃ³ng local dashboard</a>
+        <a class="button" href="/shutdown">Close local dashboard</a>
       </div>
       {notice}
     </section>
@@ -1753,6 +1783,7 @@ class DailyEditorialWorkflow:
   {self._render_filter_script()}
 </body>
 </html>"""
+        return self._clean_dashboard_text(html_text)
 
     def _build_review_dashboard_v2(self, *, batch_date: str) -> dict[str, Any]:
         payload = self._load_queue(batch_date)
@@ -1774,35 +1805,64 @@ class DailyEditorialWorkflow:
             preview_href = f"./{slug}/index.html" if (dashboard_dir / slug / "index.html").exists() else ""
             draft_file = str(item.get("draft_file") or "")
             upload_preview = upload_dir / "review" / slug / "index.html"
+            draft_dir = self.data_dir / "production_article_drafts" / slug
+            metadata = self.console._load_metadata(slug)
+            live_url = str(metadata.get("url") or publish_rows.get(slug, {}).get("url") or "")
             approve_cmd = f"python editorial_console.py approve --slug {slug} --date {batch_date}"
             reject_cmd = f"python editorial_console.py reject --slug {slug} --date {batch_date} --reason \"Needs fixes\""
             approve_launcher = self._build_batch_launcher(batch_date=batch_date, file_name=f"approve-{slug}.cmd", command=approve_cmd)
             reject_launcher = self._build_batch_launcher(batch_date=batch_date, file_name=f"reject-{slug}.cmd", command=reject_cmd)
+            open_folder_launcher = self._build_batch_launcher(batch_date=batch_date, file_name=f"open-folder-{slug}.cmd", command=f'explorer "{draft_dir}"', shell_only=True)
+            copy_url_launcher = self._build_batch_launcher(
+                batch_date=batch_date,
+                file_name=f"copy-url-{slug}.cmd",
+                command=f'powershell -NoProfile -Command "Set-Clipboard -Value \\"{live_url}\\""',
+                shell_only=True,
+            )
             status = str(item.get("status") or "selected")
             publish_row = publish_rows.get(slug) or {}
             publish_status = str(publish_row.get("status") or "missing")
             row_filter = "ready" if publish_status == "approved_for_publish" else "published" if publish_status == "published_local" or status == "published" else "needs-revision" if status == "rejected" else "blocked" if publish_status == "blocked" else "waiting"
             can_review = self._has_reviewable_preview(item)
-            preview_cell = f'<a class="button" href="{html.escape(preview_href, quote=True)}">Open Preview</a>' if preview_href else '<span class="button disabled">No draft yet</span>'
+            draft_link = self._review_file_link(batch_date, draft_dir / "article.md")
+            html_link = self._review_file_link(batch_date, draft_dir / "index.html")
+            review_link = self._review_file_link(batch_date, draft_dir / "review_summary.md")
+            ai_report_link = self._review_file_link(batch_date, draft_dir / "publish_readiness_report.md")
+            source_review_path = self.data_dir / "research" / slug / "sources.json"
+            if not source_review_path.exists():
+                source_review_path = self.data_dir / "source_review_report.md"
+            source_review_link = self._review_file_link(batch_date, source_review_path)
+            action_buttons = " ".join(
+                [
+                    self._button_link(draft_link, "Open Draft"),
+                    self._button_link(html_link or preview_href, "Open HTML"),
+                    self._button_link(preview_href, "Open Review"),
+                    self._button_link(ai_report_link or review_link, "Open AI Report"),
+                    self._button_link(source_review_link, "Open Source Review"),
+                    self._button_link(self._relative_review_link(batch_date, open_folder_launcher), "Open Folder"),
+                    self._button_link(live_url, "Preview Live", "warn"),
+                    self._button_link(self._relative_review_link(batch_date, copy_url_launcher), "Copy URL"),
+                ]
+            )
             approve_cell = (
                 f"<a class='button success' href='{html.escape(self._relative_review_link(batch_date, approve_launcher), quote=True)}'>Approve</a><br><code>{html.escape(approve_cmd)}</code>"
                 if can_review
-                else "<span class='button disabled'>Blocked</span><br><code>Research/source gate must pass first</code>"
+                else "<span class='button disabled'>Publish Blocked</span><br><code>Research/source gate must pass first</code>"
             )
             reject_cell = (
                 f"<a class='button danger' href='{html.escape(self._relative_review_link(batch_date, reject_launcher), quote=True)}'>Reject</a><br><code>{html.escape(reject_cmd)}</code>"
                 if can_review
-                else "<span class='button disabled'>Blocked</span><br><code>No draft to review</code>"
+                else "<span class='button disabled'>Publish Blocked</span><br><code>No draft to review</code>"
             )
             rows.append(
                 f"<tr data-filter='{html.escape(row_filter, quote=True)}'>"
                 f"<td><strong>{html.escape(str(item.get('article_title') or item.get('keyword') or slug))}</strong><br><code>{html.escape(slug)}</code></td>"
                 f"<td>{html.escape(str(item.get('keyword') or ''))}</td>"
                 f"<td>{html.escape(str(item.get('total_score') or ''))}</td>"
-                f"<td><span class='status {html.escape(self._status_class(status))}'>{html.escape(status)}</span></td>"
+                f"<td><span class='status {html.escape(self._status_class(status))}'>{html.escape(self._operator_status_label(status))}</span></td>"
                 f"<td>{html.escape(self._row_block_reason(item, publish_row))}</td>"
                 f"<td><code>{html.escape(self._next_action_for_item(item, publish_row, batch_date=batch_date))}</code></td>"
-                f"<td>{preview_cell}</td>"
+                f"<td><div class='actions'>{action_buttons}</div></td>"
                 f"<td>{approve_cell}</td>"
                 f"<td>{reject_cell}</td>"
                 f"<td><code>{html.escape(draft_file)}</code></td>"
@@ -1824,7 +1884,7 @@ class DailyEditorialWorkflow:
       <p>Weekly batch: <strong>{html.escape(summary['week_start'])}</strong> -> <strong>{html.escape(summary['week_end'])}</strong></p>
       <p>Today's angle: <strong>{html.escape(summary['daily_angle'])}</strong></p>
       {self._render_kpi_grid(summary)}
-      <p>Total topics: <strong>{summary['total_topics']}</strong> - Drafted: <strong>{summary['drafted']}</strong> - Approved by human: <strong>{summary['approved']}</strong> - Ready for publish: <strong>{summary['ready_for_publish']}</strong> - Publish blocked: <strong>{summary['publish_blocked']}</strong> - Published: <strong>{summary['published']}</strong></p>
+      <p>Total topics: <strong>{summary['total_topics']}</strong> - Drafted: <strong>{summary['drafted']}</strong> - Human Approved: <strong>{summary['approved']}</strong> - Ready for Publish: <strong>{summary['ready_for_publish']}</strong> - Publish Blocked: <strong>{summary['publish_blocked']}</strong> - Published: <strong>{summary['published']}</strong></p>
       <p>Next recommended command: <code>{html.escape(summary['next_recommended_command'])}</code></p>
       <div class="actions">
         <a class="button warn" href="{html.escape(self._relative_review_link(batch_date, open_console_launcher), quote=True)}">Open Operator Console</a>
@@ -2388,12 +2448,12 @@ class DailyEditorialWorkflow:
     def _row_block_reason(self, item: dict[str, Any], publish_row: dict[str, Any]) -> str:
         failures = [str(reason).strip() for reason in list(publish_row.get("failures") or []) if str(reason).strip()]
         if failures:
-            return ", ".join(failures)
+            return "; ".join(self._operator_block_summary(reason) for reason in failures)
         error = str(item.get("error") or "").strip()
         if error:
-            return error
+            return self._operator_block_summary(error)
         status = str(publish_row.get("status") or item.get("status") or "").strip()
-        return status or "waiting for review"
+        return self._operator_status_label(status) or "Waiting for review"
 
     def _next_action_for_item(self, item: dict[str, Any], publish_row: dict[str, Any], *, batch_date: str) -> str:
         slug = str(item.get("slug") or "")
@@ -2406,7 +2466,7 @@ class DailyEditorialWorkflow:
         if self._has_reviewable_preview(item) and status in {"drafted", "selected"}:
             return f"python editorial_console.py approve --slug {slug} --date {batch_date}"
         if publish_status == "blocked":
-            return "Fix block reason, then rebuild/review"
+            return self._recommended_action_for_failures(list(publish_row.get("failures") or []))
         if status == "rejected":
             return f"python editorial_console.py reject --slug {slug} --date {batch_date} --reason \"Need revision\""
         return f"python editorial_console.py draft --date {batch_date}"
@@ -2420,7 +2480,8 @@ class DailyEditorialWorkflow:
             if not failures:
                 failures = ["blocked"]
             for reason in failures:
-                counts[reason] = counts.get(reason, 0) + 1
+                friendly = self._operator_block_title(reason)
+                counts[friendly] = counts.get(friendly, 0) + 1
         ranked = sorted(counts.items(), key=lambda item: (-item[1], item[0]))
         return [f"{reason} ({count})" for reason, count in ranked[:5]]
 
@@ -2429,6 +2490,82 @@ class DailyEditorialWorkflow:
         if normalized in {"approved", "published", "selected", "drafted", "rejected", "needs_enrichment", "draft_failed"}:
             return normalized
         return "selected"
+
+    def _operator_status_label(self, status: str) -> str:
+        normalized = status.strip().lower()
+        labels = {
+            "approved": "Human Approved",
+            "human_approved": "Human Approved",
+            "blocked": "Publish Blocked",
+            "approved_for_publish": "Ready for Publish",
+            "ready_to_publish": "Ready for Publish",
+            "ready for publish": "Ready for Publish",
+            "published_local": "Published",
+            "published": "Published",
+            "needs_human_review": "Waiting for editor approval",
+            "needs_revision": "Needs revision",
+            "drafted": "Drafted",
+            "selected": "Selected",
+            "missing": "Missing",
+        }
+        return labels.get(normalized, status.strip())
+
+    def _operator_block_title(self, reason: str) -> str:
+        normalized = reason.strip().lower()
+        mapping = {
+            "verified source score failed": "Need better verified sources",
+            "verified source score too low": "Need better verified sources",
+            "knowledge freshness failed": "Knowledge needs refresh",
+            "ai review failed": "AI quality review required",
+            "human approval missing": "Waiting for editor approval",
+            "research quality failed": "Research package needs improvement",
+            "broken links failed": "Broken links need repair",
+            "affiliate disclosure failed": "Affiliate disclosure needs review",
+            "duplicate title failed": "Duplicate title needs rewrite",
+            "duplicate meta failed": "Duplicate meta description needs rewrite",
+            "business score failed": "Business value needs improvement",
+            "readability failed": "Readability needs editing",
+        }
+        for key, label in mapping.items():
+            if key in normalized:
+                return label
+        if "source" in normalized:
+            return "Need better verified sources"
+        if "freshness" in normalized or "knowledge" in normalized:
+            return "Knowledge needs refresh"
+        if "review" in normalized and "ai" in normalized:
+            return "AI quality review required"
+        if "human" in normalized or "approval" in normalized:
+            return "Waiting for editor approval"
+        return reason.strip() or "Publish gate needs attention"
+
+    def _recommended_action_for_reason(self, reason: str) -> str:
+        normalized = reason.strip().lower()
+        if "source" in normalized or "verified" in normalized:
+            return "Open Source Review"
+        if "freshness" in normalized or "knowledge" in normalized:
+            return "Refresh Knowledge"
+        if "human" in normalized or "approval" in normalized:
+            return "Approve Article"
+        if "review" in normalized or "quality" in normalized:
+            return "Open Review"
+        return "Open Review"
+
+    def _operator_block_summary(self, reason: str) -> str:
+        title = self._operator_block_title(reason)
+        action = self._recommended_action_for_reason(reason)
+        return f"{title}. Recommended Action: {action}"
+
+    def _recommended_action_for_failures(self, failures: list[Any]) -> str:
+        first = next((str(reason).strip() for reason in failures if str(reason).strip()), "")
+        action = self._recommended_action_for_reason(first)
+        if action == "Open Source Review":
+            return "Open Source Review, add/verify sources, then rerun review"
+        if action == "Refresh Knowledge":
+            return "Refresh Knowledge, then rerun review"
+        if action == "Approve Article":
+            return "Approve Article after editor review"
+        return "Open Review, fix blockers, then rerun publish validation"
 
     def _has_reviewable_preview(self, item: dict[str, Any]) -> bool:
         review_preview = str(item.get("review_preview") or "").strip()
@@ -2466,6 +2603,18 @@ class DailyEditorialWorkflow:
     def _relative_review_link(self, batch_date: str, path: Path) -> str:
         dashboard_dir = self.review_root / batch_date
         return path.relative_to(dashboard_dir).as_posix()
+
+    def _review_file_link(self, batch_date: str, path: Path) -> str:
+        if not path.exists():
+            return ""
+        dashboard_dir = self.review_root / batch_date
+        return Path(os.path.relpath(path, dashboard_dir)).as_posix()
+
+    def _button_link(self, href: str, label: str, tone: str = "") -> str:
+        class_name = "button" + (f" {tone}" if tone else "")
+        if not href:
+            return f'<span class="{class_name} disabled">{html.escape(label)}</span>'
+        return f'<a class="{class_name}" href="{html.escape(href, quote=True)}">{html.escape(label)}</a>'
 
     def _build_batch_launcher(self, *, batch_date: str, file_name: str, command: str, shell_only: bool = False) -> Path:
         actions_dir = self.review_root / batch_date / "actions"
@@ -2626,11 +2775,19 @@ class DailyEditorialWorkflow:
                 live_probe=live_probe,
                 url=url,
             )
+            display_status = self._live_display_status(
+                publish_row=publish_row,
+                local_status=local_status,
+                docs_exists=docs_exists,
+                git_status=git_status,
+                live_probe=live_probe,
+            )
             items.append(
                 {
                     "slug": slug,
                     "title": str(metadata.get("title") or publish_row.get("title") or slug),
                     "publish_queue_status": str(publish_row.get("status") or "missing"),
+                    "publish_queue_label": self._operator_status_label(str(publish_row.get("status") or "missing")),
                     "local_status": local_status,
                     "site_output_exists": site_file.exists(),
                     "published_static_exists": local_article_file.exists(),
@@ -2639,6 +2796,7 @@ class DailyEditorialWorkflow:
                     "git_reason": git_status["reason"],
                     "url": url,
                     "live_status": live_probe["status"],
+                    "display_status": display_status,
                     "live_http_status": live_probe.get("http_status"),
                     "live_reason": live_probe.get("reason", ""),
                     "block_reason": diagnosis["block_reason"],
@@ -2650,6 +2808,38 @@ class DailyEditorialWorkflow:
                 }
             )
         return items
+
+    def _live_display_status(
+        self,
+        *,
+        publish_row: dict[str, Any],
+        local_status: str,
+        docs_exists: bool,
+        git_status: dict[str, str],
+        live_probe: dict[str, Any],
+    ) -> str:
+        queue_status = str(publish_row.get("status") or "missing")
+        git_state = str(git_status.get("status") or "")
+        live_state = str(live_probe.get("status") or "")
+        published_states = {"published_local", "published"}
+        awaiting_states = {"missing", "selected", "drafted", "needs_human_review", "needs_revision"}
+        if queue_status == "blocked":
+            return "Blocked"
+        if local_status == "missing_local":
+            return "Missing Local Output"
+        if queue_status in awaiting_states:
+            return "Awaiting Publish"
+        if not docs_exists or local_status == "local_only":
+            return "Docs Pending"
+        if git_state in {"not_synced", "not_committed", "not_pushed"}:
+            return "Awaiting Push"
+        if queue_status in published_states and live_state == "404":
+            return "Live 404"
+        if live_state == "live":
+            return "Published"
+        if queue_status == "approved_for_publish":
+            return "Ready"
+        return "Unknown"
 
     def _diagnose_live_item(
         self,
@@ -2666,6 +2856,61 @@ class DailyEditorialWorkflow:
         failures = [str(item).strip() for item in list(publish_row.get("failures") or []) if str(item).strip()]
         git_state = str(git_status.get("status") or "")
         live_state = str(live_probe.get("status") or "")
+
+        if queue_status == "blocked":
+            failure_text = "; ".join(self._operator_block_summary(reason) for reason in failures) if failures else "Publish gate is still blocking this article."
+            return {
+                "block_reason": f"Publish Blocked: {failure_text}",
+                "resolution": "Recommended Action: Open Review or Open Source Review, fix the failing gate, then rerun publish validation.",
+                "next_action_command": f"python editorial_console.py serve --date {batch_date} --open",
+            }
+        if queue_status in {"needs_human_review", "needs_revision"}:
+            return {
+                "block_reason": self._operator_status_label(queue_status),
+                "resolution": "Recommended Action: Open Review, then approve or send back for revision before publish.",
+                "next_action_command": f"python editorial_console.py serve --date {batch_date} --open",
+            }
+        if queue_status in {"missing", "selected", "drafted"} or local_status == "missing_local":
+            return {
+                "block_reason": "Awaiting Publish",
+                "resolution": "Recommended Action: create or refresh the draft. If the research/source gate blocks it, add sources and rerun review.",
+                "next_action_command": f"python editorial_console.py draft --date {batch_date}",
+            }
+        if local_status == "local_only":
+            return {
+                "block_reason": "Docs Pending",
+                "resolution": "Recommended Action: run publish-ready so the local output is copied into docs for GitHub Pages.",
+                "next_action_command": f"python editorial_console.py publish-ready --date {batch_date}",
+            }
+        if git_state in {"not_synced", "not_committed", "not_pushed"}:
+            return {
+                "block_reason": f"Awaiting Push: {git_status.get('reason', '')}",
+                "resolution": "Recommended Action: rerun publish-ready so docs/site files are added, committed, and pushed.",
+                "next_action_command": f"python editorial_console.py publish-ready --date {batch_date}",
+            }
+        if not url.strip():
+            return {
+                "block_reason": "Missing public URL",
+                "resolution": "Recommended Action: rebuild metadata or the publish queue, then run publish-ready again.",
+                "next_action_command": f"python editorial_console.py publish-ready --date {batch_date}",
+            }
+        if live_state == "404":
+            return {
+                "block_reason": "Live 404",
+                "resolution": "Recommended Action: if git was just pushed, wait and rerun check-live. If it remains 404, inspect docs sync and GitHub Pages deployment.",
+                "next_action_command": f"python editorial_console.py check-live --date {batch_date} --open",
+            }
+        if live_state == "unknown":
+            return {
+                "block_reason": f"Unknown live status: {live_probe.get('reason', '')}",
+                "resolution": "Recommended Action: rerun check-live. If it still fails, inspect network, domain, or GitHub Pages configuration.",
+                "next_action_command": f"python editorial_console.py check-live --date {batch_date} --open",
+            }
+        return {
+            "block_reason": "No blocking issue detected",
+            "resolution": "Article appears ready or already published.",
+            "next_action_command": "",
+        }
 
         if queue_status == "blocked":
             failure_text = "; ".join(failures) if failures else "publish gate vẫn đang chặn bài này"
@@ -2778,19 +3023,20 @@ class DailyEditorialWorkflow:
             f"# Live Status Report {report['date']}",
             "",
             f"- Total items: {summary['total_items']}",
-            f"- Local only: {summary['local_only']}",
-            f"- Docs synced: {summary['docs_synced']}",
-            f"- Git pushed: {summary['git_pushed']}",
-            f"- Live OK: {summary['live_ok']}",
-            f"- Live 404: {summary['live_404']}",
-            f"- Live unknown: {summary['live_unknown']}",
+            f"- Published: {summary['published']}",
+            f"- Awaiting Publish: {summary['awaiting_publish']}",
+            f"- Awaiting Push: {summary['awaiting_push']}",
+            f"- Missing Docs: {summary['missing_docs']}",
+            f"- Blocked: {summary['blocked']}",
+            f"- Ready: {summary['ready']}",
+            f"- Unknown: {summary['unknown']}",
             "",
-            "| Slug | Queue | Local | Docs | Git | Live | Block reason | How to fix | URL |",
+            "| Slug | Queue | Local | Docs | Git | Status | Block reason | How to fix | URL |",
             "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
         ]
         for item in report["items"]:
             lines.append(
-                f"| {item['slug']} | {item['publish_queue_status']} | {item['local_status']} | {'yes' if item['docs_synced'] else 'no'} | {item['git_status']} | {item['live_status']} | {item['block_reason'] or '-'} | {item['resolution'] or '-'} | {item['url'] or '-'} |"
+                f"| {item['slug']} | {item['publish_queue_label']} | {item['local_status']} | {'yes' if item['docs_synced'] else 'no'} | {item['git_status']} | {item['display_status']} | {item['block_reason'] or '-'} | {item['resolution'] or '-'} | {item['url'] or '-'} |"
             )
         return "\n".join(lines) + "\n"
 
@@ -2801,11 +3047,11 @@ class DailyEditorialWorkflow:
             rows.append(
                 "<tr>"
                 f"<td><strong>{html.escape(item['title'])}</strong><br><code>{html.escape(item['slug'])}</code></td>"
-                f"<td>{html.escape(item['publish_queue_status'])}</td>"
+                f"<td>{html.escape(item['publish_queue_label'])}</td>"
                 f"<td>{html.escape(item['local_status'])}</td>"
                 f"<td>{'yes' if item['docs_synced'] else 'no'}</td>"
                 f"<td>{html.escape(item['git_status'])}<br><small>{html.escape(item['git_reason'])}</small></td>"
-                f"<td>{html.escape(item['live_status'])}<br><small>{html.escape(str(item['live_http_status'] or item['live_reason']))}</small></td>"
+                f"<td>{html.escape(item['display_status'])}<br><small>{html.escape(str(item['live_http_status'] or item['live_reason']))}</small></td>"
                 f"<td>{html.escape(item['block_reason'])}</td>"
                 f"<td>{html.escape(item['resolution'])}{('<br><code>' + html.escape(item['next_action_command']) + '</code>') if item['next_action_command'] else ''}</td>"
                 f"<td><a href='{html.escape(item['url'], quote=True)}'>{html.escape(item['url'])}</a></td>"
@@ -2835,14 +3081,15 @@ class DailyEditorialWorkflow:
   <main class="wrap">
     <section class="card">
       <h1>Live Status Report - {html.escape(report['date'])}</h1>
-      <p>Dung bao cao nay de biet bai nao chi dang local, bai nao da sync docs, bai nao da co trong git/origin, va bai nao dang tra ve tu domain that.</p>
+      <p>Use this report to see whether each article is published, waiting for approval, pending docs sync, waiting for push, or unexpectedly failing on the live domain.</p>
       <div class="kpis">
-        <div class="kpi">Total items<strong>{summary['total_items']}</strong></div>
-        <div class="kpi">Local only<strong>{summary['local_only']}</strong></div>
-        <div class="kpi">Docs synced<strong>{summary['docs_synced']}</strong></div>
-        <div class="kpi">Git pushed<strong>{summary['git_pushed']}</strong></div>
-        <div class="kpi">Live OK<strong>{summary['live_ok']}</strong></div>
-        <div class="kpi">Live 404<strong>{summary['live_404']}</strong></div>
+        <div class="kpi">Published<strong>{summary['published']}</strong></div>
+        <div class="kpi">Awaiting Publish<strong>{summary['awaiting_publish']}</strong></div>
+        <div class="kpi">Awaiting Push<strong>{summary['awaiting_push']}</strong></div>
+        <div class="kpi">Missing Docs<strong>{summary['missing_docs']}</strong></div>
+        <div class="kpi">Blocked<strong>{summary['blocked']}</strong></div>
+        <div class="kpi">Ready<strong>{summary['ready']}</strong></div>
+        <div class="kpi">Unknown<strong>{summary['unknown']}</strong></div>
       </div>
     </section>
     <section class="card">
@@ -2854,7 +3101,7 @@ class DailyEditorialWorkflow:
             <th>Local</th>
             <th>Docs</th>
             <th>Git</th>
-            <th>Live domain</th>
+            <th>Status</th>
             <th>Block reason</th>
             <th>How to fix</th>
             <th>URL</th>

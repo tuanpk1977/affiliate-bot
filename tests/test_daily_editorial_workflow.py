@@ -1051,7 +1051,8 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertEqual(report["items"][0]["local_status"], "docs_synced")
             self.assertEqual(report["items"][0]["git_status"], "pushed")
             self.assertEqual(report["items"][0]["live_status"], "404")
-            self.assertIn("trả về 404", report["items"][0]["block_reason"])
+            self.assertEqual(report["items"][0]["display_status"], "Live 404")
+            self.assertIn("Live 404", report["items"][0]["block_reason"])
             self.assertIn("check-live", report["items"][0]["next_action_command"])
             self.assertTrue((data_dir / "live_status_report.json").exists())
             self.assertTrue((data_dir / "live_status_report.md").exists())
@@ -1081,9 +1082,11 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 report = workflow.check_live(batch_date="2026-07-07")
 
             item = report["items"][0]
-            self.assertIn("Publish gate đang chặn", item["block_reason"])
-            self.assertIn("AI review failed", item["block_reason"])
-            self.assertIn("duyệt lại bài", item["resolution"])
+            self.assertEqual(item["display_status"], "Blocked")
+            self.assertIn("Publish Blocked", item["block_reason"])
+            self.assertIn("AI quality review required", item["block_reason"])
+            self.assertIn("Need better verified sources", item["block_reason"])
+            self.assertIn("Recommended Action", item["resolution"])
             self.assertIn("serve --date 2026-07-07 --open", item["next_action_command"])
 
     def test_check_live_blocked_only_filters_non_blocked_items(self) -> None:
@@ -1176,7 +1179,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertIn('action="/reject"', html_text)
             self.assertIn('action="/publish"', html_text)
             self.assertIn("preview-frame", html_text)
-            self.assertIn("Ready for publish", html_text)
+            self.assertIn("Ready for Publish", html_text)
             self.assertIn("Top block reasons", html_text)
             self.assertIn("Block reason", html_text)
             self.assertIn("data-filter", html_text)
@@ -1208,7 +1211,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
 
             html_text = workflow.render_interactive_dashboard(batch_date="2026-07-07", selected_slug="blocked-topic")
 
-            self.assertIn("draft preview.", html_text)
+            self.assertIn("No draft preview yet.", html_text)
             self.assertIn("Research quality gate blocked draft generation", html_text)
             self.assertIn("disabled", html_text)
 

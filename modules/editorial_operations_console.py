@@ -116,13 +116,33 @@ class EditorialOperationsConsole:
         self.rebuild_outputs()
         return {"approved_count": len(approved), "published": published}
 
-    def request_custom_topic(self, topic_name: str, *, category: str = "", intent: str = "") -> dict[str, Any]:
+    def request_custom_topic(
+        self,
+        topic_name: str,
+        *,
+        category: str = "",
+        intent: str = "",
+        source_url: str = "",
+        official_url: str = "",
+        affiliate_url: str = "",
+        pricing_url: str = "",
+        source_type: str = "custom_topic",
+        partner_name: str = "",
+        cluster_article_number: int = 1,
+        cluster_article_total: int = 1,
+        extra_context: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
         from modules.content_growth_pipeline import generate_production_article_draft_from_package, get_research_platform
 
         keyword = topic_name.strip()
         if not keyword:
             raise ValueError("Topic name is required.")
+        normalized_source_url = source_url.strip()
+        normalized_official_url = official_url.strip() or normalized_source_url
+        normalized_affiliate_url = affiliate_url.strip()
+        normalized_pricing_url = pricing_url.strip()
         slug = self._slugify(keyword)
+        source_urls = [url for url in [normalized_official_url, normalized_affiliate_url, normalized_pricing_url, normalized_source_url] if url]
         topic = {
             "topic": keyword,
             "slug": slug,
@@ -130,17 +150,30 @@ class EditorialOperationsConsole:
             "category": category.strip(),
             "search_intent": intent.strip(),
             "requested_intent": intent.strip(),
+            "source_urls": source_urls,
+            "requested_source_url": normalized_source_url,
         }
         platform = get_research_platform()
         package = platform.build_research_package(topic, force_refresh=True)
         package_path = Path(package.package_dir) / "package.json"
         payload = _read_json(package_path, {})
-        payload["request_context"] = {
+        request_context = {
             "requested_topic": keyword,
             "category": category.strip(),
             "intent": intent.strip(),
+            "source_url": normalized_source_url,
+            "official_url": normalized_official_url,
+            "affiliate_url": normalized_affiliate_url,
+            "pricing_url": normalized_pricing_url,
+            "source_type": source_type.strip() or "custom_topic",
+            "partner_name": partner_name.strip(),
+            "cluster_article_number": int(cluster_article_number or 1),
+            "cluster_article_total": int(cluster_article_total or 1),
             "created_via": "editorial_console",
         }
+        if extra_context:
+            request_context.update(extra_context)
+        payload["request_context"] = request_context
         _write_json(package_path, payload)
         gate = platform.evaluate_quality_gate(package, topic=topic, allow_override=False)
         result: dict[str, Any] = {
@@ -148,6 +181,14 @@ class EditorialOperationsConsole:
             "topic": keyword,
             "category": category.strip(),
             "intent": intent.strip(),
+            "source_url": normalized_source_url,
+            "official_url": normalized_official_url,
+            "affiliate_url": normalized_affiliate_url,
+            "pricing_url": normalized_pricing_url,
+            "source_type": request_context["source_type"],
+            "partner_name": request_context["partner_name"],
+            "cluster_article_number": request_context["cluster_article_number"],
+            "cluster_article_total": request_context["cluster_article_total"],
             "quality_gate": {
                 "passed": gate.passed,
                 "score": gate.score,
@@ -157,6 +198,10 @@ class EditorialOperationsConsole:
         }
         if gate.passed:
             result["draft"] = generate_production_article_draft_from_package(slug)
+            metadata_path = self.drafts_dir / slug / "metadata.json"
+            metadata = _read_json(metadata_path, {})
+            metadata["request_context"] = request_context
+            _write_json(metadata_path, metadata)
         else:
             result["queue"] = str(self.data_dir / "research_enrichment_queue.json")
         self.rebuild_outputs()
@@ -198,6 +243,7 @@ class EditorialOperationsConsole:
         for slug in slugs:
             self._ensure_operator_assets(slug)
             metadata = self._load_metadata(slug)
+            request_context = metadata.get("request_context") if isinstance(metadata.get("request_context"), dict) else {}
             review = review_rows.get(slug) or metadata.get("review") or {}
             human = human_rows.get(slug) or metadata.get("human_approval") or {}
             publish = publish_rows.get(slug) or metadata.get("publish_gate") or {}
@@ -226,11 +272,23 @@ class EditorialOperationsConsole:
                     "metadata_json": self._relative_link(draft_dir / "metadata.json"),
                     "review_summary": self._relative_link(draft_dir / "review_summary.md"),
                     "publish_readiness_report": self._relative_link(draft_dir / "publish_readiness_report.md"),
+                    "source_review": self._relative_link(self.data_dir / "research" / slug / "sources.json")
+                    or self._relative_link(self.data_dir / "source_review_report.md"),
+                    "folder": self._relative_link(self._build_open_folder_launcher(slug, draft_dir)),
+                    "copy_url": self._relative_link(self._build_copy_url_launcher(slug, str(metadata.get("url") or publish.get("url") or ""))),
                     "next_command": self._next_command(slug, human, publish),
                     "website_preview": self._website_preview_link(slug, publish),
                     "stats": html_stats,
                     "review_score": round(float(review.get("publish_readiness") or 0), 2),
                     "business_score": round(float(review.get("business_value") or 0), 2),
+                    "source_type": str(request_context.get("source_type") or ""),
+                    "partner_name": str(request_context.get("partner_name") or ""),
+                    "official_url": str(request_context.get("official_url") or request_context.get("source_url") or ""),
+                    "affiliate_url": str(request_context.get("affiliate_url") or ""),
+                    "pricing_url": str(request_context.get("pricing_url") or ""),
+                    "cluster_article_number": int(request_context.get("cluster_article_number") or 0),
+                    "cluster_article_total": int(request_context.get("cluster_article_total") or 0),
+                    "block_reason": ", ".join(str(item).strip() for item in list(publish.get("failures") or []) if str(item).strip()),
                     "author": metadata.get("editorial") if isinstance(metadata.get("editorial"), dict) else {},
                     "social_drafts": social,
                     "social_actions": social_actions,
@@ -658,6 +716,23 @@ class EditorialOperationsConsole:
         )
         return path
 
+    def _build_copy_url_launcher(self, slug: str, url: str) -> Path:
+        self.actions_dir.mkdir(parents=True, exist_ok=True)
+        path = self.actions_dir / f"copy-url-{slug}.cmd"
+        path.write_text(
+            "\n".join(
+                [
+                    "@echo off",
+                    f'powershell -NoProfile -Command "Set-Clipboard -Value \\"{url}\\""',
+                    "echo URL copied to clipboard.",
+                    "pause",
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
+        return path
+
     def _build_copy_draft_launcher(self, slug: str, platform: str, source_file: Path) -> Path:
         self.actions_dir.mkdir(parents=True, exist_ok=True)
         path = self.actions_dir / f"copy-{platform}-{slug}.cmd"
@@ -775,16 +850,16 @@ class EditorialOperationsConsole:
             for key, label in (
                 ("drafts", "Drafts"),
                 ("pending_human_review", "Pending Human Review"),
-                ("approved_for_publish", "Approved For Publish"),
-                ("published_local", "Published Local"),
-                ("blocked", "Blocked"),
+                ("approved_for_publish", "Ready for Publish"),
+                ("published_local", "Published"),
+                ("blocked", "Publish Blocked"),
             )
         )
         list_rows = "".join(
             f"""
             <tr class="row-link" data-slug="{html.escape(str(row['slug']), quote=True)}">
               <td><strong>{html.escape(str(row['title']))}</strong><br><code>{html.escape(str(row['slug']))}</code></td>
-              <td>{self._badge_html(row['status'], self._status_tone(row['status']))}</td>
+              <td>{self._badge_html(self._display_status_label(str(row['status'])), self._status_tone(row['status']))}</td>
               <td>{html.escape(str(row['word_count']))}</td>
               <td>{html.escape(str(row['review_score']))}</td>
               <td>{html.escape(str(row['last_updated']))}</td>
@@ -910,6 +985,24 @@ class EditorialOperationsConsole:
       return 'blocked';
     }}
 
+    function statusLabel(value) {{
+      const normalized = String(value || '').toLowerCase();
+      const labels = {{
+        approved: 'Human Approved',
+        human_approved: 'Human Approved',
+        blocked: 'Publish Blocked',
+        approved_for_publish: 'Ready for Publish',
+        published_local: 'Published',
+        published: 'Published',
+        needs_human_review: 'Waiting for editor approval',
+        needs_revision: 'Needs revision',
+        ai_review_passed: 'AI Review Passed',
+        passed: 'Passed',
+        missing: 'Missing'
+      }};
+      return labels[normalized] || String(value || '');
+    }}
+
     function renderDetail(item) {{
       const author = item.author || {{}};
       const stats = item.stats || {{}};
@@ -920,17 +1013,20 @@ class EditorialOperationsConsole:
         <h2>${{esc(item.title)}}</h2>
         <p><code>${{esc(item.slug)}}</code></p>
         <div class="status-row">
-          ${{badge('Overall: ' + item.status, statusTone(item.status))}}
-          ${{badge('Research: ' + item.research_quality_status, statusTone(item.research_quality_status))}}
-          ${{badge('AI Review: ' + item.ai_review_status, statusTone(item.ai_review_status))}}
-          ${{badge('Human: ' + item.human_approval_status, statusTone(item.human_approval_status))}}
-          ${{badge('Publish: ' + item.publish_gate_status, statusTone(item.publish_gate_status))}}
+          ${{badge('Overall: ' + statusLabel(item.status), statusTone(item.status))}}
+          ${{badge('Research: ' + statusLabel(item.research_quality_status), statusTone(item.research_quality_status))}}
+          ${{badge('AI Review: ' + statusLabel(item.ai_review_status), statusTone(item.ai_review_status))}}
+          ${{badge('Human: ' + statusLabel(item.human_approval_status), statusTone(item.human_approval_status))}}
+          ${{badge('Publish: ' + statusLabel(item.publish_gate_status), statusTone(item.publish_gate_status))}}
         </div>
         <div class="button-row">
           ${{button(item.article_markdown, 'Open Draft', '', false)}}
-          ${{button(item.article_html, 'Open HTML Preview', '', false)}}
-          ${{button(item.review_summary, 'Open Review Summary', '', false)}}
+          ${{button(item.article_html, 'Open HTML', '', false)}}
+          ${{button(item.review_summary, 'Open Review', '', false)}}
+          ${{button(item.publish_readiness_report, 'Open AI Report', '', false)}}
+          ${{button(item.source_review, 'Open Source Review', '', false)}}
           ${{button(item.metadata_json, 'Open Metadata', '', false)}}
+          ${{button(item.folder, 'Open Folder', '', false)}}
           ${{button(social.open_social_drafts, 'Open Social Drafts', 'warn', false)}}
           ${{button(item.actions.approve, 'Approve', 'success', item.human_approval_status !== 'needs_human_review')}}
           ${{button(item.actions.reject, 'Reject', 'danger', item.publish_gate_status === 'published_local')}}
@@ -938,6 +1034,8 @@ class EditorialOperationsConsole:
         </div>
         <div class="button-row">
           ${{button(item.website_preview, 'Preview Website', 'warn', !item.website_preview)}}
+          ${{button(item.website_preview, 'Preview Live', 'warn', !item.website_preview)}}
+          ${{button(item.copy_url, 'Copy URL', '', !item.copy_url)}}
           ${{button(social.open_all_social_drafts, 'Open All Social Drafts', '', !social.open_all_social_drafts)}}
           ${{button(social.copy_facebook, 'Copy Facebook Draft', '', !social.copy_facebook)}}
           ${{button(social.copy_quora, 'Copy Quora Draft', '', !social.copy_quora)}}
@@ -945,6 +1043,13 @@ class EditorialOperationsConsole:
           ${{button(social.copy_x, 'Copy X Draft', '', !social.copy_x)}}
         </div>
         <div class="author-box">
+          <p><strong>Source type:</strong> ${{esc(item.source_type || 'standard')}}</p>
+          <p><strong>Partner name:</strong> ${{esc(item.partner_name || 'N/A')}}</p>
+          <p><strong>Official URL:</strong> ${{item.official_url ? `<a href="${{esc(item.official_url)}}">${{esc(item.official_url)}}</a>` : 'Not set'}}</p>
+          <p><strong>Affiliate URL:</strong> ${{item.affiliate_url ? `<a href="${{esc(item.affiliate_url)}}">${{esc(item.affiliate_url)}}</a>` : 'Not set'}}</p>
+          <p><strong>Pricing URL:</strong> ${{item.pricing_url ? `<a href="${{esc(item.pricing_url)}}">${{esc(item.pricing_url)}}</a>` : 'Not set'}}</p>
+          <p><strong>Cluster article:</strong> ${{item.cluster_article_number ? `${{esc(item.cluster_article_number)}} / ${{esc(item.cluster_article_total || 0)}}` : 'N/A'}}</p>
+          <p><strong>Block reason:</strong> ${{esc(item.block_reason || 'None')}}</p>
           <p><strong>Author:</strong> ${{esc(author.author_name || '')}}</p>
           <p><strong>Author profile:</strong> ${{author.author_profile_url ? `<a href="${{esc(author.author_profile_url)}}">${{esc(author.author_profile_url)}}</a>` : 'Not set'}}</p>
           <p><strong>Author bio:</strong> ${{esc(author.author_bio || '')}}</p>
@@ -988,6 +1093,7 @@ class EditorialOperationsConsole:
 </body>
 </html>
 """
+        html_text = "\n".join(line.rstrip() for line in html_text.splitlines()) + "\n"
         self.console_html.write_text(html_text, encoding="utf-8")
 
     def _button_html(self, href: str, label: str, tone: str = "", *, disabled: bool = False) -> str:
@@ -997,6 +1103,22 @@ class EditorialOperationsConsole:
             return f'<span class="{class_name}">{safe_label}</span>'
         safe_href = html.escape(href, quote=True)
         return f'<a class="{class_name}" href="{safe_href}">{safe_label}</a>'
+
+    def _display_status_label(self, status: str) -> str:
+        labels = {
+            "approved": "Human Approved",
+            "human_approved": "Human Approved",
+            "blocked": "Publish Blocked",
+            "approved_for_publish": "Ready for Publish",
+            "published_local": "Published",
+            "published": "Published",
+            "needs_human_review": "Waiting for editor approval",
+            "needs_revision": "Needs revision",
+            "ai_review_passed": "AI Review Passed",
+            "passed": "Passed",
+            "missing": "Missing",
+        }
+        return labels.get(status.strip().lower(), status)
 
     def _badge_html(self, label: str, tone: str) -> str:
         return f'<span class="badge {html.escape(tone)}">{html.escape(label)}</span>'
