@@ -2078,7 +2078,8 @@ class DailyEditorialWorkflow:
     .kpi{background:#f8fafc;border:1px solid #d8e1ec;border-radius:10px;padding:12px}
     .kpi strong{display:block;font-size:1.5rem;margin-top:6px}
     .kpi .small{font-size:.9rem;line-height:1.35}
-    .notice{background:#e0f2fe;color:#075985;border:1px solid #7dd3fc;padding:10px 12px;border-radius:8px;margin:12px 0}
+    .notice{background:#dcfce7;color:#166534;border:1px solid #86efac;padding:12px 14px;border-radius:8px;margin:12px 0;font-weight:700}
+    .notice.error{background:#fee2e2;color:#991b1b;border-color:#fca5a5}
     input[type=text]{padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;min-width:220px}
     code{white-space:pre-wrap;word-break:break-word}
     @media (max-width:1100px){.layout{grid-template-columns:1fr} .preview-frame{height:520px}}
@@ -2139,7 +2140,8 @@ class DailyEditorialWorkflow:
             else "<p>No articles found in this batch.</p>"
         )
         publish_disabled = summary["ready_for_publish"] == 0
-        notice = f"<div class='notice'>{html.escape(message)}</div>" if message else ""
+        notice_class = "notice error" if message.lower().startswith("error:") else "notice"
+        notice = f"<div class='{notice_class}' role='status' aria-live='polite'>{html.escape(message)}</div>" if message else ""
         html_text = f"""<!doctype html>
 <html lang="vi">
 <head>

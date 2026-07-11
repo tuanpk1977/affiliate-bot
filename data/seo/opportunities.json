@@ -1,0 +1,104 @@
+[
+  {
+    "cluster_id": "cluster-0001",
+    "keyword": "ai meeting software alternatives",
+    "slug": "ai-meeting-software-alternatives",
+    "decision": "create",
+    "existing_matches": [],
+    "reason": "No matching local page found.",
+    "source_status": "verified",
+    "requires_human_review": true,
+    "search_intent": "commercial",
+    "suggested_content_type": "buyer_guide",
+    "opportunity_score": 78.75,
+    "score_breakdown": {
+      "intent": 25.5,
+      "gap": 22.5,
+      "difficulty": 9.75,
+      "freshness": 5.0,
+      "affiliate": 16.0
+    },
+    "score_inputs": {
+      "intent": 85,
+      "gap": 90,
+      "difficulty": 65,
+      "freshness": 50,
+      "affiliate": 80
+    },
+    "score_weights": {
+      "intent": 0.3,
+      "gap": 0.25,
+      "difficulty": 0.15,
+      "freshness": 0.1,
+      "affiliate": 0.2
+    }
+  },
+  {
+    "cluster_id": "cluster-0002",
+    "keyword": "ai productivity tools pricing",
+    "slug": "ai-productivity-tools-pricing",
+    "decision": "create",
+    "existing_matches": [],
+    "reason": "No matching local page found.",
+    "source_status": "verified",
+    "requires_human_review": true,
+    "search_intent": "commercial",
+    "suggested_content_type": "buyer_guide",
+    "opportunity_score": 78.75,
+    "score_breakdown": {
+      "intent": 25.5,
+      "gap": 22.5,
+      "difficulty": 9.75,
+      "freshness": 5.0,
+      "affiliate": 16.0
+    },
+    "score_inputs": {
+      "intent": 85,
+      "gap": 90,
+      "difficulty": 65,
+      "freshness": 50,
+      "affiliate": 80
+    },
+    "score_weights": {
+      "intent": 0.3,
+      "gap": 0.25,
+      "difficulty": 0.15,
+      "freshness": 0.1,
+      "affiliate": 0.2
+    }
+  },
+  {
+    "cluster_id": "cluster-0003",
+    "keyword": "best ai workflow software for small business",
+    "slug": "best-ai-workflow-software-for-small-business",
+    "decision": "create",
+    "existing_matches": [],
+    "reason": "No matching local page found.",
+    "source_status": "verified",
+    "requires_human_review": true,
+    "search_intent": "commercial",
+    "suggested_content_type": "buyer_guide",
+    "opportunity_score": 78.75,
+    "score_breakdown": {
+      "intent": 25.5,
+      "gap": 22.5,
+      "difficulty": 9.75,
+      "freshness": 5.0,
+      "affiliate": 16.0
+    },
+    "score_inputs": {
+      "intent": 85,
+      "gap": 90,
+      "difficulty": 65,
+      "freshness": 50,
+      "affiliate": 80
+    },
+    "score_weights": {
+      "intent": 0.3,
+      "gap": 0.25,
+      "difficulty": 0.15,
+      "freshness": 0.1,
+      "affiliate": 0.2
+    }
+  }
+]

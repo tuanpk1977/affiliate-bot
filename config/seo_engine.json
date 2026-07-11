@@ -1,0 +1,16 @@
+{
+  "seed_keywords": [
+    "best ai workflow software for small business",
+    "ai meeting software alternatives",
+    "ai productivity tools pricing"
+  ],
+  "scoring_weights": {
+    "intent": 0.3,
+    "gap": 0.25,
+    "difficulty": 0.15,
+    "freshness": 0.1,
+    "affiliate": 0.2
+  },
+  "offline_only": true,
+  "require_human_review": true
+}

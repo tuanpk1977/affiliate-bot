@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import http.client
+import csv
 import json
 import re
 import threading
@@ -50,6 +51,35 @@ def _seed_workflow(root: Path) -> DailyEditorialWorkflow:
 
 
 class ReviewDashboardServerTests(unittest.TestCase):
+    def test_approve_handles_mixed_report_fields_and_renders_success_notice(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            workflow = _seed_workflow(Path(temp_dir))
+            workflow.data_dir.joinpath("content_review_queue.json").write_text(
+                json.dumps([
+                    {"slug": "older-row", "status": "needs_human_review"},
+                    {"slug": "review-me", "status": "needs_human_review", "publishable": True},
+                ]),
+                encoding="utf-8",
+            )
+            result = workflow.approve(slug="review-me", batch_date="2026-07-10")
+            self.assertEqual(result["result"]["human_approval"]["status"], "human_approved")
+            with workflow.data_dir.joinpath("content_review_report.csv").open(encoding="utf-8", newline="") as handle:
+                rows = list(csv.DictReader(handle))
+            self.assertEqual(len(rows), 2)
+            rendered = workflow.render_interactive_dashboard(
+                batch_date="2026-07-10", selected_slug="review-me", message="Article approved successfully"
+            )
+            self.assertIn("role='status'", rendered)
+            self.assertIn("Article approved successfully", rendered)
+
+    def test_error_notice_is_visually_distinct(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            workflow = _seed_workflow(Path(temp_dir))
+            rendered = workflow.render_interactive_dashboard(
+                batch_date="2026-07-10", selected_slug="review-me", message="Error: invalid review data"
+            )
+            self.assertIn("class='notice error'", rendered)
+
     def test_approve_uses_post_and_redirects_back_to_dashboard(self) -> None:
         with TemporaryDirectory() as temp_dir:
             workflow = _seed_workflow(Path(temp_dir))

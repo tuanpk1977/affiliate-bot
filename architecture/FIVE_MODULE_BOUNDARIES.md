@@ -2,6 +2,8 @@
 
 This document defines a safe boundary plan for Smile AI Review Hub without moving large parts of the repository in one checkpoint.
 
+The supporting SEO Engine is documented separately in `architecture/SEO_ENGINE_BOUNDARY.md`. It may queue selected opportunities for AI Writer review, but it cannot approve, publish, deploy, or mutate the five production modules.
+
 ## Module Ownership
 
 ### 1. AI Writer

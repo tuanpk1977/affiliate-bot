@@ -1,0 +1,83 @@
+[
+  {
+    "source_slug": "ai-meeting-software-comparison",
+    "target_slug": "ai-meeting-software-alternatives",
+    "anchor_text": "ai meeting software alternatives",
+    "placement": "contextual body section",
+    "reason": "Topical term overlap",
+    "confidence": "medium",
+    "source_status": "inferred"
+  },
+  {
+    "source_slug": "ai-assistant-software-comparison",
+    "target_slug": "ai-meeting-software-alternatives",
+    "anchor_text": "ai meeting software alternatives",
+    "placement": "contextual body section",
+    "reason": "Topical term overlap",
+    "confidence": "medium",
+    "source_status": "inferred"
+  },
+  {
+    "source_slug": "ai-coding-software-comparison",
+    "target_slug": "ai-meeting-software-alternatives",
+    "anchor_text": "ai meeting software alternatives",
+    "placement": "contextual body section",
+    "reason": "Topical term overlap",
+    "confidence": "medium",
+    "source_status": "inferred"
+  },
+  {
+    "source_slug": "adcreative-ai",
+    "target_slug": "ai-productivity-tools-pricing",
+    "anchor_text": "ai productivity tools pricing",
+    "placement": "contextual body section",
+    "reason": "Topical term overlap",
+    "confidence": "medium",
+    "source_status": "inferred"
+  },
+  {
+    "source_slug": "affordable-ai-productivity-platform",
+    "target_slug": "ai-productivity-tools-pricing",
+    "anchor_text": "ai productivity tools pricing",
+    "placement": "contextual body section",
+    "reason": "Topical term overlap",
+    "confidence": "medium",
+    "source_status": "inferred"
+  },
+  {
+    "source_slug": "ahrefs-ai",
+    "target_slug": "ai-productivity-tools-pricing",
+    "anchor_text": "ai productivity tools pricing",
+    "placement": "contextual body section",
+    "reason": "Topical term overlap",
+    "confidence": "medium",
+    "source_status": "inferred"
+  },
+  {
+    "source_slug": "best-best-ai-meeting-software-for-small-business",
+    "target_slug": "best-ai-workflow-software-for-small-business",
+    "anchor_text": "best ai workflow software for small business",
+    "placement": "contextual body section",
+    "reason": "Topical term overlap",
+    "confidence": "medium",
+    "source_status": "inferred"
+  },
+  {
+    "source_slug": "best-best-ai-meeting-tools-for-small-business",
+    "target_slug": "best-ai-workflow-software-for-small-business",
+    "anchor_text": "best ai workflow software for small business",
+    "placement": "contextual body section",
+    "reason": "Topical term overlap",
+    "confidence": "medium",
+    "source_status": "inferred"
+  },
+  {
+    "source_slug": "best-agent-skills-review-2026-for-small-business",
+    "target_slug": "best-ai-workflow-software-for-small-business",
+    "anchor_text": "best ai workflow software for small business",
+    "placement": "contextual body section",
+    "reason": "Topical term overlap",
+    "confidence": "medium",
+    "source_status": "inferred"
+  }
+]

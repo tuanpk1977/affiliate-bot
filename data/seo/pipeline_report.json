@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-07-11T06:22:11.476693+00:00",
+  "mode": "offline_deterministic",
+  "counts": {
+    "candidates": 3,
+    "clusters": 3,
+    "gaps": 3,
+    "links": 9,
+    "opportunities": 3
+  },
+  "files": {
+    "clusters": "D:\\AFFILATE BOT\\data\\seo\\keyword_clusters.json",
+    "competitors": "D:\\AFFILATE BOT\\data\\seo\\competitor_analysis.json",
+    "gaps": "D:\\AFFILATE BOT\\data\\seo\\content_gaps.json",
+    "links": "D:\\AFFILATE BOT\\data\\seo\\internal_link_plan.json",
+    "opportunities": "D:\\AFFILATE BOT\\data\\seo\\opportunities.json"
+  },
+  "limitations": [
+    "No live SERP volume or competitor claims are generated without imported evidence."
+  ]
+}

@@ -2351,3 +2351,16 @@ Future migration should first extract a dedicated Website Builder interface arou
 Detailed boundary documentation lives outside public deployment output:
 
 - `architecture/FIVE_MODULE_BOUNDARIES.md`
+
+## 19. SEO Opportunity Engine
+
+The offline SEO Engine lives in `modules/seo_engine/` and is operated through `seo_console.py` or Runbot menu option 12. It imports manual/JSON/CSV/TXT keyword data, normalizes and deduplicates candidates, builds intent-aware clusters, compares them with local pages, proposes content gaps and internal links, and writes transparent scores to `data/seo/`.
+
+```powershell
+python seo_console.py run-pipeline
+python seo_console.py show-report --open
+python seo_console.py queue-opportunity --slug example-slug
+python seo_console.py queue-opportunity --slug example-slug --apply --date YYYY-MM-DD
+```
+
+Queue commands are dry-run by default. Applied opportunities enter the editorial queue as `selected` with `requires_human_approval: true`; the SEO Engine cannot approve or publish. It does not fabricate live search volume, competitors, rankings, backlinks, or revenue. Evidence is explicitly labeled `verified`, `inferred`, or `unavailable`. See `architecture/SEO_ENGINE_BOUNDARY.md`.

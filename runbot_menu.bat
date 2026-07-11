@@ -21,10 +21,12 @@ echo 8. Publish approved + push GitHub ^(smart validation^)
 echo 9. New Affiliate Partner
 echo 10. Exit
 echo 11. Strict full-site audit
+echo 12. SEO Engine
 echo ========================================
 
-choice /c 123456789AB /n /m "Chon chuc nang [1-11]: "
+choice /c 123456789ABC /n /m "Chon chuc nang [1-12]: "
 
+if errorlevel 12 goto seo_engine
 if errorlevel 11 goto strict_audit
 if errorlevel 10 goto end
 if errorlevel 9 goto partner_intake
@@ -142,3 +144,46 @@ goto menu
 :end
 endlocal
 exit /b 0
+
+:seo_engine
+cls
+echo ========================================
+echo SEO Engine - Offline Opportunity Research
+echo ========================================
+echo 1. Import keywords
+echo 2. Build clusters
+echo 3. Analyze content gaps
+echo 4. Plan internal links
+echo 5. Rank opportunities
+echo 6. Run full SEO pipeline
+echo 7. Show report
+echo 8. Queue one opportunity ^(dry-run^)
+echo 9. Queue top opportunity ^(dry-run^)
+echo 10. Back
+choice /c 123456789A /n /m "Chon chuc nang SEO [1-10]: "
+if errorlevel 10 goto menu
+if errorlevel 9 python seo_console.py queue-top --count 1
+if errorlevel 8 goto seo_queue_one
+if errorlevel 7 python seo_console.py show-report --open
+if errorlevel 6 python seo_console.py run-pipeline
+if errorlevel 5 python seo_console.py rank-opportunities
+if errorlevel 4 python seo_console.py plan-internal-links
+if errorlevel 3 python seo_console.py analyze-gaps
+if errorlevel 2 python seo_console.py build-clusters
+if errorlevel 1 goto seo_import
+pause
+goto seo_engine
+
+:seo_import
+set "SEO_FILE="
+set /p SEO_FILE=Nhap file JSON/CSV/TXT (de trong de dung seed trong config):
+if "%SEO_FILE%"=="" (python seo_console.py run-pipeline) else (python seo_console.py run-pipeline --file "%SEO_FILE%")
+pause
+goto seo_engine
+
+:seo_queue_one
+set "SEO_SLUG="
+set /p SEO_SLUG=Nhap slug opportunity can xem dry-run:
+python seo_console.py queue-opportunity --slug "%SEO_SLUG%"
+pause
+goto seo_engine

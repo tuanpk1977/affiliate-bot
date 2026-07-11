@@ -1,0 +1,32 @@
+[
+  {
+    "cluster_id": "cluster-0001",
+    "keyword": "ai meeting software alternatives",
+    "slug": "ai-meeting-software-alternatives",
+    "decision": "create",
+    "existing_matches": [],
+    "reason": "No matching local page found.",
+    "source_status": "verified",
+    "requires_human_review": true
+  },
+  {
+    "cluster_id": "cluster-0002",
+    "keyword": "ai productivity tools pricing",
+    "slug": "ai-productivity-tools-pricing",
+    "decision": "create",
+    "existing_matches": [],
+    "reason": "No matching local page found.",
+    "source_status": "verified",
+    "requires_human_review": true
+  },
+  {
+    "cluster_id": "cluster-0003",
+    "keyword": "best ai workflow software for small business",
+    "slug": "best-ai-workflow-software-for-small-business",
+    "decision": "create",
+    "existing_matches": [],
+    "reason": "No matching local page found.",
+    "source_status": "verified",
+    "requires_human_review": true
+  }
+]

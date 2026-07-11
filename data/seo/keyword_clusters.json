@@ -1,0 +1,53 @@
+[
+  {
+    "cluster_id": "cluster-0001",
+    "cluster_name": "Ai Meeting",
+    "primary_keyword": "ai meeting software alternatives",
+    "secondary_keywords": [],
+    "search_intent": "commercial",
+    "intent_confidence": 0.8,
+    "intent_evidence": [
+      "alternative",
+      "software"
+    ],
+    "suggested_content_type": "buyer_guide",
+    "suggested_slug": "ai-meeting-software-alternatives",
+    "cannibalization_risk": "low",
+    "cannibalization_matches": [],
+    "source_status": "inferred"
+  },
+  {
+    "cluster_id": "cluster-0002",
+    "cluster_name": "Ai Productivity",
+    "primary_keyword": "ai productivity tools pricing",
+    "secondary_keywords": [],
+    "search_intent": "commercial",
+    "intent_confidence": 0.8,
+    "intent_evidence": [
+      "pricing",
+      "tool"
+    ],
+    "suggested_content_type": "buyer_guide",
+    "suggested_slug": "ai-productivity-tools-pricing",
+    "cannibalization_risk": "low",
+    "cannibalization_matches": [],
+    "source_status": "inferred"
+  },
+  {
+    "cluster_id": "cluster-0003",
+    "cluster_name": "Ai Workflow",
+    "primary_keyword": "best ai workflow software for small business",
+    "secondary_keywords": [],
+    "search_intent": "commercial",
+    "intent_confidence": 0.8,
+    "intent_evidence": [
+      "best",
+      "software"
+    ],
+    "suggested_content_type": "buyer_guide",
+    "suggested_slug": "best-ai-workflow-software-for-small-business",
+    "cannibalization_risk": "low",
+    "cannibalization_matches": [],
+    "source_status": "inferred"
+  }
+]
