@@ -27,6 +27,10 @@ def _write_json(path: Path, payload: object) -> None:
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
+def _read_json_for_test(path: Path) -> object:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
 def _canonical_article_html(title: str = "Good") -> str:
     return f"""<!doctype html>
 <html lang="en"><head>
@@ -71,6 +75,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
 <a href="https://example.com">Visit official website</a>
 <table><tr><td>Bad table</td></tr></table>
 <p>Reviewed by: needs_human_review</p>
+<p>Status: needs_review</p>
 <p>Pricing Cursor: những điểm cần kiểm tra trước khi mua</p>
 </main></body></html>""",
                 encoding="utf-8",
@@ -79,6 +84,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             errors = workflow._validate_single_html_file(page, scope="site_output")
 
             self.assertTrue(any("internal workflow status" in error for error in errors))
+            self.assertTrue(any("needs_review" in error for error in errors))
             self.assertTrue(any("comparison tables" in error for error in errors))
             self.assertTrue(any("CTA links" in error for error in errors))
             self.assertTrue(any("Vietnamese public label" in error for error in errors))
@@ -1080,6 +1086,86 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertEqual(report["total_skipped"], 1)
             self.assertEqual(report["published"][0]["slug"], "good")
             self.assertEqual(report["skipped"][0]["slug"], "bad")
+
+    def test_prepare_article_output_builds_ready_article_missing_output_only(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            site_output = root / "site_output"
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=site_output)
+            target_slug = "best-agent-skills-review-2026-for-small-business"
+            other_slug = "other-ready-article"
+            _write_json(
+                data_dir / "editorial_queue" / "2026-07-11" / "topics.json",
+                {
+                    "generated_at": "",
+                    "date": "2026-07-11",
+                    "mode": "standard",
+                    "count": 2,
+                    "topics": [
+                        {"keyword": "Best Agent Skills Review 2026", "slug": target_slug, "status": "approved", "total_score": 90},
+                        {"keyword": "Other Ready Article", "slug": other_slug, "status": "approved", "total_score": 91},
+                    ],
+                },
+            )
+            _write_json(
+                data_dir / "publish_queue.json",
+                [
+                    {"slug": target_slug, "status": "approved_for_publish", "failures": [], "hard_blockers": [], "url": f"https://smileaireviewhub.com/{target_slug}/"},
+                    {"slug": other_slug, "status": "approved_for_publish", "failures": [], "hard_blockers": [], "url": f"https://smileaireviewhub.com/{other_slug}/"},
+                ],
+            )
+            for slug in (target_slug, other_slug):
+                draft_dir = data_dir / "production_article_drafts" / slug
+                draft_dir.mkdir(parents=True, exist_ok=True)
+                (draft_dir / "index.html").write_text(_canonical_article_html(slug), encoding="utf-8")
+                _write_json(draft_dir / "metadata.json", {"slug": slug, "title": slug, "url": f"https://smileaireviewhub.com/{slug}/"})
+
+            result = workflow.prepare_article_output(batch_date="2026-07-11", slug=target_slug)
+
+            self.assertEqual(result["status"], "prepared")
+            for base in (data_dir / "published_static_pages", site_output, root / "docs"):
+                self.assertTrue((base / target_slug / "index.html").exists())
+                self.assertFalse((base / other_slug / "index.html").exists())
+            self.assertTrue((root / "upload" / "2026-07-11" / "published" / target_slug / "index.html").exists())
+            publish_rows = _read_json_for_test(data_dir / "publish_queue.json")
+            self.assertEqual(publish_rows[0]["status"], "approved_for_publish")
+            self.assertEqual(publish_rows[1]["status"], "approved_for_publish")
+
+    def test_publish_dry_run_builds_missing_output_and_does_not_commit_or_push(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            site_output = root / "site_output"
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=site_output)
+            slug = "best-agent-skills-review-2026-for-small-business"
+            _write_json(
+                data_dir / "editorial_queue" / "2026-07-11" / "topics.json",
+                {"generated_at": "", "date": "2026-07-11", "mode": "standard", "count": 1, "topics": [{"keyword": "Best Agent Skills Review 2026", "slug": slug, "status": "approved", "total_score": 90}]},
+            )
+            _write_json(
+                data_dir / "publish_queue.json",
+                [{"slug": slug, "status": "approved_for_publish", "failures": [], "hard_blockers": [], "url": f"https://smileaireviewhub.com/{slug}/"}],
+            )
+            draft_dir = data_dir / "production_article_drafts" / slug
+            draft_dir.mkdir(parents=True, exist_ok=True)
+            (draft_dir / "index.html").write_text(_canonical_article_html("Best Agent Skills Review 2026"), encoding="utf-8")
+            _write_json(draft_dir / "metadata.json", {"slug": slug, "title": "Best Agent Skills Review 2026", "url": f"https://smileaireviewhub.com/{slug}/"})
+
+            with patch.object(workflow, "_run_command", side_effect=AssertionError("git command should not run in dry-run")):
+                result = workflow.publish_dry_run(batch_date="2026-07-11", slug=slug, validation_mode="smart")
+
+            self.assertTrue(result["dry_run"])
+            self.assertEqual(result["git_actions"]["commit"], "skipped_dry_run")
+            self.assertEqual(result["git_actions"]["push"], "skipped_dry_run")
+            self.assertEqual(result["publish_gate_result"]["status"], "approved_for_publish")
+            self.assertEqual(result["validation_result"]["total_published"], 1)
+            self.assertIn(f"site_output/{slug}", result["would_stage"])
+            self.assertIn(f"docs/{slug}", result["would_stage"])
+            self.assertTrue((site_output / slug / "index.html").exists())
+            self.assertTrue((root / "docs" / slug / "index.html").exists())
+            publish_rows = _read_json_for_test(data_dir / "publish_queue.json")
+            self.assertEqual(publish_rows[0]["status"], "approved_for_publish")
 
     def test_check_live_reports_local_docs_git_and_live_status(self) -> None:
         with TemporaryDirectory() as temp_dir:

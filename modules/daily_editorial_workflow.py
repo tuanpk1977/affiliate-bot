@@ -666,6 +666,64 @@ class DailyEditorialWorkflow:
         dashboard = self.build_review_dashboard(batch_date=batch_date)
         return {**report, "dashboard": dashboard}
 
+    def prepare_article_output(self, *, batch_date: str, slug: str) -> dict[str, Any]:
+        candidate = self._selected_publish_candidate(batch_date=batch_date, slug=slug)
+        paths = self._article_bundle_paths(slug)
+        source = paths["draft_html"]
+        if not source.exists():
+            raise FileNotFoundError(f"Missing draft HTML for {slug}: {source}")
+        html_text = source.read_text(encoding="utf-8")
+        generated: list[str] = []
+        for key in ("published_static", "site_output", "docs"):
+            target = paths[key]
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(html_text, encoding="utf-8")
+            generated.append(str(target))
+        upload_target = self.upload_root / batch_date / "published" / slug / "index.html"
+        self._copy_file(paths["site_output"], upload_target)
+        generated.append(str(upload_target))
+        return {
+            "date": batch_date,
+            "slug": slug,
+            "status": "prepared",
+            "generated_files": generated,
+            "publish_gate": candidate["publish_gate"],
+            "url": candidate["url"],
+            "note": "Output prepared only; publish queue status was not changed and no git command was run.",
+        }
+
+    def publish_dry_run(self, *, batch_date: str, slug: str, validation_mode: str = "smart") -> dict[str, Any]:
+        candidate = self._selected_publish_candidate(batch_date=batch_date, slug=slug)
+        missing_outputs = [
+            key
+            for key, path in self._article_bundle_paths(slug).items()
+            if key in {"published_static", "site_output", "docs"} and not path.exists()
+        ]
+        prepare_result = None
+        if missing_outputs:
+            prepare_result = self.prepare_article_output(batch_date=batch_date, slug=slug)
+        validation = self._run_publish_validation(batch_date=batch_date, published=[candidate["validation_candidate"]], mode=validation_mode)
+        valid_published = list(validation.get("published") or [])
+        would_publish = valid_published if valid_published else [candidate["validation_candidate"]]
+        return {
+            "date": batch_date,
+            "slug": slug,
+            "dry_run": True,
+            "prepared_output": prepare_result,
+            "missing_outputs_before_prepare": missing_outputs,
+            "publish_gate_result": candidate["publish_gate"],
+            "validation_result": validation,
+            "would_stage": self._publish_stage_paths(batch_date=batch_date, published=would_publish),
+            "commit_message": f"Publish ready daily article {batch_date}: {slug}",
+            "live_url": candidate["url"],
+            "git_actions": {
+                "add": "skipped_dry_run",
+                "commit": "skipped_dry_run",
+                "push": "skipped_dry_run",
+            },
+            "note": "Dry run only; no article was marked published, committed, pushed, or deployed.",
+        }
+
     def status(self, *, batch_date: str) -> dict[str, Any]:
         resolved_date = batch_date
         try:
@@ -826,6 +884,43 @@ class DailyEditorialWorkflow:
             )
         return candidates
 
+    def _selected_publish_candidate(self, *, batch_date: str, slug: str) -> dict[str, Any]:
+        payload = self._load_queue(batch_date)
+        topics = payload.get("topics", [])
+        queue_item = next((item for item in topics if str(item.get("slug") or "") == slug), None)
+        if queue_item is None:
+            raise ValueError(f"Slug not found in batch {batch_date}: {slug}")
+        publish_rows = {str(row.get("slug") or ""): row for row in _read_json(self.data_dir / "publish_queue.json", [])}
+        publish_row = publish_rows.get(slug) or {}
+        normalized = PublishGate.normalize_existing_row(publish_row)
+        publish_status = str(normalized.get("normalized_status") or publish_row.get("status") or "")
+        if publish_status not in {"approved_for_publish", "published_local"}:
+            raise ValueError(f"Article is not Ready for Publish: {slug} ({publish_status or 'missing'})")
+        metadata = self.console._load_metadata(slug)
+        url = normalize_public_url(str(metadata.get("url") or publish_row.get("url") or f"{settings.base_site_url.rstrip('/')}/{slug}/"))
+        paths = self._article_bundle_paths(slug)
+        validation_candidate = {
+            "slug": slug,
+            "title": str(queue_item.get("article_title") or queue_item.get("keyword") or slug),
+            "url": url,
+            "publish_status": publish_status,
+            "publish_row": publish_row,
+            "paths": {key: str(value) for key, value in paths.items()},
+        }
+        return {
+            "queue_item": queue_item,
+            "publish_row": publish_row,
+            "publish_gate": {
+                "status": publish_status,
+                "final_gate": normalized.get("final_gate"),
+                "hard_blockers": list(normalized.get("hard_blockers") or []),
+                "warnings": list(normalized.get("warnings") or []),
+                "pending_reviews": list(normalized.get("pending_reviews") or []),
+            },
+            "validation_candidate": validation_candidate,
+            "url": url,
+        }
+
     def _article_bundle_paths(self, slug: str) -> dict[str, Path]:
         return {
             "draft_html": self.data_dir / "production_article_drafts" / slug / "index.html",
@@ -861,6 +956,10 @@ class DailyEditorialWorkflow:
             if changed:
                 fix_count += changed
                 fix_labels.append("replaced_placeholders")
+            updated, changed = self._sanitize_public_status_labels(updated)
+            if changed:
+                fix_count += changed
+                fix_labels.append("public_status_labels")
             updated, changed = self._ensure_person_schema(updated)
             if changed:
                 fix_count += changed
@@ -894,7 +993,7 @@ class DailyEditorialWorkflow:
             "faq_schema_status": "fixed" if "faq_schema" in unique_labels else "ok",
             "meta_description_status": "fixed" if "meta_description" in unique_labels else "ok",
             "redirect_status": "fixed" if "cta_redirects" in unique_labels else "ok",
-            "forbidden_marker_status": "fixed" if "removed_forbidden_markers" in unique_labels or "replaced_placeholders" in unique_labels else "ok",
+            "forbidden_marker_status": "fixed" if "removed_forbidden_markers" in unique_labels or "replaced_placeholders" in unique_labels or "public_status_labels" in unique_labels else "ok",
         }
 
     def _remove_forbidden_sections(self, html_text: str) -> tuple[str, int]:
@@ -935,6 +1034,24 @@ class DailyEditorialWorkflow:
         replacements += len(matches)
         updated = updated.replace("{{", "").replace("}}", "")
         return updated, replacements
+
+    def _sanitize_public_status_labels(self, html_text: str) -> tuple[str, int]:
+        replacements = {
+            "needs_human_review": "Waiting for editor review",
+            "human_approved": "Editor reviewed",
+            "published_local": "Prepared locally",
+            "approved_for_publish": "Ready for review",
+            "needs_revision": "Needs editorial review",
+            "needs_enrichment": "Needs source review",
+            "needs_review": "Needs review",
+            "publish_ready": "Ready for review",
+        }
+        updated = html_text
+        total = 0
+        for marker, public_label in replacements.items():
+            updated, count = re.subn(re.escape(marker), public_label, updated, flags=re.I)
+            total += count
+        return updated, total
 
     def _strip_json_ld_by_type(self, html_text: str, *, schema_type: str) -> tuple[str, int]:
         pattern = re.compile(
@@ -1079,10 +1196,12 @@ class DailyEditorialWorkflow:
             "published_local",
             "approved_for_publish",
             "needs_revision",
+            "needs_review",
             "needs_enrichment",
             "research_score",
             "source_confidence",
             "publish_queue_status",
+            "publish_ready",
         )
         for marker in workflow_markers:
             if re.search(re.escape(marker), text, flags=re.I):

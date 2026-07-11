@@ -60,6 +60,15 @@ def build_parser() -> argparse.ArgumentParser:
     validate_batch.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
     validate_batch.add_argument("--mode", choices=("smart", "strict"), default="smart", help="Validation mode.")
 
+    prepare_article_output = subparsers.add_parser("prepare-article-output", help="Build public output files for one Ready for Publish article without publishing it.")
+    prepare_article_output.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
+    prepare_article_output.add_argument("--slug", required=True, help="Article slug.")
+
+    publish_dry_run = subparsers.add_parser("publish-dry-run", help="Show the exact publish plan for one Ready for Publish article without committing or pushing.")
+    publish_dry_run.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
+    publish_dry_run.add_argument("--slug", required=True, help="Article slug.")
+    publish_dry_run.add_argument("--validation-mode", choices=("smart", "strict"), default="smart", help="Validation mode for the dry run.")
+
     autofix_batch = subparsers.add_parser("autofix-batch", help="Auto-fix simple publish validation issues for the batch.")
     autofix_batch.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
 
@@ -326,6 +335,12 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.command == "validate-batch":
         print(json.dumps(workflow.validate_batch(batch_date=args.date, mode=args.mode), indent=2, ensure_ascii=False))
+        return 0
+    if args.command == "prepare-article-output":
+        print(json.dumps(workflow.prepare_article_output(batch_date=args.date, slug=args.slug), indent=2, ensure_ascii=False))
+        return 0
+    if args.command == "publish-dry-run":
+        print(json.dumps(workflow.publish_dry_run(batch_date=args.date, slug=args.slug, validation_mode=args.validation_mode), indent=2, ensure_ascii=False))
         return 0
     if args.command == "autofix-batch":
         print(json.dumps(workflow.autofix_batch(batch_date=args.date), indent=2, ensure_ascii=False))
