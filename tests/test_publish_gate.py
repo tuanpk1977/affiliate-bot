@@ -189,6 +189,21 @@ class PublishGateTests(unittest.TestCase):
         self.assertEqual(normalized["normalized_status"], "blocked")
         self.assertIn("affiliate disclosure missing", normalized["hard_blockers"])
 
+    def test_published_row_moves_legacy_failures_to_history(self) -> None:
+        normalized = PublishGate.normalize_existing_row(
+            {
+                "status": "published_local",
+                "failures": ["verified source score failed", "AI review failed", "human approval missing"],
+            }
+        )
+
+        self.assertEqual(normalized["final_gate"], "Published")
+        self.assertEqual(normalized["normalized_status"], "published_local")
+        self.assertEqual(normalized["hard_blockers"], [])
+        self.assertEqual(normalized["warnings"], [])
+        self.assertEqual(normalized["pending_reviews"], [])
+        self.assertIn("AI review failed", normalized["historical_warnings"])
+
     def test_workflow_status_counts_legacy_warning_rows_as_ready_or_human_review(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

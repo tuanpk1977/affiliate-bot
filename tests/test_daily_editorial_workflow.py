@@ -1167,6 +1167,80 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             publish_rows = _read_json_for_test(data_dir / "publish_queue.json")
             self.assertEqual(publish_rows[0]["status"], "approved_for_publish")
 
+    def test_publish_dry_run_rejects_published_before_any_side_effect(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=root / "site_output")
+            slug = "already-published"
+            _write_json(
+                data_dir / "editorial_queue" / "2026-07-11" / "topics.json",
+                {"topics": [{"slug": slug, "status": "published"}]},
+            )
+            _write_json(
+                data_dir / "publish_queue.json",
+                [{"slug": slug, "status": "published_local", "failures": ["AI review failed"]}],
+            )
+            before = (data_dir / "publish_queue.json").read_bytes()
+            with patch.object(workflow, "prepare_article_output", side_effect=AssertionError("must not prepare")), patch.object(
+                workflow, "_run_publish_validation", side_effect=AssertionError("must not validate")
+            ), patch.object(workflow, "_run_command", side_effect=AssertionError("must not run git")):
+                result = workflow.publish_dry_run(batch_date="2026-07-11", slug=slug)
+
+            self.assertEqual(result["status"], "rejected_not_ready_for_publish")
+            self.assertIn("current state: Published", result["message"])
+            self.assertEqual(result["would_stage"], [])
+            self.assertEqual((data_dir / "publish_queue.json").read_bytes(), before)
+
+    def test_targeted_stage_plan_excludes_unrelated_upload_artifacts(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
+            selected = "selected-article"
+            unrelated = root / "upload" / "2026-07-11" / "review" / "unrelated-article" / "index.html"
+            selected_file = root / "upload" / "2026-07-11" / "review" / selected / "index.html"
+            unrelated.parent.mkdir(parents=True)
+            selected_file.parent.mkdir(parents=True)
+            unrelated.write_text("unrelated", encoding="utf-8")
+            selected_file.write_text("selected", encoding="utf-8")
+
+            paths = workflow._publish_stage_paths(batch_date="2026-07-11", published=[{"slug": selected}])
+
+            self.assertIn(f"upload/2026-07-11/review/{selected}", paths)
+            self.assertNotIn("upload/2026-07-11", paths)
+            self.assertFalse(any("unrelated-article" in path for path in paths))
+
+    def test_targeted_stage_scope_rejects_unrelated_path(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
+            with self.assertRaisesRegex(ValueError, "unrelated paths"):
+                workflow._assert_targeted_stage_scope(
+                    batch_date="2026-07-11",
+                    slugs=["selected-article"],
+                    paths=["upload/2026-07-11/review/unrelated-article/index.html"],
+                )
+
+    def test_autofix_preserves_all_required_article_schemas(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=root / "site_output")
+            slug = "schema-article"
+            draft = data_dir / "production_article_drafts" / slug
+            draft.mkdir(parents=True)
+            html_text = _canonical_article_html(slug)
+            html_text = html_text.replace('<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article"', '<script type="application/ld+json">{"@context":"https://schema.org","@type":"RemovedArticle"')
+            (draft / "index.html").write_text(html_text, encoding="utf-8")
+            _write_json(draft / "metadata.json", {"slug": slug, "title": "Schema Article", "url": f"https://smileaireviewhub.com/{slug}/"})
+
+            workflow._autofix_article_bundle(slug=slug)
+            updated = (draft / "index.html").read_text(encoding="utf-8")
+
+            self.assertRegex(updated, r'"@type"\s*:\s*"Article"')
+            self.assertRegex(updated, r'"@type"\s*:\s*"BreadcrumbList"')
+            self.assertRegex(updated, r'"@type"\s*:\s*"Person"')
+
     def test_publish_report_accepts_targeted_validation_candidate_paths(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
@@ -1247,6 +1321,36 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertTrue((data_dir / "live_status_report.json").exists())
             self.assertTrue((data_dir / "live_status_report.md").exists())
             self.assertTrue((data_dir / "live_status_report.html").exists())
+
+    def test_published_diagnostics_have_no_active_legacy_warnings(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=root / "site_output")
+            slug = "published-article"
+            _write_json(
+                data_dir / "editorial_queue" / "2026-07-11" / "topics.json",
+                {"topics": [{"slug": slug, "status": "published"}]},
+            )
+            _write_json(
+                data_dir / "publish_queue.json",
+                [{
+                    "slug": slug,
+                    "status": "published_local",
+                    "failures": ["verified source score failed", "AI review failed", "human approval missing"],
+                    "url": f"https://smileaireviewhub.com/{slug}/",
+                }],
+            )
+
+            diagnosis = workflow.diagnose_article(batch_date="2026-07-11", slug=slug)
+            block_reason = workflow._row_block_reason({"slug": slug, "status": "published"}, _read_json_for_test(data_dir / "publish_queue.json")[0])
+
+            self.assertEqual(diagnosis["final_gate_decision"], "Published")
+            self.assertEqual(diagnosis["warnings"], [])
+            self.assertEqual(diagnosis["pending_reviews"], [])
+            self.assertEqual(diagnosis["recommended_action"], "Already published")
+            self.assertIn("AI review failed", diagnosis["historical_warnings"])
+            self.assertEqual(block_reason, "No active blocking issue")
 
     def test_check_live_reports_block_reason_for_blocked_queue_items(self) -> None:
         with TemporaryDirectory() as temp_dir:

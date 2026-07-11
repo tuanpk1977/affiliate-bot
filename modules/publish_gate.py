@@ -129,6 +129,20 @@ class PublishGate:
         warnings = [str(item).strip() for item in list(row.get("warnings") or []) if str(item).strip()]
         pending_reviews = [str(item).strip() for item in list(row.get("pending_reviews") or []) if str(item).strip()]
         legacy_failures = [str(item).strip() for item in list(row.get("failures") or []) if str(item).strip()]
+        status = str(row.get("status") or "missing")
+        if status in {"published_local", "published"}:
+            historical_warnings: list[str] = []
+            for reason in [*hard_blockers, *warnings, *pending_reviews, *legacy_failures]:
+                _unique_append(historical_warnings, reason)
+            return {
+                "hard_blockers": [],
+                "warnings": [],
+                "pending_reviews": [],
+                "historical_warnings": historical_warnings,
+                "final_gate": "Published",
+                "normalized_status": "published_local",
+                "publish_ready": False,
+            }
         if not hard_blockers and not warnings and not pending_reviews and legacy_failures:
             for reason in legacy_failures:
                 severity = _legacy_failure_severity(reason)
@@ -139,11 +153,7 @@ class PublishGate:
                 else:
                     _unique_append(hard_blockers, reason)
         human_passed = bool(row.get("human_approval_passed", False)) or str(row.get("status") or "") in {"approved_for_publish", "published_local", "published"}
-        status = str(row.get("status") or "missing")
-        if status == "published_local":
-            final_gate = "Published"
-            normalized_status = "published_local"
-        elif hard_blockers:
+        if hard_blockers:
             final_gate = "Publish Blocked"
             normalized_status = "blocked"
         elif human_passed:
@@ -158,6 +168,7 @@ class PublishGate:
             "hard_blockers": hard_blockers,
             "warnings": warnings,
             "pending_reviews": pending_reviews,
+            "historical_warnings": [],
             "final_gate": final_gate,
             "normalized_status": normalized_status,
             "publish_ready": normalized_status == "approved_for_publish",

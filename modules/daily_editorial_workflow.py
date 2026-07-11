@@ -693,7 +693,23 @@ class DailyEditorialWorkflow:
         }
 
     def publish_dry_run(self, *, batch_date: str, slug: str, validation_mode: str = "smart") -> dict[str, Any]:
-        candidate = self._selected_publish_candidate(batch_date=batch_date, slug=slug)
+        try:
+            candidate = self._selected_publish_candidate(batch_date=batch_date, slug=slug)
+        except ValueError as exc:
+            return {
+                "date": batch_date,
+                "slug": slug,
+                "dry_run": True,
+                "status": "rejected_not_ready_for_publish",
+                "message": str(exc),
+                "would_stage": [],
+                "git_actions": {
+                    "add": "skipped_not_ready",
+                    "commit": "skipped_not_ready",
+                    "push": "skipped_not_ready",
+                },
+                "note": "Dry run rejected before file generation or validation; no state was changed.",
+            }
         missing_outputs = [
             key
             for key, path in self._article_bundle_paths(slug).items()
@@ -702,7 +718,12 @@ class DailyEditorialWorkflow:
         prepare_result = None
         if missing_outputs:
             prepare_result = self.prepare_article_output(batch_date=batch_date, slug=slug)
-        validation = self._run_publish_validation(batch_date=batch_date, published=[candidate["validation_candidate"]], mode=validation_mode)
+        validation = self._run_publish_validation(
+            batch_date=batch_date,
+            published=[candidate["validation_candidate"]],
+            mode=validation_mode,
+            autofix=False,
+        )
         valid_published = list(validation.get("published") or [])
         would_publish = valid_published if valid_published else [candidate["validation_candidate"]]
         return {
@@ -839,7 +860,12 @@ class DailyEditorialWorkflow:
             "hard_blockers": normalized["hard_blockers"],
             "warnings": normalized["warnings"],
             "pending_reviews": normalized["pending_reviews"],
-            "recommended_action": self._recommended_action_for_failures(normalized["hard_blockers"] or normalized["pending_reviews"] or normalized["warnings"]),
+            "historical_warnings": normalized.get("historical_warnings", []),
+            "recommended_action": (
+                "Already published"
+                if normalized["normalized_status"] == "published_local"
+                else self._recommended_action_for_failures(normalized["hard_blockers"] or normalized["pending_reviews"] or normalized["warnings"])
+            ),
             "fields_used": {
                 "review_status": review.get("status", "missing"),
                 "human_approval_status": human.get("status", "missing"),
@@ -847,6 +873,10 @@ class DailyEditorialWorkflow:
                 "hard_blockers": publish_row.get("hard_blockers", []),
                 "warnings": publish_row.get("warnings", []),
                 "pending_reviews": publish_row.get("pending_reviews", []),
+            },
+            "audit_history": {
+                "legacy_failures": publish_row.get("failures", []),
+                "historical_warnings": normalized.get("historical_warnings", []),
             },
             "files_used": files_used,
             "note": "Diagnostic only; no files were modified and no article was published.",
@@ -894,8 +924,9 @@ class DailyEditorialWorkflow:
         publish_row = publish_rows.get(slug) or {}
         normalized = PublishGate.normalize_existing_row(publish_row)
         publish_status = str(normalized.get("normalized_status") or publish_row.get("status") or "")
-        if publish_status not in {"approved_for_publish", "published_local"}:
-            raise ValueError(f"Article is not Ready for Publish: {slug} ({publish_status or 'missing'})")
+        if publish_status != "approved_for_publish" or normalized.get("final_gate") != "Ready for Publish":
+            label = str(normalized.get("final_gate") or publish_status or "Unknown")
+            raise ValueError(f"Article must be exactly Ready for Publish: {slug} (current state: {label})")
         metadata = self.console._load_metadata(slug)
         url = normalize_public_url(str(metadata.get("url") or publish_row.get("url") or f"{settings.base_site_url.rstrip('/')}/{slug}/"))
         paths = self._article_bundle_paths(slug)
@@ -964,6 +995,14 @@ class DailyEditorialWorkflow:
             if changed:
                 fix_count += changed
                 fix_labels.append("person_schema")
+            updated, changed = self._ensure_article_schema(updated, metadata=metadata, slug=slug)
+            if changed:
+                fix_count += changed
+                fix_labels.append("article_schema")
+            updated, changed = self._ensure_breadcrumb_schema(updated, metadata=metadata, slug=slug)
+            if changed:
+                fix_count += changed
+                fix_labels.append("breadcrumb_schema")
             updated, changed = self._ensure_meta_description(updated, slug=slug)
             if changed:
                 fix_count += changed
@@ -1055,10 +1094,93 @@ class DailyEditorialWorkflow:
 
     def _strip_json_ld_by_type(self, html_text: str, *, schema_type: str) -> tuple[str, int]:
         pattern = re.compile(
-            rf"""<script\s+type=(['"])application/ld\+json\1>.*?"@type"\s*:\s*"{re.escape(schema_type)}".*?</script>\s*""",
+            r"<script\b[^>]*type=(['\"])application/ld\+json\1[^>]*>(.*?)</script>\s*",
             flags=re.I | re.S,
         )
-        return pattern.subn("", html_text)
+        removed = 0
+
+        def replace(match: re.Match[str]) -> str:
+            nonlocal removed
+            try:
+                payload = json.loads(html.unescape(match.group(2)))
+            except json.JSONDecodeError:
+                return match.group(0)
+            payload_type = payload.get("@type") if isinstance(payload, dict) else None
+            if payload_type == schema_type or isinstance(payload_type, list) and schema_type in payload_type:
+                removed += 1
+                return ""
+            return match.group(0)
+
+        return pattern.sub(replace, html_text), removed
+
+    def _ensure_article_schema(self, html_text: str, *, metadata: dict[str, Any], slug: str) -> tuple[str, int]:
+        if re.search(r'"@type"\s*:\s*"(?:Article|BlogPosting)"', html_text, flags=re.I):
+            return html_text, 0
+        base_url = settings.base_site_url.rstrip("/")
+        canonical_match = re.search(
+            r"<link\b(?=[^>]*rel=['\"]canonical['\"])(?=[^>]*href=['\"]([^'\"]+)['\"])[^>]*>",
+            html_text,
+            flags=re.I,
+        )
+        title_match = re.search(r"<title[^>]*>(.*?)</title>", html_text, flags=re.I | re.S)
+        description_match = re.search(
+            r"<meta\b(?=[^>]*name=['\"]description['\"])(?=[^>]*content=['\"]([^'\"]*)['\"])[^>]*>",
+            html_text,
+            flags=re.I,
+        )
+        image_match = re.search(r"<meta\b(?=[^>]*property=['\"]og:image['\"])(?=[^>]*content=['\"]([^'\"]+)['\"])[^>]*>", html_text, flags=re.I)
+        canonical = canonical_match.group(1) if canonical_match else str(metadata.get("url") or f"{base_url}/{slug}/")
+        title = _normalize_space(re.sub(r"<[^>]+>", "", title_match.group(1))) if title_match else str(metadata.get("title") or slug.replace("-", " "))
+        description = description_match.group(1) if description_match else str(metadata.get("description") or "")
+        image = image_match.group(1) if image_match else f"{base_url}/assets/og/site.svg"
+        payload = json.dumps(
+            {
+                "@context": "https://schema.org",
+                "@type": "Article",
+                "headline": title,
+                "description": description,
+                "image": [image],
+                "mainEntityOfPage": {"@type": "WebPage", "@id": canonical},
+                "author": {"@type": "Person", "name": "Tuan Nguyen Quoc", "url": f"{base_url}/about-author/"},
+                "publisher": {"@type": "Organization", "name": "MS Smile AI Review Hub", "url": f"{base_url}/"},
+            },
+            ensure_ascii=False,
+            separators=(",", ":"),
+        )
+        block = f'<script type="application/ld+json">{payload}</script>\n'
+        if "</head>" in html_text:
+            return html_text.replace("</head>", f"  {block}</head>", 1), 1
+        return block + html_text, 1
+
+    def _ensure_breadcrumb_schema(self, html_text: str, *, metadata: dict[str, Any], slug: str) -> tuple[str, int]:
+        if re.search(r'"@type"\s*:\s*"BreadcrumbList"', html_text, flags=re.I):
+            return html_text, 0
+        base_url = settings.base_site_url.rstrip("/")
+        canonical_match = re.search(
+            r"<link\b(?=[^>]*rel=['\"]canonical['\"])(?=[^>]*href=['\"]([^'\"]+)['\"])[^>]*>",
+            html_text,
+            flags=re.I,
+        )
+        title_match = re.search(r"<h1[^>]*>(.*?)</h1>|<title[^>]*>(.*?)</title>", html_text, flags=re.I | re.S)
+        raw_title = next((value for value in title_match.groups() if value), "") if title_match else ""
+        title = _normalize_space(re.sub(r"<[^>]+>", "", raw_title)) or str(metadata.get("title") or slug.replace("-", " "))
+        canonical = canonical_match.group(1) if canonical_match else str(metadata.get("url") or f"{base_url}/{slug}/")
+        payload = json.dumps(
+            {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "Home", "item": f"{base_url}/"},
+                    {"@type": "ListItem", "position": 2, "name": title, "item": canonical},
+                ],
+            },
+            ensure_ascii=False,
+            separators=(",", ":"),
+        )
+        block = f'<script type="application/ld+json">{payload}</script>\n'
+        if "</head>" in html_text:
+            return html_text.replace("</head>", f"  {block}</head>", 1), 1
+        return block + html_text, 1
 
     def _ensure_person_schema(self, html_text: str) -> tuple[str, int]:
         updated, removed = self._strip_json_ld_by_type(html_text, schema_type="Person")
@@ -1296,7 +1418,7 @@ class DailyEditorialWorkflow:
             errors.append(f"{scope} meta description is missing")
         return errors
 
-    def _run_publish_validation(self, *, batch_date: str, published: list[dict[str, Any]], mode: str) -> dict[str, Any]:
+    def _run_publish_validation(self, *, batch_date: str, published: list[dict[str, Any]], mode: str, autofix: bool = True) -> dict[str, Any]:
         items: list[dict[str, Any]] = []
         published_ok: list[dict[str, Any]] = []
         skipped: list[dict[str, Any]] = []
@@ -1304,8 +1426,18 @@ class DailyEditorialWorkflow:
         docs_root = self.root / "docs"
         for candidate in published:
             slug = str(candidate.get("slug") or "")
-            autofix = self._autofix_article_bundle(slug=slug)
-            total_auto_fixed += int(autofix.get("fix_count", 0))
+            autofix_result = self._autofix_article_bundle(slug=slug) if autofix else {
+                "slug": slug,
+                "fix_count": 0,
+                "files_touched": [],
+                "autofix_status": "skipped_read_only",
+                "cta_status": "not_changed",
+                "faq_schema_status": "not_changed",
+                "meta_description_status": "not_changed",
+                "redirect_status": "not_changed",
+                "forbidden_marker_status": "not_changed",
+            }
+            total_auto_fixed += int(autofix_result.get("fix_count", 0))
             paths = self._article_bundle_paths(slug)
             url = normalize_public_url(str(candidate.get("url") or f"{settings.base_site_url.rstrip('/')}/{slug}/"))
             errors = []
@@ -1317,7 +1449,7 @@ class DailyEditorialWorkflow:
             status = "passed" if not errors else "failed"
             item = {
                 **candidate,
-                **autofix,
+                **autofix_result,
                 "validation_mode": mode,
                 "validation_status": status,
                 "errors": errors,
@@ -2746,6 +2878,8 @@ class DailyEditorialWorkflow:
 
     def _row_block_reason(self, item: dict[str, Any], publish_row: dict[str, Any]) -> str:
         normalized = PublishGate.normalize_existing_row(publish_row)
+        if str(normalized.get("normalized_status") or "") == "published_local":
+            return "No active blocking issue"
         reasons = list(normalized.get("hard_blockers") or []) or list(normalized.get("pending_reviews") or []) or list(normalized.get("warnings") or [])
         if reasons:
             title = self._operator_block_title(str(reasons[0]))
@@ -3823,7 +3957,9 @@ class DailyEditorialWorkflow:
             self.data_dir / "master_dashboard.xlsx",
             self._queue_dir(batch_date) / "topics.json",
             self.review_root / batch_date / "index.html",
-            self.upload_root / batch_date,
+            self.upload_root / batch_date / "publish_report.md",
+            self.upload_root / batch_date / "review_dashboard.html",
+            self.upload_root / batch_date / "dashboard.json",
             self.upload_root / "dashboard.html",
         ]
         paths.extend(common_paths)
@@ -3840,7 +3976,71 @@ class DailyEditorialWorkflow:
                 continue
             seen.add(rel)
             unique.append(rel)
+        self._assert_targeted_stage_scope(batch_date=batch_date, slugs=slugs, paths=unique)
         return unique
+
+    def _assert_targeted_stage_scope(self, *, batch_date: str, slugs: list[str], paths: list[str]) -> None:
+        slug_prefixes = {
+            prefix
+            for slug in slugs
+            for prefix in (
+                f"docs/{slug}",
+                f"site_output/{slug}",
+                f"data/published_static_pages/{slug}",
+                f"data/production_article_drafts/{slug}",
+                f"site_output/review/{batch_date}/{slug}",
+                f"upload/{batch_date}/published/{slug}",
+                f"upload/{batch_date}/drafts/{slug}",
+                f"upload/{batch_date}/review/{slug}",
+            )
+        }
+        shared = {
+            str(path.relative_to(self.root)).replace("\\", "/")
+            for path in (
+                self.root / "docs" / "index.html",
+                self.root / "docs" / "404.html",
+                self.root / "docs" / "sitemap.xml",
+                self.root / "docs" / "robots.txt",
+                self.root / "docs" / "search.json",
+                self.root / "docs" / "feed.xml",
+                self.root / "docs" / "rss.xml",
+                self.site_output_dir / "index.html",
+                self.site_output_dir / "404.html",
+                self.site_output_dir / "sitemap.xml",
+                self.site_output_dir / "robots.txt",
+                self.site_output_dir / "search.json",
+                self.site_output_dir / "feed.xml",
+                self.site_output_dir / "rss.xml",
+                self.data_dir / "publish_queue.json",
+                self.data_dir / "content_review_queue.json",
+                self.data_dir / "human_approval_queue.json",
+                self.data_dir / "content_review_report.json",
+                self.data_dir / "content_review_report.csv",
+                self.data_dir / "content_review_report.md",
+                self.data_dir / "publish_gate_report.json",
+                self.data_dir / "publish_gate_report.csv",
+                self.data_dir / "publish_gate_report.md",
+                self.data_dir / "daily_ceo_dashboard.html",
+                self.data_dir / "editorial_operations_console.json",
+                self.data_dir / "editorial_operations_console.csv",
+                self.data_dir / "editorial_operations_console.html",
+                self.data_dir / "live_status_report.json",
+                self.data_dir / "live_status_report.md",
+                self.data_dir / "live_status_report.html",
+                self.data_dir / "published_live_urls.jsonl",
+                self.data_dir / "published_live_urls_latest.json",
+                self.data_dir / "master_dashboard.xlsx",
+                self._queue_dir(batch_date) / "topics.json",
+                self.review_root / batch_date / "index.html",
+                self.upload_root / batch_date / "publish_report.md",
+                self.upload_root / batch_date / "review_dashboard.html",
+                self.upload_root / batch_date / "dashboard.json",
+                self.upload_root / "dashboard.html",
+            )
+        }
+        invalid = [path for path in paths if path not in shared and not any(path == prefix or path.startswith(prefix + "/") for prefix in slug_prefixes)]
+        if invalid:
+            raise ValueError(f"Targeted staging plan contains unrelated paths: {', '.join(invalid)}")
 
     def _validate_html_tree(self, root: Path, *, scope: str) -> None:
         if not root.exists():
