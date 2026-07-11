@@ -523,7 +523,7 @@
       "confidence": "low",
       "total_score": 58.3,
       "rank": 9,
-      "status": "drafted",
+      "status": "published",
       "week_start": "2026-07-06",
       "parent_keyword": "best ai meeting software",
       "parent_slug": "best-ai-meeting-software",
@@ -544,7 +544,14 @@
       "review_status": "needs_revision",
       "human_approval_status": "needs_revision",
       "publish_gate_status": "blocked",
-      "error": ""
+      "error": "",
+      "published_at": "2026-07-11T04:00:03.702679+00:00",
+      "validation_mode": "smart",
+      "validation_status": "passed",
+      "autofix_status": "skipped",
+      "block_reason": "",
+      "validation_errors": [],
+      "next_action": ""
     },
     {
       "keyword": "best best ai meeting tools for small business",

@@ -692,6 +692,19 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
         self.assertIn('height="630"', html_text)
         self.assertIn('decoding="async"', html_text)
 
+    def test_webp_hero_image_is_preferred_over_png(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            output = root / "site_output"
+            asset_dir = output / "assets" / "og" / "pages"
+            asset_dir.mkdir(parents=True)
+            (asset_dir / "valid.webp").write_bytes(b"webp")
+            (asset_dir / "valid.png").write_bytes(b"png")
+            with patch.object(pipeline, "SITE_OUTPUT", output), patch.object(pipeline, "ROOT", root):
+                html_text = pipeline.render_article_hero_image("valid", "Valid Hero")
+
+            self.assertIn('/assets/og/pages/valid.webp', html_text)
+
 
 if __name__ == "__main__":
     unittest.main()

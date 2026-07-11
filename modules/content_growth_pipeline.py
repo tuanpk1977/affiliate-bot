@@ -1484,15 +1484,20 @@ def render_editorial_byline(editorial: dict[str, Any]) -> str:
 
 
 def render_article_hero_image(page_slug: str, title: str) -> str:
-    src = f"/assets/og/pages/{page_slug}.png"
-    candidates = (
-        SITE_OUTPUT / src.lstrip("/"),
-        ROOT / "docs" / src.lstrip("/"),
-        ROOT / src.lstrip("/"),
-    )
     if not page_slug or any(marker in page_slug.lower() for marker in ("placeholder", "undefined", "none", "null")):
         return ""
-    if not any(path.exists() and path.is_file() for path in candidates):
+    src = ""
+    for extension in ("webp", "png"):
+        candidate_src = f"/assets/og/pages/{page_slug}.{extension}"
+        candidates = (
+            SITE_OUTPUT / candidate_src.lstrip("/"),
+            ROOT / "docs" / candidate_src.lstrip("/"),
+            ROOT / candidate_src.lstrip("/"),
+        )
+        if any(path.exists() and path.is_file() for path in candidates):
+            src = candidate_src
+            break
+    if not src:
         return ""
     return (
         f'<img class="article-hero-image" src="{html.escape(src, quote=True)}" '

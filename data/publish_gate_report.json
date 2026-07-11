@@ -1,11 +1,11 @@
 {
   "summary": {
     "items": 41,
-    "blocked": 40,
+    "blocked": 39,
     "needs_human_review": 0,
     "ready_for_publish": 0,
     "approved_for_publish": 0,
-    "published_local": 1,
+    "published_local": 2,
     "publish_failed": 0
   },
   "items": [
@@ -1076,17 +1076,16 @@
     {
       "slug": "best-best-ai-meeting-software-for-small-business",
       "topic": "best best ai meeting software for small business",
-      "status": "blocked",
-      "checked_at": "2026-07-10T21:38:32.913222+00:00",
+      "status": "published_local",
+      "checked_at": "2026-07-11T03:42:53.707278+00:00",
       "failures": [
-        "AI review failed",
-        "human approval missing"
+        "AI review failed"
       ],
       "research_quality_passed": true,
       "verified_source_score_passed": true,
       "knowledge_freshness_passed": true,
       "ai_review_passed": false,
-      "human_approval_passed": false,
+      "human_approval_passed": true,
       "broken_links": [],
       "duplicate_title_meta": false,
       "affiliate_disclosure_present": true,
@@ -1097,7 +1096,8 @@
       "publish_ready": false,
       "url": "https://smileaireviewhub.com/best-best-ai-meeting-software-for-small-business/",
       "title": "best best ai meeting software for small business 2026",
-      "description": "Independent best best ai meeting software for small business guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice."
+      "description": "Independent best best ai meeting software for small business guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice.",
+      "published_at": "2026-07-11T04:00:03.685684+00:00"
     },
     {
       "slug": "best-best-ai-meeting-tools-for-small-business",

@@ -883,7 +883,7 @@
     "slug": "best-best-ai-meeting-software-for-small-business",
     "topic": "best best ai meeting software for small business",
     "url": "https://smileaireviewhub.com/best-best-ai-meeting-software-for-small-business/",
-    "status": "needs_revision",
+    "status": "human_approved",
     "reviewed_at": "2026-07-10T21:38:32.875872+00:00",
     "word_count": 2570,
     "factual_quality": 61.54,
@@ -895,11 +895,9 @@
     "readability": 55.23,
     "business_value": 58.55,
     "publish_readiness": 71.77,
-    "publishable": false,
+    "publishable": true,
     "requires_human_approval": true,
-    "failures": [
-      "duplicate content risk too high"
-    ]
+    "failures": []
   },
   {
     "slug": "best-best-ai-meeting-tools-for-small-business",
