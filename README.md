@@ -1,480 +1,57 @@
-# Affiliate Research Bot
+# Smile AI Review Hub
 
-Python bot for collecting affiliate program signals from candidate websites, scoring them, and generating a ranked report.
+Smile AI Review Hub combines an older affiliate-program research bot with the current Python editorial automation and static-site publishing system for `https://smileaireviewhub.com/`.
 
-The business goal is to find affiliate programs strong enough to package as paid information for affiliate marketers. The scoring also includes an `ad_readiness_score` so the best leads can later move into automated ad testing.
-
-## AI Affiliate Intelligence Platform
-
-Phần mới nằm song song với bot cũ và không thay đổi `src/main.py` hoặc flow `runbot.bat` hiện tại.
-
-## Post-deploy indexing automation
-
-The production site deploys from `docs/` through Cloudflare Pages Git integration. After a content
-commit reaches `main`, `.github/workflows/post-deploy-indexing.yml` waits for the newly added pages to
-return HTTP 200, validates the live sitemap, and only then notifies search engines.
-
-Files:
-
-- Public key: `docs/indexnow-key.txt`
-- Submitter and reusable function: `scripts/submit_indexnow.py`
-- Local preflight: `scripts/validate_publishing_batch.py`
-- Post-deploy runner: `scripts/post_deploy_indexing.py`
-- Sitemap generator: `scripts/generate_sitemap.py`
-- Dry-run test: `scripts/test_indexnow.py`
-- Diagnostics: `scripts/check_indexnow_status.py`
-- GitHub workflow: `.github/workflows/post-deploy-indexing.yml`
-
-Manual commands:
-
-```powershell
-# Regenerate the active Cloudflare sitemap and mirror it to site_output
-python scripts/generate_sitemap.py --publish-root docs --mirror-to site_output --updated-urls-file data/published_today.json
-
-# Block publishing when the batch, sitemap, schema, canonical, or links are invalid
-python scripts/validate_publishing_batch.py --urls-file data/published_today.json
-
-# Preview the complete post-deploy flow without sending requests
-python scripts/post_deploy_indexing.py --urls-file data/published_today.json --dry-run
-
-# Manual post-deploy validation and submission
-python scripts/post_deploy_indexing.py --urls-file data/published_today.json
-```
-
-Set the repository secret `BING_WEBMASTER_API_KEY` to enable authenticated Bing `SubmitFeed`.
-For Google Search Console, add `GOOGLE_SEARCH_CONSOLE_CREDENTIALS_JSON` and grant that service-account
-email access to the Search Console property. If Google credentials are absent, the workflow records
-natural discovery through the registered sitemap and `robots.txt`. Google removed its unauthenticated
-sitemap ping endpoint, so this project does not call that obsolete endpoint.
-
-To regenerate the key, generate a random 32-character hexadecimal value and replace the single line
-in both `docs/indexnow-key.txt` and `site_output/indexnow-key.txt`. Commit and deploy the new key before submitting with it. The live
-key must be available at `https://smileaireviewhub.com/indexnow-key.txt`.
-
-IndexNow commonly accepts valid submissions with HTTP `200` or `202`. HTTP `400` indicates an invalid
-request, `403` indicates key validation failure, `422` indicates the URLs do not belong to the host,
-and `429` indicates rate limiting. Temporary failures are retried automatically.
-
-Production workflow:
+The current production path is:
 
 ```text
-Bot writes and publishes article
--> regenerate and validate docs/sitemap.xml
--> preflight schema, canonical, lastmod, and internal links
--> push main
--> Cloudflare Pages deploys docs/
--> GitHub Action waits for every new URL to return HTTP 200
--> validate the live sitemap
--> submit new URLs to IndexNow
--> submit the sitemap to Bing and Google when credentials are configured
--> upload logs/indexing as a GitHub Actions artifact
--> create review video under video_output
--> user uploads YouTube manually
--> user posts social drafts manually
+topic discovery -> research/source checks -> draft -> AI review -> human approval
+-> publish gate -> targeted build -> smart validation -> scoped Git push
+-> Cloudflare Pages (docs/) -> targeted post-deploy indexing
 ```
 
-The workflow does not upload YouTube videos and does not publish social posts. Social output remains
-draft-only. `netlify.toml` is retained for compatibility but is not used by the Cloudflare workflow.
-
-The Bing and Google sitemap clients enforce one successful submission per UTC day. IndexNow still
-submits each new batch. No engine is notified if local validation, Cloudflare deployment checks, live
-HTTP checks, or live sitemap validation fails.
-
-Rollback: disable or remove `.github/workflows/post-deploy-indexing.yml`. The website deployment and
-generated pages continue to work because the workflow runs only after a Git push.
-
-## AI content growth pipeline
-
-The daily content growth workflow turns trend discovery data into website articles plus manual
-publishing assets. It auto-publishes only to the website output. It does not upload YouTube videos and
-does not post to Facebook, LinkedIn, Quora, Reddit, X, Threads, Medium, Pinterest, or any other social
-network.
-
-Workflow:
-
-```text
-discover trending AI/SaaS topics
--> select the best non-duplicate daily topics
--> create website article HTML
--> create YouTube metadata/script draft files under video_output/<slug>/
--> create manual social drafts under social_drafts/YYYY-MM-DD/<slug>/
--> build site_output
--> sync docs
--> submit generated URLs to IndexNow when available
-```
-
-Commands:
+Start the Windows operator menu with:
 
 ```powershell
-# Only discover topics. This writes data/trending_topics.json and a daily report.
-python scripts/discover_ai_trends.py --limit 10
-
-# Generate articles/assets from the existing trend file, build, sync, and submit IndexNow.
-python scripts/run_daily_content_growth.py --limit 10
-
-# Discover first, then generate the daily batch.
-python scripts/run_daily_content_growth.py --discover --limit 10
-
-# Preview topic selection without writing articles/assets.
-python scripts/run_daily_content_growth.py --limit 10 --dry-run
-
-# Generate without build or IndexNow while testing locally.
-python scripts/run_daily_content_growth.py --limit 10 --no-build --no-indexnow
+runbot_menu.bat
 ```
 
-Generated paths:
-
-- Trend data: `data/trending_topics.json`
-- Trend report: `data/trending_topics_daily_report.md`
-- Daily content report: `data/content_growth_reports/YYYY-MM-DD.md`
-- Website articles: `data/published_static_pages/<slug>/index.html`
-- YouTube manual draft files: `video_output/<slug>/`
-- Social manual draft files: `social_drafts/YYYY-MM-DD/<slug>/`
-- Performance tracking seed: `data/content_growth_performance_log.csv`
-
-Safety flags:
-
-```env
-CONTENT_GROWTH_AUTO_PUBLISH_WEBSITE=true
-CONTENT_GROWTH_VIDEO_DRAFTS_ONLY=true
-CONTENT_GROWTH_SOCIAL_DRAFTS_ONLY=true
-AUTO_YOUTUBE_UPLOAD=false
-AUTO_SOCIAL_POST=false
-```
-
-The pipeline stops if `AUTO_YOUTUBE_UPLOAD` or `AUTO_SOCIAL_POST` is set to true.
-
-Mục tiêu của nền tảng mới là biến bot thành:
-
-```text
-OpenAffiliate + Automation + AI Decision Engine + ROI Optimizer
-```
-
-Nền tảng mới tự tạo:
-
-- Bảng xếp hạng affiliate offers: `data/offer_scores.csv`
-- Market intelligence theo niche: `data/market_insights.csv`
-- Keyword intelligence: `data/keywords.csv`
-- Google Ads CSV để upload thủ công: `data/ads_google.csv`
-- Bing/Microsoft Ads CSV để upload thủ công: `data/ads_bing.csv`
-- Landing pages có affiliate disclosure: `landing_pages/output/`
-- ROI tracker và quyết định pause/watch/optimize/scale: `data/roi_report.csv`
-- Report tổng hợp: `data/report_summary.md`
-
-Chạy nền tảng mới:
+Useful read-only commands:
 
 ```powershell
-pip install -r requirements.txt
-python scripts/generate_tool_screenshots.py
-python main.py
-python -m streamlit run dashboard/app.py
+python editorial_console.py status --json
+python editorial_console.py diagnose-batch --date YYYY-MM-DD
+python editorial_console.py diagnose-article --date YYYY-MM-DD --slug SLUG
+python editorial_console.py publish-dry-run --date YYYY-MM-DD --slug SLUG
+python editorial_console.py check-live --all --open
 ```
 
-Tạo lại ảnh minh họa/mockup cho các review page bất cứ lúc nào:
+Run tests with:
 
 ```powershell
-python scripts/generate_tool_screenshots.py
-python main.py
+python -m pytest
 ```
 
-Kiểm tra priority pages sau khi deploy `site_output/` lên Cloudflare Pages:
-
-```powershell
-python scripts/live_qa_priority_pages.py
-```
-
-Script sẽ kiểm tra 5-10 URL live mẫu trên `https://smileaireviewhub.com/` và xuất kết quả vào:
-
-```text
-data/live_priority_page_qa.csv
-```
-
-Script sẽ tạo ảnh PNG 1200x720 tại:
-
-```text
-assets/screenshots/
-```
-
-Khi chạy `python main.py`, các ảnh này được copy sang:
-
-```text
-site_output/assets/screenshots/
-```
-
-Nếu review page có ảnh đúng slug, ví dụ `assets/screenshots/gamma.png`, trang sẽ hiển thị ảnh thật. Nếu chưa có ảnh, trang giữ placeholder và không lỗi.
-
-Hoặc double-click:
-
-```text
-run_platform.bat
-```
-
-Sau khi chạy, mở dashboard tại:
-
-```text
-http://localhost:8501
-```
-
-Dashboard có 8 tab:
-
-- Offer Rankings
-- Offer Detail
-- Keyword Intelligence
-- Ads Generator
-- Landing Pages
-- Profit Simulator
-- ROI Tracker
-- Reports
-
-Quan trọng:
-
-- Version này không dùng Google Ads API thật.
-- Không tự chạy tiền quảng cáo.
-- CSV luôn để upload thủ công và review trước.
-- Ads/landing page tránh claim sai sự thật và có affiliate disclosure.
-- Nếu compliance là `BLOCKED`, hệ thống không tạo ads cho offer đó.
-
-Muốn thêm offer thật, sửa file:
-
-```text
-data/offers.csv
-```
-
-Các cột quan trọng:
-
-```csv
-offer_id,brand_name,website,affiliate_url,niche,commission_type,commission_rate,flat_commission,cookie_days,recurring,traffic_policy,direct_linking_allowed,brand_bidding_allowed,vendor_trust,buyer_intent,notes
-```
-
-Muốn cập nhật số liệu ads thật, sửa/export vào:
-
-```text
-data/campaign_results.csv
-```
-
-Sau đó chạy lại:
-
-```powershell
-python main.py
-```
-
-Decision engine dùng rule:
-
-- ROI < -20%: `PAUSE`
-- ROI -20% đến 10%: `WATCH`
-- ROI 10% đến 30%: `OPTIMIZE`
-- ROI > 30%: `SCALE`
-
-## Setup
-
-```powershell
-pip install -r requirements.txt
-Copy-Item .env.example .env
-```
-
-Fill `data/input/projects_seed.csv` with candidate projects:
-
-```csv
-brand_name,website,category,source,notes
-Example SaaS,https://example.com,saas,manual,initial test
-```
-
-Telegram delivery is optional. Set `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` in `.env` only if you want report delivery.
-
-## Run
-
-Double-click:
-
-```text
-runbot.bat
-```
-
-The batch file will install dependencies if needed, discover affiliate candidates from trusted sources, run the bot, print the decision summary, and open the output folder.
-
-Manual run:
-
-```powershell
-python src/main.py
-```
-
-Outputs are written to:
-
-- `data/output/projects_raw.csv`
-- `data/output/projects_scored.csv`
-- `data/output/top_report.txt`
-- `data/output/decision_summary.txt`
-- `data/output/discovered_projects.csv`
-- `data/output/ad_launch_plan.csv`
-- `data/output/google_ads_upload_template.csv`
-- `data/output/microsoft_ads_upload_template.csv`
-- `data/output/ads_manual_steps.txt`
-- `data/output/landing_pages_index.csv`
-- `data/output/roi_report.csv`
-- `data/output/roi_summary.txt`
-- `data/output/crypto_listing_watchlist.csv`
-- `data/output/crypto_listing_summary.txt`
-- `landing_pages/`
-- `data/logs/bot.log`
-
-For manual verification, use `data/input/manual_review_template.csv` as the review sheet format.
-
-## Where To See Results
-
-- `data/output/decision_summary.txt`: easiest file to read first. It tells which affiliate projects are worth selling as information and which are worth preparing for ads.
-- `data/output/top_report.txt`: detailed ranked list of affiliate leads.
-- `data/output/projects_scored.csv`: full spreadsheet with every score, status, checklist, audience, and selling angle.
-- `data/output/projects_raw.csv`: raw crawl and parser output.
-- `data/output/discovered_projects.csv`: candidates automatically found from trusted discovery sources.
-- `data/output/ad_launch_plan.csv`: leads that passed ads precheck and the landing page/ad plan for each lead.
-- `data/output/google_ads_upload_template.csv`: starter upload template for Google Ads. Keep campaigns paused until manual review is done.
-- `data/output/microsoft_ads_upload_template.csv`: starter upload template for Microsoft/Bing Ads. Keep campaigns paused until manual review is done.
-- `data/output/ads_manual_steps.txt`: Vietnamese instructions for what you must do before turning ads on.
-- `landing_pages/`: generated static HTML landing pages for ad candidates.
-- `data/output/landing_pages_index.csv`: index of generated landing pages.
-- `data/input/ad_results.csv`: paste/export Google/Bing Ads performance here.
-- `data/output/roi_report.csv`: ROI calculations and pause/keep/scale recommendation.
-- `data/output/roi_summary.txt`: Vietnamese ROI summary.
-- `data/output/crypto_listing_watchlist.csv`: official-source crypto listing watchlist for research.
-- `data/output/crypto_listing_summary.txt`: Vietnamese summary of new/upcoming listing signals.
-
-## Ads Automation Scope
-
-The bot can automatically:
-
-- Find affiliate leads.
-- Score and rank leads.
-- Detect basic ads policy risks from affiliate terms.
-- Block high-risk leads from ad templates.
-- Generate landing page requirements.
-- Generate Google Ads and Microsoft/Bing Ads upload templates.
-- Generate static landing pages.
-- Calculate ROI from exported ad results.
-- Recommend pause/keep/scale for campaigns.
-
-You still need to manually:
-
-- Own and configure a domain.
-- Create the landing page on your domain.
-- Add affiliate disclosure, Privacy Policy, Terms, and Contact pages.
-- Paste your affiliate link into the landing page CTA.
-- Verify PPC/paid search/brand bidding rules in the affiliate terms.
-- Complete Google/Microsoft verification or crypto/finance certification when required.
-- Upload the template and keep campaigns paused until final review.
-- Publish generated landing pages to your domain.
-- Export ad performance into `data/input/ad_results.csv` after testing.
-
-## ROI Tracking
-
-After campaigns get traffic, export or enter results into:
-
-```csv
-campaign,cost,clicks,conversions,revenue,notes
-My Campaign,25,100,2,60,first test
-```
-
-Then run:
-
-```powershell
-python src/main.py
-```
-
-Check:
-
-- `data/output/roi_report.csv`
-- `data/output/roi_summary.txt`
-
-## Crypto Listing Watchlist
-
-The bot can monitor official listing announcement pages and create a research watchlist.
-
-Outputs:
-
-- `data/output/crypto_listing_watchlist.csv`
-- `data/output/crypto_listing_summary.txt`
-
-Important: this is not a buy/sell recommendation. New listings can pump and dump quickly. Always verify official announcements, tokenomics, vesting, liquidity, market cap, audit, team, and legal risk before buying.
-
-## How Auto Discovery Works
-
-The bot reads `data/input/discovery_sources.csv`, visits those source pages, extracts candidate project links with affiliate/partner/referral signals, removes duplicates, then evaluates each candidate.
-
-Edit `DISCOVERY_LIMIT` in `.env` to control how many candidates it checks per run:
-
-```env
-DISCOVERY_LIMIT=25
-```
-
-You can add more trusted sources to `data/input/discovery_sources.csv`:
-
-```csv
-source_name,source_url,category,trust_level,notes
-My Source,https://example.com/affiliate-programs,saas,high,Trusted directory
-```
-
-## How To Add Projects
-
-Edit `data/input/projects_seed.csv`:
-
-```csv
-brand_name,website,category,source,notes
-Tool Name,https://example.com,saas,manual,short note
-AI Product,https://example.ai,ai,twitter,found from post
-```
-
-Recommended categories:
-
-- `ai`
-- `saas`
-- `devtools`
-- `crypto`
-- `finance`
-- `marketing`
-- `education`
-- `ecommerce`
-
-## Scoring Meaning
-
-- `affiliate_quality_score`: how strong and clear the affiliate program looks.
-- `data_product_value_score`: how sellable this lead is as paid information.
-- `ad_readiness_score`: how ready this project is for future ad testing.
-- `total_score`: blended priority score used for ranking.
-- `recommended_action`: what to do next before selling or advertising the lead.
-- `review_status`: whether the lead is ready for verification, needs manual review, needs more research, or belongs in the watchlist.
-- `sale_status`: whether this can be packaged after proof, must be verified before selling, is blocked, or should not be sold yet.
-- `ads_status`: whether this can move toward ad testing after terms review.
-- `verification_checklist`: the exact items to verify before selling the lead or running ads.
-
-## Manual Verification Workflow
-
-1. Run the bot and open `data/output/projects_scored.csv`.
-2. Filter by `sale_status` and `review_status`.
-3. Manually open `manual_review_url` or `affiliate_url`.
-4. Confirm commission, cookie window, payout, allowed traffic sources, and program activity.
-5. Capture proof before selling the information.
-6. Only move a lead toward ads when `ads_status` is not `not_ready_for_ads` and traffic restrictions are confirmed.
-# AI Trend Discovery
-
-Run the daily topic discovery engine before generating articles:
-
-```powershell
-python scripts/discover_ai_trends.py
-```
-
-The engine reads public trend feeds and optional API-backed sources, filters topics already published in the site output, scores opportunities, and writes:
-
-- `data/trending_topics.json`
-- `data/trending_topics_daily_report.md`
-- `data/trend_reports/YYYY-MM-DD.md`
-
-It does not generate articles, videos, or deploy the website. X and YouTube discovery require `TWITTER_BEARER_TOKEN` and `YOUTUBE_API_KEY`. LinkedIn is reported as unavailable unless an approved discovery endpoint is configured.
-# Publishing health and indexing
-
-The production publish folder is `docs/`. Before pushing a content batch, run:
-
-```powershell
-python scripts/pre_publish_gate.py --urls-file data/published_today.json --repair
-```
-
-After a successful Cloudflare Pages deployment, GitHub Actions validates changed URLs and submits them to IndexNow. Bing sitemap submission requires `BING_WEBMASTER_API_KEY`. Google sitemap submission requires either `GOOGLE_SEARCH_CONSOLE_CREDENTIALS_JSON` or an access token. Google no longer supports the unauthenticated sitemap ping endpoint.
-
-Daily and post-deploy reports are written under `reports/` and `logs/indexing/`. See `PROJECT_GUIDE.md` for the complete operational rules and troubleshooting workflow.
+## Documentation
+
+- `PROJECT_GUIDE.md`: complete operator/developer guide and current project structure.
+- `architecture/FIVE_MODULE_BOUNDARIES.md`: ownership and dependency boundaries.
+- `architecture/SEO_ENGINE_BOUNDARY.md`: offline SEO scope and prohibited writes.
+- `architecture/PUBLISH_WORKFLOW.md`: approval through deployment/indexing.
+- `architecture/QUEUE_ARCHITECTURE.md`: queue ownership and lifecycle.
+- `architecture/DASHBOARD_ARCHITECTURE.md`: dashboard generation and action flow.
+- `architecture/STATE_MACHINE.md`: normalized editorial/publish/deployment states.
+- `architecture/CLI_REFERENCE.md`: menu and CLI reference.
+- `architecture/DEPLOYMENT.md`: targeted build, Cloudflare, and indexing.
+- `architecture/TEST_STRATEGY.md`: test layers and non-destructive safety rules.
+
+## Important boundaries
+
+- `Human Approved` does not mean `Ready for Publish`; all hard gates must pass.
+- Dry-run does not build, mutate state, stage, commit, push, deploy, or submit indexing.
+- A normal one-article publish uses explicit selected-slug paths; it never stages an entire `upload/<date>` directory.
+- `docs/`, `site_output/`, dashboards, reports, and queue files are generated/managed artifacts. Change their owning source or command instead of editing state/output manually.
+- Cloudflare Pages deploys `docs/`. `netlify.toml` is retained for compatibility and is not the active production deployment path.
+- SEO Engine queue actions are dry-run previews and do not approve or publish content.
+
+The earlier affiliate research bot remains available through `main.py`, `src/`, and `runbot.bat`. The editorial platform is operated through `editorial_console.py`, `runbot_menu.bat`, `modules/`, and `scripts/`.

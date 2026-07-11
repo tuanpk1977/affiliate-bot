@@ -1,27 +1,37 @@
 # SEO Engine Boundary
 
-The SEO Engine discovers and ranks editorial opportunities. It supports, but does not replace, the five production modules.
+The SEO Engine is an offline opportunity-research subsystem, entered through menu 12 or `seo_console.py`.
 
-## Ownership
+```mermaid
+sequenceDiagram
+    actor Operator
+    participant CLI as seo_console.py
+    participant SEO as modules/seo_engine
+    participant Inputs as Config/files
+    participant Reports as SEO reports
+    participant Editorial as Editorial queues
+    Operator->>CLI: import/run pipeline
+    CLI->>Inputs: read keyword seed or JSON/CSV/TXT
+    CLI->>SEO: cluster, intent, gap, links, score
+    SEO->>Reports: write analysis outputs
+    Operator->>CLI: queue one/top opportunity
+    CLI-->>Operator: dry-run preview
+    CLI--xEditorial: no approval or publish mutation
+```
 
-- Keyword import, normalization, deduplication, clustering, intent classification, gap analysis, internal-link suggestions, and transparent scoring.
-- Offline reports and the local dashboard under `data/seo/`.
-- Creating `selected` editorial queue entries only after an explicit operator command.
+## Current submenu
 
-## Inputs and Evidence
+1. Import keywords.
+2. Build clusters.
+3. Analyze content gaps.
+4. Plan internal links.
+5. Rank opportunities.
+6. Run the complete SEO pipeline.
+7. Show/open report.
+8. Preview one opportunity (`queue-opportunity`, dry-run).
+9. Preview the top opportunity (`queue-top --count 1`, dry-run).
+10. Return to the main menu.
 
-- Manual seeds and operator-provided JSON, CSV, or text files.
-- Local pages in `docs/` and drafts in `data/production_article_drafts/`.
-- Existing editorial queues for duplicate protection.
+The engine owns keyword research, clustering, search intent, content-gap analysis, internal-link planning, opportunity scoring, and its reports. It may read site/editorial information for analysis. It does not own drafts, AI review, source approval, human approval, publish-gate thresholds, article state, static output, Git staging, deployment, or indexing.
 
-External metrics are `verified` only when supplied by an imported source. Missing SERP, volume, competitor, or backlink evidence is `unavailable`; deterministic classifications are `inferred`.
-
-## Prohibited Actions
-
-- No article generation, approval, rejection, publishing, Git operations, deployment, indexing submission, or affiliate-link invention.
-- No paid API dependency and no fabricated search volume, rankings, competitors, traffic, or revenue.
-- No mutation of scoring thresholds owned by the Publisher or review gates.
-
-## Editorial Contract
-
-`queue-opportunity` and `queue-top` default to dry-run. With `--apply`, new rows use `status: selected`, `source: seo_engine`, and `requires_human_approval: true`. Existing pages and non-create decisions are rejected as duplicates.
+Safe extension points are new analyzers and report fields under `modules/seo_engine/`, provided queue and publish files remain read-only. Operator-selected SEO work is protected by stale-unpublished reset. Generated SEO reports should be regenerated through the CLI rather than edited manually.
