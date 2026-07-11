@@ -55,6 +55,7 @@ jobs:
           --from-git
           --git-base HEAD^
           --git-head HEAD
+          --preflight-mode targeted_publish_preflight
           --wait-seconds 600
           --interval-seconds 15
 

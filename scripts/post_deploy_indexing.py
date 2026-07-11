@@ -32,6 +32,8 @@ SITE_URL = f"{BASE_URL}/"
 SITEMAP_URL = f"{BASE_URL}/sitemap.xml"
 LOG_ROOT = ROOT / "logs" / "indexing"
 STATE_PATH = LOG_ROOT / "submission-state.json"
+TARGETED_PREFLIGHT = "targeted_publish_preflight"
+FULL_SITE_AUDIT = "strict_full_site_audit"
 
 
 def git_changed_urls(base: str, head: str) -> list[str]:
@@ -88,6 +90,18 @@ def urls_from_file(path: Path) -> list[str]:
         for row in rows
         if isinstance(row, dict)
     ]
+
+
+def validate_selected_outputs(urls: list[str], roots: list[Path]) -> list[str]:
+    errors: list[str] = []
+    for url in urls:
+        for root in roots:
+            target = root / url.removeprefix(f"{BASE_URL}/").strip("/") / "index.html"
+            if url == f"{BASE_URL}/":
+                target = root / "index.html"
+            if not target.is_file():
+                errors.append(f"{url}: required local output is missing: {target}")
+    return errors
 
 
 def append_json_log(path: Path, payload: dict[str, object]) -> None:
@@ -182,6 +196,9 @@ def build_base_report(
         "indexnow": {"status": "skipped"},
         "bing": {"engine": "bing", "status": "skipped", "message": ""},
         "google": {"engine": "google", "status": "skipped", "message": ""},
+        "google_submission": "skipped",
+        "bing_submission": "skipped",
+        "indexnow_submission": "skipped",
         "github": os.getenv("GITHUB_SHA", "dry-run/local"),
         "cloudflare": cloudflare,
         "warnings": warnings or [],
@@ -230,6 +247,7 @@ def main() -> int:
     started = datetime.now(timezone.utc)
     parser = argparse.ArgumentParser(description="Validate a deployed batch, then notify search engines.")
     parser.add_argument("--publish-root", default="docs")
+    parser.add_argument("--local-output-root", default="site_output")
     parser.add_argument("--sitemap", default="docs/sitemap.xml")
     parser.add_argument("--url", action="append", default=[])
     parser.add_argument("--urls-file", default="")
@@ -248,11 +266,23 @@ def main() -> int:
     parser.add_argument("--skip-google", action="store_true")
     parser.add_argument("--skip-indexnow", action="store_true")
     parser.add_argument("--expected-lastmod", default="")
+    parser.add_argument(
+        "--preflight-mode",
+        choices=(TARGETED_PREFLIGHT, FULL_SITE_AUDIT),
+        default=TARGETED_PREFLIGHT,
+        help="Validate only selected publish URLs, or audit every sitemap URL.",
+    )
     parser.add_argument("--strict-indexing", action="store_true", help="Exit nonzero on indexing/preflight failures.")
     parser.add_argument("--strict", action="store_true", help="Alias for --strict-indexing.")
     args = parser.parse_args()
-    strict_indexing = args.strict_indexing or args.strict or str(os.getenv("STRICT_INDEXING", "")).strip().lower() in {"1", "true", "yes", "on"}
+    strict_indexing = (
+        args.strict_indexing
+        or args.strict
+        or args.preflight_mode == FULL_SITE_AUDIT
+        or str(os.getenv("STRICT_INDEXING", "")).strip().lower() in {"1", "true", "yes", "on"}
+    )
     indexing_mode = "strict" if strict_indexing else "non-strict"
+    preflight_mode = args.preflight_mode
 
     urls = list(args.url)
     if args.urls_file:
@@ -295,7 +325,11 @@ def main() -> int:
         ROOT / args.sitemap,
         urls,
         expected_lastmod=expected,
-        validate_all_canonicals=True,
+        validate_all_canonicals=preflight_mode == FULL_SITE_AUDIT,
+    )
+    selected_output_errors = validate_selected_outputs(
+        urls,
+        [ROOT / args.publish_root, ROOT / args.local_output_root],
     )
     from modules.content_quality import inspect_content, write_content_qa_report
 
@@ -312,7 +346,7 @@ def main() -> int:
             "details": validation.to_dict()["sitemap"],
         },
     )
-    if not validation.ok or not content_qa_ok:
+    if not validation.ok or not content_qa_ok or selected_output_errors:
         report = {
             "status": "FAILED_PREFLIGHT",
             "articles_published": len(urls),
@@ -330,8 +364,9 @@ def main() -> int:
             "github": os.getenv("GITHUB_SHA", "dry-run/local"),
             "cloudflare": "not attempted",
             "warnings": [],
-            "errors": ["preflight validation failed"],
+            "errors": ["preflight validation failed", *selected_output_errors],
             "finished": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "preflight_mode": preflight_mode,
         }
         report["indexing_mode"] = indexing_mode
         path = write_report(report)
@@ -437,7 +472,7 @@ def main() -> int:
             indexnow_status = f"{len(urls)}/{len(urls)} submitted" if indexnow_ok else "failed"
         except Exception as exc:
             indexnow_ok = False
-            indexnow_status = "skipped_missing_credentials" if isinstance(exc, (FileNotFoundError, ValueError)) else "failed"
+            indexnow_status = "skipped_credentials_missing" if isinstance(exc, (FileNotFoundError, ValueError)) else "failed"
             print(f"WARNING: IndexNow submission unavailable: {type(exc).__name__}: {exc}")
     append_json_log(
         LOG_ROOT / "indexnow.log",
@@ -480,6 +515,7 @@ def main() -> int:
     report = {
         "status": "PASS" if overall_ok else "PARTIAL",
         "indexing_mode": indexing_mode,
+        "preflight_mode": preflight_mode,
         "articles_published": len(urls),
         "published_urls": urls,
         "live_http": live_statuses,
@@ -498,6 +534,9 @@ def main() -> int:
         "indexnow": {"status": indexnow_status},
         "bing": bing,
         "google": google,
+        "google_submission": google.get("status", "skipped"),
+        "bing_submission": bing.get("status", "skipped"),
+        "indexnow_submission": indexnow_status,
         "github": os.getenv("GITHUB_SHA", "local verification"),
         "cloudflare": "Deployed" if not args.dry_run else "dry_run",
         "warnings": warning_messages,

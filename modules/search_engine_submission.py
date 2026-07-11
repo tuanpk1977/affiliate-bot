@@ -112,7 +112,7 @@ def submit_bing_sitemap(
     if not api_key:
         result = SubmissionResult(
             engine="bing",
-            status="skipped_missing_credentials",
+            status="skipped_credentials_missing",
             message="Set BING_WEBMASTER_API_KEY to enable authenticated Bing sitemap submission.",
             submitted_at=utc_now(),
         )
@@ -216,7 +216,7 @@ def submit_google_sitemap(
             message += f" ({source})"
         result = SubmissionResult(
             engine="google",
-            status="queued_natural_discovery",
+            status="skipped_credentials_missing",
             message=message,
             submitted_at=utc_now(),
         )

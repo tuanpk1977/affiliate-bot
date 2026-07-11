@@ -126,6 +126,29 @@ class PublishingIndexingTests(unittest.TestCase):
         self.assertFalse(result.ok)
         self.assertEqual(result.published_urls_missing, [self.url])
 
+    def test_targeted_validation_ignores_unrelated_review_canonical_issue(self) -> None:
+        review_url = f"{BASE_URL}/review/old-dashboard/"
+        self.sitemap.write_text(
+            sitemap_xml([(self.url, "2026-07-11"), (review_url, "2026-07-01")]),
+            encoding="utf-8",
+        )
+        targeted = validate_batch(self.docs, self.sitemap, [self.url], validate_all_canonicals=False)
+        full_site = validate_batch(self.docs, self.sitemap, [self.url], validate_all_canonicals=True)
+
+        self.assertTrue(targeted.ok, targeted.to_dict())
+        self.assertFalse(full_site.ok)
+        self.assertTrue(any("review/old-dashboard" in item for item in full_site.sitemap.canonical_mismatches))
+
+    def test_selected_article_missing_canonical_blocks_targeted_validation(self) -> None:
+        self.sitemap.write_text(sitemap_xml([(self.url, "2026-07-11")]), encoding="utf-8")
+        target = self.docs / "test-article" / "index.html"
+        target.write_text(page_html(self.url).replace('<link rel="canonical" href="' + self.url + '">', ""), encoding="utf-8")
+
+        result = validate_batch(self.docs, self.sitemap, [self.url], validate_all_canonicals=False)
+
+        self.assertFalse(result.ok)
+        self.assertTrue(any("canonical" in error for error in result.pages[0].errors))
+
     def test_sitemap_generation_preserves_old_lastmod(self) -> None:
         self.sitemap.write_text(
             sitemap_xml([(f"{BASE_URL}/", "2026-01-10"), (self.url, "2026-01-11")]),
@@ -146,7 +169,7 @@ class PublishingIndexingTests(unittest.TestCase):
             log_path=log,
             dry_run=True,
         )
-        self.assertIn(result.status, {"dry_run", "skipped_missing_credentials"})
+        self.assertIn(result.status, {"dry_run", "skipped_credentials_missing"})
         self.assertTrue(log.exists())
 
     def test_google_missing_credentials_uses_natural_discovery(self) -> None:
@@ -159,7 +182,7 @@ class PublishingIndexingTests(unittest.TestCase):
             log_path=log,
             dry_run=True,
         )
-        self.assertIn(result.status, {"dry_run", "queued_natural_discovery"})
+        self.assertIn(result.status, {"dry_run", "skipped_credentials_missing"})
         self.assertTrue(log.exists())
 
     def test_bing_daily_limit_prevents_second_submission(self) -> None:

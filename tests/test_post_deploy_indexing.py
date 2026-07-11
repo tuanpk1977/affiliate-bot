@@ -31,18 +31,19 @@ class PostDeployIndexingTests(unittest.TestCase):
         with patch.object(indexing, "ROOT", root), patch.object(indexing, "LOG_ROOT", log_root), patch.object(indexing, "STATE_PATH", log_root / "submission-state.json"):
             with patch("sys.argv", ["post_deploy_indexing.py", *argv]):
                 with patch.object(indexing, "validate_batch", return_value=_FakeValidation(validation_ok)):
-                    with patch.object(indexing, "wait_with_recovery", return_value={f"{BASE_URL}/one/": 200}):
-                        with patch.object(indexing, "wait_for_live_urls", return_value={f"{BASE_URL}/one/": 200}):
-                            with patch.object(indexing, "validate_live_sitemap", return_value=(True, 1, [])):
-                                with patch.object(indexing, "validate_live_pages", return_value=(True, {})):
-                                    with patch.object(indexing, "submit_bing_sitemap", return_value=_engine_result("skipped_missing_credentials")):
-                                        with patch.object(indexing, "submit_google_sitemap", return_value=_engine_result("queued_natural_discovery")):
-                                            if indexnow_error is None:
-                                                submit_patch = patch.object(indexing, "submit_indexnow", return_value=True)
-                                            else:
-                                                submit_patch = patch.object(indexing, "submit_indexnow", side_effect=indexnow_error)
-                                            with submit_patch:
-                                                return indexing.main()
+                    with patch.object(indexing, "validate_selected_outputs", return_value=[]):
+                        with patch.object(indexing, "wait_with_recovery", return_value={f"{BASE_URL}/one/": 200}):
+                            with patch.object(indexing, "wait_for_live_urls", return_value={f"{BASE_URL}/one/": 200}):
+                                with patch.object(indexing, "validate_live_sitemap", return_value=(True, 1, [])):
+                                    with patch.object(indexing, "validate_live_pages", return_value=(True, {})):
+                                        with patch.object(indexing, "submit_bing_sitemap", return_value=_engine_result("skipped_credentials_missing")):
+                                            with patch.object(indexing, "submit_google_sitemap", return_value=_engine_result("skipped_credentials_missing")):
+                                                if indexnow_error is None:
+                                                    submit_patch = patch.object(indexing, "submit_indexnow", return_value=True)
+                                                else:
+                                                    submit_patch = patch.object(indexing, "submit_indexnow", side_effect=indexnow_error)
+                                                with submit_patch:
+                                                    return indexing.main()
 
     def test_missing_indexnow_credentials_non_strict_returns_zero_and_writes_report(self) -> None:
         with TemporaryDirectory() as temp_dir:
@@ -58,6 +59,41 @@ class PostDeployIndexingTests(unittest.TestCase):
         self.assertEqual(report["status"], "PARTIAL")
         self.assertEqual(report["indexing_mode"], "non-strict")
         self.assertTrue(report["warnings"])
+        self.assertEqual(report["google_submission"], "skipped_credentials_missing")
+        self.assertEqual(report["bing_submission"], "skipped_credentials_missing")
+        self.assertEqual(report["indexnow_submission"], "skipped_credentials_missing")
+
+    def test_targeted_mode_requests_selected_only_canonical_validation(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            (root / "docs" / "one").mkdir(parents=True)
+            (root / "site_output" / "one").mkdir(parents=True)
+            (root / "docs" / "one" / "index.html").write_text("ok", encoding="utf-8")
+            (root / "site_output" / "one" / "index.html").write_text("ok", encoding="utf-8")
+            with patch.object(indexing, "ROOT", root), patch.object(indexing, "LOG_ROOT", root / "logs" / "indexing"):
+                with patch("sys.argv", ["post_deploy_indexing.py", "--url", f"{BASE_URL}/one/", "--dry-run"]):
+                    with patch.object(indexing, "validate_batch", return_value=_FakeValidation()) as validate:
+                        with patch.object(indexing, "validate_selected_outputs", return_value=[]):
+                            with patch.object(indexing, "submit_bing_sitemap", return_value=_engine_result("dry_run")), patch.object(indexing, "submit_google_sitemap", return_value=_engine_result("dry_run")), patch.object(indexing, "submit_indexnow", return_value=True):
+                                code = indexing.main()
+
+        self.assertEqual(code, 0)
+        self.assertFalse(validate.call_args.kwargs["validate_all_canonicals"])
+
+    def test_live_http_404_blocks_targeted_submission(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            log_root = root / "logs" / "indexing"
+            with patch.object(indexing, "ROOT", root), patch.object(indexing, "LOG_ROOT", log_root):
+                with patch("sys.argv", ["post_deploy_indexing.py", "--url", f"{BASE_URL}/one/", "--recovery-delays", ""]):
+                    with patch.object(indexing, "validate_batch", return_value=_FakeValidation()), patch.object(indexing, "validate_selected_outputs", return_value=[]), patch.object(indexing, "wait_for_live_urls", return_value={f"{BASE_URL}/one/": 404}), patch.object(indexing, "submit_indexnow") as submit:
+                        code = indexing.main()
+
+            report = json.loads((log_root / "daily-report.json").read_text(encoding="utf-8"))
+
+        self.assertEqual(code, 0)
+        self.assertEqual(report["status"], "FAILED_DEPLOYMENT_CHECK")
+        submit.assert_not_called()
 
     def test_missing_indexnow_credentials_strict_returns_nonzero(self) -> None:
         with TemporaryDirectory() as temp_dir:
@@ -114,6 +150,7 @@ class PostDeployIndexingTests(unittest.TestCase):
         self.assertIn("Upload indexing report", workflow)
         self.assertIn("if: always()", workflow)
         self.assertIn('STRICT_INDEXING: "false"', workflow)
+        self.assertIn("--preflight-mode targeted_publish_preflight", workflow)
 
 
 if __name__ == "__main__":
