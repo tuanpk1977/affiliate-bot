@@ -2376,3 +2376,20 @@ python editorial_console.py reset-unpublished --apply
 ```
 
 Protection is assembled from `docs`, `site_output`, `data/published_static_pages`, sitemap membership, live URL history, published/live queue and report states, the latest active batch, and SEO Engine selected queue items. Approved, Ready for Publish, Published, and Live 200 records are never stale candidates. Runbot menu option 13 exposes preview and apply actions.
+
+## 21. Deterministic Publish Operations
+
+Menu option 8 resolves candidates strictly from the current batch. A candidate must be Human Approved, exactly `Ready for Publish`, free of hard blockers, not `published_local`, not Live 200, and have a valid image, schema, and canonical source output. Published and historical-only approvals cannot re-enter the candidate set.
+
+Safe operator commands:
+
+```powershell
+python editorial_console.py diagnose-batch --date YYYY-MM-DD
+python editorial_console.py publish-dry-run --date YYYY-MM-DD
+python editorial_console.py publish-dry-run --date YYYY-MM-DD --slug <slug>
+python editorial_console.py build-selected --date YYYY-MM-DD --slug <slug>
+python editorial_console.py publish-lock-status
+python editorial_console.py clear-stale-publish-lock --confirm
+```
+
+`publish-dry-run` never builds, writes output, changes queues, stages files, commits, pushes, approves, publishes, or submits indexing. `build-selected` uses a targeted child process with a default 180-second timeout and at most one retry. Real publish marks an article Published only after targeted build and validation succeed. A live process lock is never removed automatically.

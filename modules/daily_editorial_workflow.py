@@ -553,10 +553,10 @@ class DailyEditorialWorkflow:
         for item in topics:
             publish_row = publish_rows.get(str(item.get("slug") or "")) or {}
             normalized = PublishGate.normalize_existing_row(publish_row)
-            if str(normalized.get("normalized_status") or publish_row.get("status") or "") in {"approved_for_publish", "published_local"}:
+            if self._candidate_diagnostic(batch_date=batch_date, item=item, publish_row=publish_row)["selected_for_publish"]:
                 ready_items.append(item)
-        carry_forward_items = self._carry_forward_publish_candidates(batch_date=batch_date, topics=topics, publish_rows=publish_rows)
-        selected_items = ready_items + [item for item in carry_forward_items if str(item.get("slug") or "") not in {str(row.get("slug") or "") for row in ready_items}]
+        carry_forward_items: list[dict[str, Any]] = []
+        selected_items = ready_items
         if not selected_items:
             blocked_items = [
                 item
@@ -593,7 +593,7 @@ class DailyEditorialWorkflow:
             publish_row = publish_rows.get(slug) or {}
             normalized = PublishGate.normalize_existing_row(publish_row)
             publish_status = str(normalized.get("normalized_status") or publish_row.get("status") or "missing")
-            if publish_status not in {"approved_for_publish", "published_local"}:
+            if publish_status != "approved_for_publish":
                 skipped.append(
                     {
                         "slug": slug,
@@ -603,25 +603,9 @@ class DailyEditorialWorkflow:
                     }
                 )
                 continue
-            if publish_status == "published_local":
-                metadata = self.console._load_metadata(slug)
-                site_file = self.site_output_dir / slug / "index.html"
-                article_file = self.data_dir / "published_static_pages" / slug / "index.html"
-                if site_file.exists():
-                    self._copy_file(site_file, self.upload_root / batch_date / "published" / slug / "index.html")
-                published_candidates.append(
-                    {
-                        "slug": slug,
-                        "site_file": str(site_file),
-                        "article_file": str(article_file),
-                        "url": str(metadata.get("url") or publish_row.get("url") or ""),
-                        "already_published": True,
-                    }
-                )
-                continue
-            publish_result = self.console.publish_slug(slug)
-            self._copy_file(Path(publish_result["site_file"]), self.upload_root / batch_date / "published" / slug / "index.html")
-            published_candidates.append({"slug": slug, "site_file": publish_result["site_file"], "article_file": publish_result["article_file"]})
+            prepared = self.prepare_article_output(batch_date=batch_date, slug=slug)
+            paths = self._article_bundle_paths(slug)
+            published_candidates.append({"slug": slug, "site_file": str(paths["site_output"]), "article_file": str(paths["published_static"]), "url": prepared["url"]})
 
         if not published_candidates:
             raise ValueError(f"No new articles were published for batch {batch_date}.")
@@ -716,26 +700,19 @@ class DailyEditorialWorkflow:
             for key, path in self._article_bundle_paths(slug).items()
             if key in {"published_static", "site_output", "docs"} and not path.exists()
         ]
-        prepare_result = None
-        if missing_outputs:
-            prepare_result = self.prepare_article_output(batch_date=batch_date, slug=slug)
-        validation = self._run_publish_validation(
-            batch_date=batch_date,
-            published=[candidate["validation_candidate"]],
-            mode=validation_mode,
-            autofix=False,
+        validation = {"status": "not_run_missing_output", "published": [], "skipped": []} if missing_outputs else self._run_publish_validation(
+            batch_date=batch_date, published=[candidate["validation_candidate"]], mode=validation_mode, autofix=False,
         )
-        valid_published = list(validation.get("published") or [])
-        would_publish = valid_published if valid_published else [candidate["validation_candidate"]]
+        would_publish = [candidate["validation_candidate"]]
         return {
             "date": batch_date,
             "slug": slug,
             "dry_run": True,
-            "prepared_output": prepare_result,
+            "prepared_output": None,
             "missing_outputs_before_prepare": missing_outputs,
             "publish_gate_result": candidate["publish_gate"],
             "validation_result": validation,
-            "would_stage": self._publish_stage_paths(batch_date=batch_date, published=would_publish),
+            "would_stage": self._publish_stage_paths(batch_date=batch_date, published=would_publish, include_missing_selected=True),
             "commit_message": f"Publish ready daily article {batch_date}: {slug}",
             "live_url": candidate["url"],
             "git_actions": {
@@ -743,8 +720,87 @@ class DailyEditorialWorkflow:
                 "commit": "skipped_dry_run",
                 "push": "skipped_dry_run",
             },
-            "note": "Dry run only; no article was marked published, committed, pushed, or deployed.",
+            "build": {"status": "planned_not_run", "command": f"python editorial_console.py build-selected --date {batch_date} --slug {slug}"},
+            "note": "Dry run only; no output, queue, git index, commit, push, approval, or deployment state was changed.",
         }
+
+    def diagnose_batch(self, *, batch_date: str) -> dict[str, Any]:
+        payload = self._load_queue(batch_date)
+        publish_rows = {str(row.get("slug") or ""): row for row in _read_json(self.data_dir / "publish_queue.json", [])}
+        candidates = [self._candidate_diagnostic(batch_date=batch_date, item=item, publish_row=publish_rows.get(str(item.get("slug") or ""), {})) for item in payload.get("topics", [])]
+        return {"date": batch_date, "candidate_count": len(candidates), "selected_count": sum(bool(row["selected_for_publish"]) for row in candidates), "candidates": candidates}
+
+    def _candidate_diagnostic(self, *, batch_date: str, item: dict[str, Any], publish_row: dict[str, Any]) -> dict[str, Any]:
+        slug = str(item.get("slug") or "")
+        normalized = PublishGate.normalize_existing_row(publish_row)
+        status = str(normalized.get("normalized_status") or publish_row.get("status") or "unknown")
+        human_rows = {str(row.get("slug") or ""): row for row in _read_json(self.data_dir / "human_approval_queue.json", [])}
+        human_approved = str((human_rows.get(slug) or {}).get("status") or "") == "human_approved"
+        live_report = _read_json(self.data_dir / "live_status_report.json", {})
+        live_row = next((row for row in live_report.get("items", []) if str(row.get("slug") or "") == slug), {})
+        live_http = int(live_row.get("live_http_status") or 0)
+        paths = self._article_bundle_paths(slug)
+        hard_blockers = list(normalized.get("hard_blockers") or [])
+        published_local = status in {"published_local", "published"} or bool(publish_row.get("published_local"))
+        selected = status == "approved_for_publish" and normalized.get("final_gate") == "Ready for Publish" and human_approved and not hard_blockers and not published_local and live_http != 200 and str(item.get("batch_date") or batch_date) == batch_date
+        reasons = []
+        if status != "approved_for_publish" or normalized.get("final_gate") != "Ready for Publish": reasons.append(f"final gate is {normalized.get('final_gate') or status}")
+        if not human_approved: reasons.append("human approval missing")
+        if hard_blockers: reasons.append("hard blockers present")
+        if published_local: reasons.append("already published locally")
+        if live_http == 200: reasons.append("already Live 200")
+        source_path = paths["site_output"] if paths["site_output"].exists() else paths["draft_html"]
+        html_text = source_path.read_text(encoding="utf-8", errors="ignore") if source_path.exists() else ""
+        url = normalize_public_url(str(publish_row.get("url") or f"{settings.base_site_url.rstrip('/')}/{slug}/"))
+        image_exists = "<img" in html_text
+        schema_passes = "application/ld+json" in html_text
+        canonical_passes = bool(re.search(r"<link\b[^>]*\brel=[\"']canonical[\"'][^>]*\bhref=[\"']https?://[^\"']+[\"']", html_text, flags=re.IGNORECASE))
+        if not image_exists: reasons.append("required image missing")
+        if not schema_passes: reasons.append("schema missing")
+        if not canonical_passes: reasons.append("canonical missing or mismatched")
+        selected = selected and image_exists and schema_passes and canonical_passes
+        sitemap_text = (self.site_output_dir / "sitemap.xml").read_text(encoding="utf-8", errors="ignore") if (self.site_output_dir / "sitemap.xml").exists() else ""
+        return {"slug": slug, "queue_source": str(self._queue_dir(batch_date) / "topics.json"), "editorial_status": self._editorial_status_for_item(item, publish_row), "publish_gate": normalized.get("final_gate") or status, "normalized_status": status, "deployment_status": self._deployment_status_for_item(item, publish_row), "published_local": published_local, "live_http_status": live_http or None, "hard_blockers": hard_blockers, "warnings": list(normalized.get("warnings") or []), "output_exists": paths["site_output"].exists(), "docs_output_exists": paths["docs"].exists(), "published_static_exists": paths["published_static"].exists(), "image_exists": image_exists, "schema_passes": schema_passes, "canonical_passes": canonical_passes, "sitemap_contains_url": url in sitemap_text, "selected_for_publish": selected, "exclusion_reason": "; ".join(reasons) if reasons else ""}
+
+    def build_selected(self, *, batch_date: str, slug: str, timeout: int = 180, retry_count: int = 1) -> dict[str, Any]:
+        self._selected_publish_candidate(batch_date=batch_date, slug=slug)
+        prepared = self.prepare_article_output(batch_date=batch_date, slug=slug)
+        command = [sys.executable, "scripts/build_selected_output.py", "--slug", slug]
+        attempts = []
+        for attempt in range(1, min(max(retry_count, 0), 1) + 2):
+            started = time.monotonic()
+            try:
+                result = self._run_command(command, cwd=self.root, check=True, label=f"[2/6] Targeted build attempt {attempt}", timeout=timeout)
+                attempts.append({"attempt": attempt, "status": "completed", "elapsed_seconds": round(time.monotonic() - started, 2)})
+                return {"date": batch_date, "slug": slug, "status": "completed", "prepared": prepared, "build": result, "attempts": attempts}
+            except RuntimeError as exc:
+                attempts.append({"attempt": attempt, "status": "failed", "elapsed_seconds": round(time.monotonic() - started, 2), "error": str(exc)[-1000:]})
+                if attempt >= min(max(retry_count, 0), 1) + 1:
+                    return {"date": batch_date, "slug": slug, "status": "failed", "attempts": attempts, "error": str(exc)[-1000:]}
+        raise AssertionError("unreachable")
+
+    def recover_interrupted_preparation(self, *, batch_date: str, slug: str, confirm: bool = False) -> dict[str, Any]:
+        if not confirm:
+            raise ValueError("--confirm is required.")
+        diagnostic = next((row for row in self.diagnose_batch(batch_date=batch_date)["candidates"] if row["slug"] == slug), None)
+        if diagnostic is None:
+            raise ValueError(f"Slug not found in batch {batch_date}: {slug}")
+        if diagnostic["live_http_status"] == 200:
+            raise ValueError(f"Live 200 article cannot be recovered as interrupted preparation: {slug}")
+        if diagnostic["normalized_status"] != "published_local" or diagnostic["docs_output_exists"] or not diagnostic["output_exists"] or not diagnostic["published_static_exists"]:
+            raise ValueError(f"Article does not match interrupted preparation safeguards: {slug}")
+        human_rows = {str(row.get("slug") or ""): row for row in _read_json(self.data_dir / "human_approval_queue.json", [])}
+        if str((human_rows.get(slug) or {}).get("status") or "") != "human_approved":
+            raise ValueError(f"Human approval is not present: {slug}")
+        publish_rows = _read_json(self.data_dir / "publish_queue.json", [])
+        target = next(row for row in publish_rows if str(row.get("slug") or "") == slug)
+        target.setdefault("audit_history", []).append({"event": "interrupted_preparation_recovered", "previous_status": target.get("status"), "previous_published_at": target.get("published_at"), "recovered_at": datetime.now(UTC).isoformat()})
+        target["status"] = "approved_for_publish"
+        target["published_local"] = False
+        target.pop("published_at", None)
+        _write_json(self.data_dir / "publish_queue.json", publish_rows)
+        self._update_batch_status(batch_date=batch_date, slug=slug, status="approved", extra={"publish_gate_status": "approved_for_publish"})
+        return {"date": batch_date, "slug": slug, "status": "approved_for_publish", "final_gate": "Ready for Publish", "audit_history_preserved": True}
 
     def status(self, *, batch_date: str) -> dict[str, Any]:
         resolved_date = batch_date
@@ -936,9 +992,11 @@ class DailyEditorialWorkflow:
         publish_row = publish_rows.get(slug) or {}
         normalized = PublishGate.normalize_existing_row(publish_row)
         publish_status = str(normalized.get("normalized_status") or publish_row.get("status") or "")
-        if publish_status != "approved_for_publish" or normalized.get("final_gate") != "Ready for Publish":
+        diagnostic = self._candidate_diagnostic(batch_date=batch_date, item=queue_item, publish_row=publish_row)
+        if not diagnostic["selected_for_publish"]:
             label = str(normalized.get("final_gate") or publish_status or "Unknown")
-            raise ValueError(f"Article must be exactly Ready for Publish: {slug} (current state: {label})")
+            reason = str(diagnostic.get("exclusion_reason") or label)
+            raise ValueError(f"Article must be exactly Ready for Publish: {slug} (current state: {label}; {reason})")
         metadata = self.console._load_metadata(slug)
         url = normalize_public_url(str(metadata.get("url") or publish_row.get("url") or f"{settings.base_site_url.rstrip('/')}/{slug}/"))
         paths = self._article_bundle_paths(slug)
@@ -3685,9 +3743,12 @@ class DailyEditorialWorkflow:
 """
 
     def _finalize_production_publish(self, *, batch_date: str, published: list[dict[str, Any]], commit_message: str, validation_mode: str = "smart") -> dict[str, Any]:
-        self._report_progress(f"[1/6] Building site_output for {batch_date}")
-        build_result = incremental_build()
-        self._report_progress(f"[1/6] Build completed for {batch_date}")
+        slugs = [str(item.get("slug") or "") for item in published if str(item.get("slug") or "")]
+        self._report_progress(f"[2/6] Building selected output for {batch_date}: {', '.join(slugs)}")
+        build_result = self._run_command(
+            [sys.executable, "scripts/build_selected_output.py", *[part for slug in slugs for part in ("--slug", slug)]],
+            cwd=self.root, check=True, label="[2/6] Targeted build", timeout=180,
+        )
         sync_result = self._run_command(
             [sys.executable, "scripts/sync_site_output_to_docs.py"],
             cwd=self.root,
@@ -3749,6 +3810,17 @@ class DailyEditorialWorkflow:
                 "master_dashboard": str(master_dashboard),
                 "upload_summary": upload_summary,
             }
+        for item in valid_published:
+            slug = str(item.get("slug") or "")
+            paths = self._article_bundle_paths(slug)
+            publish_row = self.console.publish_gate.mark_published_local(
+                slug,
+                url=str(item.get("url") or ""),
+                article_file=paths["published_static"],
+                site_file=paths["site_output"],
+            )
+            if publish_row is None:
+                raise RuntimeError(f"Unable to mark validated article Published: {slug}")
         stage_paths = self._publish_stage_paths(batch_date=batch_date, published=valid_published)
         self._run_command(["git", "add", "--", *stage_paths], cwd=self.root, check=True, label="[4/6] Git add published docs/site_output/data/upload")
         self._run_command(["git", "commit", "-m", commit_message], cwd=self.root, check=True, label="[5/6] Git commit")
@@ -3920,7 +3992,7 @@ class DailyEditorialWorkflow:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(item, target)
 
-    def _publish_stage_paths(self, *, batch_date: str, published: list[dict[str, Any]]) -> list[str]:
+    def _publish_stage_paths(self, *, batch_date: str, published: list[dict[str, Any]], include_missing_selected: bool = False) -> list[str]:
         paths: list[Path] = []
         slugs = [str(item.get("slug") or "") for item in published if str(item.get("slug") or "").strip()]
         for slug in slugs:
@@ -3981,7 +4053,11 @@ class DailyEditorialWorkflow:
         unique: list[str] = []
         seen: set[str] = set()
         for path in paths:
-            if not path.exists():
+            is_selected_path = any(
+                str(path).replace("\\", "/").endswith(f"/{slug}")
+                for slug in slugs
+            )
+            if not path.exists() and not (include_missing_selected and is_selected_path):
                 continue
             try:
                 rel = str(path.relative_to(self.root)).replace("\\", "/")
@@ -4082,7 +4158,8 @@ class DailyEditorialWorkflow:
         try:
             completed = subprocess.run(command, cwd=cwd, text=True, capture_output=True, check=False, timeout=effective_timeout)
         except subprocess.TimeoutExpired as exc:
-            raise RuntimeError(f"Command timeout after {effective_timeout}s: {' '.join(command)}") from exc
+            stderr_tail = str(exc.stderr or "")[-1000:]
+            raise RuntimeError(f"Command timeout after {effective_timeout}s: {' '.join(command)}; stderr tail: {stderr_tail}") from exc
         result = {
             "command": command,
             "returncode": completed.returncode,
@@ -4093,5 +4170,5 @@ class DailyEditorialWorkflow:
             outcome = "OK" if completed.returncode == 0 else f"FAILED ({completed.returncode})"
             self._report_progress(f"{label}... {outcome}")
         if check and completed.returncode != 0:
-            raise RuntimeError(f"Command failed: {' '.join(command)}\n{completed.stdout}\n{completed.stderr}".strip())
+            raise RuntimeError(f"Command failed: {' '.join(command)}\nstdout tail: {completed.stdout[-1000:]}\nstderr tail: {completed.stderr[-1000:]}".strip())
         return result

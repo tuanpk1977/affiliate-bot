@@ -17,6 +17,7 @@ if str(ROOT) not in sys.path:
 
 from modules.daily_editorial_workflow import DailyEditorialWorkflow  # noqa: E402
 from modules.review_dashboard_server import ReviewDashboardServer  # noqa: E402
+from modules.publish_lock import PublishLock  # noqa: E402
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -66,7 +67,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     publish_dry_run = subparsers.add_parser("publish-dry-run", help="Show the exact publish plan for one Ready for Publish article without committing or pushing.")
     publish_dry_run.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
-    publish_dry_run.add_argument("--slug", required=True, help="Article slug.")
+    publish_dry_run.add_argument("--slug", help="Optional article slug. Without it, report every exact candidate in the batch.")
     publish_dry_run.add_argument("--validation-mode", choices=("smart", "strict"), default="smart", help="Validation mode for the dry run.")
 
     autofix_batch = subparsers.add_parser("autofix-batch", help="Auto-fix simple publish validation issues for the batch.")
@@ -97,6 +98,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     status = subparsers.add_parser("status", help="Show daily batch status.")
     status.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
+    status.add_argument("--json", action="store_true", help="Print the complete status payload.")
 
     check_live = subparsers.add_parser("check-live", help="Check whether articles are only local, synced to docs, pushed to GitHub, or likely live on the domain.")
     check_live.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
@@ -108,10 +110,28 @@ def build_parser() -> argparse.ArgumentParser:
     diagnose.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
     diagnose.add_argument("--slug", required=True, help="Article slug.")
 
+    diagnose_batch = subparsers.add_parser("diagnose-batch", help="Show deterministic publish selection diagnostics without changing state.")
+    diagnose_batch.add_argument("--date", default=today)
+
+    build_selected = subparsers.add_parser("build-selected", help="Prepare and run one bounded targeted build for an exact Ready for Publish slug.")
+    build_selected.add_argument("--date", default=today)
+    build_selected.add_argument("--slug", required=True)
+    build_selected.add_argument("--timeout", type=int, default=180)
+
+    subparsers.add_parser("publish-lock-status", help="Show the current publish process lock.")
+    clear_lock = subparsers.add_parser("clear-stale-publish-lock", help="Clear a stale publish lock after PID verification.")
+    clear_lock.add_argument("--confirm", action="store_true")
+
+    recover = subparsers.add_parser("recover-interrupted-preparation", help="Restore a non-live, docs-missing interrupted preparation to Ready for Publish.")
+    recover.add_argument("--date", default=today)
+    recover.add_argument("--slug", required=True)
+    recover.add_argument("--confirm", action="store_true")
+
     reset_unpublished = subparsers.add_parser("reset-unpublished", help="Archive stale unpublished editorial records while preserving live/current content.")
     reset_unpublished.add_argument("--before-date", help="Archive eligible items older than this YYYY-MM-DD date. Defaults to the active batch date.")
     reset_unpublished.add_argument("--apply", action="store_true", help="Apply the reset. Without this flag the command is a dry-run.")
     reset_unpublished.add_argument("--dry-run", action="store_true", help="Explicitly request the default non-mutating preview.")
+    reset_unpublished.add_argument("--json", action="store_true", help="Print the complete machine-readable reset plan.")
 
     open_cmd = subparsers.add_parser("open", help="Show or open the daily dashboard paths.")
     open_cmd.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
@@ -166,6 +186,14 @@ def _print_trend_summary(payload: dict) -> None:
 
 def _progress_print(message: str) -> None:
     print(message, flush=True)
+
+
+def _print_candidate_table(diagnostic: dict) -> None:
+    print("Publish candidate resolution:")
+    print(f"{'Slug':<58} {'Gate':<24} {'Deploy':<14} {'Selected':<8} Reason")
+    for row in diagnostic.get("candidates", []):
+        print(f"{str(row.get('slug', ''))[:58]:<58} {str(row.get('publish_gate', ''))[:24]:<24} {str(row.get('deployment_status', ''))[:14]:<14} {str(bool(row.get('selected_for_publish'))):<8} {row.get('exclusion_reason', '')}")
+    print(f"Selected exactly Ready for Publish: {diagnostic.get('selected_count', 0)}")
 
 
 def _open_local_path(path: str) -> None:
@@ -242,6 +270,7 @@ def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     workflow = DailyEditorialWorkflow()
     workflow.set_progress_reporter(_progress_print)
+    publish_lock = PublishLock(ROOT / "data" / "publish.lock")
 
     if args.command == "trend":
         payload = workflow.trend(count=args.count, mode=args.mode, batch_date=args.date)
@@ -307,6 +336,14 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(result, indent=2, ensure_ascii=False))
         return 0
     if args.command == "publish-ready":
+        diagnostic = workflow.diagnose_batch(batch_date=args.date) if hasattr(workflow, "diagnose_batch") else {"candidates": []}
+        selected_slugs = [row["slug"] for row in diagnostic["candidates"] if row["selected_for_publish"]]
+        _print_candidate_table(diagnostic)
+        try:
+            publish_lock.acquire(batch_date=args.date, slugs=selected_slugs, command="publish-ready")
+        except RuntimeError as exc:
+            print(f"[ERROR] {exc}", flush=True)
+            return 3
         stop_event, watcher, started_at = _start_publish_watch(workflow)
         try:
             result = workflow.publish_ready(batch_date=args.date, validation_mode=args.validation_mode)
@@ -322,6 +359,7 @@ def main(argv: list[str] | None = None) -> int:
         finally:
             stop_event.set()
             watcher.join(timeout=1)
+            publish_lock.release()
         total_seconds = int(time.monotonic() - started_at)
         print(f"[OK] Publish-ready hoan tat sau {total_seconds} giay.", flush=True)
         post_push = result.get("post_push_live_check") or {}
@@ -345,8 +383,37 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(workflow.prepare_article_output(batch_date=args.date, slug=args.slug), indent=2, ensure_ascii=False))
         return 0
     if args.command == "publish-dry-run":
-        print(json.dumps(workflow.publish_dry_run(batch_date=args.date, slug=args.slug, validation_mode=args.validation_mode), indent=2, ensure_ascii=False))
+        if args.slug:
+            result = workflow.publish_dry_run(batch_date=args.date, slug=args.slug, validation_mode=args.validation_mode)
+        else:
+            diagnostic = workflow.diagnose_batch(batch_date=args.date)
+            selected = [row["slug"] for row in diagnostic["candidates"] if row["selected_for_publish"]]
+            result = {"date": args.date, "dry_run": True, "candidate_diagnostics": diagnostic, "selected_slugs": selected, "results": [workflow.publish_dry_run(batch_date=args.date, slug=slug, validation_mode=args.validation_mode) for slug in selected], "note": "No build, output write, queue mutation, git action, approval, publish, or indexing submission was performed."}
+        print(json.dumps(result, indent=2, ensure_ascii=False))
         return 0
+    if args.command == "diagnose-batch":
+        print(json.dumps(workflow.diagnose_batch(batch_date=args.date), indent=2, ensure_ascii=False))
+        return 0
+    if args.command == "build-selected":
+        print(json.dumps(workflow.build_selected(batch_date=args.date, slug=args.slug, timeout=args.timeout), indent=2, ensure_ascii=False))
+        return 0
+    if args.command == "publish-lock-status":
+        print(json.dumps(publish_lock.read(), indent=2, ensure_ascii=False))
+        return 0
+    if args.command == "clear-stale-publish-lock":
+        try:
+            print(json.dumps(publish_lock.clear_stale(confirm=args.confirm), indent=2, ensure_ascii=False))
+            return 0
+        except (ValueError, RuntimeError) as exc:
+            print(f"[ERROR] {exc}")
+            return 2
+    if args.command == "recover-interrupted-preparation":
+        try:
+            print(json.dumps(workflow.recover_interrupted_preparation(batch_date=args.date, slug=args.slug, confirm=args.confirm), indent=2, ensure_ascii=False))
+            return 0
+        except ValueError as exc:
+            print(f"[ERROR] {exc}")
+            return 2
     if args.command == "autofix-batch":
         print(json.dumps(workflow.autofix_batch(batch_date=args.date), indent=2, ensure_ascii=False))
         return 0
@@ -382,7 +449,18 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(result, indent=2, ensure_ascii=False))
         return 0
     if args.command == "status":
-        print(json.dumps(workflow.status(batch_date=args.date), indent=2, ensure_ascii=False))
+        result = workflow.status(batch_date=args.date)
+        if args.json:
+            print(json.dumps(result, indent=2, ensure_ascii=False))
+        else:
+            print("Dashboard refreshed once.")
+            print(f"Published: {result.get('published', 0)}")
+            print(f"Ready for Publish: {result.get('ready_for_publish', 0)}")
+            print(f"Publish Blocked: {result.get('publish_blocked', 0)}")
+            print(f"Human Approval Required: {result.get('human_approval_required', 0)}")
+            print(f"Needs Enrichment: {result.get('needs_enrichment', 0)}")
+            print(f"Dashboard HTML: {result.get('dashboard_file', '')}")
+            print(f"Master dashboard XLSX: {workflow.data_dir / 'master_dashboard.xlsx'}")
         return 0
     if args.command == "check-live":
         payload = workflow.check_live(batch_date=args.date, include_all=args.all, blocked_only=args.blocked_only)
@@ -398,7 +476,16 @@ def main(argv: list[str] | None = None) -> int:
             print("[ERROR] Choose either --apply or --dry-run, not both.", flush=True)
             return 2
         result = workflow.reset_unpublished(before_date=args.before_date, apply=args.apply)
-        print(json.dumps(result, indent=2, ensure_ascii=False))
+        if args.json:
+            print(json.dumps(result, indent=2, ensure_ascii=False))
+        else:
+            protected = len(result.get("excluded_candidates") or {})
+            print("Reset applied." if args.apply else "Reset dry-run complete.")
+            print(f"Candidates examined: {result.get('stale_candidate_count', 0)}")
+            print(f"Protected: {protected}")
+            print(f"Stale to archive: {result.get('stale_count', 0)}")
+            print(f"Queue rows to remove: {result.get('queue_row_count', 0)}")
+            print("Changes archived safely." if args.apply else "No changes applied.")
         return 0
     if args.command == "open":
         payload = workflow.get_dashboard_paths(batch_date=args.date)

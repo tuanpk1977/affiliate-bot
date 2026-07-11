@@ -197,6 +197,9 @@ class EditorialStateReset:
             "stale_candidate_count": len(candidates), "stale_count": len(stale), "stale_slugs": stale,
             "excluded_candidates": excluded, "files_to_archive": sorted(file_paths), "queue_rows_to_remove": queue_rows,
             "queue_row_count": sum(len(rows) for rows in queue_rows.values()),
+            "candidates_examined": len(candidates),
+            "protected_candidates": len(excluded),
+            "stale_items_to_archive": len(stale),
         }
 
     def apply(self, *, before_date: str | None = None) -> dict[str, Any]:

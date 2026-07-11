@@ -151,12 +151,13 @@ def write_workbook(payload: dict[str, Any]) -> None:
     workbook.save(XLSX_PATH)
 
 
-def main() -> int:
+def main(*, verbose: bool = True) -> int:
     payload = build_dashboard_payload()
     _write_json(JSON_PATH, payload)
     write_html(payload)
     write_workbook(payload)
-    print(json.dumps({"daily_ceo_dashboard_html": str(HTML_PATH), "master_dashboard_xlsx": str(XLSX_PATH), "summary": payload["summary"]}, indent=2, ensure_ascii=False))
+    if verbose:
+        print(json.dumps({"daily_ceo_dashboard_html": str(HTML_PATH), "master_dashboard_xlsx": str(XLSX_PATH), "summary": payload["summary"]}, indent=2, ensure_ascii=False))
     return 0
 
 

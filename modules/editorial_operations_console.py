@@ -343,7 +343,7 @@ class EditorialOperationsConsole:
             except Exception:
                 build_dashboard_main = None
             if build_dashboard_main is not None:
-                build_dashboard_main()
+                build_dashboard_main(verbose=False)
         return self.build_console()
 
     def _load_metadata(self, slug: str) -> dict[str, Any]:

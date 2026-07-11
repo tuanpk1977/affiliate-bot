@@ -42,6 +42,7 @@ def _canonical_article_html(title: str = "Good") -> str:
 </head><body>
 <header class="site-header"><nav class="site-nav"></nav></header>
 <main class="article-layout"><article class="article-container">
+<img src="/assets/hero.webp" alt="Article hero" width="1200" height="630">
 <a class="cta-button" href="https://example.com" rel="noopener noreferrer">Visit official website</a>
 <div class="table-wrapper"><table class="article-table"><thead><tr><th scope="col">Tool</th></tr></thead><tbody><tr><th scope="row">One</th></tr></tbody></table></div>
 <section id="faq"><div class="faq-list"><details><summary>Question?</summary><p>Answer.</p></details></div></section>
@@ -985,6 +986,10 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                     {"slug": "two", "status": "blocked", "failures": ["AI review failed"]},
                 ],
             )
+            _write_json(data_dir / "human_approval_queue.json", [{"slug": "one", "status": "human_approved"}])
+            draft = data_dir / "production_article_drafts" / "one" / "index.html"
+            draft.parent.mkdir(parents=True, exist_ok=True)
+            draft.write_text(_canonical_article_html("One"), encoding="utf-8")
 
             with patch.object(workflow.console, "publish_slug", return_value={"site_file": str(site_output / "one" / "index.html"), "article_file": str(data_dir / "published_static_pages" / "one" / "index.html")}):
                 (site_output / "one").mkdir(parents=True, exist_ok=True)
@@ -1115,6 +1120,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                     {"slug": other_slug, "status": "approved_for_publish", "failures": [], "hard_blockers": [], "url": f"https://smileaireviewhub.com/{other_slug}/"},
                 ],
             )
+            _write_json(data_dir / "human_approval_queue.json", [{"slug": target_slug, "status": "human_approved"}, {"slug": other_slug, "status": "human_approved"}])
             for slug in (target_slug, other_slug):
                 draft_dir = data_dir / "production_article_drafts" / slug
                 draft_dir.mkdir(parents=True, exist_ok=True)
@@ -1147,6 +1153,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 data_dir / "publish_queue.json",
                 [{"slug": slug, "status": "approved_for_publish", "failures": [], "hard_blockers": [], "url": f"https://smileaireviewhub.com/{slug}/"}],
             )
+            _write_json(data_dir / "human_approval_queue.json", [{"slug": slug, "status": "human_approved"}])
             draft_dir = data_dir / "production_article_drafts" / slug
             draft_dir.mkdir(parents=True, exist_ok=True)
             (draft_dir / "index.html").write_text(_canonical_article_html("Best Agent Skills Review 2026"), encoding="utf-8")
@@ -1159,11 +1166,11 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertEqual(result["git_actions"]["commit"], "skipped_dry_run")
             self.assertEqual(result["git_actions"]["push"], "skipped_dry_run")
             self.assertEqual(result["publish_gate_result"]["status"], "approved_for_publish")
-            self.assertEqual(result["validation_result"]["total_published"], 1)
+            self.assertEqual(result["validation_result"]["status"], "not_run_missing_output")
             self.assertIn(f"site_output/{slug}", result["would_stage"])
             self.assertIn(f"docs/{slug}", result["would_stage"])
-            self.assertTrue((site_output / slug / "index.html").exists())
-            self.assertTrue((root / "docs" / slug / "index.html").exists())
+            self.assertFalse((site_output / slug / "index.html").exists())
+            self.assertFalse((root / "docs" / slug / "index.html").exists())
             publish_rows = _read_json_for_test(data_dir / "publish_queue.json")
             self.assertEqual(publish_rows[0]["status"], "approved_for_publish")
 
