@@ -1,12 +1,23 @@
 from __future__ import annotations
 
 from pathlib import Path
+from urllib.parse import urlsplit
 
 
 SITEMAP_EXCLUDED_PREFIXES = {
     "assets",
     "__pycache__",
+    "dashboard",
+    "dashboards",
     "go",
+    "report",
+    "reports",
+}
+
+SITEMAP_EXCLUDED_SEGMENTS = {
+    "draft",
+    "drafts",
+    "review",
 }
 
 REDIRECT_PATHS = {
@@ -71,4 +82,14 @@ def should_include_in_sitemap(path: str) -> bool:
     first = clean.split("/", 1)[0] if clean else ""
     if first in SITEMAP_EXCLUDED_PREFIXES:
         return False
+    if any(segment in SITEMAP_EXCLUDED_SEGMENTS for segment in clean.split("/") if segment):
+        return False
     return True
+
+
+def is_public_sitemap_base_url(base_url: str) -> bool:
+    parsed = urlsplit(str(base_url or "").strip())
+    if parsed.scheme not in {"http", "https"} or not parsed.hostname:
+        return False
+    hostname = parsed.hostname.lower().rstrip(".")
+    return hostname not in {"localhost", "127.0.0.1", "::1"}

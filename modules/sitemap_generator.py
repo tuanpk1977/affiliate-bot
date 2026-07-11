@@ -7,7 +7,7 @@ from xml.etree import ElementTree as ET
 from xml.sax.saxutils import escape
 
 from config import settings
-from modules.indexing_policy import rel_path_for_html, should_include_in_sitemap
+from modules.indexing_policy import is_public_sitemap_base_url, rel_path_for_html, should_include_in_sitemap
 
 
 def generate_sitemap(
@@ -36,6 +36,8 @@ def generate_sitemap(
 
 
 def scan_index_pages(output: Path, base_url: str) -> list[dict[str, str]]:
+    if not is_public_sitemap_base_url(base_url):
+        raise ValueError(f"Sitemap base URL must be a public HTTP(S) URL: {base_url}")
     pages: list[dict[str, str]] = []
     for index_file in sorted(output.rglob("index.html")):
         url_path = rel_path_for_html(index_file, output)

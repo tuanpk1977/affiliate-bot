@@ -159,6 +159,33 @@ class PublishingIndexingTests(unittest.TestCase):
         self.assertEqual(lastmods[f"{BASE_URL}/"], "2026-01-10")
         self.assertEqual(lastmods[self.url], date.today().isoformat())
 
+    def test_sitemap_generation_excludes_internal_review_draft_and_report_routes(self) -> None:
+        excluded_routes = (
+            "review/2026-07-11/internal-article",
+            "vi/review/2026-07-11/internal-article",
+            "draft/internal-article",
+            "vi/drafts/internal-article",
+            "dashboard/editorial",
+            "reports/publish-gate",
+        )
+        for route in excluded_routes:
+            target = self.docs / route
+            target.mkdir(parents=True)
+            (target / "index.html").write_text(page_html(f"{BASE_URL}/{route}/"), encoding="utf-8")
+
+        generate_sitemap(self.docs, BASE_URL, preserve_existing_lastmod=False)
+        sitemap_text = self.sitemap.read_text(encoding="utf-8")
+
+        self.assertIn(self.url, sitemap_text)
+        for route in excluded_routes:
+            self.assertNotIn(f"{BASE_URL}/{route}/", sitemap_text)
+
+    def test_sitemap_generation_rejects_local_or_file_base_urls(self) -> None:
+        for base_url in ("http://localhost:8765", "http://127.0.0.1:8765", "file:///tmp/site"):
+            with self.subTest(base_url=base_url):
+                with self.assertRaises(ValueError):
+                    generate_sitemap(self.docs, base_url, preserve_existing_lastmod=False)
+
     def test_bing_missing_credentials_is_safe(self) -> None:
         state = self.root / "state.json"
         log = self.root / "bing.log"
