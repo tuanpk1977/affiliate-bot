@@ -1,0 +1,35 @@
+{
+  "companies": [],
+  "products": [],
+  "ai_tools": [],
+  "people": [],
+  "organizations": [],
+  "technologies": [],
+  "frameworks": [],
+  "pricing_plans": [
+    "Companies are buying AI tools. That doesn't mean they know what to do with them. comparison pricing"
+  ],
+  "affiliate_networks": [],
+  "integrations": [],
+  "use_cases": [
+    "teams"
+  ],
+  "target_audience": [
+    "teams"
+  ],
+  "versions": [],
+  "competitors": [],
+  "alternatives": [
+    "companies are buying ai tools that doesn t mean they know what to do with them comparison alternatives"
+  ],
+  "product_categories": [],
+  "entity_coverage_score": 52,
+  "missing_entity_types": [
+    "ai_tools",
+    "companies",
+    "affiliate_networks",
+    "integrations",
+    "competitors",
+    "product_categories"
+  ]
+}

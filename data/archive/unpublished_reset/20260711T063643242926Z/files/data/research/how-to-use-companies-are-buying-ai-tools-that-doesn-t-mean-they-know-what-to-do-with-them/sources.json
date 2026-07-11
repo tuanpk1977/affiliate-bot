@@ -1,0 +1,153 @@
+{
+  "topic": "how to use Companies are buying AI tools. That doesn't mean they know what to do with them.",
+  "trusted_sources": {
+    "official_documentation": [
+      {
+        "connector_type": "official_docs",
+        "label": "how to use companies are buying ai tools that doesn t mean they know what to do with them alternatives official docs",
+        "url": "",
+        "status": "missing",
+        "evidence": "No live fetch; requires manual confirmation"
+      },
+      {
+        "connector_type": "official_docs",
+        "label": "how to use Companies are buying AI tools. That doesn't mean they know what to do with them. alternatives official docs",
+        "url": "",
+        "status": "missing",
+        "evidence": "No live fetch; requires manual confirmation"
+      }
+    ],
+    "pricing_pages": [
+      {
+        "connector_type": "pricing_page",
+        "label": "how to use companies are buying ai tools that doesn t mean they know what to do with them alternatives pricing page",
+        "url": "",
+        "status": "missing",
+        "evidence": "Pricing should be verified on official site; local source only"
+      },
+      {
+        "connector_type": "pricing_page",
+        "label": "how to use Companies are buying AI tools. That doesn't mean they know what to do with them. alternatives pricing page",
+        "url": "",
+        "status": "missing",
+        "evidence": "Pricing should be verified on official site; local source only"
+      }
+    ],
+    "product_pages": [
+      {
+        "connector_type": "product_page",
+        "label": "how to use companies are buying ai tools that doesn t mean they know what to do with them alternatives product page",
+        "url": "",
+        "status": "missing",
+        "evidence": "Brand website from local offers/affiliate data"
+      },
+      {
+        "connector_type": "product_page",
+        "label": "how to use Companies are buying AI tools. That doesn't mean they know what to do with them. alternatives product page",
+        "url": "",
+        "status": "missing",
+        "evidence": "Brand website from local offers/affiliate data"
+      }
+    ],
+    "release_notes": [
+      {
+        "connector_type": "release_notes",
+        "label": "how to use companies are buying ai tools that doesn t mean they know what to do with them alternatives release notes",
+        "url": "",
+        "status": "missing",
+        "evidence": "No offline release-note source available"
+      },
+      {
+        "connector_type": "release_notes",
+        "label": "how to use Companies are buying AI tools. That doesn't mean they know what to do with them. alternatives release notes",
+        "url": "",
+        "status": "missing",
+        "evidence": "No offline release-note source available"
+      }
+    ],
+    "api_docs": [
+      {
+        "connector_type": "api_docs",
+        "label": "how to use Companies are buying AI tools. That doesn't mean they know what to do with them. API docs",
+        "url": "",
+        "status": "missing",
+        "evidence": "No API signal in keyword"
+      }
+    ],
+    "research_papers": [],
+    "blog_articles": [
+      {
+        "connector_type": "competitor_article",
+        "label": "how to use Companies are buying AI tools. That doesn't mean they know what to do with them. competitor article",
+        "url": "",
+        "status": "missing",
+        "evidence": "Requires local competitor snapshot input"
+      }
+    ],
+    "community": [],
+    "affiliate_program_pages": [
+      {
+        "connector_type": "affiliate_program_page",
+        "label": "how to use companies are buying ai tools that doesn t mean they know what to do with them alternatives affiliate program page",
+        "url": "",
+        "status": "missing",
+        "evidence": "Affiliate page from local offers/affiliate data"
+      },
+      {
+        "connector_type": "affiliate_program_page",
+        "label": "how to use Companies are buying AI tools. That doesn't mean they know what to do with them. alternatives affiliate program page",
+        "url": "",
+        "status": "missing",
+        "evidence": "Affiliate page from local offers/affiliate data"
+      }
+    ]
+  },
+  "reference_count": 0,
+  "estimated_source_count": 0,
+  "missing_source_count": 12,
+  "verified_registry_records": [],
+  "verified_sources": [],
+  "pending_sources": [],
+  "expired_sources": [],
+  "duplicate_sources": [],
+  "missing_verified_sources": [
+    "official_docs",
+    "pricing_page",
+    "affiliate_program_page",
+    "release_notes",
+    "competitor_article"
+  ],
+  "source_confidence": 0.0,
+  "source_status": "missing",
+  "official_docs_score": 0,
+  "pricing_source_score": 0,
+  "affiliate_source_score": 0,
+  "changelog_source_score": 0,
+  "competitor_source_score": 0,
+  "total_verified_source_score": 0,
+  "review_queue_size": 12,
+  "knowledge_dashboard": {
+    "verified_sources": 15,
+    "pending_review": 0,
+    "expired_sources": 0,
+    "duplicate_sources": 0,
+    "coverage": 100.0,
+    "average_trust": 98.27,
+    "average_freshness": 99.4,
+    "verified_percent": 100.0,
+    "pending_percent": 0.0,
+    "expired_percent": 0.0,
+    "duplicate_percent": 0.0,
+    "official_docs_percent": 20.0,
+    "pricing_percent": 20.0,
+    "affiliate_percent": 20.0,
+    "competitor_percent": 0.0,
+    "missing_official_docs": 0,
+    "missing_pricing": 0,
+    "missing_release_notes": 0,
+    "missing_affiliate": 0,
+    "missing_competitor_snapshots": 3,
+    "top_weak_topics": [],
+    "queue_items": 12
+  }
+}

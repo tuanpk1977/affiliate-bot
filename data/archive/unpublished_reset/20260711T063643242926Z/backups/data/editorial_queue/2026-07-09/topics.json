@@ -1,0 +1,588 @@
+{
+  "generated_at": "2026-07-09T05:03:23.399268+00:00",
+  "date": "2026-07-09",
+  "week_start": "2026-07-06",
+  "week_end": "2026-07-12",
+  "mode": "advanced",
+  "count": 10,
+  "source_status": {
+    "google_trends": {
+      "status": "ok",
+      "signals": 10
+    },
+    "bing_trending": {
+      "status": "ok",
+      "signals": 29
+    },
+    "reddit": {
+      "status": "empty",
+      "signals": 0
+    },
+    "hacker_news": {
+      "status": "ok",
+      "signals": 40
+    },
+    "product_hunt": {
+      "status": "ok",
+      "signals": 40
+    },
+    "github_trending": {
+      "status": "ok",
+      "signals": 13
+    },
+    "x_twitter": {
+      "status": "unavailable",
+      "signals": 0,
+      "detail": "Set TWITTER_BEARER_TOKEN to enable X recent-search discovery."
+    },
+    "linkedin": {
+      "status": "unavailable",
+      "signals": 0,
+      "detail": "LinkedIn does not expose public trending search; set LINKEDIN_ACCESS_TOKEN and a permitted discovery endpoint."
+    },
+    "youtube_trending": {
+      "status": "unavailable",
+      "signals": 0,
+      "detail": "Set YOUTUBE_API_KEY to enable YouTube trending discovery."
+    },
+    "ai_newsletters": {
+      "status": "ok",
+      "signals": 40
+    },
+    "local_keyword_intelligence": {
+      "status": "ok",
+      "signals": 40
+    }
+  },
+  "duplicate_warning_count": 0,
+  "duplicate_warning_slugs": [],
+  "topics": [
+    {
+      "keyword": "agent-skills Review 2026 comparison",
+      "slug": "agent-skills-review-2026-comparison",
+      "search_intent": "comparison",
+      "search_intent_score": 86,
+      "affiliate_monetization_score": 49,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 66,
+      "content_type": "comparison",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/addyosmani/agent-skills"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "comparison follow-up for agent-skills Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Recent multi-source activity indicates timely interest."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 64.2,
+      "rank": 1,
+      "status": "drafted",
+      "week_start": "2026-07-06",
+      "parent_keyword": "agent-skills Review 2026",
+      "parent_slug": "agent-skills-review-2026",
+      "batch_date": "2026-07-09",
+      "mode": "advanced",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 47.43,
+        "threshold": 60.0,
+        "override_used": true,
+        "status": "override_allowed"
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\agent-skills-review-2026-comparison",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\agent-skills-review-2026-comparison\\index.html",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-09\\agent-skills-review-2026-comparison\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\agent-skills-review-2026-comparison\\metadata.json",
+      "article_title": "agent-skills Review 2026 comparison: Pricing, Pros, Cons",
+      "review_status": "needs_revision",
+      "human_approval_status": "needs_revision",
+      "publish_gate_status": "blocked",
+      "error": ""
+    },
+    {
+      "keyword": "meetily Review 2026 comparison",
+      "slug": "meetily-review-2026-comparison",
+      "search_intent": "comparison",
+      "search_intent_score": 86,
+      "affiliate_monetization_score": 49,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 66,
+      "content_type": "comparison",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/Zackriya-Solutions/meetily"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "comparison follow-up for meetily Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Can remain useful after the current news cycle.",
+        "Recent multi-source activity indicates timely interest."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 64.2,
+      "rank": 2,
+      "status": "drafted",
+      "week_start": "2026-07-06",
+      "parent_keyword": "meetily Review 2026",
+      "parent_slug": "meetily-review-2026",
+      "batch_date": "2026-07-09",
+      "mode": "advanced",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 47.43,
+        "threshold": 60.0,
+        "override_used": true,
+        "status": "override_allowed"
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\meetily-review-2026-comparison",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\meetily-review-2026-comparison\\index.html",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-09\\meetily-review-2026-comparison\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\meetily-review-2026-comparison\\metadata.json",
+      "article_title": "meetily Review 2026 comparison: Pricing, Pros, Cons",
+      "review_status": "needs_revision",
+      "human_approval_status": "needs_revision",
+      "publish_gate_status": "blocked",
+      "error": ""
+    },
+    {
+      "keyword": "system_prompts_leaks Review 2026 comparison",
+      "slug": "system-prompts-leaks-review-2026-comparison",
+      "search_intent": "comparison",
+      "search_intent_score": 86,
+      "affiliate_monetization_score": 49,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 66,
+      "content_type": "comparison",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/asgeirtj/system_prompts_leaks"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "comparison follow-up for system_prompts_leaks Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Can remain useful after the current news cycle.",
+        "Recent multi-source activity indicates timely interest."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 64.2,
+      "rank": 3,
+      "status": "drafted",
+      "week_start": "2026-07-06",
+      "parent_keyword": "system_prompts_leaks Review 2026",
+      "parent_slug": "system-prompts-leaks-review-2026",
+      "batch_date": "2026-07-09",
+      "mode": "advanced",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 47.43,
+        "threshold": 60.0,
+        "override_used": true,
+        "status": "override_allowed"
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\system-prompts-leaks-review-2026-comparison",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\system-prompts-leaks-review-2026-comparison\\index.html",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-09\\system-prompts-leaks-review-2026-comparison\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\system-prompts-leaks-review-2026-comparison\\metadata.json",
+      "article_title": "system_prompts_leaks Review 2026 comparison",
+      "review_status": "needs_revision",
+      "human_approval_status": "needs_revision",
+      "publish_gate_status": "blocked",
+      "error": ""
+    },
+    {
+      "keyword": "ai-job-search Review 2026 comparison",
+      "slug": "ai-job-search-review-2026-comparison",
+      "search_intent": "comparison",
+      "search_intent_score": 86,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 67,
+      "content_type": "comparison",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/MadsLorentzen/ai-job-search"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "comparison follow-up for ai-job-search Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Recent multi-source activity indicates timely interest."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 63.1,
+      "rank": 4,
+      "status": "drafted",
+      "week_start": "2026-07-06",
+      "parent_keyword": "ai-job-search Review 2026",
+      "parent_slug": "ai-job-search-review-2026",
+      "batch_date": "2026-07-09",
+      "mode": "advanced",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 47.43,
+        "threshold": 60.0,
+        "override_used": true,
+        "status": "override_allowed"
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\ai-job-search-review-2026-comparison",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\ai-job-search-review-2026-comparison\\index.html",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-09\\ai-job-search-review-2026-comparison\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\ai-job-search-review-2026-comparison\\metadata.json",
+      "article_title": "ai-job-search Review 2026 comparison: Pricing, Pros, Cons",
+      "review_status": "needs_revision",
+      "human_approval_status": "needs_revision",
+      "publish_gate_status": "blocked",
+      "error": ""
+    },
+    {
+      "keyword": "OfficeCLI Review 2026 comparison",
+      "slug": "officecli-review-2026-comparison",
+      "search_intent": "comparison",
+      "search_intent_score": 86,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 65,
+      "content_type": "comparison",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/iOfficeAI/OfficeCLI"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "comparison follow-up for OfficeCLI Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Recent multi-source activity indicates timely interest."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 62.8,
+      "rank": 5,
+      "status": "drafted",
+      "week_start": "2026-07-06",
+      "parent_keyword": "OfficeCLI Review 2026",
+      "parent_slug": "officecli-review-2026",
+      "batch_date": "2026-07-09",
+      "mode": "advanced",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 47.43,
+        "threshold": 60.0,
+        "override_used": true,
+        "status": "override_allowed"
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\officecli-review-2026-comparison",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\officecli-review-2026-comparison\\index.html",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-09\\officecli-review-2026-comparison\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\officecli-review-2026-comparison\\metadata.json",
+      "article_title": "OfficeCLI Review 2026 comparison: Pricing, Pros, Cons",
+      "review_status": "needs_revision",
+      "human_approval_status": "needs_revision",
+      "publish_gate_status": "blocked",
+      "error": ""
+    },
+    {
+      "keyword": "CubeSandbox Review 2026 comparison",
+      "slug": "cubesandbox-review-2026-comparison",
+      "search_intent": "comparison",
+      "search_intent_score": 86,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 64,
+      "content_type": "comparison",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/TencentCloud/CubeSandbox"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "comparison follow-up for CubeSandbox Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 62.7,
+      "rank": 6,
+      "status": "drafted",
+      "week_start": "2026-07-06",
+      "parent_keyword": "CubeSandbox Review 2026",
+      "parent_slug": "cubesandbox-review-2026",
+      "batch_date": "2026-07-09",
+      "mode": "advanced",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 47.43,
+        "threshold": 60.0,
+        "override_used": true,
+        "status": "override_allowed"
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\cubesandbox-review-2026-comparison",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\cubesandbox-review-2026-comparison\\index.html",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-09\\cubesandbox-review-2026-comparison\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\cubesandbox-review-2026-comparison\\metadata.json",
+      "article_title": "CubeSandbox Review 2026 comparison: Pricing, Pros, Cons",
+      "review_status": "needs_revision",
+      "human_approval_status": "needs_revision",
+      "publish_gate_status": "blocked",
+      "error": ""
+    },
+    {
+      "keyword": "skills Review 2026 comparison",
+      "slug": "skills-review-2026-comparison",
+      "search_intent": "comparison",
+      "search_intent_score": 86,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 58,
+      "content_type": "comparison",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/dotnet/skills"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "comparison follow-up for skills Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Competition estimate is low-to-medium."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 61.7,
+      "rank": 7,
+      "status": "drafted",
+      "week_start": "2026-07-06",
+      "parent_keyword": "skills Review 2026",
+      "parent_slug": "skills-review-2026",
+      "batch_date": "2026-07-09",
+      "mode": "advanced",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 47.43,
+        "threshold": 60.0,
+        "override_used": true,
+        "status": "override_allowed"
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\skills-review-2026-comparison",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\skills-review-2026-comparison\\index.html",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-09\\skills-review-2026-comparison\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\skills-review-2026-comparison\\metadata.json",
+      "article_title": "skills Review 2026 comparison: Pricing, Pros, Cons",
+      "review_status": "needs_revision",
+      "human_approval_status": "needs_revision",
+      "publish_gate_status": "blocked",
+      "error": ""
+    },
+    {
+      "keyword": "Companies are buying AI tools. That doesn't mean they know what to do with them. comparison",
+      "slug": "companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-comparison",
+      "search_intent": "comparison",
+      "search_intent_score": 86,
+      "affiliate_monetization_score": 56,
+      "competition_difficulty_score": 59,
+      "product_availability_score": 58,
+      "content_freshness_score": 46,
+      "content_type": "comparison",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6a4daa8ba52f4bc59edafe251e6c2451&url=https%3a%2f%2fwww.msn.com%2fen-us%2fmoney%2fgeneral%2fcompanies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them%2far-AA27ixDK&c=9272310961143977806&mkt=en-ww"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "comparison follow-up for Companies are buying AI tools. That doesn't mean they know what to do with them.",
+      "why_selected": [
+        "Detected across 1 source(s): bing_trending."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 58.7,
+      "rank": 8,
+      "status": "drafted",
+      "week_start": "2026-07-06",
+      "parent_keyword": "Companies are buying AI tools. That doesn't mean they know what to do with them.",
+      "parent_slug": "companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them",
+      "batch_date": "2026-07-09",
+      "mode": "advanced",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 46.0,
+        "threshold": 60.0,
+        "override_used": true,
+        "status": "override_allowed"
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-comparison",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-comparison\\index.html",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-09\\companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-comparison\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-comparison\\metadata.json",
+      "article_title": "Companies are buying AI tools. That doesn't mean they kn",
+      "review_status": "needs_revision",
+      "human_approval_status": "needs_revision",
+      "publish_gate_status": "blocked",
+      "error": ""
+    },
+    {
+      "keyword": "best ai meeting software comparison",
+      "slug": "best-ai-meeting-software-comparison",
+      "search_intent": "comparison",
+      "search_intent_score": 86,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 59,
+      "product_availability_score": 58,
+      "content_freshness_score": 56,
+      "content_type": "comparison",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "comparison follow-up for best ai meeting software",
+      "why_selected": [
+        "Detected across 1 source(s): local_keyword_intelligence."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 57.4,
+      "rank": 9,
+      "status": "drafted",
+      "week_start": "2026-07-06",
+      "parent_keyword": "best ai meeting software",
+      "parent_slug": "best-ai-meeting-software",
+      "batch_date": "2026-07-09",
+      "mode": "advanced",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 60.07,
+        "threshold": 60.0,
+        "override_used": false,
+        "status": "passed"
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-ai-meeting-software-comparison",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-ai-meeting-software-comparison\\index.html",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-09\\best-ai-meeting-software-comparison\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-ai-meeting-software-comparison\\metadata.json",
+      "article_title": "best ai meeting software comparison 2026",
+      "review_status": "needs_revision",
+      "human_approval_status": "needs_revision",
+      "publish_gate_status": "blocked",
+      "error": ""
+    },
+    {
+      "keyword": "best ai meeting tools comparison",
+      "slug": "best-ai-meeting-tools-comparison",
+      "search_intent": "comparison",
+      "search_intent_score": 86,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 59,
+      "product_availability_score": 58,
+      "content_freshness_score": 56,
+      "content_type": "comparison",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "comparison follow-up for best ai meeting tools",
+      "why_selected": [
+        "Detected across 1 source(s): local_keyword_intelligence."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 57.4,
+      "rank": 10,
+      "status": "drafted",
+      "week_start": "2026-07-06",
+      "parent_keyword": "best ai meeting tools",
+      "parent_slug": "best-ai-meeting-tools",
+      "batch_date": "2026-07-09",
+      "mode": "advanced",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 60.07,
+        "threshold": 60.0,
+        "override_used": false,
+        "status": "passed"
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-ai-meeting-tools-comparison",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-ai-meeting-tools-comparison\\index.html",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-09\\best-ai-meeting-tools-comparison\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-ai-meeting-tools-comparison\\metadata.json",
+      "article_title": "best ai meeting tools comparison 2026: Pricing, Pros, Cons",
+      "review_status": "needs_human_review",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "blocked",
+      "error": ""
+    }
+  ],
+  "drafted_at": "2026-07-09T05:03:31.791320+00:00"
+}

@@ -108,6 +108,11 @@ def build_parser() -> argparse.ArgumentParser:
     diagnose.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
     diagnose.add_argument("--slug", required=True, help="Article slug.")
 
+    reset_unpublished = subparsers.add_parser("reset-unpublished", help="Archive stale unpublished editorial records while preserving live/current content.")
+    reset_unpublished.add_argument("--before-date", help="Archive eligible items older than this YYYY-MM-DD date. Defaults to the active batch date.")
+    reset_unpublished.add_argument("--apply", action="store_true", help="Apply the reset. Without this flag the command is a dry-run.")
+    reset_unpublished.add_argument("--dry-run", action="store_true", help="Explicitly request the default non-mutating preview.")
+
     open_cmd = subparsers.add_parser("open", help="Show or open the daily dashboard paths.")
     open_cmd.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
     open_cmd.add_argument("--master", action="store_true", help="Open upload/dashboard.html instead of the daily review dashboard.")
@@ -387,6 +392,13 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.command == "diagnose-article":
         print(json.dumps(workflow.diagnose_article(batch_date=args.date, slug=args.slug), indent=2, ensure_ascii=False))
+        return 0
+    if args.command == "reset-unpublished":
+        if args.apply and args.dry_run:
+            print("[ERROR] Choose either --apply or --dry-run, not both.", flush=True)
+            return 2
+        result = workflow.reset_unpublished(before_date=args.before_date, apply=args.apply)
+        print(json.dumps(result, indent=2, ensure_ascii=False))
         return 0
     if args.command == "open":
         payload = workflow.get_dashboard_paths(batch_date=args.date)

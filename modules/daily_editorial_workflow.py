@@ -21,6 +21,7 @@ from modules.affiliate_links import load_affiliate_links
 from modules.ai_trend_discovery import TrendDiscoveryEngine, classify_content_type, classify_search_intent, load_affiliate_brands, slugify
 from modules.content_growth_pipeline import generate_production_article_draft_from_package, get_research_platform, is_near_duplicate
 from modules.editorial_operations_console import EditorialOperationsConsole
+from modules.editorial_state_reset import EditorialStateReset
 from modules.publish_gate import PublishGate
 from modules.publishing_indexing import normalize_public_url, validate_page
 
@@ -799,13 +800,24 @@ class DailyEditorialWorkflow:
         summary["publish_blocked"] = sum(1 for row in normalized_publish_rows if str(row.get("normalized_status") or "") == "blocked")
         summary["human_approval_required"] = sum(1 for row in normalized_publish_rows if str(row.get("normalized_status") or "") == "needs_human_review")
         summary["published_local"] = sum(1 for row in batch_publish_rows if str(row.get("status") or "") == "published_local")
+        summary["published"] = sum(
+            1
+            for item, row in zip(topics, batch_publish_rows)
+            if str(item.get("status") or "") == "published" or str(row.get("status") or "") in {"published_local", "published"}
+        )
         summary["drafts"] = sum(1 for status in editorial_statuses if status == "Draft")
         summary["needs_review"] = sum(1 for status in editorial_statuses if status == "Needs Review")
         summary["human_approved"] = sum(1 for status in editorial_statuses if status == "Human Approved")
-        summary["published_this_batch"] = sum(1 for item in topics if str(item.get("status") or "") == "published")
+        summary["published_this_batch"] = summary["published"]
         summary["top_block_reasons"] = self._top_block_reasons(batch_publish_rows)
         summary["next_recommended_command"] = self._recommended_command(summary, batch_date=resolved_date)
+        reset_summary = _read_json(self.data_dir / "archive" / "unpublished_reset" / "latest_summary.json", {})
+        summary["archived_unpublished"] = int(reset_summary.get("archived_count") or 0)
         return summary
+
+    def reset_unpublished(self, *, before_date: str | None = None, apply: bool = False) -> dict[str, Any]:
+        reset = EditorialStateReset(root=self.root, workflow=self)
+        return reset.apply(before_date=before_date) if apply else reset.plan(before_date=before_date)
 
     def diagnose_article(self, *, batch_date: str, slug: str) -> dict[str, Any]:
         payload = self._load_queue(batch_date)
@@ -1995,6 +2007,7 @@ class DailyEditorialWorkflow:
             f"<div class='kpi'>Publish Blocked<strong>{summary['publish_blocked']}</strong></div>"
             f"<div class='kpi'>Ready for Publish<strong>{summary['ready_for_publish']}</strong></div>"
             f"<div class='kpi'>Published<strong>{summary['published']}</strong></div>"
+            f"<div class='kpi'>Archived / removed<strong>{summary.get('archived_unpublished', 0)}</strong></div>"
             f"<div class='kpi'>Top block reasons<strong class='small'>{html.escape(top_block_reasons)}</strong></div>"
             "</div>"
         )

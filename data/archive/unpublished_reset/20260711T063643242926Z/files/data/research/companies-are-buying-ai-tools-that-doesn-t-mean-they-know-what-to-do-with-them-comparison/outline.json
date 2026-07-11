@@ -1,0 +1,98 @@
+{
+  "seo_outline": [
+    "Pricing",
+    "Best fit",
+    "Pros and cons",
+    "CTA"
+  ],
+  "article_structure": [
+    "Clarify plans and value",
+    "Explain who should buy",
+    "Highlight tradeoffs",
+    "Guide the next step"
+  ],
+  "heading_hierarchy": [
+    {
+      "level": 2,
+      "heading": "Pricing",
+      "purpose": "Clarify plans and value"
+    },
+    {
+      "level": 2,
+      "heading": "Best fit",
+      "purpose": "Explain who should buy"
+    },
+    {
+      "level": 2,
+      "heading": "Pros and cons",
+      "purpose": "Highlight tradeoffs"
+    },
+    {
+      "level": 2,
+      "heading": "CTA",
+      "purpose": "Guide the next step"
+    }
+  ],
+  "faq_placement": "After alternatives and before final CTA",
+  "cta_placement": "Hero CTA and final verdict CTA",
+  "internal_link_opportunities": [
+    "/",
+    "/reviews/",
+    "/comparisons/"
+  ],
+  "affiliate_blocks": [
+    "affiliate disclosure",
+    "pricing verification note",
+    "comparison shortlist CTA"
+  ],
+  "product_comparison_tables": [
+    "feature comparison table",
+    "pricing and plan limits table"
+  ],
+  "images_required": [
+    "hero visual",
+    "comparison table screenshot",
+    "pricing checklist visual"
+  ],
+  "infographic_suggestions": [
+    "Companies are buying AI tools. That doesn't mean they know what to do with them. comparison buyer checklist infographic",
+    "Companies are buying AI tools. That doesn't mean they know what to do with them. comparison comparison flow infographic"
+  ],
+  "video_suggestions": [
+    "Companies are buying AI tools. That doesn't mean they know what to do with them. comparison walkthrough",
+    "Companies are buying AI tools. That doesn't mean they know what to do with them. comparison comparison short"
+  ],
+  "faq_groups": {
+    "beginner": [
+      "What is Companies are buying AI tools. That doesn't mean they know what to do with them. comparison and who is it for?",
+      "How should beginners evaluate Companies are buying AI tools. That doesn't mean they know what to do with them. comparison before buying?"
+    ],
+    "intermediate": [
+      "What workflow problems does Companies are buying AI tools. That doesn't mean they know what to do with them. comparison solve best?",
+      "Which integrations matter most when using Companies are buying AI tools. That doesn't mean they know what to do with them. comparison?"
+    ],
+    "advanced": [
+      "What implementation risks appear when teams scale Companies are buying AI tools. That doesn't mean they know what to do with them. comparison?",
+      "How often should Companies are buying AI tools. That doesn't mean they know what to do with them. comparison content be updated after product changes?"
+    ],
+    "comparison": [
+      "How does Companies are buying AI tools. That doesn't mean they know what to do with them. comparison compare with alternatives?",
+      "When should a buyer choose an alternative instead of Companies are buying AI tools. That doesn't mean they know what to do with them. comparison?"
+    ],
+    "pricing": [
+      "What should readers verify on the pricing page for Companies are buying AI tools. That doesn't mean they know what to do with them. comparison?",
+      "Which hidden cost risks matter most when evaluating Companies are buying AI tools. That doesn't mean they know what to do with them. comparison?"
+    ],
+    "troubleshooting": [
+      "What should the writer do if official pricing or feature details conflict for Companies are buying AI tools. That doesn't mean they know what to do with them. comparison?",
+      "How should broken links or outdated claims about Companies are buying AI tools. That doesn't mean they know what to do with them. comparison be handled before publishing?"
+    ]
+  },
+  "recommended_cta": "Compare plans and choose the option that fits your needs.",
+  "confidence": 0.95,
+  "reasoning": [
+    "Built an outline for 'Companies are buying AI tools. That doesn't mean they know what to do with them. comparison' using the 'transactional' template.",
+    "Used keyword signals: Companies are buying AI tools. That doesn't mean they know what to do with them. comparison pricing, Companies are buying AI tools. That doesn't mean they know what to do with them. comparison alternatives, Companies are buying AI tools. That doesn't mean they know what to do with them. comparison comparison.",
+    "Included 4 planned sections for the article structure."
+  ]
+}

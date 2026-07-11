@@ -1,0 +1,120 @@
+{
+  "generated_at": "2026-07-07T14:33:47.734085+00:00",
+  "date": "2026-07-07",
+  "mode": "advanced",
+  "count": 2,
+  "source_status": {
+    "google_trends": {
+      "status": "ok",
+      "signals": 10
+    },
+    "bing_trending": {
+      "status": "ok",
+      "signals": 30
+    },
+    "reddit": {
+      "status": "ok",
+      "signals": 25
+    },
+    "hacker_news": {
+      "status": "ok",
+      "signals": 40
+    },
+    "product_hunt": {
+      "status": "ok",
+      "signals": 40
+    },
+    "github_trending": {
+      "status": "error",
+      "signals": 0,
+      "detail": "ConnectTimeout: HTTPSConnectionPool(host='github.com', port=443): Max retries exceeded with url: /trending?since=daily (Caused by ConnectTimeoutError(<HTTPSConnection(host='github.com', port=443) at 0x22cd056f610>, 'Connection to github.com timed out. (connect timeout=20)'))"
+    },
+    "x_twitter": {
+      "status": "unavailable",
+      "signals": 0,
+      "detail": "Set TWITTER_BEARER_TOKEN to enable X recent-search discovery."
+    },
+    "linkedin": {
+      "status": "unavailable",
+      "signals": 0,
+      "detail": "LinkedIn does not expose public trending search; set LINKEDIN_ACCESS_TOKEN and a permitted discovery endpoint."
+    },
+    "youtube_trending": {
+      "status": "unavailable",
+      "signals": 0,
+      "detail": "Set YOUTUBE_API_KEY to enable YouTube trending discovery."
+    },
+    "ai_newsletters": {
+      "status": "ok",
+      "signals": 40
+    },
+    "local_keyword_intelligence": {
+      "status": "ok",
+      "signals": 40
+    }
+  },
+  "topics": [
+    {
+      "keyword": "best ai meeting software review 2026",
+      "slug": "best-ai-meeting-software-review-2026",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 59,
+      "product_availability_score": 58,
+      "content_freshness_score": 56,
+      "content_type": "review",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "Build best ai meeting software as a curated buyer guide, not a generic ranked list.",
+      "why_selected": [
+        "Detected across 1 source(s): local_keyword_intelligence.",
+        "Advanced mode expanded this topic into a review article."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 58.3,
+      "rank": 1,
+      "batch_date": "2026-07-07",
+      "mode": "advanced",
+      "status": "selected"
+    },
+    {
+      "keyword": "best ai voice software review 2026",
+      "slug": "best-ai-voice-software-review-2026",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 59,
+      "product_availability_score": 58,
+      "content_freshness_score": 56,
+      "content_type": "review",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "Build best ai voice software as a curated buyer guide, not a generic ranked list.",
+      "why_selected": [
+        "Detected across 1 source(s): local_keyword_intelligence.",
+        "Advanced mode expanded this topic into a review article."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 58.3,
+      "rank": 2,
+      "batch_date": "2026-07-07",
+      "mode": "advanced",
+      "status": "selected"
+    }
+  ]
+}

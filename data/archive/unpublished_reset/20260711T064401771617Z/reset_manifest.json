@@ -1,0 +1,1704 @@
+{
+  "dry_run": true,
+  "active_date": "2026-07-11",
+  "before_date": "2026-07-11",
+  "protected_count": 259,
+  "protected_slugs": [
+    "8-best-generative-ai-software-stocks-to-buy-in-june-2026",
+    "about",
+    "about-author",
+    "activecampaign",
+    "adcreative-ai",
+    "aeo-action-plan",
+    "affiliate-disclosure",
+    "affordable-ai-app-builder-platform",
+    "affordable-ai-assistant-platform",
+    "affordable-ai-coding-platform",
+    "affordable-ai-productivity-platform",
+    "affordable-ai-search-platform",
+    "affordable-ai-search-platform-buyer-guide-2026",
+    "affordable-ai-search-platform-faq-2026",
+    "affordable-ai-seo-platform",
+    "affordable-ai-video-platform",
+    "affordable-ai-writing-platform",
+    "affordable-automation-platform",
+    "agency-agents-review-2026",
+    "agency-agents-review-comparison-2026",
+    "agency-agents-review-integrations-2026",
+    "agent-reach-review-2026",
+    "ahrefs-ai",
+    "ai-app-builder-alternatives",
+    "ai-app-builder-software-review",
+    "ai-assistant-alternatives",
+    "ai-assistant-software-comparison",
+    "ai-assistant-software-review",
+    "ai-berkshire-review-2026",
+    "ai-berkshire-review-alternatives-2026",
+    "ai-berkshire-review-buyer-guide-2026",
+    "ai-coding-alternatives",
+    "ai-coding-software-comparison",
+    "ai-coding-software-review",
+    "ai-design-alternatives",
+    "ai-design-software-comparison",
+    "ai-design-software-review",
+    "ai-engineering-from-scratch-review-2026",
+    "ai-image-alternatives",
+    "ai-image-software-comparison",
+    "ai-image-software-review",
+    "ai-meeting-alternatives",
+    "ai-meeting-software-comparison",
+    "ai-meeting-software-review",
+    "ai-productivity-alternatives",
+    "ai-productivity-software-comparison",
+    "ai-productivity-software-review",
+    "ai-search-alternatives",
+    "ai-search-software-comparison",
+    "ai-search-software-review",
+    "ai-seo-alternatives",
+    "ai-seo-software-comparison",
+    "ai-seo-software-review",
+    "ai-tools-in-2026-what-each-platform-does-best-in-real-world-workflows",
+    "ai-video-alternatives",
+    "ai-video-software-comparison",
+    "ai-video-software-review",
+    "ai-voice-alternatives",
+    "ai-voice-software-comparison",
+    "ai-voice-software-review",
+    "ai-writing-alternatives",
+    "ai-writing-software-comparison",
+    "ai-writing-software-review",
+    "aisuite-review-2026",
+    "author-profile",
+    "automation-alternatives",
+    "automation-software-comparison",
+    "automation-software-review",
+    "aweber-review-2026",
+    "beehiiv-review-2026",
+    "best-affiliate-marketing-software-saas",
+    "best-agent-skills-review-2026-for-small-business",
+    "best-ai-assistant-software",
+    "best-ai-assistant-tools",
+    "best-ai-automation-tools",
+    "best-ai-automation-tools-2026",
+    "best-ai-coding-assistants-for-teams",
+    "best-ai-coding-software",
+    "best-ai-coding-tools",
+    "best-ai-coding-tools-2026",
+    "best-ai-coding-tools-solo-developers",
+    "best-ai-job-search-review-2026-for-small-business",
+    "best-ai-meeting-software",
+    "best-ai-meeting-tools",
+    "best-ai-presentation-tools",
+    "best-ai-productivity-software",
+    "best-ai-search-software",
+    "best-ai-search-software-comparison-2026",
+    "best-ai-search-software-use-cases-2026",
+    "best-ai-seo-software",
+    "best-ai-seo-tools",
+    "best-ai-seo-tools-2026",
+    "best-ai-tools",
+    "best-ai-video-tools",
+    "best-ai-video-tools-2026",
+    "best-ai-website-builders-compared",
+    "best-ai-writing-tools",
+    "best-ai-writing-tools-2026",
+    "best-automation-software",
+    "best-best-ai-meeting-software-for-small-business",
+    "best-best-ai-meeting-tools-for-small-business",
+    "best-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-for-small-business",
+    "best-crm-tools",
+    "best-cubesandbox-review-2026-for-small-business",
+    "best-meetily-review-2026-for-small-business",
+    "best-officecli-review-2026-for-small-business",
+    "best-skills-review-2026-for-small-business",
+    "best-system-prompts-leaks-review-2026-for-small-business",
+    "best-website-builder-2026",
+    "best-website-builders",
+    "blog",
+    "bolt",
+    "bolt-ai-review-2026",
+    "brevo-review-2026",
+    "bunny-net-review-2026",
+    "canva",
+    "categories",
+    "chatgpt",
+    "claude",
+    "claude-code-vs-cursor",
+    "clickfunnels-review-2026",
+    "cloud-development-alternatives",
+    "cloud-development-software-review",
+    "comparisons",
+    "constant-contact-review-2026",
+    "contact",
+    "convertkit-review-2026",
+    "copy-ai",
+    "council-of-high-intelligence-review-2026",
+    "council-of-high-intelligence-review-pricing-2026",
+    "council-of-high-intelligence-review-use-cases-2026",
+    "cua-review-2026",
+    "cupy-review-2026",
+    "cupy-review-alternatives-2026",
+    "cupy-review-tutorial-2026",
+    "cursor",
+    "cursor-ai-review-a-practical-guide-for-developers-and-ai-coders",
+    "cursor-alternatives",
+    "cursor-pricing",
+    "descript",
+    "disclosure",
+    "durable",
+    "editorial-policy",
+    "elevenlabs",
+    "elevenlabs-pricing",
+    "email-capture-setup",
+    "email-marketing-alternatives",
+    "email-marketing-software-review",
+    "facebook-test",
+    "fathom-analytics-review-2026",
+    "formspree-setup",
+    "framer",
+    "frase",
+    "free-ai-coding-workflow-checklist",
+    "free-for-dev-review-2026",
+    "free-for-dev-review-pricing-2026",
+    "free-for-dev-review-use-cases-2026",
+    "gamma",
+    "gemini",
+    "getresponse-review-2026",
+    "github-copilot",
+    "github-copilot-pricing",
+    "grammarly-review-2026",
+    "hidden-ai-infrastructure-companies-2026",
+    "hilltopads-review-2026",
+    "hostinger-website-builder-review-2026",
+    "how-we-review-tools",
+    "hubs",
+    "hubspot",
+    "hubspot-review-2026",
+    "jasper",
+    "jasper-ai",
+    "jasper-ai-review-2026",
+    "jasper-pricing",
+    "keysearch-review-2026",
+    "kilocode-review-2026",
+    "leadpages-review-2026",
+    "link-whisper-review-2026",
+    "logto-review-2026",
+    "logto-review-pricing-2026",
+    "logto-review-tutorial-2026",
+    "lovable",
+    "lowfruits-review-2026",
+    "mailerlite-review-2026",
+    "make",
+    "make-pricing",
+    "mangools-review-2026",
+    "marketing-alternatives",
+    "media-kit",
+    "midjourney",
+    "monetag-review-2026",
+    "moz-review-2026",
+    "neuronwriter-review-2026",
+    "nicepage-review",
+    "notion",
+    "notion-ai",
+    "openmontage-review-2026",
+    "perplexity",
+    "pipedrive",
+    "pipedrive-crm",
+    "plausible-analytics-review-2026",
+    "pricing",
+    "privacy",
+    "privacy-policy",
+    "productivity-software-comparison",
+    "reclaim-ai",
+    "replit",
+    "reviews",
+    "rlm-review-2026",
+    "rnns-vs-transformers-vs-ssms-where-should-ai-memory-live-for-continual-learning",
+    "runway",
+    "se-ranking-review-2026",
+    "self-hosting-guide-review-2026",
+    "semrush",
+    "semrush-ai",
+    "semrush-pricing",
+    "semrush-vs-ahrefs-2026",
+    "senja-review-2026",
+    "serpstat-review-2026",
+    "sitemap",
+    "skillspector-review-2026",
+    "superpowers-review-2026",
+    "surfer-seo",
+    "surfer-seo-alternatives",
+    "surfer-seo-free-trial",
+    "surfer-seo-pricing",
+    "surfer-seo-pricing-2026",
+    "surfer-seo-vs-clearscope",
+    "synthesia",
+    "systeme-io-review-2026",
+    "tally-forms-review-2026",
+    "tavant-agentic-ai-platform-use-cases-2026",
+    "tavant-debuts-agentic-ai-platform-for-software-engineering-automation",
+    "tavant-debuts-agentic-ai-platform-for-software-engineering-automation-tutorial-2026",
+    "terms",
+    "terms-of-service",
+    "testing-methodology",
+    "trackdesk-review-2026",
+    "trex-an-ai-code-reviewer-that-runs-your-code",
+    "ubersuggest-review-2026",
+    "ui-tars-desktop-review-2026",
+    "unbounce-review-2026",
+    "vi",
+    "vulnclaw-review-2026",
+    "vulnclaw-review-faq-2026",
+    "vulnclaw-review-pros-and-cons-2026",
+    "webflow",
+    "webflow-ai",
+    "webflow-pros-and-cons",
+    "website-builder-alternatives",
+    "website-builder-software-review",
+    "windsurf",
+    "windsurf-review",
+    "windsurf-review-2026",
+    "wordtune-review-2026",
+    "zapier",
+    "zapier-alternatives",
+    "zapier-pricing",
+    "zvec-review-2026"
+  ],
+  "protected_records": {
+    "8-best-generative-ai-software-stocks-to-buy-in-june-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "about": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "about-author": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "activecampaign": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "adcreative-ai": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "aeo-action-plan": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "affiliate-disclosure": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "affordable-ai-app-builder-platform": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "affordable-ai-assistant-platform": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "affordable-ai-coding-platform": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "affordable-ai-productivity-platform": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "affordable-ai-search-platform": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "affordable-ai-search-platform-buyer-guide-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "affordable-ai-search-platform-faq-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "affordable-ai-seo-platform": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "affordable-ai-video-platform": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "affordable-ai-writing-platform": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "affordable-automation-platform": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "agency-agents-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "agency-agents-review-comparison-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "agency-agents-review-integrations-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "agent-reach-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "ahrefs-ai": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-app-builder-alternatives": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-app-builder-software-review": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-assistant-alternatives": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-assistant-software-comparison": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-assistant-software-review": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-berkshire-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-berkshire-review-alternatives-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-berkshire-review-buyer-guide-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-coding-alternatives": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-coding-software-comparison": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-coding-software-review": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-design-alternatives": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-design-software-comparison": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-design-software-review": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-engineering-from-scratch-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-image-alternatives": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-image-software-comparison": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-image-software-review": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-meeting-alternatives": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-meeting-software-comparison": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-meeting-software-review": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-productivity-alternatives": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-productivity-software-comparison": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-productivity-software-review": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-search-alternatives": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-search-software-comparison": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-search-software-review": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-seo-alternatives": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-seo-software-comparison": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-seo-software-review": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-tools-in-2026-what-each-platform-does-best-in-real-world-workflows": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-video-alternatives": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-video-software-comparison": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-video-software-review": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-voice-alternatives": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-voice-software-comparison": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-voice-software-review": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-writing-alternatives": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-writing-software-comparison": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "ai-writing-software-review": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "aisuite-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "author-profile": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "automation-alternatives": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "automation-software-comparison": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "automation-software-review": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "aweber-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "beehiiv-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-affiliate-marketing-software-saas": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-agent-skills-review-2026-for-small-business": [
+      "current active batch",
+      "dashboard/live published status",
+      "docs output",
+      "published queue status",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-assistant-software": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-assistant-tools": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-automation-tools": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-automation-tools-2026": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-coding-assistants-for-teams": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-coding-software": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-coding-tools": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-coding-tools-2026": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-coding-tools-solo-developers": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-job-search-review-2026-for-small-business": [
+      "current active batch"
+    ],
+    "best-ai-meeting-software": [
+      "docs output",
+      "published live history",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-meeting-tools": [
+      "docs output",
+      "published live history",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-presentation-tools": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-productivity-software": [
+      "docs output",
+      "published live history",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-search-software": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-search-software-comparison-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-search-software-use-cases-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-seo-software": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-seo-tools": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-seo-tools-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-tools": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-video-tools": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-video-tools-2026": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-website-builders-compared": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-writing-tools": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-ai-writing-tools-2026": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-automation-software": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-best-ai-meeting-software-for-small-business": [
+      "current active batch",
+      "dashboard/live published status",
+      "docs output",
+      "published queue status",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-best-ai-meeting-tools-for-small-business": [
+      "current active batch"
+    ],
+    "best-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-for-small-business": [
+      "current active batch"
+    ],
+    "best-crm-tools": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-cubesandbox-review-2026-for-small-business": [
+      "current active batch"
+    ],
+    "best-meetily-review-2026-for-small-business": [
+      "current active batch"
+    ],
+    "best-officecli-review-2026-for-small-business": [
+      "current active batch"
+    ],
+    "best-skills-review-2026-for-small-business": [
+      "current active batch"
+    ],
+    "best-system-prompts-leaks-review-2026-for-small-business": [
+      "current active batch"
+    ],
+    "best-website-builder-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "best-website-builders": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "blog": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "bolt": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "bolt-ai-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "brevo-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "bunny-net-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "canva": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "categories": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "chatgpt": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "claude": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "claude-code-vs-cursor": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "clickfunnels-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "cloud-development-alternatives": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "cloud-development-software-review": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "comparisons": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "constant-contact-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "contact": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "convertkit-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "copy-ai": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "council-of-high-intelligence-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "council-of-high-intelligence-review-pricing-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "council-of-high-intelligence-review-use-cases-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "cua-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "cupy-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "cupy-review-alternatives-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "cupy-review-tutorial-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "cursor": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "cursor-ai-review-a-practical-guide-for-developers-and-ai-coders": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "cursor-alternatives": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "cursor-pricing": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "descript": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "disclosure": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "durable": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "editorial-policy": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "elevenlabs": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "elevenlabs-pricing": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "email-capture-setup": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "email-marketing-alternatives": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "email-marketing-software-review": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "facebook-test": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "fathom-analytics-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "formspree-setup": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "framer": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "frase": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "free-ai-coding-workflow-checklist": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "free-for-dev-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "free-for-dev-review-pricing-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "free-for-dev-review-use-cases-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "gamma": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "gemini": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "getresponse-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "github-copilot": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "github-copilot-pricing": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "grammarly-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "hidden-ai-infrastructure-companies-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "hilltopads-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "hostinger-website-builder-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "how-we-review-tools": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "hubs": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "hubspot": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "hubspot-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "jasper": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "jasper-ai": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "jasper-ai-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "jasper-pricing": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "keysearch-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "kilocode-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "leadpages-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "link-whisper-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "logto-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "logto-review-pricing-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "logto-review-tutorial-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "lovable": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "lowfruits-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "mailerlite-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "make": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "make-pricing": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "mangools-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "marketing-alternatives": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "media-kit": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "midjourney": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "monetag-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "moz-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "neuronwriter-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "nicepage-review": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "notion": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "notion-ai": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "openmontage-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "perplexity": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "pipedrive": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "pipedrive-crm": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "plausible-analytics-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "pricing": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "privacy": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "privacy-policy": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "productivity-software-comparison": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "reclaim-ai": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "replit": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "reviews": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "rlm-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "rnns-vs-transformers-vs-ssms-where-should-ai-memory-live-for-continual-learning": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "runway": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "se-ranking-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "self-hosting-guide-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "semrush": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "semrush-ai": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "semrush-pricing": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "semrush-vs-ahrefs-2026": [
+      "docs output",
+      "published static output",
+      "site_output"
+    ],
+    "senja-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "serpstat-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "sitemap": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "skillspector-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "superpowers-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "surfer-seo": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "surfer-seo-alternatives": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "surfer-seo-free-trial": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "surfer-seo-pricing": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "surfer-seo-pricing-2026": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "surfer-seo-vs-clearscope": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "synthesia": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "systeme-io-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "tally-forms-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "tavant-agentic-ai-platform-use-cases-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "tavant-debuts-agentic-ai-platform-for-software-engineering-automation": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "tavant-debuts-agentic-ai-platform-for-software-engineering-automation-tutorial-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "terms": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "terms-of-service": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "testing-methodology": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "trackdesk-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "trex-an-ai-code-reviewer-that-runs-your-code": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "ubersuggest-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "ui-tars-desktop-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "unbounce-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "vi": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "vulnclaw-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "vulnclaw-review-faq-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "vulnclaw-review-pros-and-cons-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "webflow": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "webflow-ai": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "webflow-pros-and-cons": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "website-builder-alternatives": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "website-builder-software-review": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "windsurf": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "windsurf-review": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "windsurf-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "wordtune-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "zapier": [
+      "docs output",
+      "site_output",
+      "sitemap"
+    ],
+    "zapier-alternatives": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "zapier-pricing": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ],
+    "zvec-review-2026": [
+      "docs output",
+      "published static output",
+      "site_output",
+      "sitemap"
+    ]
+  },
+  "stale_candidate_count": 6,
+  "stale_count": 0,
+  "stale_slugs": [],
+  "excluded_candidates": {
+    "agent-skills-review-2026": "approved, ready, published, or live state",
+    "how-to-use-agent-skills-review-2026": "approved, ready, published, or live state",
+    "how-to-use-meetily-review-2026": "approved, ready, published, or live state",
+    "how-to-use-system-prompts-leaks-review-2026": "approved, ready, published, or live state",
+    "meetily-review-2026": "approved, ready, published, or live state",
+    "system-prompts-leaks-review-2026": "approved, ready, published, or live state"
+  },
+  "files_to_archive": [],
+  "queue_rows_to_remove": {},
+  "queue_row_count": 0
+}

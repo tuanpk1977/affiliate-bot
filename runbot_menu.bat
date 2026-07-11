@@ -22,10 +22,12 @@ echo 9. New Affiliate Partner
 echo 10. Exit
 echo 11. Strict full-site audit
 echo 12. SEO Engine
+echo 13. Reset stale unpublished items
 echo ========================================
 
-choice /c 123456789ABC /n /m "Chon chuc nang [1-12]: "
+choice /c 123456789ABCD /n /m "Chon chuc nang [1-13]: "
 
+if errorlevel 13 goto reset_unpublished
 if errorlevel 12 goto seo_engine
 if errorlevel 11 goto strict_audit
 if errorlevel 10 goto end
@@ -187,3 +189,24 @@ set /p SEO_SLUG=Nhap slug opportunity can xem dry-run:
 python seo_console.py queue-opportunity --slug "%SEO_SLUG%"
 pause
 goto seo_engine
+
+:reset_unpublished
+cls
+echo ========================================
+echo Reset stale unpublished items
+echo ========================================
+echo 1. Preview reset
+echo 2. Apply reset
+echo 3. Back
+choice /c 123 /n /m "Chon chuc nang reset [1-3]: "
+if errorlevel 3 goto menu
+if errorlevel 2 goto reset_unpublished_apply
+python editorial_console.py reset-unpublished --dry-run
+pause
+goto reset_unpublished
+
+:reset_unpublished_apply
+echo [WARN] Chi archive cac item unpublished cu; published/current/SEO selected duoc bao ve.
+python editorial_console.py reset-unpublished --apply
+pause
+goto reset_unpublished

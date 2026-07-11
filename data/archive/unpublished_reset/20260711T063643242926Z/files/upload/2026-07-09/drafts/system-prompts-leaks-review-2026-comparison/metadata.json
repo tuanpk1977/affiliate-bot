@@ -1,0 +1,87 @@
+{
+  "slug": "system-prompts-leaks-review-2026-comparison",
+  "title": "system_prompts_leaks Review 2026 comparison",
+  "description": "Independent system_prompts_leaks Review 2026 comparison guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice.",
+  "url": "https://smileaireviewhub.com/system-prompts-leaks-review-2026-comparison/",
+  "featured_image_prompt": "Create a clean editorial hero image for 'system_prompts_leaks Review 2026 comparison'. Show a modern workspace comparison scene with subtle cards for system_prompts_leaks Review 2026 comparison, a productivity dashboard feel, teal and slate accents, and a buyer-guide tone. Include no brand logos, no pricing numbers, and no crowded UI. Leave space for a headline overlay and keep it professional, trustworthy, and EEAT-oriented.",
+  "editorial": {
+    "author_name": "Nguyen Quoc Tuan",
+    "author_profile_url": "https://smileaireviewhub.com/about-author/",
+    "author_bio": "Independent AI & SaaS researcher covering software, automation, and practical buyer workflows.",
+    "reviewed_by": "needs_revision",
+    "last_updated": "2026-07-09T05:03:25.455954+00:00",
+    "editorial_policy_url": "https://smileaireviewhub.com/editorial-policy/",
+    "affiliate_disclosure_url": "https://smileaireviewhub.com/affiliate-disclosure/"
+  },
+  "social_folder": "D:\\AFFILATE BOT\\social_drafts\\2026-07-09\\system-prompts-leaks-review-2026-comparison",
+  "review": {
+    "slug": "system-prompts-leaks-review-2026-comparison",
+    "topic": "system_prompts_leaks Review 2026 comparison",
+    "url": "https://smileaireviewhub.com/system-prompts-leaks-review-2026-comparison/",
+    "status": "needs_revision",
+    "reviewed_at": "2026-07-09T05:03:25.455954+00:00",
+    "word_count": 2208,
+    "factual_quality": 24.59,
+    "source_quality": 5.0,
+    "seo_title_meta_quality": 100,
+    "affiliate_disclosure_present": true,
+    "internal_link_count": 5,
+    "duplicate_content_risk": 85.33,
+    "readability": 58.12,
+    "business_value": 57.15,
+    "publish_readiness": 57.44,
+    "publishable": false,
+    "requires_human_approval": true,
+    "failures": [
+      "factual quality below threshold",
+      "source quality below threshold",
+      "duplicate content risk too high",
+      "publish readiness below threshold"
+    ]
+  },
+  "human_approval": {
+    "slug": "system-prompts-leaks-review-2026-comparison",
+    "topic": "system_prompts_leaks Review 2026 comparison",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-09T05:03:25.455954+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "factual quality below threshold; source quality below threshold; duplicate content risk too high; publish readiness below threshold"
+  },
+  "publish_gate": {
+    "slug": "system-prompts-leaks-review-2026-comparison",
+    "topic": "system_prompts_leaks Review 2026 comparison",
+    "status": "blocked",
+    "checked_at": "2026-07-09T05:03:25.475831+00:00",
+    "failures": [
+      "verified source score failed",
+      "knowledge freshness failed",
+      "AI review failed",
+      "human approval missing"
+    ],
+    "research_quality_passed": true,
+    "verified_source_score_passed": false,
+    "knowledge_freshness_passed": false,
+    "ai_review_passed": false,
+    "human_approval_passed": false,
+    "broken_links": [],
+    "duplicate_title_meta": false,
+    "affiliate_disclosure_present": true,
+    "minimum_business_score_passed": true,
+    "minimum_readability_score_passed": true,
+    "business_score": 57.15,
+    "readability_score": 58.12,
+    "publish_ready": false,
+    "url": "https://smileaireviewhub.com/system-prompts-leaks-review-2026-comparison/",
+    "title": "system_prompts_leaks Review 2026 comparison",
+    "description": "Independent system_prompts_leaks Review 2026 comparison guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice."
+  },
+  "research_quality_gate": {
+    "passed": true,
+    "score": 47.43,
+    "threshold": 60.0,
+    "override_used": true,
+    "status": "override_allowed"
+  }
+}

@@ -2364,3 +2364,15 @@ python seo_console.py queue-opportunity --slug example-slug --apply --date YYYY-
 ```
 
 Queue commands are dry-run by default. Applied opportunities enter the editorial queue as `selected` with `requires_human_approval: true`; the SEO Engine cannot approve or publish. It does not fabricate live search volume, competitors, rankings, backlinks, or revenue. Evidence is explicitly labeled `verified`, `inferred`, or `unavailable`. See `architecture/SEO_ENGINE_BOUNDARY.md`.
+
+## 20. Protected Editorial State Reset
+
+Use `reset-unpublished` to remove stale unpublished legacy records from active dashboards without deleting published output. The command defaults to dry-run and archives eligible records/files under `data/archive/unpublished_reset/<timestamp>/` when applied.
+
+```powershell
+python editorial_console.py reset-unpublished --dry-run
+python editorial_console.py reset-unpublished --before-date YYYY-MM-DD --dry-run
+python editorial_console.py reset-unpublished --apply
+```
+
+Protection is assembled from `docs`, `site_output`, `data/published_static_pages`, sitemap membership, live URL history, published/live queue and report states, the latest active batch, and SEO Engine selected queue items. Approved, Ready for Publish, Published, and Live 200 records are never stale candidates. Runbot menu option 13 exposes preview and apply actions.

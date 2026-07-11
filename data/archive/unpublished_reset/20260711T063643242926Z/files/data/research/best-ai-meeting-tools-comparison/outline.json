@@ -1,0 +1,104 @@
+{
+  "seo_outline": [
+    "Quick verdict",
+    "Comparison",
+    "Pros and cons",
+    "Pricing",
+    "FAQ"
+  ],
+  "article_structure": [
+    "State the top recommendation early",
+    "Compare options and tradeoffs",
+    "Cover strengths and drawbacks",
+    "Explain cost and value",
+    "Address buyer concerns"
+  ],
+  "heading_hierarchy": [
+    {
+      "level": 2,
+      "heading": "Quick verdict",
+      "purpose": "State the top recommendation early"
+    },
+    {
+      "level": 2,
+      "heading": "Comparison",
+      "purpose": "Compare options and tradeoffs"
+    },
+    {
+      "level": 2,
+      "heading": "Pros and cons",
+      "purpose": "Cover strengths and drawbacks"
+    },
+    {
+      "level": 2,
+      "heading": "Pricing",
+      "purpose": "Explain cost and value"
+    },
+    {
+      "level": 2,
+      "heading": "FAQ",
+      "purpose": "Address buyer concerns"
+    }
+  ],
+  "faq_placement": "After alternatives and before final CTA",
+  "cta_placement": "Hero CTA and final verdict CTA",
+  "internal_link_opportunities": [
+    "/",
+    "/reviews/",
+    "/comparisons/"
+  ],
+  "affiliate_blocks": [
+    "affiliate disclosure",
+    "pricing verification note",
+    "comparison shortlist CTA"
+  ],
+  "product_comparison_tables": [
+    "feature comparison table",
+    "pricing and plan limits table"
+  ],
+  "images_required": [
+    "hero visual",
+    "comparison table screenshot",
+    "pricing checklist visual"
+  ],
+  "infographic_suggestions": [
+    "best ai meeting tools comparison buyer checklist infographic",
+    "best ai meeting tools comparison comparison flow infographic"
+  ],
+  "video_suggestions": [
+    "best ai meeting tools comparison walkthrough",
+    "best ai meeting tools comparison comparison short"
+  ],
+  "faq_groups": {
+    "beginner": [
+      "What is best ai meeting tools comparison and who is it for?",
+      "How should beginners evaluate best ai meeting tools comparison before buying?"
+    ],
+    "intermediate": [
+      "What workflow problems does best ai meeting tools comparison solve best?",
+      "Which integrations matter most when using best ai meeting tools comparison?"
+    ],
+    "advanced": [
+      "What implementation risks appear when teams scale best ai meeting tools comparison?",
+      "How often should best ai meeting tools comparison content be updated after product changes?"
+    ],
+    "comparison": [
+      "How does best ai meeting tools comparison compare with alternatives?",
+      "When should a buyer choose an alternative instead of best ai meeting tools comparison?"
+    ],
+    "pricing": [
+      "What should readers verify on the pricing page for Reclaim AI?",
+      "Which hidden cost risks matter most when evaluating best ai meeting tools comparison?"
+    ],
+    "troubleshooting": [
+      "What should the writer do if official pricing or feature details conflict for best ai meeting tools comparison?",
+      "How should broken links or outdated claims about best ai meeting tools comparison be handled before publishing?"
+    ]
+  },
+  "recommended_cta": "Review the comparison and shortlist the best option for your workflow.",
+  "confidence": 0.8,
+  "reasoning": [
+    "Built an outline for 'best ai meeting tools comparison' using the 'commercial' template.",
+    "Included 5 planned sections for the article structure."
+  ]
+}

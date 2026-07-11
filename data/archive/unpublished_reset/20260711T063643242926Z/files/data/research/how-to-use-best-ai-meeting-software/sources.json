@@ -1,0 +1,511 @@
+{
+  "topic": "how to use best ai meeting software",
+  "trusted_sources": {
+    "official_documentation": [
+      {
+        "connector_type": "official_docs",
+        "label": "Reclaim AI official docs",
+        "url": "https://reclaim.ai",
+        "status": "needs_review",
+        "evidence": "No live fetch; requires manual confirmation"
+      },
+      {
+        "connector_type": "official_docs",
+        "label": "how to use best ai meeting software alternatives official docs",
+        "url": "",
+        "status": "missing",
+        "evidence": "No live fetch; requires manual confirmation"
+      }
+    ],
+    "pricing_pages": [
+      {
+        "connector_type": "pricing_page",
+        "label": "Reclaim AI pricing page",
+        "url": "https://reclaim.ai",
+        "status": "verified",
+        "evidence": "Pricing should be verified on official site; local source only"
+      },
+      {
+        "connector_type": "pricing_page",
+        "label": "how to use best ai meeting software alternatives pricing page",
+        "url": "",
+        "status": "missing",
+        "evidence": "Pricing should be verified on official site; local source only"
+      }
+    ],
+    "product_pages": [
+      {
+        "connector_type": "product_page",
+        "label": "Reclaim AI product page",
+        "url": "https://reclaim.ai",
+        "status": "verified",
+        "evidence": "Brand website from local offers/affiliate data"
+      },
+      {
+        "connector_type": "product_page",
+        "label": "how to use best ai meeting software alternatives product page",
+        "url": "",
+        "status": "missing",
+        "evidence": "Brand website from local offers/affiliate data"
+      }
+    ],
+    "release_notes": [
+      {
+        "connector_type": "release_notes",
+        "label": "Reclaim AI release notes",
+        "url": "",
+        "status": "missing",
+        "evidence": "No offline release-note source available"
+      },
+      {
+        "connector_type": "release_notes",
+        "label": "how to use best ai meeting software alternatives release notes",
+        "url": "",
+        "status": "missing",
+        "evidence": "No offline release-note source available"
+      }
+    ],
+    "api_docs": [
+      {
+        "connector_type": "api_docs",
+        "label": "how to use best ai meeting software API docs",
+        "url": "",
+        "status": "missing",
+        "evidence": "No API signal in keyword"
+      }
+    ],
+    "research_papers": [],
+    "blog_articles": [
+      {
+        "connector_type": "competitor_article",
+        "label": "how to use best ai meeting software competitor article",
+        "url": "",
+        "status": "missing",
+        "evidence": "Requires local competitor snapshot input"
+      }
+    ],
+    "community": [],
+    "affiliate_program_pages": [
+      {
+        "connector_type": "affiliate_program_page",
+        "label": "Reclaim AI affiliate program page",
+        "url": "https://reclaim.ai/affiliate",
+        "status": "verified",
+        "evidence": "Affiliate page from local offers/affiliate data"
+      },
+      {
+        "connector_type": "affiliate_program_page",
+        "label": "how to use best ai meeting software alternatives affiliate program page",
+        "url": "",
+        "status": "missing",
+        "evidence": "Affiliate page from local offers/affiliate data"
+      }
+    ]
+  },
+  "reference_count": 3,
+  "estimated_source_count": 0,
+  "missing_source_count": 9,
+  "verified_registry_records": [
+    {
+      "id": "reclaim-ai:affiliate_program_page:reclaim-ai-affiliate-program",
+      "brand": "Reclaim AI",
+      "slug": "reclaim-ai",
+      "source_type": "affiliate_program_page",
+      "source_name": "Reclaim AI Affiliate Program",
+      "source_url": "https://reclaim.ai/affiliate-program",
+      "canonical_source": "reclaim.ai/affiliate-program",
+      "verification_status": "verified",
+      "verification_date": "2026-07-07T00:00:00+00:00",
+      "verified_by": "system",
+      "confidence": 93.0,
+      "freshness_score": 99,
+      "trust_score": 99,
+      "official_score": 0,
+      "pricing_score": 0,
+      "affiliate_score": 99,
+      "release_notes_score": 0,
+      "competitor_score": 0,
+      "duplicate_of": "",
+      "last_seen": "2026-07-07T09:37:30.979129+00:00",
+      "first_seen": "2026-07-07T00:00:00+00:00",
+      "version": 2,
+      "history": [
+        {
+          "at": "2026-07-07T09:37:30.981214+00:00",
+          "action": "updated",
+          "version": 2,
+          "changed_fields": [
+            "verified_by"
+          ]
+        }
+      ],
+      "notes": "Official Reclaim AI affiliate program page reviewed on 2026-07-07.",
+      "reason": ""
+    },
+    {
+      "id": "reclaim-ai:official_docs:help-reclaim-ai",
+      "brand": "Reclaim AI",
+      "slug": "reclaim-ai",
+      "source_type": "official_docs",
+      "source_name": "Reclaim AI Help Center",
+      "source_url": "https://help.reclaim.ai/",
+      "canonical_source": "help.reclaim.ai/",
+      "verification_status": "verified",
+      "verification_date": "2026-07-07T00:00:00+00:00",
+      "verified_by": "system",
+      "confidence": 92.0,
+      "freshness_score": 100,
+      "trust_score": 99,
+      "official_score": 99,
+      "pricing_score": 0,
+      "affiliate_score": 0,
+      "release_notes_score": 0,
+      "competitor_score": 0,
+      "duplicate_of": "",
+      "last_seen": "2026-07-07T09:37:30.979129+00:00",
+      "first_seen": "2026-07-07T00:00:00+00:00",
+      "version": 2,
+      "history": [
+        {
+          "at": "2026-07-07T09:37:30.979325+00:00",
+          "action": "updated",
+          "version": 2,
+          "changed_fields": [
+            "verified_by"
+          ]
+        }
+      ],
+      "notes": "Official Reclaim AI help center entrypoint reviewed on 2026-07-07.",
+      "reason": ""
+    },
+    {
+      "id": "reclaim-ai:pricing_page:reclaim-ai-pricing",
+      "brand": "Reclaim AI",
+      "slug": "reclaim-ai",
+      "source_type": "pricing_page",
+      "source_name": "Reclaim AI Pricing",
+      "source_url": "https://reclaim.ai/pricing",
+      "canonical_source": "reclaim.ai/pricing",
+      "verification_status": "verified",
+      "verification_date": "2026-07-07T00:00:00+00:00",
+      "verified_by": "system",
+      "confidence": 95.0,
+      "freshness_score": 99,
+      "trust_score": 100,
+      "official_score": 0,
+      "pricing_score": 100,
+      "affiliate_score": 0,
+      "release_notes_score": 0,
+      "competitor_score": 0,
+      "duplicate_of": "",
+      "last_seen": "2026-07-07T09:37:30.979129+00:00",
+      "first_seen": "2026-07-07T00:00:00+00:00",
+      "version": 2,
+      "history": [
+        {
+          "at": "2026-07-07T09:37:30.980414+00:00",
+          "action": "updated",
+          "version": 2,
+          "changed_fields": [
+            "verified_by"
+          ]
+        }
+      ],
+      "notes": "Official Reclaim AI pricing page reviewed on 2026-07-07.",
+      "reason": ""
+    },
+    {
+      "id": "reclaim-ai:product_page:reclaim-ai",
+      "brand": "Reclaim AI",
+      "slug": "reclaim-ai",
+      "source_type": "product_page",
+      "source_name": "Reclaim AI Product Homepage",
+      "source_url": "https://reclaim.ai/",
+      "canonical_source": "reclaim.ai/",
+      "verification_status": "verified",
+      "verification_date": "2026-07-07T00:00:00+00:00",
+      "verified_by": "system",
+      "confidence": 88.0,
+      "freshness_score": 100,
+      "trust_score": 96,
+      "official_score": 96,
+      "pricing_score": 0,
+      "affiliate_score": 0,
+      "release_notes_score": 0,
+      "competitor_score": 0,
+      "duplicate_of": "",
+      "last_seen": "2026-07-07T09:37:30.979129+00:00",
+      "first_seen": "2026-07-07T00:00:00+00:00",
+      "version": 2,
+      "history": [
+        {
+          "at": "2026-07-07T09:37:30.982604+00:00",
+          "action": "updated",
+          "version": 2,
+          "changed_fields": [
+            "verified_by"
+          ]
+        }
+      ],
+      "notes": "Official Reclaim AI product reference page reviewed on 2026-07-07.",
+      "reason": ""
+    },
+    {
+      "id": "reclaim-ai:release_notes:updates-reclaim-ai",
+      "brand": "Reclaim AI",
+      "slug": "reclaim-ai",
+      "source_type": "release_notes",
+      "source_name": "Reclaim AI Product Updates",
+      "source_url": "https://updates.reclaim.ai/",
+      "canonical_source": "updates.reclaim.ai/",
+      "verification_status": "verified",
+      "verification_date": "2026-07-07T00:00:00+00:00",
+      "verified_by": "system",
+      "confidence": 90.0,
+      "freshness_score": 99,
+      "trust_score": 97,
+      "official_score": 0,
+      "pricing_score": 0,
+      "affiliate_score": 0,
+      "release_notes_score": 97,
+      "competitor_score": 0,
+      "duplicate_of": "",
+      "last_seen": "2026-07-07T09:37:30.979129+00:00",
+      "first_seen": "2026-07-07T00:00:00+00:00",
+      "version": 2,
+      "history": [
+        {
+          "at": "2026-07-07T09:37:30.981888+00:00",
+          "action": "updated",
+          "version": 2,
+          "changed_fields": [
+            "verified_by"
+          ]
+        }
+      ],
+      "notes": "Official Reclaim AI changelog page reviewed on 2026-07-07.",
+      "reason": ""
+    }
+  ],
+  "verified_sources": [
+    {
+      "id": "reclaim-ai:affiliate_program_page:reclaim-ai-affiliate-program",
+      "brand": "Reclaim AI",
+      "slug": "reclaim-ai",
+      "source_type": "affiliate_program_page",
+      "source_name": "Reclaim AI Affiliate Program",
+      "source_url": "https://reclaim.ai/affiliate-program",
+      "canonical_source": "reclaim.ai/affiliate-program",
+      "verification_status": "verified",
+      "verification_date": "2026-07-07T00:00:00+00:00",
+      "verified_by": "system",
+      "confidence": 93.0,
+      "freshness_score": 99,
+      "trust_score": 99,
+      "official_score": 0,
+      "pricing_score": 0,
+      "affiliate_score": 99,
+      "release_notes_score": 0,
+      "competitor_score": 0,
+      "duplicate_of": "",
+      "last_seen": "2026-07-07T09:37:30.979129+00:00",
+      "first_seen": "2026-07-07T00:00:00+00:00",
+      "version": 2,
+      "history": [
+        {
+          "at": "2026-07-07T09:37:30.981214+00:00",
+          "action": "updated",
+          "version": 2,
+          "changed_fields": [
+            "verified_by"
+          ]
+        }
+      ],
+      "notes": "Official Reclaim AI affiliate program page reviewed on 2026-07-07.",
+      "reason": ""
+    },
+    {
+      "id": "reclaim-ai:official_docs:help-reclaim-ai",
+      "brand": "Reclaim AI",
+      "slug": "reclaim-ai",
+      "source_type": "official_docs",
+      "source_name": "Reclaim AI Help Center",
+      "source_url": "https://help.reclaim.ai/",
+      "canonical_source": "help.reclaim.ai/",
+      "verification_status": "verified",
+      "verification_date": "2026-07-07T00:00:00+00:00",
+      "verified_by": "system",
+      "confidence": 92.0,
+      "freshness_score": 100,
+      "trust_score": 99,
+      "official_score": 99,
+      "pricing_score": 0,
+      "affiliate_score": 0,
+      "release_notes_score": 0,
+      "competitor_score": 0,
+      "duplicate_of": "",
+      "last_seen": "2026-07-07T09:37:30.979129+00:00",
+      "first_seen": "2026-07-07T00:00:00+00:00",
+      "version": 2,
+      "history": [
+        {
+          "at": "2026-07-07T09:37:30.979325+00:00",
+          "action": "updated",
+          "version": 2,
+          "changed_fields": [
+            "verified_by"
+          ]
+        }
+      ],
+      "notes": "Official Reclaim AI help center entrypoint reviewed on 2026-07-07.",
+      "reason": ""
+    },
+    {
+      "id": "reclaim-ai:pricing_page:reclaim-ai-pricing",
+      "brand": "Reclaim AI",
+      "slug": "reclaim-ai",
+      "source_type": "pricing_page",
+      "source_name": "Reclaim AI Pricing",
+      "source_url": "https://reclaim.ai/pricing",
+      "canonical_source": "reclaim.ai/pricing",
+      "verification_status": "verified",
+      "verification_date": "2026-07-07T00:00:00+00:00",
+      "verified_by": "system",
+      "confidence": 95.0,
+      "freshness_score": 99,
+      "trust_score": 100,
+      "official_score": 0,
+      "pricing_score": 100,
+      "affiliate_score": 0,
+      "release_notes_score": 0,
+      "competitor_score": 0,
+      "duplicate_of": "",
+      "last_seen": "2026-07-07T09:37:30.979129+00:00",
+      "first_seen": "2026-07-07T00:00:00+00:00",
+      "version": 2,
+      "history": [
+        {
+          "at": "2026-07-07T09:37:30.980414+00:00",
+          "action": "updated",
+          "version": 2,
+          "changed_fields": [
+            "verified_by"
+          ]
+        }
+      ],
+      "notes": "Official Reclaim AI pricing page reviewed on 2026-07-07.",
+      "reason": ""
+    },
+    {
+      "id": "reclaim-ai:product_page:reclaim-ai",
+      "brand": "Reclaim AI",
+      "slug": "reclaim-ai",
+      "source_type": "product_page",
+      "source_name": "Reclaim AI Product Homepage",
+      "source_url": "https://reclaim.ai/",
+      "canonical_source": "reclaim.ai/",
+      "verification_status": "verified",
+      "verification_date": "2026-07-07T00:00:00+00:00",
+      "verified_by": "system",
+      "confidence": 88.0,
+      "freshness_score": 100,
+      "trust_score": 96,
+      "official_score": 96,
+      "pricing_score": 0,
+      "affiliate_score": 0,
+      "release_notes_score": 0,
+      "competitor_score": 0,
+      "duplicate_of": "",
+      "last_seen": "2026-07-07T09:37:30.979129+00:00",
+      "first_seen": "2026-07-07T00:00:00+00:00",
+      "version": 2,
+      "history": [
+        {
+          "at": "2026-07-07T09:37:30.982604+00:00",
+          "action": "updated",
+          "version": 2,
+          "changed_fields": [
+            "verified_by"
+          ]
+        }
+      ],
+      "notes": "Official Reclaim AI product reference page reviewed on 2026-07-07.",
+      "reason": ""
+    },
+    {
+      "id": "reclaim-ai:release_notes:updates-reclaim-ai",
+      "brand": "Reclaim AI",
+      "slug": "reclaim-ai",
+      "source_type": "release_notes",
+      "source_name": "Reclaim AI Product Updates",
+      "source_url": "https://updates.reclaim.ai/",
+      "canonical_source": "updates.reclaim.ai/",
+      "verification_status": "verified",
+      "verification_date": "2026-07-07T00:00:00+00:00",
+      "verified_by": "system",
+      "confidence": 90.0,
+      "freshness_score": 99,
+      "trust_score": 97,
+      "official_score": 0,
+      "pricing_score": 0,
+      "affiliate_score": 0,
+      "release_notes_score": 97,
+      "competitor_score": 0,
+      "duplicate_of": "",
+      "last_seen": "2026-07-07T09:37:30.979129+00:00",
+      "first_seen": "2026-07-07T00:00:00+00:00",
+      "version": 2,
+      "history": [
+        {
+          "at": "2026-07-07T09:37:30.981888+00:00",
+          "action": "updated",
+          "version": 2,
+          "changed_fields": [
+            "verified_by"
+          ]
+        }
+      ],
+      "notes": "Official Reclaim AI changelog page reviewed on 2026-07-07.",
+      "reason": ""
+    }
+  ],
+  "pending_sources": [],
+  "expired_sources": [],
+  "duplicate_sources": [],
+  "missing_verified_sources": [
+    "competitor_article"
+  ],
+  "source_confidence": 91.6,
+  "source_status": "verified",
+  "official_docs_score": 99,
+  "pricing_source_score": 100,
+  "affiliate_source_score": 99,
+  "changelog_source_score": 97,
+  "competitor_source_score": 0,
+  "total_verified_source_score": 79,
+  "review_queue_size": 12,
+  "knowledge_dashboard": {
+    "verified_sources": 15,
+    "pending_review": 0,
+    "expired_sources": 0,
+    "duplicate_sources": 0,
+    "coverage": 100.0,
+    "average_trust": 98.27,
+    "average_freshness": 99.4,
+    "verified_percent": 100.0,
+    "pending_percent": 0.0,
+    "expired_percent": 0.0,
+    "duplicate_percent": 0.0,
+    "official_docs_percent": 20.0,
+    "pricing_percent": 20.0,
+    "affiliate_percent": 20.0,
+    "competitor_percent": 0.0,
+    "missing_official_docs": 0,
+    "missing_pricing": 0,
+    "missing_release_notes": 0,
+    "missing_affiliate": 0,
+    "missing_competitor_snapshots": 3,
+    "top_weak_topics": [],
+    "queue_items": 12
+  }
+}

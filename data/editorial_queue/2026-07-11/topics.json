@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-10T21:38:24.176842+00:00",
+  "generated_at": "2026-07-11T05:07:40.395794+00:00",
   "date": "2026-07-11",
   "week_start": "2026-07-06",
   "week_end": "2026-07-12",
@@ -109,19 +109,7 @@
       "review_status": "needs_revision",
       "human_approval_status": "needs_revision",
       "publish_gate_status": "blocked",
-      "error": "",
-      "approved_by": "editor",
-      "validation_mode": "smart",
-      "validation_status": "passed",
-      "autofix_status": "fixed",
-      "cta_status": "ok",
-      "faq_schema_status": "fixed",
-      "meta_description_status": "ok",
-      "redirect_status": "ok",
-      "block_reason": "",
-      "validation_errors": [],
-      "next_action": "",
-      "published_at": "2026-07-11T00:28:48.335577+00:00"
+      "error": ""
     },
     {
       "keyword": "best meetily Review 2026 for small business",
@@ -543,15 +531,8 @@
       "article_title": "best best ai meeting software for small business 2026",
       "review_status": "needs_revision",
       "human_approval_status": "needs_revision",
-      "publish_gate_status": "blocked",
-      "error": "",
-      "published_at": "2026-07-11T04:00:03.702679+00:00",
-      "validation_mode": "smart",
-      "validation_status": "passed",
-      "autofix_status": "skipped",
-      "block_reason": "",
-      "validation_errors": [],
-      "next_action": ""
+      "publish_gate_status": "needs_human_review",
+      "error": ""
     },
     {
       "keyword": "best best ai meeting tools for small business",
@@ -599,9 +580,9 @@
       "article_title": "best best ai meeting tools for small business 2026",
       "review_status": "needs_revision",
       "human_approval_status": "needs_revision",
-      "publish_gate_status": "blocked",
+      "publish_gate_status": "needs_human_review",
       "error": ""
     }
   ],
-  "drafted_at": "2026-07-10T21:38:34.409176+00:00"
+  "drafted_at": "2026-07-11T05:07:47.490443+00:00"
 }
