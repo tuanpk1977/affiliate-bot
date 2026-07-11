@@ -3648,6 +3648,7 @@ class DailyEditorialWorkflow:
         post_push_live_check: dict[str, Any],
     ) -> Path:
         report = self.upload_root / batch_date / "publish_report.md"
+        report.parent.mkdir(parents=True, exist_ok=True)
         lines = [
             f"# Publish Report {batch_date}",
             "",
@@ -3662,9 +3663,12 @@ class DailyEditorialWorkflow:
             "## Published files",
         ]
         for item in published:
+            paths = item.get("paths") if isinstance(item.get("paths"), dict) else {}
+            site_file = str(item.get("site_file") or paths.get("site_output") or "")
+            article_file = str(item.get("article_file") or paths.get("published_static") or "")
             lines.append(f"- `{item['slug']}`")
-            lines.append(f"  site_output: `{item['site_file']}`")
-            lines.append(f"  article_file: `{item['article_file']}`")
+            lines.append(f"  site_output: `{site_file}`")
+            lines.append(f"  article_file: `{article_file}`")
         if skipped:
             lines.extend(["", "## Skipped articles"])
             for item in skipped:

@@ -1167,6 +1167,33 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             publish_rows = _read_json_for_test(data_dir / "publish_queue.json")
             self.assertEqual(publish_rows[0]["status"], "approved_for_publish")
 
+    def test_publish_report_accepts_targeted_validation_candidate_paths(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
+            slug = "best-agent-skills-review-2026-for-small-business"
+
+            report = workflow._write_publish_report(
+                batch_date="2026-07-11",
+                published=[
+                    {
+                        "slug": slug,
+                        "paths": {
+                            "site_output": str(root / "site_output" / slug / "index.html"),
+                            "published_static": str(root / "data" / "published_static_pages" / slug / "index.html"),
+                        },
+                    }
+                ],
+                skipped=[],
+                validation={"mode": "smart", "total_published": 1, "total_skipped": 0},
+                build_result={"status": "targeted_no_full_rebuild"},
+                post_push_live_check={"status": "not_run", "message": "", "attempts": [], "items": []},
+            )
+
+            report_text = report.read_text(encoding="utf-8")
+            self.assertIn("site_output", report_text)
+            self.assertIn("published_static_pages", report_text)
+
     def test_check_live_reports_local_docs_git_and_live_status(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

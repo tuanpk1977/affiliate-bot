@@ -1,0 +1,600 @@
+{
+  "generated_at": "2026-07-10T21:38:24.176842+00:00",
+  "date": "2026-07-11",
+  "week_start": "2026-07-06",
+  "week_end": "2026-07-12",
+  "mode": "advanced",
+  "count": 10,
+  "source_status": {
+    "google_trends": {
+      "status": "ok",
+      "signals": 10
+    },
+    "bing_trending": {
+      "status": "ok",
+      "signals": 29
+    },
+    "reddit": {
+      "status": "empty",
+      "signals": 0
+    },
+    "hacker_news": {
+      "status": "ok",
+      "signals": 40
+    },
+    "product_hunt": {
+      "status": "ok",
+      "signals": 40
+    },
+    "github_trending": {
+      "status": "ok",
+      "signals": 13
+    },
+    "x_twitter": {
+      "status": "unavailable",
+      "signals": 0,
+      "detail": "Set TWITTER_BEARER_TOKEN to enable X recent-search discovery."
+    },
+    "linkedin": {
+      "status": "unavailable",
+      "signals": 0,
+      "detail": "LinkedIn does not expose public trending search; set LINKEDIN_ACCESS_TOKEN and a permitted discovery endpoint."
+    },
+    "youtube_trending": {
+      "status": "unavailable",
+      "signals": 0,
+      "detail": "Set YOUTUBE_API_KEY to enable YouTube trending discovery."
+    },
+    "ai_newsletters": {
+      "status": "ok",
+      "signals": 40
+    },
+    "local_keyword_intelligence": {
+      "status": "ok",
+      "signals": 40
+    }
+  },
+  "duplicate_warning_count": 0,
+  "duplicate_warning_slugs": [],
+  "topics": [
+    {
+      "keyword": "best agent-skills Review 2026 for small business",
+      "slug": "best-agent-skills-review-2026-for-small-business",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 49,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 66,
+      "content_type": "best_for_use_case",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/addyosmani/agent-skills"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "best_for_use_case follow-up for agent-skills Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Recent multi-source activity indicates timely interest."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 65.1,
+      "rank": 1,
+      "status": "published",
+      "week_start": "2026-07-06",
+      "parent_keyword": "agent-skills Review 2026",
+      "parent_slug": "agent-skills-review-2026",
+      "batch_date": "2026-07-11",
+      "mode": "advanced",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 47.43,
+        "threshold": 60.0,
+        "override_used": true,
+        "status": "override_allowed"
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-agent-skills-review-2026-for-small-business",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-agent-skills-review-2026-for-small-business\\index.html",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-11\\best-agent-skills-review-2026-for-small-business\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-agent-skills-review-2026-for-small-business\\metadata.json",
+      "article_title": "best agent-skills Review 2026 for small business",
+      "review_status": "needs_revision",
+      "human_approval_status": "needs_revision",
+      "publish_gate_status": "blocked",
+      "error": "",
+      "approved_by": "editor",
+      "validation_mode": "smart",
+      "validation_status": "passed",
+      "autofix_status": "fixed",
+      "cta_status": "ok",
+      "faq_schema_status": "fixed",
+      "meta_description_status": "ok",
+      "redirect_status": "ok",
+      "block_reason": "",
+      "validation_errors": [],
+      "next_action": "",
+      "published_at": "2026-07-11T00:28:48.335577+00:00"
+    },
+    {
+      "keyword": "best meetily Review 2026 for small business",
+      "slug": "best-meetily-review-2026-for-small-business",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 49,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 66,
+      "content_type": "best_for_use_case",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/Zackriya-Solutions/meetily"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "best_for_use_case follow-up for meetily Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Can remain useful after the current news cycle.",
+        "Recent multi-source activity indicates timely interest."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 65.1,
+      "rank": 2,
+      "status": "drafted",
+      "week_start": "2026-07-06",
+      "parent_keyword": "meetily Review 2026",
+      "parent_slug": "meetily-review-2026",
+      "batch_date": "2026-07-11",
+      "mode": "advanced",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 47.43,
+        "threshold": 60.0,
+        "override_used": true,
+        "status": "override_allowed"
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-meetily-review-2026-for-small-business",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-meetily-review-2026-for-small-business\\index.html",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-11\\best-meetily-review-2026-for-small-business\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-meetily-review-2026-for-small-business\\metadata.json",
+      "article_title": "best meetily Review 2026 for small business",
+      "review_status": "needs_revision",
+      "human_approval_status": "needs_revision",
+      "publish_gate_status": "blocked",
+      "error": ""
+    },
+    {
+      "keyword": "best system_prompts_leaks Review 2026 for small business",
+      "slug": "best-system-prompts-leaks-review-2026-for-small-business",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 49,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 66,
+      "content_type": "best_for_use_case",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/asgeirtj/system_prompts_leaks"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "best_for_use_case follow-up for system_prompts_leaks Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Can remain useful after the current news cycle.",
+        "Recent multi-source activity indicates timely interest."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 65.1,
+      "rank": 3,
+      "status": "drafted",
+      "week_start": "2026-07-06",
+      "parent_keyword": "system_prompts_leaks Review 2026",
+      "parent_slug": "system-prompts-leaks-review-2026",
+      "batch_date": "2026-07-11",
+      "mode": "advanced",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 47.43,
+        "threshold": 60.0,
+        "override_used": true,
+        "status": "override_allowed"
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-system-prompts-leaks-review-2026-for-small-business",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-system-prompts-leaks-review-2026-for-small-business\\index.html",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-11\\best-system-prompts-leaks-review-2026-for-small-business\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-system-prompts-leaks-review-2026-for-small-business\\metadata.json",
+      "article_title": "best system_prompts_leaks Review 2026 for small business",
+      "review_status": "needs_revision",
+      "human_approval_status": "needs_revision",
+      "publish_gate_status": "blocked",
+      "error": ""
+    },
+    {
+      "keyword": "best ai-job-search Review 2026 for small business",
+      "slug": "best-ai-job-search-review-2026-for-small-business",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 67,
+      "content_type": "best_for_use_case",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/MadsLorentzen/ai-job-search"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "best_for_use_case follow-up for ai-job-search Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Recent multi-source activity indicates timely interest."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 64.0,
+      "rank": 4,
+      "status": "drafted",
+      "week_start": "2026-07-06",
+      "parent_keyword": "ai-job-search Review 2026",
+      "parent_slug": "ai-job-search-review-2026",
+      "batch_date": "2026-07-11",
+      "mode": "advanced",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 47.43,
+        "threshold": 60.0,
+        "override_used": true,
+        "status": "override_allowed"
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-ai-job-search-review-2026-for-small-business",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-ai-job-search-review-2026-for-small-business\\index.html",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-11\\best-ai-job-search-review-2026-for-small-business\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-ai-job-search-review-2026-for-small-business\\metadata.json",
+      "article_title": "best ai-job-search Review 2026 for small business",
+      "review_status": "needs_revision",
+      "human_approval_status": "needs_revision",
+      "publish_gate_status": "blocked",
+      "error": ""
+    },
+    {
+      "keyword": "best OfficeCLI Review 2026 for small business",
+      "slug": "best-officecli-review-2026-for-small-business",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 65,
+      "content_type": "best_for_use_case",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/iOfficeAI/OfficeCLI"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "best_for_use_case follow-up for OfficeCLI Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Recent multi-source activity indicates timely interest."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 63.7,
+      "rank": 5,
+      "status": "drafted",
+      "week_start": "2026-07-06",
+      "parent_keyword": "OfficeCLI Review 2026",
+      "parent_slug": "officecli-review-2026",
+      "batch_date": "2026-07-11",
+      "mode": "advanced",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 47.43,
+        "threshold": 60.0,
+        "override_used": true,
+        "status": "override_allowed"
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-officecli-review-2026-for-small-business",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-officecli-review-2026-for-small-business\\index.html",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-11\\best-officecli-review-2026-for-small-business\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-officecli-review-2026-for-small-business\\metadata.json",
+      "article_title": "best OfficeCLI Review 2026 for small business",
+      "review_status": "needs_revision",
+      "human_approval_status": "needs_revision",
+      "publish_gate_status": "blocked",
+      "error": ""
+    },
+    {
+      "keyword": "best CubeSandbox Review 2026 for small business",
+      "slug": "best-cubesandbox-review-2026-for-small-business",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 64,
+      "content_type": "best_for_use_case",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/TencentCloud/CubeSandbox"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "best_for_use_case follow-up for CubeSandbox Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 63.5,
+      "rank": 6,
+      "status": "drafted",
+      "week_start": "2026-07-06",
+      "parent_keyword": "CubeSandbox Review 2026",
+      "parent_slug": "cubesandbox-review-2026",
+      "batch_date": "2026-07-11",
+      "mode": "advanced",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 47.43,
+        "threshold": 60.0,
+        "override_used": true,
+        "status": "override_allowed"
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-cubesandbox-review-2026-for-small-business",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-cubesandbox-review-2026-for-small-business\\index.html",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-11\\best-cubesandbox-review-2026-for-small-business\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-cubesandbox-review-2026-for-small-business\\metadata.json",
+      "article_title": "best CubeSandbox Review 2026 for small business",
+      "review_status": "needs_revision",
+      "human_approval_status": "needs_revision",
+      "publish_gate_status": "blocked",
+      "error": ""
+    },
+    {
+      "keyword": "best skills Review 2026 for small business",
+      "slug": "best-skills-review-2026-for-small-business",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 58,
+      "content_type": "best_for_use_case",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/dotnet/skills"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "best_for_use_case follow-up for skills Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Competition estimate is low-to-medium."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 62.6,
+      "rank": 7,
+      "status": "drafted",
+      "week_start": "2026-07-06",
+      "parent_keyword": "skills Review 2026",
+      "parent_slug": "skills-review-2026",
+      "batch_date": "2026-07-11",
+      "mode": "advanced",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 47.43,
+        "threshold": 60.0,
+        "override_used": true,
+        "status": "override_allowed"
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-skills-review-2026-for-small-business",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-skills-review-2026-for-small-business\\index.html",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-11\\best-skills-review-2026-for-small-business\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-skills-review-2026-for-small-business\\metadata.json",
+      "article_title": "best skills Review 2026 for small business",
+      "review_status": "needs_revision",
+      "human_approval_status": "needs_revision",
+      "publish_gate_status": "blocked",
+      "error": ""
+    },
+    {
+      "keyword": "best Companies are buying AI tools. That doesn't mean they know what to do with them. for small business",
+      "slug": "best-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-for-small-business",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 56,
+      "competition_difficulty_score": 59,
+      "product_availability_score": 58,
+      "content_freshness_score": 46,
+      "content_type": "best_for_use_case",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6a4daa8ba52f4bc59edafe251e6c2451&url=https%3a%2f%2fwww.msn.com%2fen-us%2fmoney%2fgeneral%2fcompanies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them%2far-AA27ixDK&c=9272310961143977806&mkt=en-ww"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "best_for_use_case follow-up for Companies are buying AI tools. That doesn't mean they know what to do with them.",
+      "why_selected": [
+        "Detected across 1 source(s): bing_trending."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 59.6,
+      "rank": 8,
+      "status": "drafted",
+      "week_start": "2026-07-06",
+      "parent_keyword": "Companies are buying AI tools. That doesn't mean they know what to do with them.",
+      "parent_slug": "companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them",
+      "batch_date": "2026-07-11",
+      "mode": "advanced",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 46.0,
+        "threshold": 60.0,
+        "override_used": true,
+        "status": "override_allowed"
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-for-small-business",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-for-small-business\\index.html",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-11\\best-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-for-small-business\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-for-small-business\\metadata.json",
+      "article_title": "best Companies are buying AI tools. That doesn't mean th",
+      "review_status": "needs_revision",
+      "human_approval_status": "needs_revision",
+      "publish_gate_status": "blocked",
+      "error": ""
+    },
+    {
+      "keyword": "best best ai meeting software for small business",
+      "slug": "best-best-ai-meeting-software-for-small-business",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 59,
+      "product_availability_score": 58,
+      "content_freshness_score": 56,
+      "content_type": "best_for_use_case",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "best_for_use_case follow-up for best ai meeting software",
+      "why_selected": [
+        "Detected across 1 source(s): local_keyword_intelligence."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 58.3,
+      "rank": 9,
+      "status": "drafted",
+      "week_start": "2026-07-06",
+      "parent_keyword": "best ai meeting software",
+      "parent_slug": "best-ai-meeting-software",
+      "batch_date": "2026-07-11",
+      "mode": "advanced",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 60.07,
+        "threshold": 60.0,
+        "override_used": false,
+        "status": "passed"
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-best-ai-meeting-software-for-small-business",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-best-ai-meeting-software-for-small-business\\index.html",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-11\\best-best-ai-meeting-software-for-small-business\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-best-ai-meeting-software-for-small-business\\metadata.json",
+      "article_title": "best best ai meeting software for small business 2026",
+      "review_status": "needs_revision",
+      "human_approval_status": "needs_revision",
+      "publish_gate_status": "blocked",
+      "error": ""
+    },
+    {
+      "keyword": "best best ai meeting tools for small business",
+      "slug": "best-best-ai-meeting-tools-for-small-business",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 59,
+      "product_availability_score": 58,
+      "content_freshness_score": 56,
+      "content_type": "best_for_use_case",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "best_for_use_case follow-up for best ai meeting tools",
+      "why_selected": [
+        "Detected across 1 source(s): local_keyword_intelligence."
+      ],
+      "signals": 1,
+      "confidence": "low",
+      "total_score": 58.3,
+      "rank": 10,
+      "status": "drafted",
+      "week_start": "2026-07-06",
+      "parent_keyword": "best ai meeting tools",
+      "parent_slug": "best-ai-meeting-tools",
+      "batch_date": "2026-07-11",
+      "mode": "advanced",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 60.07,
+        "threshold": 60.0,
+        "override_used": false,
+        "status": "passed"
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-best-ai-meeting-tools-for-small-business",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-best-ai-meeting-tools-for-small-business\\index.html",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-11\\best-best-ai-meeting-tools-for-small-business\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-best-ai-meeting-tools-for-small-business\\metadata.json",
+      "article_title": "best best ai meeting tools for small business 2026",
+      "review_status": "needs_revision",
+      "human_approval_status": "needs_revision",
+      "publish_gate_status": "blocked",
+      "error": ""
+    }
+  ],
+  "drafted_at": "2026-07-10T21:38:34.409176+00:00"
+}

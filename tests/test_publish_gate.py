@@ -53,7 +53,8 @@ class PublishGateTests(unittest.TestCase):
             self.assertEqual(published["status"], "published_local")
             self.assertTrue((data_dir / "publish_queue.json").exists())
             self.assertTrue((data_dir / "publish_gate_report.json").exists())
-            self.assertTrue((data_dir / "publish_gate_report.csv").exists())
+            csv_text = (data_dir / "publish_gate_report.csv").read_text(encoding="utf-8")
+            self.assertIn("published_at", csv_text)
             self.assertTrue((data_dir / "publish_gate_report.md").exists())
 
     def test_publish_gate_requires_human_approval_without_blocking_when_required(self) -> None:

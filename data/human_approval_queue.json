@@ -2,11 +2,11 @@
   {
     "slug": "best-ai-productivity-software",
     "topic": "best ai productivity software",
-    "status": "human_approved",
+    "status": "needs_human_review",
     "required": true,
-    "reviewed_at": "2026-07-07T11:51:48.162268+00:00",
-    "approved_at": "2026-07-07T12:43:34.629475+00:00",
-    "approved_by": "editor",
+    "reviewed_at": "2026-07-10T06:55:09.408911+00:00",
+    "approved_at": "",
+    "approved_by": "",
     "reason": ""
   },
   {
@@ -92,21 +92,321 @@
   {
     "slug": "best-ai-meeting-software",
     "topic": "best ai meeting software",
-    "status": "human_approved",
+    "status": "needs_revision",
     "required": true,
-    "reviewed_at": "2026-07-08T22:17:38.709149+00:00",
-    "approved_at": "2026-07-08T22:20:42.635649+00:00",
-    "approved_by": "editor",
-    "reason": ""
+    "reviewed_at": "2026-07-10T06:55:08.096568+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "duplicate content risk too high"
   },
   {
     "slug": "best-ai-meeting-tools",
     "topic": "best ai meeting tools",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-10T06:55:08.731292+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "duplicate content risk too high"
+  },
+  {
+    "slug": "agent-skills-review-2026-comparison",
+    "topic": "agent-skills Review 2026 comparison",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-09T05:03:23.908452+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "factual quality below threshold; source quality below threshold; publish readiness below threshold"
+  },
+  {
+    "slug": "meetily-review-2026-comparison",
+    "topic": "meetily Review 2026 comparison",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-09T05:03:24.521450+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "factual quality below threshold; source quality below threshold; publish readiness below threshold"
+  },
+  {
+    "slug": "system-prompts-leaks-review-2026-comparison",
+    "topic": "system_prompts_leaks Review 2026 comparison",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-09T05:03:25.455954+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "factual quality below threshold; source quality below threshold; duplicate content risk too high; publish readiness below threshold"
+  },
+  {
+    "slug": "ai-job-search-review-2026-comparison",
+    "topic": "ai-job-search Review 2026 comparison",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-09T05:03:26.283757+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "factual quality below threshold; source quality below threshold; publish readiness below threshold"
+  },
+  {
+    "slug": "officecli-review-2026-comparison",
+    "topic": "OfficeCLI Review 2026 comparison",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-09T05:03:27.107695+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "factual quality below threshold; source quality below threshold; publish readiness below threshold"
+  },
+  {
+    "slug": "cubesandbox-review-2026-comparison",
+    "topic": "CubeSandbox Review 2026 comparison",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-09T05:03:27.951019+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "factual quality below threshold; source quality below threshold; publish readiness below threshold"
+  },
+  {
+    "slug": "skills-review-2026-comparison",
+    "topic": "skills Review 2026 comparison",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-09T05:03:28.759474+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "factual quality below threshold; source quality below threshold; duplicate content risk too high; publish readiness below threshold"
+  },
+  {
+    "slug": "companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-comparison",
+    "topic": "Companies are buying AI tools. That doesn't mean they know what to do with them. comparison",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-09T05:03:29.631382+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "factual quality below threshold; source quality below threshold; duplicate content risk too high; publish readiness below threshold"
+  },
+  {
+    "slug": "best-ai-meeting-software-comparison",
+    "topic": "best ai meeting software comparison",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-09T05:03:30.489086+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "duplicate content risk too high"
+  },
+  {
+    "slug": "best-ai-meeting-tools-comparison",
+    "topic": "best ai meeting tools comparison",
+    "status": "needs_human_review",
+    "required": true,
+    "reviewed_at": "2026-07-09T05:03:31.302816+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": ""
+  },
+  {
+    "slug": "how-to-use-agent-skills-review-2026",
+    "topic": "how to use agent-skills Review 2026",
     "status": "human_approved",
     "required": true,
-    "reviewed_at": "2026-07-08T22:17:39.651459+00:00",
-    "approved_at": "2026-07-08T22:20:52.197303+00:00",
+    "reviewed_at": "2026-07-10T14:09:02.324765+00:00",
+    "approved_at": "2026-07-10T14:09:43.843465+00:00",
     "approved_by": "editor",
     "reason": ""
+  },
+  {
+    "slug": "how-to-use-meetily-review-2026",
+    "topic": "how to use meetily Review 2026",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-10T14:09:02.984916+00:00",
+    "approved_at": "2026-07-10T14:09:54.820099+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "how-to-use-system-prompts-leaks-review-2026",
+    "topic": "how to use system_prompts_leaks Review 2026",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-10T14:09:03.690061+00:00",
+    "approved_at": "2026-07-10T14:10:14.612844+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "how-to-use-ai-job-search-review-2026",
+    "topic": "how to use ai-job-search Review 2026",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-10T14:09:04.400930+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "factual quality below threshold; source quality below threshold; publish readiness below threshold"
+  },
+  {
+    "slug": "how-to-use-officecli-review-2026",
+    "topic": "how to use OfficeCLI Review 2026",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-10T14:09:05.068370+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "factual quality below threshold; source quality below threshold; publish readiness below threshold"
+  },
+  {
+    "slug": "how-to-use-cubesandbox-review-2026",
+    "topic": "how to use CubeSandbox Review 2026",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-10T14:09:05.758295+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "factual quality below threshold; source quality below threshold; publish readiness below threshold"
+  },
+  {
+    "slug": "how-to-use-skills-review-2026",
+    "topic": "how to use skills Review 2026",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-10T14:09:06.474442+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "factual quality below threshold; source quality below threshold; duplicate content risk too high; publish readiness below threshold"
+  },
+  {
+    "slug": "how-to-use-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them",
+    "topic": "how to use Companies are buying AI tools. That doesn't mean they know what to do with them.",
+    "status": "needs_revision",
+    "required": false,
+    "reviewed_at": "2026-07-10T14:09:07.136314+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "factual quality below threshold; source quality below threshold; duplicate content risk too high; publish readiness below threshold"
+  },
+  {
+    "slug": "how-to-use-best-ai-meeting-software",
+    "topic": "how to use best ai meeting software",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-10T14:09:07.937509+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "duplicate content risk too high"
+  },
+  {
+    "slug": "how-to-use-best-ai-meeting-tools",
+    "topic": "how to use best ai meeting tools",
+    "status": "needs_human_review",
+    "required": true,
+    "reviewed_at": "2026-07-10T14:09:08.630672+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": ""
+  },
+  {
+    "slug": "best-agent-skills-review-2026-for-small-business",
+    "topic": "best agent-skills Review 2026 for small business",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-10T21:38:24.477720+00:00",
+    "approved_at": "2026-07-10T21:39:27.868427+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "best-meetily-review-2026-for-small-business",
+    "topic": "best meetily Review 2026 for small business",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-10T21:38:25.262107+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "factual quality below threshold; source quality below threshold; duplicate content risk too high; publish readiness below threshold"
+  },
+  {
+    "slug": "best-system-prompts-leaks-review-2026-for-small-business",
+    "topic": "best system_prompts_leaks Review 2026 for small business",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-10T21:38:26.557665+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "factual quality below threshold; source quality below threshold; duplicate content risk too high; publish readiness below threshold"
+  },
+  {
+    "slug": "best-ai-job-search-review-2026-for-small-business",
+    "topic": "best ai-job-search Review 2026 for small business",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-10T21:38:28.116367+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "factual quality below threshold; source quality below threshold; duplicate content risk too high; publish readiness below threshold"
+  },
+  {
+    "slug": "best-officecli-review-2026-for-small-business",
+    "topic": "best OfficeCLI Review 2026 for small business",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-10T21:38:29.013221+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "factual quality below threshold; source quality below threshold; duplicate content risk too high; publish readiness below threshold"
+  },
+  {
+    "slug": "best-cubesandbox-review-2026-for-small-business",
+    "topic": "best CubeSandbox Review 2026 for small business",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-10T21:38:29.930881+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "factual quality below threshold; source quality below threshold; duplicate content risk too high; publish readiness below threshold"
+  },
+  {
+    "slug": "best-skills-review-2026-for-small-business",
+    "topic": "best skills Review 2026 for small business",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-10T21:38:30.862715+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "factual quality below threshold; source quality below threshold; duplicate content risk too high; publish readiness below threshold"
+  },
+  {
+    "slug": "best-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-for-small-business",
+    "topic": "best Companies are buying AI tools. That doesn't mean they know what to do with them. for small business",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-10T21:38:31.745460+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "factual quality below threshold; source quality below threshold; duplicate content risk too high; publish readiness below threshold"
+  },
+  {
+    "slug": "best-best-ai-meeting-software-for-small-business",
+    "topic": "best best ai meeting software for small business",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-10T21:38:32.875872+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "duplicate content risk too high"
+  },
+  {
+    "slug": "best-best-ai-meeting-tools-for-small-business",
+    "topic": "best best ai meeting tools for small business",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-10T21:38:33.870551+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "duplicate content risk too high"
   }
 ]
