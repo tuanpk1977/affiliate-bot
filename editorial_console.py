@@ -29,12 +29,19 @@ def build_parser() -> argparse.ArgumentParser:
     trend.add_argument("--count", type=int, default=10, help="Number of topics to select.")
     trend.add_argument("--mode", choices=("standard", "advanced"), default="standard", help="Topic generation mode.")
     trend.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
+    trend.add_argument("--dry-run", action="store_true", help="Preview topic selection without writing any queue, batch, dashboard, or state files.")
+    trend.add_argument("--confirm", action="store_true", help="Required for real topic queue creation.")
+    trend.add_argument("--timeout", type=int, default=300, help="Outer timeout in seconds for real topic generation.")
+    trend.add_argument("--retries", type=int, default=1, help="Bounded retry count for real topic generation.")
 
     morning = subparsers.add_parser("morning", help="Run trend discovery and draft generation, then build the review dashboard.")
     morning.add_argument("--count", type=int, default=10, help="Number of topics to select.")
     morning.add_argument("--mode", choices=("standard", "advanced"), default="standard", help="Topic generation mode.")
     morning.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
     morning.add_argument("--open", action="store_true", help="Open the daily review dashboard after generation.")
+    morning.add_argument("--confirm", action="store_true", help="Required for real week-start generation.")
+    morning.add_argument("--timeout", type=int, default=900, help="Outer timeout in seconds for real week-start generation.")
+    morning.add_argument("--retries", type=int, default=1, help="Bounded retry count for real week-start generation.")
 
     draft = subparsers.add_parser("draft", help="Generate article drafts for a queued date.")
     draft.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
@@ -122,6 +129,10 @@ def build_parser() -> argparse.ArgumentParser:
     clear_lock = subparsers.add_parser("clear-stale-publish-lock", help="Clear a stale publish lock after PID verification.")
     clear_lock.add_argument("--confirm", action="store_true")
 
+    clear_weekly_lock = subparsers.add_parser("clear-stale-weekly-lock", help="Clear a stale weekly generation lock after PID verification.")
+    clear_weekly_lock.add_argument("--week-start", required=True, help="Monday week start in YYYY-MM-DD format.")
+    clear_weekly_lock.add_argument("--confirm", action="store_true")
+
     recover = subparsers.add_parser("recover-interrupted-preparation", help="Restore a non-live, docs-missing interrupted preparation to Ready for Publish.")
     recover.add_argument("--date", default=today)
     recover.add_argument("--slug", required=True)
@@ -182,6 +193,49 @@ def _print_trend_summary(payload: dict) -> None:
             print(f"  Score: {raw_score:.1f} -> {final_score:.1f} (penalty {penalty:.1f})")
             if matched_url:
                 print(f"  URL: {matched_url}")
+
+
+def _print_trend_dry_run(payload: dict) -> None:
+    print(f"Dry-run date: {payload['date']} | Week: {payload['week_start']} | Mode: {payload['mode']} | Topics: {payload['count']}")
+    print(f"{'#':<3} {'Primary keyword':<48} {'Intent':<24} {'Slug':<46} {'Src':>3} {'Source':<28} {'Fresh':<10} Collision")
+    for index, item in enumerate(payload.get("topics", []), start=1):
+        collision = item.get("collision_result") or {}
+        collision_text = "collision" if collision.get("has_collision") else "clear"
+        print(
+            f"{index:<3} "
+            f"{str(item.get('primary_keyword', ''))[:48]:<48} "
+            f"{str(item.get('search_intent', ''))[:24]:<24} "
+            f"{str(item.get('slug', ''))[:46]:<46} "
+            f"{int(item.get('source_count', 0)):>3} "
+            f"{str(item.get('source_verification_status', ''))[:28]:<28} "
+            f"{str(item.get('freshness_status', ''))[:10]:<10} "
+            f"{collision_text}"
+        )
+    print("")
+    print("would_create:")
+    for path in payload.get("would_create", []):
+        print(f"- {path}")
+    print(f"Final decision: {payload.get('final_decision', 'FAIL')}")
+
+
+def _run_with_retries(callable_obj, *, retries: int, timeout: int):
+    attempts = max(1, min(int(retries or 0) + 1, 3))
+    last_error: Exception | None = None
+    for attempt in range(1, attempts + 1):
+        started = time.monotonic()
+        try:
+            result = callable_obj()
+            elapsed = time.monotonic() - started
+            if elapsed > timeout:
+                raise TimeoutError(f"Operation exceeded timeout after completion: {int(elapsed)}s > {timeout}s")
+            return result
+        except Exception as exc:
+            last_error = exc
+            if attempt >= attempts:
+                break
+            print(f"[WARN] Attempt {attempt} failed: {exc}. Retrying once...", flush=True)
+    assert last_error is not None
+    raise last_error
 
 
 def _progress_print(message: str) -> None:
@@ -273,12 +327,25 @@ def main(argv: list[str] | None = None) -> int:
     publish_lock = PublishLock(ROOT / "data" / "publish.lock")
 
     if args.command == "trend":
-        payload = workflow.trend(count=args.count, mode=args.mode, batch_date=args.date)
+        if args.dry_run:
+            payload = workflow.trend_dry_run(count=args.count, mode=args.mode, batch_date=args.date)
+            _print_trend_dry_run(payload)
+            print(json.dumps(payload, indent=2, ensure_ascii=False))
+            return 0 if payload.get("final_decision") == "PASS" else 2
+        if not args.confirm:
+            print("[ERROR] Real topic generation requires a successful dry-run and --confirm.", flush=True)
+            print(f"[INFO] Preview first: python editorial_console.py trend --count {args.count} --mode {args.mode} --date {args.date} --dry-run", flush=True)
+            return 2
+        payload = _run_with_retries(lambda: workflow.trend(count=args.count, mode=args.mode, batch_date=args.date), retries=args.retries, timeout=args.timeout)
         _print_trend_summary(payload)
         print(json.dumps({"saved_to": f"data/editorial_queue/{payload['date']}/topics.json"}, ensure_ascii=False))
         return 0
     if args.command == "morning":
-        payload = workflow.morning_run(count=args.count, mode=args.mode, batch_date=args.date)
+        if not args.confirm:
+            print("[ERROR] Real week-start generation requires preview plus --confirm.", flush=True)
+            print(f"[INFO] Preview first: python editorial_console.py trend --count {args.count} --mode {args.mode} --date {args.date} --dry-run", flush=True)
+            return 2
+        payload = _run_with_retries(lambda: workflow.morning_run(count=args.count, mode=args.mode, batch_date=args.date), retries=args.retries, timeout=args.timeout)
         _print_trend_summary(payload["trend"])
         if args.open:
             popen_kwargs: dict[str, object] = {"cwd": ROOT, "stdout": subprocess.DEVNULL, "stderr": subprocess.DEVNULL}
@@ -403,6 +470,13 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "clear-stale-publish-lock":
         try:
             print(json.dumps(publish_lock.clear_stale(confirm=args.confirm), indent=2, ensure_ascii=False))
+            return 0
+        except (ValueError, RuntimeError) as exc:
+            print(f"[ERROR] {exc}")
+            return 2
+    if args.command == "clear-stale-weekly-lock":
+        try:
+            print(json.dumps(workflow.clear_stale_weekly_lock(week_start=args.week_start, confirm=args.confirm), indent=2, ensure_ascii=False))
             return 0
         except (ValueError, RuntimeError) as exc:
             print(f"[ERROR] {exc}")

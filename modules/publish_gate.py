@@ -22,9 +22,6 @@ PUBLISH_STATUSES = {
 REVIEW_STATES = {"not_run", "passed", "warning", "failed", "error"}
 
 WARNING_LEGACY_FAILURES = {
-    "verified source score failed",
-    "verified source score too low",
-    "knowledge freshness failed",
     "ai review failed",
     "business score below threshold",
     "readability score below threshold",
@@ -152,7 +149,16 @@ class PublishGate:
                     _unique_append(warnings, reason)
                 else:
                     _unique_append(hard_blockers, reason)
-        human_passed = bool(row.get("human_approval_passed", False)) or str(row.get("status") or "") in {"approved_for_publish", "published_local", "published"}
+        approved_by = str(row.get("approved_by") or "").strip().lower()
+        human_status = str(row.get("human_approval_status") or row.get("human_status") or "").strip().lower()
+        human_passed = (
+            (
+                bool(row.get("human_approval_passed", False))
+                or human_status == "human_approved"
+                or str(row.get("status") or "") in {"approved_for_publish", "published_local", "published"}
+            )
+            and approved_by != "system_optional"
+        )
         if hard_blockers:
             final_gate = "Publish Blocked"
             normalized_status = "blocked"
@@ -249,8 +255,8 @@ class PublishGate:
         knowledge_freshness_passed = freshness_score >= float(self.config.get("minimum_knowledge_freshness", 20))
         review_status = str(review.get("status", "")).strip()
         ai_review_passed = review_status in {"ai_review_passed", "needs_human_review", "human_approved"}
-        human_required = bool(review.get("requires_human_approval", False)) or bool(self.config.get("require_human_approval", False))
-        human_approval_passed = (not human_required) or str(human_approval.get("status", "")) == "human_approved"
+        human_required = True
+        human_approval_passed = str(human_approval.get("status", "")) == "human_approved" and str(human_approval.get("approved_by", "")).strip().lower() != "system_optional"
 
         broken_links = [href for href, _ in internal_links if not self._link_exists(href)]
         duplicate_title_meta = self._duplicate_title_or_description(title, description, current_slug=str(topic.get("slug") or ""))
@@ -280,11 +286,11 @@ class PublishGate:
         if score_band == "blocked" and review:
             _unique_append(hard_blockers, "AI review score below minimum")
         if not research_quality_passed:
-            _unique_append(warnings, "research quality gate needs review")
+            _unique_append(hard_blockers, "research quality gate failed")
         if not verified_source_score_passed:
-            _unique_append(warnings, "verified source score failed")
+            _unique_append(hard_blockers, "verified source score failed")
         if not knowledge_freshness_passed:
-            _unique_append(warnings, "knowledge freshness failed")
+            _unique_append(hard_blockers, "knowledge freshness failed")
         if not ai_review_passed:
             if not review:
                 _unique_append(pending_reviews, "AI review not_run")
@@ -314,8 +320,8 @@ class PublishGate:
 
         review_states = {
             "ai_review": self._review_state(review, passed=ai_review_passed, warning=bool(warnings), failed=any("AI review" in item for item in hard_blockers)),
-            "source_review": "failed" if research_quality and verified_score <= 0 and float(self.config.get("minimum_verified_source_score", 35)) > 0 else ("warning" if not verified_source_score_passed else "passed"),
-            "freshness_review": "not_run" if "source_confidence" not in research_quality else ("warning" if not knowledge_freshness_passed else "passed"),
+            "source_review": "failed" if not verified_source_score_passed else "passed",
+            "freshness_review": "not_run" if "source_confidence" not in research_quality else ("failed" if not knowledge_freshness_passed else "passed"),
         }
         if not review:
             review_states["ai_review"] = "not_run"
@@ -395,13 +401,14 @@ class PublishGate:
         return result
 
     def _write_report(self, rows: list[dict[str, Any]]) -> None:
+        normalized_rows = [self.normalize_existing_row(row) for row in rows]
         summary = {
             "items": len(rows),
-            "blocked": sum(1 for row in rows if str(row.get("status", "")) == "blocked"),
-            "needs_human_review": sum(1 for row in rows if str(row.get("status", "")) == "needs_human_review"),
-            "ready_for_publish": sum(1 for row in rows if str(row.get("status", "")) == "ready_for_publish"),
-            "approved_for_publish": sum(1 for row in rows if str(row.get("status", "")) == "approved_for_publish"),
-            "published_local": sum(1 for row in rows if str(row.get("status", "")) == "published_local"),
+            "blocked": sum(1 for row in normalized_rows if str(row.get("normalized_status", "")) == "blocked"),
+            "needs_human_review": sum(1 for row in normalized_rows if str(row.get("normalized_status", "")) == "needs_human_review"),
+            "ready_for_publish": sum(1 for row in normalized_rows if str(row.get("normalized_status", "")) == "approved_for_publish"),
+            "approved_for_publish": sum(1 for row in normalized_rows if str(row.get("normalized_status", "")) == "approved_for_publish"),
+            "published_local": sum(1 for row in normalized_rows if str(row.get("normalized_status", "")) == "published_local"),
             "publish_failed": sum(1 for row in rows if str(row.get("status", "")) == "publish_failed"),
         }
         _write_json(self.report_json, {"summary": summary, "items": rows})

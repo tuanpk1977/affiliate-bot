@@ -36,21 +36,19 @@ class HumanApprovalWorkflow:
         _write_json(self.queue_path, rows)
 
     def sync_review(self, review: dict[str, Any]) -> dict[str, Any]:
-        required = bool(review.get("requires_human_approval", False))
+        required = True
         if str(review.get("status", "")) not in {"ai_review_passed", "needs_human_review"}:
             status = "needs_revision" if str(review.get("status", "")) == "needs_revision" else "rejected"
-        elif required:
-            status = "needs_human_review"
         else:
-            status = "human_approved"
+            status = "needs_human_review"
         entry = {
             "slug": str(review.get("slug", "")),
             "topic": str(review.get("topic", "")),
             "status": status,
             "required": required,
             "reviewed_at": str(review.get("reviewed_at") or datetime.now(UTC).isoformat()),
-            "approved_at": datetime.now(UTC).isoformat() if status == "human_approved" else "",
-            "approved_by": "system_optional" if status == "human_approved" and not required else "",
+            "approved_at": "",
+            "approved_by": "",
             "reason": "" if status in {"needs_human_review", "human_approved"} else "; ".join(review.get("failures", [])),
         }
         rows = self.load_queue()

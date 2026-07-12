@@ -64,7 +64,7 @@
     "freshness_threshold": 35,
     "review_after_days": 90,
     "expire_after_days": 365,
-    "minimum_verified_sources": 1,
+    "minimum_verified_sources": 2,
     "minimum_official_sources": 1,
     "minimum_trust_score": 50,
     "minimum_freshness": 35,
@@ -75,7 +75,7 @@
     "minimum_publish_readiness": 65,
     "minimum_readability_score": 35,
     "maximum_duplicate_risk": 65,
-    "require_human_approval": false,
+    "require_human_approval": true,
     "manual_approval_article_types": [
       "affiliate",
       "review",
@@ -95,13 +95,13 @@
     ]
   },
   "human_approval": {
-    "required": false
+    "required": true
   },
   "publish_gate": {
     "enabled": true,
     "minimum_verified_source_score": 35,
     "minimum_knowledge_freshness": 20,
-    "require_human_approval": false,
+    "require_human_approval": true,
     "minimum_business_score": 35,
     "minimum_readability_score": 30,
     "scoring_bands": {

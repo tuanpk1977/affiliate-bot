@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
@@ -90,7 +91,7 @@ class PublishGateTests(unittest.TestCase):
             self.assertIn("human approval missing", result["pending_reviews"])
             self.assertEqual(result["failures"], [])
 
-    def test_warning_only_with_human_approval_is_ready(self) -> None:
+    def test_verified_source_and_freshness_failures_are_blocking(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
             data_dir = root / "data"
@@ -112,9 +113,9 @@ class PublishGateTests(unittest.TestCase):
                 internal_links=[],
             )
 
-            self.assertEqual(result["status"], "approved_for_publish")
-            self.assertEqual(result["failures"], [])
-            self.assertGreaterEqual(len(result["warnings"]), 1)
+            self.assertEqual(result["status"], "blocked")
+            self.assertIn("verified source score failed", result["hard_blockers"])
+            self.assertIn("knowledge freshness failed", result["hard_blockers"])
 
     def test_hard_blocker_remains_blocked_after_high_score_and_approval(self) -> None:
         with TemporaryDirectory() as temp_dir:
@@ -159,7 +160,7 @@ class PublishGateTests(unittest.TestCase):
             self.assertEqual(result["review_states"]["source_review"], "not_run")
             self.assertIn("source review not_run", result["pending_reviews"])
 
-    def test_legacy_warning_failures_normalize_without_duplicate_blockers(self) -> None:
+    def test_legacy_source_failures_normalize_as_blockers(self) -> None:
         normalized = PublishGate.normalize_existing_row(
             {
                 "status": "blocked",
@@ -173,9 +174,9 @@ class PublishGateTests(unittest.TestCase):
             }
         )
 
-        self.assertEqual(normalized["normalized_status"], "approved_for_publish")
-        self.assertEqual(normalized["hard_blockers"], [])
-        self.assertEqual(normalized["warnings"].count("verified source score failed"), 1)
+        self.assertEqual(normalized["normalized_status"], "blocked")
+        self.assertEqual(normalized["hard_blockers"].count("verified source score failed"), 1)
+        self.assertIn("knowledge freshness failed", normalized["hard_blockers"])
 
     def test_legacy_hard_failure_stays_blocked_after_approval(self) -> None:
         normalized = PublishGate.normalize_existing_row(
@@ -204,7 +205,7 @@ class PublishGateTests(unittest.TestCase):
         self.assertEqual(normalized["pending_reviews"], [])
         self.assertIn("AI review failed", normalized["historical_warnings"])
 
-    def test_workflow_status_counts_legacy_warning_rows_as_ready_or_human_review(self) -> None:
+    def test_workflow_status_counts_legacy_source_failures_as_blocked(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
             data_dir = root / "data"
@@ -246,9 +247,43 @@ class PublishGateTests(unittest.TestCase):
 
             summary = workflow.status(batch_date="2026-07-11")
 
-            self.assertEqual(summary["ready_for_publish"], 1)
-            self.assertEqual(summary["human_approval_required"], 1)
-            self.assertEqual(summary["publish_blocked"], 0)
+            self.assertEqual(summary["ready_for_publish"], 0)
+            self.assertEqual(summary["human_approval_required"], 0)
+            self.assertEqual(summary["publish_blocked"], 2)
+
+    def test_system_optional_approval_does_not_make_ready(self) -> None:
+        normalized = PublishGate.normalize_existing_row(
+            {
+                "status": "approved_for_publish",
+                "human_approval_passed": True,
+                "approved_by": "system_optional",
+                "failures": [],
+            }
+        )
+
+        self.assertEqual(normalized["normalized_status"], "needs_human_review")
+        self.assertFalse(normalized["publish_ready"])
+
+    def test_refresh_report_counts_normalized_queue_state(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            data_dir = Path(temp_dir) / "data"
+            gate = PublishGate(data_dir=data_dir, site_output_dir=Path(temp_dir) / "site_output", config={"enabled": True})
+            gate.save_queue(
+                [
+                    {"slug": "blocked-source", "status": "blocked", "human_approval_passed": True, "failures": ["verified source score failed"]},
+                    {"slug": "pending", "status": "approved_for_publish", "human_approval_passed": True, "approved_by": "system_optional", "failures": []},
+                    {"slug": "published", "status": "published_local", "failures": ["knowledge freshness failed"]},
+                ]
+            )
+
+            gate.refresh_reports()
+            report = json.loads((data_dir / "publish_gate_report.json").read_text(encoding="utf-8"))
+            summary = report["summary"]
+
+            self.assertEqual(summary["blocked"], 1)
+            self.assertEqual(summary["needs_human_review"], 1)
+            self.assertEqual(summary["approved_for_publish"], 0)
+            self.assertEqual(summary["published_local"], 1)
 
 
 if __name__ == "__main__":

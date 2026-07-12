@@ -140,15 +140,101 @@ class DailyEditorialWorkflow:
 
     def trend(self, *, count: int = 10, mode: str = "standard", batch_date: str | None = None) -> dict[str, Any]:
         target_date = batch_date or date.today().isoformat()
-        weekly_batch = self._load_or_create_weekly_batch(batch_date=target_date, count=count)
+        week_start = self._week_start(target_date)
+        self._acquire_weekly_generation_lock(week_start=week_start, batch_date=target_date, command="trend")
+        try:
+            return self._trend_without_lock(count=count, mode=mode, batch_date=target_date)
+        finally:
+            self._release_weekly_generation_lock(week_start=week_start)
+
+    def trend_dry_run(self, *, count: int = 10, mode: str = "standard", batch_date: str | None = None) -> dict[str, Any]:
+        target_date = batch_date or date.today().isoformat()
+        weekly_batch = self._build_weekly_batch_payload(batch_date=target_date, count=count, write=False)
         selected = self._build_daily_topics_from_weekly_batch(
             weekly_topics=weekly_batch.get("topics", []),
             batch_date=target_date,
             mode=mode,
         )[:count]
+        topics: list[dict[str, Any]] = []
+        would_create: list[str] = []
+        failed = False
+        min_sources = self._minimum_verified_sources()
+        for item in selected:
+            slug = str(item.get("slug") or "")
+            source_count = len([url for url in list(item.get("source_urls") or []) if str(url).strip()])
+            source_status = "passed" if source_count >= min_sources else f"blocked: {source_count} usable sources below {min_sources}"
+            freshness_score = int(float(item.get("content_freshness_score", 0) or 0))
+            freshness_status = "passed" if freshness_score >= int(float(self.editorial_config.get("knowledge_review", {}).get("minimum_freshness", 35))) else "blocked"
+            collision = self._topic_collision_result(slug)
+            failed = failed or source_status != "passed" or freshness_status != "passed" or collision["has_collision"]
+            topics.append(
+                {
+                    "keyword": str(item.get("keyword") or ""),
+                    "primary_keyword": str(item.get("keyword") or ""),
+                    "search_intent": str(item.get("search_intent") or ""),
+                    "slug": slug,
+                    "source_count": source_count,
+                    "source_verification_status": source_status,
+                    "freshness_status": freshness_status,
+                    "collision_result": collision,
+                }
+            )
+            would_create.extend(
+                [
+                    f"data/editorial_queue/weeks/{weekly_batch['week_start']}/week.json",
+                    f"data/editorial_queue/current_week.json",
+                    f"data/editorial_queue/{target_date}/topics.json",
+                ]
+            )
+        return {
+            "generated_at": datetime.now(UTC).isoformat(),
+            "dry_run": True,
+            "date": target_date,
+            "week_start": weekly_batch["week_start"],
+            "week_end": weekly_batch["week_end"],
+            "mode": mode,
+            "count": len(topics),
+            "topics": topics,
+            "source_status": weekly_batch.get("source_status", {}),
+            "would_create": sorted(set(would_create)),
+            "final_decision": "FAIL" if failed or len(topics) < count else "PASS",
+            "note": "Dry-run only: no topic, draft, queue, dashboard, report, batch folder, Git, deploy, or indexing mutation was performed.",
+        }
+
+    def morning_run(self, *, count: int = 10, mode: str = "standard", batch_date: str | None = None) -> dict[str, Any]:
+        target_date = batch_date or date.today().isoformat()
+        week_start = self._week_start(target_date)
+        self._acquire_weekly_generation_lock(week_start=week_start, batch_date=target_date, command="morning")
+        try:
+            trend_payload = self._trend_without_lock(count=count, mode=mode, batch_date=target_date)
+            draft_payload = self.draft(batch_date=target_date)
+            upload_summary = self._sync_upload_batch(batch_date=target_date)
+            master_dashboard = self._build_upload_master_dashboard()
+            return {
+                "date": target_date,
+                "mode": mode,
+                "count": int(trend_payload.get("count", 0)),
+                "trend": trend_payload,
+                "draft": draft_payload,
+                "dashboard_file": str(self.review_root / target_date / "index.html"),
+                "operator_console": str(self.console.console_html),
+                "upload_dir": str(self.upload_root / target_date),
+                "master_dashboard": str(master_dashboard),
+                "upload_summary": upload_summary,
+            }
+        finally:
+            self._release_weekly_generation_lock(week_start=week_start)
+
+    def _trend_without_lock(self, *, count: int, mode: str, batch_date: str) -> dict[str, Any]:
+        weekly_batch = self._load_or_create_weekly_batch(batch_date=batch_date, count=count)
+        selected = self._build_daily_topics_from_weekly_batch(
+            weekly_topics=weekly_batch.get("topics", []),
+            batch_date=batch_date,
+            mode=mode,
+        )[:count]
         payload = {
             "generated_at": datetime.now(UTC).isoformat(),
-            "date": target_date,
+            "date": batch_date,
             "week_start": weekly_batch["week_start"],
             "week_end": weekly_batch["week_end"],
             "mode": mode,
@@ -158,27 +244,8 @@ class DailyEditorialWorkflow:
             "duplicate_warning_slugs": list(weekly_batch.get("duplicate_warning_slugs", []) or []),
             "topics": selected,
         }
-        _write_json(self._queue_dir(target_date) / "topics.json", payload)
+        _write_json(self._queue_dir(batch_date) / "topics.json", payload)
         return payload
-
-    def morning_run(self, *, count: int = 10, mode: str = "standard", batch_date: str | None = None) -> dict[str, Any]:
-        target_date = batch_date or date.today().isoformat()
-        trend_payload = self.trend(count=count, mode=mode, batch_date=target_date)
-        draft_payload = self.draft(batch_date=target_date)
-        upload_summary = self._sync_upload_batch(batch_date=target_date)
-        master_dashboard = self._build_upload_master_dashboard()
-        return {
-            "date": target_date,
-            "mode": mode,
-            "count": int(trend_payload.get("count", 0)),
-            "trend": trend_payload,
-            "draft": draft_payload,
-            "dashboard_file": str(self.review_root / target_date / "index.html"),
-            "operator_console": str(self.console.console_html),
-            "upload_dir": str(self.upload_root / target_date),
-            "master_dashboard": str(master_dashboard),
-            "upload_summary": upload_summary,
-        }
 
     def draft(self, *, batch_date: str) -> dict[str, Any]:
         payload = self._load_queue(batch_date)
@@ -201,15 +268,27 @@ class DailyEditorialWorkflow:
             try:
                 platform = get_research_platform()
                 package = platform.build_research_package(topic_record)
-                allow_override = bool(getattr(settings, "editorial_research_config", {}).get("allow_generation_override", False))
+                allow_override = False
                 gate = platform.evaluate_quality_gate(package, topic=topic_record, allow_override=allow_override)
+                source_count = self._research_package_source_count(package)
+                minimum_sources = self._minimum_verified_sources()
                 item["research_quality_gate"] = {
                     "passed": gate.passed,
                     "score": gate.score,
                     "threshold": gate.threshold,
                     "override_used": gate.override_used,
                     "status": gate.status,
+                    "source_count": source_count,
+                    "minimum_sources": minimum_sources,
                 }
+                if source_count < minimum_sources:
+                    item["status"] = "needs_enrichment"
+                    item["draft_dir"] = ""
+                    item["review_preview"] = ""
+                    item["error"] = f"Research quality gate blocked draft generation: {source_count} usable sources below {minimum_sources}"
+                    blocked += 1
+                    results.append({"slug": slug, "status": item["status"], "error": item["error"]})
+                    continue
                 if not gate.passed:
                     item["status"] = "needs_enrichment"
                     item["draft_dir"] = ""
@@ -254,6 +333,19 @@ class DailyEditorialWorkflow:
             "master_dashboard": str(master_dashboard),
             "upload_summary": upload_summary,
         }
+
+    @staticmethod
+    def _research_package_source_count(package: Any) -> int:
+        sources = getattr(package, "sources", None)
+        if not isinstance(sources, dict):
+            return 0
+        verified_sources = [row for row in list(sources.get("verified_sources") or []) if isinstance(row, dict)]
+        if verified_sources:
+            return len(verified_sources)
+        try:
+            return int(float(sources.get("reference_count", 0) or 0))
+        except (TypeError, ValueError):
+            return 0
 
     def request_custom_topic(
         self,
@@ -2462,7 +2554,13 @@ class DailyEditorialWorkflow:
         existing = _read_json(manifest_path, {})
         if existing:
             return existing
-        discovery = TrendDiscoveryEngine().run(limit=max(count * 3, 30))
+        payload = self._build_weekly_batch_payload(batch_date=batch_date, count=count, write=True)
+        return payload
+
+    def _build_weekly_batch_payload(self, *, batch_date: str, count: int, write: bool) -> dict[str, Any]:
+        week_start = self._week_start(batch_date)
+        manifest_path = self._week_manifest_path(week_start)
+        discovery = TrendDiscoveryEngine(read_only=not write).run(limit=max(count * 3, 30))
         brands = set(load_affiliate_brands())
         candidates = [self._candidate_to_queue_item(candidate, brands=brands) for candidate in discovery.selected_topics]
         published_history = self._load_published_live_history()
@@ -2490,8 +2588,9 @@ class DailyEditorialWorkflow:
             "duplicate_warning_slugs": [str(item.get("slug") or "") for item in selected if str(item.get("published_live_duplicate_warning") or "").strip()],
             "topics": selected,
         }
-        _write_json(manifest_path, payload)
-        _write_json(self.queue_root / "current_week.json", {"week_start": week_start, "batch_date": batch_date})
+        if write:
+            _write_json(manifest_path, payload)
+            _write_json(self.queue_root / "current_week.json", {"week_start": week_start, "batch_date": batch_date})
         return payload
 
     def _build_daily_topics_from_weekly_batch(self, *, weekly_topics: list[dict[str, Any]], batch_date: str, mode: str) -> list[dict[str, Any]]:
@@ -2539,6 +2638,86 @@ class DailyEditorialWorkflow:
 
     def _week_manifest_path(self, week_start: str) -> Path:
         return self.queue_root / "weeks" / week_start / "week.json"
+
+    def _weekly_lock_path(self, week_start: str) -> Path:
+        return self.queue_root / "weeks" / week_start / "generation.lock"
+
+    def _acquire_weekly_generation_lock(self, *, week_start: str, batch_date: str, command: str) -> None:
+        lock_path = self._weekly_lock_path(week_start)
+        if lock_path.exists():
+            payload = _read_json(lock_path, {})
+            pid = int(payload.get("pid") or 0)
+            if self._pid_active(pid):
+                raise RuntimeError(f"Weekly generation already running for {week_start} (PID {pid}).")
+            raise RuntimeError(
+                f"Stale weekly generation lock exists for {week_start}. "
+                f"Run clear-stale-weekly-lock --week-start {week_start} --confirm after verifying the PID is not active."
+            )
+        lock_path.parent.mkdir(parents=True, exist_ok=True)
+        _write_json(
+            lock_path,
+            {
+                "pid": os.getpid(),
+                "started_at": datetime.now(UTC).isoformat(),
+                "week_start": week_start,
+                "batch_date": batch_date,
+                "command": command,
+            },
+        )
+
+    def _release_weekly_generation_lock(self, *, week_start: str) -> None:
+        lock_path = self._weekly_lock_path(week_start)
+        if lock_path.exists():
+            lock_path.unlink()
+
+    def clear_stale_weekly_lock(self, *, week_start: str, confirm: bool = False) -> dict[str, Any]:
+        if not confirm:
+            raise ValueError("--confirm is required.")
+        lock_path = self._weekly_lock_path(week_start)
+        payload = _read_json(lock_path, {})
+        pid = int(payload.get("pid") or 0)
+        if self._pid_active(pid):
+            raise RuntimeError(f"Refusing to clear active weekly generation lock for PID {pid}.")
+        if lock_path.exists():
+            lock_path.unlink()
+        return {"status": "cleared", "week_start": week_start, "previous": payload}
+
+    @staticmethod
+    def _pid_active(pid: int) -> bool:
+        if pid <= 0:
+            return False
+        try:
+            os.kill(pid, 0)
+        except OSError:
+            return False
+        return True
+
+    def _minimum_verified_sources(self) -> int:
+        try:
+            return max(1, int(float((self.editorial_config.get("knowledge_review") or {}).get("minimum_verified_sources", 2))))
+        except (TypeError, ValueError):
+            return 2
+
+    def _topic_collision_result(self, slug: str) -> dict[str, Any]:
+        checks = {
+            "docs": self.root / "docs" / slug / "index.html",
+            "site_output": self.site_output_dir / slug / "index.html",
+            "published_static_pages": self.data_dir / "published_static_pages" / slug / "index.html",
+            "production_article_drafts": self.data_dir / "production_article_drafts" / slug,
+        }
+        matches = [name for name, path in checks.items() if path.exists()]
+        queue_files = self.queue_root.glob("*/topics.json") if self.queue_root.exists() else []
+        for queue_file in queue_files:
+            payload = _read_json(queue_file, {})
+            if any(str(item.get("slug") or "") == slug for item in list(payload.get("topics") or [])):
+                try:
+                    matches.append(str(queue_file.relative_to(self.root)).replace("\\", "/"))
+                except ValueError:
+                    matches.append(str(queue_file).replace("\\", "/"))
+        sitemap = self.site_output_dir / "sitemap.xml"
+        if sitemap.exists() and f"/{slug}/" in sitemap.read_text(encoding="utf-8", errors="ignore"):
+            matches.append("site_output/sitemap.xml")
+        return {"has_collision": bool(matches), "matches": matches or ["none"]}
 
     def _advanced_pattern_for_date(self, batch_date: str) -> tuple[str, str]:
         weekday = date.fromisoformat(batch_date).weekday()

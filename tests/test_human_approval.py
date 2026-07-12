@@ -8,7 +8,7 @@ from modules.human_approval import HumanApprovalWorkflow
 
 
 class HumanApprovalTests(unittest.TestCase):
-    def test_optional_human_approval_auto_marks_approved(self) -> None:
+    def test_optional_human_approval_still_requires_manual_review(self) -> None:
         with TemporaryDirectory() as temp_dir:
             data_dir = Path(temp_dir) / "data"
             workflow = HumanApprovalWorkflow(data_dir=data_dir, config={"required": False})
@@ -23,7 +23,9 @@ class HumanApprovalTests(unittest.TestCase):
                 }
             )
 
-            self.assertEqual(entry["status"], "human_approved")
+            self.assertEqual(entry["status"], "needs_human_review")
+            self.assertTrue(entry["required"])
+            self.assertEqual(entry["approved_by"], "")
             self.assertTrue((data_dir / "human_approval_queue.json").exists())
 
     def test_required_human_approval_supports_approve_and_reject(self) -> None:

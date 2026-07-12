@@ -212,6 +212,57 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
         self.assertEqual(parsed.source_url, "https://ugcvideo.ai")
         self.assertTrue(parsed.open)
 
+    def test_trend_cli_requires_confirm_for_real_generation(self) -> None:
+        class FakeWorkflow:
+            def set_progress_reporter(self, reporter):
+                self.reporter = reporter
+
+        stdout = io.StringIO()
+        with patch.object(EDITORIAL_CONSOLE_MODULE, "DailyEditorialWorkflow", return_value=FakeWorkflow()):
+            with redirect_stdout(stdout):
+                exit_code = editorial_console_main(["trend", "--date", "2026-07-13"])
+
+        self.assertEqual(exit_code, 2)
+        self.assertIn("--dry-run", stdout.getvalue())
+
+    def test_trend_cli_dry_run_prints_plan_without_real_generation(self) -> None:
+        class FakeWorkflow:
+            def set_progress_reporter(self, reporter):
+                self.reporter = reporter
+
+            def trend_dry_run(self, *, count: int, mode: str, batch_date: str):
+                return {
+                    "dry_run": True,
+                    "date": batch_date,
+                    "week_start": "2026-07-13",
+                    "week_end": "2026-07-19",
+                    "mode": mode,
+                    "count": 1,
+                    "topics": [
+                        {
+                            "primary_keyword": "best ai productivity software",
+                            "search_intent": "commercial research",
+                            "slug": "best-ai-productivity-software",
+                            "source_count": 2,
+                            "source_verification_status": "passed",
+                            "freshness_status": "passed",
+                            "collision_result": {"has_collision": False, "matches": ["none"]},
+                        }
+                    ],
+                    "would_create": ["data/editorial_queue/2026-07-13/topics.json"],
+                    "final_decision": "PASS",
+                }
+
+        stdout = io.StringIO()
+        fake = FakeWorkflow()
+        with patch.object(EDITORIAL_CONSOLE_MODULE, "DailyEditorialWorkflow", return_value=fake):
+            with redirect_stdout(stdout):
+                exit_code = editorial_console_main(["trend", "--date", "2026-07-13", "--dry-run"])
+
+        self.assertEqual(exit_code, 0)
+        self.assertIn("Final decision: PASS", stdout.getvalue())
+        self.assertIn("data/editorial_queue/2026-07-13/topics.json", stdout.getvalue())
+
     def test_publish_ready_cli_handles_no_ready_without_traceback(self) -> None:
         class FakeWorkflow:
             def set_progress_reporter(self, reporter):
@@ -350,6 +401,82 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertTrue((root / "data" / "editorial_queue" / "2026-07-07" / "topics.json").exists())
             self.assertTrue((root / "data" / "editorial_queue" / "weeks" / "2026-07-06" / "week.json").exists())
             self.assertEqual(payload.get("duplicate_warning_count"), 0)
+
+    def test_trend_dry_run_does_not_write_queue_files(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            _write_json(root / "config" / "editorial_system.json", {"knowledge_review": {"minimum_verified_sources": 2, "minimum_freshness": 35}})
+            workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
+            candidate = SimpleNamespace(
+                topic="best ai productivity software",
+                slug="best-ai-productivity-software",
+                search_intent="commercial research",
+                affiliate_opportunity=84,
+                competition=42,
+                news_freshness=73,
+                content_type="listicle",
+                source_urls=["https://example.com/a", "https://example.com/b"],
+                suggested_internal_links=[],
+                suggested_article_angle="Angle",
+                why_selected=["Strong fit"],
+                signals=3,
+                confidence="high",
+            )
+            discovery = SimpleNamespace(selected_topics=[candidate], source_status={"local_keyword_intelligence": {"status": "ok", "signals": 1}})
+            with patch("modules.daily_editorial_workflow.TrendDiscoveryEngine") as engine_cls:
+                engine_cls.return_value.run.return_value = discovery
+                with patch("modules.daily_editorial_workflow.load_affiliate_brands", return_value=frozenset()):
+                    payload = workflow.trend_dry_run(count=1, mode="standard", batch_date="2026-07-13")
+
+            self.assertEqual(payload["final_decision"], "PASS")
+            self.assertIn("data/editorial_queue/2026-07-13/topics.json", payload["would_create"])
+            self.assertFalse((root / "data" / "editorial_queue" / "2026-07-13" / "topics.json").exists())
+            self.assertFalse((root / "data" / "editorial_queue" / "weeks" / "2026-07-13" / "week.json").exists())
+
+    def test_trend_dry_run_blocks_thin_sources_and_collisions(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            _write_json(root / "config" / "editorial_system.json", {"knowledge_review": {"minimum_verified_sources": 2, "minimum_freshness": 35}})
+            workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
+            existing = root / "docs" / "best-ai-productivity-software" / "index.html"
+            existing.parent.mkdir(parents=True, exist_ok=True)
+            existing.write_text("<html></html>", encoding="utf-8")
+            candidate = SimpleNamespace(
+                topic="best ai productivity software",
+                slug="best-ai-productivity-software",
+                search_intent="commercial research",
+                affiliate_opportunity=84,
+                competition=42,
+                news_freshness=20,
+                content_type="listicle",
+                source_urls=["https://example.com/a"],
+                suggested_internal_links=[],
+                suggested_article_angle="Angle",
+                why_selected=["Thin source"],
+                signals=1,
+                confidence="medium",
+            )
+            discovery = SimpleNamespace(selected_topics=[candidate], source_status={})
+            with patch("modules.daily_editorial_workflow.TrendDiscoveryEngine") as engine_cls:
+                engine_cls.return_value.run.return_value = discovery
+                with patch("modules.daily_editorial_workflow.load_affiliate_brands", return_value=frozenset()):
+                    payload = workflow.trend_dry_run(count=1, mode="standard", batch_date="2026-07-13")
+
+            topic = payload["topics"][0]
+            self.assertEqual(payload["final_decision"], "FAIL")
+            self.assertIn("below 2", topic["source_verification_status"])
+            self.assertEqual(topic["freshness_status"], "blocked")
+            self.assertTrue(topic["collision_result"]["has_collision"])
+
+    def test_weekly_generation_lock_blocks_concurrent_run(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
+            lock_path = root / "data" / "editorial_queue" / "weeks" / "2026-07-13" / "generation.lock"
+            _write_json(lock_path, {"pid": 999999, "week_start": "2026-07-13"})
+            with patch.object(DailyEditorialWorkflow, "_pid_active", return_value=True):
+                with self.assertRaises(RuntimeError):
+                    workflow.trend(count=1, mode="standard", batch_date="2026-07-13")
 
     def test_trend_flags_near_duplicate_against_published_live_history(self) -> None:
         with TemporaryDirectory() as temp_dir:
@@ -602,7 +729,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
 
             class FakePlatform:
                 def build_research_package(self, topic: dict):
-                    return SimpleNamespace(package_dir=str(data_dir / "research" / topic["slug"]))
+                    return SimpleNamespace(package_dir=str(data_dir / "research" / topic["slug"]), sources={"verified_sources": [{"url": "https://example.com/a"}, {"url": "https://example.com/b"}], "reference_count": 2})
 
                 def evaluate_quality_gate(self, package, topic: dict, allow_override: bool = False):
                     return SimpleNamespace(passed=True, score=81, threshold=60, override_used=False, status="passed")
@@ -658,7 +785,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
 
             class FakePlatform:
                 def build_research_package(self, topic: dict):
-                    return SimpleNamespace(package_dir=str(data_dir / "research" / topic["slug"]))
+                    return SimpleNamespace(package_dir=str(data_dir / "research" / topic["slug"]), sources={"verified_sources": [{"url": "https://example.com/a"}, {"url": "https://example.com/b"}], "reference_count": 2})
 
                 def evaluate_quality_gate(self, package, topic: dict, allow_override: bool = False):
                     return SimpleNamespace(passed=True, score=81, threshold=60, override_used=False, status="passed")
@@ -672,7 +799,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
 
             self.assertEqual(result["drafted"], 1)
 
-    def test_draft_allows_generation_override_from_config(self) -> None:
+    def test_draft_disables_generation_override_from_config(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
             data_dir = root / "data"
@@ -705,11 +832,11 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
 
             class FakePlatform:
                 def build_research_package(self, topic: dict):
-                    return SimpleNamespace(package_dir=str(data_dir / "research" / topic["slug"]))
+                    return SimpleNamespace(package_dir=str(data_dir / "research" / topic["slug"]), sources={"verified_sources": [{"url": "https://example.com/a"}, {"url": "https://example.com/b"}], "reference_count": 2})
 
                 def evaluate_quality_gate(self, package, topic: dict, allow_override: bool = False):
                     self.allow_override = allow_override
-                    return SimpleNamespace(passed=True, score=45.14, threshold=60.0, override_used=True, status="override_allowed")
+                    return SimpleNamespace(passed=allow_override, score=45.14, threshold=60.0, override_used=allow_override, status="override_allowed" if allow_override else "needs_enrichment")
 
             fake_platform = FakePlatform()
             with patch("modules.daily_editorial_workflow.get_research_platform", return_value=fake_platform):
@@ -721,10 +848,57 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                         result = workflow.draft(batch_date="2026-07-07")
 
             saved = json.loads((data_dir / "editorial_queue" / "2026-07-07" / "topics.json").read_text(encoding="utf-8"))
-            self.assertEqual(result["drafted"], 1)
-            self.assertEqual(saved["topics"][0]["status"], "drafted")
-            self.assertEqual(saved["topics"][0]["research_quality_gate"]["status"], "override_allowed")
-            self.assertTrue(saved["topics"][0]["research_quality_gate"]["override_used"])
+            self.assertFalse(fake_platform.allow_override)
+            self.assertEqual(result["drafted"], 0)
+            self.assertEqual(result["blocked"], 1)
+            self.assertEqual(saved["topics"][0]["status"], "needs_enrichment")
+            self.assertEqual(saved["topics"][0]["research_quality_gate"]["status"], "needs_enrichment")
+            self.assertFalse(saved["topics"][0]["research_quality_gate"]["override_used"])
+
+    def test_draft_blocks_thin_source_package_before_generation(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            site_output = root / "site_output"
+            _write_json(root / "config" / "editorial_system.json", {"knowledge_review": {"minimum_verified_sources": 2}})
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=site_output)
+            _write_json(
+                data_dir / "editorial_queue" / "2026-07-13" / "topics.json",
+                {
+                    "generated_at": "2026-07-13T00:00:00+00:00",
+                    "date": "2026-07-13",
+                    "mode": "standard",
+                    "count": 1,
+                    "topics": [
+                        {
+                            "keyword": "best ai productivity software",
+                            "slug": "best-ai-productivity-software",
+                            "search_intent": "commercial research",
+                            "content_type": "listicle",
+                            "total_score": 88.5,
+                            "status": "selected",
+                        }
+                    ],
+                },
+            )
+
+            class FakePlatform:
+                def build_research_package(self, topic: dict):
+                    return SimpleNamespace(package_dir=str(data_dir / "research" / topic["slug"]), sources={"verified_sources": [{"url": "https://example.com/a"}], "reference_count": 1})
+
+                def evaluate_quality_gate(self, package, topic: dict, allow_override: bool = False):
+                    return SimpleNamespace(passed=True, score=81, threshold=60, override_used=False, status="passed")
+
+            with patch("modules.daily_editorial_workflow.get_research_platform", return_value=FakePlatform()):
+                with patch("modules.daily_editorial_workflow.generate_production_article_draft_from_package") as generator:
+                    result = workflow.draft(batch_date="2026-07-13")
+
+            generator.assert_not_called()
+            saved = json.loads((data_dir / "editorial_queue" / "2026-07-13" / "topics.json").read_text(encoding="utf-8"))
+            self.assertEqual(result["drafted"], 0)
+            self.assertEqual(result["blocked"], 1)
+            self.assertEqual(saved["topics"][0]["status"], "needs_enrichment")
+            self.assertIn("1 usable sources below 2", saved["topics"][0]["error"])
 
     def test_morning_run_builds_dashboard_and_console_paths(self) -> None:
         with TemporaryDirectory() as temp_dir:
@@ -765,7 +939,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
 
             class FakePlatform:
                 def build_research_package(self, topic: dict):
-                    return SimpleNamespace(package_dir=str(data_dir / "research" / topic["slug"]))
+                    return SimpleNamespace(package_dir=str(data_dir / "research" / topic["slug"]), sources={"verified_sources": [{"url": "https://example.com/a"}, {"url": "https://example.com/b"}], "reference_count": 2})
 
                 def evaluate_quality_gate(self, package, topic: dict, allow_override: bool = False):
                     return SimpleNamespace(passed=True, score=81, threshold=60, override_used=False, status="passed")
@@ -824,7 +998,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
 
             class FakePlatform:
                 def build_research_package(self, topic: dict):
-                    return SimpleNamespace(package_dir=str(data_dir / "research" / topic["slug"]))
+                    return SimpleNamespace(package_dir=str(data_dir / "research" / topic["slug"]), sources={"verified_sources": [{"url": "https://example.com/a"}, {"url": "https://example.com/b"}], "reference_count": 2})
 
                 def evaluate_quality_gate(self, package, topic: dict, allow_override: bool = False):
                     return SimpleNamespace(passed=True, score=81, threshold=60, override_used=False, status="passed")

@@ -108,9 +108,10 @@ class DiscoveryResult:
 
 
 class TrendDiscoveryEngine:
-    def __init__(self, timeout: int | None = None, max_per_source: int = 40) -> None:
+    def __init__(self, timeout: int | None = None, max_per_source: int = 40, read_only: bool = False) -> None:
         self.timeout = timeout or int(os.getenv("REQUEST_TIMEOUT", "20"))
         self.max_per_source = max_per_source
+        self.read_only = read_only
         self.session = requests.Session()
         self.session.headers.update({"User-Agent": os.getenv("USER_AGENT", "SmileAIReviewHub-TrendDiscovery/1.0")})
         self.source_status: dict[str, dict[str, object]] = {}
@@ -130,8 +131,9 @@ class TrendDiscoveryEngine:
             ("linkedin", self.linkedin),
             ("youtube_trending", self.youtube_trending),
             ("ai_newsletters", self.ai_newsletters),
-            ("local_keyword_intelligence", self.local_keyword_intelligence),
         ]
+        if not self.read_only:
+            connectors.append(("local_keyword_intelligence", self.local_keyword_intelligence))
         for name, connector in connectors:
             try:
                 found = connector()[: self.max_per_source]
