@@ -23,6 +23,10 @@ SITEMAP_EXCLUDED_SEGMENTS = {
 REDIRECT_PATHS = {
     "/semrush-vs-ahrefs-2026/",
     "/vi/semrush-vs-ahrefs-2026/",
+    "/surfer-seo-pricing-2026/",
+    "/vi/surfer-seo-pricing-2026/",
+    "/vi/marketing-software-review/",
+    "/vi/crm-alternatives/",
 }
 
 INDEXABLE_ROBOTS_META = "index,follow,max-image-preview:large"
