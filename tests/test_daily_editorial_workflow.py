@@ -1191,6 +1191,19 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertIn("verified_sources 0 below 2", saved["topics"][0]["error"])
             self.assertNotIn("62.43 < 60.0", saved["topics"][0]["error"])
 
+    def test_needs_enrichment_stale_draft_is_not_reviewable(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            slug = "pydantic-ai-review-2026"
+            draft_dir = data_dir / "production_article_drafts" / slug
+            draft_dir.mkdir(parents=True, exist_ok=True)
+            (draft_dir / "index.html").write_text("<html></html>", encoding="utf-8")
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=root / "site_output")
+
+            self.assertFalse(workflow._has_reviewable_preview({"slug": slug, "status": "needs_enrichment"}))
+            self.assertTrue(workflow._has_reviewable_preview({"slug": slug, "status": "drafted"}))
+
     def test_morning_run_builds_dashboard_and_console_paths(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

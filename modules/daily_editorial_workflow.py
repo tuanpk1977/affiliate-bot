@@ -3623,6 +3623,9 @@ class DailyEditorialWorkflow:
         return "Open Review, fix blockers, then rerun publish validation"
 
     def _has_reviewable_preview(self, item: dict[str, Any]) -> bool:
+        status = str(item.get("status") or "").strip().lower()
+        if status in {"needs_enrichment", "draft_failed", "selected"}:
+            return False
         review_preview = str(item.get("review_preview") or "").strip()
         if review_preview:
             return Path(review_preview).exists()
