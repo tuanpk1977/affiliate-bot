@@ -1144,6 +1144,53 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertEqual(saved["topics"][0]["status"], "drafted")
             self.assertTrue(saved["topics"][0]["review_preview"])
 
+    def test_draft_uses_source_gate_reason_when_score_is_above_threshold(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            site_output = root / "site_output"
+            _write_json(root / "config" / "editorial_system.json", {"knowledge_review": {"minimum_verified_sources": 2}})
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=site_output)
+            _write_json(
+                data_dir / "editorial_queue" / "2026-07-13" / "topics.json",
+                {
+                    "date": "2026-07-13",
+                    "topics": [
+                        {
+                            "keyword": "Impartner Automation Review",
+                            "slug": "impartner-automation-review",
+                            "source_urls": ["https://businesswire.com/a", "https://finance.yahoo.com/b"],
+                            "source_readiness": {"passes": True, "source_urls": ["https://businesswire.com/a", "https://finance.yahoo.com/b"], "source_count": 2},
+                            "content_freshness_score": 80,
+                        }
+                    ],
+                },
+            )
+
+            class FakePlatform:
+                def build_research_package(self, topic: dict):
+                    return SimpleNamespace(package_dir=str(data_dir / "research" / topic["slug"]), sources={"verified_sources": [{"url": "https://businesswire.com/a"}, {"url": "https://finance.yahoo.com/b"}], "reference_count": 2})
+
+                def evaluate_quality_gate(self, package, topic: dict, allow_override: bool = False):
+                    return SimpleNamespace(
+                        passed=False,
+                        score=62.43,
+                        threshold=60.0,
+                        override_used=False,
+                        status="needs_enrichment",
+                        queue_entry={"reason": "verified_sources 0 below 2"},
+                    )
+
+            with patch("modules.daily_editorial_workflow.get_research_platform", return_value=FakePlatform()):
+                with patch("modules.daily_editorial_workflow.generate_production_article_draft_from_package") as generator:
+                    result = workflow.draft(batch_date="2026-07-13")
+
+            generator.assert_not_called()
+            self.assertEqual(result["blocked"], 1)
+            saved = json.loads((data_dir / "editorial_queue" / "2026-07-13" / "topics.json").read_text(encoding="utf-8"))
+            self.assertIn("verified_sources 0 below 2", saved["topics"][0]["error"])
+            self.assertNotIn("62.43 < 60.0", saved["topics"][0]["error"])
+
     def test_morning_run_builds_dashboard_and_console_paths(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

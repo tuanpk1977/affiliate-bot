@@ -412,10 +412,15 @@ class DailyEditorialWorkflow:
                     results.append({"slug": slug, "status": item["status"], "error": item["error"]})
                     continue
                 if not gate.passed:
+                    gate_reason = ""
+                    if isinstance(getattr(gate, "queue_entry", None), dict):
+                        gate_reason = str(gate.queue_entry.get("reason") or "").strip()
+                    if not gate_reason:
+                        gate_reason = f"{gate.score} < {gate.threshold}"
                     item["status"] = "needs_enrichment"
                     item["draft_dir"] = ""
                     item["review_preview"] = ""
-                    item["error"] = f"Research quality gate blocked draft generation: {gate.score} < {gate.threshold}"
+                    item["error"] = f"Research quality gate blocked draft generation: {gate_reason}"
                     blocked += 1
                     results.append({"slug": slug, "status": item["status"], "error": item["error"]})
                     continue
