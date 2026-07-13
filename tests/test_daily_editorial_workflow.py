@@ -11,6 +11,7 @@ from tempfile import TemporaryDirectory
 from types import SimpleNamespace
 from unittest.mock import patch
 
+from modules.ai_trend_discovery import TopicCandidate, TrendDiscoveryEngine, TrendSignal
 from modules.daily_editorial_workflow import DailyEditorialWorkflow
 
 EDITORIAL_CONSOLE_PATH = Path(__file__).resolve().parents[1] / "editorial_console.py"
@@ -383,7 +384,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 competition=42,
                 news_freshness=73,
                 content_type="listicle",
-                source_urls=["https://example.com/a"],
+                source_urls=["https://example.com/a", "https://news.example.org/b"],
                 suggested_internal_links=["/reviews/"],
                 suggested_article_angle="Angle",
                 why_selected=["Strong fit"],
@@ -415,7 +416,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 competition=42,
                 news_freshness=73,
                 content_type="listicle",
-                source_urls=["https://example.com/a", "https://example.com/b"],
+                source_urls=["https://example.com/a", "https://news.example.org/b"],
                 suggested_internal_links=[],
                 suggested_article_angle="Angle",
                 why_selected=["Strong fit"],
@@ -462,11 +463,122 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 with patch("modules.daily_editorial_workflow.load_affiliate_brands", return_value=frozenset()):
                     payload = workflow.trend_dry_run(count=1, mode="standard", batch_date="2026-07-13")
 
-            topic = payload["topics"][0]
             self.assertEqual(payload["final_decision"], "FAIL")
-            self.assertIn("below 2", topic["source_verification_status"])
-            self.assertEqual(topic["freshness_status"], "blocked")
-            self.assertTrue(topic["collision_result"]["has_collision"])
+            self.assertEqual(payload["topics"], [])
+            rejected = payload["rejected_candidates"][0]
+            self.assertIn("below 2", rejected["reason"])
+            self.assertIn("freshness", rejected["reason"])
+            self.assertIn("slug collision", rejected["reason"])
+
+    def test_source_readiness_deduplicates_same_domain_sources(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            _write_json(root / "config" / "editorial_system.json", {"knowledge_review": {"minimum_verified_sources": 2, "minimum_freshness": 35}})
+            workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
+
+            readiness = workflow._topic_source_readiness(
+                {
+                    "slug": "best-ai-productivity-software",
+                    "source_urls": ["https://example.com/a", "https://www.example.com/b", "https://news.example.org/c"],
+                    "content_freshness_score": 70,
+                }
+            )
+
+            self.assertTrue(readiness["passes"])
+            self.assertEqual(readiness["source_count"], 2)
+            self.assertEqual(readiness["unique_source_domains"], ["example.com", "news.example.org"])
+
+            redirected = workflow._topic_source_readiness(
+                {
+                    "slug": "redirected-topic",
+                    "source_urls": [
+                        "https://example.com/a",
+                        "https://www.bing.com/news/apiclick.aspx?url=https%3A%2F%2Fexample.com%2Ffrom-bing",
+                        "https://news.example.org/c",
+                    ],
+                    "content_freshness_score": 70,
+                }
+            )
+
+            self.assertTrue(redirected["passes"])
+            self.assertEqual(redirected["source_count"], 2)
+            self.assertEqual(redirected["source_urls"], ["https://example.com/a", "https://news.example.org/c"])
+
+    def test_source_ready_selection_replaces_weak_candidate(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            _write_json(root / "config" / "editorial_system.json", {"knowledge_review": {"minimum_verified_sources": 2, "minimum_freshness": 35}})
+            workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
+            candidates = [
+                {"keyword": "Weak", "slug": "weak", "source_urls": ["https://one.example/a"], "content_freshness_score": 80},
+                {"keyword": "Strong one", "slug": "strong-one", "source_urls": ["https://one.example/a", "https://two.example/b"], "content_freshness_score": 80},
+                {"keyword": "Strong two", "slug": "strong-two", "source_urls": ["https://three.example/a", "https://four.example/b"], "content_freshness_score": 80},
+            ]
+
+            selected, rejected = workflow._select_source_ready_topics(candidates, count=2)
+
+            self.assertEqual([item["slug"] for item in selected], ["strong-one", "strong-two"])
+            self.assertEqual(rejected[0]["slug"], "weak")
+            self.assertIn("1 usable sources below 2", rejected[0]["reason"])
+
+    def test_source_ready_selection_fails_when_pool_has_fewer_than_ten_passing_topics(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            _write_json(root / "config" / "editorial_system.json", {"knowledge_review": {"minimum_verified_sources": 2, "minimum_freshness": 35}})
+            workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
+            candidates = [
+                {"keyword": f"Topic {index}", "slug": f"topic-{index}", "source_urls": ["https://one.example/a", "https://two.example/b"], "content_freshness_score": 80}
+                for index in range(9)
+            ]
+
+            selected, rejected = workflow._select_source_ready_topics(candidates, count=10)
+
+            self.assertEqual(len(selected), 9)
+            self.assertEqual(rejected, [])
+
+    def test_trend_engine_enriches_candidate_with_independent_bing_sources(self) -> None:
+        candidate = TopicCandidate(
+            topic="Example AI Tool Review 2026",
+            slug="example-ai-tool-review-2026",
+            sources=["github_trending"],
+            source_urls=["https://github.com/example/tool"],
+            signals=1,
+            trend_score=70,
+            search_intent="commercial research",
+            content_type="review",
+            affiliate_potential="medium",
+            competition_level="medium",
+            freshness_level="medium",
+            estimated_business_value="medium",
+            recommended_priority="medium",
+            suggested_internal_links=[],
+            suggested_article_angle="Angle",
+            suggested_video_angle="Video",
+            classifications=[],
+            search_volume_potential=70,
+            competition=40,
+            affiliate_opportunity=70,
+            evergreen_value=70,
+            news_freshness=70,
+            cpc_potential=70,
+            total_score=70.0,
+            confidence="low",
+            why_selected=[],
+        )
+        engine = TrendDiscoveryEngine(read_only=True)
+        with patch.object(
+            engine,
+            "bing_sources_for_topic",
+            return_value=[
+                TrendSignal("Example AI Tool", "bing_topic_source", "https://github.com/example/other"),
+                TrendSignal("Example AI Tool", "bing_topic_source", "https://news.example.com/example-ai-tool"),
+            ],
+        ):
+            enriched = engine.enrich_candidate_sources([candidate], pool_limit=1)[0]
+
+        self.assertEqual(enriched.source_urls, ["https://github.com/example/tool", "https://news.example.com/example-ai-tool"])
+        self.assertIn("bing_topic_source", enriched.sources)
+        self.assertEqual(enriched.confidence, "medium")
 
     def test_weekly_generation_lock_blocks_concurrent_run(self) -> None:
         with TemporaryDirectory() as temp_dir:
@@ -509,7 +621,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 competition=42,
                 news_freshness=73,
                 content_type="listicle",
-                source_urls=["https://example.com/a"],
+                source_urls=["https://example.com/a", "https://news.example.org/b"],
                 suggested_internal_links=["/reviews/"],
                 suggested_article_angle="Angle",
                 why_selected=["Strong fit"],
@@ -562,7 +674,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 competition=42,
                 news_freshness=73,
                 content_type="listicle",
-                source_urls=[],
+                source_urls=["https://example.com/a", "https://news.example.org/b"],
                 suggested_internal_links=[],
                 suggested_article_angle="Angle",
                 why_selected=["Duplicate risk"],
@@ -577,7 +689,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 competition=41,
                 news_freshness=72,
                 content_type="listicle",
-                source_urls=[],
+                source_urls=["https://example.com/a", "https://news.example.org/b"],
                 suggested_internal_links=[],
                 suggested_article_angle="Angle",
                 why_selected=["Fresh opportunity"],
@@ -606,7 +718,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 competition=35,
                 news_freshness=70,
                 content_type="review",
-                source_urls=[],
+                source_urls=["https://example.com/a", "https://news.example.org/b"],
                 suggested_internal_links=[],
                 suggested_article_angle="Angle",
                 why_selected=["Strong fit"],
@@ -636,7 +748,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 competition=35,
                 news_freshness=70,
                 content_type="review",
-                source_urls=[],
+                source_urls=["https://example.com/a", "https://news.example.org/b"],
                 suggested_internal_links=[],
                 suggested_article_angle="Angle",
                 why_selected=["Strong fit"],
@@ -648,7 +760,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 engine_cls.return_value.run.return_value = discovery
                 with patch("modules.daily_editorial_workflow.load_affiliate_brands", return_value=frozenset({"notion"})):
                     workflow.trend(count=1, mode="standard", batch_date="2026-07-06")
-                    payload = workflow.trend(count=1, mode="advanced", batch_date="2026-07-12")
+                    payload = workflow.trend(count=1, mode="advanced", batch_date="2026-07-09")
 
             keywords = [item["keyword"] for item in payload["topics"]]
             self.assertFalse(any("review 2026 review 2026" in keyword.lower() for keyword in keywords))
@@ -676,6 +788,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                         "product_availability_score": 58,
                         "content_freshness_score": 73,
                         "content_type": "listicle",
+                        "source_urls": ["https://example.com/a", "https://news.example.org/b"],
                         "total_score": 88.5,
                         "rank": 1,
                     }
@@ -914,7 +1027,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 competition=42,
                 news_freshness=73,
                 content_type="listicle",
-                source_urls=["https://example.com/a"],
+                source_urls=["https://example.com/a", "https://news.example.org/b"],
                 suggested_internal_links=["/reviews/"],
                 suggested_article_angle="Angle",
                 why_selected=["Strong fit"],
@@ -923,19 +1036,6 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             )
             discovery = SimpleNamespace(selected_topics=[candidate], source_status={"local_keyword_intelligence": {"status": "ok", "signals": 1}})
             draft_dir = data_dir / "production_article_drafts" / "best-ai-productivity-software"
-            draft_dir.mkdir(parents=True, exist_ok=True)
-            (draft_dir / "index.html").write_text("<html><body>Draft</body></html>", encoding="utf-8")
-            (draft_dir / "metadata.json").write_text(
-                json.dumps(
-                    {
-                        "title": "Best AI Productivity Software",
-                        "review": {"status": "needs_human_review"},
-                        "human_approval": {"status": "needs_human_review"},
-                        "publish_gate": {"status": "blocked"},
-                    }
-                ),
-                encoding="utf-8",
-            )
 
             class FakePlatform:
                 def build_research_package(self, topic: dict):
@@ -948,9 +1048,25 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 engine_cls.return_value.run.return_value = discovery
                 with patch("modules.daily_editorial_workflow.load_affiliate_brands", return_value=frozenset({"notion"})):
                     with patch("modules.daily_editorial_workflow.get_research_platform", return_value=FakePlatform()):
+                        def fake_generate(*args, **kwargs):
+                            draft_dir.mkdir(parents=True, exist_ok=True)
+                            (draft_dir / "index.html").write_text("<html><body>Draft</body></html>", encoding="utf-8")
+                            (draft_dir / "metadata.json").write_text(
+                                json.dumps(
+                                    {
+                                        "title": "Best AI Productivity Software",
+                                        "review": {"status": "needs_human_review"},
+                                        "human_approval": {"status": "needs_human_review"},
+                                        "publish_gate": {"status": "blocked"},
+                                    }
+                                ),
+                                encoding="utf-8",
+                            )
+                            return {"draft_dir": str(draft_dir), "metadata_file": str(draft_dir / "metadata.json")}
+
                         with patch(
                             "modules.daily_editorial_workflow.generate_production_article_draft_from_package",
-                            return_value={"draft_dir": str(draft_dir), "metadata_file": str(draft_dir / "metadata.json")},
+                            side_effect=fake_generate,
                         ):
                             result = workflow.morning_run(count=1, batch_date="2026-07-07")
 
@@ -982,7 +1098,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 competition=42,
                 news_freshness=73,
                 content_type="listicle",
-                source_urls=["https://example.com/a"],
+                source_urls=["https://example.com/a", "https://news.example.org/b"],
                 suggested_internal_links=["/reviews/"],
                 suggested_article_angle="Angle",
                 why_selected=["Strong fit"],
@@ -990,11 +1106,6 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 confidence="high",
             )
             discovery = SimpleNamespace(selected_topics=[candidate], source_status={"local_keyword_intelligence": {"status": "ok", "signals": 1}})
-            for slug in ("best-ai-productivity-software", "best-ai-productivity-software-comparison"):
-                draft_dir = data_dir / "production_article_drafts" / slug
-                draft_dir.mkdir(parents=True, exist_ok=True)
-                (draft_dir / "index.html").write_text("<html><body>Draft</body></html>", encoding="utf-8")
-                (draft_dir / "metadata.json").write_text(json.dumps({"title": slug}), encoding="utf-8")
 
             class FakePlatform:
                 def build_research_package(self, topic: dict):
@@ -1007,9 +1118,16 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 engine_cls.return_value.run.return_value = discovery
                 with patch("modules.daily_editorial_workflow.load_affiliate_brands", return_value=frozenset({"notion"})):
                     with patch("modules.daily_editorial_workflow.get_research_platform", return_value=FakePlatform()):
+                        def fake_generate(slug: str, *args, **kwargs):
+                            draft_dir = data_dir / "production_article_drafts" / slug
+                            draft_dir.mkdir(parents=True, exist_ok=True)
+                            (draft_dir / "index.html").write_text("<html><body>Draft</body></html>", encoding="utf-8")
+                            (draft_dir / "metadata.json").write_text(json.dumps({"title": slug}), encoding="utf-8")
+                            return {"draft_dir": str(draft_dir), "metadata_file": str(draft_dir / "metadata.json")}
+
                         with patch(
                             "modules.daily_editorial_workflow.generate_production_article_draft_from_package",
-                            side_effect=lambda slug: {"draft_dir": str(data_dir / "production_article_drafts" / slug), "metadata_file": str(data_dir / "production_article_drafts" / slug / "metadata.json")},
+                            side_effect=fake_generate,
                         ):
                             monday = workflow.morning_run(count=1, mode="standard", batch_date="2026-07-06")
                             thursday = workflow.morning_run(count=1, mode="advanced", batch_date="2026-07-09")

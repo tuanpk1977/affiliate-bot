@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 from functools import lru_cache
 from pathlib import Path
 from typing import Callable
-from urllib.parse import quote_plus, urlparse
+from urllib.parse import parse_qs, quote_plus, unquote, urlparse
 from xml.etree import ElementTree as ET
 
 import requests
@@ -131,9 +131,8 @@ class TrendDiscoveryEngine:
             ("linkedin", self.linkedin),
             ("youtube_trending", self.youtube_trending),
             ("ai_newsletters", self.ai_newsletters),
+            ("local_keyword_intelligence", self.local_keyword_intelligence),
         ]
-        if not self.read_only:
-            connectors.append(("local_keyword_intelligence", self.local_keyword_intelligence))
         for name, connector in connectors:
             try:
                 found = connector()[: self.max_per_source]
@@ -144,7 +143,7 @@ class TrendDiscoveryEngine:
             except Exception as exc:
                 self.source_status[name] = {"status": "error", "signals": 0, "detail": f"{type(exc).__name__}: {exc}"}
 
-        candidates = self.aggregate(signals)
+        candidates = self.enrich_candidate_sources(self.aggregate(signals), pool_limit=max(limit * 2, limit))
         eligible = [candidate for candidate in candidates if not candidate.already_published]
         selected = sorted(eligible, key=lambda item: (-item.total_score, item.competition, item.topic))[:limit]
         return DiscoveryResult(
@@ -178,6 +177,23 @@ class TrendDiscoveryEngine:
                 groups[key].append(signal)
         candidates = [self.score_group(items) for items in groups.values()]
         return sorted(candidates, key=lambda item: (-item.total_score, item.topic))
+
+    def enrich_candidate_sources(self, candidates: list[TopicCandidate], *, pool_limit: int) -> list[TopicCandidate]:
+        enriched: list[TopicCandidate] = []
+        for candidate in candidates[:pool_limit]:
+            supplemental = self.bing_sources_for_topic(candidate.topic)
+            if supplemental:
+                candidate.source_urls = independent_source_urls([*candidate.source_urls, *[signal.url for signal in supplemental if signal.url]])
+                candidate.sources = sorted(set([*candidate.sources, *[signal.source for signal in supplemental]]))
+                candidate.signals += len(supplemental)
+                if len(candidate.source_urls) >= 2 and candidate.confidence == "low":
+                    candidate.confidence = "medium"
+                    candidate.why_selected = [*candidate.why_selected, "Supplemental Bing source aggregation found at least two independent source domains."]
+            else:
+                candidate.source_urls = independent_source_urls(candidate.source_urls)
+            enriched.append(candidate)
+        enriched.extend(candidates[pool_limit:])
+        return enriched
 
     def score_group(self, signals: list[TrendSignal]) -> TopicCandidate:
         representative = choose_representative(signals)
@@ -220,7 +236,7 @@ class TrendDiscoveryEngine:
             topic=topic,
             slug=slugify(topic),
             sources=sources,
-            source_urls=unique([signal.url for signal in signals if signal.url])[:8],
+            source_urls=independent_source_urls([signal.url for signal in signals if signal.url]),
             signals=len(signals),
             trend_score=freshness,
             search_intent=classify_search_intent(topic),
@@ -255,6 +271,15 @@ class TrendDiscoveryEngine:
         for query in queries:
             result.extend(self.rss(f"https://www.bing.com/news/search?q={quote_plus(query)}&format=rss", "bing_trending"))
         return result
+
+    def bing_sources_for_topic(self, topic: str) -> list[TrendSignal]:
+        query = clean_topic_query(topic)
+        if not query:
+            return []
+        try:
+            return self.rss(f"https://www.bing.com/news/search?q={quote_plus(query)}&format=rss", "bing_topic_source")
+        except Exception:
+            return []
 
     def reddit(self) -> list[TrendSignal]:
         result: list[TrendSignal] = []
@@ -669,6 +694,43 @@ def clamp(value: float) -> int:
 
 def unique(values: list[str]) -> list[str]:
     return list(dict.fromkeys(values))
+
+
+def normalize_source_url(url: str) -> str:
+    clean = str(url or "").strip()
+    parsed = urlparse(clean)
+    host = parsed.netloc.lower().removeprefix("www.")
+    if host == "bing.com" and parsed.path.startswith("/news/apiclick"):
+        target = parse_qs(parsed.query).get("url", [""])[0]
+        if target:
+            return unquote(target).strip()
+    return clean
+
+
+def source_domain(url: str) -> str:
+    host = urlparse(normalize_source_url(url)).netloc.lower()
+    if host.startswith("www."):
+        host = host[4:]
+    return host
+
+
+def independent_source_urls(urls: list[str]) -> list[str]:
+    result: list[str] = []
+    seen_domains: set[str] = set()
+    for url in urls:
+        clean = normalize_source_url(url)
+        domain = source_domain(clean)
+        if not clean or not domain or domain in seen_domains:
+            continue
+        seen_domains.add(domain)
+        result.append(clean)
+    return result[:8]
+
+
+def clean_topic_query(topic: str) -> str:
+    query = re.sub(r"\bReview\s+20\d{2}\b", "", str(topic or ""), flags=re.I)
+    query = re.sub(r"\b(best|pricing|alternatives|comparison)\b", "", query, flags=re.I)
+    return re.sub(r"\s+", " ", query.replace("_", " ").replace("-", " ")).strip()
 
 
 def save_discovery_result(result: DiscoveryResult, output: Path | None = None) -> tuple[Path, Path]:

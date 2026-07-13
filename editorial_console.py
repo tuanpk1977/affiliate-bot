@@ -211,11 +211,23 @@ def _print_trend_dry_run(payload: dict) -> None:
             f"{str(item.get('freshness_status', ''))[:10]:<10} "
             f"{collision_text}"
         )
+        domains = ", ".join(str(domain) for domain in list(item.get("unique_source_domains") or []))
+        urls = list(item.get("source_urls") or [])
+        print(f"    Domains: {domains or 'none'}")
+        for url in urls:
+            print(f"    - {url}")
+        print(f"    Result: {item.get('pass_fail_reason', '')}")
     print("")
     print("would_create:")
     for path in payload.get("would_create", []):
         print(f"- {path}")
     print(f"Final decision: {payload.get('final_decision', 'FAIL')}")
+    print(f"Passing topics: {payload.get('passing_topic_count', 0)}")
+    print(f"Rejected candidates: {payload.get('rejected_candidate_count', 0)}")
+    if payload.get("rejection_reasons"):
+        print("Rejection reasons:")
+        for reason, total in dict(payload.get("rejection_reasons") or {}).items():
+            print(f"- {reason}: {total}")
 
 
 def _run_with_retries(callable_obj, *, retries: int, timeout: int):

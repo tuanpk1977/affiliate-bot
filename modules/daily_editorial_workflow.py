@@ -18,7 +18,7 @@ from typing import Any, Callable
 from build_site import incremental_build
 from config import settings
 from modules.affiliate_links import load_affiliate_links
-from modules.ai_trend_discovery import TrendDiscoveryEngine, classify_content_type, classify_search_intent, load_affiliate_brands, slugify
+from modules.ai_trend_discovery import TrendDiscoveryEngine, classify_content_type, classify_search_intent, load_affiliate_brands, normalize_source_url, slugify
 from modules.content_growth_pipeline import generate_production_article_draft_from_package, get_research_platform, is_near_duplicate
 from modules.editorial_operations_console import EditorialOperationsConsole
 from modules.editorial_state_reset import EditorialStateReset
@@ -149,34 +149,30 @@ class DailyEditorialWorkflow:
 
     def trend_dry_run(self, *, count: int = 10, mode: str = "standard", batch_date: str | None = None) -> dict[str, Any]:
         target_date = batch_date or date.today().isoformat()
-        weekly_batch = self._build_weekly_batch_payload(batch_date=target_date, count=count, write=False)
-        selected = self._build_daily_topics_from_weekly_batch(
+        weekly_batch = self._build_weekly_batch_payload(batch_date=target_date, count=max(count * 5, 50), write=False)
+        candidate_topics = self._build_daily_topics_from_weekly_batch(
             weekly_topics=weekly_batch.get("topics", []),
             batch_date=target_date,
             mode=mode,
-        )[:count]
+        )
+        selected, rejected = self._select_source_ready_topics(candidate_topics, count=count)
         topics: list[dict[str, Any]] = []
         would_create: list[str] = []
-        failed = False
-        min_sources = self._minimum_verified_sources()
         for item in selected:
-            slug = str(item.get("slug") or "")
-            source_count = len([url for url in list(item.get("source_urls") or []) if str(url).strip()])
-            source_status = "passed" if source_count >= min_sources else f"blocked: {source_count} usable sources below {min_sources}"
-            freshness_score = int(float(item.get("content_freshness_score", 0) or 0))
-            freshness_status = "passed" if freshness_score >= int(float(self.editorial_config.get("knowledge_review", {}).get("minimum_freshness", 35))) else "blocked"
-            collision = self._topic_collision_result(slug)
-            failed = failed or source_status != "passed" or freshness_status != "passed" or collision["has_collision"]
+            source_details = item.get("source_readiness") if isinstance(item.get("source_readiness"), dict) else self._topic_source_readiness(item)
             topics.append(
                 {
                     "keyword": str(item.get("keyword") or ""),
                     "primary_keyword": str(item.get("keyword") or ""),
                     "search_intent": str(item.get("search_intent") or ""),
-                    "slug": slug,
-                    "source_count": source_count,
-                    "source_verification_status": source_status,
-                    "freshness_status": freshness_status,
-                    "collision_result": collision,
+                    "slug": str(item.get("slug") or ""),
+                    "source_count": source_details["source_count"],
+                    "source_urls": source_details["source_urls"],
+                    "unique_source_domains": source_details["unique_source_domains"],
+                    "source_verification_status": source_details["source_verification_status"],
+                    "freshness_status": source_details["freshness_status"],
+                    "collision_result": source_details["collision_result"],
+                    "pass_fail_reason": source_details["pass_fail_reason"],
                 }
             )
             would_create.extend(
@@ -197,7 +193,11 @@ class DailyEditorialWorkflow:
             "topics": topics,
             "source_status": weekly_batch.get("source_status", {}),
             "would_create": sorted(set(would_create)),
-            "final_decision": "FAIL" if failed or len(topics) < count else "PASS",
+            "final_decision": "PASS" if len(topics) == count else "FAIL",
+            "passing_topic_count": len(topics),
+            "rejected_candidate_count": len(rejected),
+            "rejection_reasons": self._summarize_rejections(rejected),
+            "rejected_candidates": rejected[:25],
             "note": "Dry-run only: no topic, draft, queue, dashboard, report, batch folder, Git, deploy, or indexing mutation was performed.",
         }
 
@@ -226,12 +226,18 @@ class DailyEditorialWorkflow:
             self._release_weekly_generation_lock(week_start=week_start)
 
     def _trend_without_lock(self, *, count: int, mode: str, batch_date: str) -> dict[str, Any]:
-        weekly_batch = self._load_or_create_weekly_batch(batch_date=batch_date, count=count)
-        selected = self._build_daily_topics_from_weekly_batch(
+        weekly_batch = self._load_or_create_weekly_batch(batch_date=batch_date, count=max(count * 5, 50))
+        candidate_topics = self._build_daily_topics_from_weekly_batch(
             weekly_topics=weekly_batch.get("topics", []),
             batch_date=batch_date,
             mode=mode,
-        )[:count]
+        )
+        selected, rejected = self._select_source_ready_topics(candidate_topics, count=count)
+        if len(selected) < count:
+            raise ValueError(
+                f"Only {len(selected)} topics passed source readiness for {batch_date}; "
+                f"{len(rejected)} candidates rejected. Run trend --dry-run for details."
+            )
         payload = {
             "generated_at": datetime.now(UTC).isoformat(),
             "date": batch_date,
@@ -243,6 +249,8 @@ class DailyEditorialWorkflow:
             "duplicate_warning_count": int(weekly_batch.get("duplicate_warning_count", 0)),
             "duplicate_warning_slugs": list(weekly_batch.get("duplicate_warning_slugs", []) or []),
             "topics": selected,
+            "rejected_candidate_count": len(rejected),
+            "rejection_reasons": self._summarize_rejections(rejected),
         }
         _write_json(self._queue_dir(batch_date) / "topics.json", payload)
         return payload
@@ -2697,6 +2705,76 @@ class DailyEditorialWorkflow:
             return max(1, int(float((self.editorial_config.get("knowledge_review") or {}).get("minimum_verified_sources", 2))))
         except (TypeError, ValueError):
             return 2
+
+    def _select_source_ready_topics(self, candidates: list[dict[str, Any]], *, count: int) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+        selected: list[dict[str, Any]] = []
+        rejected: list[dict[str, Any]] = []
+        for item in candidates:
+            readiness = self._topic_source_readiness(item)
+            if readiness["passes"]:
+                if len(selected) < count:
+                    selected_item = dict(item)
+                    selected_item["source_readiness"] = readiness
+                    selected.append(selected_item)
+            else:
+                rejected.append(
+                    {
+                        "keyword": str(item.get("keyword") or ""),
+                        "slug": str(item.get("slug") or ""),
+                        "source_count": readiness["source_count"],
+                        "unique_source_domains": readiness["unique_source_domains"],
+                        "reason": readiness["pass_fail_reason"],
+                    }
+                )
+        return selected[:count], rejected
+
+    def _topic_source_readiness(self, item: dict[str, Any]) -> dict[str, Any]:
+        min_sources = self._minimum_verified_sources()
+        source_urls = self._independent_topic_sources(list(item.get("source_urls") or []))
+        domains = [urllib.parse.urlparse(url).netloc.lower().removeprefix("www.") for url in source_urls]
+        source_count = len(source_urls)
+        freshness_score = int(float(item.get("content_freshness_score", 0) or 0))
+        freshness_min = int(float((self.editorial_config.get("knowledge_review") or {}).get("minimum_freshness", 35)))
+        collision = self._topic_collision_result(str(item.get("slug") or ""))
+        reasons: list[str] = []
+        if source_count < min_sources:
+            reasons.append(f"{source_count} usable sources below {min_sources}")
+        if freshness_score < freshness_min:
+            reasons.append(f"freshness {freshness_score} below {freshness_min}")
+        if collision["has_collision"]:
+            reasons.append("slug collision")
+        return {
+            "passes": not reasons,
+            "source_count": source_count,
+            "source_urls": source_urls,
+            "unique_source_domains": domains,
+            "source_verification_status": "passed" if source_count >= min_sources else f"blocked: {source_count} usable sources below {min_sources}",
+            "freshness_status": "passed" if freshness_score >= freshness_min else "blocked",
+            "collision_result": collision,
+            "pass_fail_reason": "PASS" if not reasons else "; ".join(reasons),
+        }
+
+    @staticmethod
+    def _independent_topic_sources(urls: list[str]) -> list[str]:
+        selected: list[str] = []
+        domains: set[str] = set()
+        for url in urls:
+            clean = normalize_source_url(str(url or ""))
+            parsed = urllib.parse.urlparse(clean)
+            domain = parsed.netloc.lower().removeprefix("www.")
+            if not clean or not parsed.scheme.startswith("http") or not domain or domain in domains:
+                continue
+            domains.add(domain)
+            selected.append(clean)
+        return selected[:8]
+
+    @staticmethod
+    def _summarize_rejections(rejected: list[dict[str, Any]]) -> dict[str, int]:
+        summary: dict[str, int] = {}
+        for row in rejected:
+            reason = str(row.get("reason") or "unknown")
+            summary[reason] = summary.get(reason, 0) + 1
+        return summary
 
     def _topic_collision_result(self, slug: str) -> dict[str, Any]:
         checks = {
