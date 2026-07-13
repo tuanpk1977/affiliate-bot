@@ -122,6 +122,8 @@ class ResearchQualityGateResult:
     override_used: bool
     status: str
     queue_entry: dict[str, Any] | None = None
+    warnings: tuple[str, ...] = ()
+    hard_blockers: tuple[str, ...] = ()
 
 
 class ResearchEnrichmentQueue:
@@ -164,7 +166,7 @@ class ResearchEnrichmentQueue:
         self.save(rows)
 
     def pending(self) -> list[dict[str, Any]]:
-        return [row for row in self.load() if str(row.get("status", "")) in {"pending", "enriching", "needs_enrichment"}]
+        return [row for row in self.load() if str(row.get("status", "")) in {"pending", "enriching", "needs_enrichment", "warning"}]
 
     def append_history(self, row: dict[str, Any]) -> None:
         self.history_path.parent.mkdir(parents=True, exist_ok=True)
@@ -294,8 +296,12 @@ class ResearchIntelligencePlatform:
     def evaluate_quality_gate(self, package: ResearchPackage, *, topic: dict[str, Any] | None = None, allow_override: bool | None = None) -> ResearchQualityGateResult:
         gate_config = self.research_config.get("quality_gate", {})
         source_gate = self.research_config.get("verified_source_gate", {})
+        threshold_policy = self.config.get("threshold_policy", {}) if isinstance(self.config.get("threshold_policy"), dict) else {}
+        initial_thresholds = threshold_policy.get("initial_thresholds", {}) if isinstance(threshold_policy.get("initial_thresholds"), dict) else {}
+        critical_minimums = threshold_policy.get("critical_minimums", {}) if isinstance(threshold_policy.get("critical_minimums"), dict) else {}
         enabled = bool(gate_config.get("enabled", True))
-        threshold = float(gate_config.get("threshold", self.research_config.get("min_research_quality_score", 60)))
+        threshold = float(initial_thresholds.get("research_quality_score", gate_config.get("threshold", self.research_config.get("min_research_quality_score", 60))))
+        critical_research_score = float(critical_minimums.get("research_quality_score", 35))
         override_allowed = bool(
             self.research_config.get("allow_generation_override", False)
             if allow_override is None
@@ -303,18 +309,52 @@ class ResearchIntelligencePlatform:
         ) or bool(gate_config.get("allow_override", False))
         score = float(package.quality.get("overall_score", 0))
         source_gate_passed, source_gate_reasons = self._passes_verified_source_gate(package.sources, source_gate)
+        source_count = self._package_verified_source_count(package)
+        critical_minimum_sources = int(float(critical_minimums.get("minimum_usable_sources", 1)))
+        warnings: list[str] = []
+        hard_blockers: list[str] = []
+        if source_count < critical_minimum_sources:
+            hard_blockers.append(f"{source_count} usable sources below critical minimum {critical_minimum_sources}")
+        if bool(package.quality.get("entity_mismatch") or package.entities.get("entity_mismatch")):
+            hard_blockers.append("entity mismatch")
+        if bool(package.quality.get("source_mismatch") or package.sources.get("source_mismatch")):
+            hard_blockers.append("source mismatch")
+        if bool((topic or {}).get("duplicate_collision") or (topic or {}).get("collision_result", {}).get("has_collision", False)):
+            hard_blockers.append("duplicate collision")
+        if score < critical_research_score:
+            hard_blockers.append(f"research_quality_score {score} below critical minimum {critical_research_score}")
+        if score < threshold:
+            warnings.append(f"research_quality_score {score} below initial threshold {threshold}")
+        if not source_gate_passed:
+            warnings.extend(source_gate_reasons)
+        entity_threshold = float(initial_thresholds.get("entity_coverage_score", 40))
+        entity_score = float(package.quality.get("entity_coverage_score", package.quality.get("entity_coverage", 0)) or 0)
+        if entity_score < entity_threshold:
+            warnings.append(f"entity_coverage_score {entity_score} below initial threshold {entity_threshold}")
+        competitor_threshold = float(initial_thresholds.get("competitor_coverage_score", 30))
+        competitor_score = float(package.quality.get("competitor_quality", 0) or 0)
+        if competitor_score < competitor_threshold:
+            warnings.append(f"competitor_coverage_score {competitor_score} below initial threshold {competitor_threshold}")
+        freshness_threshold = float(initial_thresholds.get("freshness_score", 40))
+        freshness_score = float(package.sources.get("source_confidence", package.quality.get("source_confidence", 0)) or 0)
+        if freshness_score < freshness_threshold:
+            warnings.append(f"freshness_score {freshness_score} below initial threshold {freshness_threshold}")
         if not enabled:
-            return ResearchQualityGateResult(True, score, threshold, False, "passed")
-        if score >= threshold and source_gate_passed:
+            return ResearchQualityGateResult(True, score, threshold, False, "passed", warnings=tuple(dict.fromkeys(warnings)), hard_blockers=tuple(dict.fromkeys(hard_blockers)))
+        if not hard_blockers and score >= threshold and source_gate_passed:
             self.queue.update_status(package.slug, "approved", approved_at=datetime.now(UTC).isoformat())
-            return ResearchQualityGateResult(True, score, threshold, False, "passed")
-        if override_allowed:
-            return ResearchQualityGateResult(True, score, threshold, True, "override_allowed")
+            return ResearchQualityGateResult(True, score, threshold, False, "passed", warnings=tuple(dict.fromkeys(warnings)), hard_blockers=())
+        if not hard_blockers:
+            entry = self._queue_entry_for_package(package, topic or {"topic": package.keyword, "slug": package.slug})
+            if warnings:
+                entry["reason"] = "; ".join(dict.fromkeys(warnings))
+            entry["status"] = "warning"
+            self.queue.enqueue(entry)
+            return ResearchQualityGateResult(True, score, threshold, False, "warning", queue_entry=entry, warnings=tuple(dict.fromkeys(warnings)), hard_blockers=())
         entry = self._queue_entry_for_package(package, topic or {"topic": package.keyword, "slug": package.slug})
-        if source_gate_reasons:
-            entry["reason"] = "; ".join(dict.fromkeys([entry["reason"], *source_gate_reasons]))
+        entry["reason"] = "; ".join(dict.fromkeys([entry["reason"], *hard_blockers, *warnings]))
         self.queue.enqueue(entry)
-        return ResearchQualityGateResult(False, score, threshold, False, "needs_enrichment", queue_entry=entry)
+        return ResearchQualityGateResult(False, score, threshold, False, "needs_enrichment", queue_entry=entry, warnings=tuple(dict.fromkeys(warnings)), hard_blockers=tuple(dict.fromkeys(hard_blockers)))
 
     def run_enrichment(self, *, topics: list[dict[str, Any]] | None = None) -> dict[str, Any]:
         targets = topics or self.queue.pending()

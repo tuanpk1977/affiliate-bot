@@ -15,6 +15,16 @@ from modules.research_intelligence import ResearchIntelligencePlatform
 
 
 class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
+    def _approved_human_workflow(self, data_dir: Path) -> HumanApprovalWorkflow:
+        workflow = HumanApprovalWorkflow(data_dir=data_dir, config={"required": True})
+
+        class ApprovedWorkflow:
+            def sync_review(self, review: dict) -> dict:
+                workflow.sync_review(review)
+                return workflow.approve(str(review.get("slug", "")), approver="editor") or {}
+
+        return ApprovedWorkflow()
+
     def test_resolve_internal_links_excludes_missing_targets(self) -> None:
         with TemporaryDirectory() as temp_dir:
             site_output = Path(temp_dir) / "site_output"
@@ -47,6 +57,7 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
                 "cursor for teams",
                 "copilot for developers",
             ],
+            "source_urls": ["https://example.com/source-a", "https://docs.example.com/source-b"],
             "suggested_internal_links": [
                 "/comparisons/cursor-vs-windsurf/",
                 "/category/ai-coding-tools/",
@@ -128,7 +139,7 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
                     patch.object(
                         pipeline,
                         "get_human_approval_workflow",
-                        return_value=HumanApprovalWorkflow(data_dir=data_dir, config={"required": False}),
+                        return_value=self._approved_human_workflow(data_dir),
                     )
                 )
                 stack.enter_context(
@@ -144,7 +155,7 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
                                 "minimum_knowledge_freshness": 0,
                                 "minimum_business_score": 0,
                                 "minimum_readability_score": 0,
-                                "require_human_approval": False,
+                                "require_human_approval": True,
                             },
                         ),
                     )
@@ -323,6 +334,7 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
             "search_intent": "commercial",
             "total_score": 91,
             "related_keywords": ["cursor pricing"],
+            "source_urls": ["https://example.com/source-a", "https://docs.example.com/source-b"],
             "suggested_internal_links": [],
         }
         with TemporaryDirectory() as temp_dir:

@@ -91,7 +91,7 @@ class PublishGateTests(unittest.TestCase):
             self.assertIn("human approval missing", result["pending_reviews"])
             self.assertEqual(result["failures"], [])
 
-    def test_verified_source_and_freshness_failures_are_blocking(self) -> None:
+    def test_verified_source_and_freshness_failures_are_warnings(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
             data_dir = root / "data"
@@ -113,9 +113,31 @@ class PublishGateTests(unittest.TestCase):
                 internal_links=[],
             )
 
+            self.assertEqual(result["status"], "approved_for_publish")
+            self.assertEqual(result["hard_blockers"], [])
+            self.assertIn("verified source score below initial threshold", result["warnings"])
+            self.assertIn("knowledge freshness below initial threshold", result["warnings"])
+
+    def test_critical_research_quality_still_blocks_publish(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            site_output = root / "site_output"
+            gate = PublishGate(data_dir=data_dir, site_output_dir=site_output, config={"enabled": True})
+            result = gate.evaluate(
+                topic={"topic": "cursor pricing", "slug": "cursor-pricing"},
+                title="Cursor Pricing 2026: Pricing, Pros, Cons",
+                description="Buyer-focused Cursor pricing review with internal links and disclosure.",
+                url="https://example.com/cursor-pricing/",
+                html="<html lang=\"en\"><head><title>Cursor Pricing</title><meta name=\"description\" content=\"Buyer-focused Cursor pricing review.\"><link rel=\"canonical\" href=\"https://example.com/cursor-pricing/\"></head><body><h2>Affiliate disclosure</h2><p>We may earn a commission.</p></body></html>",
+                research={"quality": {"total_verified_source_score": 70, "source_confidence": 80, "overall_score": 20}, "quality_gate": {"passed": False, "score": 20}},
+                review={"status": "ai_review_passed", "business_value": 70, "readability": 62, "publish_readiness": 82, "requires_human_approval": True},
+                human_approval={"status": "human_approved"},
+                internal_links=[],
+            )
+
             self.assertEqual(result["status"], "blocked")
-            self.assertIn("verified source score failed", result["hard_blockers"])
-            self.assertIn("knowledge freshness failed", result["hard_blockers"])
+            self.assertIn("research quality below critical minimum", result["hard_blockers"])
 
     def test_hard_blocker_remains_blocked_after_high_score_and_approval(self) -> None:
         with TemporaryDirectory() as temp_dir:

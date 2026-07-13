@@ -97,6 +97,33 @@
   "human_approval": {
     "required": true
   },
+  "threshold_policy": {
+    "enabled": true,
+    "mode": "staged",
+    "initial_thresholds": {
+      "minimum_usable_sources": 2,
+      "research_quality_score": 50,
+      "entity_coverage_score": 40,
+      "competitor_coverage_score": 30,
+      "freshness_score": 40,
+      "ai_review_score": 60
+    },
+    "critical_minimums": {
+      "minimum_usable_sources": 1,
+      "research_quality_score": 35,
+      "entity_mismatch": true,
+      "source_mismatch": true,
+      "duplicate_collision": true
+    },
+    "soft_quality_gates": [
+      "competitor_coverage",
+      "entity_coverage",
+      "affiliate_verification",
+      "research_quality_score",
+      "freshness_score",
+      "semantic_score"
+    ]
+  },
   "publish_gate": {
     "enabled": true,
     "minimum_verified_source_score": 35,

@@ -90,6 +90,7 @@ class WeeklyTopicRecord:
     article_type: str
     related_keywords: list[str] = field(default_factory=list)
     planning_reasoning: list[str] = field(default_factory=list)
+    source_list: list[str] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
@@ -284,6 +285,7 @@ class WeeklyTrendIntelligenceEngine:
                 article_type=item.article_type,
                 related_keywords=item.related_keywords,
                 planning_reasoning=item.planning_reasoning,
+                source_list=item.source_list,
             )
             for index, item in enumerate(chosen, 1)
         ]
@@ -338,7 +340,7 @@ class WeeklyTrendIntelligenceEngine:
         blocked_topics: list[dict[str, Any]] = []
         for topic in weekly_topics:
             package = self.research.build_research_package(
-                {"topic": topic.keyword, "slug": topic.slug, "related_keywords": topic.related_keywords}
+                {"topic": topic.keyword, "slug": topic.slug, "related_keywords": topic.related_keywords, "source_urls": topic.source_list}
             )
             gate = self.research.evaluate_quality_gate(package, topic={"topic": topic.keyword, "slug": topic.slug})
             if gate.passed:
@@ -468,6 +470,7 @@ def run_daily_editorial_content(
                 "content_type": row.get("article_type", ""),
                 "search_intent": row.get("intent", ""),
                 "related_keywords": row.get("related_keywords", []),
+                "source_urls": row.get("source_urls", []),
                 "suggested_internal_links": [],
             }
         )

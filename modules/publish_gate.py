@@ -114,6 +114,7 @@ class PublishGate:
         self.data_dir = data_dir or settings.data_dir
         self.site_output_dir = site_output_dir or settings.site_output_dir
         self.config = config or {}
+        self.root_config = getattr(settings, "editorial_config", {}) or {}
         self.queue_path = self.data_dir / "publish_queue.json"
         self.report_json = self.data_dir / "publish_gate_report.json"
         self.report_csv = self.data_dir / "publish_gate_report.csv"
@@ -244,15 +245,25 @@ class PublishGate:
 
         verified_score = _coerce_float(research_quality.get("total_verified_source_score"), 0)
         freshness_score = _coerce_float(research_quality.get("source_confidence"), 0)
+        threshold_policy = self.root_config.get("threshold_policy", {}) if isinstance(self.root_config.get("threshold_policy"), dict) else {}
+        initial_thresholds = threshold_policy.get("initial_thresholds", {}) if isinstance(threshold_policy.get("initial_thresholds"), dict) else {}
+        critical_minimums = threshold_policy.get("critical_minimums", {}) if isinstance(threshold_policy.get("critical_minimums"), dict) else {}
+        critical_research_score = _coerce_float(critical_minimums.get("research_quality_score"), 35)
+        configured_freshness_min = _coerce_float(initial_thresholds.get("freshness_score"), self.config.get("minimum_knowledge_freshness", 20))
+        configured_verified_min = _coerce_float(self.config.get("minimum_verified_source_score"), 35)
+        research_gate_score = _coerce_float(
+            research_gate.get("score"),
+            _coerce_float(research_quality.get("overall_score"), 100 if bool(research_gate.get("passed", False)) else 0),
+        )
         business_score = _coerce_float(review.get("business_value"), 0)
         readability_score = _coerce_float(review.get("readability"), 0)
         publish_readiness_score = _coerce_float(review.get("publish_readiness"), 0)
         total_score = publish_readiness_score or round((verified_score + freshness_score + business_score + readability_score) / 4, 2)
         score_band = _score_band(total_score)
 
-        research_quality_passed = bool(research_gate.get("passed", False))
-        verified_source_score_passed = verified_score >= float(self.config.get("minimum_verified_source_score", 35))
-        knowledge_freshness_passed = freshness_score >= float(self.config.get("minimum_knowledge_freshness", 20))
+        research_quality_passed = bool(research_gate.get("passed", False)) or research_gate_score >= critical_research_score
+        verified_source_score_passed = verified_score >= configured_verified_min
+        knowledge_freshness_passed = freshness_score >= configured_freshness_min
         review_status = str(review.get("status", "")).strip()
         ai_review_passed = review_status in {"ai_review_passed", "needs_human_review", "human_approved"}
         human_required = True
@@ -281,16 +292,22 @@ class PublishGate:
             _unique_append(hard_blockers, "public workflow marker leakage")
         if english_page_has_vietnamese_labels:
             _unique_append(hard_blockers, "English page contains Vietnamese public labels")
-        if research_quality and verified_score <= 0 and float(self.config.get("minimum_verified_source_score", 35)) > 0:
+        if research_quality and verified_score <= 0 and configured_verified_min > 0:
             _unique_append(hard_blockers, "zero usable sources")
         if score_band == "blocked" and review:
             _unique_append(hard_blockers, "AI review score below minimum")
-        if not research_quality_passed:
-            _unique_append(hard_blockers, "research quality gate failed")
+        if bool(research_quality.get("entity_mismatch") or research_gate.get("entity_mismatch")):
+            _unique_append(hard_blockers, "entity mismatch")
+        if bool(research_quality.get("source_mismatch") or research_gate.get("source_mismatch")):
+            _unique_append(hard_blockers, "source mismatch")
+        if research_gate_score < critical_research_score:
+            _unique_append(hard_blockers, "research quality below critical minimum")
+        elif not bool(research_gate.get("passed", False)):
+            _unique_append(warnings, "research quality gate warning")
         if not verified_source_score_passed:
-            _unique_append(hard_blockers, "verified source score failed")
+            _unique_append(warnings, "verified source score below initial threshold")
         if not knowledge_freshness_passed:
-            _unique_append(hard_blockers, "knowledge freshness failed")
+            _unique_append(warnings, "knowledge freshness below initial threshold")
         if not ai_review_passed:
             if not review:
                 _unique_append(pending_reviews, "AI review not_run")
@@ -320,8 +337,8 @@ class PublishGate:
 
         review_states = {
             "ai_review": self._review_state(review, passed=ai_review_passed, warning=bool(warnings), failed=any("AI review" in item for item in hard_blockers)),
-            "source_review": "failed" if not verified_source_score_passed else "passed",
-            "freshness_review": "not_run" if "source_confidence" not in research_quality else ("failed" if not knowledge_freshness_passed else "passed"),
+            "source_review": "warning" if not verified_source_score_passed and "zero usable sources" not in hard_blockers else ("failed" if "zero usable sources" in hard_blockers else "passed"),
+            "freshness_review": "not_run" if "source_confidence" not in research_quality else ("warning" if not knowledge_freshness_passed else "passed"),
         }
         if not review:
             review_states["ai_review"] = "not_run"

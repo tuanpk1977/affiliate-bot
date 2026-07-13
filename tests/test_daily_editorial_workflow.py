@@ -1019,7 +1019,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
 
                 def evaluate_quality_gate(self, package, topic: dict, allow_override: bool = False):
                     self.allow_override = allow_override
-                    return SimpleNamespace(passed=allow_override, score=45.14, threshold=60.0, override_used=allow_override, status="override_allowed" if allow_override else "needs_enrichment")
+                    return SimpleNamespace(passed=True, score=45.14, threshold=50.0, override_used=False, status="warning", warnings=["research_quality_score 45.14 below initial threshold 50.0"], hard_blockers=())
 
             fake_platform = FakePlatform()
             with patch("modules.daily_editorial_workflow.get_research_platform", return_value=fake_platform):
@@ -1032,13 +1032,14 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
 
             saved = json.loads((data_dir / "editorial_queue" / "2026-07-07" / "topics.json").read_text(encoding="utf-8"))
             self.assertFalse(fake_platform.allow_override)
-            self.assertEqual(result["drafted"], 0)
-            self.assertEqual(result["blocked"], 1)
-            self.assertEqual(saved["topics"][0]["status"], "needs_enrichment")
-            self.assertEqual(saved["topics"][0]["research_quality_gate"]["status"], "needs_enrichment")
+            self.assertEqual(result["drafted"], 1)
+            self.assertEqual(result["blocked"], 0)
+            self.assertEqual(saved["topics"][0]["status"], "drafted")
+            self.assertEqual(saved["topics"][0]["research_quality_gate"]["status"], "warning")
             self.assertFalse(saved["topics"][0]["research_quality_gate"]["override_used"])
+            self.assertIn("research_quality_score", saved["topics"][0]["warnings"][0])
 
-    def test_draft_blocks_thin_source_package_before_generation(self) -> None:
+    def test_draft_blocks_zero_source_package_before_generation(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
             data_dir = root / "data"
@@ -1067,10 +1068,10 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
 
             class FakePlatform:
                 def build_research_package(self, topic: dict):
-                    return SimpleNamespace(package_dir=str(data_dir / "research" / topic["slug"]), sources={"verified_sources": [{"url": "https://example.com/a"}], "reference_count": 1})
+                    return SimpleNamespace(package_dir=str(data_dir / "research" / topic["slug"]), sources={"verified_sources": [], "reference_count": 0})
 
                 def evaluate_quality_gate(self, package, topic: dict, allow_override: bool = False):
-                    return SimpleNamespace(passed=True, score=81, threshold=60, override_used=False, status="passed")
+                    return SimpleNamespace(passed=False, score=81, threshold=50, override_used=False, status="needs_enrichment", hard_blockers=["0 usable sources below critical minimum 1"], warnings=())
 
             with patch("modules.daily_editorial_workflow.get_research_platform", return_value=FakePlatform()):
                 with patch("modules.daily_editorial_workflow.generate_production_article_draft_from_package") as generator:
@@ -1081,7 +1082,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertEqual(result["drafted"], 0)
             self.assertEqual(result["blocked"], 1)
             self.assertEqual(saved["topics"][0]["status"], "needs_enrichment")
-            self.assertIn("1 usable sources below 2", saved["topics"][0]["error"])
+            self.assertIn("0 usable sources below critical minimum 1", saved["topics"][0]["error"])
 
     def test_draft_passes_validated_weekly_sources_to_research_platform(self) -> None:
         with TemporaryDirectory() as temp_dir:

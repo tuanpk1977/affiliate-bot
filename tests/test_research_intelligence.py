@@ -5,10 +5,53 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
 
-from modules.research_intelligence import ResearchIntelligencePlatform
+from modules.research_intelligence import ResearchIntelligencePlatform, ResearchPackage
 
 
 class ResearchIntelligenceTests(unittest.TestCase):
+    def _research_package(
+        self,
+        *,
+        score: float = 48,
+        entity_score: float = 38,
+        competitor_score: float = 10,
+        source_confidence: float = 35,
+        verified_sources: int = 2,
+    ) -> ResearchPackage:
+        sources = {
+            "verified_sources": [
+                {"url": f"https://source{index}.example.com", "source_type": "validated_topic_source", "trust_score": 70, "freshness_score": source_confidence}
+                for index in range(verified_sources)
+            ],
+            "reference_count": verified_sources,
+            "total_verified_source_score": 20,
+            "official_docs_score": 0,
+            "pricing_source_score": 0,
+            "affiliate_source_score": 0,
+            "source_confidence": source_confidence,
+        }
+        return ResearchPackage(
+            keyword="warning topic",
+            slug="warning-topic",
+            generated_at="2026-07-13T00:00:00+00:00",
+            package_dir="",
+            keyword_intelligence={},
+            keyword_summary={},
+            outline={},
+            faq={},
+            entities={"entity_coverage_score": entity_score},
+            competitors={"coverage_status": "missing"},
+            sources=sources,
+            writing_plan={},
+            quality={
+                "overall_score": score,
+                "entity_coverage_score": entity_score,
+                "competitor_quality": competitor_score,
+                "source_confidence": source_confidence,
+                "missing_information": ["competitor coverage is limited", "entity extraction needs richer tool coverage"],
+            },
+        )
+
     def test_research_enrichment_queue_csv_handles_mixed_row_fields(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
@@ -342,7 +385,89 @@ class ResearchIntelligenceTests(unittest.TestCase):
             self.assertEqual(queue[0]["slug"], "unknown-ai-workflow")
             self.assertIn("missing_verified_sources", queue[0])
 
-    def test_verified_source_gate_blocks_when_registry_is_missing(self) -> None:
+    def test_warning_level_quality_gates_do_not_block_generation(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            data_dir = Path(temp_dir) / "data"
+            engine = ResearchIntelligencePlatform(
+                data_dir=data_dir,
+                config={
+                    "threshold_policy": {
+                        "initial_thresholds": {
+                            "research_quality_score": 50,
+                            "entity_coverage_score": 40,
+                            "competitor_coverage_score": 30,
+                            "freshness_score": 40,
+                        },
+                        "critical_minimums": {"minimum_usable_sources": 1, "research_quality_score": 35},
+                    },
+                    "research_intelligence": {
+                        "quality_gate": {"enabled": True, "threshold": 50, "allow_override": False},
+                        "verified_source_gate": {"enabled": True, "minimum_total_score": 35},
+                    },
+                    "knowledge_review": {"minimum_verified_sources": 2, "minimum_official_sources": 0, "minimum_trust_score": 50, "minimum_freshness": 20},
+                },
+            )
+            package = self._research_package(score=48, entity_score=38, competitor_score=10, source_confidence=35, verified_sources=2)
+
+            gate = engine.evaluate_quality_gate(package, topic={"topic": package.keyword, "slug": package.slug})
+
+            self.assertTrue(gate.passed)
+            self.assertEqual(gate.status, "warning")
+            self.assertEqual(gate.hard_blockers, ())
+            self.assertTrue(any("competitor_coverage_score" in warning for warning in gate.warnings))
+            self.assertTrue(any("entity_coverage_score" in warning for warning in gate.warnings))
+
+    def test_critical_research_quality_blocks_generation(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            data_dir = Path(temp_dir) / "data"
+            engine = ResearchIntelligencePlatform(
+                data_dir=data_dir,
+                config={
+                    "threshold_policy": {
+                        "initial_thresholds": {"research_quality_score": 50},
+                        "critical_minimums": {"minimum_usable_sources": 1, "research_quality_score": 35},
+                    },
+                    "research_intelligence": {"quality_gate": {"enabled": True, "threshold": 50, "allow_override": False}, "verified_source_gate": {"enabled": False}},
+                },
+            )
+            package = self._research_package(score=30, verified_sources=2)
+
+            gate = engine.evaluate_quality_gate(package, topic={"topic": package.keyword, "slug": package.slug})
+
+            self.assertFalse(gate.passed)
+            self.assertIn("research_quality_score 30.0 below critical minimum 35.0", gate.hard_blockers)
+
+    def test_thresholds_can_be_raised_by_config_only(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            data_dir = Path(temp_dir) / "data"
+            package = self._research_package(score=58, entity_score=45, competitor_score=35, source_confidence=45, verified_sources=2)
+            base_engine = ResearchIntelligencePlatform(
+                data_dir=data_dir,
+                config={
+                    "threshold_policy": {
+                        "initial_thresholds": {"research_quality_score": 50},
+                        "critical_minimums": {"minimum_usable_sources": 1, "research_quality_score": 35},
+                    },
+                    "research_intelligence": {"quality_gate": {"enabled": True, "threshold": 50, "allow_override": False}, "verified_source_gate": {"enabled": False}},
+                },
+            )
+            raised_engine = ResearchIntelligencePlatform(
+                data_dir=data_dir,
+                config={
+                    "threshold_policy": {
+                        "initial_thresholds": {"research_quality_score": 70},
+                        "critical_minimums": {"minimum_usable_sources": 1, "research_quality_score": 35},
+                    },
+                    "research_intelligence": {"quality_gate": {"enabled": True, "threshold": 50, "allow_override": False}, "verified_source_gate": {"enabled": False}},
+                },
+            )
+
+            self.assertEqual(base_engine.evaluate_quality_gate(package, topic={"topic": package.keyword, "slug": package.slug}).status, "passed")
+            raised = raised_engine.evaluate_quality_gate(package, topic={"topic": package.keyword, "slug": package.slug})
+            self.assertTrue(raised.passed)
+            self.assertEqual(raised.status, "warning")
+
+    def test_verified_source_gate_warns_when_registry_is_missing(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
             data_dir = root / "data"
@@ -388,8 +513,9 @@ class ResearchIntelligenceTests(unittest.TestCase):
             package = engine.build_research_package({"topic": "cursor pricing", "slug": "cursor-pricing"})
             gate = engine.evaluate_quality_gate(package, topic={"topic": package.keyword, "slug": package.slug})
 
-            self.assertFalse(gate.passed)
-            self.assertEqual(gate.status, "needs_enrichment")
+            self.assertTrue(gate.passed)
+            self.assertEqual(gate.status, "warning")
+            self.assertTrue(gate.warnings)
 
     def test_expired_verified_sources_do_not_raise_confidence(self) -> None:
         with TemporaryDirectory() as temp_dir:
@@ -472,7 +598,9 @@ class ResearchIntelligenceTests(unittest.TestCase):
             package = engine.build_research_package({"topic": "cursor pricing", "slug": "cursor-pricing"})
             gate = engine.evaluate_quality_gate(package, topic={"topic": package.keyword, "slug": package.slug})
 
-            self.assertFalse(gate.passed)
+            self.assertTrue(gate.passed)
+            self.assertEqual(gate.status, "warning")
+            self.assertTrue(gate.warnings)
             self.assertIn(package.sources["source_status"], {"needs_review", "missing"})
             self.assertLessEqual(float(package.sources["source_confidence"]), 45)
 
@@ -521,7 +649,8 @@ class ResearchIntelligenceTests(unittest.TestCase):
             topic = {"topic": "cursor pricing", "slug": "cursor-pricing"}
             package = engine.build_research_package(topic)
             gate = engine.evaluate_quality_gate(package, topic=topic)
-            self.assertFalse(gate.passed)
+            self.assertTrue(gate.passed)
+            self.assertEqual(gate.status, "warning")
 
             (data_dir / "competitor_snapshots.json").write_text(
                 json.dumps(

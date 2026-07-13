@@ -402,12 +402,18 @@ class DailyEditorialWorkflow:
                     "status": gate.status,
                     "source_count": source_count,
                     "minimum_sources": minimum_sources,
+                    "warnings": list(getattr(gate, "warnings", ()) or []),
+                    "hard_blockers": list(getattr(gate, "hard_blockers", ()) or []),
                 }
-                if source_count < minimum_sources:
+                critical_sources = self._critical_minimum_usable_sources()
+                gate_hard_blockers = list(getattr(gate, "hard_blockers", ()) or [])
+                if source_count < critical_sources:
+                    gate_hard_blockers.append(f"{source_count} usable sources below critical minimum {critical_sources}")
+                if gate_hard_blockers:
                     item["status"] = "needs_enrichment"
                     item["draft_dir"] = ""
                     item["review_preview"] = ""
-                    item["error"] = f"Research quality gate blocked draft generation: {source_count} usable sources below {minimum_sources}"
+                    item["error"] = f"Research quality gate blocked draft generation: {'; '.join(dict.fromkeys(gate_hard_blockers))}"
                     blocked += 1
                     results.append({"slug": slug, "status": item["status"], "error": item["error"]})
                     continue
@@ -437,6 +443,8 @@ class DailyEditorialWorkflow:
                 item["human_approval_status"] = str((metadata.get("human_approval") or {}).get("status") or "missing")
                 item["publish_gate_status"] = str((metadata.get("publish_gate") or {}).get("status") or "missing")
                 item["error"] = ""
+                if getattr(gate, "warnings", ()):
+                    item["warnings"] = list(getattr(gate, "warnings", ()) or [])
                 drafted += 1
                 results.append({"slug": slug, "status": item["status"], "preview": str(preview_path)})
             except Exception as exc:
@@ -2850,6 +2858,14 @@ class DailyEditorialWorkflow:
             return max(1, int(float((self.editorial_config.get("knowledge_review") or {}).get("minimum_verified_sources", 2))))
         except (TypeError, ValueError):
             return 2
+
+    def _critical_minimum_usable_sources(self) -> int:
+        policy = self.editorial_config.get("threshold_policy") if isinstance(self.editorial_config.get("threshold_policy"), dict) else {}
+        critical = policy.get("critical_minimums") if isinstance(policy.get("critical_minimums"), dict) else {}
+        try:
+            return max(1, int(float(critical.get("minimum_usable_sources", 1))))
+        except (TypeError, ValueError):
+            return 1
 
     def _vetted_weekly_replacement_items(self) -> list[dict[str, Any]]:
         items: list[dict[str, Any]] = []

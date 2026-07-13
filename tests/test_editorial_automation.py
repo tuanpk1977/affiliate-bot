@@ -11,6 +11,7 @@ import unittest
 
 from modules import content_growth_pipeline as pipeline
 from modules import editorial_automation
+from modules.human_approval import HumanApprovalWorkflow
 
 
 def make_candidates() -> list[editorial_automation.CandidateTopicRecord]:
@@ -32,7 +33,7 @@ def make_candidates() -> list[editorial_automation.CandidateTopicRecord]:
             competition=35,
             existing_website_coverage=0,
             source_count=3,
-            source_list=["static"],
+            source_list=["https://example.com/source-a", "https://docs.example.com/source-b"],
             priority="P1",
             article_type="comparison",
             affiliate_score="high",
@@ -46,6 +47,16 @@ def make_candidates() -> list[editorial_automation.CandidateTopicRecord]:
 
 
 class EditorialAutomationTests(unittest.TestCase):
+    def _approved_human_workflow(self, data_dir: Path):
+        workflow = HumanApprovalWorkflow(data_dir=data_dir, config={"required": True})
+
+        class ApprovedWorkflow:
+            def sync_review(self, review: dict) -> dict:
+                workflow.sync_review(review)
+                return workflow.approve(str(review.get("slug", "")), approver="editor") or {}
+
+        return ApprovedWorkflow()
+
     def test_weekly_cycle_writes_topics_and_calendar(self) -> None:
         with TemporaryDirectory() as temp_dir:
             data_dir = Path(temp_dir) / "data"
@@ -120,6 +131,7 @@ class EditorialAutomationTests(unittest.TestCase):
                             "priority": "P1",
                             "intent": "commercial",
                             "related_keywords": ["ai coding tools for teams"],
+                            "source_urls": ["https://example.com/source-a", "https://docs.example.com/source-b"],
                             "reasoning": ["calendar test"],
                         }
                     ],
@@ -164,6 +176,7 @@ class EditorialAutomationTests(unittest.TestCase):
                 stack.enter_context(patch.object(pipeline, "_CONTENT_REVIEW_ENGINE", None))
                 stack.enter_context(patch.object(pipeline, "_HUMAN_APPROVAL_WORKFLOW", None))
                 stack.enter_context(patch.object(pipeline, "_PUBLISH_GATE", None))
+                stack.enter_context(patch.object(pipeline, "get_human_approval_workflow", return_value=self._approved_human_workflow(data_dir)))
                 result = editorial_automation.run_daily_editorial_content(target_date=target_date, build=False)
 
             self.assertEqual(result["calendar_rows"], 1)
