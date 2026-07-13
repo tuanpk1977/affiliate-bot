@@ -76,6 +76,51 @@ class ResearchIntelligenceTests(unittest.TestCase):
             self.assertEqual(package.sources["source_status"], "verified")
             self.assertTrue(source_gate_passed, source_gate_reasons)
 
+    def test_validated_weekly_sources_rebuild_stale_zero_source_package(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            stale_dir = data_dir / "research" / "pydantic-ai-review-2026"
+            stale_dir.mkdir(parents=True, exist_ok=True)
+            stale_package = {
+                "keyword": "Pydantic AI Review 2026",
+                "slug": "pydantic-ai-review-2026",
+                "generated_at": "2026-07-13T00:00:00+00:00",
+                "package_dir": str(stale_dir),
+                "keyword_intelligence": {},
+                "keyword_summary": {},
+                "outline": {},
+                "faq": {},
+                "entities": {},
+                "competitors": {},
+                "sources": {"verified_sources": [], "reference_count": 0},
+                "writing_plan": {},
+                "quality": {"overall_score": 0},
+                "cache_hits": [],
+            }
+            (stale_dir / "package.json").write_text(json.dumps(stale_package), encoding="utf-8")
+            platform = ResearchIntelligencePlatform(
+                data_dir=data_dir,
+                config={
+                    "knowledge_review": {"minimum_verified_sources": 2, "minimum_official_sources": 1},
+                    "research_intelligence": {"quality_gate": {"enabled": True, "threshold": 60, "allow_override": False}},
+                },
+            )
+
+            package = platform.build_research_package(
+                {
+                    "topic": "Pydantic AI Review 2026",
+                    "slug": "pydantic-ai-review-2026",
+                    "validated_source_urls": [
+                        "https://pydantic.dev/docs/ai/overview/",
+                        "https://github.com/pydantic/pydantic-ai",
+                    ],
+                }
+            )
+
+            self.assertEqual(package.sources["reference_count"], 2)
+            self.assertEqual(len(package.sources["verified_sources"]), 2)
+
     def test_builds_research_package_and_quality_report(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

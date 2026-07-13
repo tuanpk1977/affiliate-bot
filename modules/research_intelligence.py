@@ -216,6 +216,11 @@ class ResearchIntelligencePlatform:
         package_dir = self.research_root / slug
         existing = None if force_refresh else self._load_existing_package(package_dir)
         if existing is not None:
+            validated_sources = self._validated_topic_source_rows(topic)
+            existing_count = self._package_verified_source_count(existing)
+            if validated_sources and existing_count < len(validated_sources):
+                existing = None
+        if existing is not None:
             self._update_quality_report([existing])
             return existing
 
@@ -274,6 +279,17 @@ class ResearchIntelligencePlatform:
         packages = [self.build_research_package(topic) for topic in topics]
         self._update_quality_report(packages)
         return packages
+
+    @staticmethod
+    def _package_verified_source_count(package: ResearchPackage) -> int:
+        sources = package.sources if isinstance(package.sources, dict) else {}
+        verified = [row for row in sources.get("verified_sources", []) if isinstance(row, dict)]
+        if verified:
+            return len(verified)
+        try:
+            return int(float(sources.get("reference_count", 0) or 0))
+        except (TypeError, ValueError):
+            return 0
 
     def evaluate_quality_gate(self, package: ResearchPackage, *, topic: dict[str, Any] | None = None, allow_override: bool | None = None) -> ResearchQualityGateResult:
         gate_config = self.research_config.get("quality_gate", {})
