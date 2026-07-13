@@ -1951,7 +1951,7 @@ class DailyEditorialWorkflow:
                 <input type="hidden" name="slug" value="{html.escape(selected_slug_value, quote=True)}">
                 <button class="button success" {'disabled' if approve_disabled else ''}>Approve</button>
               </form>
-              <form method="post" action="/reject">
+              <form method="post" action="/reject" onsubmit="return confirm('Reject this draft and record the revision reason?');">
                 <input type="hidden" name="date" value="{html.escape(batch_date, quote=True)}">
                 <input type="hidden" name="slug" value="{html.escape(selected_slug_value, quote=True)}">
                 <input type="text" name="reason" value="Need revision" aria-label="Reject reason">
@@ -2124,11 +2124,11 @@ class DailyEditorialWorkflow:
       <p>Total topics: <strong>{summary['total_topics']}</strong> - Drafted: <strong>{summary['drafted']}</strong> - Human Approved: <strong>{summary['approved']}</strong> - Ready for Publish: <strong>{summary['ready_for_publish']}</strong> - Publish Blocked: <strong>{summary['publish_blocked']}</strong> - Published: <strong>{summary['published']}</strong></p>
       <p>Next recommended command: <code>{html.escape(summary['next_recommended_command'])}</code></p>
       <div class="actions">
+        <a class="button primary" href="http://127.0.0.1:8765/?date={html.escape(batch_date, quote=True)}">Open Local Review Server</a>
         <a class="button warn" href="{html.escape(self._relative_review_link(batch_date, open_console_launcher), quote=True)}">Open Operator Console</a>
-        <a class="button primary" href="{html.escape(self._relative_review_link(batch_date, publish_batch_launcher), quote=True)}">Publish Ready Articles</a>
         <a class="button" href="{html.escape(self._relative_review_link(batch_date, refresh_launcher), quote=True)}">Refresh Status</a>
       </div>
-      <p>Open each preview, review it, approve or reject it, then click <strong>Publish Ready Articles</strong>. Only rows that already passed the publish gate will go live.</p>
+      <p>This file is a static snapshot. Approve, reject, and publish actions are disabled here because they require the local HTTP server. Run <code>python editorial_console.py serve --date {html.escape(batch_date)} --open</code> and review through <code>http://127.0.0.1:8765/?date={html.escape(batch_date)}</code>.</p>
     </section>
     <section class="card">
       <div class="table-wrap"><table>
@@ -2219,7 +2219,7 @@ class DailyEditorialWorkflow:
         deployment_status = self._deployment_status_for_item(selected, publish_row)
         publish_status = str(publish_row.get("status") or "")
         approve_disabled = editorial_status != "Needs Review" or publish_status in {"approved_for_publish", "published_local", "published"}
-        reject_disabled = editorial_status == "Rejected" or selected_status == "published" or publish_status in {"published_local", "published"}
+        reject_disabled = (not has_preview) or editorial_status == "Rejected" or selected_status == "published" or publish_status in {"published_local", "published"}
         block_reason = self._row_block_reason(selected, publish_row)
         next_action = self._next_action_for_item(selected, publish_row, batch_date=batch_date)
         validation_status = str(selected.get("validation_status") or "-")
@@ -2228,10 +2228,31 @@ class DailyEditorialWorkflow:
         faq_status = str(selected.get("faq_schema_status") or "-")
         meta_status = str(selected.get("meta_description_status") or "-")
         redirect_status = str(selected.get("redirect_status") or "-")
+        artifact_links = " ".join(
+            [
+                self._button_link(
+                    f"/artifact?date={html.escape(batch_date, quote=True)}&slug={urllib.parse.quote(selected_slug_value)}&type=draft",
+                    "Open Draft",
+                ),
+                self._button_link(
+                    f"/artifact?date={html.escape(batch_date, quote=True)}&slug={urllib.parse.quote(selected_slug_value)}&type=html",
+                    "Open HTML",
+                ),
+                self._button_link(preview_src, "Open Review"),
+                self._button_link(
+                    f"/artifact?date={html.escape(batch_date, quote=True)}&slug={urllib.parse.quote(selected_slug_value)}&type=ai-report",
+                    "Open AI Report",
+                ),
+                self._button_link(
+                    f"/artifact?date={html.escape(batch_date, quote=True)}&slug={urllib.parse.quote(selected_slug_value)}&type=source-review",
+                    "Open Source Review",
+                ),
+            ]
+        )
         preview_block = (
             f"""
             <div class="detail-actions">
-              <a class="button" href="{html.escape(preview_src, quote=True)}" target="article-preview">Open Review</a>
+              {artifact_links}
             </div>
             <iframe class="preview-frame" name="article-preview" src="{html.escape(preview_src, quote=True)}" title="Article preview"></iframe>
             """
@@ -2263,7 +2284,7 @@ class DailyEditorialWorkflow:
                 <input type="hidden" name="csrf_token" value="{html.escape(csrf_token, quote=True)}">
                 {'<span class="button success disabled">Approved</span>' if editorial_status == 'Human Approved' else f'<button class="button success" {"disabled" if approve_disabled else ""}>Approve</button>'}
               </form>
-              <form method="post" action="/reject">
+              <form method="post" action="/reject" onsubmit="return confirm('Reject this draft and record the revision reason?');">
                 <input type="hidden" name="date" value="{html.escape(batch_date, quote=True)}">
                 <input type="hidden" name="slug" value="{html.escape(selected_slug_value, quote=True)}">
                 <input type="hidden" name="filter" value="{html.escape(active_filter, quote=True)}">
@@ -2496,7 +2517,6 @@ class DailyEditorialWorkflow:
         summary = self.status(batch_date=batch_date)
         dashboard_dir = self.review_root / batch_date
         dashboard_dir.mkdir(parents=True, exist_ok=True)
-        publish_batch_launcher = self._build_batch_launcher(batch_date=batch_date, file_name="publish-batch.cmd", command=f"python editorial_console.py publish-ready --date {batch_date}")
         refresh_launcher = self._build_batch_launcher(batch_date=batch_date, file_name="refresh-status.cmd", command=f"python editorial_console.py status --date {batch_date}")
         open_console_launcher = self._build_batch_launcher(batch_date=batch_date, file_name="open-operator-console.cmd", command=f'explorer "{self.console.console_html}"', shell_only=True)
         upload_dir = self.upload_root / batch_date
@@ -2515,8 +2535,6 @@ class DailyEditorialWorkflow:
             live_url = str(metadata.get("url") or publish_rows.get(slug, {}).get("url") or "")
             approve_cmd = f"python editorial_console.py approve --slug {slug} --date {batch_date}"
             reject_cmd = f"python editorial_console.py reject --slug {slug} --date {batch_date} --reason \"Needs fixes\""
-            approve_launcher = self._build_batch_launcher(batch_date=batch_date, file_name=f"approve-{slug}.cmd", command=approve_cmd)
-            reject_launcher = self._build_batch_launcher(batch_date=batch_date, file_name=f"reject-{slug}.cmd", command=reject_cmd)
             open_folder_launcher = self._build_batch_launcher(batch_date=batch_date, file_name=f"open-folder-{slug}.cmd", command=f'explorer "{draft_dir}"', shell_only=True)
             copy_url_launcher = self._build_batch_launcher(
                 batch_date=batch_date,
@@ -2556,16 +2574,14 @@ class DailyEditorialWorkflow:
             can_reject = can_review and editorial_status != "Rejected" and publish_status not in {"published_local", "published"}
             if editorial_status == "Human Approved":
                 approve_cell = "<span class='button success disabled'>Approved</span>"
-            elif can_approve:
-                approve_cell = f"<a class='button success' href='{html.escape(self._relative_review_link(batch_date, approve_launcher), quote=True)}'>Approve</a>"
             else:
-                approve_cell = "<span class='button disabled' title='Approval is not a valid next action for this row.'>Approve unavailable</span>"
+                title = "Use the local review server to approve this draft." if can_approve else "Approval is not a valid next action for this row."
+                approve_cell = f"<span class='button disabled' title='{html.escape(title, quote=True)}'>Approve in server</span>"
             if editorial_status == "Rejected":
                 reject_cell = "<span class='button danger disabled'>Rejected</span>"
-            elif can_reject:
-                reject_cell = f"<a class='button danger' href='{html.escape(self._relative_review_link(batch_date, reject_launcher), quote=True)}'>Reject</a>"
             else:
-                reject_cell = "<span class='button disabled' title='Reject is not a valid next action for this row.'>Reject unavailable</span>"
+                title = "Use the local review server to reject this draft." if can_reject else "Reject is not a valid next action for this row."
+                reject_cell = f"<span class='button disabled' title='{html.escape(title, quote=True)}'>Reject in server</span>"
             rows.append(
                 f"<tr data-filter='{html.escape(row_filter, quote=True)}'>"
                 f"<td><strong>{html.escape(str(item.get('article_title') or item.get('keyword') or slug))}</strong><br><code>{html.escape(slug)}</code></td>"
@@ -2598,11 +2614,11 @@ class DailyEditorialWorkflow:
       <p>Total topics: <strong>{summary['total_topics']}</strong> - Drafted: <strong>{summary['drafted']}</strong> - Human Approved: <strong>{summary['approved']}</strong> - Ready for Publish: <strong>{summary['ready_for_publish']}</strong> - Publish Blocked: <strong>{summary['publish_blocked']}</strong> - Published: <strong>{summary['published']}</strong></p>
       <p>Next recommended command: <code>{html.escape(summary['next_recommended_command'])}</code></p>
       <div class="actions">
+        <a class="button primary" href="http://127.0.0.1:8765/?date={html.escape(batch_date, quote=True)}">Open Local Review Server</a>
         <a class="button warn" href="{html.escape(self._relative_review_link(batch_date, open_console_launcher), quote=True)}">Open Operator Console</a>
-        <a class="button primary" href="{html.escape(self._relative_review_link(batch_date, publish_batch_launcher), quote=True)}">Publish Ready Articles</a>
         <a class="button" href="{html.escape(self._relative_review_link(batch_date, refresh_launcher), quote=True)}">Refresh Status</a>
       </div>
-      <p>Open each preview, review it, approve or reject it, then click <strong>Publish Ready Articles</strong>. Only rows that already passed the publish gate will go live.</p>
+      <p>This file is a static snapshot. Approve, reject, and publish actions are disabled here because they require the local HTTP server. Run <code>python editorial_console.py serve --date {html.escape(batch_date)} --open</code> and review through <code>http://127.0.0.1:8765/?date={html.escape(batch_date)}</code>.</p>
     </section>
     <section class="card">
       {self._render_filter_controls()}
@@ -2637,7 +2653,7 @@ class DailyEditorialWorkflow:
             "topics": topics,
             "dashboard_file": str(dashboard_file),
             "operator_console": str(self.console.console_html),
-            "publish_launcher": str(publish_batch_launcher),
+            "publish_launcher": "",
             "upload_dir": str(upload_dir),
         }
         _write_json(self._queue_dir(batch_date) / "dashboard.json", data)

@@ -42,6 +42,21 @@ class ReviewDashboardServer:
                         return
                     self._send_html(preview.read_text(encoding="utf-8", errors="ignore"))
                     return
+                if parsed.path == "/artifact":
+                    slug = (params.get("slug") or [""])[0]
+                    artifact_type = (params.get("type") or [""])[0]
+                    artifact = self._artifact_path(slug, artifact_type)
+                    if artifact is None:
+                        self.send_error(HTTPStatus.BAD_REQUEST, "Unsupported artifact")
+                        return
+                    if not artifact.exists():
+                        self.send_error(HTTPStatus.NOT_FOUND, "Artifact not found")
+                        return
+                    if artifact.suffix.lower() in {".html", ".htm"}:
+                        self._send_html(artifact.read_text(encoding="utf-8", errors="ignore"))
+                    else:
+                        self._send_text(artifact.read_text(encoding="utf-8", errors="ignore"))
+                    return
                 if parsed.path == "/shutdown":
                     self._send_html("<html><body>Shutting down...</body></html>")
                     threading.Thread(target=server_ref["server"].shutdown, daemon=True).start()
@@ -101,6 +116,28 @@ class ReviewDashboardServer:
                 self.send_header("Content-Length", str(len(encoded)))
                 self.end_headers()
                 self.wfile.write(encoded)
+
+            def _send_text(self, content: str) -> None:
+                encoded = content.encode("utf-8")
+                self.send_response(HTTPStatus.OK)
+                self.send_header("Content-Type", "text/plain; charset=utf-8")
+                self.send_header("Content-Length", str(len(encoded)))
+                self.end_headers()
+                self.wfile.write(encoded)
+
+            def _artifact_path(self, slug: str, artifact_type: str) -> Path | None:
+                if not slug:
+                    return None
+                draft_dir = workflow.data_dir / "production_article_drafts" / slug
+                paths = {
+                    "draft": draft_dir / "article.md",
+                    "html": draft_dir / "index.html",
+                    "review": draft_dir / "review_summary.md",
+                    "ai-report": draft_dir / "publish_readiness_report.md",
+                    "metadata": draft_dir / "metadata.json",
+                    "source-review": workflow.data_dir / "research" / slug / "sources.json",
+                }
+                return paths.get(artifact_type)
 
             def _redirect(self, batch_date_value: str, slug_value: str, message: str, active_filter: str = "all", anchor: str = "") -> None:
                 query = urllib.parse.urlencode({"date": batch_date_value, "slug": slug_value, "filter": active_filter, "message": message})

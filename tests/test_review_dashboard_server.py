@@ -24,8 +24,14 @@ def _seed_workflow(root: Path) -> DailyEditorialWorkflow:
     slug = "review-me"
     draft_dir = data_dir / "production_article_drafts" / slug
     draft_dir.mkdir(parents=True, exist_ok=True)
+    (draft_dir / "article.md").write_text("# Review Me\n\nFull draft body.", encoding="utf-8")
     (draft_dir / "index.html").write_text("<!doctype html><html><body>Draft</body></html>", encoding="utf-8")
+    (draft_dir / "review_summary.md").write_text("Review summary", encoding="utf-8")
+    (draft_dir / "publish_readiness_report.md").write_text("AI report", encoding="utf-8")
     (draft_dir / "metadata.json").write_text(json.dumps({"title": "Review Me", "url": "https://example.com/review-me/"}), encoding="utf-8")
+    research_dir = data_dir / "research" / slug
+    research_dir.mkdir(parents=True, exist_ok=True)
+    (research_dir / "sources.json").write_text(json.dumps({"verified_sources": [{"url": "https://example.com/source"}]}), encoding="utf-8")
     _write_json(
         data_dir / "editorial_queue" / "2026-07-10" / "topics.json",
         {
@@ -147,6 +153,67 @@ class ReviewDashboardServerTests(unittest.TestCase):
                 httpd.shutdown()
                 httpd.server_close()
                 thread.join(timeout=2)
+
+    def test_server_detail_exposes_reviewable_artifacts_and_reject_confirmation(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            workflow = _seed_workflow(Path(temp_dir))
+            rendered = workflow.render_interactive_dashboard(batch_date="2026-07-10", selected_slug="review-me")
+            self.assertIn('/artifact?date=2026-07-10&amp;slug=review-me&amp;type=draft', rendered)
+            self.assertIn('/artifact?date=2026-07-10&amp;slug=review-me&amp;type=html', rendered)
+            self.assertIn('/artifact?date=2026-07-10&amp;slug=review-me&amp;type=source-review', rendered)
+            self.assertIn('onsubmit="return confirm(', rendered)
+
+    def test_server_artifact_endpoint_serves_draft_content(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            workflow = _seed_workflow(Path(temp_dir))
+            httpd = ReviewDashboardServer(workflow=workflow).serve(batch_date="2026-07-10", port=0)
+            thread = threading.Thread(target=httpd.serve_forever, daemon=True)
+            thread.start()
+            try:
+                host, port = httpd.server_address
+                conn = http.client.HTTPConnection(host, port, timeout=5)
+                conn.request("GET", "/artifact?date=2026-07-10&slug=review-me&type=draft")
+                response = conn.getresponse()
+                body = response.read().decode("utf-8")
+                self.assertEqual(response.status, 200)
+                self.assertEqual(response.getheader("Content-Type"), "text/plain; charset=utf-8")
+                self.assertIn("Full draft body", body)
+            finally:
+                httpd.shutdown()
+                httpd.server_close()
+                thread.join(timeout=2)
+
+    def test_static_dashboard_disables_backend_actions(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            workflow = _seed_workflow(Path(temp_dir))
+            result = workflow.build_review_dashboard(batch_date="2026-07-10")
+            rendered = Path(result["dashboard_file"]).read_text(encoding="utf-8")
+            self.assertIn("Open Local Review Server", rendered)
+            self.assertIn("python editorial_console.py serve --date 2026-07-10 --open", rendered)
+            self.assertIn("Approve in server", rendered)
+            self.assertIn("Reject in server", rendered)
+            self.assertNotIn("actions/approve-review-me.cmd", rendered)
+            self.assertNotIn("actions/reject-review-me.cmd", rendered)
+            self.assertNotIn("Publish Ready Articles", rendered)
+
+    def test_blocked_topic_without_preview_has_no_enabled_server_action(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            workflow = _seed_workflow(Path(temp_dir))
+            queue_path = workflow.data_dir / "editorial_queue" / "2026-07-10" / "topics.json"
+            queue = json.loads(queue_path.read_text(encoding="utf-8"))
+            queue["topics"].append(
+                {
+                    "keyword": "blocked",
+                    "slug": "blocked-topic",
+                    "status": "needs_enrichment",
+                    "error": "Research quality gate blocked draft generation: competitor coverage is limited",
+                }
+            )
+            queue_path.write_text(json.dumps(queue, indent=2), encoding="utf-8")
+            rendered = workflow.render_interactive_dashboard(batch_date="2026-07-10", selected_slug="blocked-topic")
+            self.assertIn("No draft preview yet.", rendered)
+            self.assertIn('<button class="button success" disabled>Approve</button>', rendered)
+            self.assertIn('<button class="button danger" disabled>Reject</button>', rendered)
 
 
 if __name__ == "__main__":
