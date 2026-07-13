@@ -115,5 +115,9 @@
     "enabled": true,
     "conversion_rate_estimate": 0.08,
     "average_conversion_value": 12.5
+  },
+  "published_live_duplicate_guard": {
+    "mode": "deprioritize",
+    "score_penalty": 4.0
   }
 }
