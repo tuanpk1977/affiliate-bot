@@ -434,6 +434,31 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertFalse((root / "data" / "editorial_queue" / "2026-07-13" / "topics.json").exists())
             self.assertFalse((root / "data" / "editorial_queue" / "weeks" / "2026-07-13" / "week.json").exists())
 
+    def test_editorial_quality_dry_run_uses_workflow_without_queue_mutation(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=root / "site_output")
+            candidates = [
+                {"topic": f"Good {i}", "slug": f"good-{i}", "source_count": 3, "source_readiness_score": 90, "publishing_confidence": 92}
+                for i in range(8)
+            ]
+            candidates.extend(
+                {"topic": f"Warning {i}", "slug": f"warning-{i}", "source_count": 2, "source_readiness_score": 70, "publishing_confidence": 78, "needs_rewrite": True}
+                for i in range(2)
+            )
+            candidates.extend(
+                {"topic": f"Blocked {i}", "slug": f"blocked-{i}", "source_count": 0, "source_readiness_score": 0}
+                for i in range(2)
+            )
+
+            result = workflow.editorial_quality_dry_run(candidates=candidates, target=10)
+
+            self.assertGreaterEqual(result["review_ready"], 5)
+            self.assertFalse(result["publish"])
+            self.assertFalse(result["auto_approve"])
+            self.assertFalse((data_dir / "editorial_queue").exists())
+
     def test_trend_dry_run_blocks_thin_sources_and_collisions(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

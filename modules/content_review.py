@@ -12,9 +12,11 @@ from config import settings
 from modules.editorial_quality import (
     EditorialJudge,
     FactVerificationEngine,
+    KnowledgeGraphRuntime,
     PublishingConfidenceEngine,
     SourceQualityRanker,
     StructuredReviewBuilder,
+    TargetedRewriteExecutor,
     TargetedRewriteLoop,
 )
 
@@ -87,8 +89,10 @@ class ContentReviewEngine:
         self.report_md = self.data_dir / "content_review_report.md"
         self.source_ranker = SourceQualityRanker(self.config.get("source_ranking", {}) if isinstance(self.config.get("source_ranking"), dict) else {})
         self.fact_verifier = FactVerificationEngine(self.config.get("fact_verification", {}) if isinstance(self.config.get("fact_verification"), dict) else {})
+        self.knowledge_graph = KnowledgeGraphRuntime(self.data_dir, self.config.get("knowledge_graph", {}) if isinstance(self.config.get("knowledge_graph"), dict) else {})
         self.structured_review_builder = StructuredReviewBuilder()
         self.rewrite_loop = TargetedRewriteLoop(self.config.get("rewrite_loop", {}) if isinstance(self.config.get("rewrite_loop"), dict) else {})
+        self.rewrite_executor = TargetedRewriteExecutor(self.config.get("rewrite_loop", {}) if isinstance(self.config.get("rewrite_loop"), dict) else {})
         self.confidence_engine = PublishingConfidenceEngine(self.config.get("publishing_confidence", {}) if isinstance(self.config.get("publishing_confidence"), dict) else {})
         self.judge = EditorialJudge()
 
@@ -298,7 +302,18 @@ class ContentReviewEngine:
             fact_verification=fact_verification,
             source_quality=source_quality_review,
         )
+        rewrite_execution = self.rewrite_executor.execute(
+            article_id=str(topic.get("slug") or ""),
+            html=html,
+            structured_review=structured_review,
+            context={"topic": topic.get("topic"), "primary_keyword": planning.get("keyword")},
+        )
         rewrite_plan = self.rewrite_loop.plan(structured_review=structured_review)
+        rewrite_summary = {
+            key: value
+            for key, value in rewrite_execution.items()
+            if key != "html"
+        }
         publishing_confidence = self.confidence_engine.calculate(
             review=result,
             research=research,
@@ -312,31 +327,48 @@ class ContentReviewEngine:
             fact_verification=fact_verification,
             publishing_confidence=publishing_confidence,
         )
+        graph_result = self.knowledge_graph.update_article(
+            article_id=str(topic.get("slug") or ""),
+            research_package=research,
+            draft_html=str(rewrite_execution.get("html") or html),
+            source_urls=[row["url"] for row in source_quality_review if row.get("url")],
+        )
+        review_state = "BLOCKED" if hard_blockers else ("WARNING" if review_warnings or failures else "PASS")
         result.update(
             {
                 "schema_version": 2,
+                "article_id": str(topic.get("slug") or ""),
+                "review_state": review_state,
                 "structured_review": structured_review,
                 "source_quality_review": source_quality_review,
                 "fact_verification": fact_verification,
-                "targeted_rewrite": rewrite_plan,
+                "targeted_rewrite": {**rewrite_plan, **rewrite_summary},
+                "rewrite_history": rewrite_execution.get("rewrite_history", []),
                 "publishing_confidence": publishing_confidence,
                 "ai_judge": ai_judge,
                 "recommended_reviewer_focus": ai_judge.get("recommended_human_focus", []),
+                "entity_coverage": graph_result.get("entity_coverage", {}),
+                "internal_link_suggestions": graph_result.get("internal_link_suggestions", []),
+                "cannibalization": graph_result.get("cannibalization", {}),
+                "estimated_review_minutes": 12 if hard_blockers else 8 if review_warnings else 5,
             }
         )
+        if rewrite_execution.get("html") != html:
+            result["rewritten_html"] = rewrite_execution.get("html")
         self._upsert_queue(result)
         return result
 
     def _upsert_queue(self, result: dict[str, Any]) -> None:
         rows = self.load_queue()
+        stored_result = {key: value for key, value in result.items() if key != "rewritten_html"}
         replaced = False
         for index, row in enumerate(rows):
             if str(row.get("slug", "")) == str(result.get("slug", "")):
-                rows[index] = result
+                rows[index] = stored_result
                 replaced = True
                 break
         if not replaced:
-            rows.append(result)
+            rows.append(stored_result)
         self.save_queue(rows)
         self._write_report(rows)
 

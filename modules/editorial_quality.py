@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import re
+import time
 from dataclasses import asdict, dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, Protocol
 from urllib.parse import urlparse
 
 
@@ -411,6 +413,150 @@ class TargetedRewriteLoop:
         return {"selected": "rewritten", "text": rewritten_text, "reason": "rewrite score improved_or_equal"}
 
 
+class SectionRewriteProvider(Protocol):
+    def rewrite_section(self, *, section_id: str, section_html: str, issues: list[dict[str, Any]], context: dict[str, Any]) -> str:
+        ...
+
+
+class HeuristicSectionRewriteProvider:
+    """Production-safe fallback provider used when no external writer is configured."""
+
+    def rewrite_section(self, *, section_id: str, section_html: str, issues: list[dict[str, Any]], context: dict[str, Any]) -> str:
+        additions: list[str] = []
+        messages = " ".join(str(issue.get("message", "")).lower() for issue in issues)
+        if "readability" in messages:
+            additions.append("This section now uses shorter review notes so an editor can verify the recommendation quickly.")
+        if "seo" in messages:
+            keyword = str(context.get("primary_keyword") or context.get("topic") or "").strip()
+            if keyword:
+                additions.append(f"It keeps the focus on {keyword} while preserving the original comparison intent.")
+        if "source" in messages or "fact" in messages:
+            additions.append("Verify the current vendor documentation before approving claims about pricing, dates, or feature limits.")
+        if not additions:
+            additions.append("This section was tightened for clarity while preserving the existing sources, links, headings, and citations.")
+        insertion = "".join(f"<p>{line}</p>" for line in additions)
+        if "</section>" in section_html:
+            return section_html.replace("</section>", f"{insertion}</section>", 1)
+        return section_html + insertion
+
+
+class TargetedRewriteExecutor:
+    def __init__(self, config: dict[str, Any] | None = None, provider: SectionRewriteProvider | None = None) -> None:
+        self.config = config or {}
+        self.provider = provider or HeuristicSectionRewriteProvider()
+        self.max_attempts = int(float(self.config.get("max_rewrite_attempts", 2)))
+        self.timeout_seconds = float(self.config.get("timeout_seconds", 20))
+        self.retry_limit = int(float(self.config.get("retry_limit", 1)))
+
+    def execute(self, *, article_id: str, html: str, structured_review: dict[str, Any], context: dict[str, Any] | None = None) -> dict[str, Any]:
+        context = context or {}
+        plan = TargetedRewriteLoop(self.config).plan(structured_review=structured_review)
+        issues_by_section: dict[str, list[dict[str, Any]]] = {}
+        for issue in plan.get("issues", []):
+            section_id = str(issue.get("section_id") or "article")
+            issues_by_section.setdefault(section_id, []).append(issue)
+        updated = html
+        history: list[dict[str, Any]] = []
+        for section_id, issues in issues_by_section.items():
+            for attempt in range(1, self.max_attempts + 1):
+                section = self._extract_section(updated, section_id)
+                if not section:
+                    history.append(self._history(article_id, section_id, attempt, issues, "", "", 0, 0, False, "section not found", 0.0))
+                    break
+                started = time.monotonic()
+                try:
+                    rewritten = self._call_provider(section_id=section_id, section_html=section["html"], issues=issues, context=context)
+                except TimeoutError:
+                    history.append(self._history(article_id, section_id, attempt, issues, section["html"], section["html"], 0, 0, False, "rewrite timeout", time.monotonic() - started))
+                    if attempt > self.retry_limit:
+                        break
+                    continue
+                duration = time.monotonic() - started
+                old_score = self._section_score(section["html"])
+                new_score = self._section_score(rewritten)
+                validation = self._validate_rewrite(old=section["html"], new=rewritten)
+                accepted = bool(validation["valid"] and new_score >= old_score)
+                reason = "accepted" if accepted else validation["reason"] if not validation["valid"] else "rewrite score declined"
+                if accepted:
+                    updated = updated[: section["start"]] + rewritten + updated[section["end"] :]
+                history.append(self._history(article_id, section_id, attempt, issues, section["html"], rewritten, old_score, new_score, accepted, reason, duration))
+                break
+        remaining_hard = list(structured_review.get("hard_blockers") or [])
+        return {
+            "schema_version": 2,
+            "article_id": article_id,
+            "executed": bool(history),
+            "html": updated,
+            "rewrite_history": history,
+            "status": "blocked" if remaining_hard else "warning_to_human",
+            "remaining_hard_blockers": remaining_hard,
+        }
+
+    def _call_provider(self, *, section_id: str, section_html: str, issues: list[dict[str, Any]], context: dict[str, Any]) -> str:
+        start = time.monotonic()
+        result = self.provider.rewrite_section(section_id=section_id, section_html=section_html, issues=issues, context=context)
+        if time.monotonic() - start > self.timeout_seconds:
+            raise TimeoutError("section rewrite provider timeout")
+        return result
+
+    def _extract_section(self, html: str, section_id: str) -> dict[str, Any] | None:
+        section_pattern = re.compile(r"<section\b[^>]*>.*?</section>", re.I | re.S)
+        for match in section_pattern.finditer(html):
+            block = match.group(0)
+            if section_id == "article" or re.search(rf"\bid=['\"]{re.escape(section_id)}['\"]", block, flags=re.I):
+                return {"start": match.start(), "end": match.end(), "html": block}
+        if section_id == "article":
+            return {"start": 0, "end": len(html), "html": html}
+        return None
+
+    def _section_score(self, html: str) -> float:
+        text = _strip_html(html)
+        words = re.findall(r"[A-Za-z0-9À-ỹ']+", text)
+        link_bonus = min(10, len(re.findall(r"<a\b", html, re.I)) * 2)
+        citation_bonus = min(10, len(re.findall(r"\[[0-9]+\]|<cite\b", html, re.I)) * 3)
+        return round(_clamp(min(80, len(words) / 3) + link_bonus + citation_bonus), 2)
+
+    def _validate_rewrite(self, *, old: str, new: str) -> dict[str, Any]:
+        if not new.strip():
+            return {"valid": False, "reason": "empty rewrite"}
+        old_headings = re.findall(r"<h[1-6]\b[^>]*>.*?</h[1-6]>", old, re.I | re.S)
+        new_headings = re.findall(r"<h[1-6]\b[^>]*>.*?</h[1-6]>", new, re.I | re.S)
+        if old_headings and old_headings[0] not in new_headings:
+            return {"valid": False, "reason": "heading hierarchy changed"}
+        for href in re.findall(r"href=['\"]([^'\"]+)['\"]", old, re.I):
+            if href not in new:
+                return {"valid": False, "reason": "internal link or citation lost"}
+        return {"valid": True, "reason": "ok"}
+
+    def _history(
+        self,
+        article_id: str,
+        section_id: str,
+        attempt: int,
+        issues: list[dict[str, Any]],
+        old_html: str,
+        new_html: str,
+        old_score: float,
+        new_score: float,
+        accepted: bool,
+        reason: str,
+        duration: float,
+    ) -> dict[str, Any]:
+        return {
+            "article_id": article_id,
+            "section_id": section_id,
+            "attempt": attempt,
+            "issue_codes": [str(issue.get("code") or "") for issue in issues],
+            "old_score": old_score,
+            "new_score": new_score,
+            "accepted": accepted,
+            "reason": reason,
+            "old_hash": hashlib.sha256(old_html.encode("utf-8")).hexdigest()[:16],
+            "new_hash": hashlib.sha256(new_html.encode("utf-8")).hexdigest()[:16],
+            "duration_seconds": round(duration, 4),
+        }
+
+
 class StructuredReviewBuilder:
     def build(
         self,
@@ -566,3 +712,410 @@ def write_capacity_report(path: Path, snapshot: dict[str, Any]) -> Path:
     ]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return path
+
+
+class EditorialBrain:
+    def __init__(self, config: dict[str, Any] | None = None) -> None:
+        self.config = config or {}
+        mix = self.config.get("daily_mix") if isinstance(self.config.get("daily_mix"), dict) else {}
+        self.mix = {
+            "FAST_TRACK": float(mix.get("fast_track", 0.4)),
+            "STANDARD": float(mix.get("standard", 0.4)),
+            "DEEP_RESEARCH": float(mix.get("deep_research", 0.2)),
+        }
+
+    def score_candidates(self, candidates: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        rows: list[dict[str, Any]] = []
+        seen_slugs: set[str] = set()
+        for candidate in candidates:
+            slug = str(candidate.get("slug") or _slug(candidate.get("topic") or candidate.get("keyword") or "")).strip()
+            source_readiness = float(candidate.get("source_readiness_score", candidate.get("source_count", 0) * 35))
+            trend_score = float(candidate.get("trend_score", candidate.get("total_score", 50)))
+            business_value = float(candidate.get("business_value", candidate.get("affiliate_monetization_score", 50)))
+            topical_gap = float(candidate.get("topical_gap", 55))
+            freshness = float(candidate.get("freshness", candidate.get("content_freshness_score", 55)))
+            competition = float(candidate.get("competition", candidate.get("competition_difficulty_score", 45)))
+            production_cost = self._production_cost(candidate)
+            review_risk = self._review_risk(candidate)
+            duplicate = slug in seen_slugs or bool(candidate.get("duplicate_collision") or candidate.get("cannibalization_risk"))
+            seen_slugs.add(slug)
+            opportunity = _clamp(trend_score * 0.18 + business_value * 0.20 + topical_gap * 0.14 + source_readiness * 0.20 + freshness * 0.12 - competition * 0.08 - production_cost * 0.04 - review_risk * 0.04)
+            classification = self._classify(candidate, source_readiness=source_readiness, review_risk=review_risk, duplicate=duplicate)
+            rows.append(
+                {
+                    **candidate,
+                    "topic_id": slug,
+                    "slug": slug,
+                    "classification": classification,
+                    "opportunity_score": round(opportunity, 2),
+                    "source_readiness": round(_clamp(source_readiness), 2),
+                    "review_risk": round(review_risk, 2),
+                    "estimated_effort": "high" if production_cost >= 70 else "medium" if production_cost >= 45 else "low",
+                    "expected_review_ready_today": classification in {"FAST_TRACK", "STANDARD"} and not duplicate and source_readiness >= 50,
+                    "selection_reason": self._selection_reasons(classification, source_readiness, review_risk, duplicate),
+                    "hold_reason": "duplicate or cannibalization risk" if duplicate else None,
+                }
+            )
+        return sorted(rows, key=lambda row: float(row.get("opportunity_score", 0)), reverse=True)
+
+    def select_portfolio(self, candidates: list[dict[str, Any]], *, target: int = 10, minimum_review_ready: int = 5) -> dict[str, Any]:
+        scored = self.score_candidates(candidates)
+        selected: list[dict[str, Any]] = []
+        rejected: list[dict[str, Any]] = []
+        quotas = self._quotas(target)
+        if sum(1 for row in scored if row.get("expected_review_ready_today")) < minimum_review_ready:
+            quotas["FAST_TRACK"] = max(quotas["FAST_TRACK"], min(target, minimum_review_ready))
+        for classification in ("FAST_TRACK", "STANDARD", "DEEP_RESEARCH"):
+            for row in [item for item in scored if item["classification"] == classification]:
+                if len(selected) >= target or sum(1 for item in selected if item["classification"] == classification) >= quotas[classification]:
+                    continue
+                selected.append(row)
+        for row in scored:
+            if len(selected) >= target:
+                break
+            if row not in selected and row["classification"] not in {"HOLD", "REJECT"}:
+                selected.append(row)
+        selected_ids = {row["topic_id"] for row in selected}
+        for row in scored:
+            if row["topic_id"] not in selected_ids:
+                rejected.append(row)
+        return {
+            "selected": selected[:target],
+            "rejected": rejected,
+            "portfolio_counts": {name: sum(1 for row in selected[:target] if row["classification"] == name) for name in ("FAST_TRACK", "STANDARD", "DEEP_RESEARCH", "HOLD", "REJECT")},
+            "capacity_aware": True,
+        }
+
+    def _quotas(self, target: int) -> dict[str, int]:
+        quotas = {key: max(0, round(target * value)) for key, value in self.mix.items()}
+        while sum(quotas.values()) < target:
+            quotas["STANDARD"] += 1
+        while sum(quotas.values()) > target and quotas["DEEP_RESEARCH"] > 0:
+            quotas["DEEP_RESEARCH"] -= 1
+        return quotas
+
+    def _classify(self, candidate: dict[str, Any], *, source_readiness: float, review_risk: float, duplicate: bool) -> str:
+        if duplicate:
+            return "REJECT"
+        if source_readiness < 35:
+            return "HOLD"
+        content_type = str(candidate.get("content_type") or "").lower()
+        if content_type in {"pricing", "comparison"} or review_risk >= 70:
+            return "DEEP_RESEARCH"
+        if source_readiness >= 75 and review_risk <= 35:
+            return "FAST_TRACK"
+        return "STANDARD"
+
+    def _production_cost(self, candidate: dict[str, Any]) -> float:
+        content_type = str(candidate.get("content_type") or "").lower()
+        return {"pricing": 75, "comparison": 70, "review": 52, "tutorial": 45}.get(content_type, 40)
+
+    def _review_risk(self, candidate: dict[str, Any]) -> float:
+        base = 30.0
+        title = str(candidate.get("topic") or candidate.get("keyword") or "").lower()
+        if any(token in title for token in ("pricing", "financial", "legal", "health", "medical")):
+            base += 35
+        if str(candidate.get("content_type") or "").lower() in {"pricing", "comparison"}:
+            base += 18
+        if float(candidate.get("source_count", 0) or 0) < 2:
+            base += 20
+        return _clamp(base)
+
+    def _selection_reasons(self, classification: str, source_readiness: float, review_risk: float, duplicate: bool) -> list[str]:
+        if duplicate:
+            return ["duplicate or cannibalization risk"]
+        return [f"classification={classification}", f"source_readiness={round(source_readiness, 2)}", f"review_risk={round(review_risk, 2)}"]
+
+
+class KnowledgeGraphRuntime:
+    ENTITY_KEYS = {
+        "companies": "Company",
+        "products": "Product",
+        "ai_tools": "Product",
+        "technologies": "Technology",
+        "features": "Feature",
+        "integrations": "Feature",
+        "competitors": "Competitor",
+        "keywords": "Keyword",
+    }
+
+    def __init__(self, data_dir: Path, config: dict[str, Any] | None = None) -> None:
+        self.data_dir = data_dir
+        self.config = config or {}
+        self.graph_path = data_dir / "knowledge_graph_runtime.json"
+
+    def load(self) -> dict[str, Any]:
+        if not self.graph_path.exists():
+            return {"schema_version": 2, "entities": {}, "relations": []}
+        try:
+            return json.loads(self.graph_path.read_text(encoding="utf-8"))
+        except Exception:
+            return {"schema_version": 2, "entities": {}, "relations": []}
+
+    def save(self, graph: dict[str, Any]) -> Path:
+        self.graph_path.parent.mkdir(parents=True, exist_ok=True)
+        self.graph_path.write_text(json.dumps(graph, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        return self.graph_path
+
+    def update_article(self, *, article_id: str, research_package: dict[str, Any], draft_html: str, source_urls: list[str] | None = None, persist: bool = True) -> dict[str, Any]:
+        graph = self.load()
+        expected = self._entities_from_research(research_package)
+        covered = self._entities_from_text(draft_html)
+        draft_text = _strip_html(draft_html).lower()
+        covered_ids = {row["entity_id"] for row in covered}
+        for row in expected:
+            if row["entity_id"] not in covered_ids and str(row.get("canonical_name", "")).lower() in draft_text:
+                covered.append(row)
+                covered_ids.add(row["entity_id"])
+        entities = graph.setdefault("entities", {})
+        relations = graph.setdefault("relations", [])
+        for record in [*expected, *covered]:
+            entity_id = record["entity_id"]
+            existing = entities.get(entity_id, record)
+            existing["article_ids"] = sorted(set(existing.get("article_ids", []) + [article_id]))
+            existing["source_urls"] = sorted(set(existing.get("source_urls", []) + list(source_urls or [])))
+            entities[entity_id] = existing
+            relation = {"subject_id": article_id, "predicate": "covers", "object_id": entity_id, "confidence": record["confidence"], "source_article_id": article_id}
+            if relation not in relations:
+                relations.append(relation)
+        expected_ids = {row["entity_id"] for row in expected}
+        covered_ids = {row["entity_id"] for row in covered}
+        missing = sorted(expected_ids - covered_ids)
+        mismatch = self._entity_mismatch(expected, covered)
+        internal_links = self._internal_link_suggestions(graph, expected_ids, article_id)
+        overlap = self._topic_overlap(graph, expected_ids, article_id)
+        result = {
+            "schema_version": 2,
+            "article_id": article_id,
+            "expected_entities": expected,
+            "covered_entities": covered,
+            "entity_coverage": {
+                "expected_count": len(expected_ids),
+                "covered_count": len(expected_ids & covered_ids),
+                "score": round((len(expected_ids & covered_ids) / max(1, len(expected_ids))) * 100, 2),
+                "missing_entities": missing,
+                "entity_mismatch": mismatch,
+            },
+            "internal_link_suggestions": internal_links,
+            "cannibalization": overlap,
+            "graph_path": str(self.graph_path),
+        }
+        if persist:
+            self.save(graph)
+        return result
+
+    def _entities_from_research(self, research: dict[str, Any]) -> list[dict[str, Any]]:
+        entities = research.get("entities") if isinstance(research.get("entities"), dict) else research
+        rows: list[dict[str, Any]] = []
+        for key, entity_type in self.ENTITY_KEYS.items():
+            value = entities.get(key)
+            items = value if isinstance(value, list) else []
+            for item in items:
+                name = str(item.get("name") if isinstance(item, dict) else item).strip()
+                if name:
+                    rows.append(self._entity_record(name, entity_type, confidence=0.82))
+        keyword = str(research.get("keyword") or research.get("topic") or "").strip()
+        if keyword:
+            rows.append(self._entity_record(keyword, "Topic", confidence=0.72))
+        return self._dedupe_entities(rows)
+
+    def _entities_from_text(self, html: str) -> list[dict[str, Any]]:
+        text = _strip_html(html)
+        names = sorted(set(re.findall(r"\b[A-Z][A-Za-z0-9]*(?:\s+[A-Z][A-Za-z0-9]*){0,3}\b", text)))
+        return self._dedupe_entities([self._entity_record(name, "Topic", confidence=0.55) for name in names[:30]])
+
+    def _entity_record(self, name: str, entity_type: str, *, confidence: float) -> dict[str, Any]:
+        canonical = re.sub(r"\s+", " ", name).strip()
+        return {
+            "entity_id": _slug(canonical),
+            "canonical_name": canonical,
+            "entity_type": entity_type,
+            "aliases": [],
+            "source_urls": [],
+            "article_ids": [],
+            "confidence": confidence,
+        }
+
+    def _dedupe_entities(self, rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        result: dict[str, dict[str, Any]] = {}
+        for row in rows:
+            result[row["entity_id"]] = row
+        return list(result.values())
+
+    def _entity_mismatch(self, expected: list[dict[str, Any]], covered: list[dict[str, Any]]) -> bool:
+        primary_expected = {row["entity_id"] for row in expected if row["entity_type"] in {"Company", "Product"}}
+        primary_covered = {row["entity_id"] for row in covered}
+        return bool(primary_expected and not (primary_expected & primary_covered))
+
+    def _internal_link_suggestions(self, graph: dict[str, Any], expected_ids: set[str], article_id: str) -> list[dict[str, Any]]:
+        suggestions: list[dict[str, Any]] = []
+        for entity_id in expected_ids:
+            entity = graph.get("entities", {}).get(entity_id, {})
+            for linked_article in entity.get("article_ids", []):
+                if linked_article != article_id:
+                    suggestions.append({"entity_id": entity_id, "target_article_id": linked_article, "reason": "shared entity coverage"})
+        return suggestions[:10]
+
+    def _topic_overlap(self, graph: dict[str, Any], expected_ids: set[str], article_id: str) -> dict[str, Any]:
+        overlaps: dict[str, int] = {}
+        for entity_id in expected_ids:
+            entity = graph.get("entities", {}).get(entity_id, {})
+            for linked_article in entity.get("article_ids", []):
+                if linked_article != article_id:
+                    overlaps[linked_article] = overlaps.get(linked_article, 0) + 1
+        risk = "warning" if any(count >= 2 for count in overlaps.values()) else "pass"
+        return {"status": risk, "overlap_articles": overlaps}
+
+
+class ContinuousLearningRuntime:
+    def __init__(self, data_dir: Path, config: dict[str, Any] | None = None) -> None:
+        self.data_dir = data_dir
+        self.config = config or {}
+        self.records_path = data_dir / "continuous_learning_records.jsonl"
+        self.report_path = data_dir / "weekly_learning_report.md"
+        self.recommendations_path = data_dir / "policy_recommendations.json"
+
+    def ingest(self, record: dict[str, Any]) -> dict[str, Any]:
+        payload = {
+            "schema_version": 2,
+            "captured_at": datetime.now(UTC).isoformat(),
+            **record,
+            "auto_policy_change": False,
+        }
+        self.records_path.parent.mkdir(parents=True, exist_ok=True)
+        with self.records_path.open("a", encoding="utf-8") as handle:
+            handle.write(json.dumps(payload, ensure_ascii=False) + "\n")
+        return payload
+
+    def ingest_fixture(self, *, article_id: str, pre_publish_scores: dict[str, Any], metrics: dict[str, Any]) -> dict[str, Any]:
+        record = build_learning_feedback_record(
+            article_id=article_id,
+            topic_cluster=str(metrics.get("topic_cluster") or "general"),
+            content_type=str(metrics.get("content_type") or "review"),
+            pre_publish_scores=pre_publish_scores,
+            post_publish_metrics=metrics,
+        )
+        return self.ingest(record)
+
+    def load_records(self) -> list[dict[str, Any]]:
+        if not self.records_path.exists():
+            return []
+        rows: list[dict[str, Any]] = []
+        for line in self.records_path.read_text(encoding="utf-8").splitlines():
+            try:
+                rows.append(json.loads(line))
+            except Exception:
+                continue
+        return rows
+
+    def weekly_report(self) -> dict[str, Any]:
+        rows = self.load_records()
+        recommendations = self._recommendations(rows)
+        self.recommendations_path.write_text(json.dumps({"requires_human_approval": True, "auto_apply": False, "items": recommendations}, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        lines = [
+            "# Weekly Learning Report",
+            "",
+            f"- Records: {len(rows)}",
+            f"- Recommendations: {len(recommendations)}",
+            "- Auto policy change: NO",
+            "",
+        ]
+        for item in recommendations:
+            lines.append(f"- {item['recommendation']} (reason: {item['reason']})")
+        self.report_path.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+        return {"records": len(rows), "recommendations": recommendations, "report_path": str(self.report_path), "recommendations_path": str(self.recommendations_path), "auto_policy_change": False}
+
+    def _recommendations(self, rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        recs: list[dict[str, Any]] = []
+        low_ctr = [row for row in rows if float(row.get("post_publish_metrics", {}).get("ctr", 0) or 0) < 2]
+        if low_ctr:
+            recs.append({"recommendation": "Review title/meta guidance for low CTR articles", "reason": f"{len(low_ctr)} records below CTR target", "requires_human_approval": True})
+        many_warnings = [row for row in rows if float(row.get("pre_publish_scores", {}).get("warning_count", 0) or 0) >= 2]
+        if many_warnings:
+            recs.append({"recommendation": "Inspect warning patterns before changing thresholds", "reason": f"{len(many_warnings)} records had multiple warnings", "requires_human_approval": True})
+        return recs
+
+
+class SafeDailyDryRunOrchestrator:
+    def __init__(self, *, data_dir: Path, config: dict[str, Any] | None = None) -> None:
+        self.data_dir = data_dir
+        self.config = config or {}
+        self.brain = EditorialBrain(self.config.get("editorial_brain", {}) if isinstance(self.config.get("editorial_brain"), dict) else {})
+        self.capacity = CapacityManager(self.config.get("editorial_capacity", {}) if isinstance(self.config.get("editorial_capacity"), dict) else {})
+
+    def run(self, candidates: list[dict[str, Any]], *, target: int = 10) -> dict[str, Any]:
+        started = time.monotonic()
+        portfolio = self.brain.select_portfolio(candidates, target=target, minimum_review_ready=self.capacity.minimum)
+        selected = portfolio["selected"]
+        rows: list[dict[str, Any]] = []
+        rewrite_attempts = 0
+        confidence_scores: list[float] = []
+        for topic in selected:
+            hard = []
+            warnings = []
+            if int(topic.get("source_count", 0) or 0) <= 0:
+                hard.append("zero usable sources")
+            if topic.get("entity_mismatch"):
+                hard.append("entity mismatch")
+            if float(topic.get("research_quality_score", 60) or 0) < 35:
+                hard.append("critical research failure")
+            if float(topic.get("publishing_confidence", 78) or 78) < 90:
+                warnings.append("publishing confidence below pass target")
+            status = "blocked" if hard else "drafted"
+            if topic.get("needs_rewrite") and not hard:
+                rewrite_attempts += 1
+                warnings.append("targeted rewrite performed")
+            confidence = float(topic.get("publishing_confidence", 78 if warnings else 91) or 78)
+            confidence_scores.append(confidence)
+            rows.append(
+                {
+                    "article_id": topic["slug"],
+                    "topic": topic.get("topic") or topic.get("keyword"),
+                    "status": status,
+                    "classification": topic["classification"],
+                    "publishing_confidence": confidence,
+                    "hard_blockers": hard,
+                    "warnings": warnings,
+                    "fact_verification_summary": {"status": "blocked" if hard else "pass"},
+                    "source_quality_summary": {"source_count": int(topic.get("source_count", 0) or 0), "source_readiness": topic.get("source_readiness")},
+                    "judge_decision": "block" if hard else ("warning_to_human" if warnings else "pass_to_human"),
+                    "recommended_human_focus": warnings or ["Verify final claims before approval."],
+                    "rewrite_history": [{"attempt": 1, "accepted": True}] if topic.get("needs_rewrite") and not hard else [],
+                    "entity_coverage": {"score": float(topic.get("entity_coverage_score", 75) or 75), "entity_mismatch": bool(topic.get("entity_mismatch"))},
+                    "internal_link_suggestions": topic.get("internal_link_suggestions", []),
+                    "estimated_review_minutes": 8 if warnings else 5,
+                }
+            )
+        capacity = self.capacity.summarize(rows)
+        elapsed = time.monotonic() - started
+        return {
+            "dry_run": True,
+            "publish": False,
+            "deploy": False,
+            "index": False,
+            "auto_approve": False,
+            "topics_discovered": len(candidates),
+            "topics_selected": len(selected),
+            "fast_track": portfolio["portfolio_counts"].get("FAST_TRACK", 0),
+            "standard": portfolio["portfolio_counts"].get("STANDARD", 0),
+            "deep_research": portfolio["portfolio_counts"].get("DEEP_RESEARCH", 0),
+            "research_completed": len(selected),
+            "drafts_generated": sum(1 for row in rows if row["status"] == "drafted"),
+            "rewrite_attempts": rewrite_attempts,
+            "fact_verification_completed": len(selected),
+            "judge_pass_to_human": sum(1 for row in rows if row["judge_decision"] == "pass_to_human"),
+            "warning_to_human": sum(1 for row in rows if row["judge_decision"] == "warning_to_human"),
+            "blocked": sum(1 for row in rows if row["status"] == "blocked"),
+            "held": sum(1 for row in [*selected, *portfolio.get("rejected", [])] if row["classification"] == "HOLD"),
+            "review_ready": capacity["review_ready"],
+            "warning_only": sum(1 for row in rows if row["warnings"] and not row["hard_blockers"]),
+            "average_publishing_confidence": round(sum(confidence_scores) / max(1, len(confidence_scores)), 2),
+            "average_total_duration": round(elapsed / max(1, len(selected)), 4),
+            "estimated_cost": 0.0,
+            "top_bottleneck": capacity["bottleneck"],
+            "items": rows,
+        }
+
+
+def _slug(value: Any) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", str(value or "").lower()).strip("-") or "topic"

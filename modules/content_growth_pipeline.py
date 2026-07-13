@@ -493,6 +493,8 @@ def generate_topic_package(topic: dict[str, Any]) -> GeneratedPage:
         research=research_payload(enriched_topic),
         planning=planning_payload(enriched_topic),
     )
+    if str(review.get("rewritten_html") or "").strip():
+        article_html = str(review["rewritten_html"])
     human_approval = get_human_approval_workflow().sync_review(review)
     publish_gate = get_publish_gate().evaluate(
         topic=enriched_topic,
@@ -563,6 +565,9 @@ def generate_production_article_draft_from_package(slug: str) -> dict[str, Any]:
         research=research,
         planning=planning_payload(topic),
     )
+    if str(review.get("rewritten_html") or "").strip():
+        article_html = str(review["rewritten_html"])
+        article_markdown = render_article_markdown(topic, title, description, url, links, warnings)
     human_approval = get_human_approval_workflow().sync_review(review)
     publish_gate = get_publish_gate().evaluate(
         topic=topic,

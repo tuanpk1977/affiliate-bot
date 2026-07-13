@@ -20,7 +20,7 @@ from config import settings
 from modules.affiliate_links import load_affiliate_links
 from modules.ai_trend_discovery import TrendDiscoveryEngine, classify_content_type, classify_search_intent, load_affiliate_brands, normalize_source_url, slugify
 from modules.content_growth_pipeline import generate_production_article_draft_from_package, get_research_platform, is_near_duplicate
-from modules.editorial_quality import CapacityManager, write_capacity_report
+from modules.editorial_quality import CapacityManager, SafeDailyDryRunOrchestrator, write_capacity_report
 from modules.editorial_operations_console import EditorialOperationsConsole
 from modules.editorial_state_reset import EditorialStateReset
 from modules.publish_gate import PublishGate
@@ -237,6 +237,11 @@ class DailyEditorialWorkflow:
         self.post_push_live_waits = (15, 45, 120)
         self.sleep_fn: Callable[[float], None] = time.sleep
         self.capacity_manager = CapacityManager(self.editorial_config.get("editorial_capacity", {}) if isinstance(self.editorial_config.get("editorial_capacity"), dict) else {})
+
+    def editorial_quality_dry_run(self, *, candidates: list[dict[str, Any]], target: int = 10) -> dict[str, Any]:
+        """Run the safe editorial quality pipeline preview without queue/publish mutation."""
+        orchestrator = SafeDailyDryRunOrchestrator(data_dir=self.data_dir, config=self.editorial_config)
+        return orchestrator.run(candidates, target=target)
 
     def set_progress_reporter(self, reporter: Callable[[str], None] | None) -> None:
         self.progress_reporter = reporter

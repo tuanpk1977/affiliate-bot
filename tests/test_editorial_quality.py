@@ -7,11 +7,17 @@ import unittest
 from modules.content_review import ContentReviewEngine
 from modules.editorial_quality import (
     CapacityManager,
+    ContinuousLearningRuntime,
     EditorialJudge,
+    EditorialBrain,
     FactVerificationEngine,
+    HeuristicSectionRewriteProvider,
+    KnowledgeGraphRuntime,
     PublishingConfidenceEngine,
+    SafeDailyDryRunOrchestrator,
     SourceQualityRanker,
     StructuredReviewBuilder,
+    TargetedRewriteExecutor,
     TargetedRewriteLoop,
     build_learning_feedback_record,
 )
@@ -96,6 +102,34 @@ class EditorialQualityFoundationTests(unittest.TestCase):
         self.assertEqual(plan["target_sections"], ["pricing"])
         self.assertEqual(selected["selected"], "previous")
 
+    def test_rewrite_executor_rewrites_only_target_section_and_preserves_links(self) -> None:
+        html = "<html><body><section id='intro'><h2>Intro</h2><p>Keep this.</p></section><section id='pricing'><h2>Pricing</h2><p><a href='/pricing/'>Check price</a>.</p></section></body></html>"
+        review = {
+            "hard_blockers": [],
+            "issues": [
+                {"code": "READABILITY_LOW", "section_id": "pricing", "auto_fixable": True, "hard_blocker": False, "message": "readability below threshold"}
+            ],
+        }
+        result = TargetedRewriteExecutor(provider=HeuristicSectionRewriteProvider()).execute(article_id="pricing-test", html=html, structured_review=review, context={"topic": "Pricing Test"})
+
+        self.assertTrue(result["executed"])
+        self.assertIn("Keep this.", result["html"])
+        self.assertIn("href='/pricing/'", result["html"])
+        self.assertIn("shorter review notes", result["html"])
+        self.assertTrue(result["rewrite_history"][0]["accepted"])
+
+    def test_rewrite_executor_rolls_back_when_score_declines(self) -> None:
+        class BadProvider:
+            def rewrite_section(self, *, section_id, section_html, issues, context):
+                return "<section id='pricing'><h2>Pricing</h2><p>x</p></section>"
+
+        html = "<section id='pricing'><h2>Pricing</h2><p><a href='/pricing/'>A detailed pricing section with enough useful review context.</a></p></section>"
+        review = {"issues": [{"code": "READABILITY_LOW", "section_id": "pricing", "auto_fixable": True, "hard_blocker": False, "message": "readability below threshold"}], "hard_blockers": []}
+        result = TargetedRewriteExecutor(provider=BadProvider()).execute(article_id="pricing-test", html=html, structured_review=review)
+
+        self.assertEqual(result["html"], html)
+        self.assertFalse(result["rewrite_history"][0]["accepted"])
+
     def test_capacity_manager_counts_warning_ready_drafts_without_bypassing_blocks(self) -> None:
         snapshot = CapacityManager({"minimum_daily_review_ready": 5, "target_daily_review_ready": 10, "maximum_daily_drafts": 15}).summarize(
             [
@@ -130,6 +164,78 @@ class EditorialQualityFoundationTests(unittest.TestCase):
 
         self.assertEqual(record["recommended_policy_adjustments"], [])
         self.assertTrue(record["lessons"])
+
+    def test_editorial_brain_selects_portfolio_and_prioritizes_fast_track(self) -> None:
+        candidates = [
+            {"topic": f"Fast {i}", "slug": f"fast-{i}", "source_count": 3, "source_readiness_score": 90, "content_type": "review", "business_value": 80}
+            for i in range(6)
+        ]
+        candidates.extend(
+            {"topic": f"Deep {i}", "slug": f"deep-{i}", "source_count": 3, "source_readiness_score": 80, "content_type": "pricing", "business_value": 85}
+            for i in range(4)
+        )
+        candidates.append({"topic": "Duplicate", "slug": "fast-1", "source_count": 3, "source_readiness_score": 90})
+
+        portfolio = EditorialBrain().select_portfolio(candidates, target=10, minimum_review_ready=5)
+
+        self.assertEqual(len(portfolio["selected"]), 10)
+        self.assertGreaterEqual(portfolio["portfolio_counts"]["FAST_TRACK"], 4)
+        self.assertTrue(all(row["classification"] != "REJECT" for row in portfolio["selected"]))
+
+    def test_knowledge_graph_extracts_entities_links_and_overlap(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            graph = KnowledgeGraphRuntime(Path(temp_dir))
+            first = graph.update_article(
+                article_id="cursor-review",
+                research_package={"keyword": "Cursor Review", "entities": {"products": ["Cursor"], "companies": ["Anysphere"]}},
+                draft_html="<h1>Cursor Review</h1><p>Cursor by Anysphere helps coding teams.</p>",
+                source_urls=["https://cursor.com"],
+            )
+            second = graph.update_article(
+                article_id="cursor-vs-windsurf",
+                research_package={"keyword": "Cursor vs Windsurf", "entities": {"products": ["Cursor", "Windsurf"]}},
+                draft_html="<h1>Cursor vs Windsurf</h1><p>Cursor and Windsurf are coding tools.</p>",
+                source_urls=["https://cursor.com", "https://windsurf.com"],
+            )
+
+            self.assertGreaterEqual(first["entity_coverage"]["score"], 50)
+            self.assertTrue(second["internal_link_suggestions"])
+            self.assertEqual(second["cannibalization"]["status"], "pass")
+
+    def test_continuous_learning_ingests_fixture_and_writes_report_without_auto_policy_change(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            runtime = ContinuousLearningRuntime(Path(temp_dir))
+            runtime.ingest_fixture(article_id="one", pre_publish_scores={"warning_count": 2}, metrics={"ctr": 1.1, "topic_cluster": "coding"})
+            report = runtime.weekly_report()
+
+            self.assertEqual(report["records"], 1)
+            self.assertFalse(report["auto_policy_change"])
+            self.assertTrue(Path(report["report_path"]).exists())
+
+    def test_safe_daily_dry_run_proves_minimum_capacity_without_publish_or_approval(self) -> None:
+        candidates = [
+            {"topic": f"Good {i}", "slug": f"good-{i}", "source_count": 3, "source_readiness_score": 90, "publishing_confidence": 92}
+            for i in range(8)
+        ]
+        candidates.extend(
+            {"topic": f"Warning {i}", "slug": f"warning-{i}", "source_count": 2, "source_readiness_score": 70, "publishing_confidence": 78, "needs_rewrite": True}
+            for i in range(2)
+        )
+        candidates.extend(
+            {"topic": f"Blocked {i}", "slug": f"blocked-{i}", "source_count": 0, "source_readiness_score": 0}
+            for i in range(2)
+        )
+
+        with TemporaryDirectory() as temp_dir:
+            result = SafeDailyDryRunOrchestrator(data_dir=Path(temp_dir), config={"editorial_capacity": {"minimum_daily_review_ready": 5, "target_daily_review_ready": 10}}).run(candidates, target=10)
+
+        self.assertFalse(result["publish"])
+        self.assertFalse(result["deploy"])
+        self.assertFalse(result["index"])
+        self.assertFalse(result["auto_approve"])
+        self.assertGreaterEqual(result["review_ready"], 5)
+        self.assertGreaterEqual(result["rewrite_attempts"], 1)
+        self.assertEqual(result["held"], 2)
 
 
 class EditorialQualityIntegrationTests(unittest.TestCase):

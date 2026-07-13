@@ -311,7 +311,8 @@ def remove_faqpage_jsonld(html: str) -> str:
 
 def contains_faqpage_schema(value) -> bool:
     if isinstance(value, dict):
-        if value.get("@type") == "FAQPage":
+        schema_type = str(value.get("@type") or "").strip()
+        if schema_type in {"FAQPage", "Câu hỏi thường gặpPage"}:
             return True
         return any(contains_faqpage_schema(child) for child in value.values())
     if isinstance(value, list):

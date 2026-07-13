@@ -4,6 +4,7 @@ import unittest
 from pathlib import Path
 
 from config import settings
+from modules.bilingual_site import normalize_faq_schema_to_visible_faq
 
 
 JSON_LD_RE = re.compile(
@@ -155,6 +156,22 @@ class FAQSchemaIntegrityTest(unittest.TestCase):
                 text = faq_text(self.assert_valid_single_faq_schema(read_page(vi_path)))
                 for phrase in forbidden:
                     self.assertNotIn(phrase, text)
+
+    def test_localized_faqpage_type_is_replaced_with_valid_faqpage_schema(self):
+        html = """
+        <html><head>
+        <script type="application/ld+json">{"@context":"https://schema.org","@type":"Câu hỏi thường gặpPage","mainEntity":[]}</script>
+        </head><body>
+        <section><h2>Câu hỏi thường gặp</h2>
+        <details><summary>Câu hỏi một?</summary><p>Câu trả lời một.</p></details>
+        </section>
+        </body></html>
+        """
+        normalized = normalize_faq_schema_to_visible_faq(html, "/vi/comparisons/example/")
+
+        self.assertNotIn("Câu hỏi thường gặpPage", normalized)
+        schema = self.assert_valid_single_faq_schema(normalized)
+        self.assertEqual(schema["mainEntity"][0]["name"], "Câu hỏi một?")
 
 
 if __name__ == "__main__":
