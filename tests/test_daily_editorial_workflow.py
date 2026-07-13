@@ -504,6 +504,27 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertEqual(redirected["source_count"], 2)
             self.assertEqual(redirected["source_urls"], ["https://example.com/a", "https://news.example.org/c"])
 
+    def test_semantic_source_policy_rejects_ambiguous_entity_sources(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            _write_json(root / "config" / "editorial_system.json", {"knowledge_review": {"minimum_verified_sources": 2, "minimum_freshness": 35}})
+            workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
+
+            readiness = workflow._topic_source_readiness(
+                {
+                    "slug": "core-review-2026",
+                    "source_urls": [
+                        "https://github.com/home-assistant/core",
+                        "https://quantrimang.com/cong-nghe/e-core-va-p-core-trong-cpu-intel-196904",
+                    ],
+                    "content_freshness_score": 80,
+                }
+            )
+
+            self.assertFalse(readiness["passes"])
+            self.assertEqual(readiness["source_urls"], ["https://github.com/home-assistant/core"])
+            self.assertIn("1 usable sources below 2", readiness["pass_fail_reason"])
+
     def test_source_ready_selection_replaces_weak_candidate(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
@@ -535,6 +556,55 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
 
             self.assertEqual(len(selected), 9)
             self.assertEqual(rejected, [])
+
+    def test_trend_dry_run_replaces_semantically_invalid_top_topics(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            _write_json(root / "config" / "editorial_system.json", {"knowledge_review": {"minimum_verified_sources": 2, "minimum_freshness": 35}})
+            workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
+
+            def candidate(topic: str, slug: str, urls: list[str]) -> SimpleNamespace:
+                return SimpleNamespace(
+                    topic=topic,
+                    slug=slug,
+                    search_intent="commercial research",
+                    affiliate_opportunity=90,
+                    competition=30,
+                    news_freshness=80,
+                    content_type="review",
+                    source_urls=urls,
+                    suggested_internal_links=[],
+                    suggested_article_angle="Angle",
+                    why_selected=["Test candidate"],
+                    signals=len(urls),
+                    confidence="high",
+                )
+
+            invalid = [
+                candidate("core Review 2026", "core-review-2026", ["https://github.com/home-assistant/core", "https://quantrimang.com/cong-nghe/e-core-va-p-core-trong-cpu-intel-196904"]),
+                candidate("ai-hedge-fund Review 2026", "ai-hedge-fund-review-2026", ["https://github.com/virattt/ai-hedge-fund", "https://www.bloomberg.com/news/articles/2026-06-26/chinese-hedge-funds-warn-the-ai-super-bubble-is-ready-to-burst"]),
+                candidate("12 Best AI for Coding Tools in 2026 (Vibecoding & Data Science)", "12-best-ai-for-coding-tools-in-2026-vibecoding-data-science", ["https://ventureburn.com/best-ai-for-coding/", "https://memeburn.com/best-free-ai-tools/"]),
+            ]
+            valid = [
+                candidate(f"Valid Topic {index}", f"valid-topic-{index}", [f"https://source{index}.example/a", f"https://other{index}.example/b"])
+                for index in range(7)
+            ]
+            discovery = SimpleNamespace(selected_topics=[*invalid, *valid], source_status={})
+
+            with patch("modules.daily_editorial_workflow.TrendDiscoveryEngine") as engine_cls:
+                engine_cls.return_value.run.return_value = discovery
+                with patch("modules.daily_editorial_workflow.load_affiliate_brands", return_value=frozenset()):
+                    payload = workflow.trend_dry_run(count=10, mode="standard", batch_date="2026-07-13")
+
+            slugs = [item["slug"] for item in payload["topics"]]
+            self.assertEqual(payload["final_decision"], "PASS")
+            self.assertEqual(len(slugs), 10)
+            self.assertNotIn("core-review-2026", slugs)
+            self.assertNotIn("ai-hedge-fund-review-2026", slugs)
+            self.assertNotIn("12-best-ai-for-coding-tools-in-2026-vibecoding-data-science", slugs)
+            self.assertEqual(slugs[-3:], ["pydantic-ai-review-2026", "n8n-ai-agents-review-2026", "mastra-ai-review-2026"])
+            self.assertFalse((root / "data" / "editorial_queue" / "2026-07-13" / "topics.json").exists())
+            self.assertFalse((root / "data" / "editorial_queue" / "weeks" / "2026-07-13" / "week.json").exists())
 
     def test_trend_engine_enriches_candidate_with_independent_bing_sources(self) -> None:
         candidate = TopicCandidate(
