@@ -378,7 +378,15 @@ class DailyEditorialWorkflow:
                 "related_keywords": list(item.get("related_keywords") or []),
                 "suggested_internal_links": list(item.get("suggested_internal_links") or []),
                 "suggested_article_angle": str(item.get("suggested_article_angle") or ""),
+                "source_urls": list(item.get("source_urls") or []),
+                "source_readiness": dict(item.get("source_readiness") or {}),
             }
+            source_readiness = dict(item.get("source_readiness") or {})
+            if not source_readiness.get("passes"):
+                source_readiness = self._topic_source_readiness(item)
+            if source_readiness["passes"]:
+                topic_record["validated_source_urls"] = list(source_readiness.get("source_urls") or [])
+                topic_record["validated_source_domains"] = list(source_readiness.get("unique_source_domains") or [])
             try:
                 platform = get_research_platform()
                 package = platform.build_research_package(topic_record)

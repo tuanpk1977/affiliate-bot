@@ -1083,6 +1083,67 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertEqual(saved["topics"][0]["status"], "needs_enrichment")
             self.assertIn("1 usable sources below 2", saved["topics"][0]["error"])
 
+    def test_draft_passes_validated_weekly_sources_to_research_platform(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            site_output = root / "site_output"
+            _write_json(root / "config" / "editorial_system.json", {"knowledge_review": {"minimum_verified_sources": 2}})
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=site_output)
+            source_urls = ["https://pydantic.dev/docs/ai/overview/", "https://github.com/pydantic/pydantic-ai"]
+            _write_json(
+                data_dir / "editorial_queue" / "2026-07-13" / "topics.json",
+                {
+                    "generated_at": "2026-07-13T00:00:00+00:00",
+                    "date": "2026-07-13",
+                    "mode": "standard",
+                    "count": 1,
+                    "topics": [
+                        {
+                            "keyword": "Pydantic AI Review 2026",
+                            "slug": "pydantic-ai-review-2026",
+                            "search_intent": "commercial research",
+                            "content_type": "review",
+                            "source_urls": source_urls,
+                            "source_readiness": {"passes": True, "source_urls": source_urls, "source_count": 2},
+                            "content_freshness_score": 82,
+                            "status": "selected",
+                        }
+                    ],
+                },
+            )
+            draft_dir = data_dir / "production_article_drafts" / "pydantic-ai-review-2026"
+
+            class FakePlatform:
+                def __init__(self) -> None:
+                    self.topic = {}
+
+                def build_research_package(self, topic: dict):
+                    self.topic = topic
+                    return SimpleNamespace(package_dir=str(data_dir / "research" / topic["slug"]), sources={"verified_sources": [{"url": source_urls[0]}, {"url": source_urls[1]}], "reference_count": 2})
+
+                def evaluate_quality_gate(self, package, topic: dict, allow_override: bool = False):
+                    return SimpleNamespace(passed=True, score=81, threshold=60, override_used=False, status="passed")
+
+            fake_platform = FakePlatform()
+
+            def fake_generate(slug: str, *args, **kwargs):
+                draft_dir.mkdir(parents=True, exist_ok=True)
+                (draft_dir / "index.html").write_text("<html><body>Draft</body></html>", encoding="utf-8")
+                (draft_dir / "metadata.json").write_text(json.dumps({"title": slug}), encoding="utf-8")
+                return {"draft_dir": str(draft_dir), "metadata_file": str(draft_dir / "metadata.json")}
+
+            with patch("modules.daily_editorial_workflow.get_research_platform", return_value=fake_platform):
+                with patch("modules.daily_editorial_workflow.generate_production_article_draft_from_package", side_effect=fake_generate):
+                    result = workflow.draft(batch_date="2026-07-13")
+
+            self.assertEqual(result["drafted"], 1)
+            self.assertEqual(fake_platform.topic["source_urls"], source_urls)
+            self.assertEqual(fake_platform.topic["validated_source_urls"], source_urls)
+            saved = json.loads((data_dir / "editorial_queue" / "2026-07-13" / "topics.json").read_text(encoding="utf-8"))
+            self.assertEqual(saved["topics"][0]["status"], "drafted")
+            self.assertTrue(saved["topics"][0]["review_preview"])
+
     def test_morning_run_builds_dashboard_and_console_paths(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

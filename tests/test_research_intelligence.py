@@ -32,6 +32,50 @@ class ResearchIntelligenceTests(unittest.TestCase):
             self.assertIn("approved_at", csv_text)
             self.assertIn("topic-b", csv_text)
 
+    def test_build_package_uses_validated_weekly_source_urls(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            config = {
+                "knowledge_review": {
+                    "minimum_verified_sources": 2,
+                    "minimum_official_sources": 1,
+                    "minimum_trust_score": 50,
+                    "minimum_freshness": 35,
+                },
+                "research_intelligence": {
+                    "quality_gate": {"enabled": True, "threshold": 60, "allow_override": False},
+                    "verified_source_gate": {
+                        "enabled": True,
+                        "minimum_official_docs_score": 20,
+                        "minimum_pricing_source_score": 20,
+                        "minimum_affiliate_source_score": 10,
+                        "minimum_total_score": 35,
+                    },
+                },
+            }
+            platform = ResearchIntelligencePlatform(data_dir=data_dir, config=config)
+            topic = {
+                "topic": "Pydantic AI Review 2026",
+                "slug": "pydantic-ai-review-2026",
+                "validated_source_urls": [
+                    "https://pydantic.dev/docs/ai/overview/",
+                    "https://github.com/pydantic/pydantic-ai",
+                ],
+                "source_readiness": {"passes": True, "source_count": 2},
+            }
+
+            package = platform.build_research_package(topic)
+            source_gate_passed, source_gate_reasons = platform._passes_verified_source_gate(
+                package.sources,
+                config["research_intelligence"]["verified_source_gate"],
+            )
+
+            self.assertEqual(package.sources["reference_count"], 2)
+            self.assertEqual(len(package.sources["verified_sources"]), 2)
+            self.assertEqual(package.sources["source_status"], "verified")
+            self.assertTrue(source_gate_passed, source_gate_reasons)
+
     def test_builds_research_package_and_quality_report(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
