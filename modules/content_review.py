@@ -9,6 +9,14 @@ from pathlib import Path
 from typing import Any
 
 from config import settings
+from modules.editorial_quality import (
+    EditorialJudge,
+    FactVerificationEngine,
+    PublishingConfidenceEngine,
+    SourceQualityRanker,
+    StructuredReviewBuilder,
+    TargetedRewriteLoop,
+)
 
 
 REVIEW_STATUSES = {
@@ -77,6 +85,12 @@ class ContentReviewEngine:
         self.report_json = self.data_dir / "content_review_report.json"
         self.report_csv = self.data_dir / "content_review_report.csv"
         self.report_md = self.data_dir / "content_review_report.md"
+        self.source_ranker = SourceQualityRanker(self.config.get("source_ranking", {}) if isinstance(self.config.get("source_ranking"), dict) else {})
+        self.fact_verifier = FactVerificationEngine(self.config.get("fact_verification", {}) if isinstance(self.config.get("fact_verification"), dict) else {})
+        self.structured_review_builder = StructuredReviewBuilder()
+        self.rewrite_loop = TargetedRewriteLoop(self.config.get("rewrite_loop", {}) if isinstance(self.config.get("rewrite_loop"), dict) else {})
+        self.confidence_engine = PublishingConfidenceEngine(self.config.get("publishing_confidence", {}) if isinstance(self.config.get("publishing_confidence"), dict) else {})
+        self.judge = EditorialJudge()
 
     def load_queue(self) -> list[dict[str, Any]]:
         return _read_json(self.queue_path, [])
@@ -173,6 +187,8 @@ class ContentReviewEngine:
         minimum_business_value = float(self.config.get("minimum_business_value", 35))
 
         failures: list[str] = []
+        hard_blockers: list[str] = []
+        review_warnings: list[str] = list(dict.fromkeys(str(item) for item in warnings if str(item).strip()))
         if factual_quality < minimum_factual_quality:
             failures.append("factual quality below threshold")
         if source_quality < minimum_source_quality:
@@ -194,8 +210,57 @@ class ContentReviewEngine:
         if publish_readiness < minimum_publish_readiness:
             failures.append("publish readiness below threshold")
 
+        source_candidates = self._source_candidates(research)
+        source_quality_review = self.source_ranker.rank(source_candidates)
+        legacy_source_score_present = bool(source_quality > 0 or verified_source_score > 0 or (research.get("quality_gate") or {}).get("passed"))
+        if source_candidates or not legacy_source_score_present:
+            fact_verification = self.fact_verifier.verify(html=html, sources=source_candidates)
+        else:
+            fact_verification = {
+                "schema_version": 2,
+                "claim_count": 0,
+                "claims": [],
+                "hard_blockers": [],
+                "warnings": ["fact verification skipped: legacy source URLs unavailable"],
+                "cache_size": 0,
+            }
+            review_warnings.extend(fact_verification["warnings"])
+
+        if not html.strip() or word_count <= 0:
+            hard_blockers.append("empty or missing draft")
+        if source_quality <= 0 and verified_source_score <= 0 and not legacy_source_score_present:
+            hard_blockers.append("zero usable sources")
+        if duplicate_content_risk >= float(self.config.get("critical_duplicate_risk", 92)):
+            hard_blockers.append("duplicate collision")
+        hard_blockers.extend(str(item) for item in fact_verification.get("hard_blockers", []) if str(item).strip())
+
+        soft_failure_markers = (
+            "SEO title/meta quality below threshold",
+            "readability below threshold",
+            "word count below threshold",
+            "business value below threshold",
+            "publish readiness below threshold",
+            "source quality below threshold",
+            "factual quality below threshold",
+            "internal links missing",
+        )
+        for failure in failures:
+            if failure in hard_blockers:
+                continue
+            if failure == "affiliate disclosure missing":
+                review_warnings.append("affiliate verification warning: affiliate disclosure missing")
+            elif failure == "duplicate content risk too high":
+                review_warnings.append(failure)
+            elif failure in soft_failure_markers:
+                review_warnings.append(failure)
+            else:
+                hard_blockers.append(failure)
+        review_warnings.extend(str(item) for item in fact_verification.get("warnings", []) if str(item).strip())
+        hard_blockers = list(dict.fromkeys(hard_blockers))
+        review_warnings = [item for item in dict.fromkeys(review_warnings) if item not in hard_blockers]
+
         human_required = self._requires_human_approval(topic)
-        if failures:
+        if hard_blockers:
             status = "needs_revision"
         elif human_required:
             status = "needs_human_review"
@@ -222,7 +287,43 @@ class ContentReviewEngine:
             "publishable": status in {"ai_review_passed", "needs_human_review", "human_approved"},
             "requires_human_approval": human_required,
             "failures": failures,
+            "hard_blockers": hard_blockers,
+            "warnings": review_warnings,
         }
+        structured_review = self.structured_review_builder.build(
+            legacy_review=result,
+            failures=failures,
+            warnings=review_warnings,
+            hard_blockers=hard_blockers,
+            fact_verification=fact_verification,
+            source_quality=source_quality_review,
+        )
+        rewrite_plan = self.rewrite_loop.plan(structured_review=structured_review)
+        publishing_confidence = self.confidence_engine.calculate(
+            review=result,
+            research=research,
+            fact_verification=fact_verification,
+            source_quality=source_quality_review,
+            hard_blockers=hard_blockers,
+            warnings=review_warnings,
+        )
+        ai_judge = self.judge.evaluate(
+            structured_review=structured_review,
+            fact_verification=fact_verification,
+            publishing_confidence=publishing_confidence,
+        )
+        result.update(
+            {
+                "schema_version": 2,
+                "structured_review": structured_review,
+                "source_quality_review": source_quality_review,
+                "fact_verification": fact_verification,
+                "targeted_rewrite": rewrite_plan,
+                "publishing_confidence": publishing_confidence,
+                "ai_judge": ai_judge,
+                "recommended_reviewer_focus": ai_judge.get("recommended_human_focus", []),
+            }
+        )
         self._upsert_queue(result)
         return result
 
@@ -287,6 +388,10 @@ class ContentReviewEngine:
     def _requires_human_approval(self, topic: dict[str, Any]) -> bool:
         if bool(self.config.get("require_human_approval", False)):
             return True
+        if bool((settings.editorial_config or {}).get("human_approval", {}).get("required", False)):
+            return True
+        if bool(self.config.get("require_human_approval", False)):
+            return True
         manual_types = {str(item).strip().lower() for item in self.config.get("manual_approval_article_types", ["affiliate", "review", "pricing", "comparison", "product_recommendation"])}
         article_type = str(topic.get("content_type") or topic.get("article_type") or "").strip().lower()
         if article_type in manual_types:
@@ -294,3 +399,26 @@ class ContentReviewEngine:
         title = str(topic.get("topic") or topic.get("title") or "").lower()
         markers = tuple(str(item).strip().lower() for item in self.config.get("manual_approval_title_markers", [" pricing", " review", " comparison", " vs ", " best ", " alternative", " alternatives", "recommend"]))
         return any(marker in title for marker in markers)
+
+    def _source_candidates(self, research: dict[str, Any]) -> list[dict[str, Any]]:
+        sources = research.get("sources") if isinstance(research.get("sources"), dict) else {}
+        candidates: list[dict[str, Any]] = []
+        for row in sources.get("verified_sources", []) if isinstance(sources.get("verified_sources"), list) else []:
+            if isinstance(row, dict) and str(row.get("url") or "").strip():
+                candidates.append(row)
+        trusted = sources.get("trusted_sources") if isinstance(sources.get("trusted_sources"), dict) else {}
+        for rows in trusted.values():
+            if not isinstance(rows, list):
+                continue
+            for row in rows:
+                if isinstance(row, dict) and str(row.get("url") or "").strip():
+                    candidates.append(row)
+        seen: set[str] = set()
+        unique: list[dict[str, Any]] = []
+        for row in candidates:
+            url = str(row.get("url") or "").strip()
+            if not url or url in seen:
+                continue
+            seen.add(url)
+            unique.append(row)
+        return unique

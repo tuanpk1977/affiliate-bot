@@ -197,7 +197,7 @@ class ContentGrowthPipelineIntegrationTests(unittest.TestCase):
             self.assertIn("review", page)
             self.assertIn("human_approval", page)
             self.assertIn("publish_gate", page)
-            self.assertEqual(page["review"]["status"], "ai_review_passed")
+            self.assertEqual(page["review"]["status"], "needs_human_review")
             self.assertEqual(page["human_approval"]["status"], "human_approved")
             self.assertEqual(page["publish_gate"]["status"], "published_local")
 

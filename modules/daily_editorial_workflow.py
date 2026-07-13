@@ -20,6 +20,7 @@ from config import settings
 from modules.affiliate_links import load_affiliate_links
 from modules.ai_trend_discovery import TrendDiscoveryEngine, classify_content_type, classify_search_intent, load_affiliate_brands, normalize_source_url, slugify
 from modules.content_growth_pipeline import generate_production_article_draft_from_package, get_research_platform, is_near_duplicate
+from modules.editorial_quality import CapacityManager, write_capacity_report
 from modules.editorial_operations_console import EditorialOperationsConsole
 from modules.editorial_state_reset import EditorialStateReset
 from modules.publish_gate import PublishGate
@@ -235,6 +236,7 @@ class DailyEditorialWorkflow:
         self.command_timeout_seconds = 600
         self.post_push_live_waits = (15, 45, 120)
         self.sleep_fn: Callable[[float], None] = time.sleep
+        self.capacity_manager = CapacityManager(self.editorial_config.get("editorial_capacity", {}) if isinstance(self.editorial_config.get("editorial_capacity"), dict) else {})
 
     def set_progress_reporter(self, reporter: Callable[[str], None] | None) -> None:
         self.progress_reporter = reporter
@@ -454,7 +456,10 @@ class DailyEditorialWorkflow:
                 results.append({"slug": slug, "status": item["status"], "error": str(exc)})
         payload["topics"] = topics
         payload["drafted_at"] = datetime.now(UTC).isoformat()
+        capacity = self.capacity_manager.summarize(topics)
+        payload["capacity"] = capacity
         _write_json(self._queue_dir(batch_date) / "topics.json", payload)
+        capacity_report = write_capacity_report(self.data_dir / "daily_capacity_report.md", capacity)
         dashboard = self.build_review_dashboard(batch_date=batch_date)
         upload_summary = self._sync_upload_batch(batch_date=batch_date)
         master_dashboard = self._build_upload_master_dashboard()
@@ -462,6 +467,8 @@ class DailyEditorialWorkflow:
             "date": batch_date,
             "drafted": drafted,
             "blocked": blocked,
+            "capacity": capacity,
+            "capacity_report": str(capacity_report),
             "topics": results,
             "dashboard": dashboard,
             "upload_dir": str(self.upload_root / batch_date),

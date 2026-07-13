@@ -124,6 +124,100 @@
       "semantic_score"
     ]
   },
+  "editorial_capacity": {
+    "minimum_daily_review_ready": 5,
+    "target_daily_review_ready": 10,
+    "maximum_daily_drafts": 15,
+    "max_parallel_topics": 3,
+    "max_rewrite_attempts": 2,
+    "max_review_cycles": 3,
+    "daily_failure_budget": 5,
+    "allow_warning_only_review": true
+  },
+  "quality_policy": {
+    "hard_blockers": {
+      "zero_usable_sources": true,
+      "critical_research_failure": true,
+      "critical_claim_unverified": true,
+      "entity_source_mismatch": true,
+      "duplicate_collision": true,
+      "invalid_structure": true,
+      "missing_human_approval": true,
+      "render_failure": true
+    },
+    "soft_gates": {
+      "low_entity_coverage": true,
+      "low_competitor_coverage": true,
+      "low_freshness": true,
+      "thin_source_count_above_minimum": true,
+      "readability_issue": true,
+      "seo_issue": true,
+      "business_value_issue": true,
+      "minor_fact_uncertainty": true,
+      "affiliate_verification": true
+    }
+  },
+  "ai_review_v2": {
+    "enabled": true,
+    "schema_version": 2,
+    "critical_status": "blocked",
+    "warning_status": "warning",
+    "review_ready_status": "needs_human_review"
+  },
+  "targeted_rewrite": {
+    "enabled": true,
+    "max_rewrite_attempts": 2,
+    "max_review_cycles": 3,
+    "keep_better_section": true
+  },
+  "fact_verification": {
+    "enabled": true,
+    "cache_by_claim_hash": true,
+    "critical_unsupported_claim_blocks": true,
+    "minor_unsupported_claim_warns": true
+  },
+  "source_ranking": {
+    "enabled": true,
+    "allow_tier_3_and_4_for_context": true,
+    "disallow_low_tier_as_only_critical_claim_source": true
+  },
+  "ai_judge": {
+    "enabled": true,
+    "block_only_on_critical": true,
+    "warning_only_goes_to_human": true
+  },
+  "publishing_confidence": {
+    "pass_min": 90,
+    "review_ready_min": 75,
+    "rewrite_min": 50,
+    "hard_blocker_overrides_score": true
+  },
+  "editorial_brain": {
+    "enabled": true,
+    "daily_mix": {
+      "fast_track": 0.4,
+      "standard": 0.4,
+      "deep_research": 0.2
+    },
+    "classifications": [
+      "FAST_TRACK",
+      "STANDARD",
+      "DEEP_RESEARCH",
+      "HOLD",
+      "REJECT"
+    ]
+  },
+  "knowledge_graph": {
+    "enabled": true,
+    "storage": "json",
+    "hard_block_only_on_entity_mismatch": true
+  },
+  "continuous_learning": {
+    "enabled": true,
+    "weekly_report": true,
+    "auto_apply_threshold_changes": false,
+    "requires_human_approval_for_policy_change": true
+  },
   "publish_gate": {
     "enabled": true,
     "minimum_verified_source_score": 35,

@@ -40,8 +40,10 @@ class ContentReviewTests(unittest.TestCase):
                 planning={"coverage_score": 78, "keyword": "cursor pricing review"},
             )
 
-            self.assertEqual(result["status"], "ai_review_passed")
+            self.assertEqual(result["status"], "needs_human_review")
             self.assertTrue(result["publishable"])
+            self.assertEqual(result["structured_review"]["status"], "warning")
+            self.assertEqual(result["schema_version"], 2)
             self.assertTrue((data_dir / "content_review_queue.json").exists())
             self.assertTrue((data_dir / "content_review_report.json").exists())
             self.assertTrue((data_dir / "content_review_report.csv").exists())
@@ -63,9 +65,11 @@ class ContentReviewTests(unittest.TestCase):
                 planning={"coverage_score": 15, "keyword": "thin draft"},
             )
 
-            self.assertEqual(result["status"], "needs_revision")
-            self.assertFalse(result["publishable"])
+            self.assertEqual(result["status"], "needs_human_review")
+            self.assertTrue(result["publishable"])
             self.assertTrue(result["failures"])
+            self.assertEqual(result["hard_blockers"], [])
+            self.assertTrue(result["warnings"])
 
     def test_pricing_and_comparison_content_require_human_review_when_ai_passes(self) -> None:
         with TemporaryDirectory() as temp_dir:
@@ -155,8 +159,8 @@ class ContentReviewTests(unittest.TestCase):
                 planning={"coverage_score": 78, "keyword": "best ai productivity software"},
             )
 
-            self.assertEqual(first["status"], "ai_review_passed")
-            self.assertEqual(second["status"], "ai_review_passed")
+            self.assertEqual(first["status"], "needs_human_review")
+            self.assertEqual(second["status"], "needs_human_review")
             self.assertEqual(second["duplicate_content_risk"], 10.0)
 
 
