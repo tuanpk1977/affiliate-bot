@@ -8,6 +8,7 @@
 
 ```text
 trend                    discover and score dated topics
+daily-followup           preview/create Tue-Sun angles from weekly roots; never discovers topics
 morning                  discovery, drafts, and dashboard
 draft                    generate drafts for a dated queue
 approve / reject         record one human decision
@@ -38,6 +39,9 @@ Most dated commands default to today. Use `--date YYYY-MM-DD` for a specific bat
 
 ```powershell
 python editorial_console.py diagnose-batch --date YYYY-MM-DD
+python editorial_console.py daily-followup --count 10 --date YYYY-MM-DD --dry-run
+python editorial_console.py daily-followup --count 10 --date YYYY-MM-DD --confirm
+python scripts/codex_write_daily_articles.py --date latest --count 10 --depth deep
 python editorial_console.py publish-dry-run --date YYYY-MM-DD --slug SLUG
 python editorial_console.py validate-batch --date YYYY-MM-DD --mode smart
 python editorial_console.py serve --date YYYY-MM-DD --open

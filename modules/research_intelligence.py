@@ -223,6 +223,11 @@ class ResearchIntelligencePlatform:
             if validated_sources and existing_count < len(validated_sources):
                 existing = None
         if existing is not None:
+            editorial_context = self._editorial_context(topic)
+            if any(existing.keyword_summary.get(key) != value for key, value in editorial_context.items()):
+                existing.keyword_summary.update(editorial_context)
+                existing.writing_plan["editorial_context"] = editorial_context
+                self._persist_package(package_dir, existing)
             self._update_quality_report([existing])
             return existing
 
@@ -262,6 +267,7 @@ class ResearchIntelligencePlatform:
                 "intent": search_result.search_intent,
                 "article_type": keyword_result.article_type,
                 "cluster_seed": keyword,
+                **self._editorial_context(topic),
             },
             outline=outline,
             faq=faq,
@@ -272,10 +278,20 @@ class ResearchIntelligencePlatform:
             quality=quality,
             cache_hits=cache_hits,
         )
+        package.writing_plan["editorial_context"] = self._editorial_context(topic)
         self._persist_package(package_dir, package)
         self._persist_entity_cache(package.entities, package.sources, package.competitors)
         self._update_quality_report([package, *self._load_recent_packages(limit=24)])
         return package
+
+    @staticmethod
+    def _editorial_context(topic: dict[str, Any]) -> dict[str, Any]:
+        return {
+            "root_topic_id": str(topic.get("root_topic_id") or ""),
+            "root_title": str(topic.get("root_title") or ""),
+            "daily_angle": str(topic.get("daily_angle") or ""),
+            "weekly_article_history": list(topic.get("weekly_article_history") or []),
+        }
 
     def build_research_packages(self, topics: list[dict[str, Any]]) -> list[ResearchPackage]:
         packages = [self.build_research_package(topic) for topic in topics]

@@ -11,7 +11,8 @@ sequenceDiagram
     participant Human as Human approval queue
     participant Gate as Publish queue
     participant History as Lifecycle/live history
-    Discover->>Batch: selected topics
+    Discover->>Batch: Monday weekly root topics
+    Batch->>Batch: Tue-Sun unique daily angles
     Batch->>Research: research and enrichment records
     Research->>AI: draft evidence
     AI->>Human: needs_human_review
@@ -24,7 +25,9 @@ Key stores include `content_review_queue.json`, `human_approval_queue.json`, `so
 
 Lifecycle rules:
 
-- Discovery creates the dated batch.
+- Monday discovery creates `data/editorial_queue/weeks/<week_start>/week.json` and the Monday dated queue. Each active root stores immutable identity plus append-only `daily_angles` history.
+- Tuesday-Sunday `daily-followup` reads that weekly manifest without discovery and creates at most one source-ready angle per root in `data/editorial_queue/<date>/topics.json`.
+- A repeated Menu 2 run returns the existing dated queue without overwriting it. A legacy queue missing `root_topic_id` or `daily_angle` is held for manual review.
 - Draft/research adds evidence and review artifacts.
 - AI review may pass or require work.
 - Human approval changes only human review state.

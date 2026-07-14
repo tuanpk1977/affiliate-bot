@@ -34,6 +34,14 @@ def build_parser() -> argparse.ArgumentParser:
     trend.add_argument("--timeout", type=int, default=300, help="Outer timeout in seconds for real topic generation.")
     trend.add_argument("--retries", type=int, default=1, help="Bounded retry count for real topic generation.")
 
+    daily_followup = subparsers.add_parser("daily-followup", help="Create Tue-Sun article angles from the current weekly root topics without discovery.")
+    daily_followup.add_argument("--count", type=int, default=10, help="Maximum number of active weekly root topics to reuse.")
+    daily_followup.add_argument("--date", default=today, help="Daily batch date in YYYY-MM-DD format. Defaults to today.")
+    daily_followup.add_argument("--dry-run", action="store_true", help="Preview the daily angle queue without writing files or locks.")
+    daily_followup.add_argument("--confirm", action="store_true", help="Required before creating a new daily queue.")
+    daily_followup.add_argument("--timeout", type=int, default=300, help="Outer timeout in seconds for daily queue preparation.")
+    daily_followup.add_argument("--retries", type=int, default=1, help="Bounded retry count for daily queue preparation.")
+
     morning = subparsers.add_parser("morning", help="Run trend discovery and draft generation, then build the review dashboard.")
     morning.add_argument("--count", type=int, default=10, help="Number of topics to select.")
     morning.add_argument("--mode", choices=("standard", "advanced"), default="standard", help="Topic generation mode.")
@@ -414,6 +422,27 @@ def _print_no_ready_publish_summary(workflow: DailyEditorialWorkflow, *, batch_d
     print("Open menu 4 and review the blocked articles.", flush=True)
 
 
+def _print_daily_followup_summary(payload: dict) -> None:
+    print("WEEKLY_ROOT_TOPICS:", flush=True)
+    print(f"- week_start: {payload.get('week_start', '')}", flush=True)
+    print(f"- root_topic_count: {payload.get('root_topic_count', 0)}", flush=True)
+    print(f"- active_root_topics: {payload.get('active_root_topics', 0)}", flush=True)
+    print("", flush=True)
+    print("TODAY:", flush=True)
+    print(f"- date: {payload.get('date', '')}", flush=True)
+    print(f"- day_profile: {payload.get('day_profile', '')}", flush=True)
+    print(f"- existing_daily_articles: {payload.get('existing_daily_articles', 0)}", flush=True)
+    print(f"- new_angles_created: {payload.get('new_angles_created', 0)}", flush=True)
+    print(f"- held_due_to_sources: {payload.get('held_due_to_sources', 0)}", flush=True)
+    print(f"- skipped_duplicates: {payload.get('skipped_duplicates', 0)}", flush=True)
+    print(f"- daily_queue_path: {payload.get('daily_queue_path', '')}", flush=True)
+    if payload.get("legacy_queue_requires_manual_review"):
+        print("- status: existing legacy queue requires manual review; it was not overwritten", flush=True)
+    print("", flush=True)
+    print("CODEX_NEXT_STEP:", flush=True)
+    print("python scripts/codex_write_daily_articles.py --date latest --count 10 --depth deep", flush=True)
+
+
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     workflow = DailyEditorialWorkflow()
@@ -434,6 +463,26 @@ def main(argv: list[str] | None = None) -> int:
         _print_trend_summary(payload)
         print(json.dumps({"saved_to": f"data/editorial_queue/{payload['date']}/topics.json"}, ensure_ascii=False))
         return 0
+    if args.command == "daily-followup":
+        try:
+            if args.dry_run:
+                payload = workflow.daily_followup_dry_run(count=args.count, batch_date=args.date)
+                _print_daily_followup_summary(payload)
+                return 0 if payload.get("final_decision") == "PASS" else 2
+            if not args.confirm:
+                print("[ERROR] Daily queue creation requires preview plus --confirm.", flush=True)
+                print(f"[INFO] Preview first: python editorial_console.py daily-followup --count {args.count} --date {args.date} --dry-run", flush=True)
+                return 2
+            payload = _run_with_retries(
+                lambda: workflow.daily_followup(count=args.count, batch_date=args.date),
+                retries=args.retries,
+                timeout=args.timeout,
+            )
+            _print_daily_followup_summary(payload)
+            return 0 if payload.get("final_decision") == "PASS" else 2
+        except FileNotFoundError as exc:
+            print(str(exc), flush=True)
+            return 2
     if args.command == "morning":
         if not args.confirm:
             print("[ERROR] Real week-start generation requires preview plus --confirm.", flush=True)

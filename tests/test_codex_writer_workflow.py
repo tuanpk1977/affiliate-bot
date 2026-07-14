@@ -151,7 +151,12 @@ class CodexWriterWorkflowTests(unittest.TestCase):
             _package(root, "source-ready-one", source_count=2)
             _write_json(
                 root / "data" / "editorial_queue" / batch / "topics.json",
-                {"date": batch, "topics": [{"slug": "source-ready-one", "keyword": "source ready one", "search_intent": "commercial research"}]},
+                {"date": batch, "topics": [{
+                    "slug": "source-ready-one", "keyword": "source ready one", "search_intent": "commercial research",
+                    "root_topic_id": "source-ready", "root_title": "Source Ready",
+                    "daily_angle": "implementation_guide",
+                    "weekly_article_history": [{"date": "2026-07-13", "angle": "main_review", "slug": "source-ready"}],
+                }]},
             )
             writer = CodexDailyArticleWriter(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
             with patch("urllib.request.urlopen", side_effect=AssertionError("network API call was not expected")):
@@ -159,6 +164,9 @@ class CodexWriterWorkflowTests(unittest.TestCase):
             self.assertEqual(result["articles_written"], 1)
             metadata = _read_json(root / "data" / "production_article_drafts" / "source-ready-one" / "metadata.json")
             self.assertEqual(metadata["writer"], WRITER_METADATA)
+            self.assertEqual(metadata["root_topic_id"], "source-ready")
+            self.assertEqual(metadata["daily_angle"], "implementation_guide")
+            self.assertEqual(len(metadata["weekly_article_history"]), 1)
             self.assertEqual(metadata["human_approval"]["status"], "needs_human_review")
             self.assertNotEqual(metadata["publish_gate"]["status"], "approved_for_publish")
             self.assertTrue((root / "site_output" / "review" / batch / "source-ready-one" / "index.html").exists())

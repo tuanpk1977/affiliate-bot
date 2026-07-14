@@ -83,8 +83,8 @@ In `runbot_menu.bat`, items 10-13 are selected with `A-D`: `A` exits, `B` runs s
 
 | Menu | Current behavior |
 |---|---|
-| 1 | Previews, confirms, creates 10 week-start topics, prepares research, and opens the dashboard. Draft writing is performed afterward by the repository-local Codex writer. |
-| 2 | Previews, confirms, creates advanced Tue-Sun topics, prepares research, and opens the dashboard. Draft writing is performed afterward by the repository-local Codex writer. |
+| 1 | Previews and confirms up to 10 Monday root topics, stores the weekly root set, and prepares research. It does not open the dashboard; Codex writes drafts afterward. |
+| 2 | Reads the current week's root set, creates at most one new Tue-Sun angle per active root topic, and prepares angle-specific research. It never runs trend discovery or opens the dashboard. |
 | 3 | Opens custom-topic intake. |
 | 4 | Starts/reuses the local review server on port 8765 and opens the dashboard. |
 | 5 | Refreshes and prints compact batch status. |
@@ -99,14 +99,15 @@ In `runbot_menu.bat`, items 10-13 are selected with `A-D`: `A` exits, `B` runs s
 
 ## Daily operator workflow
 
-1. Run menu 1 at week start or menu 2 on Tue-Sun to prepare topic queue and research packages.
-2. In Codex, run `python scripts\codex_write_daily_articles.py --count 10 --depth deep` or ask Codex to choose the 10 best current topics and write deep drafts. This writer uses the repository-local topic/research data and does not call OpenAI, `gpt-4o-mini`, heuristic fallback, GitHub, deployment, or indexing.
-3. Open menu 4 and inspect the draft, AI report, source review, hard blockers, warnings, and pending reviews.
-4. Approve only after human review. Approval does not bypass source, freshness, AI, image, schema, canonical, or output checks.
-5. Use menu 5 or `diagnose-article` to confirm `Ready for Publish` and no hard blockers.
-6. Run `publish-dry-run` for the exact slug and inspect `would_stage`.
-7. Use menu 8 only when the selected set is intentional. The process acquires the publish lock, performs a bounded build, validates, stages allowlisted paths, commits, and pushes.
-8. Use menu 6 to confirm `Published` and `Live 200`; inspect the indexing report after deployment.
+1. Run menu 1 on Monday to select and persist the weekly root-topic set in `data/editorial_queue/weeks/<week_start>/week.json`.
+2. On Tuesday-Sunday, run menu 2. It reuses only the active weekly roots and applies the daily implementation, comparison, pricing, use-case, troubleshooting, or buying-decision profile. A missing weekly set stops safely.
+3. In Codex, run `python scripts\codex_write_daily_articles.py --date latest --count 10 --depth deep` or ask Codex to write the current queue. This writer receives `root_topic_id`, `daily_angle`, and prior weekly article history; it does not call OpenAI, `gpt-4o-mini`, heuristic fallback, GitHub, deployment, or indexing.
+4. Open menu 4 and inspect the draft, AI report, source review, hard blockers, warnings, and pending reviews.
+5. Approve only after human review. Approval does not bypass source, freshness, AI, image, schema, canonical, or output checks.
+6. Use menu 5 or `diagnose-article` to confirm `Ready for Publish` and no hard blockers.
+7. Run `publish-dry-run` for the exact slug and inspect `would_stage`.
+8. Use menu 8 only when the selected set is intentional. The process acquires the publish lock, performs a bounded build, validates, stages allowlisted paths, commits, and pushes.
+9. Use menu 6 to confirm `Published` and `Live 200`; inspect the indexing report after deployment.
 
 ## Approval and publish workflow
 

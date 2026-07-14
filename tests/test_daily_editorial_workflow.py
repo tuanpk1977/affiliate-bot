@@ -170,6 +170,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
 
         for args in (
             ["trend"],
+            ["daily-followup"],
             ["morning"],
             ["morning", "--open"],
             ["draft"],
@@ -351,10 +352,23 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
     def test_menu_2_prepares_research_without_opening_or_copying_dashboard(self) -> None:
         menu_text = (Path(__file__).resolve().parents[1] / "runbot_tue_to_sun.bat").read_text(encoding="utf-8")
 
+        self.assertIn("python editorial_console.py daily-followup --count 10 --dry-run", menu_text)
+        self.assertIn("python editorial_console.py daily-followup --count 10 --confirm", menu_text)
+        self.assertNotIn("editorial_console.py trend", menu_text)
         self.assertIn("python editorial_console.py prepare-research", menu_text)
         self.assertNotIn("prepare-research --open", menu_text)
         self.assertNotIn("site_output\\review\\YYYY-MM-DD\\index.html", menu_text)
         self.assertNotIn("upload\\dashboard.html", menu_text)
+        self.assertIn("python scripts/codex_write_daily_articles.py --date latest --count 10 --depth deep", menu_text)
+
+    def test_menu_1_stores_weekly_roots_without_opening_dashboard(self) -> None:
+        menu_text = (Path(__file__).resolve().parents[1] / "runbot_week_start.bat").read_text(encoding="utf-8")
+
+        self.assertIn("python editorial_console.py trend --count 10 --mode standard --dry-run", menu_text)
+        self.assertIn("python editorial_console.py trend --count 10 --mode standard --confirm", menu_text)
+        self.assertIn("python editorial_console.py prepare-research", menu_text)
+        self.assertNotIn("prepare-research --open", menu_text)
+        self.assertNotIn("site_output\\review", menu_text)
         self.assertIn("python scripts/codex_write_daily_articles.py --date latest --count 10 --depth deep", menu_text)
 
     def test_serve_parser_supports_background_mode(self) -> None:
@@ -537,6 +551,213 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertTrue((root / "data" / "editorial_queue" / "2026-07-07" / "topics.json").exists())
             self.assertTrue((root / "data" / "editorial_queue" / "weeks" / "2026-07-06" / "week.json").exists())
             self.assertEqual(payload.get("duplicate_warning_count"), 0)
+            weekly = _read_json_for_test(root / "data" / "editorial_queue" / "weeks" / "2026-07-06" / "week.json")
+            root_topic = weekly["topics"][0]
+            self.assertEqual(root_topic["root_topic_id"], "best-ai-productivity-software")
+            self.assertEqual(root_topic["status"], "active")
+            self.assertEqual(root_topic["daily_angles"]["2026-07-07"]["angle"], "main_review")
+
+    def test_menu_1_persists_exactly_ten_weekly_root_topics(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
+            candidates = [
+                SimpleNamespace(
+                    topic=f"AI Tool {index}", slug=f"ai-tool-{index}", search_intent="commercial research",
+                    affiliate_opportunity=80 - index, competition=35, news_freshness=75,
+                    content_type="review",
+                    source_urls=[f"https://official{index}.example.com/product", f"https://docs{index}.example.org/guide"],
+                    suggested_internal_links=[], suggested_article_angle="Review", why_selected=["Strong fit"],
+                    signals=2, confidence="high",
+                )
+                for index in range(10)
+            ]
+            discovery = SimpleNamespace(selected_topics=candidates, source_status={"fixture": {"status": "ok", "signals": 20}})
+
+            with patch("modules.daily_editorial_workflow.TrendDiscoveryEngine") as engine_cls:
+                engine_cls.return_value.run.return_value = discovery
+                with patch("modules.daily_editorial_workflow.load_affiliate_brands", return_value=frozenset()):
+                    payload = workflow.trend(count=10, mode="standard", batch_date="2026-07-06")
+
+            weekly = _read_json_for_test(root / "data" / "editorial_queue" / "weeks" / "2026-07-06" / "week.json")
+            self.assertEqual(payload["count"], 10)
+            self.assertEqual(weekly["count"], 10)
+            self.assertEqual(len(weekly["topics"]), 10)
+            self.assertEqual(len({item["root_topic_id"] for item in weekly["topics"]}), 10)
+            self.assertTrue(all("2026-07-06" in item["daily_angles"] for item in weekly["topics"]))
+
+    def test_daily_followup_reuses_roots_without_discovery_and_tracks_tuesday_angle(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=root / "site_output")
+            _write_json(
+                data_dir / "editorial_queue" / "weeks" / "2026-07-13" / "week.json",
+                {
+                    "week_start": "2026-07-13",
+                    "week_end": "2026-07-19",
+                    "topics": [
+                        {
+                            "keyword": "n8n AI Agents Review 2026",
+                            "slug": "n8n-ai-agents-review-2026",
+                            "search_intent": "commercial research",
+                            "content_type": "review",
+                            "source_urls": ["https://docs.n8n.io/advanced-ai/", "https://arxiv.org/abs/2601.00001"],
+                            "content_freshness_score": 85,
+                            "affiliate_monetization_score": 70,
+                            "competition_difficulty_score": 40,
+                            "product_availability_score": 75,
+                            "search_intent_score": 90,
+                            "daily_angles": {"2026-07-13": {"angle": "main_review", "slug": "n8n-ai-agents-review-2026", "status": "drafted"}},
+                        }
+                    ],
+                },
+            )
+
+            with patch("modules.daily_editorial_workflow.TrendDiscoveryEngine") as discovery:
+                payload = workflow.daily_followup(count=10, batch_date="2026-07-14")
+
+            discovery.assert_not_called()
+            self.assertEqual(payload["new_angles_created"], 1)
+            topic = payload["topics"][0]
+            self.assertEqual(topic["root_topic_id"], "n8n-ai-agents-review-2026")
+            self.assertEqual(topic["daily_angle"], "implementation_guide")
+            self.assertIn("how-to-implement", topic["slug"])
+            self.assertEqual(len(topic["weekly_article_history"]), 1)
+            saved_week = _read_json_for_test(data_dir / "editorial_queue" / "weeks" / "2026-07-13" / "week.json")
+            self.assertEqual(saved_week["topics"][0]["daily_angles"]["2026-07-14"]["angle"], "implementation_guide")
+
+    def test_daily_followup_wednesday_uses_comparison_and_is_idempotent(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=root / "site_output")
+            manifest = {
+                "week_start": "2026-07-13",
+                "week_end": "2026-07-19",
+                "topics": [
+                    {
+                        "root_topic_id": "mastra-ai-review-2026",
+                        "keyword": "Mastra AI Review 2026",
+                        "slug": "mastra-ai-review-2026",
+                        "status": "active",
+                        "search_intent": "commercial research",
+                        "source_urls": ["https://mastra.ai/", "https://github.com/mastra-ai/mastra"],
+                        "content_freshness_score": 85,
+                        "affiliate_monetization_score": 70,
+                        "competition_difficulty_score": 40,
+                        "product_availability_score": 75,
+                        "search_intent_score": 90,
+                        "daily_angles": {},
+                    }
+                ],
+            }
+            _write_json(data_dir / "editorial_queue" / "weeks" / "2026-07-13" / "week.json", manifest)
+
+            first = workflow.daily_followup(count=10, batch_date="2026-07-15")
+            queue_path = data_dir / "editorial_queue" / "2026-07-15" / "topics.json"
+            first_bytes = queue_path.read_bytes()
+            second = workflow.daily_followup(count=10, batch_date="2026-07-15")
+
+            self.assertEqual(first["topics"][0]["daily_angle"], "comparison")
+            self.assertIn("comparison-and-alternatives", first["topics"][0]["slug"])
+            self.assertTrue(second["idempotent_existing_queue"])
+            self.assertEqual(second["new_angles_created"], 0)
+            self.assertEqual(queue_path.read_bytes(), first_bytes)
+
+    def test_daily_followup_missing_week_stops_without_discovery_or_queue(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
+
+            with patch("modules.daily_editorial_workflow.TrendDiscoveryEngine") as discovery:
+                with self.assertRaisesRegex(FileNotFoundError, "No weekly root topics found"):
+                    workflow.daily_followup_dry_run(count=10, batch_date="2026-07-14")
+
+            discovery.assert_not_called()
+            self.assertFalse((root / "data" / "editorial_queue" / "2026-07-14").exists())
+            self.assertFalse((root / "data" / "editorial_queue" / "weeks" / "2026-07-13" / "generation.lock").exists())
+
+    def test_daily_followup_dry_run_has_zero_mutation(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=root / "site_output")
+            _write_json(
+                data_dir / "editorial_queue" / "weeks" / "2026-07-13" / "week.json",
+                {
+                    "week_start": "2026-07-13",
+                    "week_end": "2026-07-19",
+                    "topics": [{
+                        "keyword": "Pydantic AI Review 2026", "slug": "pydantic-ai-review-2026", "status": "active",
+                        "search_intent": "commercial research", "search_intent_score": 90,
+                        "affiliate_monetization_score": 70, "competition_difficulty_score": 40,
+                        "product_availability_score": 75, "content_freshness_score": 85,
+                        "source_urls": ["https://pydantic.dev/docs/ai/overview/", "https://github.com/pydantic/pydantic-ai"],
+                        "daily_angles": {},
+                    }],
+                },
+            )
+            before = {str(path.relative_to(root)): path.read_bytes() for path in root.rglob("*") if path.is_file()}
+
+            payload = workflow.daily_followup_dry_run(count=10, batch_date="2026-07-14")
+
+            after = {str(path.relative_to(root)): path.read_bytes() for path in root.rglob("*") if path.is_file()}
+            self.assertEqual(payload["new_angles_created"], 1)
+            self.assertEqual(before, after)
+
+    def test_daily_followup_holds_an_already_used_weekly_angle(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=root / "site_output")
+            _write_json(
+                data_dir / "editorial_queue" / "weeks" / "2026-07-13" / "week.json",
+                {
+                    "week_start": "2026-07-13", "week_end": "2026-07-19",
+                    "topics": [{
+                        "root_topic_id": "pydantic-ai-review-2026", "keyword": "Pydantic AI Review 2026",
+                        "slug": "pydantic-ai-review-2026", "status": "active", "search_intent": "commercial research",
+                        "search_intent_score": 90, "affiliate_monetization_score": 70,
+                        "competition_difficulty_score": 40, "product_availability_score": 75,
+                        "content_freshness_score": 85,
+                        "source_urls": ["https://pydantic.dev/docs/ai/overview/", "https://github.com/pydantic/pydantic-ai"],
+                        "daily_angles": {"2026-07-14": {"angle": "implementation_guide", "title": "Existing guide", "slug": "existing-guide"}},
+                    }],
+                },
+            )
+
+            payload = workflow.daily_followup_dry_run(count=10, batch_date="2026-07-14")
+
+            self.assertEqual(payload["new_angles_created"], 0)
+            self.assertEqual(payload["skipped_duplicates"], 1)
+            self.assertIn("already has an article", payload["held_topics"][0]["reason"])
+
+    def test_weekly_manifest_migration_maps_monday_and_flags_legacy_daily_batch(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=root / "site_output")
+            root_topic = {
+                "keyword": "Mastra AI Review 2026", "slug": "mastra-ai-review-2026",
+                "parent_slug": "mastra-ai-review-2026", "status": "weekly_selected",
+                "source_urls": ["https://mastra.ai/", "https://github.com/mastra-ai/mastra"],
+            }
+            _write_json(data_dir / "editorial_queue" / "weeks" / "2026-07-13" / "week.json", {"week_start": "2026-07-13", "topics": [root_topic]})
+            _write_json(data_dir / "editorial_queue" / "2026-07-13" / "topics.json", {"date": "2026-07-13", "topics": [{**root_topic, "status": "published"}]})
+            _write_json(
+                data_dir / "editorial_queue" / "2026-07-14" / "topics.json",
+                {"date": "2026-07-14", "topics": [{**root_topic, "keyword": "Mastra AI Review 2026 pricing", "slug": "mastra-ai-review-2026-pricing"}]},
+            )
+
+            result = workflow.migrate_weekly_root_manifest(week_start="2026-07-13")
+
+            saved = _read_json_for_test(data_dir / "editorial_queue" / "weeks" / "2026-07-13" / "week.json")
+            self.assertEqual(result["root_topics_migrated"], 1)
+            self.assertEqual(result["existing_articles_mapped"], 1)
+            self.assertEqual(result["incorrect_daily_batches_found"], ["2026-07-14"])
+            self.assertEqual(saved["topics"][0]["daily_angles"]["2026-07-13"]["status"], "published")
+            self.assertNotIn("2026-07-14", saved["topics"][0]["daily_angles"])
 
     def test_trend_dry_run_does_not_write_queue_files(self) -> None:
         with TemporaryDirectory() as temp_dir:
@@ -1031,7 +1252,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
 
             engine_cls.assert_not_called()
             self.assertEqual(payload["topics"][0]["parent_slug"], "best-ai-productivity-software")
-            self.assertIn("comparison", payload["topics"][0]["keyword"])
+            self.assertIn("pricing", payload["topics"][0]["keyword"])
 
     def test_draft_generates_preview_and_updates_status(self) -> None:
         with TemporaryDirectory() as temp_dir:
@@ -1487,7 +1708,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
 
             self.assertEqual(monday["trend"]["topics"][0]["slug"], "best-ai-productivity-software")
             self.assertEqual(thursday["trend"]["topics"][0]["parent_slug"], "best-ai-productivity-software")
-            self.assertIn("comparison", thursday["trend"]["topics"][0]["keyword"])
+            self.assertIn("pricing", thursday["trend"]["topics"][0]["keyword"])
 
     def test_approve_and_reject_update_batch_status(self) -> None:
         with TemporaryDirectory() as temp_dir:

@@ -110,12 +110,12 @@ def _clamp_score(value: float) -> float:
 
 
 ADVANCED_WEEKDAY_PATTERNS: dict[int, tuple[str, str]] = {
-    1: ("pricing", "{topic} pricing"),
-    2: ("alternatives", "{topic} alternatives"),
-    3: ("comparison", "{topic} comparison"),
-    4: ("tutorial", "how to use {topic}"),
-    5: ("best_for_use_case", "best {topic} for small business"),
-    6: ("review", "{topic} review 2026"),
+    1: ("implementation_guide", "how to implement {topic}"),
+    2: ("comparison", "{topic} comparison and alternatives"),
+    3: ("pricing", "{topic} pricing cost and ROI"),
+    4: ("use_cases", "best {topic} workflows and use cases"),
+    5: ("troubleshooting", "common {topic} mistakes and troubleshooting"),
+    6: ("buying_decision", "is {topic} worth it for small business"),
 }
 
 
@@ -275,6 +275,21 @@ class DailyEditorialWorkflow:
         finally:
             self._release_weekly_generation_lock(week_start=week_start)
 
+    def daily_followup(self, *, count: int = 10, batch_date: str | None = None) -> dict[str, Any]:
+        """Create a Tue-Sun queue from the current weekly root topics without discovery."""
+        target_date = batch_date or date.today().isoformat()
+        week_start = self._week_start(target_date)
+        self._acquire_weekly_generation_lock(week_start=week_start, batch_date=target_date, command="daily-followup")
+        try:
+            return self._daily_followup_payload(count=count, batch_date=target_date, write=True)
+        finally:
+            self._release_weekly_generation_lock(week_start=week_start)
+
+    def daily_followup_dry_run(self, *, count: int = 10, batch_date: str | None = None) -> dict[str, Any]:
+        """Preview a Tue-Sun queue without writing queue, manifest, lock, or research files."""
+        target_date = batch_date or date.today().isoformat()
+        return self._daily_followup_payload(count=count, batch_date=target_date, write=False)
+
     def trend_dry_run(self, *, count: int = 10, mode: str = "standard", batch_date: str | None = None) -> dict[str, Any]:
         target_date = batch_date or date.today().isoformat()
         weekly_batch = self._build_weekly_batch_payload(batch_date=target_date, count=count, write=False)
@@ -382,7 +397,140 @@ class DailyEditorialWorkflow:
             "rejection_reasons": self._summarize_rejections(rejected),
         }
         _write_json(self._queue_dir(batch_date) / "topics.json", payload)
+        if mode == "standard":
+            self._record_weekly_daily_angles(
+                week_start=str(weekly_batch["week_start"]),
+                batch_date=batch_date,
+                topics=selected,
+                angle="main_review",
+                status="queue_created",
+            )
         return payload
+
+    def _daily_followup_payload(self, *, count: int, batch_date: str, write: bool) -> dict[str, Any]:
+        if date.fromisoformat(batch_date).weekday() == 0:
+            raise ValueError("Menu 2 is for Tuesday-Sunday follow-up angles. Run Menu 1 for Monday root topics.")
+        queue_path = self._queue_dir(batch_date) / "topics.json"
+        if queue_path.exists():
+            existing = self._load_queue(batch_date)
+            topics = list(existing.get("topics") or [])
+            valid_daily_contract = bool(topics) and all(
+                str(item.get("root_topic_id") or "").strip() and str(item.get("daily_angle") or "").strip()
+                for item in topics
+            )
+            return {
+                "date": batch_date,
+                "week_start": str(existing.get("week_start") or self._week_start(batch_date)),
+                "day_profile": str(existing.get("day_profile") or self._daily_angle_name(batch_date)),
+                "root_topic_count": int(existing.get("root_topic_count") or len(topics)),
+                "active_root_topics": int(existing.get("active_root_topics") or len(topics)),
+                "existing_daily_articles": len(topics),
+                "new_angles_created": 0,
+                "held_due_to_sources": len(list(existing.get("held_topics") or [])),
+                "skipped_duplicates": int(existing.get("skipped_duplicates") or 0),
+                "daily_queue_path": str(queue_path),
+                "topics": topics,
+                "held_topics": list(existing.get("held_topics") or []),
+                "idempotent_existing_queue": True,
+                "legacy_queue_requires_manual_review": not valid_daily_contract,
+                "dry_run": not write,
+                "final_decision": "PASS" if valid_daily_contract else "FAIL",
+                "next_command": "python scripts/codex_write_daily_articles.py --date latest --count 10 --depth deep",
+            }
+
+        weekly_batch = self._load_weekly_root_manifest(batch_date)
+        roots = [
+            self._normalize_weekly_root_topic(item, week_start=str(weekly_batch["week_start"]))
+            for item in list(weekly_batch.get("topics") or [])
+            if str(item.get("status") or "active") in {"active", "weekly_selected"}
+        ][:count]
+        candidates = self._build_daily_topics_from_weekly_batch(
+            weekly_topics=roots,
+            batch_date=batch_date,
+            mode="advanced",
+        )
+        selected: list[dict[str, Any]] = []
+        held: list[dict[str, Any]] = []
+        held_due_to_sources = 0
+        skipped_duplicates = 0
+        for item in candidates:
+            weekly_collision = self._weekly_angle_collision(item)
+            if weekly_collision:
+                skipped_duplicates += 1
+                held.append(
+                    {
+                        "root_topic_id": str(item.get("root_topic_id") or ""),
+                        "root_title": str(item.get("root_title") or ""),
+                        "slug": str(item.get("slug") or ""),
+                        "daily_angle": str(item.get("daily_angle") or ""),
+                        "reason": weekly_collision,
+                    }
+                )
+                continue
+            readiness = self._topic_source_readiness(item)
+            item["source_readiness"] = readiness
+            if readiness.get("passes"):
+                selected.append(item)
+                continue
+            reason = str(readiness.get("pass_fail_reason") or "source readiness failed")
+            collision = readiness.get("collision_result") if isinstance(readiness.get("collision_result"), dict) else {}
+            if collision.get("has_collision"):
+                skipped_duplicates += 1
+            else:
+                held_due_to_sources += 1
+            held.append(
+                {
+                    "root_topic_id": str(item.get("root_topic_id") or ""),
+                    "root_title": str(item.get("root_title") or ""),
+                    "slug": str(item.get("slug") or ""),
+                    "daily_angle": str(item.get("daily_angle") or ""),
+                    "reason": reason,
+                }
+            )
+        payload = {
+            "generated_at": datetime.now(UTC).isoformat(),
+            "date": batch_date,
+            "batch_state": BATCH_STATE_QUEUE_CREATED,
+            "week_start": str(weekly_batch["week_start"]),
+            "week_end": str(weekly_batch.get("week_end") or ""),
+            "mode": "advanced",
+            "day_profile": self._daily_angle_name(batch_date),
+            "root_topic_count": len(roots),
+            "active_root_topics": len(roots),
+            "count": len(selected),
+            "topics": selected,
+            "held_topics": held,
+            "held_due_to_sources": held_due_to_sources,
+            "skipped_duplicates": skipped_duplicates,
+        }
+        if write:
+            _write_json(queue_path, payload)
+            self._record_weekly_daily_angles(
+                week_start=str(weekly_batch["week_start"]),
+                batch_date=batch_date,
+                topics=selected,
+                angle=self._daily_angle_name(batch_date),
+                status="queue_created",
+                held=held,
+            )
+        return {
+            "date": batch_date,
+            "week_start": str(weekly_batch["week_start"]),
+            "day_profile": self._daily_angle_name(batch_date),
+            "root_topic_count": len(roots),
+            "active_root_topics": len(roots),
+            "existing_daily_articles": 0,
+            "new_angles_created": len(selected),
+            "held_due_to_sources": held_due_to_sources,
+            "skipped_duplicates": skipped_duplicates,
+            "daily_queue_path": str(queue_path),
+            "topics": selected,
+            "held_topics": held,
+            "idempotent_existing_queue": False,
+            "dry_run": not write,
+            "final_decision": "PASS" if selected else "FAIL",
+            "next_command": "python scripts/codex_write_daily_articles.py --date latest --count 10 --depth deep",
+        }
 
     def draft(self, *, batch_date: str) -> dict[str, Any]:
         payload = self._load_queue(batch_date)
@@ -403,6 +551,10 @@ class DailyEditorialWorkflow:
                 "suggested_article_angle": str(item.get("suggested_article_angle") or ""),
                 "source_urls": list(item.get("source_urls") or []),
                 "source_readiness": dict(item.get("source_readiness") or {}),
+                "root_topic_id": str(item.get("root_topic_id") or ""),
+                "root_title": str(item.get("root_title") or item.get("parent_keyword") or ""),
+                "daily_angle": str(item.get("daily_angle") or ""),
+                "weekly_article_history": list(item.get("weekly_article_history") or []),
             }
             source_readiness = dict(item.get("source_readiness") or {})
             if not source_readiness.get("passes"):
@@ -3013,11 +3165,8 @@ class DailyEditorialWorkflow:
             replacement_candidates.extend(vetted_items)
             selected = self._replace_semantically_rejected_topics(selected, replacement_candidates, count=count)
         for index, item in enumerate(selected, start=1):
+            item.update(self._normalize_weekly_root_topic(item, week_start=week_start))
             item["rank"] = index
-            item["status"] = "weekly_selected"
-            item["week_start"] = week_start
-            item["parent_keyword"] = str(item.get("keyword") or "")
-            item["parent_slug"] = str(item.get("slug") or "")
         week_start_date = date.fromisoformat(week_start)
         duplicate_warning_count = sum(1 for item in selected if str(item.get("published_live_duplicate_warning") or "").strip())
         payload = {
@@ -3052,7 +3201,11 @@ class DailyEditorialWorkflow:
                 item["search_intent_score"] = _score_search_intent(item["search_intent"])
                 item["parent_keyword"] = parent_keyword
                 item["parent_slug"] = parent_slug
-                item["suggested_article_angle"] = f"{content_type} follow-up for {parent_keyword}"
+                item["root_topic_id"] = str(base.get("root_topic_id") or parent_slug)
+                item["root_title"] = str(base.get("title") or parent_keyword)
+                item["daily_angle"] = self._daily_angle_name(batch_date)
+                item["weekly_article_history"] = self._weekly_article_history(base)
+                item["suggested_article_angle"] = f"{item['daily_angle']} follow-up for {parent_keyword}"
                 item["batch_date"] = batch_date
                 item["week_start"] = week_start
                 item["mode"] = mode
@@ -3073,6 +3226,155 @@ class DailyEditorialWorkflow:
             item["status"] = "selected"
             topics.append(item)
         return topics
+
+    def _load_weekly_root_manifest(self, batch_date: str) -> dict[str, Any]:
+        week_start = self._week_start(batch_date)
+        manifest_path = self._week_manifest_path(week_start)
+        payload = _read_json(manifest_path, {})
+        if not payload or not list(payload.get("topics") or []):
+            raise FileNotFoundError(
+                "No weekly root topics found.\nPlease run Menu 1 first to select this week's 10 hot topics."
+            )
+        return payload
+
+    def _normalize_weekly_root_topic(self, item: dict[str, Any], *, week_start: str) -> dict[str, Any]:
+        normalized = dict(item)
+        title = str(item.get("title") or item.get("parent_keyword") or item.get("keyword") or "").strip()
+        root_id = str(item.get("root_topic_id") or item.get("parent_slug") or item.get("slug") or slugify(title)).strip()
+        normalized.update(
+            {
+                "root_topic_id": root_id,
+                "title": title,
+                "primary_keyword": str(item.get("primary_keyword") or item.get("parent_keyword") or item.get("keyword") or title),
+                "category": str(item.get("category") or item.get("content_type") or "AI Tools"),
+                "trend_score": float(item.get("trend_score") or item.get("content_freshness_score") or 0),
+                "business_value": float(item.get("business_value") or item.get("affiliate_monetization_score") or 0),
+                "sources": list(item.get("sources") or item.get("source_urls") or []),
+                "entities": list(item.get("entities") or item.get("matched_products") or []),
+                "week_start": week_start,
+                "status": "active",
+                "selection_status": str(item.get("selection_status") or "weekly_selected"),
+                "parent_keyword": str(item.get("parent_keyword") or item.get("keyword") or title),
+                "parent_slug": str(item.get("parent_slug") or item.get("slug") or root_id),
+                "daily_angles": dict(item.get("daily_angles") or {}),
+            }
+        )
+        return normalized
+
+    @staticmethod
+    def _weekly_article_history(root_topic: dict[str, Any]) -> list[dict[str, Any]]:
+        angles = root_topic.get("daily_angles") if isinstance(root_topic.get("daily_angles"), dict) else {}
+        return [dict(value, date=day) for day, value in sorted(angles.items()) if isinstance(value, dict)]
+
+    @staticmethod
+    def _weekly_angle_collision(item: dict[str, Any]) -> str:
+        new_slug = str(item.get("slug") or "")
+        new_title = str(item.get("keyword") or item.get("title") or "")
+        new_angle = str(item.get("daily_angle") or "")
+        new_date = str(item.get("batch_date") or "")
+        for previous in list(item.get("weekly_article_history") or []):
+            if not isinstance(previous, dict):
+                continue
+            previous_slug = str(previous.get("slug") or "")
+            previous_title = str(previous.get("title") or "")
+            if new_date and str(previous.get("date") or "") == new_date:
+                return f"weekly angle collision: {new_date} already has an article"
+            if new_angle and str(previous.get("angle") or "") == new_angle:
+                return f"weekly angle collision: {new_angle} already used"
+            if new_slug and previous_slug and (new_slug == previous_slug or is_near_duplicate(new_slug, previous_slug)):
+                return f"weekly slug collision: {previous_slug}"
+            if new_title and previous_title and (
+                _normalize_duplicate_key(new_title) == _normalize_duplicate_key(previous_title)
+                or is_near_duplicate(_normalize_duplicate_key(new_title), _normalize_duplicate_key(previous_title))
+            ):
+                return f"weekly title collision: {previous_title}"
+        return ""
+
+    def _record_weekly_daily_angles(
+        self,
+        *,
+        week_start: str,
+        batch_date: str,
+        topics: list[dict[str, Any]],
+        angle: str,
+        status: str,
+        held: list[dict[str, Any]] | None = None,
+    ) -> None:
+        manifest_path = self._week_manifest_path(week_start)
+        payload = _read_json(manifest_path, {})
+        roots = [self._normalize_weekly_root_topic(item, week_start=week_start) for item in list(payload.get("topics") or [])]
+        topic_by_root = {str(item.get("root_topic_id") or item.get("parent_slug") or ""): item for item in topics}
+        held_by_root = {str(item.get("root_topic_id") or ""): item for item in list(held or [])}
+        for root in roots:
+            root_id = str(root.get("root_topic_id") or "")
+            daily_angles = dict(root.get("daily_angles") or {})
+            selected = topic_by_root.get(root_id)
+            if selected is not None:
+                daily_angles[batch_date] = {
+                    "angle": str(selected.get("daily_angle") or angle),
+                    "title": str(selected.get("keyword") or selected.get("title") or ""),
+                    "slug": str(selected.get("slug") or ""),
+                    "search_intent": str(selected.get("search_intent") or ""),
+                    "status": status,
+                }
+            elif root_id in held_by_root:
+                daily_angles[batch_date] = {
+                    "angle": angle,
+                    "title": "",
+                    "slug": str(held_by_root[root_id].get("slug") or ""),
+                    "search_intent": "",
+                    "status": "held",
+                    "reason": str(held_by_root[root_id].get("reason") or ""),
+                }
+            root["daily_angles"] = daily_angles
+        payload["topics"] = roots
+        payload["count"] = len(roots)
+        _write_json(manifest_path, payload)
+
+    def migrate_weekly_root_manifest(self, *, week_start: str) -> dict[str, Any]:
+        """Add root-topic metadata and safely map matching dated queues without changing article state."""
+        manifest_path = self._week_manifest_path(week_start)
+        payload = _read_json(manifest_path, {})
+        if not payload:
+            raise FileNotFoundError(f"Weekly manifest not found: {manifest_path}")
+        roots = [self._normalize_weekly_root_topic(item, week_start=week_start) for item in list(payload.get("topics") or [])]
+        root_by_slug = {str(item.get("parent_slug") or item.get("slug") or ""): item for item in roots}
+        mapped = 0
+        incorrect_daily_batches: set[str] = set()
+        week_start_date = date.fromisoformat(week_start)
+        for offset in range(7):
+            batch_date = (week_start_date + timedelta(days=offset)).isoformat()
+            queue = _read_json(self._queue_dir(batch_date) / "topics.json", {})
+            for topic in list(queue.get("topics") or []):
+                root_slug = str(topic.get("parent_slug") or topic.get("slug") or "")
+                root = root_by_slug.get(root_slug)
+                if root is None:
+                    continue
+                if offset > 0 and (
+                    str(topic.get("root_topic_id") or "") != str(root.get("root_topic_id") or "")
+                    or not str(topic.get("daily_angle") or "").strip()
+                ):
+                    incorrect_daily_batches.add(batch_date)
+                    continue
+                daily_angles = dict(root.get("daily_angles") or {})
+                daily_angles[batch_date] = {
+                    "angle": str(topic.get("daily_angle") or ("main_review" if offset == 0 else self._daily_angle_name(batch_date))),
+                    "title": str(topic.get("keyword") or topic.get("title") or ""),
+                    "slug": str(topic.get("slug") or ""),
+                    "search_intent": str(topic.get("search_intent") or ""),
+                    "status": str(topic.get("status") or "queue_created"),
+                }
+                root["daily_angles"] = daily_angles
+                mapped += 1
+        payload["topics"] = roots
+        payload["count"] = len(roots)
+        _write_json(manifest_path, payload)
+        return {
+            "week_start": week_start,
+            "root_topics_migrated": len(roots),
+            "existing_articles_mapped": mapped,
+            "incorrect_daily_batches_found": sorted(incorrect_daily_batches),
+        }
 
     def _week_start(self, batch_date: str) -> str:
         current = date.fromisoformat(batch_date)
@@ -3322,13 +3624,17 @@ class DailyEditorialWorkflow:
         content_type, _ = self._advanced_pattern_for_date(batch_date)
         labels = {
             "pricing": "Deep dive: pricing",
-            "alternatives": "Deep dive: alternatives",
             "comparison": "Deep dive: comparison",
-            "tutorial": "Deep dive: tutorial",
-            "best_for_use_case": "Deep dive: best for use case",
-            "review": "Deep dive: review",
+            "implementation_guide": "Deep dive: implementation guide",
+            "use_cases": "Deep dive: workflows and use cases",
+            "troubleshooting": "Deep dive: mistakes and troubleshooting",
+            "buying_decision": "Deep dive: buying decision",
         }
         return labels.get(content_type, f"Deep dive: {content_type}")
+
+    def _daily_angle_name(self, batch_date: str) -> str:
+        content_type, _ = self._advanced_pattern_for_date(batch_date)
+        return content_type
 
     def _candidate_to_queue_item(self, candidate: Any, *, brands: set[str]) -> dict[str, Any]:
         keyword = str(getattr(candidate, "topic", ""))
@@ -4062,9 +4368,10 @@ class DailyEditorialWorkflow:
         guards = {
             "comparison": "comparison",
             "pricing": "pricing",
-            "alternatives": "alternatives",
-            "tutorial": "how to use",
-            "best_for_use_case": "for small business",
+            "implementation_guide": "how to implement",
+            "use_cases": "workflows and use cases",
+            "troubleshooting": "mistakes and troubleshooting",
+            "buying_decision": "worth it for small business",
         }
         guard = guards.get(content_type, "")
         if guard and guard in lower:

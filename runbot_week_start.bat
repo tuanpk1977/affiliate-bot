@@ -41,7 +41,7 @@ if errorlevel 1 (
     exit /b 1
 )
 
-python editorial_console.py prepare-research --open
+python editorial_console.py prepare-research
 if errorlevel 1 (
     echo.
     echo [ERROR] Chuan bi research that bai.
@@ -51,18 +51,5 @@ if errorlevel 1 (
 )
 
 echo.
-echo Da tao topic queue va research dau tuan.
-echo Neu trinh duyet chua tu mo, mo file:
-echo - site_output\review\YYYY-MM-DD\index.html
-echo - upload\dashboard.html
-echo - data\editorial_operations_console.html
-echo.
-echo Buoc tiep theo:
-echo 1. Mo Codex trong repository nay
-echo 2. Goi: python scripts\codex_write_daily_articles.py --count 10 --depth deep
-echo 3. Sau khi draft xong, mo dashboard de doc va approve/reject thu cong
-echo.
-echo Neu can them bai tu mot website affiliate moi, dung lenh:
-echo python editorial_console.py request-topic --topic "Ten bai can viet" --category "AI Tools" --intent "commercial research" --open
-echo.
+echo python scripts/codex_write_daily_articles.py --date latest --count 10 --depth deep
 pause

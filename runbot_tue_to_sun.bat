@@ -16,7 +16,7 @@ echo - Khong tu viet draft bang API; Codex se viet draft truc tiep trong reposit
 echo - Khong mo dashboard; dashboard chi mo bang Menu 4 sau khi co draft
 echo.
 
-python editorial_console.py trend --count 10 --mode advanced --dry-run
+python editorial_console.py daily-followup --count 10 --dry-run
 if errorlevel 1 (
     echo.
     echo [ERROR] Dry-run khong PASS. Khong tao batch.
@@ -32,7 +32,7 @@ if errorlevel 2 (
     exit /b 0
 )
 
-python editorial_console.py trend --count 10 --mode advanced --confirm
+python editorial_console.py daily-followup --count 10 --confirm
 if errorlevel 1 (
     echo.
     echo [ERROR] Tao topic queue that bai.

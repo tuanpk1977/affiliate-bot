@@ -9,6 +9,34 @@ from modules.research_intelligence import ResearchIntelligencePlatform, Research
 
 
 class ResearchIntelligenceTests(unittest.TestCase):
+    def test_research_package_persists_weekly_root_and_daily_angle_context(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            platform = ResearchIntelligencePlatform(data_dir=root / "data", site_output_dir=root / "site_output", config={})
+            topic = {
+                "topic": "How to implement Pydantic AI",
+                "slug": "how-to-implement-pydantic-ai",
+                "root_topic_id": "pydantic-ai-review-2026",
+                "root_title": "Pydantic AI Review 2026",
+                "daily_angle": "implementation_guide",
+                "weekly_article_history": [{"date": "2026-07-13", "angle": "main_review", "slug": "pydantic-ai-review-2026"}],
+                "validated_source_urls": ["https://pydantic.dev/docs/ai/overview/", "https://github.com/pydantic/pydantic-ai"],
+            }
+
+            package = platform.build_research_package(topic)
+
+            self.assertEqual(package.keyword_summary["root_topic_id"], "pydantic-ai-review-2026")
+            self.assertEqual(package.keyword_summary["daily_angle"], "implementation_guide")
+            self.assertEqual(len(package.keyword_summary["weekly_article_history"]), 1)
+            persisted = json.loads((Path(package.package_dir) / "package.json").read_text(encoding="utf-8"))
+            self.assertEqual(persisted["writing_plan"]["editorial_context"]["root_title"], "Pydantic AI Review 2026")
+
+            topic["daily_angle"] = "comparison"
+            topic["weekly_article_history"].append({"date": "2026-07-14", "angle": "implementation_guide", "slug": "how-to-implement-pydantic-ai"})
+            reused = platform.build_research_package(topic)
+            self.assertEqual(reused.keyword_summary["daily_angle"], "comparison")
+            self.assertEqual(len(reused.keyword_summary["weekly_article_history"]), 2)
+
     def _research_package(
         self,
         *,
