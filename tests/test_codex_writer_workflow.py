@@ -16,6 +16,11 @@ EDITORIAL_CONSOLE_SPEC = spec_from_file_location("root_editorial_console_for_cod
 assert EDITORIAL_CONSOLE_SPEC and EDITORIAL_CONSOLE_SPEC.loader
 EDITORIAL_CONSOLE_MODULE = module_from_spec(EDITORIAL_CONSOLE_SPEC)
 EDITORIAL_CONSOLE_SPEC.loader.exec_module(EDITORIAL_CONSOLE_MODULE)
+CODEX_SCRIPT_PATH = Path(__file__).resolve().parents[1] / "scripts" / "codex_write_daily_articles.py"
+CODEX_SCRIPT_SPEC = spec_from_file_location("root_codex_write_daily_articles", CODEX_SCRIPT_PATH)
+assert CODEX_SCRIPT_SPEC and CODEX_SCRIPT_SPEC.loader
+CODEX_SCRIPT_MODULE = module_from_spec(CODEX_SCRIPT_SPEC)
+CODEX_SCRIPT_SPEC.loader.exec_module(CODEX_SCRIPT_MODULE)
 
 
 def _write_json(path: Path, payload: object) -> None:
@@ -95,6 +100,21 @@ class CodexWriterWorkflowTests(unittest.TestCase):
         self.assertEqual(codex_args.command, "codex-write")
         self.assertTrue(codex_args.dry_run)
         self.assertEqual(publish_args.command, "publish-ready")
+
+    def test_codex_writer_script_latest_resolves_queue_created_batch(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            _write_json(root / "data" / "editorial_queue" / "2026-07-13" / "topics.json", {"date": "2026-07-13", "topics": [{"slug": "old-draft", "status": "drafted", "draft_file": str(root / "data" / "production_article_drafts" / "old-draft" / "index.html")}]})
+            (root / "data" / "production_article_drafts" / "old-draft").mkdir(parents=True, exist_ok=True)
+            (root / "data" / "production_article_drafts" / "old-draft" / "index.html").write_text("<html></html>", encoding="utf-8")
+            _write_json(root / "data" / "editorial_queue" / "2026-07-14" / "topics.json", {"date": "2026-07-14", "topics": [{"slug": "queue-only", "status": "research_ready"}]})
+
+            with patch.object(CODEX_SCRIPT_MODULE, "DailyEditorialWorkflow", return_value=__import__("modules.daily_editorial_workflow", fromlist=["DailyEditorialWorkflow"]).DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")):
+                with patch.object(CODEX_SCRIPT_MODULE, "run_codex_daily_writer", return_value={"selected": 1, "date": "2026-07-14"}) as writer:
+                    exit_code = CODEX_SCRIPT_MODULE.main(["--date", "latest", "--count", "10", "--depth", "deep", "--dry-run"])
+
+            self.assertEqual(exit_code, 0)
+            self.assertEqual(writer.call_args.kwargs["batch_date"], "2026-07-14")
 
     def test_dry_run_selects_source_ready_topics_without_writing(self) -> None:
         with TemporaryDirectory() as temp_dir:

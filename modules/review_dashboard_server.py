@@ -14,7 +14,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
 
-from modules.daily_editorial_workflow import DailyEditorialWorkflow
+from modules.daily_editorial_workflow import DailyEditorialWorkflow, REVIEWABLE_BATCH_STATES
 
 
 class ReviewDashboardServer:
@@ -208,13 +208,13 @@ class ReviewDashboardServer:
                 review_preview = Path(str(item.get("review_preview") or "")) if str(item.get("review_preview") or "") else workflow.site_output_dir / "review" / batch / slug / "index.html"
                 if draft_file.exists() or review_preview.exists():
                     draft_count += 1
-            dashboard_exists = (workflow.site_output_dir / "review" / batch / "index.html").exists()
+            batch_state = workflow.batch_state(batch) if hasattr(workflow, "batch_state") else ""
             return {
                 "date": batch,
                 "topics": len(topics),
                 "draft_count": draft_count,
-                "dashboard_exists": dashboard_exists,
-                "valid": bool(path.exists() and draft_count > 0),
+                "batch_state": batch_state,
+                "valid": bool(path.exists() and batch_state in REVIEWABLE_BATCH_STATES and draft_count > 0),
             }
 
         requested_info = None if requested.lower() == "latest" else batch_info(requested)
@@ -223,7 +223,7 @@ class ReviewDashboardServer:
                 "requested_date": requested,
                 "resolved_date": requested,
                 "draft_count": requested_info["draft_count"],
-                "latest_batch_detection": "requested date has a valid queue/dashboard",
+                "latest_batch_detection": "requested date has reviewable drafts",
             }
 
         candidates: list[dict[str, Any]] = []
@@ -245,14 +245,14 @@ class ReviewDashboardServer:
                 "requested_date": requested,
                 "resolved_date": fallback,
                 "draft_count": int(fallback_info.get("draft_count", 0) or 0),
-                "latest_batch_detection": "no valid dashboard batch found",
+                "latest_batch_detection": "no draft-ready batch found",
             }
         latest = sorted(candidates, key=lambda row: str(row["date"]))[-1]
         return {
             "requested_date": requested,
             "resolved_date": str(latest["date"]),
             "draft_count": int(latest["draft_count"]),
-            "latest_batch_detection": "latest valid queue/dashboard batch",
+            "latest_batch_detection": "latest draft-ready batch",
         }
 
 

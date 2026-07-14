@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from modules.daily_editorial_workflow import DailyEditorialWorkflow  # noqa: E402
+from modules.daily_editorial_workflow import DailyEditorialWorkflow, REVIEWABLE_BATCH_STATES  # noqa: E402
 from modules.review_dashboard_server import ReviewDashboardServer  # noqa: E402
 from modules.publish_lock import PublishLock  # noqa: E402
 
@@ -48,7 +48,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     prepare_research = subparsers.add_parser("prepare-research", help="Prepare topic research packages without generating drafts.")
     prepare_research.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
-    prepare_research.add_argument("--open", action="store_true", help="Open the local review dashboard after preparation.")
+    prepare_research.add_argument("--open", action="store_true", help="Deprecated and ignored. Research preparation never opens the review dashboard.")
 
     codex_write = subparsers.add_parser("codex-write", help="Use repository-local Codex writer to create drafts from queued topics and research.")
     codex_write.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
@@ -165,6 +165,7 @@ def build_parser() -> argparse.ArgumentParser:
     serve.add_argument("--port", type=int, default=8765, help="Local HTTP port.")
     serve.add_argument("--open", action="store_true", help="Open the browser automatically.")
     serve.add_argument("--background", action="store_true", help="Start or reuse the local dashboard server, then return immediately.")
+    serve.add_argument("--require-drafts", action="store_true", help="Only start when the resolved batch contains reviewable drafts.")
 
     return parser
 
@@ -462,11 +463,6 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.command == "prepare-research":
         payload = workflow.prepare_research(batch_date=args.date)
-        if args.open:
-            popen_kwargs: dict[str, object] = {"cwd": ROOT, "stdout": subprocess.DEVNULL, "stderr": subprocess.DEVNULL}
-            if sys.platform.startswith("win"):
-                popen_kwargs["creationflags"] = getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0) | getattr(subprocess, "DETACHED_PROCESS", 0)
-            subprocess.Popen([sys.executable, str(ROOT / "editorial_console.py"), "serve", "--date", args.date, "--open"], **popen_kwargs)
         print(json.dumps(payload, indent=2, ensure_ascii=False))
         return 0
     if args.command == "codex-write":
@@ -708,6 +704,19 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps({**payload, "target": target}, indent=2, ensure_ascii=False))
         return 0
     if args.command == "serve":
+        if args.require_drafts:
+            requested_date = args.date
+            resolved_date = ""
+            if str(requested_date or "").strip().lower() == "latest":
+                resolved_date = workflow.resolve_latest_batch_by_state(REVIEWABLE_BATCH_STATES) if hasattr(workflow, "resolve_latest_batch_by_state") else ""
+            elif hasattr(workflow, "batch_state") and workflow.batch_state(requested_date) in REVIEWABLE_BATCH_STATES:
+                resolved_date = requested_date
+            if not resolved_date:
+                print("No draft available. Run Codex Writer first.", flush=True)
+                return 2
+            args.date = resolved_date
+            print(f"Requested date: {requested_date}", flush=True)
+            print(f"Resolved batch date: {resolved_date}", flush=True)
         if args.background:
             return _serve_dashboard_background(batch_date=args.date, port=args.port, open_browser=args.open)
         url = _dashboard_url(port=args.port, batch_date=args.date)

@@ -342,12 +342,20 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
     def test_runbot_menu_opens_dashboard_in_background_and_latest_publish(self) -> None:
         menu_text = (Path(__file__).resolve().parents[1] / "runbot_menu.bat").read_text(encoding="utf-8")
 
-        self.assertIn('start "Smile AI Review Dashboard" /min cmd /c', menu_text)
-        self.assertIn("python editorial_console.py serve --date latest --open", menu_text)
+        self.assertIn("python editorial_console.py serve --date latest --open --background --require-drafts", menu_text)
         self.assertIn("de trong = batch moi nhat", menu_text)
         self.assertIn("python editorial_console.py publish-ready --date latest --validation-mode smart", menu_text)
         open_section = menu_text.split(":open_dashboard", 1)[1].split(":status", 1)[0]
         self.assertNotIn("pause", open_section.lower())
+
+    def test_menu_2_prepares_research_without_opening_or_copying_dashboard(self) -> None:
+        menu_text = (Path(__file__).resolve().parents[1] / "runbot_tue_to_sun.bat").read_text(encoding="utf-8")
+
+        self.assertIn("python editorial_console.py prepare-research", menu_text)
+        self.assertNotIn("prepare-research --open", menu_text)
+        self.assertNotIn("site_output\\review\\YYYY-MM-DD\\index.html", menu_text)
+        self.assertNotIn("upload\\dashboard.html", menu_text)
+        self.assertIn("python scripts/codex_write_daily_articles.py --date latest --count 10 --depth deep", menu_text)
 
     def test_serve_parser_supports_background_mode(self) -> None:
         parser = build_parser()
@@ -418,6 +426,52 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             (root / "data" / "production_article_drafts" / "ready-topic" / "index.html").write_text("<html></html>", encoding="utf-8")
 
             self.assertEqual(workflow.resolve_batch_date("latest", require_activity=True), "2026-07-13")
+
+    def test_prepare_research_does_not_build_review_or_upload_dashboard(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
+            batch_date = "2026-07-13"
+            _write_json(
+                root / "data" / "editorial_queue" / batch_date / "topics.json",
+                {"date": batch_date, "topics": [{"slug": "source-ready", "keyword": "source ready", "source_urls": ["https://a.example/source-ready", "https://b.example/source-ready"]}]},
+            )
+
+            class FakePlatform:
+                def __init__(self, *args, **kwargs):
+                    pass
+
+                def build_research_package(self, topic: dict):
+                    return SimpleNamespace(package_dir=str(root / "data" / "research" / topic["slug"]), sources={"verified_sources": [{"url": "https://a.example"}, {"url": "https://b.example"}], "reference_count": 2})
+
+                def evaluate_quality_gate(self, package, topic: dict, allow_override: bool = False):
+                    return SimpleNamespace(passed=True, score=80, threshold=50, override_used=False, status="passed", warnings=[], hard_blockers=[])
+
+            with patch("modules.daily_editorial_workflow.ResearchIntelligencePlatform", FakePlatform):
+                result = workflow.prepare_research(batch_date=batch_date)
+
+            self.assertEqual(result["batch_state"], "QUEUE_CREATED")
+            self.assertEqual(result["next_command"], "python scripts/codex_write_daily_articles.py --date latest --count 10 --depth deep")
+            self.assertFalse((root / "site_output" / "review" / batch_date / "index.html").exists())
+            self.assertFalse((root / "upload" / batch_date / "review_dashboard.html").exists())
+            self.assertFalse((root / "upload" / "dashboard.html").exists())
+
+    def test_serve_require_drafts_rejects_queue_without_drafts(self) -> None:
+        class FakeWorkflow:
+            def set_progress_reporter(self, reporter):
+                self.reporter = reporter
+
+            def resolve_latest_batch_by_state(self, states):
+                return ""
+
+        stdout = io.StringIO()
+        with patch.object(EDITORIAL_CONSOLE_MODULE, "DailyEditorialWorkflow", return_value=FakeWorkflow()):
+            with patch.object(EDITORIAL_CONSOLE_MODULE, "_serve_dashboard_background", side_effect=AssertionError("dashboard must not start")):
+                with redirect_stdout(stdout):
+                    exit_code = editorial_console_main(["serve", "--date", "latest", "--background", "--open", "--require-drafts"])
+
+        self.assertEqual(exit_code, 2)
+        self.assertIn("No draft available. Run Codex Writer first.", stdout.getvalue())
 
     def test_editorial_console_partner_intake_parser(self) -> None:
         parser = build_parser()

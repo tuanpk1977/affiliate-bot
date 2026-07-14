@@ -112,6 +112,24 @@ class ReviewDashboardServerTests(unittest.TestCase):
                 httpd.server_close()
                 thread.join(timeout=2)
 
+    def test_latest_resolution_does_not_reuse_old_dashboard_without_drafts(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            workflow = _seed_workflow(root)
+            _write_json(
+                workflow.data_dir / "editorial_queue" / "2026-07-12" / "topics.json",
+                {"date": "2026-07-12", "topics": [{"slug": "queue-only", "status": "research_ready"}]},
+            )
+            old_dashboard = workflow.site_output_dir / "review" / "2026-07-12" / "index.html"
+            old_dashboard.parent.mkdir(parents=True, exist_ok=True)
+            old_dashboard.write_text("<html>old dashboard</html>", encoding="utf-8")
+
+            resolved = ReviewDashboardServer._resolve_batch_date_for_workflow(workflow, "latest", default_date="latest")
+
+            self.assertEqual(resolved["resolved_date"], "2026-07-10")
+            self.assertEqual(resolved["draft_count"], 1)
+            self.assertEqual(resolved["latest_batch_detection"], "latest draft-ready batch")
+
     def test_latest_date_reads_seven_reviewable_drafts_fixture(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

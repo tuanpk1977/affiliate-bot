@@ -13,7 +13,7 @@ echo Dang chay workflow bai chuyen sau:
 echo - Tai su dung 10 chu de cua tuan hien tai
 echo - Tao topic queue va research cho hom nay
 echo - Khong tu viet draft bang API; Codex se viet draft truc tiep trong repository
-echo - Mo dashboard de duyet bai
+echo - Khong mo dashboard; dashboard chi mo bang Menu 4 sau khi co draft
 echo.
 
 python editorial_console.py trend --count 10 --mode advanced --dry-run
@@ -41,7 +41,7 @@ if errorlevel 1 (
     exit /b 1
 )
 
-python editorial_console.py prepare-research --open
+python editorial_console.py prepare-research
 if errorlevel 1 (
     echo.
     echo [ERROR] Chuan bi research that bai.
@@ -52,17 +52,6 @@ if errorlevel 1 (
 
 echo.
 echo Da tao topic queue va research cho bai chuyen sau.
-echo Neu trinh duyet chua tu mo, mo file:
-echo - site_output\review\YYYY-MM-DD\index.html
-echo - upload\dashboard.html
-echo - data\editorial_operations_console.html
 echo.
-echo Buoc tiep theo:
-echo 1. Mo Codex trong repository nay
-echo 2. Goi: python scripts\codex_write_daily_articles.py --count 10 --depth deep
-echo 3. Sau khi draft xong, mo dashboard de doc va approve/reject thu cong
-echo.
-echo Neu can them bai tu mot website affiliate moi, dung lenh:
-echo python editorial_console.py request-topic --topic "Ten bai can viet" --category "AI Tools" --intent "commercial research" --open
-echo.
+echo python scripts/codex_write_daily_articles.py --date latest --count 10 --depth deep
 pause

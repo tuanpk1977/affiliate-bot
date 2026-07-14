@@ -27,6 +27,20 @@ from modules.publish_gate import PublishGate
 from modules.publishing_indexing import normalize_public_url, validate_page
 from modules.research_intelligence import ResearchIntelligencePlatform
 
+BATCH_STATE_QUEUE_CREATED = "QUEUE_CREATED"
+BATCH_STATE_WRITING = "WRITING"
+BATCH_STATE_DRAFT_READY = "DRAFT_READY"
+BATCH_STATE_UNDER_REVIEW = "UNDER_REVIEW"
+BATCH_STATE_HUMAN_APPROVED = "HUMAN_APPROVED"
+BATCH_STATE_READY_FOR_PUBLISH = "READY_FOR_PUBLISH"
+BATCH_STATE_PUBLISHED = "PUBLISHED"
+REVIEWABLE_BATCH_STATES = {
+    BATCH_STATE_DRAFT_READY,
+    BATCH_STATE_UNDER_REVIEW,
+    BATCH_STATE_HUMAN_APPROVED,
+    BATCH_STATE_READY_FOR_PUBLISH,
+}
+
 
 def _read_json(path: Path, default: Any) -> Any:
     if not path.exists():
@@ -355,6 +369,7 @@ class DailyEditorialWorkflow:
         payload = {
             "generated_at": datetime.now(UTC).isoformat(),
             "date": batch_date,
+            "batch_state": BATCH_STATE_QUEUE_CREATED,
             "week_start": weekly_batch["week_start"],
             "week_end": weekly_batch["week_end"],
             "mode": mode,
@@ -442,6 +457,7 @@ class DailyEditorialWorkflow:
                 preview_path = self._copy_review_preview(slug=slug, batch_date=batch_date)
                 metadata = _read_json(Path(result["metadata_file"]), {})
                 item["status"] = "drafted"
+                item["batch_state"] = BATCH_STATE_DRAFT_READY
                 item["draft_dir"] = result["draft_dir"]
                 item["draft_file"] = str(Path(result["draft_dir"]) / "index.html")
                 item["review_preview"] = str(preview_path)
@@ -461,6 +477,7 @@ class DailyEditorialWorkflow:
                 blocked += 1
                 results.append({"slug": slug, "status": item["status"], "error": str(exc)})
         payload["topics"] = topics
+        payload["batch_state"] = BATCH_STATE_DRAFT_READY if drafted else BATCH_STATE_QUEUE_CREATED
         payload["drafted_at"] = datetime.now(UTC).isoformat()
         capacity = self.capacity_manager.summarize(topics)
         payload["capacity"] = capacity
@@ -537,10 +554,12 @@ class DailyEditorialWorkflow:
                 item["publish_gate_status"] = "not_started"
                 if getattr(gate, "hard_blockers", ()):
                     item["status"] = "research_blocked"
+                    item["batch_state"] = BATCH_STATE_QUEUE_CREATED
                     item["error"] = "; ".join(str(row) for row in getattr(gate, "hard_blockers", ()) if str(row).strip())
                     blocked += 1
                 else:
                     item["status"] = "research_ready"
+                    item["batch_state"] = BATCH_STATE_QUEUE_CREATED
                     item["error"] = ""
                     prepared += 1
                 results.append({"slug": slug, "status": item["status"], "source_count": source_count})
@@ -552,20 +571,16 @@ class DailyEditorialWorkflow:
                 blocked += 1
                 results.append({"slug": slug, "status": item["status"], "error": str(exc)})
         payload["topics"] = topics
+        payload["batch_state"] = BATCH_STATE_QUEUE_CREATED
         payload["research_prepared_at"] = datetime.now(UTC).isoformat()
         _write_json(self._queue_dir(batch_date) / "topics.json", payload)
-        dashboard = self.build_review_dashboard(batch_date=batch_date)
-        upload_summary = self._sync_upload_batch(batch_date=batch_date)
-        master_dashboard = self._build_upload_master_dashboard()
         return {
             "date": batch_date,
+            "batch_state": BATCH_STATE_QUEUE_CREATED,
             "prepared": prepared,
             "blocked": blocked,
             "topics": results,
-            "dashboard": dashboard,
-            "upload_dir": str(self.upload_root / batch_date),
-            "master_dashboard": str(master_dashboard),
-            "upload_summary": upload_summary,
+            "next_command": "python scripts/codex_write_daily_articles.py --date latest --count 10 --depth deep",
         }
 
     @staticmethod
@@ -3489,6 +3504,71 @@ class DailyEditorialWorkflow:
             return self.latest_queue_date() or requested or date.today().isoformat()
         candidates.sort(key=lambda row: (row[0], row[1]))
         return candidates[-1][0]
+
+    def batch_state(self, batch_date: str) -> str:
+        queue_path = self._queue_dir(batch_date) / "topics.json"
+        payload = _read_json(queue_path, {})
+        if not isinstance(payload, dict) or not queue_path.exists():
+            return ""
+        topics = list(payload.get("topics") or [])
+        if not topics:
+            return BATCH_STATE_QUEUE_CREATED
+        publish_rows = {str(row.get("slug") or ""): row for row in _read_json(self.data_dir / "publish_queue.json", [])}
+        human_rows = {str(row.get("slug") or ""): row for row in _read_json(self.data_dir / "human_approval_queue.json", [])}
+        has_draft = False
+        has_under_review = False
+        has_human_approved = False
+        has_ready = False
+        has_published = False
+        has_writing = False
+        for item in topics:
+            slug = str(item.get("slug") or "")
+            status = str(item.get("status") or "").strip().lower()
+            if status in {"writing", "drafting"}:
+                has_writing = True
+            draft_file = Path(str(item.get("draft_file") or "")) if str(item.get("draft_file") or "") else self.data_dir / "production_article_drafts" / slug / "index.html"
+            review_preview = Path(str(item.get("review_preview") or "")) if str(item.get("review_preview") or "") else self.site_output_dir / "review" / batch_date / slug / "index.html"
+            if slug and (draft_file.exists() or review_preview.exists()):
+                has_draft = True
+            if status in {"drafted", "needs_review"} or str((human_rows.get(slug) or {}).get("status") or "") == "needs_human_review":
+                has_under_review = True
+            if status == "approved" or str((human_rows.get(slug) or {}).get("status") or "") == "human_approved":
+                has_human_approved = True
+            publish_row = publish_rows.get(slug) or {}
+            normalized = PublishGate.normalize_existing_row(publish_row)
+            publish_status = str(normalized.get("normalized_status") or publish_row.get("status") or "").strip().lower()
+            if publish_status == "approved_for_publish" or normalized.get("final_gate") == "Ready for Publish":
+                has_ready = True
+            if status == "published" or publish_status in {"published_local", "published"}:
+                has_published = True
+        if has_published:
+            return BATCH_STATE_PUBLISHED
+        if has_ready:
+            return BATCH_STATE_READY_FOR_PUBLISH
+        if has_human_approved:
+            return BATCH_STATE_HUMAN_APPROVED
+        if has_under_review:
+            return BATCH_STATE_UNDER_REVIEW
+        if has_draft:
+            return BATCH_STATE_DRAFT_READY
+        if has_writing:
+            return BATCH_STATE_WRITING
+        return BATCH_STATE_QUEUE_CREATED
+
+    def resolve_latest_batch_by_state(self, states: set[str]) -> str:
+        if not self.queue_root.exists():
+            return ""
+        matches: list[str] = []
+        for path in self.queue_root.iterdir():
+            if not path.is_dir() or path.name == "weeks":
+                continue
+            try:
+                date.fromisoformat(path.name)
+            except ValueError:
+                continue
+            if self.batch_state(path.name) in states:
+                matches.append(path.name)
+        return max(matches) if matches else ""
 
     def _save_queue(self, batch_date: str, payload: dict[str, Any]) -> None:
         _write_json(self._queue_dir(batch_date) / "topics.json", payload)
