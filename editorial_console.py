@@ -518,9 +518,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "publish-ready":
         requested_date = args.date
         resolved_date = workflow.resolve_batch_date(requested_date, require_activity=True) if hasattr(workflow, "resolve_batch_date") else requested_date
-        if resolved_date != requested_date:
-            print(f"Requested batch: {requested_date}", flush=True)
-            print(f"Resolved batch: {resolved_date}", flush=True)
+        print(f"Requested batch: {requested_date}", flush=True)
+        print(f"Resolved batch: {resolved_date}", flush=True)
         asset_preparation = {}
         if hasattr(workflow, "prepare_required_images_for_publish"):
             asset_preparation = workflow.prepare_required_images_for_publish(batch_date=resolved_date, dry_run=False)
@@ -533,6 +532,11 @@ def main(argv: list[str] | None = None) -> int:
                 flush=True,
             )
         diagnostic = workflow.diagnose_batch(batch_date=resolved_date) if hasattr(workflow, "diagnose_batch") else {"candidates": []}
+        status_counts = workflow.status(batch_date=resolved_date) if hasattr(workflow, "status") else {}
+        if status_counts:
+            print(f"Human Approved: {status_counts.get('human_approved', 0)}", flush=True)
+            print(f"Ready for Publish: {status_counts.get('ready_for_publish', 0)}", flush=True)
+            print(f"Publish Blocked: {status_counts.get('publish_blocked', 0)}", flush=True)
         selected_slugs = [row["slug"] for row in diagnostic["candidates"] if row["selected_for_publish"]]
         _print_candidate_table(diagnostic)
         try:
