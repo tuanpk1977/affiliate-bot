@@ -419,7 +419,7 @@
     "slug": "best-meetily-review-2026-for-small-business",
     "topic": "best meetily Review 2026 for small business",
     "status": "blocked",
-    "checked_at": "2026-07-11T05:09:57.944955+00:00",
+    "checked_at": "2026-07-11T06:52:02.268596+00:00",
     "failures": [
       "zero usable sources"
     ],
@@ -432,9 +432,7 @@
       "AI review failed",
       "AI quality review required"
     ],
-    "pending_reviews": [
-      "human approval missing"
-    ],
+    "pending_reviews": [],
     "review_states": {
       "ai_review": "warning",
       "source_review": "failed",
@@ -443,7 +441,7 @@
     "severity_counts": {
       "BLOCK": 1,
       "WARNING": 4,
-      "HUMAN_REVIEW_REQUIRED": 1
+      "HUMAN_REVIEW_REQUIRED": 0
     },
     "total_score": 56.62,
     "score_band": "needs_revision",
@@ -471,7 +469,7 @@
     "slug": "best-system-prompts-leaks-review-2026-for-small-business",
     "topic": "best system_prompts_leaks Review 2026 for small business",
     "status": "blocked",
-    "checked_at": "2026-07-11T05:11:26.660892+00:00",
+    "checked_at": "2026-07-11T06:52:19.463379+00:00",
     "failures": [
       "zero usable sources"
     ],
@@ -484,9 +482,7 @@
       "AI review failed",
       "AI quality review required"
     ],
-    "pending_reviews": [
-      "human approval missing"
-    ],
+    "pending_reviews": [],
     "review_states": {
       "ai_review": "warning",
       "source_review": "failed",
@@ -495,7 +491,7 @@
     "severity_counts": {
       "BLOCK": 1,
       "WARNING": 4,
-      "HUMAN_REVIEW_REQUIRED": 1
+      "HUMAN_REVIEW_REQUIRED": 0
     },
     "total_score": 57.72,
     "score_band": "needs_revision",
@@ -523,7 +519,7 @@
     "slug": "best-ai-job-search-review-2026-for-small-business",
     "topic": "best ai-job-search Review 2026 for small business",
     "status": "blocked",
-    "checked_at": "2026-07-11T05:07:42.880584+00:00",
+    "checked_at": "2026-07-11T06:52:27.960404+00:00",
     "failures": [
       "zero usable sources"
     ],
@@ -536,9 +532,7 @@
       "AI review failed",
       "AI quality review required"
     ],
-    "pending_reviews": [
-      "human approval missing"
-    ],
+    "pending_reviews": [],
     "review_states": {
       "ai_review": "warning",
       "source_review": "failed",
@@ -547,7 +541,7 @@
     "severity_counts": {
       "BLOCK": 1,
       "WARNING": 4,
-      "HUMAN_REVIEW_REQUIRED": 1
+      "HUMAN_REVIEW_REQUIRED": 0
     },
     "total_score": 57.3,
     "score_band": "needs_revision",
@@ -556,7 +550,7 @@
     "verified_source_score_passed": false,
     "knowledge_freshness_passed": false,
     "ai_review_passed": false,
-    "human_approval_passed": false,
+    "human_approval_passed": true,
     "broken_links": [],
     "duplicate_title_meta": false,
     "affiliate_disclosure_present": true,
@@ -575,7 +569,7 @@
     "slug": "best-officecli-review-2026-for-small-business",
     "topic": "best OfficeCLI Review 2026 for small business",
     "status": "blocked",
-    "checked_at": "2026-07-11T05:07:43.580637+00:00",
+    "checked_at": "2026-07-11T06:52:42.635612+00:00",
     "failures": [
       "zero usable sources"
     ],
@@ -588,9 +582,7 @@
       "AI review failed",
       "AI quality review required"
     ],
-    "pending_reviews": [
-      "human approval missing"
-    ],
+    "pending_reviews": [],
     "review_states": {
       "ai_review": "warning",
       "source_review": "failed",
@@ -599,7 +591,7 @@
     "severity_counts": {
       "BLOCK": 1,
       "WARNING": 4,
-      "HUMAN_REVIEW_REQUIRED": 1
+      "HUMAN_REVIEW_REQUIRED": 0
     },
     "total_score": 56.85,
     "score_band": "needs_revision",
@@ -608,7 +600,7 @@
     "verified_source_score_passed": false,
     "knowledge_freshness_passed": false,
     "ai_review_passed": false,
-    "human_approval_passed": false,
+    "human_approval_passed": true,
     "broken_links": [],
     "duplicate_title_meta": false,
     "affiliate_disclosure_present": true,
@@ -627,7 +619,7 @@
     "slug": "best-cubesandbox-review-2026-for-small-business",
     "topic": "best CubeSandbox Review 2026 for small business",
     "status": "blocked",
-    "checked_at": "2026-07-11T05:07:44.270876+00:00",
+    "checked_at": "2026-07-11T06:52:49.153918+00:00",
     "failures": [
       "zero usable sources"
     ],
@@ -640,9 +632,7 @@
       "AI review failed",
       "AI quality review required"
     ],
-    "pending_reviews": [
-      "human approval missing"
-    ],
+    "pending_reviews": [],
     "review_states": {
       "ai_review": "warning",
       "source_review": "failed",
@@ -651,7 +641,7 @@
     "severity_counts": {
       "BLOCK": 1,
       "WARNING": 4,
-      "HUMAN_REVIEW_REQUIRED": 1
+      "HUMAN_REVIEW_REQUIRED": 0
     },
     "total_score": 57.36,
     "score_band": "needs_revision",
@@ -660,7 +650,7 @@
     "verified_source_score_passed": false,
     "knowledge_freshness_passed": false,
     "ai_review_passed": false,
-    "human_approval_passed": false,
+    "human_approval_passed": true,
     "broken_links": [],
     "duplicate_title_meta": false,
     "affiliate_disclosure_present": true,
@@ -679,7 +669,7 @@
     "slug": "best-skills-review-2026-for-small-business",
     "topic": "best skills Review 2026 for small business",
     "status": "blocked",
-    "checked_at": "2026-07-11T05:07:44.951052+00:00",
+    "checked_at": "2026-07-11T06:52:54.802136+00:00",
     "failures": [
       "zero usable sources"
     ],
@@ -692,9 +682,7 @@
       "AI review failed",
       "AI quality review required"
     ],
-    "pending_reviews": [
-      "human approval missing"
-    ],
+    "pending_reviews": [],
     "review_states": {
       "ai_review": "warning",
       "source_review": "failed",
@@ -703,7 +691,7 @@
     "severity_counts": {
       "BLOCK": 1,
       "WARNING": 4,
-      "HUMAN_REVIEW_REQUIRED": 1
+      "HUMAN_REVIEW_REQUIRED": 0
     },
     "total_score": 56.14,
     "score_band": "needs_revision",
@@ -712,7 +700,7 @@
     "verified_source_score_passed": false,
     "knowledge_freshness_passed": false,
     "ai_review_passed": false,
-    "human_approval_passed": false,
+    "human_approval_passed": true,
     "broken_links": [],
     "duplicate_title_meta": false,
     "affiliate_disclosure_present": true,
@@ -731,7 +719,7 @@
     "slug": "best-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-for-small-business",
     "topic": "best Companies are buying AI tools. That doesn't mean they know what to do with them. for small business",
     "status": "blocked",
-    "checked_at": "2026-07-11T05:07:45.626908+00:00",
+    "checked_at": "2026-07-11T06:52:59.635991+00:00",
     "failures": [
       "zero usable sources"
     ],
@@ -744,9 +732,7 @@
       "AI review failed",
       "AI quality review required"
     ],
-    "pending_reviews": [
-      "human approval missing"
-    ],
+    "pending_reviews": [],
     "review_states": {
       "ai_review": "warning",
       "source_review": "failed",
@@ -755,7 +741,7 @@
     "severity_counts": {
       "BLOCK": 1,
       "WARNING": 4,
-      "HUMAN_REVIEW_REQUIRED": 1
+      "HUMAN_REVIEW_REQUIRED": 0
     },
     "total_score": 59.36,
     "score_band": "needs_revision",
@@ -764,7 +750,7 @@
     "verified_source_score_passed": false,
     "knowledge_freshness_passed": false,
     "ai_review_passed": false,
-    "human_approval_passed": false,
+    "human_approval_passed": true,
     "broken_links": [],
     "duplicate_title_meta": false,
     "affiliate_disclosure_present": true,
@@ -824,17 +810,15 @@
   {
     "slug": "best-best-ai-meeting-tools-for-small-business",
     "topic": "best best ai meeting tools for small business",
-    "status": "needs_human_review",
-    "checked_at": "2026-07-11T05:07:47.106453+00:00",
+    "status": "approved_for_publish",
+    "checked_at": "2026-07-11T06:53:05.140289+00:00",
     "failures": [],
     "hard_blockers": [],
     "warnings": [
       "AI review failed",
       "AI quality below high-confidence target"
     ],
-    "pending_reviews": [
-      "human approval missing"
-    ],
+    "pending_reviews": [],
     "review_states": {
       "ai_review": "warning",
       "source_review": "passed",
@@ -843,16 +827,16 @@
     "severity_counts": {
       "BLOCK": 0,
       "WARNING": 2,
-      "HUMAN_REVIEW_REQUIRED": 1
+      "HUMAN_REVIEW_REQUIRED": 0
     },
     "total_score": 69.67,
     "score_band": "human_review_required",
-    "final_gate": "Human Approval Required",
+    "final_gate": "Ready for Publish",
     "research_quality_passed": true,
     "verified_source_score_passed": true,
     "knowledge_freshness_passed": true,
     "ai_review_passed": false,
-    "human_approval_passed": false,
+    "human_approval_passed": true,
     "broken_links": [],
     "duplicate_title_meta": false,
     "affiliate_disclosure_present": true,
@@ -862,9 +846,332 @@
     "readability_score": 55.44,
     "verified_source_score": 79.0,
     "knowledge_freshness_score": 91.6,
-    "publish_ready": false,
+    "publish_ready": true,
     "url": "https://smileaireviewhub.com/best-best-ai-meeting-tools-for-small-business/",
     "title": "best best ai meeting tools for small business 2026",
-    "description": "Independent best best ai meeting tools for small business guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice."
+    "description": "Independent best best ai meeting tools for small business guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice.",
+    "audit_history": [
+      {
+        "event": "interrupted_preparation_recovered",
+        "previous_status": "published_local",
+        "previous_published_at": "2026-07-11T06:55:43.621776+00:00",
+        "recovered_at": "2026-07-11T07:17:58.996968+00:00"
+      }
+    ],
+    "published_local": false
+  },
+  {
+    "slug": "best-ai-voice-software",
+    "topic": "best ai voice software",
+    "status": "published_local",
+    "checked_at": "2026-07-14T04:45:55.213281+00:00",
+    "failures": [],
+    "hard_blockers": [],
+    "warnings": [
+      "AI quality below high-confidence target"
+    ],
+    "pending_reviews": [],
+    "review_states": {
+      "ai_review": "warning",
+      "source_review": "passed",
+      "freshness_review": "passed"
+    },
+    "severity_counts": {
+      "BLOCK": 0,
+      "WARNING": 1,
+      "HUMAN_REVIEW_REQUIRED": 0
+    },
+    "total_score": 77.76,
+    "score_band": "human_review_required",
+    "final_gate": "Ready for Publish",
+    "research_quality_passed": true,
+    "verified_source_score_passed": true,
+    "knowledge_freshness_passed": true,
+    "ai_review_passed": true,
+    "human_approval_passed": true,
+    "broken_links": [],
+    "duplicate_title_meta": false,
+    "affiliate_disclosure_present": true,
+    "minimum_business_score_passed": true,
+    "minimum_readability_score_passed": true,
+    "business_score": 56.3,
+    "readability_score": 56.9,
+    "verified_source_score": 79.0,
+    "knowledge_freshness_score": 92.0,
+    "publish_ready": true,
+    "url": "https://smileaireviewhub.com/best-ai-voice-software/",
+    "title": "best ai voice software 2026: Pricing, Pros, Cons",
+    "description": "Independent best ai voice software guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice.",
+    "published_at": "2026-07-14T05:25:07.077134+00:00"
+  },
+  {
+    "slug": "project-nomad-review-2026",
+    "topic": "project-nomad Review 2026",
+    "status": "published_local",
+    "checked_at": "2026-07-14T04:45:43.616171+00:00",
+    "failures": [],
+    "hard_blockers": [],
+    "warnings": [
+      "research quality gate warning",
+      "AI quality below high-confidence target"
+    ],
+    "pending_reviews": [],
+    "review_states": {
+      "ai_review": "warning",
+      "source_review": "passed",
+      "freshness_review": "passed"
+    },
+    "severity_counts": {
+      "BLOCK": 0,
+      "WARNING": 2,
+      "HUMAN_REVIEW_REQUIRED": 0
+    },
+    "total_score": 72.6,
+    "score_band": "human_review_required",
+    "final_gate": "Ready for Publish",
+    "research_quality_passed": true,
+    "verified_source_score_passed": true,
+    "knowledge_freshness_passed": true,
+    "ai_review_passed": true,
+    "human_approval_passed": true,
+    "broken_links": [],
+    "duplicate_title_meta": false,
+    "affiliate_disclosure_present": true,
+    "minimum_business_score_passed": true,
+    "minimum_readability_score_passed": true,
+    "business_score": 54.9,
+    "readability_score": 57.06,
+    "verified_source_score": 70.0,
+    "knowledge_freshness_score": 80.0,
+    "publish_ready": true,
+    "url": "https://smileaireviewhub.com/project-nomad-review-2026/",
+    "title": "project-nomad Review 2026: Pricing, Pros, Cons",
+    "description": "Independent project-nomad Review 2026 guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice.",
+    "published_at": "2026-07-14T05:25:07.048966+00:00"
+  },
+  {
+    "slug": "pydantic-ai-review-2026",
+    "topic": "Pydantic AI Review 2026",
+    "status": "published_local",
+    "checked_at": "2026-07-14T04:46:44.860329+00:00",
+    "failures": [],
+    "hard_blockers": [],
+    "warnings": [
+      "research quality gate warning",
+      "AI quality below high-confidence target"
+    ],
+    "pending_reviews": [],
+    "review_states": {
+      "ai_review": "warning",
+      "source_review": "passed",
+      "freshness_review": "passed"
+    },
+    "severity_counts": {
+      "BLOCK": 0,
+      "WARNING": 2,
+      "HUMAN_REVIEW_REQUIRED": 0
+    },
+    "total_score": 71.12,
+    "score_band": "human_review_required",
+    "final_gate": "Ready for Publish",
+    "research_quality_passed": true,
+    "verified_source_score_passed": true,
+    "knowledge_freshness_passed": true,
+    "ai_review_passed": true,
+    "human_approval_passed": true,
+    "broken_links": [],
+    "duplicate_title_meta": false,
+    "affiliate_disclosure_present": true,
+    "minimum_business_score_passed": true,
+    "minimum_readability_score_passed": true,
+    "business_score": 54.9,
+    "readability_score": 57.09,
+    "verified_source_score": 70.0,
+    "knowledge_freshness_score": 80.0,
+    "publish_ready": true,
+    "url": "https://smileaireviewhub.com/pydantic-ai-review-2026/",
+    "title": "Pydantic AI Review 2026: Pricing, Pros, Cons",
+    "description": "Independent Pydantic AI Review 2026 guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice.",
+    "published_at": "2026-07-14T05:25:07.101931+00:00"
+  },
+  {
+    "slug": "n8n-ai-agents-review-2026",
+    "topic": "n8n AI Agents Review 2026",
+    "status": "published_local",
+    "checked_at": "2026-07-14T04:46:59.346305+00:00",
+    "failures": [],
+    "hard_blockers": [],
+    "warnings": [
+      "research quality gate warning",
+      "AI quality below high-confidence target"
+    ],
+    "pending_reviews": [],
+    "review_states": {
+      "ai_review": "warning",
+      "source_review": "passed",
+      "freshness_review": "passed"
+    },
+    "severity_counts": {
+      "BLOCK": 0,
+      "WARNING": 2,
+      "HUMAN_REVIEW_REQUIRED": 0
+    },
+    "total_score": 70.66,
+    "score_band": "human_review_required",
+    "final_gate": "Ready for Publish",
+    "research_quality_passed": true,
+    "verified_source_score_passed": true,
+    "knowledge_freshness_passed": true,
+    "ai_review_passed": true,
+    "human_approval_passed": true,
+    "broken_links": [],
+    "duplicate_title_meta": false,
+    "affiliate_disclosure_present": true,
+    "minimum_business_score_passed": true,
+    "minimum_readability_score_passed": true,
+    "business_score": 54.9,
+    "readability_score": 57.18,
+    "verified_source_score": 70.0,
+    "knowledge_freshness_score": 80.0,
+    "publish_ready": true,
+    "url": "https://smileaireviewhub.com/n8n-ai-agents-review-2026/",
+    "title": "n8n AI Agents Review 2026: Pricing, Pros, Cons",
+    "description": "Independent n8n AI Agents Review 2026 guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice.",
+    "published_at": "2026-07-14T05:25:07.129771+00:00"
+  },
+  {
+    "slug": "mastra-ai-review-2026",
+    "topic": "Mastra AI Review 2026",
+    "status": "published_local",
+    "checked_at": "2026-07-14T04:47:08.659397+00:00",
+    "failures": [],
+    "hard_blockers": [],
+    "warnings": [
+      "research quality gate warning",
+      "AI quality below high-confidence target"
+    ],
+    "pending_reviews": [],
+    "review_states": {
+      "ai_review": "warning",
+      "source_review": "passed",
+      "freshness_review": "passed"
+    },
+    "severity_counts": {
+      "BLOCK": 0,
+      "WARNING": 2,
+      "HUMAN_REVIEW_REQUIRED": 0
+    },
+    "total_score": 70.77,
+    "score_band": "human_review_required",
+    "final_gate": "Ready for Publish",
+    "research_quality_passed": true,
+    "verified_source_score_passed": true,
+    "knowledge_freshness_passed": true,
+    "ai_review_passed": true,
+    "human_approval_passed": true,
+    "broken_links": [],
+    "duplicate_title_meta": false,
+    "affiliate_disclosure_present": true,
+    "minimum_business_score_passed": true,
+    "minimum_readability_score_passed": true,
+    "business_score": 54.9,
+    "readability_score": 57.28,
+    "verified_source_score": 70.0,
+    "knowledge_freshness_score": 80.0,
+    "publish_ready": true,
+    "url": "https://smileaireviewhub.com/mastra-ai-review-2026/",
+    "title": "Mastra AI Review 2026: Pricing, Pros, Cons",
+    "description": "Independent Mastra AI Review 2026 guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice.",
+    "published_at": "2026-07-14T05:25:07.159298+00:00"
+  },
+  {
+    "slug": "migrating-a-production-ai-agent-to-gpt-5-6-2-2x-faster-27-cheaper",
+    "topic": "Migrating a production AI agent to GPT-5.6: 2.2x faster, 27% cheaper",
+    "status": "published_local",
+    "checked_at": "2026-07-14T04:47:19.380124+00:00",
+    "failures": [],
+    "hard_blockers": [],
+    "warnings": [
+      "research quality gate warning",
+      "AI quality below high-confidence target"
+    ],
+    "pending_reviews": [],
+    "review_states": {
+      "ai_review": "warning",
+      "source_review": "passed",
+      "freshness_review": "passed"
+    },
+    "severity_counts": {
+      "BLOCK": 0,
+      "WARNING": 2,
+      "HUMAN_REVIEW_REQUIRED": 0
+    },
+    "total_score": 79.09,
+    "score_band": "human_review_required",
+    "final_gate": "Ready for Publish",
+    "research_quality_passed": true,
+    "verified_source_score_passed": true,
+    "knowledge_freshness_passed": true,
+    "ai_review_passed": true,
+    "human_approval_passed": true,
+    "broken_links": [],
+    "duplicate_title_meta": false,
+    "affiliate_disclosure_present": true,
+    "minimum_business_score_passed": true,
+    "minimum_readability_score_passed": true,
+    "business_score": 54.9,
+    "readability_score": 66.55,
+    "verified_source_score": 70.0,
+    "knowledge_freshness_score": 80.0,
+    "publish_ready": true,
+    "url": "https://smileaireviewhub.com/migrating-a-production-ai-agent-to-gpt-5-6-2-2x-faster-27-cheaper/",
+    "title": "Migrating a production AI agent to GPT-5.6: 2.2x faster,",
+    "description": "Independent Migrating a production AI agent to GPT-5.6: 2.2x faster, 27% cheaper guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focu.",
+    "published_at": "2026-07-14T05:25:07.190548+00:00"
+  },
+  {
+    "slug": "how-ai-is-upending-saas-tools",
+    "topic": "How AI is upending SaaS tools",
+    "status": "published_local",
+    "checked_at": "2026-07-14T04:47:35.626138+00:00",
+    "failures": [],
+    "hard_blockers": [],
+    "warnings": [
+      "research quality gate warning",
+      "AI quality below high-confidence target"
+    ],
+    "pending_reviews": [],
+    "review_states": {
+      "ai_review": "warning",
+      "source_review": "passed",
+      "freshness_review": "passed"
+    },
+    "severity_counts": {
+      "BLOCK": 0,
+      "WARNING": 2,
+      "HUMAN_REVIEW_REQUIRED": 0
+    },
+    "total_score": 77.55,
+    "score_band": "human_review_required",
+    "final_gate": "Ready for Publish",
+    "research_quality_passed": true,
+    "verified_source_score_passed": true,
+    "knowledge_freshness_passed": true,
+    "ai_review_passed": true,
+    "human_approval_passed": true,
+    "broken_links": [],
+    "duplicate_title_meta": false,
+    "affiliate_disclosure_present": true,
+    "minimum_business_score_passed": true,
+    "minimum_readability_score_passed": true,
+    "business_score": 54.9,
+    "readability_score": 57.2,
+    "verified_source_score": 70.0,
+    "knowledge_freshness_score": 80.0,
+    "publish_ready": true,
+    "url": "https://smileaireviewhub.com/how-ai-is-upending-saas-tools/",
+    "title": "How AI is upending SaaS tools 2026: Pricing, Pros, Cons",
+    "description": "Independent How AI is upending SaaS tools guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice.",
+    "published_at": "2026-07-14T05:25:07.219341+00:00"
   }
 ]

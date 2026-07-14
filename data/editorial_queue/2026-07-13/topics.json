@@ -1,0 +1,1072 @@
+{
+  "generated_at": "2026-07-13T05:55:12.792015+00:00",
+  "date": "2026-07-13",
+  "week_start": "2026-07-13",
+  "week_end": "2026-07-19",
+  "mode": "standard",
+  "count": 10,
+  "source_status": {
+    "google_trends": {
+      "status": "ok",
+      "signals": 10
+    },
+    "bing_trending": {
+      "status": "ok",
+      "signals": 25
+    },
+    "reddit": {
+      "status": "empty",
+      "signals": 0
+    },
+    "hacker_news": {
+      "status": "ok",
+      "signals": 40
+    },
+    "product_hunt": {
+      "status": "ok",
+      "signals": 40
+    },
+    "github_trending": {
+      "status": "ok",
+      "signals": 17
+    },
+    "x_twitter": {
+      "status": "unavailable",
+      "signals": 0,
+      "detail": "Set TWITTER_BEARER_TOKEN to enable X recent-search discovery."
+    },
+    "linkedin": {
+      "status": "unavailable",
+      "signals": 0,
+      "detail": "LinkedIn does not expose public trending search; set LINKEDIN_ACCESS_TOKEN and a permitted discovery endpoint."
+    },
+    "youtube_trending": {
+      "status": "unavailable",
+      "signals": 0,
+      "detail": "Set YOUTUBE_API_KEY to enable YouTube trending discovery."
+    },
+    "ai_newsletters": {
+      "status": "ok",
+      "signals": 40
+    },
+    "local_keyword_intelligence": {
+      "status": "ok",
+      "signals": 40
+    }
+  },
+  "duplicate_warning_count": 0,
+  "duplicate_warning_slugs": [],
+  "topics": [
+    {
+      "keyword": "project-nomad Review 2026",
+      "slug": "project-nomad-review-2026",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 49,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 60,
+      "content_type": "review",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/Crosstalk-Solutions/project-nomad",
+        "https://www.msn.com/en-us/news/technology/no-internet-this-survival-computer-has-everything-you-need-offline-including-ai/ar-AA1ZNSij",
+        "https://www.khaleejtimes.com/business/daw-construction-delivers-key-infrastructure-works-for-shurooqs-nomad-project"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "Review project-nomad Review 2026 with independent methodology, use cases, pricing cautions, pros, cons, and alternatives.",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Competition estimate is low-to-medium.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 3,
+      "confidence": "medium",
+      "total_score": 64.1,
+      "raw_total_score": 64.1,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "rank": 1,
+      "status": "published",
+      "week_start": "2026-07-13",
+      "parent_keyword": "project-nomad Review 2026",
+      "parent_slug": "project-nomad-review-2026",
+      "batch_date": "2026-07-13",
+      "mode": "standard",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 3,
+        "source_urls": [
+          "https://github.com/Crosstalk-Solutions/project-nomad",
+          "https://www.msn.com/en-us/news/technology/no-internet-this-survival-computer-has-everything-you-need-offline-including-ai/ar-AA1ZNSij",
+          "https://www.khaleejtimes.com/business/daw-construction-delivers-key-infrastructure-works-for-shurooqs-nomad-project"
+        ],
+        "unique_source_domains": [
+          "github.com",
+          "msn.com",
+          "khaleejtimes.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_quality_gate": {
+        "passed": false,
+        "score": 53.14,
+        "threshold": 60.0,
+        "override_used": false,
+        "status": "needs_enrichment",
+        "source_count": 3,
+        "minimum_sources": 2
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\project-nomad-review-2026",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-13\\project-nomad-review-2026\\index.html",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\project-nomad-review-2026\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\project-nomad-review-2026\\metadata.json",
+      "review_status": "needs_human_review",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      },
+      "approved_by": "editor",
+      "published_at": "2026-07-14T05:25:06.900352+00:00",
+      "validation_mode": "smart",
+      "validation_status": "passed",
+      "autofix_status": "fixed",
+      "cta_status": "ok",
+      "faq_schema_status": "fixed",
+      "meta_description_status": "ok",
+      "redirect_status": "ok",
+      "block_reason": "",
+      "validation_errors": [],
+      "next_action": ""
+    },
+    {
+      "keyword": "best ai voice software",
+      "slug": "best-ai-voice-software",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 59,
+      "product_availability_score": 58,
+      "content_freshness_score": 56,
+      "content_type": "listicle",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://officechai.com/learn/ai-tools-for-voice-over/",
+        "https://www.republicworld.com/tech/openai-launches-gpt-live-new-voice-model-brings-real-time-replies-background-processing-to-chatgpt-2026-07-09-131769",
+        "https://www.msn.com/en-us/money/markets/3-reasons-soundhound-ai-stock-could-keep-climbing/ar-AA27JOcr",
+        "https://vir.com.vn/fev-partners-with-microsoft-on-in-car-ai-using-nvidia-156431.html",
+        "https://www.androidheadlines.com/2026/07/samsung-voice-recorder-one-ui-9-cloud-ai-transcription.html",
+        "https://www.analyticsinsight.net/artificial-intelligence/how-ai-assistants-are-transforming-modern-cars"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "Build best ai voice software as a curated buyer guide, not a generic ranked list.",
+      "why_selected": [
+        "Detected across 1 source(s): local_keyword_intelligence.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 8,
+      "confidence": "medium",
+      "total_score": 58.3,
+      "raw_total_score": 58.3,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "rank": 2,
+      "status": "published",
+      "week_start": "2026-07-13",
+      "parent_keyword": "best ai voice software",
+      "parent_slug": "best-ai-voice-software",
+      "batch_date": "2026-07-13",
+      "mode": "standard",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 6,
+        "source_urls": [
+          "https://officechai.com/learn/ai-tools-for-voice-over/",
+          "https://www.republicworld.com/tech/openai-launches-gpt-live-new-voice-model-brings-real-time-replies-background-processing-to-chatgpt-2026-07-09-131769",
+          "https://www.msn.com/en-us/money/markets/3-reasons-soundhound-ai-stock-could-keep-climbing/ar-AA27JOcr",
+          "https://vir.com.vn/fev-partners-with-microsoft-on-in-car-ai-using-nvidia-156431.html",
+          "https://www.androidheadlines.com/2026/07/samsung-voice-recorder-one-ui-9-cloud-ai-transcription.html",
+          "https://www.analyticsinsight.net/artificial-intelligence/how-ai-assistants-are-transforming-modern-cars"
+        ],
+        "unique_source_domains": [
+          "officechai.com",
+          "republicworld.com",
+          "msn.com",
+          "vir.com.vn",
+          "androidheadlines.com",
+          "analyticsinsight.net"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_quality_gate": {
+        "passed": true,
+        "score": 61.21,
+        "threshold": 60.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 11,
+        "minimum_sources": 2
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-ai-voice-software",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-13\\best-ai-voice-software\\index.html",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-ai-voice-software\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-ai-voice-software\\metadata.json",
+      "article_title": "best ai voice software 2026: Pricing, Pros, Cons",
+      "review_status": "needs_human_review",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "approved_by": "editor",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      },
+      "published_at": "2026-07-14T05:25:06.903654+00:00",
+      "validation_mode": "smart",
+      "validation_status": "passed",
+      "autofix_status": "fixed",
+      "cta_status": "ok",
+      "faq_schema_status": "fixed",
+      "meta_description_status": "ok",
+      "redirect_status": "ok",
+      "block_reason": "",
+      "validation_errors": [],
+      "next_action": ""
+    },
+    {
+      "keyword": "AI coding tool hole illustrates a big problem with human in the loop",
+      "slug": "ai-coding-tool-hole-illustrates-a-big-problem-with-human-in-the-loop",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 37,
+      "competition_difficulty_score": 47,
+      "product_availability_score": 58,
+      "content_freshness_score": 46,
+      "content_type": "review",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://www.csoonline.com/article/4195235/ai-coding-tool-hole-illustrates-a-big-problem-with-human-in-the-loop.html",
+        "https://memeburn.com/deepswe-just-exposed-a-big-problem-with-ai-coding-benchmarks/",
+        "https://www.cnbc.com/2026/06/01/microsoft-and-google-take-on-anthropic-and-openai-in-ai-coding-models.html",
+        "https://www.msn.com/en-us/news/technology/the-human-in-the-loop-problem-no-one-talks-about/ar-AA22HVnx"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/",
+        "/category/ai-coding-tools/",
+        "/compare/cursor-vs-github-copilot-2026/",
+        "/review/windsurf-review-2026/"
+      ],
+      "suggested_article_angle": "Review AI coding tool hole illustrates a big problem with human in the loop with independent methodology, use cases, pricing cautions, pros, cons, and alternatives.",
+      "why_selected": [
+        "Detected across 1 source(s): bing_trending.",
+        "Competition estimate is low-to-medium.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 5,
+      "confidence": "medium",
+      "total_score": 57.2,
+      "raw_total_score": 57.2,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "rank": 3,
+      "status": "needs_enrichment",
+      "week_start": "2026-07-13",
+      "parent_keyword": "AI coding tool hole illustrates a big problem with human in the loop",
+      "parent_slug": "ai-coding-tool-hole-illustrates-a-big-problem-with-human-in-the-loop",
+      "batch_date": "2026-07-13",
+      "mode": "standard",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 4,
+        "source_urls": [
+          "https://www.csoonline.com/article/4195235/ai-coding-tool-hole-illustrates-a-big-problem-with-human-in-the-loop.html",
+          "https://memeburn.com/deepswe-just-exposed-a-big-problem-with-ai-coding-benchmarks/",
+          "https://www.cnbc.com/2026/06/01/microsoft-and-google-take-on-anthropic-and-openai-in-ai-coding-models.html",
+          "https://www.msn.com/en-us/news/technology/the-human-in-the-loop-problem-no-one-talks-about/ar-AA22HVnx"
+        ],
+        "unique_source_domains": [
+          "csoonline.com",
+          "memeburn.com",
+          "cnbc.com",
+          "msn.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_quality_gate": {
+        "passed": false,
+        "score": 58.86,
+        "threshold": 60.0,
+        "override_used": false,
+        "status": "needs_enrichment",
+        "source_count": 6,
+        "minimum_sources": 2
+      },
+      "draft_dir": "",
+      "review_preview": "",
+      "error": "Research quality gate blocked draft generation: official sources are insufficiently verified; pricing sources need verification; affiliate sources need verification; competitor coverage is limited; official_docs_score 0.0 below 20.0; pricing_source_score 0.0 below 20.0; affiliate_source_score 0.0 below 10.0; total_verified_source_score 0.0 below 35.0; verified_sources 0 below 2; official_verified_sources 0 below 1",
+      "codex_writer_hold_reason": "0 independent usable sources below 2"
+    },
+    {
+      "keyword": "Pydantic AI Review 2026",
+      "slug": "pydantic-ai-review-2026",
+      "search_intent": "commercial research",
+      "affiliate_monetization_score": 72,
+      "competition_difficulty_score": 42,
+      "product_availability_score": 78,
+      "content_freshness_score": 82,
+      "content_type": "review",
+      "matched_products": [],
+      "related_keywords": [
+        "pydantic ai",
+        "python agent framework",
+        "pydantic ai agents"
+      ],
+      "source_urls": [
+        "https://pydantic.dev/docs/ai/overview/",
+        "https://github.com/pydantic/pydantic-ai"
+      ],
+      "suggested_internal_links": [],
+      "suggested_article_angle": "Review Pydantic AI as a typed Python agent framework for production workflows.",
+      "why_selected": [
+        "Vetted replacement: exact official docs and exact GitHub repository."
+      ],
+      "signals": 2,
+      "confidence": "high",
+      "search_intent_score": 90,
+      "total_score": 76.2,
+      "raw_total_score": 76.2,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "rank": 4,
+      "status": "published",
+      "week_start": "2026-07-13",
+      "parent_keyword": "Pydantic AI Review 2026",
+      "parent_slug": "pydantic-ai-review-2026",
+      "batch_date": "2026-07-13",
+      "mode": "standard",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://pydantic.dev/docs/ai/overview/",
+          "https://github.com/pydantic/pydantic-ai"
+        ],
+        "unique_source_domains": [
+          "pydantic.dev",
+          "github.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_quality_gate": {
+        "passed": false,
+        "score": 52.14,
+        "threshold": 60.0,
+        "override_used": false,
+        "status": "needs_enrichment",
+        "source_count": 2,
+        "minimum_sources": 2
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\pydantic-ai-review-2026",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-13\\pydantic-ai-review-2026\\index.html",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\pydantic-ai-review-2026\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\pydantic-ai-review-2026\\metadata.json",
+      "review_status": "needs_human_review",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      },
+      "approved_by": "editor",
+      "published_at": "2026-07-14T05:25:06.928399+00:00",
+      "validation_mode": "smart",
+      "validation_status": "passed",
+      "autofix_status": "fixed",
+      "cta_status": "ok",
+      "faq_schema_status": "fixed",
+      "meta_description_status": "ok",
+      "redirect_status": "ok",
+      "block_reason": "",
+      "validation_errors": [],
+      "next_action": ""
+    },
+    {
+      "keyword": "n8n AI Agents Review 2026",
+      "slug": "n8n-ai-agents-review-2026",
+      "search_intent": "commercial research",
+      "affiliate_monetization_score": 74,
+      "competition_difficulty_score": 45,
+      "product_availability_score": 80,
+      "content_freshness_score": 82,
+      "content_type": "review",
+      "matched_products": [],
+      "related_keywords": [
+        "n8n ai agent",
+        "n8n ai workflow",
+        "n8n agent node"
+      ],
+      "source_urls": [
+        "https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent/",
+        "https://arxiv.org/abs/2606.29116"
+      ],
+      "suggested_internal_links": [],
+      "suggested_article_angle": "Review n8n AI Agent workflows for operators comparing low-code agent automation.",
+      "why_selected": [
+        "Vetted replacement: exact n8n AI Agent docs and independent n8n agentic workflow study."
+      ],
+      "signals": 2,
+      "confidence": "high",
+      "search_intent_score": 90,
+      "total_score": 76.6,
+      "raw_total_score": 76.6,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "rank": 5,
+      "status": "published",
+      "week_start": "2026-07-13",
+      "parent_keyword": "n8n AI Agents Review 2026",
+      "parent_slug": "n8n-ai-agents-review-2026",
+      "batch_date": "2026-07-13",
+      "mode": "standard",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent/",
+          "https://arxiv.org/abs/2606.29116"
+        ],
+        "unique_source_domains": [
+          "docs.n8n.io",
+          "arxiv.org"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_quality_gate": {
+        "passed": false,
+        "score": 52.14,
+        "threshold": 60.0,
+        "override_used": false,
+        "status": "needs_enrichment",
+        "source_count": 2,
+        "minimum_sources": 2
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\n8n-ai-agents-review-2026",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-13\\n8n-ai-agents-review-2026\\index.html",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\n8n-ai-agents-review-2026\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\n8n-ai-agents-review-2026\\metadata.json",
+      "review_status": "needs_human_review",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      },
+      "approved_by": "editor",
+      "published_at": "2026-07-14T05:25:06.951262+00:00",
+      "validation_mode": "smart",
+      "validation_status": "passed",
+      "autofix_status": "fixed",
+      "cta_status": "ok",
+      "faq_schema_status": "fixed",
+      "meta_description_status": "ok",
+      "redirect_status": "ok",
+      "block_reason": "",
+      "validation_errors": [],
+      "next_action": ""
+    },
+    {
+      "keyword": "Mastra AI Review 2026",
+      "slug": "mastra-ai-review-2026",
+      "search_intent": "commercial research",
+      "affiliate_monetization_score": 72,
+      "competition_difficulty_score": 44,
+      "product_availability_score": 78,
+      "content_freshness_score": 82,
+      "content_type": "review",
+      "matched_products": [],
+      "related_keywords": [
+        "mastra ai",
+        "typescript agent framework",
+        "mastra agents"
+      ],
+      "source_urls": [
+        "https://mastra.ai/",
+        "https://github.com/mastra-ai/mastra"
+      ],
+      "suggested_internal_links": [],
+      "suggested_article_angle": "Review Mastra as a TypeScript framework for agents, workflows, memory, and observability.",
+      "why_selected": [
+        "Vetted replacement: exact official product page and exact GitHub repository."
+      ],
+      "signals": 2,
+      "confidence": "high",
+      "search_intent_score": 90,
+      "total_score": 75.9,
+      "raw_total_score": 75.9,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "rank": 6,
+      "status": "published",
+      "week_start": "2026-07-13",
+      "parent_keyword": "Mastra AI Review 2026",
+      "parent_slug": "mastra-ai-review-2026",
+      "batch_date": "2026-07-13",
+      "mode": "standard",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://mastra.ai/",
+          "https://github.com/mastra-ai/mastra"
+        ],
+        "unique_source_domains": [
+          "mastra.ai",
+          "github.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_quality_gate": {
+        "passed": false,
+        "score": 52.14,
+        "threshold": 60.0,
+        "override_used": false,
+        "status": "needs_enrichment",
+        "source_count": 2,
+        "minimum_sources": 2
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\mastra-ai-review-2026",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-13\\mastra-ai-review-2026\\index.html",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\mastra-ai-review-2026\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\mastra-ai-review-2026\\metadata.json",
+      "review_status": "needs_human_review",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      },
+      "approved_by": "editor",
+      "published_at": "2026-07-14T05:25:06.973946+00:00",
+      "validation_mode": "smart",
+      "validation_status": "passed",
+      "autofix_status": "fixed",
+      "cta_status": "ok",
+      "faq_schema_status": "fixed",
+      "meta_description_status": "ok",
+      "redirect_status": "ok",
+      "block_reason": "",
+      "validation_errors": [],
+      "next_action": ""
+    },
+    {
+      "keyword": "Automation Without Understanding",
+      "slug": "automation-without-understanding",
+      "search_intent": "mixed informational and commercial",
+      "search_intent_score": 64,
+      "affiliate_monetization_score": 32,
+      "competition_difficulty_score": 47,
+      "product_availability_score": 40,
+      "content_freshness_score": 59,
+      "content_type": "review",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://arxiv.org/abs/2607.06377",
+        "https://www.searchenginejournal.com/search-marketings-insight-gap-when-automation-replaces-understanding/563723/",
+        "https://cio.economictimes.indiatimes.com/tools/best-rpa-tools/126144681"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/",
+        "/category/automation-tools/",
+        "/zapier-pricing/",
+        "/compare/make-vs-zapier/"
+      ],
+      "suggested_article_angle": "Review Automation Without Understanding with independent methodology, use cases, pricing cautions, pros, cons, and alternatives.",
+      "why_selected": [
+        "Detected across 1 source(s): hacker_news.",
+        "Competition estimate is low-to-medium.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 3,
+      "confidence": "medium",
+      "total_score": 48.7,
+      "raw_total_score": 48.7,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "rank": 7,
+      "status": "needs_enrichment",
+      "week_start": "2026-07-13",
+      "parent_keyword": "Automation Without Understanding",
+      "parent_slug": "automation-without-understanding",
+      "batch_date": "2026-07-13",
+      "mode": "standard",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 3,
+        "source_urls": [
+          "https://arxiv.org/abs/2607.06377",
+          "https://www.searchenginejournal.com/search-marketings-insight-gap-when-automation-replaces-understanding/563723/",
+          "https://cio.economictimes.indiatimes.com/tools/best-rpa-tools/126144681"
+        ],
+        "unique_source_domains": [
+          "arxiv.org",
+          "searchenginejournal.com",
+          "cio.economictimes.indiatimes.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_quality_gate": {
+        "passed": false,
+        "score": 59.29,
+        "threshold": 60.0,
+        "override_used": false,
+        "status": "needs_enrichment",
+        "source_count": 7,
+        "minimum_sources": 2
+      },
+      "draft_dir": "",
+      "review_preview": "",
+      "error": "Research quality gate blocked draft generation: official sources are insufficiently verified; pricing sources need verification; affiliate sources need verification; competitor coverage is limited; official_docs_score 0.0 below 20.0; pricing_source_score 0.0 below 20.0; affiliate_source_score 0.0 below 10.0; total_verified_source_score 0.0 below 35.0; verified_sources 0 below 2; official_verified_sources 0 below 1",
+      "codex_writer_hold_reason": "0 independent usable sources below 2"
+    },
+    {
+      "keyword": "Migrating a production AI agent to GPT-5.6: 2.2x faster, 27% cheaper",
+      "slug": "migrating-a-production-ai-agent-to-gpt-5-6-2-2x-faster-27-cheaper",
+      "search_intent": "mixed informational and commercial",
+      "search_intent_score": 64,
+      "affiliate_monetization_score": 32,
+      "competition_difficulty_score": 47,
+      "product_availability_score": 40,
+      "content_freshness_score": 61,
+      "content_type": "review",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://ploy.ai/blog/migrating-a-production-ai-agent-to-gpt-5-6",
+        "https://gigazine.net/gsc_news/en/20260519-cursor-composer-2-5/",
+        "https://www.techtimes.com/articles/318345/20260613/openai-retires-gpt-52-moves-everyone-gpt-55-what-changes-chatgpt-users-developers.htm",
+        "https://www.geeky-gadgets.com/gpt-5-6-june-2026-release/",
+        "https://venturebeat.com/technology/deepswe-blows-up-the-ai-coding-leaderboard-crowns-gpt-5-5-and-finds-claude-opus-exploiting-a-benchmark-loophole",
+        "https://www.gizmochina.com/2026/06/20/gpt-5-6-rumored-launch-next-week/",
+        "https://www.eweek.com/news/gpt-5-6-openai-coding-agent-rumors-neuron/"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "Review Migrating a production AI agent to GPT-5.6: 2.2x faster, 27% cheaper with independent methodology, use cases, pricing cautions, pros, cons, and alternatives.",
+      "why_selected": [
+        "Detected across 1 source(s): hacker_news.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 7,
+      "confidence": "medium",
+      "total_score": 49.1,
+      "raw_total_score": 49.1,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "rank": 8,
+      "status": "published",
+      "week_start": "2026-07-13",
+      "parent_keyword": "Migrating a production AI agent to GPT-5.6: 2.2x faster, 27% cheaper",
+      "parent_slug": "migrating-a-production-ai-agent-to-gpt-5-6-2-2x-faster-27-cheaper",
+      "batch_date": "2026-07-13",
+      "mode": "standard",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 7,
+        "source_urls": [
+          "https://ploy.ai/blog/migrating-a-production-ai-agent-to-gpt-5-6",
+          "https://gigazine.net/gsc_news/en/20260519-cursor-composer-2-5/",
+          "https://www.techtimes.com/articles/318345/20260613/openai-retires-gpt-52-moves-everyone-gpt-55-what-changes-chatgpt-users-developers.htm",
+          "https://www.geeky-gadgets.com/gpt-5-6-june-2026-release/",
+          "https://venturebeat.com/technology/deepswe-blows-up-the-ai-coding-leaderboard-crowns-gpt-5-5-and-finds-claude-opus-exploiting-a-benchmark-loophole",
+          "https://www.gizmochina.com/2026/06/20/gpt-5-6-rumored-launch-next-week/",
+          "https://www.eweek.com/news/gpt-5-6-openai-coding-agent-rumors-neuron/"
+        ],
+        "unique_source_domains": [
+          "ploy.ai",
+          "gigazine.net",
+          "techtimes.com",
+          "geeky-gadgets.com",
+          "venturebeat.com",
+          "gizmochina.com",
+          "eweek.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_quality_gate": {
+        "passed": false,
+        "score": 55.14,
+        "threshold": 60.0,
+        "override_used": false,
+        "status": "needs_enrichment",
+        "source_count": 7,
+        "minimum_sources": 2
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\migrating-a-production-ai-agent-to-gpt-5-6-2-2x-faster-27-cheaper",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-13\\migrating-a-production-ai-agent-to-gpt-5-6-2-2x-faster-27-cheaper\\index.html",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\migrating-a-production-ai-agent-to-gpt-5-6-2-2x-faster-27-cheaper\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\migrating-a-production-ai-agent-to-gpt-5-6-2-2x-faster-27-cheaper\\metadata.json",
+      "review_status": "needs_human_review",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      },
+      "approved_by": "editor",
+      "published_at": "2026-07-14T05:25:06.999107+00:00",
+      "validation_mode": "smart",
+      "validation_status": "passed",
+      "autofix_status": "fixed",
+      "cta_status": "ok",
+      "faq_schema_status": "fixed",
+      "meta_description_status": "ok",
+      "redirect_status": "ok",
+      "block_reason": "",
+      "validation_errors": [],
+      "next_action": ""
+    },
+    {
+      "keyword": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue",
+      "slug": "impartner-redefines-partner-marketing-automation-with-full-automation-adtech-and-ai-to-drive-measurable-revenue",
+      "search_intent": "mixed informational and commercial",
+      "search_intent_score": 64,
+      "affiliate_monetization_score": 37,
+      "competition_difficulty_score": 47,
+      "product_availability_score": 40,
+      "content_freshness_score": 46,
+      "content_type": "review",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://finance.yahoo.com/sectors/technology/articles/impartner-redefines-partner-marketing-automation-130000071.html",
+        "https://www.businesswire.com/news/home/20260331532922/en/Impartner-Redefines-Partner-Marketing-Automation-with-Full-Automation-AdTech-and-AI-to-Drive-Measurable-Revenue",
+        "https://www.bakersfield.com/ap/news/impartner-redefines-partner-marketing-automation-with-full-automation-adtech-and-ai-to-drive-measurable-revenue/article_9e0d85aa-0671-5494-a43a-eeb4d35dcdc1.html"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/",
+        "/category/automation-tools/",
+        "/zapier-pricing/",
+        "/compare/make-vs-zapier/"
+      ],
+      "suggested_article_angle": "Review Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue with independent methodology, use cases, pricing cautions, pros, cons, and alternatives.",
+      "why_selected": [
+        "Detected across 1 source(s): bing_trending.",
+        "Competition estimate is low-to-medium.",
+        "Can remain useful after the current news cycle.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 4,
+      "confidence": "medium",
+      "total_score": 47.9,
+      "raw_total_score": 47.9,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "rank": 9,
+      "status": "needs_enrichment",
+      "week_start": "2026-07-13",
+      "parent_keyword": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue",
+      "parent_slug": "impartner-redefines-partner-marketing-automation-with-full-automation-adtech-and-ai-to-drive-measurable-revenue",
+      "batch_date": "2026-07-13",
+      "mode": "standard",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 3,
+        "source_urls": [
+          "https://finance.yahoo.com/sectors/technology/articles/impartner-redefines-partner-marketing-automation-130000071.html",
+          "https://www.businesswire.com/news/home/20260331532922/en/Impartner-Redefines-Partner-Marketing-Automation-with-Full-Automation-AdTech-and-AI-to-Drive-Measurable-Revenue",
+          "https://www.bakersfield.com/ap/news/impartner-redefines-partner-marketing-automation-with-full-automation-adtech-and-ai-to-drive-measurable-revenue/article_9e0d85aa-0671-5494-a43a-eeb4d35dcdc1.html"
+        ],
+        "unique_source_domains": [
+          "finance.yahoo.com",
+          "businesswire.com",
+          "bakersfield.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_quality_gate": {
+        "passed": false,
+        "score": 62.43,
+        "threshold": 60.0,
+        "override_used": false,
+        "status": "needs_enrichment",
+        "source_count": 7,
+        "minimum_sources": 2
+      },
+      "draft_dir": "",
+      "review_preview": "",
+      "error": "Research quality gate blocked draft generation: competitor coverage is limited; official_docs_score 0.0 below 20.0; pricing_source_score 0.0 below 20.0; affiliate_source_score 0.0 below 10.0; total_verified_source_score 0.0 below 35.0; verified_sources 0 below 2; official_verified_sources 0 below 1",
+      "codex_writer_hold_reason": "0 independent usable sources below 2"
+    },
+    {
+      "keyword": "How AI is upending SaaS tools",
+      "slug": "how-ai-is-upending-saas-tools",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 42,
+      "competition_difficulty_score": 59,
+      "product_availability_score": 58,
+      "content_freshness_score": 46,
+      "content_type": "listicle",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://www.infoworld.com/article/4161544/how-ai-is-upending-saas-tools.html",
+        "https://thenextweb.com/news/ai-powering-micro-saas-entrepreneurs",
+        "https://www.afr.com/technology/how-established-saas-players-are-reinventing-for-the-ai-era-20260416-p5zohw",
+        "https://www.forbes.com/councils/forbestechcouncil/2026/04/22/ai-is-changing-how-software-gets-delivered-not-just-what-gets-built/",
+        "https://www.geekwire.com/2026/how-agentic-ai-is-rewiring-amazons-teams-and-upending-its-traditions/",
+        "https://www.dqindia.com/features/the-new-software-stack-how-ai-is-changing-saas-apps-and-enterprise-workflows-12029057",
+        "https://9to5mac.com/2026/06/13/apple-work-why-gen-ai-will-not-cause-a-saas-apocalypse-for-it-teams/",
+        "https://www.businessinsider.com/ai-consulting-mckinsey-pwc-deloitte-bcg-kpmg-accenture-ey-ibm-2026-5"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "Build How AI is upending SaaS tools as a curated buyer guide, not a generic ranked list.",
+      "why_selected": [
+        "Detected across 1 source(s): bing_trending.",
+        "Commercial terminology suggests above-average CPC potential.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 10,
+      "confidence": "medium",
+      "total_score": 56.2,
+      "raw_total_score": 56.2,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "rank": 10,
+      "status": "published",
+      "week_start": "2026-07-13",
+      "parent_keyword": "How AI is upending SaaS tools",
+      "parent_slug": "how-ai-is-upending-saas-tools",
+      "batch_date": "2026-07-13",
+      "mode": "standard",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 8,
+        "source_urls": [
+          "https://www.infoworld.com/article/4161544/how-ai-is-upending-saas-tools.html",
+          "https://thenextweb.com/news/ai-powering-micro-saas-entrepreneurs",
+          "https://www.afr.com/technology/how-established-saas-players-are-reinventing-for-the-ai-era-20260416-p5zohw",
+          "https://www.forbes.com/councils/forbestechcouncil/2026/04/22/ai-is-changing-how-software-gets-delivered-not-just-what-gets-built/",
+          "https://www.geekwire.com/2026/how-agentic-ai-is-rewiring-amazons-teams-and-upending-its-traditions/",
+          "https://www.dqindia.com/features/the-new-software-stack-how-ai-is-changing-saas-apps-and-enterprise-workflows-12029057",
+          "https://9to5mac.com/2026/06/13/apple-work-why-gen-ai-will-not-cause-a-saas-apocalypse-for-it-teams/",
+          "https://www.businessinsider.com/ai-consulting-mckinsey-pwc-deloitte-bcg-kpmg-accenture-ey-ibm-2026-5"
+        ],
+        "unique_source_domains": [
+          "infoworld.com",
+          "thenextweb.com",
+          "afr.com",
+          "forbes.com",
+          "geekwire.com",
+          "dqindia.com",
+          "9to5mac.com",
+          "businessinsider.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_quality_gate": {
+        "passed": false,
+        "score": 55.14,
+        "threshold": 60.0,
+        "override_used": false,
+        "status": "needs_enrichment",
+        "source_count": 8,
+        "minimum_sources": 2
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\how-ai-is-upending-saas-tools",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-13\\how-ai-is-upending-saas-tools\\index.html",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\how-ai-is-upending-saas-tools\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\how-ai-is-upending-saas-tools\\metadata.json",
+      "review_status": "needs_human_review",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      },
+      "approved_by": "editor",
+      "published_at": "2026-07-14T05:25:07.027249+00:00",
+      "validation_mode": "smart",
+      "validation_status": "passed",
+      "autofix_status": "fixed",
+      "cta_status": "ok",
+      "faq_schema_status": "fixed",
+      "meta_description_status": "ok",
+      "redirect_status": "ok",
+      "block_reason": "",
+      "validation_errors": [],
+      "next_action": ""
+    }
+  ],
+  "rejected_candidate_count": 0,
+  "rejection_reasons": {},
+  "drafted_at": "2026-07-13T07:43:34.288213+00:00",
+  "codex_writer": {
+    "last_run_at": "2026-07-14T04:20:59.421463+00:00",
+    "writer": {
+      "provider": "codex",
+      "mode": "interactive_repository_writer",
+      "api_call_used": false,
+      "openai_api_used": false,
+      "heuristic_fallback_used": false
+    },
+    "written": 7,
+    "held": 3
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "generated_at": "2026-07-14T04:20:58.258020+00:00",
+  "writer": {
+    "provider": "codex",
+    "mode": "interactive_repository_writer",
+    "api_call_used": false,
+    "openai_api_used": false,
+    "heuristic_fallback_used": false
+  },
+  "source_count": 2,
+  "source_urls": [
+    "https://mastra.ai/",
+    "https://github.com/mastra-ai/mastra"
+  ],
+  "human_approval_required": true,
+  "published": false
+}

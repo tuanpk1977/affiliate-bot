@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-07-14T04:20:56.584839+00:00",
+  "writer": {
+    "provider": "codex",
+    "mode": "interactive_repository_writer",
+    "api_call_used": false,
+    "openai_api_used": false,
+    "heuristic_fallback_used": false
+  },
+  "source_count": 7,
+  "source_urls": [
+    "https://elevenlabs.io/affiliates",
+    "https://elevenlabs.io/docs/overview/intro",
+    "https://elevenlabs.io/pricing",
+    "https://elevenlabs.io/",
+    "https://elevenlabs.io/docs/changelog",
+    "https://officechai.com/learn/ai-tools-for-voice-over/",
+    "https://www.republicworld.com/tech/openai-launches-gpt-live-new-voice-model-brings-real-time-replies-background-processing-to-chatgpt-2026-07-09-131769",
+    "https://www.msn.com/en-us/money/markets/3-reasons-soundhound-ai-stock-could-keep-climbing/ar-AA27JOcr",
+    "https://vir.com.vn/fev-partners-with-microsoft-on-in-car-ai-using-nvidia-156431.html",
+    "https://www.androidheadlines.com/2026/07/samsung-voice-recorder-one-ui-9-cloud-ai-transcription.html",
+    "https://www.analyticsinsight.net/artificial-intelligence/how-ai-assistants-are-transforming-modern-cars"
+  ],
+  "human_approval_required": true,
+  "published": false
+}
