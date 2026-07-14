@@ -1808,6 +1808,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                             {"returncode": 0, "stdout": "", "stderr": ""},
                             {"returncode": 0, "stdout": "", "stderr": ""},
                             {"returncode": 0, "stdout": "", "stderr": ""},
+                            {"returncode": 0, "stdout": "0 0\n", "stderr": ""},
                         ],
                     ):
                         with patch.object(
@@ -1872,6 +1873,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                             {"returncode": 0, "stdout": "", "stderr": ""},
                             {"returncode": 0, "stdout": "", "stderr": ""},
                             {"returncode": 0, "stdout": "", "stderr": ""},
+                            {"returncode": 0, "stdout": "0 0\n", "stderr": ""},
                         ],
                     ):
                         with patch.object(
@@ -2194,6 +2196,98 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertTrue((data_dir / "live_status_report.json").exists())
             self.assertTrue((data_dir / "live_status_report.md").exists())
             self.assertTrue((data_dir / "live_status_report.html").exists())
+
+    def test_check_live_keeps_committed_local_separate_from_live(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            site_output = root / "site_output"
+            docs_dir = root / "docs"
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=site_output)
+            slug = "new-publish"
+            _write_json(
+                data_dir / "editorial_queue" / "2026-07-07" / "topics.json",
+                {
+                    "generated_at": "",
+                    "date": "2026-07-07",
+                    "mode": "standard",
+                    "count": 1,
+                    "topics": [{"keyword": "new publish", "slug": slug, "status": "approved", "title": "New Publish"}],
+                },
+            )
+            _write_json(
+                data_dir / "publish_queue.json",
+                [{"slug": slug, "status": "committed_local", "url": f"https://smileaireviewhub.com/{slug}/"}],
+            )
+            (site_output / slug).mkdir(parents=True, exist_ok=True)
+            (site_output / slug / "index.html").write_text("<html><body>Published local</body></html>", encoding="utf-8")
+            (docs_dir / slug).mkdir(parents=True, exist_ok=True)
+            (docs_dir / slug / "index.html").write_text("<html><body>Published local</body></html>", encoding="utf-8")
+
+            def fake_git(command: list[str], **_kwargs: object) -> dict[str, object]:
+                if command[:3] == ["git", "ls-files", "--error-unmatch"]:
+                    return {"returncode": 0, "stdout": "", "stderr": ""}
+                if command[:2] == ["git", "log"]:
+                    return {"returncode": 0, "stdout": "abc123\n", "stderr": ""}
+                if command[:3] == ["git", "merge-base", "--is-ancestor"]:
+                    return {"returncode": 1, "stdout": "", "stderr": ""}
+                if command[:2] == ["git", "rev-list"]:
+                    return {"returncode": 0, "stdout": "0 1\n", "stderr": ""}
+                return {"returncode": 0, "stdout": "", "stderr": ""}
+
+            with patch.object(workflow, "_run_command", side_effect=fake_git):
+                with patch.object(workflow, "_probe_live_url", return_value={"status": "404", "http_status": 404, "reason": "HTTP Error 404"}):
+                    report = workflow.check_live(batch_date="2026-07-07")
+
+            item = report["items"][0]
+            self.assertEqual(item["publish_queue_status"], "committed_local")
+            self.assertEqual(item["publish_gate_status"], "Committed Local")
+            self.assertEqual(item["display_status"], "Awaiting Push")
+            self.assertIn("Awaiting Push", item["block_reason"])
+            self.assertEqual(report["summary"]["committed_local"], 1)
+            self.assertEqual(report["summary"]["awaiting_push"], 1)
+            self.assertEqual(report["summary"]["published_this_batch"], 0)
+            self.assertEqual(report["summary"]["unexpected_live_404"], 0)
+            self.assertIn("Live This Batch", (data_dir / "live_status_report.md").read_text(encoding="utf-8"))
+            self.assertNotIn("Published This Batch", (data_dir / "live_status_report.html").read_text(encoding="utf-8"))
+
+    def test_publish_row_status_transitions_track_push_and_live_states(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=root / "site_output")
+            slug = "stateful-publish"
+            _write_json(data_dir / "publish_queue.json", [{"slug": slug, "status": "approved_for_publish"}])
+
+            workflow._update_publish_rows_status([{"slug": slug}], status="committed_local")
+            rows = _read_json_for_test(data_dir / "publish_queue.json")
+            self.assertEqual(rows[0]["status"], "committed_local")
+            self.assertTrue(rows[0]["committed_local"])
+
+            workflow._update_publish_rows_status(
+                [{"slug": slug}],
+                status="awaiting_push",
+                git_push={"status": "push_failed_after_rebase", "reason": "retry failed", "retry_count": 1, "force_push_used": False},
+            )
+            rows = _read_json_for_test(data_dir / "publish_queue.json")
+            self.assertEqual(rows[0]["status"], "awaiting_push")
+            self.assertFalse(rows[0]["pushed"])
+            self.assertFalse(rows[0]["live"])
+            self.assertEqual(rows[0]["git_push_status"], "push_failed_after_rebase")
+            self.assertEqual(rows[0]["git_push_retry_count"], 1)
+            self.assertFalse(rows[0]["force_push_used"])
+
+            workflow._update_publish_rows_status(
+                [{"slug": slug}],
+                status="live",
+                git_push={"status": "pushed_after_rebase", "retry_count": 1, "force_push_used": False},
+                live_check={"status": "live_ok", "message": "ok"},
+            )
+            rows = _read_json_for_test(data_dir / "publish_queue.json")
+            self.assertEqual(rows[0]["status"], "live")
+            self.assertTrue(rows[0]["pushed"])
+            self.assertTrue(rows[0]["live"])
+            self.assertEqual(rows[0]["post_push_live_status"], "live_ok")
 
     def test_published_diagnostics_have_no_active_legacy_warnings(self) -> None:
         with TemporaryDirectory() as temp_dir:

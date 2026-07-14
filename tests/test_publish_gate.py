@@ -227,6 +227,31 @@ class PublishGateTests(unittest.TestCase):
         self.assertEqual(normalized["pending_reviews"], [])
         self.assertIn("AI review failed", normalized["historical_warnings"])
 
+    def test_post_commit_publish_states_do_not_normalize_to_published(self) -> None:
+        expectations = {
+            "committed_local": "Committed Local",
+            "awaiting_push": "Awaiting Push",
+            "push_blocked": "Push Blocked",
+            "rebase_conflict": "Rebase Conflict",
+            "pushed": "Pushed",
+            "live": "Live",
+        }
+        for status, final_gate in expectations.items():
+            with self.subTest(status=status):
+                normalized = PublishGate.normalize_existing_row(
+                    {
+                        "status": status,
+                        "failures": ["verified source score failed"],
+                        "warnings": ["knowledge freshness failed"],
+                    }
+                )
+
+                self.assertEqual(normalized["final_gate"], final_gate)
+                self.assertEqual(normalized["normalized_status"], status)
+                self.assertEqual(normalized["hard_blockers"], [])
+                self.assertFalse(normalized["publish_ready"])
+                self.assertIn("verified source score failed", normalized["historical_warnings"])
+
     def test_workflow_status_counts_legacy_source_failures_as_blocked(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

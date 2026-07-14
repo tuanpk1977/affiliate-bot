@@ -128,17 +128,31 @@ class PublishGate:
         pending_reviews = [str(item).strip() for item in list(row.get("pending_reviews") or []) if str(item).strip()]
         legacy_failures = [str(item).strip() for item in list(row.get("failures") or []) if str(item).strip()]
         status = str(row.get("status") or "missing")
-        if status in {"published_local", "published"}:
+        local_publish_states = {"published_local", "published", "committed_local", "awaiting_push", "push_blocked", "rebase_conflict", "pushed", "live"}
+        if status in local_publish_states:
             historical_warnings: list[str] = []
             for reason in [*hard_blockers, *warnings, *pending_reviews, *legacy_failures]:
                 _unique_append(historical_warnings, reason)
+            final_gate = "Published"
+            if status == "committed_local":
+                final_gate = "Committed Local"
+            elif status == "awaiting_push":
+                final_gate = "Awaiting Push"
+            elif status == "push_blocked":
+                final_gate = "Push Blocked"
+            elif status == "rebase_conflict":
+                final_gate = "Rebase Conflict"
+            elif status == "pushed":
+                final_gate = "Pushed"
+            elif status == "live":
+                final_gate = "Live"
             return {
                 "hard_blockers": [],
                 "warnings": [],
                 "pending_reviews": [],
                 "historical_warnings": historical_warnings,
-                "final_gate": "Published",
-                "normalized_status": "published_local",
+                "final_gate": final_gate,
+                "normalized_status": status,
                 "publish_ready": False,
             }
         if not hard_blockers and not warnings and not pending_reviews and legacy_failures:

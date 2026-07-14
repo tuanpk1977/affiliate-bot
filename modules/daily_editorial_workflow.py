@@ -23,6 +23,7 @@ from modules.content_growth_pipeline import generate_production_article_draft_fr
 from modules.editorial_quality import CapacityManager, SafeDailyDryRunOrchestrator, write_capacity_report
 from modules.editorial_operations_console import EditorialOperationsConsole
 from modules.editorial_state_reset import EditorialStateReset
+from modules.git_publish_recovery import GitPublishRecovery
 from modules.publish_gate import PublishGate
 from modules.publishing_indexing import normalize_public_url, validate_page
 from modules.research_intelligence import ResearchIntelligencePlatform
@@ -2261,6 +2262,12 @@ class DailyEditorialWorkflow:
             "live_200": sum(1 for item in items if item["display_status"] == "Live 200"),
             "awaiting_publish": sum(1 for item in items if item["display_status"] == "Awaiting Publish"),
             "awaiting_push": sum(1 for item in items if item["display_status"] == "Awaiting Push"),
+            "published_local": sum(1 for item in items if item["publish_queue_status"] == "published_local"),
+            "committed_local": sum(1 for item in items if item["publish_queue_status"] == "committed_local"),
+            "pushed": sum(1 for item in items if item["publish_queue_status"] == "pushed"),
+            "push_blocked": sum(1 for item in items if item["display_status"] == "Push Blocked"),
+            "rebase_conflict": sum(1 for item in items if item["display_status"] == "Rebase Conflict"),
+            "deploy_pending": sum(1 for item in items if item["display_status"] == "Deploy Pending"),
             "missing_local_output": sum(1 for item in items if item["display_status"] == "Missing Local Output"),
             "missing_docs": sum(1 for item in items if item["display_status"] == "Missing Docs"),
             "unexpected_live_404": sum(1 for item in items if item["display_status"] == "Unexpected Live 404"),
@@ -2269,7 +2276,7 @@ class DailyEditorialWorkflow:
             "ready_for_publish": sum(1 for item in items if item["publish_gate_status"] == "Ready for Publish"),
             "publish_blocked": sum(1 for item in items if item["publish_gate_status"] == "Publish Blocked"),
             "rejected": sum(1 for item in items if item["editorial_status"] == "Rejected"),
-            "published_this_batch": sum(1 for item in items if item["publish_gate_status"] == "Published"),
+            "published_this_batch": sum(1 for item in items if item["display_status"] == "Live 200"),
         }
         summary["awaiting_first_publish"] = summary["awaiting_publish"]
         report = {
@@ -4202,6 +4209,18 @@ class DailyEditorialWorkflow:
         publish_status = str(normalized.get("normalized_status") or (publish_row or {}).get("status") or "missing").strip().lower()
         if status == "published" or publish_status in {"published_local", "published"}:
             return "Published"
+        if publish_status == "committed_local":
+            return "Committed Local"
+        if publish_status == "awaiting_push":
+            return "Awaiting Push"
+        if publish_status == "push_blocked":
+            return "Push Blocked"
+        if publish_status == "rebase_conflict":
+            return "Rebase Conflict"
+        if publish_status == "pushed":
+            return "Pushed"
+        if publish_status == "live":
+            return "Live"
         if publish_status == "approved_for_publish":
             return "Ready for Publish"
         if publish_status == "blocked":
@@ -4259,7 +4278,13 @@ class DailyEditorialWorkflow:
             "approved_for_publish": "Ready for Publish",
             "ready_to_publish": "Ready for Publish",
             "ready for publish": "Ready for Publish",
-            "published_local": "Published",
+            "published_local": "Published Local",
+            "committed_local": "Committed Local",
+            "awaiting_push": "Awaiting Push",
+            "push_blocked": "Push Blocked",
+            "rebase_conflict": "Rebase Conflict",
+            "pushed": "Pushed",
+            "live": "Live",
             "published": "Published",
             "needs_human_review": "Waiting for editor approval",
             "needs_revision": "Needs revision",
@@ -4604,7 +4629,15 @@ class DailyEditorialWorkflow:
         queue_status = str(normalized.get("normalized_status") or publish_row.get("status") or "missing")
         git_state = str(git_status.get("status") or "")
         live_state = str(live_probe.get("status") or "")
-        published_states = {"published_local", "published"}
+        if queue_status == "rebase_conflict":
+            return "Rebase Conflict"
+        if queue_status == "push_blocked":
+            return "Push Blocked"
+        if queue_status in {"committed_local", "awaiting_push"}:
+            return "Awaiting Push"
+        if queue_status == "pushed" and live_state != "live":
+            return "Deploy Pending"
+        published_states = {"published_local", "published", "live"}
         awaiting_states = {"missing", "selected", "drafted", "needs_human_review", "needs_revision"}
         if live_state == "live":
             return "Live 200"
@@ -4643,6 +4676,25 @@ class DailyEditorialWorkflow:
         git_state = str(git_status.get("status") or "")
         live_state = str(live_probe.get("status") or "")
 
+        if queue_status == "rebase_conflict":
+            conflict_files = [str(item) for item in list(publish_row.get("rebase_conflict_files") or [])]
+            return {
+                "block_reason": "Rebase Conflict",
+                "resolution": "Recommended Action: resolve the listed rebase conflicts manually, continue the rebase, then retry push. Force push was not used.",
+                "next_action_command": "git status",
+            }
+        if queue_status == "push_blocked":
+            return {
+                "block_reason": f"Push Blocked: {publish_row.get('git_push_reason', '')}",
+                "resolution": "Recommended Action: inspect git status and remote sync before retrying Menu 8. Do not force push.",
+                "next_action_command": "git status",
+            }
+        if queue_status in {"committed_local", "awaiting_push"}:
+            return {
+                "block_reason": "Awaiting Push: local publish commit is not yet contained in origin/main",
+                "resolution": "Recommended Action: rerun publish-ready after the repository is safe to rebase/push. The local commit is preserved.",
+                "next_action_command": f"python editorial_console.py publish-ready --date {batch_date}",
+            }
         if queue_status == "blocked":
             failure_titles = [self._operator_block_title(reason) for reason in [*failures, *warnings]]
             failure_text = "; ".join(dict.fromkeys(failure_titles)) if failure_titles else "Publish gate is still blocking this article."
@@ -4816,6 +4868,12 @@ class DailyEditorialWorkflow:
             f"- Live 200: {summary['live_200']}",
             f"- Awaiting Publish: {summary['awaiting_publish']}",
             f"- Awaiting Push: {summary['awaiting_push']}",
+            f"- Published Local: {summary['published_local']}",
+            f"- Committed Local: {summary['committed_local']}",
+            f"- Pushed: {summary['pushed']}",
+            f"- Deploy Pending: {summary['deploy_pending']}",
+            f"- Push Blocked: {summary['push_blocked']}",
+            f"- Rebase Conflict: {summary['rebase_conflict']}",
             f"- Missing Local Output: {summary['missing_local_output']}",
             f"- Missing Docs: {summary['missing_docs']}",
             f"- Unexpected Live 404: {summary['unexpected_live_404']}",
@@ -4826,7 +4884,7 @@ class DailyEditorialWorkflow:
             f"- Ready for Publish: {summary['ready_for_publish']}",
             f"- Publish Blocked: {summary['publish_blocked']}",
             f"- Rejected: {summary['rejected']}",
-            f"- Published This Batch: {summary['published_this_batch']}",
+            f"- Live This Batch: {summary['published_this_batch']}",
             "",
             "| Slug | Editorial | Publish gate | Deployment | Local | Docs | Git | Block reason | How to fix | URL |",
             "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
@@ -4885,6 +4943,12 @@ class DailyEditorialWorkflow:
         <div class="kpi">Live 200<strong>{summary['live_200']}</strong></div>
         <div class="kpi">Awaiting Publish<strong>{summary['awaiting_publish']}</strong></div>
         <div class="kpi">Awaiting Push<strong>{summary['awaiting_push']}</strong></div>
+        <div class="kpi">Published Local<strong>{summary['published_local']}</strong></div>
+        <div class="kpi">Committed Local<strong>{summary['committed_local']}</strong></div>
+        <div class="kpi">Pushed<strong>{summary['pushed']}</strong></div>
+        <div class="kpi">Deploy Pending<strong>{summary['deploy_pending']}</strong></div>
+        <div class="kpi">Push Blocked<strong>{summary['push_blocked']}</strong></div>
+        <div class="kpi">Rebase Conflict<strong>{summary['rebase_conflict']}</strong></div>
         <div class="kpi">Missing Local Output<strong>{summary['missing_local_output']}</strong></div>
         <div class="kpi">Missing Docs<strong>{summary['missing_docs']}</strong></div>
         <div class="kpi">Unexpected Live 404<strong>{summary['unexpected_live_404']}</strong></div>
@@ -4896,7 +4960,7 @@ class DailyEditorialWorkflow:
         <div class="kpi">Ready for Publish<strong>{summary['ready_for_publish']}</strong></div>
         <div class="kpi">Publish Blocked<strong>{summary['publish_blocked']}</strong></div>
         <div class="kpi">Rejected<strong>{summary['rejected']}</strong></div>
-        <div class="kpi">Published This Batch<strong>{summary['published_this_batch']}</strong></div>
+        <div class="kpi">Live This Batch<strong>{summary['published_this_batch']}</strong></div>
       </div>
     </section>
     <section class="card">
@@ -4926,19 +4990,19 @@ class DailyEditorialWorkflow:
 
     def _finalize_production_publish(self, *, batch_date: str, published: list[dict[str, Any]], commit_message: str, validation_mode: str = "smart") -> dict[str, Any]:
         slugs = [str(item.get("slug") or "") for item in published if str(item.get("slug") or "")]
-        self._report_progress(f"[2/6] Building selected output for {batch_date}: {', '.join(slugs)}")
+        self._report_progress(f"[1/7] Build publish output for {batch_date}: {', '.join(slugs)}")
         build_result = self._run_command(
             [sys.executable, "scripts/build_selected_output.py", *[part for slug in slugs for part in ("--slug", slug)]],
-            cwd=self.root, check=True, label="[2/6] Targeted build", timeout=180,
+            cwd=self.root, check=True, label="[1/7] Targeted build", timeout=180,
         )
         sync_result = self._run_command(
             [sys.executable, "scripts/sync_site_output_to_docs.py"],
             cwd=self.root,
             check=True,
-            label="[2/6] Sync site_output -> docs",
+            label="[2/7] Sync site_output -> docs",
         )
         self._sync_docs_for_published(published)
-        self._report_progress(f"[3/6] Running {validation_mode} publish validation")
+        self._report_progress(f"[3/7] Running {validation_mode} publish validation")
         validation_report = self._run_publish_validation(batch_date=batch_date, published=published, mode=validation_mode)
         valid_published = list(validation_report.get("published") or [])
         skipped = list(validation_report.get("skipped") or [])
@@ -5004,10 +5068,40 @@ class DailyEditorialWorkflow:
             if publish_row is None:
                 raise RuntimeError(f"Unable to mark validated article Published: {slug}")
         stage_paths = self._publish_stage_paths(batch_date=batch_date, published=valid_published)
-        self._run_command(["git", "add", "--", *stage_paths], cwd=self.root, check=True, label="[4/6] Git add published docs/site_output/data/upload")
-        self._run_command(["git", "commit", "-m", commit_message], cwd=self.root, check=True, label="[5/6] Git commit")
-        push_result = self._run_command(["git", "push", "origin", "main"], cwd=self.root, check=True, label="[6/6] Git push origin main")
+        self._run_command(["git", "add", "--", *stage_paths], cwd=self.root, check=True, label="[4/7] Git add")
+        self._run_command(["git", "commit", "-m", commit_message], cwd=self.root, check=True, label="[5/7] Git commit")
+        self._update_publish_rows_status(valid_published, status="committed_local")
+        push_recovery = GitPublishRecovery(
+            repo=self.root,
+            run_command=lambda command: self._run_command(command, cwd=self.root, check=False),
+            progress=self._report_progress,
+        )
+        push_result = push_recovery.push_with_recovery().to_dict()
+        if str(push_result.get("status") or "") not in {"pushed", "pushed_after_rebase"}:
+            failure_status = "rebase_conflict" if push_result.get("status") == "rebase_conflict" else "push_blocked" if push_result.get("status") == "push_blocked" else "awaiting_push"
+            self._update_publish_rows_status(valid_published, status=failure_status, git_push=push_result)
+            dashboard = self.build_review_dashboard(batch_date=batch_date)
+            upload_summary = self._sync_upload_batch(batch_date=batch_date)
+            publish_report = self._write_publish_report(
+                batch_date=batch_date,
+                published=valid_published,
+                skipped=skipped,
+                validation=validation_report,
+                build_result=build_result,
+                post_push_live_check={"status": "not_run", "message": f"Git push did not complete: {push_result.get('status')}", "attempts": [], "items": []},
+            )
+            master_dashboard = self._build_upload_master_dashboard()
+            raise RuntimeError(
+                "Git push did not complete safely. "
+                f"PUSH_STATUS={push_result.get('status')}; "
+                f"LOCAL_COMMIT_PRESERVED=YES; FORCE_PUSH_USED=NO; "
+                f"report={publish_report}; dashboard={dashboard}; upload={upload_summary.get('batch_dir', '')}; master={master_dashboard}"
+            )
+        self._update_publish_rows_status(valid_published, status="pushed", git_push=push_result)
+        self._report_progress("[7/7] Live verification")
         post_push_live_check = self._verify_live_after_push(valid_published)
+        if str(post_push_live_check.get("status") or "") == "live_ok":
+            self._update_publish_rows_status(valid_published, status="live", git_push=push_result, live_check=post_push_live_check)
         live_url_history = self._write_live_url_history(batch_date=batch_date, live_check=post_push_live_check, published=valid_published)
         self._report_progress("[done] Publish workflow completed")
         dashboard = self.build_review_dashboard(batch_date=batch_date)
@@ -5055,7 +5149,7 @@ class DailyEditorialWorkflow:
         lines = [
             f"# Publish Report {batch_date}",
             "",
-            f"- Published count: {len(published)}",
+            f"- Publish candidate count: {len(published)}",
             f"- Skipped count: {len(skipped)}",
             f"- Validation mode: {validation.get('mode', '')}",
             f"- Validation status: published={validation.get('total_published', len(published))}, skipped={validation.get('total_skipped', len(skipped))}",
@@ -5063,7 +5157,7 @@ class DailyEditorialWorkflow:
             f"- Post-push live status: `{post_push_live_check.get('status', 'unknown')}`",
             f"- Post-push live message: {post_push_live_check.get('message', '')}",
             "",
-            "## Published files",
+            "## Prepared publish files",
         ]
         for item in published:
             paths = item.get("paths") if isinstance(item.get("paths"), dict) else {}
@@ -5085,6 +5179,54 @@ class DailyEditorialWorkflow:
                 )
         report.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return report
+
+    def _update_publish_rows_status(
+        self,
+        published: list[dict[str, Any]],
+        *,
+        status: str,
+        git_push: dict[str, Any] | None = None,
+        live_check: dict[str, Any] | None = None,
+    ) -> None:
+        slugs = {str(item.get("slug") or "") for item in published if str(item.get("slug") or "")}
+        if not slugs:
+            return
+        rows = _read_json(self.data_dir / "publish_queue.json", [])
+        if not isinstance(rows, list):
+            return
+        now = datetime.now(UTC).isoformat()
+        for row in rows:
+            if str(row.get("slug") or "") not in slugs:
+                continue
+            row["status"] = status
+            row["publish_queue_status"] = status
+            row["deployment_state"] = status
+            row["updated_at"] = now
+            if status == "published_local":
+                row["published_local"] = True
+            if status == "committed_local":
+                row["committed_local"] = True
+            if status in {"awaiting_push", "push_blocked", "rebase_conflict"}:
+                row["pushed"] = False
+                row["live"] = False
+            if status in {"pushed", "live"}:
+                row["pushed"] = True
+                row["pushed_at"] = now
+            if status == "live":
+                row["live"] = True
+                row["live_at"] = now
+            if git_push is not None:
+                row["git_push_status"] = str(git_push.get("status") or "")
+                row["git_push_reason"] = str(git_push.get("reason") or "")
+                row["git_push_retry_count"] = int(git_push.get("retry_count") or 0)
+                row["force_push_used"] = bool(git_push.get("force_push_used"))
+                if git_push.get("conflict_files"):
+                    row["rebase_conflict_files"] = list(git_push.get("conflict_files") or [])
+            if live_check is not None:
+                row["post_push_live_status"] = str(live_check.get("status") or "")
+                row["post_push_live_message"] = str(live_check.get("message") or "")
+        _write_json(self.data_dir / "publish_queue.json", rows)
+        self.console.publish_gate._write_report(rows)
 
     def _verify_live_after_push(self, published: list[dict[str, Any]]) -> dict[str, Any]:
         urls = [(str(item.get("slug") or ""), str(item.get("url") or "")) for item in published if str(item.get("url") or "").strip()]
