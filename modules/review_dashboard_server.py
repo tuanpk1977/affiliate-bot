@@ -5,8 +5,10 @@ import io
 import json
 import secrets
 import threading
+import traceback
 import urllib.parse
 import webbrowser
+from datetime import date
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -61,19 +63,33 @@ class ReviewDashboardServer:
                     self._send_html("<html><body>Shutting down...</body></html>")
                     threading.Thread(target=server_ref["server"].shutdown, daemon=True).start()
                     return
-                target_date = (params.get("date") or [batch_date])[0]
+                requested_date = (params.get("date") or [batch_date])[0]
+                resolved = self._resolve_batch_date(requested_date)
                 selected_slug = (params.get("slug") or [""])[0]
                 message = (params.get("message") or [""])[0]
                 active_filter = (params.get("filter") or ["all"])[0]
-                self._send_html(
-                    workflow.render_interactive_dashboard(
-                        batch_date=target_date,
-                        selected_slug=selected_slug,
-                        message=message,
-                        active_filter=active_filter,
-                        csrf_token=csrf_token,
-                    )
+                date_message = (
+                    f"Requested date: {resolved['requested_date']} | "
+                    f"Resolved batch date: {resolved['resolved_date']} | "
+                    f"Draft count: {resolved['draft_count']}"
                 )
+                display_message = f"{date_message} | {message}" if message else date_message
+                try:
+                    self._send_html(
+                        workflow.render_interactive_dashboard(
+                            batch_date=resolved["resolved_date"],
+                            selected_slug=selected_slug,
+                            message=display_message,
+                            active_filter=active_filter,
+                            csrf_token=csrf_token,
+                        )
+                    )
+                except Exception:
+                    traceback.print_exc()
+                    self._send_error_response(
+                        HTTPStatus.INTERNAL_SERVER_ERROR,
+                        "Dashboard render failed. Check the server console for the traceback.",
+                    )
 
             def do_POST(self) -> None:  # noqa: N802
                 parsed = urllib.parse.urlparse(self.path)
@@ -125,6 +141,19 @@ class ReviewDashboardServer:
                 self.end_headers()
                 self.wfile.write(encoded)
 
+            def _send_error_response(self, status: HTTPStatus, message: str) -> None:
+                safe_message = html.escape(message)
+                content = f"<!doctype html><html><body><h1>{status.value} {html.escape(status.phrase)}</h1><p>{safe_message}</p></body></html>"
+                encoded = content.encode("utf-8")
+                self.send_response(status)
+                self.send_header("Content-Type", "text/html; charset=utf-8")
+                self.send_header("Content-Length", str(len(encoded)))
+                self.end_headers()
+                self.wfile.write(encoded)
+
+            def _resolve_batch_date(self, requested_date: str) -> dict[str, Any]:
+                return ReviewDashboardServer._resolve_batch_date_for_workflow(workflow, requested_date, default_date=batch_date)
+
             def _artifact_path(self, slug: str, artifact_type: str) -> Path | None:
                 if not slug:
                     return None
@@ -153,6 +182,78 @@ class ReviewDashboardServer:
         if open_browser:
             webbrowser.open(f"http://{host}:{port}/?date={urllib.parse.quote(batch_date)}")
         return httpd
+
+    @staticmethod
+    def _resolve_batch_date_for_workflow(workflow: DailyEditorialWorkflow, requested_date: str, *, default_date: str = "") -> dict[str, Any]:
+        requested = (requested_date or default_date or "latest").strip() or "latest"
+        queue_root = workflow.data_dir / "editorial_queue"
+
+        def batch_info(batch: str) -> dict[str, Any] | None:
+            path = queue_root / batch / "topics.json"
+            if not path.exists():
+                return None
+            try:
+                payload = json.loads(path.read_text(encoding="utf-8"))
+            except Exception:
+                return None
+            topics = payload.get("topics", []) if isinstance(payload, dict) else []
+            if not isinstance(topics, list):
+                topics = []
+            draft_count = 0
+            for item in topics:
+                if not isinstance(item, dict):
+                    continue
+                slug = str(item.get("slug") or "")
+                draft_file = Path(str(item.get("draft_file") or "")) if str(item.get("draft_file") or "") else workflow.data_dir / "production_article_drafts" / slug / "index.html"
+                review_preview = Path(str(item.get("review_preview") or "")) if str(item.get("review_preview") or "") else workflow.site_output_dir / "review" / batch / slug / "index.html"
+                if draft_file.exists() or review_preview.exists():
+                    draft_count += 1
+            dashboard_exists = (workflow.site_output_dir / "review" / batch / "index.html").exists()
+            return {
+                "date": batch,
+                "topics": len(topics),
+                "draft_count": draft_count,
+                "dashboard_exists": dashboard_exists,
+                "valid": bool(path.exists() and draft_count > 0),
+            }
+
+        requested_info = None if requested.lower() == "latest" else batch_info(requested)
+        if requested_info and requested_info["valid"]:
+            return {
+                "requested_date": requested,
+                "resolved_date": requested,
+                "draft_count": requested_info["draft_count"],
+                "latest_batch_detection": "requested date has a valid queue/dashboard",
+            }
+
+        candidates: list[dict[str, Any]] = []
+        if queue_root.exists():
+            for child in queue_root.iterdir():
+                if not child.is_dir():
+                    continue
+                try:
+                    date.fromisoformat(child.name)
+                except ValueError:
+                    continue
+                info = batch_info(child.name)
+                if info and info["valid"]:
+                    candidates.append(info)
+        if not candidates:
+            fallback = requested if requested.lower() != "latest" else default_date
+            fallback_info = batch_info(fallback) or {"draft_count": 0}
+            return {
+                "requested_date": requested,
+                "resolved_date": fallback,
+                "draft_count": int(fallback_info.get("draft_count", 0) or 0),
+                "latest_batch_detection": "no valid dashboard batch found",
+            }
+        latest = sorted(candidates, key=lambda row: str(row["date"]))[-1]
+        return {
+            "requested_date": requested,
+            "resolved_date": str(latest["date"]),
+            "draft_count": int(latest["draft_count"]),
+            "latest_batch_detection": "latest valid queue/dashboard batch",
+        }
 
 
 def render_interactive_dashboard_html(*, workflow: DailyEditorialWorkflow, batch_date: str, selected_slug: str = "", message: str = "") -> str:

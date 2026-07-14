@@ -58,7 +58,7 @@ call "%~dp0runbot_partner_intake.bat"
 goto menu
 
 :open_dashboard
-python editorial_console.py serve --open
+python editorial_console.py serve --date latest --open
 pause
 goto menu
 

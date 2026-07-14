@@ -57,6 +57,138 @@ def _seed_workflow(root: Path) -> DailyEditorialWorkflow:
 
 
 class ReviewDashboardServerTests(unittest.TestCase):
+    def test_get_dashboard_returns_200_and_csrf_token(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            workflow = _seed_workflow(Path(temp_dir))
+            httpd = ReviewDashboardServer(workflow=workflow).serve(batch_date="2026-07-10", port=0)
+            thread = threading.Thread(target=httpd.serve_forever, daemon=True)
+            thread.start()
+            try:
+                host, port = httpd.server_address
+                conn = http.client.HTTPConnection(host, port, timeout=5)
+                conn.request("GET", "/?date=2026-07-10")
+                response = conn.getresponse()
+                body = response.read().decode("utf-8")
+                self.assertEqual(response.status, 200)
+                self.assertIn('name="csrf_token"', body)
+                self.assertIn("Requested date: 2026-07-10", body)
+                self.assertIn("Resolved batch date: 2026-07-10", body)
+                self.assertIn("Draft count: 1", body)
+            finally:
+                httpd.shutdown()
+                httpd.server_close()
+                thread.join(timeout=2)
+
+    def test_missing_requested_date_resolves_to_latest_valid_batch(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            workflow = _seed_workflow(Path(temp_dir))
+            _write_json(
+                workflow.data_dir / "editorial_queue" / "2026-07-11" / "topics.json",
+                {"date": "2026-07-11", "topics": [{"slug": "empty-topic", "status": "selected"}]},
+            )
+            placeholder_draft = workflow.data_dir / "production_article_drafts" / "placeholder"
+            placeholder_draft.mkdir(parents=True, exist_ok=True)
+            (placeholder_draft / "index.html").write_text("<html></html>", encoding="utf-8")
+            _write_json(
+                workflow.data_dir / "editorial_queue" / "YYYY-MM-DD" / "topics.json",
+                {"date": "YYYY-MM-DD", "topics": [{"slug": "placeholder", "status": "drafted", "draft_file": str(placeholder_draft / "index.html")}]},
+            )
+            httpd = ReviewDashboardServer(workflow=workflow).serve(batch_date="latest", port=0)
+            thread = threading.Thread(target=httpd.serve_forever, daemon=True)
+            thread.start()
+            try:
+                host, port = httpd.server_address
+                conn = http.client.HTTPConnection(host, port, timeout=5)
+                conn.request("GET", "/?date=2026-07-14")
+                response = conn.getresponse()
+                body = response.read().decode("utf-8")
+                self.assertEqual(response.status, 200)
+                self.assertIn("Requested date: 2026-07-14", body)
+                self.assertIn("Resolved batch date: 2026-07-10", body)
+                self.assertIn("Draft count: 1", body)
+                self.assertIn("review-me", body)
+            finally:
+                httpd.shutdown()
+                httpd.server_close()
+                thread.join(timeout=2)
+
+    def test_latest_date_reads_seven_reviewable_drafts_fixture(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            workflow = _seed_workflow(root)
+            topics = []
+            for index in range(7):
+                slug = f"codex-draft-{index + 1}"
+                draft_dir = workflow.data_dir / "production_article_drafts" / slug
+                draft_dir.mkdir(parents=True, exist_ok=True)
+                (draft_dir / "index.html").write_text(f"<!doctype html><html><body>Draft {index + 1}</body></html>", encoding="utf-8")
+                topics.append({"keyword": f"codex draft {index + 1}", "slug": slug, "status": "drafted", "draft_file": str(draft_dir / "index.html")})
+            _write_json(workflow.data_dir / "editorial_queue" / "2026-07-13" / "topics.json", {"date": "2026-07-13", "topics": topics})
+            httpd = ReviewDashboardServer(workflow=workflow).serve(batch_date="latest", port=0)
+            thread = threading.Thread(target=httpd.serve_forever, daemon=True)
+            thread.start()
+            try:
+                host, port = httpd.server_address
+                conn = http.client.HTTPConnection(host, port, timeout=5)
+                conn.request("GET", "/?date=latest")
+                response = conn.getresponse()
+                body = response.read().decode("utf-8")
+                self.assertEqual(response.status, 200)
+                self.assertIn("Resolved batch date: 2026-07-13", body)
+                self.assertIn("Draft count: 7", body)
+                self.assertIn("codex-draft-7", body)
+            finally:
+                httpd.shutdown()
+                httpd.server_close()
+                thread.join(timeout=2)
+
+    def test_render_exception_returns_http_500_not_empty_response(self) -> None:
+        class BrokenWorkflow(DailyEditorialWorkflow):
+            def render_interactive_dashboard(self, **kwargs: object) -> str:  # type: ignore[override]
+                raise NameError("csrf_token")
+
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            workflow = BrokenWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
+            _write_json(workflow.data_dir / "editorial_queue" / "2026-07-10" / "topics.json", {"date": "2026-07-10", "topics": []})
+            httpd = ReviewDashboardServer(workflow=workflow).serve(batch_date="2026-07-10", port=0)
+            thread = threading.Thread(target=httpd.serve_forever, daemon=True)
+            thread.start()
+            try:
+                host, port = httpd.server_address
+                conn = http.client.HTTPConnection(host, port, timeout=5)
+                conn.request("GET", "/?date=2026-07-10")
+                response = conn.getresponse()
+                body = response.read().decode("utf-8")
+                self.assertEqual(response.status, 500)
+                self.assertIn("Dashboard render failed", body)
+            finally:
+                httpd.shutdown()
+                httpd.server_close()
+                thread.join(timeout=2)
+
+    def test_post_missing_csrf_token_is_rejected_without_state_change(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            workflow = _seed_workflow(Path(temp_dir))
+            httpd = ReviewDashboardServer(workflow=workflow).serve(batch_date="2026-07-10", port=0)
+            thread = threading.Thread(target=httpd.serve_forever, daemon=True)
+            thread.start()
+            try:
+                host, port = httpd.server_address
+                conn = http.client.HTTPConnection(host, port, timeout=5)
+                body = "date=2026-07-10&slug=review-me&filter=blocked&anchor=row-review-me"
+                conn.request("POST", "/approve", body=body, headers={"Content-Type": "application/x-www-form-urlencoded"})
+                post_response = conn.getresponse()
+                post_response.read()
+                self.assertEqual(post_response.status, 303)
+                self.assertIn("Security+token+expired", post_response.getheader("Location") or "")
+                queue = json.loads((workflow.data_dir / "editorial_queue" / "2026-07-10" / "topics.json").read_text(encoding="utf-8"))
+                self.assertEqual(queue["topics"][0]["status"], "drafted")
+            finally:
+                httpd.shutdown()
+                httpd.server_close()
+                thread.join(timeout=2)
+
     def test_approve_handles_mixed_report_fields_and_renders_success_notice(self) -> None:
         with TemporaryDirectory() as temp_dir:
             workflow = _seed_workflow(Path(temp_dir))
