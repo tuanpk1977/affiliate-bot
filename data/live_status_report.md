@@ -2,20 +2,20 @@
 
 - Total items: 31
 ## Deployment summary
-- Live 200: 5
+- Live 200: 12
 - Awaiting Publish: 0
-- Awaiting Push: 0
-- Missing Local Output: 25
-- Missing Docs: 1
+- Awaiting Push: 1
+- Missing Local Output: 18
+- Missing Docs: 0
 - Unexpected Live 404: 0
 - Unknown: 0
 
 ## Editorial/publish summary
 - Human Approved: 10
-- Ready for Publish: 8
+- Ready for Publish: 1
 - Publish Blocked: 18
 - Rejected: 0
-- Published This Batch: 2
+- Published This Batch: 9
 
 | Slug | Editorial | Publish gate | Deployment | Local | Docs | Git | Block reason | How to fix | URL |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -42,11 +42,11 @@
 | best-skills-review-2026-for-small-business | Needs Review | Publish Blocked | Missing Local Output | missing_local | no | not_synced | Publish Blocked: Need better verified sources; Knowledge needs refresh; AI quality review required | Recommended Action: Open Source Review. Fix the failing gate, then rerun publish validation. | https://smileaireviewhub.com/best-skills-review-2026-for-small-business/ |
 | best-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-for-small-business | Needs Review | Publish Blocked | Missing Local Output | missing_local | no | not_synced | Publish Blocked: Need better verified sources; Knowledge needs refresh; AI quality review required | Recommended Action: Open Source Review. Fix the failing gate, then rerun publish validation. | https://smileaireviewhub.com/best-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-for-small-business/ |
 | best-best-ai-meeting-software-for-small-business | Human Approved | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-best-ai-meeting-software-for-small-business/ |
-| best-best-ai-meeting-tools-for-small-business | Human Approved | Ready for Publish | Missing Docs | local_only | no | not_committed | Docs Pending | Recommended Action: run publish-ready so the local output is copied into docs for GitHub Pages. | https://smileaireviewhub.com/best-best-ai-meeting-tools-for-small-business/ |
-| best-ai-voice-software | Human Approved | Ready for Publish | Missing Local Output | missing_local | no | not_synced | Awaiting Publish | Recommended Action: create or refresh the draft. If the research/source gate blocks it, add sources and rerun review. | https://smileaireviewhub.com/best-ai-voice-software/ |
-| project-nomad-review-2026 | Human Approved | Ready for Publish | Missing Local Output | missing_local | no | not_synced | Awaiting Publish | Recommended Action: create or refresh the draft. If the research/source gate blocks it, add sources and rerun review. | https://smileaireviewhub.com/project-nomad-review-2026/ |
-| pydantic-ai-review-2026 | Human Approved | Ready for Publish | Missing Local Output | missing_local | no | not_synced | Awaiting Publish | Recommended Action: create or refresh the draft. If the research/source gate blocks it, add sources and rerun review. | https://smileaireviewhub.com/pydantic-ai-review-2026/ |
-| n8n-ai-agents-review-2026 | Human Approved | Ready for Publish | Missing Local Output | missing_local | no | not_synced | Awaiting Publish | Recommended Action: create or refresh the draft. If the research/source gate blocks it, add sources and rerun review. | https://smileaireviewhub.com/n8n-ai-agents-review-2026/ |
-| mastra-ai-review-2026 | Human Approved | Ready for Publish | Missing Local Output | missing_local | no | not_synced | Awaiting Publish | Recommended Action: create or refresh the draft. If the research/source gate blocks it, add sources and rerun review. | https://smileaireviewhub.com/mastra-ai-review-2026/ |
-| migrating-a-production-ai-agent-to-gpt-5-6-2-2x-faster-27-cheaper | Human Approved | Ready for Publish | Missing Local Output | missing_local | no | not_synced | Awaiting Publish | Recommended Action: create or refresh the draft. If the research/source gate blocks it, add sources and rerun review. | https://smileaireviewhub.com/migrating-a-production-ai-agent-to-gpt-5-6-2-2x-faster-27-cheaper/ |
-| how-ai-is-upending-saas-tools | Human Approved | Ready for Publish | Missing Local Output | missing_local | no | not_synced | Awaiting Publish | Recommended Action: create or refresh the draft. If the research/source gate blocks it, add sources and rerun review. | https://smileaireviewhub.com/how-ai-is-upending-saas-tools/ |
+| best-best-ai-meeting-tools-for-small-business | Human Approved | Ready for Publish | Awaiting Push | docs_synced | yes | not_committed | Awaiting Push: file not tracked by git | Recommended Action: rerun publish-ready so docs/site files are added, committed, and pushed. | https://smileaireviewhub.com/best-best-ai-meeting-tools-for-small-business/ |
+| best-ai-voice-software | Human Approved | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-ai-voice-software/ |
+| project-nomad-review-2026 | Human Approved | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/project-nomad-review-2026/ |
+| pydantic-ai-review-2026 | Human Approved | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/pydantic-ai-review-2026/ |
+| n8n-ai-agents-review-2026 | Human Approved | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/n8n-ai-agents-review-2026/ |
+| mastra-ai-review-2026 | Human Approved | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/mastra-ai-review-2026/ |
+| migrating-a-production-ai-agent-to-gpt-5-6-2-2x-faster-27-cheaper | Human Approved | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/migrating-a-production-ai-agent-to-gpt-5-6-2-2x-faster-27-cheaper/ |
+| how-ai-is-upending-saas-tools | Human Approved | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/how-ai-is-upending-saas-tools/ |

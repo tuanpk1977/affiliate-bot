@@ -308,5 +308,75 @@
     "approved_at": "2026-07-14T04:47:35.611241+00:00",
     "approved_by": "editor",
     "reason": ""
+  },
+  {
+    "slug": "project-nomad-review-2026-comparison-and-alternatives",
+    "topic": "project-nomad Review 2026 comparison and alternatives",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-14T21:17:10.084572+00:00",
+    "approved_at": "2026-07-14T21:20:33.565929+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "best-ai-voice-software-comparison-and-alternatives",
+    "topic": "best ai voice software comparison and alternatives",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-14T21:17:10.833290+00:00",
+    "approved_at": "2026-07-14T21:20:41.762718+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "pydantic-ai-review-2026-comparison-and-alternatives",
+    "topic": "Pydantic AI Review 2026 comparison and alternatives",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-14T21:17:11.450796+00:00",
+    "approved_at": "2026-07-14T21:20:48.616905+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "n8n-ai-agents-review-2026-comparison-and-alternatives",
+    "topic": "n8n AI Agents Review 2026 comparison and alternatives",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-14T21:17:12.104444+00:00",
+    "approved_at": "2026-07-14T21:20:55.753141+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "mastra-ai-review-2026-comparison-and-alternatives",
+    "topic": "Mastra AI Review 2026 comparison and alternatives",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-14T21:17:13.082775+00:00",
+    "approved_at": "2026-07-14T21:21:01.965129+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "automation-without-understanding-comparison-and-alternatives",
+    "topic": "Automation Without Understanding comparison and alternatives",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-14T21:17:13.794958+00:00",
+    "approved_at": "2026-07-14T21:21:07.658743+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "how-ai-is-upending-saas-tools-comparison-and-alternatives",
+    "topic": "How AI is upending SaaS tools comparison and alternatives",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-14T21:17:14.545647+00:00",
+    "approved_at": "2026-07-14T21:21:13.221871+00:00",
+    "approved_by": "editor",
+    "reason": ""
   }
 ]

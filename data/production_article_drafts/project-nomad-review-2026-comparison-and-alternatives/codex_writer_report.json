@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-07-14T21:17:10.252923+00:00",
+  "writer": {
+    "provider": "codex",
+    "mode": "interactive_repository_writer",
+    "api_call_used": false,
+    "openai_api_used": false,
+    "heuristic_fallback_used": false
+  },
+  "source_count": 3,
+  "source_urls": [
+    "https://github.com/Crosstalk-Solutions/project-nomad",
+    "https://www.msn.com/en-us/news/technology/no-internet-this-survival-computer-has-everything-you-need-offline-including-ai/ar-AA1ZNSij",
+    "https://www.khaleejtimes.com/business/daw-construction-delivers-key-infrastructure-works-for-shurooqs-nomad-project"
+  ],
+  "human_approval_required": true,
+  "published": false
+}

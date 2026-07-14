@@ -1,0 +1,1069 @@
+{
+  "generated_at": "2026-07-14T21:11:20.081274+00:00",
+  "date": "2026-07-15",
+  "batch_state": "QUEUE_CREATED",
+  "week_start": "2026-07-13",
+  "week_end": "2026-07-19",
+  "mode": "advanced",
+  "day_profile": "comparison",
+  "root_topic_count": 10,
+  "active_root_topics": 10,
+  "count": 7,
+  "topics": [
+    {
+      "keyword": "project-nomad Review 2026 comparison and alternatives",
+      "slug": "project-nomad-review-2026-comparison-and-alternatives",
+      "search_intent": "comparison",
+      "search_intent_score": 86,
+      "affiliate_monetization_score": 49,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 60,
+      "content_type": "comparison",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/Crosstalk-Solutions/project-nomad",
+        "https://www.msn.com/en-us/news/technology/no-internet-this-survival-computer-has-everything-you-need-offline-including-ai/ar-AA1ZNSij",
+        "https://www.khaleejtimes.com/business/daw-construction-delivers-key-infrastructure-works-for-shurooqs-nomad-project"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "comparison follow-up for project-nomad Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Competition estimate is low-to-medium.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 3,
+      "confidence": "medium",
+      "total_score": 63.2,
+      "raw_total_score": 64.1,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "rank": 1,
+      "status": "published",
+      "week_start": "2026-07-13",
+      "parent_keyword": "project-nomad Review 2026",
+      "parent_slug": "project-nomad-review-2026",
+      "root_topic_id": "project-nomad-review-2026",
+      "title": "project-nomad Review 2026",
+      "primary_keyword": "project-nomad Review 2026",
+      "category": "review",
+      "trend_score": 60.0,
+      "business_value": 49.0,
+      "sources": [
+        "https://github.com/Crosstalk-Solutions/project-nomad",
+        "https://www.msn.com/en-us/news/technology/no-internet-this-survival-computer-has-everything-you-need-offline-including-ai/ar-AA1ZNSij",
+        "https://www.khaleejtimes.com/business/daw-construction-delivers-key-infrastructure-works-for-shurooqs-nomad-project"
+      ],
+      "entities": [],
+      "selection_status": "weekly_selected",
+      "daily_angles": {
+        "2026-07-13": {
+          "angle": "main_review",
+          "title": "project-nomad Review 2026",
+          "slug": "project-nomad-review-2026",
+          "search_intent": "commercial research",
+          "status": "published"
+        }
+      },
+      "root_title": "project-nomad Review 2026",
+      "daily_angle": "comparison",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "project-nomad Review 2026",
+          "slug": "project-nomad-review-2026",
+          "search_intent": "commercial research",
+          "status": "published",
+          "date": "2026-07-13"
+        }
+      ],
+      "batch_date": "2026-07-15",
+      "mode": "advanced",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 3,
+        "source_urls": [
+          "https://github.com/Crosstalk-Solutions/project-nomad",
+          "https://www.msn.com/en-us/news/technology/no-internet-this-survival-computer-has-everything-you-need-offline-including-ai/ar-AA1ZNSij",
+          "https://www.khaleejtimes.com/business/daw-construction-delivers-key-infrastructure-works-for-shurooqs-nomad-project"
+        ],
+        "unique_source_domains": [
+          "github.com",
+          "msn.com",
+          "khaleejtimes.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\project-nomad-review-2026-comparison-and-alternatives",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 55.43,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 3,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\project-nomad-review-2026-comparison-and-alternatives",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-15\\project-nomad-review-2026-comparison-and-alternatives\\index.html",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\project-nomad-review-2026-comparison-and-alternatives\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\project-nomad-review-2026-comparison-and-alternatives\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      },
+      "approved_by": "editor",
+      "published_at": "2026-07-14T21:23:50.955482+00:00",
+      "validation_mode": "smart",
+      "validation_status": "passed",
+      "autofix_status": "fixed",
+      "cta_status": "ok",
+      "faq_schema_status": "fixed",
+      "meta_description_status": "ok",
+      "redirect_status": "ok",
+      "block_reason": "",
+      "validation_errors": [],
+      "next_action": ""
+    },
+    {
+      "keyword": "best ai voice software comparison and alternatives",
+      "slug": "best-ai-voice-software-comparison-and-alternatives",
+      "search_intent": "comparison",
+      "search_intent_score": 86,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 59,
+      "product_availability_score": 58,
+      "content_freshness_score": 56,
+      "content_type": "comparison",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://officechai.com/learn/ai-tools-for-voice-over/",
+        "https://www.republicworld.com/tech/openai-launches-gpt-live-new-voice-model-brings-real-time-replies-background-processing-to-chatgpt-2026-07-09-131769",
+        "https://www.msn.com/en-us/money/markets/3-reasons-soundhound-ai-stock-could-keep-climbing/ar-AA27JOcr",
+        "https://vir.com.vn/fev-partners-with-microsoft-on-in-car-ai-using-nvidia-156431.html",
+        "https://www.androidheadlines.com/2026/07/samsung-voice-recorder-one-ui-9-cloud-ai-transcription.html",
+        "https://www.analyticsinsight.net/artificial-intelligence/how-ai-assistants-are-transforming-modern-cars"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "comparison follow-up for best ai voice software",
+      "why_selected": [
+        "Detected across 1 source(s): local_keyword_intelligence.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 8,
+      "confidence": "medium",
+      "total_score": 57.4,
+      "raw_total_score": 58.3,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "rank": 2,
+      "status": "published",
+      "week_start": "2026-07-13",
+      "parent_keyword": "best ai voice software",
+      "parent_slug": "best-ai-voice-software",
+      "root_topic_id": "best-ai-voice-software",
+      "title": "best ai voice software",
+      "primary_keyword": "best ai voice software",
+      "category": "listicle",
+      "trend_score": 56.0,
+      "business_value": 44.0,
+      "sources": [
+        "https://officechai.com/learn/ai-tools-for-voice-over/",
+        "https://www.republicworld.com/tech/openai-launches-gpt-live-new-voice-model-brings-real-time-replies-background-processing-to-chatgpt-2026-07-09-131769",
+        "https://www.msn.com/en-us/money/markets/3-reasons-soundhound-ai-stock-could-keep-climbing/ar-AA27JOcr",
+        "https://vir.com.vn/fev-partners-with-microsoft-on-in-car-ai-using-nvidia-156431.html",
+        "https://www.androidheadlines.com/2026/07/samsung-voice-recorder-one-ui-9-cloud-ai-transcription.html",
+        "https://www.analyticsinsight.net/artificial-intelligence/how-ai-assistants-are-transforming-modern-cars"
+      ],
+      "entities": [],
+      "selection_status": "weekly_selected",
+      "daily_angles": {
+        "2026-07-13": {
+          "angle": "main_review",
+          "title": "best ai voice software",
+          "slug": "best-ai-voice-software",
+          "search_intent": "commercial research",
+          "status": "published"
+        }
+      },
+      "root_title": "best ai voice software",
+      "daily_angle": "comparison",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "best ai voice software",
+          "slug": "best-ai-voice-software",
+          "search_intent": "commercial research",
+          "status": "published",
+          "date": "2026-07-13"
+        }
+      ],
+      "batch_date": "2026-07-15",
+      "mode": "advanced",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 6,
+        "source_urls": [
+          "https://officechai.com/learn/ai-tools-for-voice-over/",
+          "https://www.republicworld.com/tech/openai-launches-gpt-live-new-voice-model-brings-real-time-replies-background-processing-to-chatgpt-2026-07-09-131769",
+          "https://www.msn.com/en-us/money/markets/3-reasons-soundhound-ai-stock-could-keep-climbing/ar-AA27JOcr",
+          "https://vir.com.vn/fev-partners-with-microsoft-on-in-car-ai-using-nvidia-156431.html",
+          "https://www.androidheadlines.com/2026/07/samsung-voice-recorder-one-ui-9-cloud-ai-transcription.html",
+          "https://www.analyticsinsight.net/artificial-intelligence/how-ai-assistants-are-transforming-modern-cars"
+        ],
+        "unique_source_domains": [
+          "officechai.com",
+          "republicworld.com",
+          "msn.com",
+          "vir.com.vn",
+          "androidheadlines.com",
+          "analyticsinsight.net"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\best-ai-voice-software-comparison-and-alternatives",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 63.5,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 11,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-ai-voice-software-comparison-and-alternatives",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-15\\best-ai-voice-software-comparison-and-alternatives\\index.html",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-ai-voice-software-comparison-and-alternatives\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-ai-voice-software-comparison-and-alternatives\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      },
+      "approved_by": "editor",
+      "published_at": "2026-07-14T21:23:50.957954+00:00",
+      "validation_mode": "smart",
+      "validation_status": "passed",
+      "autofix_status": "fixed",
+      "cta_status": "ok",
+      "faq_schema_status": "fixed",
+      "meta_description_status": "ok",
+      "redirect_status": "ok",
+      "block_reason": "",
+      "validation_errors": [],
+      "next_action": ""
+    },
+    {
+      "keyword": "Pydantic AI Review 2026 comparison and alternatives",
+      "slug": "pydantic-ai-review-2026-comparison-and-alternatives",
+      "search_intent": "comparison",
+      "affiliate_monetization_score": 72,
+      "competition_difficulty_score": 42,
+      "product_availability_score": 78,
+      "content_freshness_score": 82,
+      "content_type": "comparison",
+      "matched_products": [],
+      "related_keywords": [
+        "pydantic ai",
+        "python agent framework",
+        "pydantic ai agents"
+      ],
+      "source_urls": [
+        "https://pydantic.dev/docs/ai/overview/",
+        "https://github.com/pydantic/pydantic-ai"
+      ],
+      "suggested_internal_links": [],
+      "suggested_article_angle": "comparison follow-up for Pydantic AI Review 2026",
+      "why_selected": [
+        "Vetted replacement: exact official docs and exact GitHub repository."
+      ],
+      "signals": 2,
+      "confidence": "high",
+      "search_intent_score": 86,
+      "total_score": 75.4,
+      "raw_total_score": 76.2,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "rank": 4,
+      "status": "published",
+      "week_start": "2026-07-13",
+      "parent_keyword": "Pydantic AI Review 2026",
+      "parent_slug": "pydantic-ai-review-2026",
+      "root_topic_id": "pydantic-ai-review-2026",
+      "title": "Pydantic AI Review 2026",
+      "primary_keyword": "Pydantic AI Review 2026",
+      "category": "review",
+      "trend_score": 82.0,
+      "business_value": 72.0,
+      "sources": [
+        "https://pydantic.dev/docs/ai/overview/",
+        "https://github.com/pydantic/pydantic-ai"
+      ],
+      "entities": [],
+      "selection_status": "weekly_selected",
+      "daily_angles": {
+        "2026-07-13": {
+          "angle": "main_review",
+          "title": "Pydantic AI Review 2026",
+          "slug": "pydantic-ai-review-2026",
+          "search_intent": "commercial research",
+          "status": "published"
+        }
+      },
+      "root_title": "Pydantic AI Review 2026",
+      "daily_angle": "comparison",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "Pydantic AI Review 2026",
+          "slug": "pydantic-ai-review-2026",
+          "search_intent": "commercial research",
+          "status": "published",
+          "date": "2026-07-13"
+        }
+      ],
+      "batch_date": "2026-07-15",
+      "mode": "advanced",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://pydantic.dev/docs/ai/overview/",
+          "https://github.com/pydantic/pydantic-ai"
+        ],
+        "unique_source_domains": [
+          "pydantic.dev",
+          "github.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\pydantic-ai-review-2026-comparison-and-alternatives",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 54.43,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\pydantic-ai-review-2026-comparison-and-alternatives",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-15\\pydantic-ai-review-2026-comparison-and-alternatives\\index.html",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\pydantic-ai-review-2026-comparison-and-alternatives\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\pydantic-ai-review-2026-comparison-and-alternatives\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      },
+      "approved_by": "editor",
+      "published_at": "2026-07-14T21:23:50.978565+00:00",
+      "validation_mode": "smart",
+      "validation_status": "passed",
+      "autofix_status": "fixed",
+      "cta_status": "ok",
+      "faq_schema_status": "fixed",
+      "meta_description_status": "ok",
+      "redirect_status": "ok",
+      "block_reason": "",
+      "validation_errors": [],
+      "next_action": ""
+    },
+    {
+      "keyword": "n8n AI Agents Review 2026 comparison and alternatives",
+      "slug": "n8n-ai-agents-review-2026-comparison-and-alternatives",
+      "search_intent": "comparison",
+      "affiliate_monetization_score": 74,
+      "competition_difficulty_score": 45,
+      "product_availability_score": 80,
+      "content_freshness_score": 82,
+      "content_type": "comparison",
+      "matched_products": [],
+      "related_keywords": [
+        "n8n ai agent",
+        "n8n ai workflow",
+        "n8n agent node"
+      ],
+      "source_urls": [
+        "https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent/",
+        "https://arxiv.org/abs/2606.29116"
+      ],
+      "suggested_internal_links": [],
+      "suggested_article_angle": "comparison follow-up for n8n AI Agents Review 2026",
+      "why_selected": [
+        "Vetted replacement: exact n8n AI Agent docs and independent n8n agentic workflow study."
+      ],
+      "signals": 2,
+      "confidence": "high",
+      "search_intent_score": 86,
+      "total_score": 75.7,
+      "raw_total_score": 76.6,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "rank": 5,
+      "status": "published",
+      "week_start": "2026-07-13",
+      "parent_keyword": "n8n AI Agents Review 2026",
+      "parent_slug": "n8n-ai-agents-review-2026",
+      "root_topic_id": "n8n-ai-agents-review-2026",
+      "title": "n8n AI Agents Review 2026",
+      "primary_keyword": "n8n AI Agents Review 2026",
+      "category": "review",
+      "trend_score": 82.0,
+      "business_value": 74.0,
+      "sources": [
+        "https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent/",
+        "https://arxiv.org/abs/2606.29116"
+      ],
+      "entities": [],
+      "selection_status": "weekly_selected",
+      "daily_angles": {
+        "2026-07-13": {
+          "angle": "main_review",
+          "title": "n8n AI Agents Review 2026",
+          "slug": "n8n-ai-agents-review-2026",
+          "search_intent": "commercial research",
+          "status": "published"
+        }
+      },
+      "root_title": "n8n AI Agents Review 2026",
+      "daily_angle": "comparison",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "n8n AI Agents Review 2026",
+          "slug": "n8n-ai-agents-review-2026",
+          "search_intent": "commercial research",
+          "status": "published",
+          "date": "2026-07-13"
+        }
+      ],
+      "batch_date": "2026-07-15",
+      "mode": "advanced",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent/",
+          "https://arxiv.org/abs/2606.29116"
+        ],
+        "unique_source_domains": [
+          "docs.n8n.io",
+          "arxiv.org"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\n8n-ai-agents-review-2026-comparison-and-alternatives",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 54.43,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\n8n-ai-agents-review-2026-comparison-and-alternatives",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-15\\n8n-ai-agents-review-2026-comparison-and-alternatives\\index.html",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\n8n-ai-agents-review-2026-comparison-and-alternatives\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\n8n-ai-agents-review-2026-comparison-and-alternatives\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      },
+      "approved_by": "editor",
+      "published_at": "2026-07-14T21:23:50.998682+00:00",
+      "validation_mode": "smart",
+      "validation_status": "passed",
+      "autofix_status": "fixed",
+      "cta_status": "ok",
+      "faq_schema_status": "fixed",
+      "meta_description_status": "ok",
+      "redirect_status": "ok",
+      "block_reason": "",
+      "validation_errors": [],
+      "next_action": ""
+    },
+    {
+      "keyword": "Mastra AI Review 2026 comparison and alternatives",
+      "slug": "mastra-ai-review-2026-comparison-and-alternatives",
+      "search_intent": "comparison",
+      "affiliate_monetization_score": 72,
+      "competition_difficulty_score": 44,
+      "product_availability_score": 78,
+      "content_freshness_score": 82,
+      "content_type": "comparison",
+      "matched_products": [],
+      "related_keywords": [
+        "mastra ai",
+        "typescript agent framework",
+        "mastra agents"
+      ],
+      "source_urls": [
+        "https://mastra.ai/",
+        "https://github.com/mastra-ai/mastra"
+      ],
+      "suggested_internal_links": [],
+      "suggested_article_angle": "comparison follow-up for Mastra AI Review 2026",
+      "why_selected": [
+        "Vetted replacement: exact official product page and exact GitHub repository."
+      ],
+      "signals": 2,
+      "confidence": "high",
+      "search_intent_score": 86,
+      "total_score": 75.0,
+      "raw_total_score": 75.9,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "rank": 6,
+      "status": "published",
+      "week_start": "2026-07-13",
+      "parent_keyword": "Mastra AI Review 2026",
+      "parent_slug": "mastra-ai-review-2026",
+      "root_topic_id": "mastra-ai-review-2026",
+      "title": "Mastra AI Review 2026",
+      "primary_keyword": "Mastra AI Review 2026",
+      "category": "review",
+      "trend_score": 82.0,
+      "business_value": 72.0,
+      "sources": [
+        "https://mastra.ai/",
+        "https://github.com/mastra-ai/mastra"
+      ],
+      "entities": [],
+      "selection_status": "weekly_selected",
+      "daily_angles": {
+        "2026-07-13": {
+          "angle": "main_review",
+          "title": "Mastra AI Review 2026",
+          "slug": "mastra-ai-review-2026",
+          "search_intent": "commercial research",
+          "status": "published"
+        }
+      },
+      "root_title": "Mastra AI Review 2026",
+      "daily_angle": "comparison",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "Mastra AI Review 2026",
+          "slug": "mastra-ai-review-2026",
+          "search_intent": "commercial research",
+          "status": "published",
+          "date": "2026-07-13"
+        }
+      ],
+      "batch_date": "2026-07-15",
+      "mode": "advanced",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://mastra.ai/",
+          "https://github.com/mastra-ai/mastra"
+        ],
+        "unique_source_domains": [
+          "mastra.ai",
+          "github.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\mastra-ai-review-2026-comparison-and-alternatives",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 54.43,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\mastra-ai-review-2026-comparison-and-alternatives",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-15\\mastra-ai-review-2026-comparison-and-alternatives\\index.html",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\mastra-ai-review-2026-comparison-and-alternatives\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\mastra-ai-review-2026-comparison-and-alternatives\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      },
+      "approved_by": "editor",
+      "published_at": "2026-07-14T21:23:51.018042+00:00",
+      "validation_mode": "smart",
+      "validation_status": "passed",
+      "autofix_status": "fixed",
+      "cta_status": "ok",
+      "faq_schema_status": "fixed",
+      "meta_description_status": "ok",
+      "redirect_status": "ok",
+      "block_reason": "",
+      "validation_errors": [],
+      "next_action": ""
+    },
+    {
+      "keyword": "Automation Without Understanding comparison and alternatives",
+      "slug": "automation-without-understanding-comparison-and-alternatives",
+      "search_intent": "comparison",
+      "search_intent_score": 86,
+      "affiliate_monetization_score": 32,
+      "competition_difficulty_score": 47,
+      "product_availability_score": 40,
+      "content_freshness_score": 59,
+      "content_type": "comparison",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://arxiv.org/abs/2607.06377",
+        "https://www.searchenginejournal.com/search-marketings-insight-gap-when-automation-replaces-understanding/563723/",
+        "https://cio.economictimes.indiatimes.com/tools/best-rpa-tools/126144681"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/",
+        "/category/automation-tools/",
+        "/zapier-pricing/",
+        "/compare/make-vs-zapier/"
+      ],
+      "suggested_article_angle": "comparison follow-up for Automation Without Understanding",
+      "why_selected": [
+        "Detected across 1 source(s): hacker_news.",
+        "Competition estimate is low-to-medium.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 3,
+      "confidence": "medium",
+      "total_score": 53.6,
+      "raw_total_score": 48.7,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "rank": 7,
+      "status": "published",
+      "week_start": "2026-07-13",
+      "parent_keyword": "Automation Without Understanding",
+      "parent_slug": "automation-without-understanding",
+      "root_topic_id": "automation-without-understanding",
+      "title": "Automation Without Understanding",
+      "primary_keyword": "Automation Without Understanding",
+      "category": "review",
+      "trend_score": 59.0,
+      "business_value": 32.0,
+      "sources": [
+        "https://arxiv.org/abs/2607.06377",
+        "https://www.searchenginejournal.com/search-marketings-insight-gap-when-automation-replaces-understanding/563723/",
+        "https://cio.economictimes.indiatimes.com/tools/best-rpa-tools/126144681"
+      ],
+      "entities": [],
+      "selection_status": "weekly_selected",
+      "daily_angles": {
+        "2026-07-13": {
+          "angle": "main_review",
+          "title": "Automation Without Understanding",
+          "slug": "automation-without-understanding",
+          "search_intent": "mixed informational and commercial",
+          "status": "needs_enrichment"
+        }
+      },
+      "root_title": "Automation Without Understanding",
+      "daily_angle": "comparison",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "Automation Without Understanding",
+          "slug": "automation-without-understanding",
+          "search_intent": "mixed informational and commercial",
+          "status": "needs_enrichment",
+          "date": "2026-07-13"
+        }
+      ],
+      "batch_date": "2026-07-15",
+      "mode": "advanced",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 3,
+        "source_urls": [
+          "https://arxiv.org/abs/2607.06377",
+          "https://www.searchenginejournal.com/search-marketings-insight-gap-when-automation-replaces-understanding/563723/",
+          "https://cio.economictimes.indiatimes.com/tools/best-rpa-tools/126144681"
+        ],
+        "unique_source_domains": [
+          "arxiv.org",
+          "searchenginejournal.com",
+          "cio.economictimes.indiatimes.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\automation-without-understanding-comparison-and-alternatives",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 68.0,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 3,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\automation-without-understanding-comparison-and-alternatives",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-15\\automation-without-understanding-comparison-and-alternatives\\index.html",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\automation-without-understanding-comparison-and-alternatives\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\automation-without-understanding-comparison-and-alternatives\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      },
+      "approved_by": "editor",
+      "published_at": "2026-07-14T21:23:51.037615+00:00",
+      "validation_mode": "smart",
+      "validation_status": "passed",
+      "autofix_status": "fixed",
+      "cta_status": "ok",
+      "faq_schema_status": "fixed",
+      "meta_description_status": "ok",
+      "redirect_status": "ok",
+      "block_reason": "",
+      "validation_errors": [],
+      "next_action": ""
+    },
+    {
+      "keyword": "How AI is upending SaaS tools comparison and alternatives",
+      "slug": "how-ai-is-upending-saas-tools-comparison-and-alternatives",
+      "search_intent": "comparison",
+      "search_intent_score": 86,
+      "affiliate_monetization_score": 42,
+      "competition_difficulty_score": 59,
+      "product_availability_score": 58,
+      "content_freshness_score": 46,
+      "content_type": "comparison",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://www.infoworld.com/article/4161544/how-ai-is-upending-saas-tools.html",
+        "https://thenextweb.com/news/ai-powering-micro-saas-entrepreneurs",
+        "https://www.afr.com/technology/how-established-saas-players-are-reinventing-for-the-ai-era-20260416-p5zohw",
+        "https://www.forbes.com/councils/forbestechcouncil/2026/04/22/ai-is-changing-how-software-gets-delivered-not-just-what-gets-built/",
+        "https://www.geekwire.com/2026/how-agentic-ai-is-rewiring-amazons-teams-and-upending-its-traditions/",
+        "https://www.dqindia.com/features/the-new-software-stack-how-ai-is-changing-saas-apps-and-enterprise-workflows-12029057",
+        "https://9to5mac.com/2026/06/13/apple-work-why-gen-ai-will-not-cause-a-saas-apocalypse-for-it-teams/",
+        "https://www.businessinsider.com/ai-consulting-mckinsey-pwc-deloitte-bcg-kpmg-accenture-ey-ibm-2026-5"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "comparison follow-up for How AI is upending SaaS tools",
+      "why_selected": [
+        "Detected across 1 source(s): bing_trending.",
+        "Commercial terminology suggests above-average CPC potential.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 10,
+      "confidence": "medium",
+      "total_score": 55.3,
+      "raw_total_score": 56.2,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "rank": 10,
+      "status": "published",
+      "week_start": "2026-07-13",
+      "parent_keyword": "How AI is upending SaaS tools",
+      "parent_slug": "how-ai-is-upending-saas-tools",
+      "root_topic_id": "how-ai-is-upending-saas-tools",
+      "title": "How AI is upending SaaS tools",
+      "primary_keyword": "How AI is upending SaaS tools",
+      "category": "listicle",
+      "trend_score": 46.0,
+      "business_value": 42.0,
+      "sources": [
+        "https://www.infoworld.com/article/4161544/how-ai-is-upending-saas-tools.html",
+        "https://thenextweb.com/news/ai-powering-micro-saas-entrepreneurs",
+        "https://www.afr.com/technology/how-established-saas-players-are-reinventing-for-the-ai-era-20260416-p5zohw",
+        "https://www.forbes.com/councils/forbestechcouncil/2026/04/22/ai-is-changing-how-software-gets-delivered-not-just-what-gets-built/",
+        "https://www.geekwire.com/2026/how-agentic-ai-is-rewiring-amazons-teams-and-upending-its-traditions/",
+        "https://www.dqindia.com/features/the-new-software-stack-how-ai-is-changing-saas-apps-and-enterprise-workflows-12029057",
+        "https://9to5mac.com/2026/06/13/apple-work-why-gen-ai-will-not-cause-a-saas-apocalypse-for-it-teams/",
+        "https://www.businessinsider.com/ai-consulting-mckinsey-pwc-deloitte-bcg-kpmg-accenture-ey-ibm-2026-5"
+      ],
+      "entities": [],
+      "selection_status": "weekly_selected",
+      "daily_angles": {
+        "2026-07-13": {
+          "angle": "main_review",
+          "title": "How AI is upending SaaS tools",
+          "slug": "how-ai-is-upending-saas-tools",
+          "search_intent": "commercial research",
+          "status": "published"
+        }
+      },
+      "root_title": "How AI is upending SaaS tools",
+      "daily_angle": "comparison",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "How AI is upending SaaS tools",
+          "slug": "how-ai-is-upending-saas-tools",
+          "search_intent": "commercial research",
+          "status": "published",
+          "date": "2026-07-13"
+        }
+      ],
+      "batch_date": "2026-07-15",
+      "mode": "advanced",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 8,
+        "source_urls": [
+          "https://www.infoworld.com/article/4161544/how-ai-is-upending-saas-tools.html",
+          "https://thenextweb.com/news/ai-powering-micro-saas-entrepreneurs",
+          "https://www.afr.com/technology/how-established-saas-players-are-reinventing-for-the-ai-era-20260416-p5zohw",
+          "https://www.forbes.com/councils/forbestechcouncil/2026/04/22/ai-is-changing-how-software-gets-delivered-not-just-what-gets-built/",
+          "https://www.geekwire.com/2026/how-agentic-ai-is-rewiring-amazons-teams-and-upending-its-traditions/",
+          "https://www.dqindia.com/features/the-new-software-stack-how-ai-is-changing-saas-apps-and-enterprise-workflows-12029057",
+          "https://9to5mac.com/2026/06/13/apple-work-why-gen-ai-will-not-cause-a-saas-apocalypse-for-it-teams/",
+          "https://www.businessinsider.com/ai-consulting-mckinsey-pwc-deloitte-bcg-kpmg-accenture-ey-ibm-2026-5"
+        ],
+        "unique_source_domains": [
+          "infoworld.com",
+          "thenextweb.com",
+          "afr.com",
+          "forbes.com",
+          "geekwire.com",
+          "dqindia.com",
+          "9to5mac.com",
+          "businessinsider.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\how-ai-is-upending-saas-tools-comparison-and-alternatives",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 58.86,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 8,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\how-ai-is-upending-saas-tools-comparison-and-alternatives",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-15\\how-ai-is-upending-saas-tools-comparison-and-alternatives\\index.html",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\how-ai-is-upending-saas-tools-comparison-and-alternatives\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\how-ai-is-upending-saas-tools-comparison-and-alternatives\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      },
+      "approved_by": "editor",
+      "published_at": "2026-07-14T21:23:51.056970+00:00",
+      "validation_mode": "smart",
+      "validation_status": "passed",
+      "autofix_status": "fixed",
+      "cta_status": "ok",
+      "faq_schema_status": "fixed",
+      "meta_description_status": "ok",
+      "redirect_status": "ok",
+      "block_reason": "",
+      "validation_errors": [],
+      "next_action": ""
+    }
+  ],
+  "held_topics": [
+    {
+      "root_topic_id": "ai-coding-tool-hole-illustrates-a-big-problem-with-human-in-the-loop",
+      "root_title": "AI coding tool hole illustrates a big problem with human in the loop",
+      "slug": "ai-coding-tool-hole-illustrates-a-big-problem-with-human-in-the-loop-comparison-and-alternatives",
+      "daily_angle": "comparison",
+      "reason": "weekly slug collision: ai-coding-tool-hole-illustrates-a-big-problem-with-human-in-the-loop"
+    },
+    {
+      "root_topic_id": "migrating-a-production-ai-agent-to-gpt-5-6-2-2x-faster-27-cheaper",
+      "root_title": "Migrating a production AI agent to GPT-5.6: 2.2x faster, 27% cheaper",
+      "slug": "migrating-a-production-ai-agent-to-gpt-5-6-2-2x-faster-27-cheaper-comparison-and-alternatives",
+      "daily_angle": "comparison",
+      "reason": "weekly slug collision: migrating-a-production-ai-agent-to-gpt-5-6-2-2x-faster-27-cheaper"
+    },
+    {
+      "root_topic_id": "impartner-redefines-partner-marketing-automation-with-full-automation-adtech-and-ai-to-drive-measurable-revenue",
+      "root_title": "Impartner Redefines Partner Marketing Automation with Full Automation, AdTech and AI to Drive Measurable Revenue",
+      "slug": "impartner-redefines-partner-marketing-automation-with-full-automation-adtech-and-ai-to-drive-measurable-revenue-comparison-and-alternatives",
+      "daily_angle": "comparison",
+      "reason": "weekly slug collision: impartner-redefines-partner-marketing-automation-with-full-automation-adtech-and-ai-to-drive-measurable-revenue"
+    }
+  ],
+  "held_due_to_sources": 0,
+  "skipped_duplicates": 3,
+  "research_prepared_at": "2026-07-14T21:11:24.108917+00:00",
+  "codex_writer": {
+    "last_run_at": "2026-07-14T21:17:14.819260+00:00",
+    "writer": {
+      "provider": "codex",
+      "mode": "interactive_repository_writer",
+      "api_call_used": false,
+      "openai_api_used": false,
+      "heuristic_fallback_used": false
+    },
+    "written": 7,
+    "held": 0
+  }
+}

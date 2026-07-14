@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-07-14T21:17:14.076234+00:00",
+  "writer": {
+    "provider": "codex",
+    "mode": "interactive_repository_writer",
+    "api_call_used": false,
+    "openai_api_used": false,
+    "heuristic_fallback_used": false
+  },
+  "source_count": 3,
+  "source_urls": [
+    "https://arxiv.org/abs/2607.06377",
+    "https://www.searchenginejournal.com/search-marketings-insight-gap-when-automation-replaces-understanding/563723/",
+    "https://cio.economictimes.indiatimes.com/tools/best-rpa-tools/126144681"
+  ],
+  "human_approval_required": true,
+  "published": false
+}

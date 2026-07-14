@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-07-14T21:17:14.815967+00:00",
+  "writer": {
+    "provider": "codex",
+    "mode": "interactive_repository_writer",
+    "api_call_used": false,
+    "openai_api_used": false,
+    "heuristic_fallback_used": false
+  },
+  "source_count": 8,
+  "source_urls": [
+    "https://www.infoworld.com/article/4161544/how-ai-is-upending-saas-tools.html",
+    "https://thenextweb.com/news/ai-powering-micro-saas-entrepreneurs",
+    "https://www.afr.com/technology/how-established-saas-players-are-reinventing-for-the-ai-era-20260416-p5zohw",
+    "https://www.forbes.com/councils/forbestechcouncil/2026/04/22/ai-is-changing-how-software-gets-delivered-not-just-what-gets-built/",
+    "https://www.geekwire.com/2026/how-agentic-ai-is-rewiring-amazons-teams-and-upending-its-traditions/",
+    "https://www.dqindia.com/features/the-new-software-stack-how-ai-is-changing-saas-apps-and-enterprise-workflows-12029057",
+    "https://9to5mac.com/2026/06/13/apple-work-why-gen-ai-will-not-cause-a-saas-apocalypse-for-it-teams/",
+    "https://www.businessinsider.com/ai-consulting-mckinsey-pwc-deloitte-bcg-kpmg-accenture-ey-ibm-2026-5"
+  ],
+  "human_approval_required": true,
+  "published": false
+}
