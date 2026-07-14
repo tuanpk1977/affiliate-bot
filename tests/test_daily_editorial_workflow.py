@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import io
+import re
 import unittest
 from contextlib import redirect_stdout
 from datetime import date
@@ -326,7 +327,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
     def test_runbot_menu_handles_no_ready_exit_code_before_generic_failure(self) -> None:
         menu_text = (Path(__file__).resolve().parents[1] / "runbot_menu.bat").read_text(encoding="utf-8")
 
-        today_publish = menu_text.index("python editorial_console.py publish-ready --validation-mode smart")
+        today_publish = menu_text.index("python editorial_console.py publish-ready --date latest --validation-mode smart")
         today_no_ready = menu_text.index("if errorlevel 2 goto publish_no_ready_today", today_publish)
         today_failure = menu_text.index("if errorlevel 1 goto publish_failed_today", today_publish)
         custom_publish = menu_text.index("python editorial_console.py publish-ready --date %PUBLISH_DATE% --validation-mode smart")
@@ -337,6 +338,85 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
         self.assertLess(custom_no_ready, custom_failure)
         self.assertIn(":publish_no_ready_today", menu_text)
         self.assertIn(":publish_no_ready_custom", menu_text)
+
+    def test_runbot_menu_opens_dashboard_in_background_and_latest_publish(self) -> None:
+        menu_text = (Path(__file__).resolve().parents[1] / "runbot_menu.bat").read_text(encoding="utf-8")
+
+        self.assertIn("python editorial_console.py serve --date latest --open --background", menu_text)
+        self.assertIn("de trong = batch moi nhat", menu_text)
+        self.assertIn("python editorial_console.py publish-ready --date latest --validation-mode smart", menu_text)
+        open_section = menu_text.split(":open_dashboard", 1)[1].split(":status", 1)[0]
+        self.assertNotIn("pause", open_section.lower())
+
+    def test_serve_parser_supports_background_mode(self) -> None:
+        parser = build_parser()
+
+        parsed = parser.parse_args(["serve", "--date", "latest", "--open", "--background"])
+
+        self.assertEqual(parsed.command, "serve")
+        self.assertEqual(parsed.date, "latest")
+        self.assertTrue(parsed.open)
+        self.assertTrue(parsed.background)
+
+    def test_prepare_required_images_generates_only_ready_human_approved_articles(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
+            batch_date = "2026-07-13"
+            _write_json(
+                root / "data" / "editorial_queue" / batch_date / "topics.json",
+                {
+                    "date": batch_date,
+                    "topics": [
+                        {"slug": "ready-topic", "topic": "Ready Topic", "batch_date": batch_date},
+                        {"slug": "blocked-topic", "topic": "Blocked Topic", "batch_date": batch_date},
+                    ],
+                },
+            )
+            _write_json(
+                root / "data" / "publish_queue.json",
+                [
+                    {"slug": "ready-topic", "status": "approved_for_publish", "final_gate": "Ready for Publish", "hard_blockers": [], "url": "https://smileaireviewhub.com/ready-topic/"},
+                    {"slug": "blocked-topic", "status": "blocked", "final_gate": "Publish Blocked", "hard_blockers": ["source mismatch"], "url": "https://smileaireviewhub.com/blocked-topic/"},
+                ],
+            )
+            _write_json(
+                root / "data" / "human_approval_queue.json",
+                [
+                    {"slug": "ready-topic", "status": "human_approved"},
+                    {"slug": "blocked-topic", "status": "human_approved"},
+                ],
+            )
+            for slug, title in (("ready-topic", "Ready Topic"), ("blocked-topic", "Blocked Topic")):
+                draft_dir = root / "data" / "production_article_drafts" / slug
+                draft_dir.mkdir(parents=True, exist_ok=True)
+                html_without_image = re.sub(r"<img\b[^>]*>\n?", "", _canonical_article_html(title), flags=re.IGNORECASE)
+                (draft_dir / "index.html").write_text(html_without_image, encoding="utf-8")
+                _write_json(draft_dir / "metadata.json", {"slug": slug, "title": title})
+
+            result = workflow.prepare_required_images_for_publish(batch_date=batch_date)
+
+            self.assertEqual(result["missing"], 1)
+            self.assertEqual(result["generated"], 1)
+            ready_html = (root / "data" / "production_article_drafts" / "ready-topic" / "index.html").read_text(encoding="utf-8")
+            blocked_html = (root / "data" / "production_article_drafts" / "blocked-topic" / "index.html").read_text(encoding="utf-8")
+            self.assertIn("/assets/og/pages/ready-topic.svg", ready_html)
+            self.assertNotIn("/assets/og/pages/blocked-topic.svg", blocked_html)
+            self.assertTrue((root / "site_output" / "assets" / "og" / "pages" / "ready-topic.svg").exists())
+            metadata = _read_json_for_test(root / "data" / "production_article_drafts" / "ready-topic" / "metadata.json")
+            self.assertEqual(metadata["image"]["width"], 1200)
+            self.assertIn("og_image", metadata)
+
+    def test_resolve_batch_date_latest_prefers_active_recent_batch(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
+            _write_json(root / "data" / "editorial_queue" / "2026-07-14" / "topics.json", {"topics": []})
+            _write_json(root / "data" / "editorial_queue" / "2026-07-13" / "topics.json", {"topics": [{"slug": "ready-topic"}]})
+            (root / "data" / "production_article_drafts" / "ready-topic").mkdir(parents=True)
+            (root / "data" / "production_article_drafts" / "ready-topic" / "index.html").write_text("<html></html>", encoding="utf-8")
+
+            self.assertEqual(workflow.resolve_batch_date("latest", require_activity=True), "2026-07-13")
 
     def test_editorial_console_partner_intake_parser(self) -> None:
         parser = build_parser()

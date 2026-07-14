@@ -58,8 +58,10 @@ call "%~dp0runbot_partner_intake.bat"
 goto menu
 
 :open_dashboard
-python editorial_console.py serve --date latest --open
-pause
+python editorial_console.py serve --date latest --open --background
+if errorlevel 1 (
+    echo [ERROR] Khong mo duoc dashboard server.
+)
 goto menu
 
 :status
@@ -80,14 +82,14 @@ goto menu
 :publish_ready
 set "PUBLISH_DATE="
 echo.
-set /p PUBLISH_DATE=Nhap ngay can publish (YYYY-MM-DD, de trong = hom nay):
+set /p PUBLISH_DATE=Nhap ngay can publish (YYYY-MM-DD, de trong = batch moi nhat):
 if "%PUBLISH_DATE%"=="" (
-    echo Dang publish cac bai da approved cua hom nay bang smart validation, va se push len GitHub neu thanh cong...
-    python editorial_console.py publish-ready --validation-mode smart
+    echo Dang publish cac bai da approved cua batch moi nhat bang smart validation, va se push len GitHub neu thanh cong...
+    python editorial_console.py publish-ready --date latest --validation-mode smart
     if errorlevel 2 goto publish_no_ready_today
     if errorlevel 1 goto publish_failed_today
     echo.
-    echo [OK] Publish + push GitHub da chay xong cho hom nay.
+    echo [OK] Publish + push GitHub da chay xong cho batch moi nhat.
     echo [INFO] Dang mo live status report de kiem tra trang thai thuc te...
     python editorial_console.py check-live --all --open
 ) else (

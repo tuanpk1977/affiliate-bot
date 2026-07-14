@@ -164,6 +164,7 @@ def build_parser() -> argparse.ArgumentParser:
     serve.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
     serve.add_argument("--port", type=int, default=8765, help="Local HTTP port.")
     serve.add_argument("--open", action="store_true", help="Open the browser automatically.")
+    serve.add_argument("--background", action="store_true", help="Start or reuse the local dashboard server, then return immediately.")
 
     return parser
 
@@ -280,6 +281,76 @@ def _open_local_path(path: str) -> None:
         os.startfile(target)  # type: ignore[attr-defined]
         return
     subprocess.Popen(["xdg-open", target], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+
+def _dashboard_health_url(port: int) -> str:
+    return f"http://127.0.0.1:{port}/health"
+
+
+def _dashboard_url(*, port: int, batch_date: str) -> str:
+    return f"http://127.0.0.1:{port}/?date={batch_date}"
+
+
+def _server_is_healthy(port: int) -> bool:
+    try:
+        urllib.request.urlopen(_dashboard_health_url(port), timeout=1).close()
+        return True
+    except Exception:
+        return False
+
+
+def _serve_dashboard_background(*, batch_date: str, port: int, open_browser: bool) -> int:
+    url = _dashboard_url(port=port, batch_date=batch_date)
+    if _server_is_healthy(port):
+        if open_browser:
+            _open_local_path(url)
+        print(json.dumps({"status": "reused_existing_server", "url": url, "port": port}, indent=2, ensure_ascii=False))
+        return 0
+
+    log_dir = ROOT / "logs"
+    log_dir.mkdir(parents=True, exist_ok=True)
+    log_path = log_dir / f"dashboard_server_{port}.log"
+    log_handle = log_path.open("a", encoding="utf-8")
+    command = [
+        sys.executable,
+        str(ROOT / "editorial_console.py"),
+        "serve",
+        "--date",
+        batch_date,
+        "--port",
+        str(port),
+    ]
+    creationflags = 0
+    if os.name == "nt":
+        creationflags = getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0) | getattr(subprocess, "DETACHED_PROCESS", 0)
+    try:
+        process = subprocess.Popen(
+            command,
+            cwd=ROOT,
+            stdout=log_handle,
+            stderr=subprocess.STDOUT,
+            stdin=subprocess.DEVNULL,
+            creationflags=creationflags,
+        )
+    except Exception:
+        log_handle.close()
+        raise
+
+    deadline = time.monotonic() + 10
+    while time.monotonic() < deadline:
+        if process.poll() is not None:
+            log_handle.close()
+            print(f"[ERROR] Dashboard server exited early with code {process.returncode}. Log: {log_path}", flush=True)
+            return 1
+        if _server_is_healthy(port):
+            if open_browser:
+                _open_local_path(url)
+            print(json.dumps({"status": "started_background_server", "pid": process.pid, "url": url, "port": port, "log": str(log_path)}, indent=2, ensure_ascii=False))
+            return 0
+        time.sleep(0.25)
+
+    print(f"[ERROR] Dashboard server did not become healthy on port {port}. Log: {log_path}", flush=True)
+    return 1
 
 
 def _start_publish_watch(workflow: DailyEditorialWorkflow) -> tuple[threading.Event, threading.Thread, float]:
@@ -445,20 +516,36 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(result, indent=2, ensure_ascii=False))
         return 0
     if args.command == "publish-ready":
-        diagnostic = workflow.diagnose_batch(batch_date=args.date) if hasattr(workflow, "diagnose_batch") else {"candidates": []}
+        requested_date = args.date
+        resolved_date = workflow.resolve_batch_date(requested_date, require_activity=True) if hasattr(workflow, "resolve_batch_date") else requested_date
+        if resolved_date != requested_date:
+            print(f"Requested batch: {requested_date}", flush=True)
+            print(f"Resolved batch: {resolved_date}", flush=True)
+        asset_preparation = {}
+        if hasattr(workflow, "prepare_required_images_for_publish"):
+            asset_preparation = workflow.prepare_required_images_for_publish(batch_date=resolved_date, dry_run=False)
+            print(
+                "Image preparation: "
+                f"inspected={asset_preparation.get('inspected', 0)} "
+                f"missing={asset_preparation.get('missing', 0)} "
+                f"generated={asset_preparation.get('generated', 0)} "
+                f"failed={asset_preparation.get('failed', 0)}",
+                flush=True,
+            )
+        diagnostic = workflow.diagnose_batch(batch_date=resolved_date) if hasattr(workflow, "diagnose_batch") else {"candidates": []}
         selected_slugs = [row["slug"] for row in diagnostic["candidates"] if row["selected_for_publish"]]
         _print_candidate_table(diagnostic)
         try:
-            publish_lock.acquire(batch_date=args.date, slugs=selected_slugs, command="publish-ready")
+            publish_lock.acquire(batch_date=resolved_date, slugs=selected_slugs, command="publish-ready")
         except RuntimeError as exc:
             print(f"[ERROR] {exc}", flush=True)
             return 3
         stop_event, watcher, started_at = _start_publish_watch(workflow)
         try:
-            result = workflow.publish_ready(batch_date=args.date, validation_mode=args.validation_mode)
+            result = workflow.publish_ready(batch_date=resolved_date, validation_mode=args.validation_mode)
         except ValueError as exc:
             if _is_no_ready_publish_error(exc):
-                _print_no_ready_publish_summary(workflow, batch_date=args.date)
+                _print_no_ready_publish_summary(workflow, batch_date=resolved_date)
                 return 2
             print(f"[ERROR] Publish-ready failed: {exc}", flush=True)
             return 1
@@ -471,6 +558,8 @@ def main(argv: list[str] | None = None) -> int:
             publish_lock.release()
         total_seconds = int(time.monotonic() - started_at)
         print(f"[OK] Publish-ready hoan tat sau {total_seconds} giay.", flush=True)
+        if asset_preparation:
+            result.setdefault("asset_preparation", asset_preparation)
         post_push = result.get("post_push_live_check") or {}
         if post_push:
             print(f"[POST-PUSH] {post_push.get('message', '')}", flush=True)
@@ -615,9 +704,10 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps({**payload, "target": target}, indent=2, ensure_ascii=False))
         return 0
     if args.command == "serve":
-        url = f"http://127.0.0.1:{args.port}/?date={args.date}"
-        try:
-            urllib.request.urlopen(f"http://127.0.0.1:{args.port}/health", timeout=1).close()
+        if args.background:
+            return _serve_dashboard_background(batch_date=args.date, port=args.port, open_browser=args.open)
+        url = _dashboard_url(port=args.port, batch_date=args.date)
+        if _server_is_healthy(args.port):
             if args.open:
                 _open_local_path(url)
             print(
@@ -632,8 +722,6 @@ def main(argv: list[str] | None = None) -> int:
                 )
             )
             return 0
-        except Exception:
-            pass
         server = ReviewDashboardServer(workflow=workflow).serve(batch_date=args.date, port=args.port, open_browser=args.open)
         print(
             json.dumps(

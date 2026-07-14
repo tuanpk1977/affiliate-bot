@@ -866,6 +866,7 @@ class DailyEditorialWorkflow:
         )
 
     def publish_ready(self, *, batch_date: str, validation_mode: str = "smart") -> dict[str, Any]:
+        asset_preparation = self.prepare_required_images_for_publish(batch_date=batch_date, dry_run=False)
         payload = self._load_queue(batch_date)
         topics = payload.get("topics", [])
         if not topics:
@@ -945,7 +946,173 @@ class DailyEditorialWorkflow:
         payload["skipped"] = skipped + list(payload.get("skipped") or [])
         payload["skipped_count"] = len(payload["skipped"])
         payload["carry_forward_count"] = len(carry_forward_items)
+        payload["asset_preparation"] = asset_preparation
         return payload
+
+    def prepare_required_images_for_publish(self, *, batch_date: str, dry_run: bool = False) -> dict[str, Any]:
+        payload = self._load_queue(batch_date)
+        publish_rows = {
+            str(row.get("slug") or ""): row
+            for row in _read_json(self.data_dir / "publish_queue.json", [])
+        }
+        human_rows = {str(row.get("slug") or ""): row for row in _read_json(self.data_dir / "human_approval_queue.json", [])}
+        inspected = 0
+        missing = 0
+        generated = 0
+        skipped = 0
+        failed = 0
+        items: list[dict[str, Any]] = []
+        for item in payload.get("topics", []):
+            slug = str(item.get("slug") or "")
+            if not slug:
+                continue
+            publish_row = publish_rows.get(slug, {})
+            normalized = PublishGate.normalize_existing_row(publish_row)
+            if (
+                str(normalized.get("normalized_status") or publish_row.get("status") or "") != "approved_for_publish"
+                or normalized.get("final_gate") != "Ready for Publish"
+                or list(normalized.get("hard_blockers") or [])
+                or str((human_rows.get(slug) or {}).get("status") or "") != "human_approved"
+            ):
+                continue
+            diagnostic = self._candidate_diagnostic(batch_date=batch_date, item=item, publish_row=publish_row)
+            if diagnostic["published_local"] or diagnostic["live_http_status"] == 200:
+                continue
+            inspected += 1
+            if diagnostic["image_exists"]:
+                skipped += 1
+                items.append({"slug": slug, "status": "already_has_image"})
+                continue
+            missing += 1
+            try:
+                result = self._ensure_required_article_image(slug=slug, title=str(item.get("topic") or item.get("title") or slug), dry_run=dry_run)
+                if result["status"] == "generated":
+                    generated += 1
+                else:
+                    skipped += 1
+                items.append(result)
+            except Exception as exc:
+                failed += 1
+                items.append({"slug": slug, "status": "failed", "error": str(exc)})
+        return {
+            "date": batch_date,
+            "dry_run": dry_run,
+            "inspected": inspected,
+            "missing": missing,
+            "generated": generated,
+            "skipped": skipped,
+            "failed": failed,
+            "items": items,
+        }
+
+    def _required_image_src(self, slug: str) -> str:
+        return f"/assets/og/pages/{slug}.svg"
+
+    def _required_image_asset_paths(self, slug: str) -> list[Path]:
+        rel = Path("assets") / "og" / "pages" / f"{slug}.svg"
+        return [
+            self.root / rel,
+            self.site_output_dir / rel,
+            self.root / "docs" / rel,
+        ]
+
+    def _render_local_cover_svg(self, *, title: str, slug: str) -> str:
+        safe_title = html.escape(title[:120])
+        safe_slug = html.escape(slug)
+        return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">{safe_title}</title>
+  <desc id="desc">Smile AI Review Hub editorial cover for {safe_slug}</desc>
+  <rect width="1200" height="630" fill="#0f172a"/>
+  <rect x="48" y="48" width="1104" height="534" rx="28" fill="#f8fafc"/>
+  <text x="92" y="132" fill="#0f766e" font-family="Arial, sans-serif" font-size="34" font-weight="700">Smile AI Review Hub</text>
+  <text x="92" y="288" fill="#111827" font-family="Arial, sans-serif" font-size="58" font-weight="700">{safe_title}</text>
+  <text x="92" y="420" fill="#475569" font-family="Arial, sans-serif" font-size="30">Source-backed AI software review</text>
+  <circle cx="1010" cy="422" r="76" fill="#14b8a6"/>
+  <path d="M973 421l26 27 55-70" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+"""
+
+    def _ensure_required_article_image(self, *, slug: str, title: str, dry_run: bool = False) -> dict[str, Any]:
+        paths = self._article_bundle_paths(slug)
+        draft_path = paths["draft_html"]
+        if not draft_path.exists():
+            raise FileNotFoundError(f"Missing draft HTML for {slug}: {draft_path}")
+        html_text = draft_path.read_text(encoding="utf-8", errors="ignore")
+        if self._html_has_local_image(html_text):
+            return {"slug": slug, "status": "already_has_image", "changed_files": []}
+        image_src = self._required_image_src(slug)
+        changed_files = [str(path) for path in self._required_image_asset_paths(slug)]
+        changed_files.extend([str(draft_path), str(paths["metadata"])])
+        if dry_run:
+            return {"slug": slug, "status": "would_generate", "image_src": image_src, "changed_files": changed_files}
+
+        svg = self._render_local_cover_svg(title=title, slug=slug)
+        for asset_path in self._required_image_asset_paths(slug):
+            asset_path.parent.mkdir(parents=True, exist_ok=True)
+            if not asset_path.exists():
+                asset_path.write_text(svg, encoding="utf-8")
+        image_html = (
+            f'<img class="article-hero-image" src="{html.escape(image_src)}" '
+            f'width="1200" height="630" alt="{html.escape(title)} cover image" '
+            f'loading="eager" decoding="async">'
+        )
+        updated_html = self._inject_required_image_html(html_text, image_html=image_html)
+        absolute_image = f"{settings.base_site_url.rstrip('/')}{image_src}"
+        updated_html = self._upsert_meta_property(updated_html, "og:image", absolute_image)
+        updated_html = self._upsert_meta_name(updated_html, "twitter:image", absolute_image)
+        draft_path.write_text(updated_html, encoding="utf-8")
+
+        metadata = _read_json(paths["metadata"], {})
+        if isinstance(metadata, dict):
+            metadata["image"] = {
+                "src": image_src,
+                "alt": f"{title} cover image",
+                "width": 1200,
+                "height": 630,
+                "generated_by": "local_svg_cover_generator",
+            }
+            metadata["og_image"] = absolute_image
+            metadata["twitter_image"] = absolute_image
+            _write_json(paths["metadata"], metadata)
+        return {"slug": slug, "status": "generated", "image_src": image_src, "changed_files": changed_files}
+
+    def _html_has_local_image(self, html_text: str) -> bool:
+        for match in re.finditer(r"<img\b[^>]*\bsrc=[\"']([^\"']+)[\"'][^>]*>", html_text, flags=re.IGNORECASE):
+            src = match.group(1).strip()
+            if not src or src.startswith(("http://", "https://", "data:")):
+                return bool(src)
+            if src.startswith("/"):
+                rel = src.lstrip("/")
+                if (self.site_output_dir / rel).exists() or (self.root / "docs" / rel).exists() or (self.root / rel).exists():
+                    return True
+                return True
+            return True
+        return False
+
+    def _inject_required_image_html(self, html_text: str, *, image_html: str) -> str:
+        h1_match = re.search(r"</h1>", html_text, flags=re.IGNORECASE)
+        if h1_match:
+            insert_at = h1_match.end()
+            return html_text[:insert_at] + "\n" + image_html + html_text[insert_at:]
+        body_match = re.search(r"<body[^>]*>", html_text, flags=re.IGNORECASE)
+        if body_match:
+            insert_at = body_match.end()
+            return html_text[:insert_at] + "\n" + image_html + html_text[insert_at:]
+        return image_html + "\n" + html_text
+
+    def _upsert_meta_property(self, html_text: str, property_name: str, content: str) -> str:
+        pattern = rf"<meta\b[^>]*\bproperty=[\"']{re.escape(property_name)}[\"'][^>]*>"
+        replacement = f'<meta property="{html.escape(property_name)}" content="{html.escape(content)}">'
+        if re.search(pattern, html_text, flags=re.IGNORECASE):
+            return re.sub(pattern, replacement, html_text, count=1, flags=re.IGNORECASE)
+        return html_text.replace("</head>", f"  {replacement}\n</head>", 1)
+
+    def _upsert_meta_name(self, html_text: str, name: str, content: str) -> str:
+        pattern = rf"<meta\b[^>]*\bname=[\"']{re.escape(name)}[\"'][^>]*>"
+        replacement = f'<meta name="{html.escape(name)}" content="{html.escape(content)}">'
+        if re.search(pattern, html_text, flags=re.IGNORECASE):
+            return re.sub(pattern, replacement, html_text, count=1, flags=re.IGNORECASE)
+        return html_text.replace("</head>", f"  {replacement}\n</head>", 1)
 
     def autofix_batch(self, *, batch_date: str) -> dict[str, Any]:
         candidates = self._publish_validation_candidates(batch_date=batch_date)
@@ -1078,7 +1245,7 @@ class DailyEditorialWorkflow:
         source_path = paths["site_output"] if paths["site_output"].exists() else paths["draft_html"]
         html_text = source_path.read_text(encoding="utf-8", errors="ignore") if source_path.exists() else ""
         url = normalize_public_url(str(publish_row.get("url") or f"{settings.base_site_url.rstrip('/')}/{slug}/"))
-        image_exists = "<img" in html_text
+        image_exists = self._html_has_local_image(html_text)
         schema_passes = "application/ld+json" in html_text
         canonical_passes = bool(re.search(r"<link\b[^>]*\brel=[\"']canonical[\"'][^>]*\bhref=[\"']https?://[^\"']+[\"']", html_text, flags=re.IGNORECASE))
         if not image_exists: reasons.append("required image missing")
@@ -3287,6 +3454,41 @@ class DailyEditorialWorkflow:
             if (path / "topics.json").exists():
                 candidates.append(path.name)
         return max(candidates) if candidates else ""
+
+    def resolve_batch_date(self, batch_date: str | None, *, require_activity: bool = False) -> str:
+        requested = str(batch_date or "").strip()
+        if requested and requested.lower() != "latest":
+            return requested
+        if not self.queue_root.exists():
+            return requested or date.today().isoformat()
+        candidates: list[tuple[str, int]] = []
+        human_rows = {str(row.get("slug") or ""): row for row in _read_json(self.data_dir / "human_approval_queue.json", [])}
+        for path in self.queue_root.iterdir():
+            if not path.is_dir() or path.name == "weeks":
+                continue
+            try:
+                date.fromisoformat(path.name)
+            except ValueError:
+                continue
+            queue_path = path / "topics.json"
+            if not queue_path.exists():
+                continue
+            payload = _read_json(queue_path, {})
+            topics = list(payload.get("topics") or []) if isinstance(payload, dict) else []
+            activity = 0
+            for item in topics:
+                slug = str(item.get("slug") or "")
+                if (self.data_dir / "production_article_drafts" / slug / "index.html").exists():
+                    activity += 1
+                if str((human_rows.get(slug) or {}).get("status") or "") == "human_approved":
+                    activity += 2
+            if require_activity and activity <= 0:
+                continue
+            candidates.append((path.name, activity))
+        if not candidates:
+            return self.latest_queue_date() or requested or date.today().isoformat()
+        candidates.sort(key=lambda row: (row[0], row[1]))
+        return candidates[-1][0]
 
     def _save_queue(self, batch_date: str, payload: dict[str, Any]) -> None:
         _write_json(self._queue_dir(batch_date) / "topics.json", payload)

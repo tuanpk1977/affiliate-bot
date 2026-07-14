@@ -174,18 +174,19 @@ def _provider_status(config: dict[str, Any], provider_info: dict[str, Any] | Non
     }
 
 
-def _existing_slug_paths(slug: str) -> list[str]:
+def _existing_slug_paths(slug: str, *, root: Path | None = None) -> list[str]:
+    root = root or settings.base_dir
     paths = [
-        settings.base_dir / "docs" / slug / "index.html",
-        settings.base_dir / "site_output" / slug / "index.html",
-        settings.base_dir / "data" / "published_static_pages" / slug / "index.html",
-        settings.base_dir / "data" / "production_article_drafts" / f"{slug}.md",
-        settings.base_dir / "data" / "production_article_drafts" / slug / "index.html",
+        root / "docs" / slug / "index.html",
+        root / "site_output" / slug / "index.html",
+        root / "data" / "published_static_pages" / slug / "index.html",
+        root / "data" / "production_article_drafts" / f"{slug}.md",
+        root / "data" / "production_article_drafts" / slug / "index.html",
     ]
     return [str(path) for path in paths if path.exists()]
 
 
-def _select_topics(count: int) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+def _select_topics(count: int, *, collision_root: Path | None = None) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     candidates: list[dict[str, Any]] = []
     rejected: list[dict[str, Any]] = []
     seen: set[str] = set()
@@ -196,7 +197,7 @@ def _select_topics(count: int) -> tuple[list[dict[str, Any]], list[dict[str, Any
         reasons: list[str] = []
         if slug in seen:
             reasons.append("duplicate in canary list")
-        if _existing_slug_paths(slug):
+        if _existing_slug_paths(slug, root=collision_root):
             reasons.append("existing production/draft slug collision")
         if any(term in str(topic.get("topic") or "").lower() for term in HIGH_RISK_TERMS):
             reasons.append("high-risk topic excluded from first canary")
@@ -338,7 +339,7 @@ def _validate_article(article: dict[str, Any], html_doc: str) -> dict[str, Any]:
     return checks
 
 
-def run_canary_batch(*, count: int = 5, output_root: Path | None = None, batch_id: str | None = None, allow_heuristic_fallback: bool = True) -> dict[str, Any]:
+def run_canary_batch(*, count: int = 5, output_root: Path | None = None, batch_id: str | None = None, allow_heuristic_fallback: bool = True, collision_root: Path | None = None) -> dict[str, Any]:
     started = time.monotonic()
     batch_id = batch_id or datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
     output_root = output_root or settings.base_dir / "artifacts" / "canary"
@@ -390,7 +391,7 @@ def run_canary_batch(*, count: int = 5, output_root: Path | None = None, batch_i
         _write_json(batch_root / "canary_report.json", report)
         _write_text(batch_root / "canary_report.md", _format_markdown(report))
         return report
-    selected, rejected = _select_topics(count)
+    selected, rejected = _select_topics(count, collision_root=collision_root)
     results: list[dict[str, Any]] = []
     failed: list[dict[str, Any]] = []
     research_platform = ResearchIntelligencePlatform(data_dir=data_dir, site_output_dir=site_output_dir, config=settings.editorial_config)
