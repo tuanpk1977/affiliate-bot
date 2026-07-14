@@ -58,7 +58,7 @@ call "%~dp0runbot_partner_intake.bat"
 goto menu
 
 :open_dashboard
-python editorial_console.py serve --date latest --open --background
+start "Smile AI Review Dashboard" /min cmd /c "cd /d ""%~dp0"" && python editorial_console.py serve --date latest --open"
 if errorlevel 1 (
     echo [ERROR] Khong mo duoc dashboard server.
 )

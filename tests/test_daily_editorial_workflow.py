@@ -342,7 +342,8 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
     def test_runbot_menu_opens_dashboard_in_background_and_latest_publish(self) -> None:
         menu_text = (Path(__file__).resolve().parents[1] / "runbot_menu.bat").read_text(encoding="utf-8")
 
-        self.assertIn("python editorial_console.py serve --date latest --open --background", menu_text)
+        self.assertIn('start "Smile AI Review Dashboard" /min cmd /c', menu_text)
+        self.assertIn("python editorial_console.py serve --date latest --open", menu_text)
         self.assertIn("de trong = batch moi nhat", menu_text)
         self.assertIn("python editorial_console.py publish-ready --date latest --validation-mode smart", menu_text)
         open_section = menu_text.split(":open_dashboard", 1)[1].split(":status", 1)[0]
