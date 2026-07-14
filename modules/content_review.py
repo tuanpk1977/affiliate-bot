@@ -19,6 +19,7 @@ from modules.editorial_quality import (
     TargetedRewriteExecutor,
     TargetedRewriteLoop,
 )
+from modules.editorial_quality import SectionRewriteProvider
 
 
 REVIEW_STATUSES = {
@@ -80,7 +81,7 @@ def _strip_html(value: str) -> str:
 
 
 class ContentReviewEngine:
-    def __init__(self, data_dir: Path | None = None, config: dict[str, Any] | None = None) -> None:
+    def __init__(self, data_dir: Path | None = None, config: dict[str, Any] | None = None, rewrite_provider: SectionRewriteProvider | None = None) -> None:
         self.data_dir = data_dir or settings.data_dir
         self.config = config or {}
         self.queue_path = self.data_dir / "content_review_queue.json"
@@ -92,7 +93,7 @@ class ContentReviewEngine:
         self.knowledge_graph = KnowledgeGraphRuntime(self.data_dir, self.config.get("knowledge_graph", {}) if isinstance(self.config.get("knowledge_graph"), dict) else {})
         self.structured_review_builder = StructuredReviewBuilder()
         self.rewrite_loop = TargetedRewriteLoop(self.config.get("rewrite_loop", {}) if isinstance(self.config.get("rewrite_loop"), dict) else {})
-        self.rewrite_executor = TargetedRewriteExecutor(self.config.get("rewrite_loop", {}) if isinstance(self.config.get("rewrite_loop"), dict) else {})
+        self.rewrite_executor = TargetedRewriteExecutor(self.config.get("rewrite_loop", {}) if isinstance(self.config.get("rewrite_loop"), dict) else {}, provider=rewrite_provider)
         self.confidence_engine = PublishingConfidenceEngine(self.config.get("publishing_confidence", {}) if isinstance(self.config.get("publishing_confidence"), dict) else {})
         self.judge = EditorialJudge()
 

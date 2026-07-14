@@ -97,6 +97,15 @@
   "human_approval": {
     "required": true
   },
+  "llm_provider": {
+    "provider": "auto",
+    "model": "gpt-4o-mini",
+    "temperature": 0.3,
+    "max_output_tokens": 4000,
+    "timeout_seconds": 90,
+    "max_retries": 2,
+    "allow_heuristic_fallback_in_production": false
+  },
   "threshold_policy": {
     "enabled": true,
     "mode": "staged",

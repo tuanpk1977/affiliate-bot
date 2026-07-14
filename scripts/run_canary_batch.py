@@ -20,6 +20,7 @@ if str(ROOT) not in sys.path:
 from config import settings
 from modules.content_review import ContentReviewEngine
 from modules.editorial_quality import EditorialBrain
+from modules.llm_provider import LLMSectionRewriteProvider, build_llm_service, render_writer_output
 from modules.research_intelligence import ResearchIntelligencePlatform, ResearchPackage
 
 
@@ -148,22 +149,28 @@ def _domain(url: str) -> str:
     return host[4:] if host.startswith("www.") else host
 
 
-def _provider_status(config: dict[str, Any]) -> dict[str, Any]:
-    provider_config = config.get("providers") if isinstance(config.get("providers"), dict) else {}
-    writer_config = config.get("writer_provider") or config.get("generation_provider") or provider_config.get("writer")
-    writer_available = bool(writer_config)
-    # Environment names are checked only as booleans. Secret values are never read or logged.
-    openai_key_present = bool(os.getenv("OPENAI_API_KEY"))
-    heuristic = not writer_available
+def _provider_status(config: dict[str, Any], provider_info: dict[str, Any] | None = None) -> dict[str, Any]:
+    provider_info = provider_info or {}
+    provider = provider_info.get("provider") or "none"
+    model = provider_info.get("model") or ""
+    available = bool(provider_info.get("provider_available", False))
+    fallback_allowed = bool(provider_info.get("allow_heuristic_fallback", False))
+    heuristic = not available
     return {
         "research_provider": "ResearchIntelligencePlatform(local)",
-        "writer_provider": str(writer_config or "heuristic_fallback"),
+        "provider": provider,
+        "model": model,
+        "writer_provider": provider if available else "heuristic_fallback",
         "reviewer_provider": "ContentReviewEngine(local_ai_review_v2)",
-        "rewrite_provider": "configured_writer" if writer_available else "heuristic_fallback",
+        "rewrite_provider": provider if available else "heuristic_fallback",
         "judge_provider": "EditorialJudge(local)",
-        "openai_api_key_present": openai_key_present,
+        "credentials_detected": bool(provider_info.get("credentials_detected", False)),
+        "missing_environment": provider_info.get("missing_environment", []),
+        "provider_available": available,
+        "allow_heuristic_fallback": fallback_allowed,
         "heuristic_fallback_used": heuristic,
-        "provider_mode": "configured_writer" if writer_available else "heuristic_fallback",
+        "provider_mode": provider if available else "heuristic_fallback",
+        "telemetry": provider_info.get("telemetry", {}),
     }
 
 
@@ -331,7 +338,7 @@ def _validate_article(article: dict[str, Any], html_doc: str) -> dict[str, Any]:
     return checks
 
 
-def run_canary_batch(*, count: int = 5, output_root: Path | None = None, batch_id: str | None = None) -> dict[str, Any]:
+def run_canary_batch(*, count: int = 5, output_root: Path | None = None, batch_id: str | None = None, allow_heuristic_fallback: bool = True) -> dict[str, Any]:
     started = time.monotonic()
     batch_id = batch_id or datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
     output_root = output_root or settings.base_dir / "artifacts" / "canary"
@@ -339,14 +346,58 @@ def run_canary_batch(*, count: int = 5, output_root: Path | None = None, batch_i
     data_dir = batch_root / "data"
     site_output_dir = batch_root / "site_output"
     drafts_dir = batch_root / "drafts"
-    provider_status = _provider_status(settings.editorial_config)
+    llm_service, provider_info = build_llm_service(settings.editorial_config, allow_heuristic_fallback=allow_heuristic_fallback)
+    provider_status = _provider_status(settings.editorial_config, provider_info)
+    if llm_service is None and not allow_heuristic_fallback:
+        report = {
+            "canary_mode": True,
+            "canary_batch_size": count,
+            "batch_id": batch_id,
+            "output_root": str(batch_root),
+            "provider_status": provider_status,
+            "safety": SAFETY,
+            "selected": 0,
+            "rejected": [],
+            "research_completed": 0,
+            "drafts_generated": 0,
+            "rewrite_attempts": 0,
+            "review_ready": 0,
+            "canary_queue_items": 0,
+            "production_review_ready": 0,
+            "warning_only": 0,
+            "blocked": 0,
+            "held": 0,
+            "failed": 0,
+            "average_confidence": 0.0,
+            "average_pipeline_seconds": 0.0,
+            "estimated_total_cost": 0.0,
+            "per_article": [],
+            "failed_items": [],
+            "quality_check": {
+                "source_validation": False,
+                "fact_validation": False,
+                "schema_validation": False,
+                "render_validation": False,
+                "duplicate_validation": False,
+            },
+            "production_recommendation": {
+                "ready_for_5_per_day": False,
+                "ready_for_10_per_day": False,
+                "reasons": ["production LLM provider is unavailable and heuristic fallback is disabled"],
+                "required_fixes": ["configure OPENAI_API_KEY or another supported provider credential"],
+            },
+        }
+        _write_json(batch_root / "canary_report.json", report)
+        _write_text(batch_root / "canary_report.md", _format_markdown(report))
+        return report
     selected, rejected = _select_topics(count)
     results: list[dict[str, Any]] = []
     failed: list[dict[str, Any]] = []
     research_platform = ResearchIntelligencePlatform(data_dir=data_dir, site_output_dir=site_output_dir, config=settings.editorial_config)
     review_config = dict(settings.editorial_config.get("content_review", {}))
     review_config["require_human_approval"] = True
-    review_engine = ContentReviewEngine(data_dir=data_dir, config=review_config)
+    rewrite_provider = LLMSectionRewriteProvider(llm_service) if llm_service is not None else None
+    review_engine = ContentReviewEngine(data_dir=data_dir, config=review_config, rewrite_provider=rewrite_provider)
 
     for topic in selected:
         article_started = time.monotonic()
@@ -354,7 +405,11 @@ def run_canary_batch(*, count: int = 5, output_root: Path | None = None, batch_i
         try:
             package = research_platform.build_research_package(topic, force_refresh=True)
             gate = research_platform.evaluate_quality_gate(package, topic=topic, allow_override=False)
-            html_doc, markdown, claim_mapping = _render_article(topic, package)
+            if llm_service is not None:
+                writer_payload = llm_service.write_article(topic=topic, research_package=_package_to_dict(package))
+                html_doc, markdown, claim_mapping = render_writer_output(writer_payload, canonical_url=f"https://smileaireviewhub.com/{slug}/")
+            else:
+                html_doc, markdown, claim_mapping = _render_article(topic, package)
             review = review_engine.review_content(
                 topic=topic,
                 html=html_doc,
@@ -423,6 +478,10 @@ def run_canary_batch(*, count: int = 5, output_root: Path | None = None, batch_i
             failed.append({"article_id": slug, "topic": topic.get("topic"), "status": "failed", "error": f"{type(exc).__name__}: {exc}"})
             continue
 
+    if llm_service is not None:
+        provider_status["telemetry"] = llm_service.telemetry.as_dict()
+        provider_status["heuristic_fallback_used"] = bool(llm_service.telemetry.fallback_used)
+
     review_queue = [
         row for row in results
         if row["status"] in {"canary_review_ready", "held"} and not row["hard_blockers"]
@@ -437,6 +496,7 @@ def run_canary_batch(*, count: int = 5, output_root: Path | None = None, batch_i
         "render_validation": all(row["validation"]["render_validation"] for row in results) if results else False,
         "duplicate_validation": all(row["validation"]["duplicate_validation"] for row in results) if results else False,
     }
+    provider_failed = bool(failed) and llm_service is not None
     report = {
         "canary_mode": True,
         "canary_batch_size": count,
@@ -458,21 +518,29 @@ def run_canary_batch(*, count: int = 5, output_root: Path | None = None, batch_i
         "failed": len(failed),
         "average_confidence": round(sum(confidence_scores) / max(1, len(confidence_scores)), 2),
         "average_pipeline_seconds": round(elapsed / max(1, len(results)), 4),
-        "estimated_total_cost": 0.0,
+        "estimated_total_cost": float(provider_status.get("telemetry", {}).get("estimated_cost", 0.0) or 0.0),
         "per_article": results,
         "failed_items": failed,
         "quality_check": quality,
         "production_recommendation": {
-            "ready_for_5_per_day": False if provider_status["heuristic_fallback_used"] else len(results) == count and not failed,
+            "ready_for_5_per_day": False if provider_status["heuristic_fallback_used"] or provider_failed else len(results) == count and not failed,
             "ready_for_10_per_day": False,
             "reasons": [
                 "writer provider is heuristic_fallback; canary verifies orchestration only",
                 "manual editorial review is still required before any publish action",
-            ] if provider_status["heuristic_fallback_used"] else ["complete a larger canary before moving to 10 per day"],
+            ] if provider_status["heuristic_fallback_used"] else (
+                ["production LLM provider returned errors during writer generation", "no article was routed to production review-ready"]
+                if provider_failed
+                else ["complete a larger canary before moving to 10 per day"]
+            ),
             "required_fixes": [
                 "configure and test a production writer provider",
                 "run another canary with production writer output before enabling production review-ready routing",
-            ] if provider_status["heuristic_fallback_used"] else ["review 5-per-day operating metrics before increasing volume"],
+            ] if provider_status["heuristic_fallback_used"] else (
+                ["fix provider credential/model/API access error and rerun canary with fallback disabled"]
+                if provider_failed
+                else ["review 5-per-day operating metrics before increasing volume"]
+            ),
         },
     }
     _write_json(batch_root / "canary_report.json", report)
@@ -513,8 +581,14 @@ def main() -> int:
     parser.add_argument("--count", type=int, default=5)
     parser.add_argument("--output-root", type=Path, default=None)
     parser.add_argument("--batch-id", default=None)
+    parser.add_argument(
+        "--allow-heuristic-fallback",
+        action="store_true",
+        default=str(os.getenv("ALLOW_HEURISTIC_FALLBACK", "")).strip().lower() in {"1", "true", "yes", "on"},
+        help="Allow local heuristic writer/rewrite fallback. Keep disabled for production-like canaries.",
+    )
     args = parser.parse_args()
-    report = run_canary_batch(count=args.count, output_root=args.output_root, batch_id=args.batch_id)
+    report = run_canary_batch(count=args.count, output_root=args.output_root, batch_id=args.batch_id, allow_heuristic_fallback=args.allow_heuristic_fallback)
     print(json.dumps({k: report[k] for k in ("canary_mode", "canary_batch_size", "output_root", "selected", "drafts_generated", "held", "blocked", "failed", "average_confidence")}, indent=2))
     return 0 if report["selected"] == args.count and report["failed"] == 0 else 1
 

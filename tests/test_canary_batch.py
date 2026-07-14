@@ -4,15 +4,16 @@ import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import patch
 
 from scripts.run_canary_batch import run_canary_batch
 
 
 class CanaryBatchTests(unittest.TestCase):
     def test_canary_batch_writes_artifacts_only_and_preserves_safety_flags(self) -> None:
-        with TemporaryDirectory() as temp_dir:
+        with TemporaryDirectory() as temp_dir, patch.dict("os.environ", {"OPENAI_API_KEY": ""}, clear=False):
             output_root = Path(temp_dir) / "artifacts" / "canary"
-            report = run_canary_batch(count=5, output_root=output_root, batch_id="test-canary")
+            report = run_canary_batch(count=5, output_root=output_root, batch_id="test-canary", allow_heuristic_fallback=True)
 
             self.assertTrue(report["canary_mode"])
             self.assertEqual(report["canary_batch_size"], 5)
@@ -53,9 +54,9 @@ class CanaryBatchTests(unittest.TestCase):
             self.assertEqual(stored["production_recommendation"]["ready_for_5_per_day"], False)
 
     def test_single_article_failure_does_not_stop_canary_batch(self) -> None:
-        with TemporaryDirectory() as temp_dir:
+        with TemporaryDirectory() as temp_dir, patch.dict("os.environ", {"OPENAI_API_KEY": ""}, clear=False):
             output_root = Path(temp_dir) / "artifacts" / "canary"
-            report = run_canary_batch(count=3, output_root=output_root, batch_id="partial-canary")
+            report = run_canary_batch(count=3, output_root=output_root, batch_id="partial-canary", allow_heuristic_fallback=True)
 
             self.assertEqual(report["selected"], 3)
             self.assertEqual(len(report["per_article"]), 3)
