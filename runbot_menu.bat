@@ -10,8 +10,8 @@ title Smile AI Review Hub - Runbot Menu
 echo ========================================
 echo Smile AI Review Hub - Runbot Menu
 echo ========================================
-echo 1. Week start - generate 10 weekly topics and drafts
-echo 2. Tue-Sun - generate advanced follow-up drafts
+echo 1. Week start - prepare 10 topics and research
+echo 2. Tue-Sun - prepare advanced topics and research
 echo 3. Custom topic
 echo 4. Open dashboard
 echo 5. Status

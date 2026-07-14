@@ -25,6 +25,7 @@ from modules.editorial_operations_console import EditorialOperationsConsole
 from modules.editorial_state_reset import EditorialStateReset
 from modules.publish_gate import PublishGate
 from modules.publishing_indexing import normalize_public_url, validate_page
+from modules.research_intelligence import ResearchIntelligencePlatform
 
 
 def _read_json(path: Path, default: Any) -> Any:
@@ -474,6 +475,92 @@ class DailyEditorialWorkflow:
             "blocked": blocked,
             "capacity": capacity,
             "capacity_report": str(capacity_report),
+            "topics": results,
+            "dashboard": dashboard,
+            "upload_dir": str(self.upload_root / batch_date),
+            "master_dashboard": str(master_dashboard),
+            "upload_summary": upload_summary,
+        }
+
+    def prepare_research(self, *, batch_date: str) -> dict[str, Any]:
+        """Build or refresh research packages for queued topics without drafting articles."""
+        payload = self._load_queue(batch_date)
+        topics = payload.get("topics", [])
+        prepared = 0
+        blocked = 0
+        results: list[dict[str, Any]] = []
+        platform = ResearchIntelligencePlatform(
+            data_dir=self.data_dir,
+            site_output_dir=self.site_output_dir,
+            config=self.editorial_config,
+        )
+        for item in topics:
+            slug = str(item.get("slug") or "")
+            topic_record = {
+                "topic": str(item.get("keyword") or item.get("topic") or slug.replace("-", " ")),
+                "slug": slug,
+                "title": str(item.get("keyword") or item.get("topic") or slug.replace("-", " ")),
+                "content_type": str(item.get("content_type") or classify_content_type(str(item.get("keyword") or item.get("topic") or ""))),
+                "search_intent": str(item.get("search_intent") or classify_search_intent(str(item.get("keyword") or item.get("topic") or ""))),
+                "related_keywords": list(item.get("related_keywords") or []),
+                "suggested_internal_links": list(item.get("suggested_internal_links") or []),
+                "suggested_article_angle": str(item.get("suggested_article_angle") or ""),
+                "source_urls": list(item.get("source_urls") or []),
+                "source_readiness": dict(item.get("source_readiness") or {}),
+            }
+            source_readiness = dict(item.get("source_readiness") or {})
+            if not source_readiness.get("passes"):
+                source_readiness = self._topic_source_readiness(item)
+            if source_readiness.get("passes"):
+                topic_record["validated_source_urls"] = list(source_readiness.get("source_urls") or [])
+                topic_record["validated_source_domains"] = list(source_readiness.get("unique_source_domains") or [])
+            try:
+                package = platform.build_research_package(topic_record)
+                gate = platform.evaluate_quality_gate(package, topic=topic_record, allow_override=False)
+                source_count = self._research_package_source_count(package)
+                minimum_sources = self._minimum_verified_sources()
+                item["research_package"] = str(package.package_dir)
+                item["research_quality_gate"] = {
+                    "passed": gate.passed,
+                    "score": gate.score,
+                    "threshold": gate.threshold,
+                    "override_used": gate.override_used,
+                    "status": gate.status,
+                    "source_count": source_count,
+                    "minimum_sources": minimum_sources,
+                    "warnings": list(getattr(gate, "warnings", ()) or []),
+                    "hard_blockers": list(getattr(gate, "hard_blockers", ()) or []),
+                }
+                item["draft_dir"] = ""
+                item["review_preview"] = ""
+                item["human_approval_status"] = "not_started"
+                item["publish_gate_status"] = "not_started"
+                if getattr(gate, "hard_blockers", ()):
+                    item["status"] = "research_blocked"
+                    item["error"] = "; ".join(str(row) for row in getattr(gate, "hard_blockers", ()) if str(row).strip())
+                    blocked += 1
+                else:
+                    item["status"] = "research_ready"
+                    item["error"] = ""
+                    prepared += 1
+                results.append({"slug": slug, "status": item["status"], "source_count": source_count})
+            except Exception as exc:
+                item["status"] = "research_failed"
+                item["error"] = str(exc)
+                item["draft_dir"] = ""
+                item["review_preview"] = ""
+                blocked += 1
+                results.append({"slug": slug, "status": item["status"], "error": str(exc)})
+        payload["topics"] = topics
+        payload["research_prepared_at"] = datetime.now(UTC).isoformat()
+        _write_json(self._queue_dir(batch_date) / "topics.json", payload)
+        dashboard = self.build_review_dashboard(batch_date=batch_date)
+        upload_summary = self._sync_upload_batch(batch_date=batch_date)
+        master_dashboard = self._build_upload_master_dashboard()
+        return {
+            "date": batch_date,
+            "prepared": prepared,
+            "blocked": blocked,
             "topics": results,
             "dashboard": dashboard,
             "upload_dir": str(self.upload_root / batch_date),

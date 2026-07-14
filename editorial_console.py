@@ -46,6 +46,16 @@ def build_parser() -> argparse.ArgumentParser:
     draft = subparsers.add_parser("draft", help="Generate article drafts for a queued date.")
     draft.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
 
+    prepare_research = subparsers.add_parser("prepare-research", help="Prepare topic research packages without generating drafts.")
+    prepare_research.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
+    prepare_research.add_argument("--open", action="store_true", help="Open the local review dashboard after preparation.")
+
+    codex_write = subparsers.add_parser("codex-write", help="Use repository-local Codex writer to create drafts from queued topics and research.")
+    codex_write.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
+    codex_write.add_argument("--count", type=int, default=10, help="Maximum drafts to write.")
+    codex_write.add_argument("--depth", choices=("deep", "standard"), default="deep", help="Draft depth profile.")
+    codex_write.add_argument("--dry-run", action="store_true", help="Preview selected topics and outputs without writing files.")
+
     approve = subparsers.add_parser("approve", help="Approve one draft inside a daily batch.")
     approve.add_argument("--slug", required=True, help="Article slug.")
     approve.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
@@ -378,6 +388,26 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.command == "draft":
         print(json.dumps(workflow.draft(batch_date=args.date), indent=2, ensure_ascii=False))
+        return 0
+    if args.command == "prepare-research":
+        payload = workflow.prepare_research(batch_date=args.date)
+        if args.open:
+            popen_kwargs: dict[str, object] = {"cwd": ROOT, "stdout": subprocess.DEVNULL, "stderr": subprocess.DEVNULL}
+            if sys.platform.startswith("win"):
+                popen_kwargs["creationflags"] = getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0) | getattr(subprocess, "DETACHED_PROCESS", 0)
+            subprocess.Popen([sys.executable, str(ROOT / "editorial_console.py"), "serve", "--date", args.date, "--open"], **popen_kwargs)
+        print(json.dumps(payload, indent=2, ensure_ascii=False))
+        return 0
+    if args.command == "codex-write":
+        from modules.codex_writer_workflow import run_codex_daily_writer
+
+        print(
+            json.dumps(
+                run_codex_daily_writer(batch_date=args.date, count=args.count, depth=args.depth, dry_run=args.dry_run),
+                indent=2,
+                ensure_ascii=False,
+            )
+        )
         return 0
     if args.command == "approve":
         print(json.dumps(workflow.approve(slug=args.slug, batch_date=args.date, approver=args.approver), indent=2, ensure_ascii=False))

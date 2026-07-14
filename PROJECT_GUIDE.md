@@ -83,8 +83,8 @@ In `runbot_menu.bat`, items 10-13 are selected with `A-D`: `A` exits, `B` runs s
 
 | Menu | Current behavior |
 |---|---|
-| 1 | Runs week-start generation for 10 weekly topics and drafts. |
-| 2 | Runs advanced Tue-Sun follow-up draft generation. |
+| 1 | Previews, confirms, creates 10 week-start topics, prepares research, and opens the dashboard. Draft writing is performed afterward by the repository-local Codex writer. |
+| 2 | Previews, confirms, creates advanced Tue-Sun topics, prepares research, and opens the dashboard. Draft writing is performed afterward by the repository-local Codex writer. |
 | 3 | Opens custom-topic intake. |
 | 4 | Starts/reuses the local review server on port 8765 and opens the dashboard. |
 | 5 | Refreshes and prints compact batch status. |
@@ -99,13 +99,14 @@ In `runbot_menu.bat`, items 10-13 are selected with `A-D`: `A` exits, `B` runs s
 
 ## Daily operator workflow
 
-1. Run menu 1 at week start or menu 2 on Tue-Sun.
-2. Open menu 4 and inspect the draft, AI report, source review, hard blockers, warnings, and pending reviews.
-3. Approve only after human review. Approval does not bypass source, freshness, AI, image, schema, canonical, or output checks.
-4. Use menu 5 or `diagnose-article` to confirm `Ready for Publish` and no hard blockers.
-5. Run `publish-dry-run` for the exact slug and inspect `would_stage`.
-6. Use menu 8 only when the selected set is intentional. The process acquires the publish lock, performs a bounded build, validates, stages allowlisted paths, commits, and pushes.
-7. Use menu 6 to confirm `Published` and `Live 200`; inspect the indexing report after deployment.
+1. Run menu 1 at week start or menu 2 on Tue-Sun to prepare topic queue and research packages.
+2. In Codex, run `python scripts\codex_write_daily_articles.py --count 10 --depth deep` or ask Codex to choose the 10 best current topics and write deep drafts. This writer uses the repository-local topic/research data and does not call OpenAI, `gpt-4o-mini`, heuristic fallback, GitHub, deployment, or indexing.
+3. Open menu 4 and inspect the draft, AI report, source review, hard blockers, warnings, and pending reviews.
+4. Approve only after human review. Approval does not bypass source, freshness, AI, image, schema, canonical, or output checks.
+5. Use menu 5 or `diagnose-article` to confirm `Ready for Publish` and no hard blockers.
+6. Run `publish-dry-run` for the exact slug and inspect `would_stage`.
+7. Use menu 8 only when the selected set is intentional. The process acquires the publish lock, performs a bounded build, validates, stages allowlisted paths, commits, and pushes.
+8. Use menu 6 to confirm `Published` and `Live 200`; inspect the indexing report after deployment.
 
 ## Approval and publish workflow
 
