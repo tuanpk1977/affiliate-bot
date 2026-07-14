@@ -37,7 +37,7 @@ The five ownership boundaries are defined in `architecture/FIVE_MODULE_BOUNDARIE
 | Path | Current purpose |
 |---|---|
 | `editorial_console.py` | Primary editorial CLI and interactive-dashboard launcher. |
-| `runbot_menu.bat` | Windows operator menu 1-13. |
+| `runbot_menu.bat` | Windows operator menu; items 10-13 use keys A-D because Windows `choice` accepts one key. |
 | `runbot_*.bat` | Week-start, Tue-Sun, custom-topic, and partner-intake wrappers. |
 | `seo_console.py` | Offline SEO Engine CLI. |
 | `build_site.py` | Full static-site builder; not used for a normal targeted article build. |
@@ -78,6 +78,8 @@ There are legacy/compatibility directories such as `draft-output`, `draft_output
 - `modules/sitemap_generator.py`, `modules/indexing_policy.py`: public URL inclusion and sitemap generation.
 
 ## Menu 1-13
+
+In `runbot_menu.bat`, items 10-13 are selected with `A-D`: `A` exits, `B` runs strict audit, `C` opens SEO Engine, and `D` opens reset stale unpublished. This keeps Windows `choice` unambiguous because it cannot read `10` as one menu key.
 
 | Menu | Current behavior |
 |---|---|

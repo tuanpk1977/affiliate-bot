@@ -2,7 +2,7 @@
 
 ## Main menu
 
-`runbot_menu.bat` provides: 1 Week start; 2 Tue-Sun; 3 Custom topic; 4 Dashboard server; 5 Status; 6 Live status; 7 Block reasons; 8 Publish approved with smart validation and Git push; 9 Affiliate partner; 10 Exit; 11 Strict full-site audit; 12 SEO Engine; 13 Reset stale unpublished.
+`runbot_menu.bat` provides: 1 Week start; 2 Tue-Sun; 3 Custom topic; 4 Dashboard server; 5 Status; 6 Live status; 7 Block reasons; 8 Publish approved with smart validation and Git push; 9 Affiliate partner; A Exit (menu 10); B Strict full-site audit (menu 11); C SEO Engine (menu 12); D Reset stale unpublished (menu 13). Windows `choice` accepts one key, so operator entries 10-13 are shown as A-D.
 
 ## Editorial CLI
 

@@ -19,13 +19,13 @@ echo 6. Check live status
 echo 7. Show blocked reasons
 echo 8. Publish approved + push GitHub ^(smart validation^)
 echo 9. New Affiliate Partner
-echo 10. Exit
-echo 11. Strict full-site audit
-echo 12. SEO Engine
-echo 13. Reset stale unpublished items
+echo A. Exit ^(10^)
+echo B. Strict full-site audit ^(11^)
+echo C. SEO Engine ^(12^)
+echo D. Reset stale unpublished items ^(13^)
 echo ========================================
 
-choice /c 123456789ABCD /n /m "Chon chuc nang [1-13]: "
+choice /c 123456789ABCD /n /m "Chon chuc nang [1-9,A-D]: "
 
 if errorlevel 13 goto reset_unpublished
 if errorlevel 12 goto seo_engine
@@ -161,8 +161,8 @@ echo 6. Run full SEO pipeline
 echo 7. Show report
 echo 8. Queue one opportunity ^(dry-run^)
 echo 9. Queue top opportunity ^(dry-run^)
-echo 10. Back
-choice /c 123456789A /n /m "Chon chuc nang SEO [1-10]: "
+echo A. Back ^(10^)
+choice /c 123456789A /n /m "Chon chuc nang SEO [1-9,A]: "
 if errorlevel 10 goto menu
 if errorlevel 9 python seo_console.py queue-top --count 1
 if errorlevel 8 goto seo_queue_one
