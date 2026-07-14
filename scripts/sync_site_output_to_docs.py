@@ -1,10 +1,16 @@
 from __future__ import annotations
 
 import shutil
+import sys
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from modules.site_verification_meta import apply_pinterest_domain_verification  # noqa: E402
+
 SOURCE = ROOT / "site_output"
 TARGET = ROOT / "docs"
 PRESERVE_FILES = {
@@ -67,7 +73,15 @@ def sync_site_output_to_docs() -> dict[str, int]:
     for name, content in preserved.items():
         (target / name).write_text(content, encoding="utf-8")
 
-    return {"removed": removed, "copied": copied, "preserved": len(preserved), "skipped_locked": skipped_locked}
+    pinterest_stats = apply_pinterest_domain_verification(target)
+
+    return {
+        "removed": removed,
+        "copied": copied,
+        "preserved": len(preserved),
+        "skipped_locked": skipped_locked,
+        "pinterest_meta_changed": pinterest_stats["changed"],
+    }
 
 
 def main() -> None:

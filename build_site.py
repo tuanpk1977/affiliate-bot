@@ -21,6 +21,7 @@ from modules.seo_title_optimizer import optimize_site_titles
 from modules.seo_technical_cleanup import apply_technical_seo_cleanup
 from modules.structured_data_upgrade import apply_structured_data_upgrade
 from modules.topical_hubs import write_topical_hubs
+from modules.site_verification_meta import apply_pinterest_domain_verification
 
 
 def sync_root_verification_files() -> int:
@@ -111,6 +112,7 @@ def incremental_build() -> dict[str, object]:
     legacy_slug_stats = normalize_legacy_slugs(settings.site_output_dir)
     schema_stats = apply_structured_data_upgrade(settings.site_output_dir)
     canonical_stats = apply_canonical_routing(settings.site_output_dir)
+    pinterest_stats = apply_pinterest_domain_verification(settings.site_output_dir)
     sitemap_path = generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     return {
         "mode": "incremental",
@@ -139,6 +141,8 @@ def incremental_build() -> dict[str, object]:
         "canonical_pages": canonical_stats.get("canonical_pages", 0),
         "canonical_pages_changed": canonical_stats.get("canonical_pages_changed", 0),
         "canonical_redirect_rules": canonical_stats.get("canonical_redirect_rules", 0),
+        "pinterest_meta_pages": pinterest_stats.get("scanned", 0),
+        "pinterest_meta_changed": pinterest_stats.get("changed", 0),
         "public_review_pages_changed": technical_stats.get("review_pages_changed", 0),
         "cloudflare_go_redirect_rules": technical_stats.get("cloudflare_go_redirect_rules", 0),
         "topical_hubs_written": hub_stats.get("topical_hubs_written", 0),
@@ -161,6 +165,7 @@ def full_build() -> dict[str, object]:
     legacy_slug_stats = normalize_legacy_slugs(settings.site_output_dir)
     schema_stats = apply_structured_data_upgrade(settings.site_output_dir)
     canonical_stats = apply_canonical_routing(settings.site_output_dir)
+    pinterest_stats = apply_pinterest_domain_verification(settings.site_output_dir)
     sitemap_path = generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)
     return {
         "mode": "full",
@@ -181,6 +186,8 @@ def full_build() -> dict[str, object]:
         "canonical_pages": canonical_stats.get("canonical_pages", 0),
         "canonical_pages_changed": canonical_stats.get("canonical_pages_changed", 0),
         "canonical_redirect_rules": canonical_stats.get("canonical_redirect_rules", 0),
+        "pinterest_meta_pages": pinterest_stats.get("scanned", 0),
+        "pinterest_meta_changed": pinterest_stats.get("changed", 0),
         "topical_hubs_written": hub_stats.get("topical_hubs_written", 0),
         "homepage_crawl_sections": homepage_stats.get("homepage_crawl_sections", 0),
     }

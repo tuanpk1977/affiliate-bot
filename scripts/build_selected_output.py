@@ -11,6 +11,7 @@ if str(ROOT) not in sys.path:
 
 from build_site import generate_sitemap, sync_article_visuals, sync_public_article_assets  # noqa: E402
 from config import settings  # noqa: E402
+from modules.site_verification_meta import apply_pinterest_domain_verification  # noqa: E402
 
 
 def main() -> int:
@@ -21,12 +22,15 @@ def main() -> int:
     if missing:
         print(json.dumps({"status": "failed", "missing": missing}), file=sys.stderr)
         return 2
+    selected_files = [settings.site_output_dir / slug / "index.html" for slug in args.slug]
+    pinterest_stats = apply_pinterest_domain_verification(settings.site_output_dir, files=selected_files)
     result = {
         "status": "completed",
         "mode": "targeted",
         "slugs": args.slug,
         "article_visuals_changed": sync_article_visuals(),
         "public_article_assets_changed": sync_public_article_assets(),
+        "pinterest_meta_changed": pinterest_stats["changed"],
         "sitemap": str(generate_sitemap(settings.site_output_dir, settings.base_site_url or settings.site_domain)),
     }
     print(json.dumps(result, ensure_ascii=False))
