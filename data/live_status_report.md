@@ -1,52 +1,34 @@
-# Live Status Report 2026-07-14
+# Live Status Report 2026-07-15
 
-- Total items: 31
+- Total items: 7
 ## Deployment summary
-- Live 200: 12
+- Live 200: 7
 - Awaiting Publish: 0
-- Awaiting Push: 1
-- Missing Local Output: 18
+- Awaiting Push: 0
+- Published Local: 0
+- Committed Local: 0
+- Pushed: 0
+- Deploy Pending: 0
+- Push Blocked: 0
+- Rebase Conflict: 0
+- Missing Local Output: 0
 - Missing Docs: 0
 - Unexpected Live 404: 0
 - Unknown: 0
 
 ## Editorial/publish summary
-- Human Approved: 10
-- Ready for Publish: 1
-- Publish Blocked: 18
+- Human Approved: 0
+- Ready for Publish: 0
+- Publish Blocked: 0
 - Rejected: 0
-- Published This Batch: 9
+- Live This Batch: 7
 
 | Slug | Editorial | Publish gate | Deployment | Local | Docs | Git | Block reason | How to fix | URL |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| best-ai-productivity-software | Needs Review | Human Approval Required | Live 200 | docs_synced | yes | pushed | Waiting for editor approval | Recommended Action: Approve Article. Review warnings: none. | https://smileaireviewhub.com/best-ai-productivity-software/ |
-| agent-skills-review-2026 | Needs Review | Publish Blocked | Missing Local Output | missing_local | no | not_synced | Publish Blocked: Need better verified sources; Knowledge needs refresh; AI quality review required | Recommended Action: Open Source Review. Fix the failing gate, then rerun publish validation. | https://smileaireviewhub.com/agent-skills-review-2026/ |
-| meetily-review-2026 | Needs Review | Publish Blocked | Missing Local Output | missing_local | no | not_synced | Publish Blocked: Need better verified sources; Knowledge needs refresh; AI quality review required | Recommended Action: Open Source Review. Fix the failing gate, then rerun publish validation. | https://smileaireviewhub.com/meetily-review-2026/ |
-| system-prompts-leaks-review-2026 | Needs Review | Publish Blocked | Missing Local Output | missing_local | no | not_synced | Publish Blocked: Need better verified sources; Knowledge needs refresh; AI quality review required | Recommended Action: Open Source Review. Fix the failing gate, then rerun publish validation. | https://smileaireviewhub.com/system-prompts-leaks-review-2026/ |
-| ai-job-search-review-2026 | Needs Review | Publish Blocked | Missing Local Output | missing_local | no | not_synced | Publish Blocked: Need better verified sources; Knowledge needs refresh; AI quality review required | Recommended Action: Open Source Review. Fix the failing gate, then rerun publish validation. | https://smileaireviewhub.com/ai-job-search-review-2026/ |
-| officecli-review-2026 | Needs Review | Publish Blocked | Missing Local Output | missing_local | no | not_synced | Publish Blocked: Need better verified sources; Knowledge needs refresh; AI quality review required | Recommended Action: Open Source Review. Fix the failing gate, then rerun publish validation. | https://smileaireviewhub.com/officecli-review-2026/ |
-| cubesandbox-review-2026 | Needs Review | Publish Blocked | Missing Local Output | missing_local | no | not_synced | Publish Blocked: Need better verified sources; Knowledge needs refresh; AI quality review required | Recommended Action: Open Source Review. Fix the failing gate, then rerun publish validation. | https://smileaireviewhub.com/cubesandbox-review-2026/ |
-| skills-review-2026 | Needs Review | Publish Blocked | Missing Local Output | missing_local | no | not_synced | Publish Blocked: Need better verified sources; Knowledge needs refresh; AI quality review required | Recommended Action: Open Source Review. Fix the failing gate, then rerun publish validation. | https://smileaireviewhub.com/skills-review-2026/ |
-| companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them | Needs Review | Publish Blocked | Missing Local Output | missing_local | no | not_synced | Publish Blocked: Need better verified sources; Knowledge needs refresh; AI quality review required | Recommended Action: Open Source Review. Fix the failing gate, then rerun publish validation. | https://smileaireviewhub.com/companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them/ |
-| best-ai-meeting-software | Needs Review | Human Approval Required | Live 200 | docs_synced | yes | pushed | Waiting for editor approval | Recommended Action: Approve Article. Review warnings: AI quality review required. | https://smileaireviewhub.com/best-ai-meeting-software/ |
-| best-ai-meeting-tools | Needs Review | Human Approval Required | Live 200 | docs_synced | yes | pushed | Waiting for editor approval | Recommended Action: Approve Article. Review warnings: AI quality review required. | https://smileaireviewhub.com/best-ai-meeting-tools/ |
-| how-to-use-agent-skills-review-2026 | Needs Review | Publish Blocked | Missing Local Output | missing_local | no | not_synced | Publish Blocked: Need better verified sources; Knowledge needs refresh; AI quality review required | Recommended Action: Open Source Review. Fix the failing gate, then rerun publish validation. | https://smileaireviewhub.com/how-to-use-agent-skills-review-2026/ |
-| how-to-use-meetily-review-2026 | Needs Review | Publish Blocked | Missing Local Output | missing_local | no | not_synced | Publish Blocked: Need better verified sources; Knowledge needs refresh; AI quality review required | Recommended Action: Open Source Review. Fix the failing gate, then rerun publish validation. | https://smileaireviewhub.com/how-to-use-meetily-review-2026/ |
-| how-to-use-system-prompts-leaks-review-2026 | Needs Review | Publish Blocked | Missing Local Output | missing_local | no | not_synced | Publish Blocked: Need better verified sources; Knowledge needs refresh; AI quality review required | Recommended Action: Open Source Review. Fix the failing gate, then rerun publish validation. | https://smileaireviewhub.com/how-to-use-system-prompts-leaks-review-2026/ |
-| best-agent-skills-review-2026-for-small-business | Human Approved | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-agent-skills-review-2026-for-small-business/ |
-| best-meetily-review-2026-for-small-business | Needs Review | Publish Blocked | Missing Local Output | missing_local | no | not_synced | Publish Blocked: Need better verified sources; Knowledge needs refresh; AI quality review required | Recommended Action: Open Source Review. Fix the failing gate, then rerun publish validation. | https://smileaireviewhub.com/best-meetily-review-2026-for-small-business/ |
-| best-system-prompts-leaks-review-2026-for-small-business | Needs Review | Publish Blocked | Missing Local Output | missing_local | no | not_synced | Publish Blocked: Need better verified sources; Knowledge needs refresh; AI quality review required | Recommended Action: Open Source Review. Fix the failing gate, then rerun publish validation. | https://smileaireviewhub.com/best-system-prompts-leaks-review-2026-for-small-business/ |
-| best-ai-job-search-review-2026-for-small-business | Needs Review | Publish Blocked | Missing Local Output | missing_local | no | not_synced | Publish Blocked: Need better verified sources; Knowledge needs refresh; AI quality review required | Recommended Action: Open Source Review. Fix the failing gate, then rerun publish validation. | https://smileaireviewhub.com/best-ai-job-search-review-2026-for-small-business/ |
-| best-officecli-review-2026-for-small-business | Needs Review | Publish Blocked | Missing Local Output | missing_local | no | not_synced | Publish Blocked: Need better verified sources; Knowledge needs refresh; AI quality review required | Recommended Action: Open Source Review. Fix the failing gate, then rerun publish validation. | https://smileaireviewhub.com/best-officecli-review-2026-for-small-business/ |
-| best-cubesandbox-review-2026-for-small-business | Needs Review | Publish Blocked | Missing Local Output | missing_local | no | not_synced | Publish Blocked: Need better verified sources; Knowledge needs refresh; AI quality review required | Recommended Action: Open Source Review. Fix the failing gate, then rerun publish validation. | https://smileaireviewhub.com/best-cubesandbox-review-2026-for-small-business/ |
-| best-skills-review-2026-for-small-business | Needs Review | Publish Blocked | Missing Local Output | missing_local | no | not_synced | Publish Blocked: Need better verified sources; Knowledge needs refresh; AI quality review required | Recommended Action: Open Source Review. Fix the failing gate, then rerun publish validation. | https://smileaireviewhub.com/best-skills-review-2026-for-small-business/ |
-| best-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-for-small-business | Needs Review | Publish Blocked | Missing Local Output | missing_local | no | not_synced | Publish Blocked: Need better verified sources; Knowledge needs refresh; AI quality review required | Recommended Action: Open Source Review. Fix the failing gate, then rerun publish validation. | https://smileaireviewhub.com/best-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-for-small-business/ |
-| best-best-ai-meeting-software-for-small-business | Human Approved | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-best-ai-meeting-software-for-small-business/ |
-| best-best-ai-meeting-tools-for-small-business | Human Approved | Ready for Publish | Awaiting Push | docs_synced | yes | not_committed | Awaiting Push: file not tracked by git | Recommended Action: rerun publish-ready so docs/site files are added, committed, and pushed. | https://smileaireviewhub.com/best-best-ai-meeting-tools-for-small-business/ |
-| best-ai-voice-software | Human Approved | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-ai-voice-software/ |
-| project-nomad-review-2026 | Human Approved | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/project-nomad-review-2026/ |
-| pydantic-ai-review-2026 | Human Approved | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/pydantic-ai-review-2026/ |
-| n8n-ai-agents-review-2026 | Human Approved | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/n8n-ai-agents-review-2026/ |
-| mastra-ai-review-2026 | Human Approved | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/mastra-ai-review-2026/ |
-| migrating-a-production-ai-agent-to-gpt-5-6-2-2x-faster-27-cheaper | Human Approved | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/migrating-a-production-ai-agent-to-gpt-5-6-2-2x-faster-27-cheaper/ |
-| how-ai-is-upending-saas-tools | Human Approved | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/how-ai-is-upending-saas-tools/ |
+| project-nomad-review-2026-comparison-and-alternatives | Needs Review | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/project-nomad-review-2026-comparison-and-alternatives/ |
+| best-ai-voice-software-comparison-and-alternatives | Needs Review | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-ai-voice-software-comparison-and-alternatives/ |
+| pydantic-ai-review-2026-comparison-and-alternatives | Needs Review | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/pydantic-ai-review-2026-comparison-and-alternatives/ |
+| n8n-ai-agents-review-2026-comparison-and-alternatives | Needs Review | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/n8n-ai-agents-review-2026-comparison-and-alternatives/ |
+| mastra-ai-review-2026-comparison-and-alternatives | Needs Review | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/mastra-ai-review-2026-comparison-and-alternatives/ |
+| automation-without-understanding-comparison-and-alternatives | Needs Review | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/automation-without-understanding-comparison-and-alternatives/ |
+| how-ai-is-upending-saas-tools-comparison-and-alternatives | Needs Review | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/how-ai-is-upending-saas-tools-comparison-and-alternatives/ |
