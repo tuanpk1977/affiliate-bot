@@ -13,7 +13,13 @@ FIELDNAMES = [
     "title",
     "website",
     *PLATFORMS,
+    *[f"{platform}_status" for platform in PLATFORMS],
     "last_publish_time",
+    "last_platform",
+    "last_status",
+    "published_url",
+    "retry_count",
+    "notes",
     "last_error",
 ]
 
@@ -59,24 +65,73 @@ class SocialPublishStatusStore:
             "title": article.title,
             "website": "TRUE",
             **{platform: "FALSE" for platform in PLATFORMS},
+            **{f"{platform}_status": "READY" for platform in PLATFORMS},
             "last_publish_time": "",
+            "last_platform": "",
+            "last_status": "READY",
+            "published_url": "",
+            "retry_count": "0",
+            "notes": "",
             "last_error": "",
         }
         rows.append(row)
         self.save(rows)
         return row
 
-    def mark_result(self, article: PublishedArticle, platform: str, *, success: bool, error: str = "") -> None:
+    def _increment_retry_count(self, row: dict[str, str]) -> None:
+        try:
+            count = int(row.get("retry_count") or "0")
+        except ValueError:
+            count = 0
+        row["retry_count"] = str(count + 1)
+
+    def mark_status(
+        self,
+        article: PublishedArticle,
+        platform: str,
+        status: str,
+        *,
+        published_url: str = "",
+        notes: str = "",
+        error: str = "",
+    ) -> None:
         rows = self.load()
         for row in rows:
             if row.get("article_id") == article.article_id or row.get("url") == article.url:
-                row[platform] = "TRUE" if success else row.get(platform, "FALSE") or "FALSE"
+                row.setdefault(f"{platform}_status", "READY")
+                row[f"{platform}_status"] = status
                 row["last_publish_time"] = now_iso()
+                row["last_platform"] = platform
+                row["last_status"] = status
+                row["published_url"] = published_url or row.get("published_url", "")
+                row["notes"] = notes
                 row["last_error"] = error
+                if status in {"PENDING", "FAILED"}:
+                    self._increment_retry_count(row)
+                if status == "PUBLISHED_MANUAL":
+                    row[platform] = "TRUE"
                 self.save(rows)
                 return
         self.ensure_article(article)
-        self.mark_result(article, platform, success=success, error=error)
+        self.mark_status(article, platform, status, published_url=published_url, notes=notes, error=error)
+
+    def mark_previewed(self, article: PublishedArticle, platform: str) -> None:
+        self.mark_status(article, platform, "PREVIEWED")
+
+    def mark_pending(self, article: PublishedArticle, platform: str, *, error: str = "") -> None:
+        self.mark_status(article, platform, "PENDING", error=error)
+
+    def mark_manual_published(self, article: PublishedArticle, platform: str, *, published_url: str = "", notes: str = "") -> None:
+        self.mark_status(article, platform, "PUBLISHED_MANUAL", published_url=published_url, notes=notes)
+
+    def mark_failed(self, article: PublishedArticle, platform: str, *, error: str = "", notes: str = "") -> None:
+        self.mark_status(article, platform, "FAILED", error=error, notes=notes)
+
+    def mark_result(self, article: PublishedArticle, platform: str, *, success: bool, error: str = "") -> None:
+        if success:
+            self.mark_manual_published(article, platform)
+        else:
+            self.mark_failed(article, platform, error=error)
 
     def unpublished_platforms(self, article: PublishedArticle, enabled_platforms: list[str]) -> list[str]:
         row = self.ensure_article(article)
@@ -86,4 +141,3 @@ class SocialPublishStatusStore:
         row = self.ensure_article(article)
         unpublished = [platform for platform in PLATFORMS if str(row.get(platform) or "FALSE").upper() != "TRUE"]
         return {"row": row, "unpublished": unpublished, "unpublished_count": len(unpublished)}
-

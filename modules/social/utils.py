@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+from html import unescape
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -39,6 +40,14 @@ class PublishedArticle:
     image: str
     tags: list[str]
     publish_date: str
+    canonical_url: str = ""
+    og_title: str = ""
+    og_description: str = ""
+    og_image: str = ""
+    summary: str = ""
+    headings: list[str] | None = None
+    key_points: list[str] | None = None
+    affiliate_disclosure: str = ""
 
 
 def now_iso() -> str:
@@ -56,7 +65,7 @@ def read_json(path: Path, default: Any) -> Any:
 
 
 def strip_html(text: str) -> str:
-    return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", text)).strip()
+    return unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", text)).strip())
 
 
 def extract_meta(html: str, name: str) -> str:
@@ -78,6 +87,64 @@ def extract_title(html: str) -> str:
         return og_title
     match = re.search(r"<title[^>]*>(.*?)</title>", html, flags=re.I | re.S)
     return strip_html(match.group(1)) if match else ""
+
+
+def extract_canonical(html: str) -> str:
+    match = re.search(r'<link\s+[^>]*rel=["\']canonical["\'][^>]*href=["\']([^"\']+)["\']', html, flags=re.I)
+    if not match:
+        match = re.search(r'<link\s+[^>]*href=["\']([^"\']+)["\'][^>]*rel=["\']canonical["\']', html, flags=re.I)
+    return match.group(1).strip() if match else ""
+
+
+def extract_publish_date(html: str) -> str:
+    for key in ("article:published_time", "datePublished", "publish_date", "pubdate"):
+        value = extract_meta(html, key)
+        if value:
+            return value
+    match = re.search(r'"datePublished"\s*:\s*"([^"]+)"', html, flags=re.I)
+    return match.group(1).strip() if match else ""
+
+
+def extract_headings(html: str, limit: int = 8) -> list[str]:
+    headings = []
+    for match in re.finditer(r"<h[2-3][^>]*>(.*?)</h[2-3]>", html, flags=re.I | re.S):
+        text = strip_html(match.group(1))
+        if text and text not in headings:
+            headings.append(text)
+        if len(headings) >= limit:
+            break
+    return headings
+
+
+def extract_paragraphs(html: str, limit: int = 12) -> list[str]:
+    paragraphs = []
+    for match in re.finditer(r"<p[^>]*>(.*?)</p>", html, flags=re.I | re.S):
+        text = strip_html(match.group(1))
+        if len(text) < 40:
+            continue
+        if text not in paragraphs:
+            paragraphs.append(text)
+        if len(paragraphs) >= limit:
+            break
+    return paragraphs
+
+
+def extract_article_summary(html: str, description: str) -> str:
+    paragraphs = extract_paragraphs(html, limit=3)
+    if paragraphs:
+        return " ".join(paragraphs)[:900].strip()
+    return description
+
+
+def extract_affiliate_disclosure(html: str) -> str:
+    lowered = html.lower()
+    if "affiliate disclosure" not in lowered and "affiliate links" not in lowered:
+        return ""
+    paragraphs = extract_paragraphs(html, limit=20)
+    for paragraph in paragraphs:
+        if "affiliate" in paragraph.lower():
+            return paragraph[:500].strip()
+    return "Some links may be affiliate links. The article remains independent research."
 
 
 def extract_tags(title: str, description: str) -> list[str]:
@@ -135,7 +202,7 @@ def ensure_default_config(path: Path = CONFIG_PATH) -> None:
         return
     path.parent.mkdir(parents=True, exist_ok=True)
     lines = [
-        "# Social publishing is manual-only. Store credentials outside this file.",
+        "# Social publishing is manual-only. Do not store secrets in this file.",
         "platforms:",
         "  pinterest: true",
         "  facebook: false",
@@ -149,9 +216,7 @@ def ensure_default_config(path: Path = CONFIG_PATH) -> None:
         "  blogger: false",
         "  telegram: false",
         "pinterest:",
-        "  mode: browser_hook",
-        "  credentials_profile: pinterest",
+        "  mode: manual_assisted",
         "",
     ]
     path.write_text("\n".join(lines), encoding="utf-8")
-

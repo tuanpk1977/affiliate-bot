@@ -14,5 +14,4 @@ platforms:
   telegram: false
 
 pinterest:
-  mode: browser_hook
-  credentials_profile: pinterest
+  mode: manual_assisted

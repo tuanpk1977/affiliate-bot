@@ -16,10 +16,13 @@ class SocialPublishHistory:
         stamp = now_iso().replace(":", "").replace("+", "Z")
         path = self.log_dir / f"{stamp}-{result.platform}-{article.article_id}.json"
         payload = {
+            "article_id": article.article_id,
+            "article_title": article.title,
             "platform": result.platform,
             "time": now_iso(),
             "status": result.status,
             "url": article.url,
+            "published_url": result.metadata.get("published_url", ""),
             "duration": result.duration_seconds,
             "error": result.error,
             "success": result.success,
@@ -32,4 +35,3 @@ class SocialPublishHistory:
         if not self.log_dir.exists():
             return []
         return sorted(self.log_dir.glob("*.json"), reverse=True)[:limit]
-

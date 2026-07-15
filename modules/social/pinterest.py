@@ -42,10 +42,9 @@ class PinterestPublisher(BasePublisher):
         mode = str(self.config.get("mode") or "browser_hook")
         return PublishResult(
             platform=self.platform,
-            status="prepared_browser_hook" if mode == "browser_hook" else "prepared",
+            status="prepared_manual",
             url=article.url,
             success=False,
-            error="Pinterest API credentials/browser automation are not configured; prepared payload only.",
-            metadata=payload,
+            error=f"Manual Pinterest publishing required. Configured mode: {mode}.",
+            metadata={**payload, "manual_action": "copy_content_and_publish_on_pinterest"},
         )
-

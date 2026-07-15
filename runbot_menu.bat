@@ -229,44 +229,146 @@ echo SOCIAL PUBLISHER
 echo ==========================================
 python social_console.py status
 echo.
-echo 1. Pinterest
-echo 2. Facebook Page
-echo 3. LinkedIn
-echo 4. X ^(Twitter^)
-echo 5. Bluesky
-echo 6. Threads
-echo 7. Dev.to
-echo 8. Medium
-echo 9. Hashnode
-echo 10. Blogger
-echo 11. Telegram
-echo 12. Publish ALL
+echo 1. Prepare Pinterest
+echo 2. Prepare Facebook Page
+echo 3. Prepare LinkedIn
+echo 4. Prepare X ^(Twitter^)
+echo 5. Prepare Bluesky
+echo 6. Prepare Threads
+echo 7. Prepare Dev.to
+echo 8. Prepare Medium
+echo 9. Prepare Hashnode
+echo 10. Prepare Blogger
+echo 11. Prepare Telegram
+echo 12. Prepare ALL enabled platforms
 echo.
-echo 13. Preview latest article
-echo 14. Publish only unpublished platforms
+echo 13. Preview Pinterest
+echo 14. Prepare unpublished platforms
 echo 15. View publish history
-echo 16. Retry failed jobs
+echo 16. List live articles
+echo 17. Confirm manual publish
 echo.
 echo 0. Back
 echo ==========================================
 set "SOCIAL_CHOICE="
-set /p SOCIAL_CHOICE=Chon chuc nang social [0-16]:
+set /p SOCIAL_CHOICE=Chon chuc nang social [0-17]:
 if "%SOCIAL_CHOICE%"=="0" goto menu
-if "%SOCIAL_CHOICE%"=="1" python social_console.py publish --platform pinterest
-if "%SOCIAL_CHOICE%"=="2" python social_console.py publish --platform facebook
-if "%SOCIAL_CHOICE%"=="3" python social_console.py publish --platform linkedin
-if "%SOCIAL_CHOICE%"=="4" python social_console.py publish --platform twitter
-if "%SOCIAL_CHOICE%"=="5" python social_console.py publish --platform bluesky
-if "%SOCIAL_CHOICE%"=="6" python social_console.py publish --platform threads
-if "%SOCIAL_CHOICE%"=="7" python social_console.py publish --platform devto
-if "%SOCIAL_CHOICE%"=="8" python social_console.py publish --platform medium
-if "%SOCIAL_CHOICE%"=="9" python social_console.py publish --platform hashnode
-if "%SOCIAL_CHOICE%"=="10" python social_console.py publish --platform blogger
-if "%SOCIAL_CHOICE%"=="11" python social_console.py publish --platform telegram
-if "%SOCIAL_CHOICE%"=="12" python social_console.py publish-all
-if "%SOCIAL_CHOICE%"=="13" python social_console.py preview --platform pinterest
-if "%SOCIAL_CHOICE%"=="14" python social_console.py publish-unpublished
+if "%SOCIAL_CHOICE%"=="16" python social_console.py list
 if "%SOCIAL_CHOICE%"=="15" python social_console.py history
-if "%SOCIAL_CHOICE%"=="16" python social_console.py publish-unpublished
+if "%SOCIAL_CHOICE%"=="17" goto social_confirm
+if "%SOCIAL_CHOICE%"=="13" goto social_preview
+if "%SOCIAL_CHOICE%"=="12" python social_console.py publish-all --confirm
+if "%SOCIAL_CHOICE%"=="14" python social_console.py publish-unpublished --confirm
+if "%SOCIAL_CHOICE%"=="1" call :social_platform pinterest
+if "%SOCIAL_CHOICE%"=="2" call :social_platform facebook
+if "%SOCIAL_CHOICE%"=="3" call :social_platform linkedin
+if "%SOCIAL_CHOICE%"=="4" call :social_platform twitter
+if "%SOCIAL_CHOICE%"=="5" call :social_platform bluesky
+if "%SOCIAL_CHOICE%"=="6" call :social_platform threads
+if "%SOCIAL_CHOICE%"=="7" call :social_platform devto
+if "%SOCIAL_CHOICE%"=="8" call :social_platform medium
+if "%SOCIAL_CHOICE%"=="9" call :social_platform hashnode
+if "%SOCIAL_CHOICE%"=="10" call :social_platform blogger
+if "%SOCIAL_CHOICE%"=="11" call :social_platform telegram
+pause
+goto social_publisher
+
+:social_platform
+set "SOCIAL_PLATFORM=%~1"
+set "SOCIAL_INDEX="
+echo.
+echo Platform: %SOCIAL_PLATFORM%
+echo 1. Preview generated content
+echo 2. Copy title
+echo 3. Copy post body
+echo 4. Copy website URL
+echo 5. Copy image URL
+echo 6. Copy all prepared content
+echo 7. Open normal platform/share URL
+echo 8. Mark as PUBLISHED_MANUAL
+echo 9. Mark as PENDING
+echo 10. Mark as FAILED
+echo 11. Add/update final published URL
+echo 0. Back
+set "SOCIAL_ACTION="
+set /p SOCIAL_ACTION=Chon action [0-11]:
+if "%SOCIAL_ACTION%"=="0" exit /b
+set /p SOCIAL_INDEX=Nhap article index (de trong = latest):
+if "%SOCIAL_ACTION%"=="1" call :social_run_indexed preview --platform %SOCIAL_PLATFORM%
+if "%SOCIAL_ACTION%"=="2" call :social_run_indexed copy --platform %SOCIAL_PLATFORM% --field title
+if "%SOCIAL_ACTION%"=="3" call :social_run_indexed copy --platform %SOCIAL_PLATFORM% --field body
+if "%SOCIAL_ACTION%"=="4" call :social_run_indexed copy --platform %SOCIAL_PLATFORM% --field url
+if "%SOCIAL_ACTION%"=="5" call :social_run_indexed copy --platform %SOCIAL_PLATFORM% --field image
+if "%SOCIAL_ACTION%"=="6" call :social_run_indexed copy --platform %SOCIAL_PLATFORM% --field all
+if "%SOCIAL_ACTION%"=="7" goto social_open_then_confirm
+if "%SOCIAL_ACTION%"=="8" goto social_mark_published_from_platform
+if "%SOCIAL_ACTION%"=="9" goto social_mark_pending_from_platform
+if "%SOCIAL_ACTION%"=="10" goto social_mark_failed_from_platform
+if "%SOCIAL_ACTION%"=="11" goto social_mark_published_from_platform
+exit /b
+
+:social_run_indexed
+if "%SOCIAL_INDEX%"=="" (
+    python social_console.py %*
+) else (
+    python social_console.py %* --index %SOCIAL_INDEX%
+)
+exit /b
+
+:social_mark_published_from_platform
+set "SOCIAL_URL="
+set "SOCIAL_NOTES="
+set /p SOCIAL_URL=URL bai dang tren social (bat buoc neu da dang):
+set /p SOCIAL_NOTES=Ghi chu (neu co):
+call :social_run_indexed confirm --platform %SOCIAL_PLATFORM% --published-url "%SOCIAL_URL%" --notes "%SOCIAL_NOTES%"
+exit /b
+
+:social_open_then_confirm
+call :social_run_indexed open-target --platform %SOCIAL_PLATFORM% --open
+set "SOCIAL_DONE="
+set /p SOCIAL_DONE=Did you publish this post manually? [Y/N/P/F]:
+if /I "%SOCIAL_DONE%"=="Y" goto social_mark_published_from_platform
+if /I "%SOCIAL_DONE%"=="P" goto social_mark_pending_from_platform
+if /I "%SOCIAL_DONE%"=="F" goto social_mark_failed_from_platform
+echo Keeping current status.
+exit /b
+
+:social_mark_pending_from_platform
+set "SOCIAL_NOTES="
+set /p SOCIAL_NOTES=Ghi chu pending (neu co):
+call :social_run_indexed mark-pending --platform %SOCIAL_PLATFORM% --notes "%SOCIAL_NOTES%"
+exit /b
+
+:social_mark_failed_from_platform
+set "SOCIAL_NOTES="
+set /p SOCIAL_NOTES=Ly do failed (neu co):
+call :social_run_indexed mark-failed --platform %SOCIAL_PLATFORM% --notes "%SOCIAL_NOTES%"
+exit /b
+
+:social_preview
+set "SOCIAL_INDEX="
+set /p SOCIAL_INDEX=Nhap article index (de trong = latest):
+if "%SOCIAL_INDEX%"=="" (
+    python social_console.py preview --platform pinterest
+) else (
+    python social_console.py preview --platform pinterest --index %SOCIAL_INDEX%
+)
+pause
+goto social_publisher
+
+:social_confirm
+set "SOCIAL_PLATFORM="
+set "SOCIAL_INDEX="
+set "SOCIAL_URL="
+set "SOCIAL_NOTES="
+set /p SOCIAL_PLATFORM=Platform da dang (pinterest/facebook/linkedin/twitter/...):
+set /p SOCIAL_INDEX=Article index (de trong = latest):
+set /p SOCIAL_URL=URL bai dang tren social (neu co):
+set /p SOCIAL_NOTES=Ghi chu (neu co):
+if "%SOCIAL_INDEX%"=="" (
+    python social_console.py confirm --platform %SOCIAL_PLATFORM% --published-url "%SOCIAL_URL%" --notes "%SOCIAL_NOTES%"
+) else (
+    python social_console.py confirm --platform %SOCIAL_PLATFORM% --index %SOCIAL_INDEX% --published-url "%SOCIAL_URL%" --notes "%SOCIAL_NOTES%"
+)
 pause
 goto social_publisher
