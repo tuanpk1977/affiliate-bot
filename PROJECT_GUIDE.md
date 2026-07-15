@@ -37,7 +37,7 @@ The five ownership boundaries are defined in `architecture/FIVE_MODULE_BOUNDARIE
 | Path | Current purpose |
 |---|---|
 | `editorial_console.py` | Primary editorial CLI and interactive-dashboard launcher. |
-| `runbot_menu.bat` | Windows operator menu; items 10-13 use keys A-D because Windows `choice` accepts one key. |
+| `runbot_menu.bat` | Windows operator menu; items 10-14 use keys A-E and also accept numeric aliases 10-14. |
 | `runbot_*.bat` | Week-start, Tue-Sun, custom-topic, and partner-intake wrappers. |
 | `seo_console.py` | Offline SEO Engine CLI. |
 | `build_site.py` | Full static-site builder; not used for a normal targeted article build. |
@@ -79,7 +79,7 @@ There are legacy/compatibility directories such as `draft-output`, `draft_output
 
 ## Menu 1-13
 
-In `runbot_menu.bat`, items 10-13 are selected with `A-D`: `A` exits, `B` runs strict audit, `C` opens SEO Engine, and `D` opens reset stale unpublished. This keeps Windows `choice` unambiguous because it cannot read `10` as one menu key.
+In `runbot_menu.bat`, items 10-14 are selected with `A-E` or numeric aliases: `A` exits, `B` runs strict audit, `C` opens SEO Engine, `D` opens reset stale unpublished, and `E` opens the social publisher. The main menu uses a typed prompt so `14` and `E` both work.
 
 | Menu | Current behavior |
 |---|---|
@@ -95,6 +95,7 @@ In `runbot_menu.bat`, items 10-13 are selected with `A-D`: `A` exits, `B` runs s
 | 10 | Exits. |
 | 11 | Runs strict full-site validation for a selected date. |
 | 12 | Opens the offline SEO Engine submenu. Queue actions are dry-run only. |
+| 14 | Opens the Social Publisher submenu. It only uses already-live website articles and never publishes drafts. |
 | 13 | Previews or applies stale-unpublished archival reset. |
 
 ## Daily operator workflow

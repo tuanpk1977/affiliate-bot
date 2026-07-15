@@ -23,23 +23,32 @@ echo A. Exit ^(10^)
 echo B. Strict full-site audit ^(11^)
 echo C. SEO Engine ^(12^)
 echo D. Reset stale unpublished items ^(13^)
+echo E. Publish Social ^(14^)
 echo ========================================
 
-choice /c 123456789ABCD /n /m "Chon chuc nang [1-9,A-D]: "
+set "MENU_CHOICE="
+set /p MENU_CHOICE=Chon chuc nang [1-9,A-E]:
 
-if errorlevel 13 goto reset_unpublished
-if errorlevel 12 goto seo_engine
-if errorlevel 11 goto strict_audit
-if errorlevel 10 goto end
-if errorlevel 9 goto partner_intake
-if errorlevel 8 goto publish_ready
-if errorlevel 7 goto blocked_reasons
-if errorlevel 6 goto check_live
-if errorlevel 5 goto status
-if errorlevel 4 goto open_dashboard
-if errorlevel 3 goto custom_topic
-if errorlevel 2 goto tue_to_sun
-if errorlevel 1 goto week_start
+if /I "%MENU_CHOICE%"=="14" goto social_publisher
+if /I "%MENU_CHOICE%"=="E" goto social_publisher
+if /I "%MENU_CHOICE%"=="13" goto reset_unpublished
+if /I "%MENU_CHOICE%"=="D" goto reset_unpublished
+if /I "%MENU_CHOICE%"=="12" goto seo_engine
+if /I "%MENU_CHOICE%"=="C" goto seo_engine
+if /I "%MENU_CHOICE%"=="11" goto strict_audit
+if /I "%MENU_CHOICE%"=="B" goto strict_audit
+if /I "%MENU_CHOICE%"=="10" goto end
+if /I "%MENU_CHOICE%"=="A" goto end
+if "%MENU_CHOICE%"=="9" goto partner_intake
+if "%MENU_CHOICE%"=="8" goto publish_ready
+if "%MENU_CHOICE%"=="7" goto blocked_reasons
+if "%MENU_CHOICE%"=="6" goto check_live
+if "%MENU_CHOICE%"=="5" goto status
+if "%MENU_CHOICE%"=="4" goto open_dashboard
+if "%MENU_CHOICE%"=="3" goto custom_topic
+if "%MENU_CHOICE%"=="2" goto tue_to_sun
+if "%MENU_CHOICE%"=="1" goto week_start
+goto menu
 
 :week_start
 call "%~dp0runbot_week_start.bat"
@@ -212,3 +221,52 @@ echo [WARN] Chi archive cac item unpublished cu; published/current/SEO selected 
 python editorial_console.py reset-unpublished --apply
 pause
 goto reset_unpublished
+
+:social_publisher
+cls
+echo ==========================================
+echo SOCIAL PUBLISHER
+echo ==========================================
+python social_console.py status
+echo.
+echo 1. Pinterest
+echo 2. Facebook Page
+echo 3. LinkedIn
+echo 4. X ^(Twitter^)
+echo 5. Bluesky
+echo 6. Threads
+echo 7. Dev.to
+echo 8. Medium
+echo 9. Hashnode
+echo 10. Blogger
+echo 11. Telegram
+echo 12. Publish ALL
+echo.
+echo 13. Preview latest article
+echo 14. Publish only unpublished platforms
+echo 15. View publish history
+echo 16. Retry failed jobs
+echo.
+echo 0. Back
+echo ==========================================
+set "SOCIAL_CHOICE="
+set /p SOCIAL_CHOICE=Chon chuc nang social [0-16]:
+if "%SOCIAL_CHOICE%"=="0" goto menu
+if "%SOCIAL_CHOICE%"=="1" python social_console.py publish --platform pinterest
+if "%SOCIAL_CHOICE%"=="2" python social_console.py publish --platform facebook
+if "%SOCIAL_CHOICE%"=="3" python social_console.py publish --platform linkedin
+if "%SOCIAL_CHOICE%"=="4" python social_console.py publish --platform twitter
+if "%SOCIAL_CHOICE%"=="5" python social_console.py publish --platform bluesky
+if "%SOCIAL_CHOICE%"=="6" python social_console.py publish --platform threads
+if "%SOCIAL_CHOICE%"=="7" python social_console.py publish --platform devto
+if "%SOCIAL_CHOICE%"=="8" python social_console.py publish --platform medium
+if "%SOCIAL_CHOICE%"=="9" python social_console.py publish --platform hashnode
+if "%SOCIAL_CHOICE%"=="10" python social_console.py publish --platform blogger
+if "%SOCIAL_CHOICE%"=="11" python social_console.py publish --platform telegram
+if "%SOCIAL_CHOICE%"=="12" python social_console.py publish-all
+if "%SOCIAL_CHOICE%"=="13" python social_console.py preview --platform pinterest
+if "%SOCIAL_CHOICE%"=="14" python social_console.py publish-unpublished
+if "%SOCIAL_CHOICE%"=="15" python social_console.py history
+if "%SOCIAL_CHOICE%"=="16" python social_console.py publish-unpublished
+pause
+goto social_publisher

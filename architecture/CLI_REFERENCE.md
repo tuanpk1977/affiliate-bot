@@ -2,7 +2,7 @@
 
 ## Main menu
 
-`runbot_menu.bat` provides: 1 Week start; 2 Tue-Sun; 3 Custom topic; 4 Dashboard server; 5 Status; 6 Live status; 7 Block reasons; 8 Publish approved with smart validation and Git push; 9 Affiliate partner; A Exit (menu 10); B Strict full-site audit (menu 11); C SEO Engine (menu 12); D Reset stale unpublished (menu 13). Windows `choice` accepts one key, so operator entries 10-13 are shown as A-D.
+`runbot_menu.bat` provides: 1 Week start; 2 Tue-Sun; 3 Custom topic; 4 Dashboard server; 5 Status; 6 Live status; 7 Block reasons; 8 Publish approved with smart validation and Git push; 9 Affiliate partner; A Exit (menu 10); B Strict full-site audit (menu 11); C SEO Engine (menu 12); D Reset stale unpublished (menu 13); E Publish Social (menu 14). The main menu accepts both A-E and numeric aliases 10-14.
 
 ## Editorial CLI
 
@@ -32,6 +32,19 @@ reset-unpublished        dry-run-first stale archival reset
 open                     resolve/open dashboard paths
 serve                    local interactive dashboard HTTP server
 ```
+
+## Social CLI
+
+```text
+python social_console.py status
+python social_console.py preview --platform pinterest
+python social_console.py publish --platform pinterest
+python social_console.py publish-all
+python social_console.py publish-unpublished
+python social_console.py history
+```
+
+The social publisher is manual-only and loads already-live website articles. Drafts are never eligible social sources.
 
 Most dated commands default to today. Use `--date YYYY-MM-DD` for a specific batch. `publish-ready` uses smart validation unless `--validation-mode strict` is explicitly requested. Expected no-ready returns a distinct non-success automation status while menu option 8 handles it and returns safely. Unexpected validation, JSON, Git, push, permission, and other failures remain errors.
 

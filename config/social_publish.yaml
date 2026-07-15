@@ -1,0 +1,18 @@
+# Social publishing is manual-only. Do not store secrets in this file.
+# Platform credentials must be provided by the platform-specific integration.
+platforms:
+  pinterest: true
+  facebook: false
+  linkedin: false
+  twitter: false
+  bluesky: false
+  threads: false
+  devto: false
+  medium: false
+  hashnode: false
+  blogger: false
+  telegram: false
+
+pinterest:
+  mode: browser_hook
+  credentials_profile: pinterest

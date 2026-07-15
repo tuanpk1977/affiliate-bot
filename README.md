@@ -53,5 +53,6 @@ python -m pytest
 - `docs/`, `site_output/`, dashboards, reports, and queue files are generated/managed artifacts. Change their owning source or command instead of editing state/output manually.
 - Cloudflare Pages deploys `docs/`. `netlify.toml` is retained for compatibility and is not the active production deployment path.
 - SEO Engine queue actions are dry-run previews and do not approve or publish content.
+- `E. Publish Social (14)` is manual-only. It loads already-live website articles, records platform status in `data/social_publish_status.csv`, logs attempts under `logs/social/`, and reads platform enablement from `config/social_publish.yaml`.
 
 The earlier affiliate research bot remains available through `main.py`, `src/`, and `runbot.bat`. The editorial platform is operated through `editorial_console.py`, `runbot_menu.bat`, `modules/`, and `scripts/`.
