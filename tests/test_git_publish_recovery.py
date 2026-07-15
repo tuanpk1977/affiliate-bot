@@ -154,6 +154,49 @@ class GitPublishRecoveryTests(unittest.TestCase):
         self.assertTrue(is_non_fast_forward_push(_result(1, stderr="remote contains work that you do not have")))
         self.assertFalse(is_non_fast_forward_push(_result(1, stderr="Permission denied")))
 
+    def test_preflight_rebases_clean_behind_branch_before_publish(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            (root / ".git").mkdir()
+            fake = FakeGit(
+                {
+                    ("git", "branch", "--show-current"): [_result(0, "main\n")],
+                    ("git", "rev-parse", "--verify", "origin/main"): [_result(0, "abc\n")],
+                    ("git", "status", "--porcelain"): [_result(0, "")],
+                    ("git", "fetch", "origin", "main"): [_result(0)],
+                    ("git", "rev-list", "--left-right", "--count", "origin/main...HEAD"): [
+                        _result(0, "1\t0\n"),
+                        _result(0, "0\t0\n"),
+                    ],
+                    ("git", "pull", "--rebase", "origin", "main"): [_result(0)],
+                }
+            )
+
+            result = self._recovery(root, fake).preflight_sync_before_publish()
+
+            self.assertEqual(result.status, "preflight_rebased")
+            self.assertTrue(fake.called(["git", "fetch", "origin", "main"]))
+            self.assertTrue(fake.called(["git", "pull", "--rebase", "origin", "main"]))
+            self.assertFalse(any("--force" in part for call in fake.calls for part in call))
+
+    def test_preflight_dirty_tree_blocks_before_fetch(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            (root / ".git").mkdir()
+            fake = FakeGit(
+                {
+                    ("git", "branch", "--show-current"): [_result(0, "main\n")],
+                    ("git", "rev-parse", "--verify", "origin/main"): [_result(0, "abc\n")],
+                    ("git", "status", "--porcelain"): [_result(0, " M modules/real_change.py\n")],
+                }
+            )
+
+            result = self._recovery(root, fake).preflight_sync_before_publish()
+
+            self.assertEqual(result.status, "preflight_blocked")
+            self.assertIn("working tree is dirty", result.reason)
+            self.assertFalse(fake.called(["git", "fetch", "origin", "main"]))
+
 
 if __name__ == "__main__":
     unittest.main()

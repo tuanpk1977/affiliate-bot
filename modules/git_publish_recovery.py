@@ -142,6 +142,49 @@ class GitPublishRecovery:
             sync=sync_after,
         )
 
+    def preflight_sync_before_publish(self) -> GitPushRecoveryResult:
+        empty = {"returncode": 0, "stdout": "", "stderr": ""}
+        guard_error = self._pre_rebase_guard()
+        if guard_error:
+            return GitPushRecoveryResult(status="preflight_blocked", initial_push=empty, reason=guard_error)
+
+        self.progress("[preflight] Fetching origin/main before publish...")
+        fetch = self._run(["git", "fetch", self.remote, self.branch], "")
+        if int(fetch.get("returncode") or 0) != 0:
+            return GitPushRecoveryResult(status="preflight_blocked", initial_push=empty, fetch=fetch, reason="git fetch failed")
+
+        sync_before = self._sync_status()
+        ahead = int(sync_before.get("ahead") or 0)
+        behind = int(sync_before.get("behind") or 0)
+        if behind <= 0:
+            status = "preflight_in_sync" if ahead == 0 else "preflight_ahead_only"
+            return GitPushRecoveryResult(status=status, initial_push=empty, fetch=fetch, sync=sync_before)
+
+        self.progress("[preflight] Rebasing local branch onto origin/main before publish...")
+        rebase = self._run(["git", "pull", "--rebase", self.remote, self.branch], "")
+        if int(rebase.get("returncode") or 0) != 0:
+            conflicts = self._conflict_files()
+            self.progress("[ERROR] Pre-publish rebase conflict detected.")
+            self.progress("[INFO] No publish commit was created.")
+            self.progress("[INFO] No force push was attempted.")
+            return GitPushRecoveryResult(
+                status="preflight_rebase_conflict",
+                initial_push=empty,
+                fetch=fetch,
+                rebase=rebase,
+                sync=sync_before,
+                conflict_files=conflicts,
+                reason="pre-publish rebase failed; operator review required",
+            )
+        sync_after = self._sync_status()
+        return GitPushRecoveryResult(
+            status="preflight_rebased",
+            initial_push=empty,
+            fetch=fetch,
+            rebase=rebase,
+            sync=sync_after,
+        )
+
     def _pre_rebase_guard(self) -> str:
         branch = self._run(["git", "branch", "--show-current"], "")
         if str(branch.get("stdout") or "").strip() != self.branch:

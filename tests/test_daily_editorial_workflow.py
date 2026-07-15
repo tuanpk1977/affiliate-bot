@@ -1803,6 +1803,11 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                         workflow,
                         "_run_command",
                         side_effect=[
+                            {"returncode": 0, "stdout": "main\n", "stderr": ""},
+                            {"returncode": 0, "stdout": "abc123\n", "stderr": ""},
+                            {"returncode": 0, "stdout": "", "stderr": ""},
+                            {"returncode": 0, "stdout": "", "stderr": ""},
+                            {"returncode": 0, "stdout": "0 0\n", "stderr": ""},
                             {"returncode": 0, "stdout": "", "stderr": ""},
                             {"returncode": 0, "stdout": "", "stderr": ""},
                             {"returncode": 0, "stdout": "", "stderr": ""},
@@ -1868,6 +1873,11 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                         workflow,
                         "_run_command",
                         side_effect=[
+                            {"returncode": 0, "stdout": "main\n", "stderr": ""},
+                            {"returncode": 0, "stdout": "abc123\n", "stderr": ""},
+                            {"returncode": 0, "stdout": "", "stderr": ""},
+                            {"returncode": 0, "stdout": "", "stderr": ""},
+                            {"returncode": 0, "stdout": "0 0\n", "stderr": ""},
                             {"returncode": 0, "stdout": "", "stderr": ""},
                             {"returncode": 0, "stdout": "", "stderr": ""},
                             {"returncode": 0, "stdout": "", "stderr": ""},

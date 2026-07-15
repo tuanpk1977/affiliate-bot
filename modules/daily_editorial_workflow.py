@@ -4990,6 +4990,19 @@ class DailyEditorialWorkflow:
 
     def _finalize_production_publish(self, *, batch_date: str, published: list[dict[str, Any]], commit_message: str, validation_mode: str = "smart") -> dict[str, Any]:
         slugs = [str(item.get("slug") or "") for item in published if str(item.get("slug") or "")]
+        preflight_recovery = GitPublishRecovery(
+            repo=self.root,
+            run_command=lambda command: self._run_command(command, cwd=self.root, check=False),
+            progress=self._report_progress,
+        )
+        preflight_result = preflight_recovery.preflight_sync_before_publish().to_dict()
+        if str(preflight_result.get("status") or "") not in {"preflight_in_sync", "preflight_ahead_only", "preflight_rebased"}:
+            raise RuntimeError(
+                "Pre-publish git sync failed safely. "
+                f"PREFLIGHT_STATUS={preflight_result.get('status')}; "
+                f"REASON={preflight_result.get('reason')}; "
+                "NO_PUBLISH_COMMIT_CREATED=YES; FORCE_PUSH_USED=NO"
+            )
         self._report_progress(f"[1/7] Build publish output for {batch_date}: {', '.join(slugs)}")
         build_result = self._run_command(
             [sys.executable, "scripts/build_selected_output.py", *[part for slug in slugs for part in ("--slug", slug)]],
