@@ -84,8 +84,8 @@
     "topic": "Companies are buying AI tools. That doesn't mean they know what to do with them.",
     "status": "human_approved",
     "required": true,
-    "reviewed_at": "2026-07-08T22:17:37.916915+00:00",
-    "approved_at": "2026-07-08T22:20:34.362720+00:00",
+    "reviewed_at": "2026-07-15T22:01:51.639061+00:00",
+    "approved_at": "2026-07-15T22:05:01.935688+00:00",
     "approved_by": "editor",
     "reason": ""
   },
@@ -376,6 +376,66 @@
     "required": true,
     "reviewed_at": "2026-07-14T21:17:14.545647+00:00",
     "approved_at": "2026-07-14T21:21:13.221871+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "most-companies-have-ai-tools-but-many-don-t-rewire-themselves-for-ai",
+    "topic": "Most Companies Have AI Tools, But Many Don't Rewire Themselves For AI",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-15T22:01:52.267763+00:00",
+    "approved_at": "2026-07-15T22:05:28.671755+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "top-10-marketing-automation-software-platforms-for-businesses-in-2026",
+    "topic": "Top 10 Marketing Automation Software Platforms for Businesses in 2026",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-15T22:01:52.996405+00:00",
+    "approved_at": "2026-07-15T22:05:37.952757+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "microsoft-study-finds-ai-coding-agents-lift-pull-requests-by-24",
+    "topic": "Microsoft Study Finds AI Coding Agents Lift Pull Requests by 24%",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-15T22:01:53.805769+00:00",
+    "approved_at": "2026-07-15T22:05:45.232968+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "how-to-overcome-real-world-challenges-in-ai-marketing-automation",
+    "topic": "How To Overcome Real-World Challenges In AI Marketing Automation",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-15T22:01:54.670388+00:00",
+    "approved_at": "2026-07-15T22:05:54.031720+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement",
+    "topic": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-15T22:01:55.426446+00:00",
+    "approved_at": "2026-07-15T22:06:12.503251+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "new-ai-tools-by-ifttt",
+    "topic": "New AI tools by IFTTT",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-15T22:01:56.136836+00:00",
+    "approved_at": "2026-07-15T22:06:03.611674+00:00",
     "approved_by": "editor",
     "reason": ""
   }

@@ -1,8 +1,8 @@
 # Publish Gate Report
 
-- Items: 38
-- Blocked: 18
+- Items: 44
+- Blocked: 17
 - Needs Human Review: 3
 - Approved For Publish: 1
-- Published Local: 9
+- Published Local: 16
 - Publish Failed: 0

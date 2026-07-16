@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-07-15T22:01:52.527188+00:00",
+  "writer": {
+    "provider": "codex",
+    "mode": "interactive_repository_writer",
+    "api_call_used": false,
+    "openai_api_used": false,
+    "heuristic_fallback_used": false
+  },
+  "source_count": 8,
+  "source_urls": [
+    "https://www.forbes.com/councils/forbestechcouncil/2026/07/13/most-companies-have-ai-tools-but-many-dont-rewire-themselves-for-ai/",
+    "https://www.fastcompany.com/91556901/the-most-important-ai-in-your-company-isnt-a-tool",
+    "https://www.cnbc.com/2026/06/04/ramp-valuation-funding-ai-spend.html",
+    "https://www.entrepreneur.com/business-news/tech/companies-dont-want-ai-for-client-emails-heres-why",
+    "https://www.ttnews.com/articles/companies-dial-back-ai-use",
+    "https://www.cio.com/article/4183037/ai-is-becoming-a-single-point-of-failure-and-most-companies-dont-see-it.html",
+    "https://www.msn.com/en-us/money/smallbusiness/ai-can-do-a-lot-but-most-companies-don-t-want-it-talking-to-their-clients-here-s-why/ar-AA253ljC",
+    "https://www.jdsupra.com/legalnews/why-many-legal-ai-tools-fail-to-deliver-9954398/"
+  ],
+  "human_approval_required": true,
+  "published": false
+}
