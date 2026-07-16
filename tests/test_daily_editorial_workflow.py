@@ -2269,6 +2269,18 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertEqual([item["slug"] for item in default_report["items"]], [ready_slug])
             self.assertEqual({item["slug"] for item in all_report["items"]}, {ready_slug, draft_slug})
 
+    def test_live_publish_row_displays_published_editorial_status(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
+
+            status = workflow._editorial_status_for_item(
+                {"slug": "live-article", "status": "drafted"},
+                {"slug": "live-article", "status": "live"},
+            )
+
+            self.assertEqual(status, "Published")
+
     def test_check_live_keeps_committed_local_separate_from_live(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

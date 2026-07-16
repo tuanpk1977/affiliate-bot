@@ -4193,9 +4193,11 @@ class DailyEditorialWorkflow:
     def _editorial_status_for_item(self, item: dict[str, Any], publish_row: dict[str, Any] | None = None) -> str:
         status = str(item.get("status") or "").strip().lower()
         publish_status = str((publish_row or {}).get("status") or "").strip().lower()
+        if status == "published" or publish_status in {"published_local", "committed_local", "awaiting_push", "pushed", "live", "published"}:
+            return "Published"
         if status == "rejected":
             return "Rejected"
-        if status == "approved" or publish_status in {"approved_for_publish", "published_local", "published"}:
+        if status == "approved" or publish_status == "approved_for_publish":
             return "Human Approved"
         if self._has_reviewable_preview(item):
             return "Needs Review"
