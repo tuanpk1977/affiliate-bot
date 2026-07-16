@@ -346,6 +346,9 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
         self.assertIn("python editorial_console.py serve --date latest --open --background --require-drafts", menu_text)
         self.assertIn("de trong = batch moi nhat", menu_text)
         self.assertIn("python editorial_console.py publish-ready --date latest --validation-mode smart", menu_text)
+        self.assertIn("python editorial_console.py check-live --open", menu_text)
+        self.assertIn("python editorial_console.py check-live --blocked-only --open", menu_text)
+        self.assertNotIn("check-live --all", menu_text)
         open_section = menu_text.split(":open_dashboard", 1)[1].split(":status", 1)[0]
         self.assertNotIn("pause", open_section.lower())
 

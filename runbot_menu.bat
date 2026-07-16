@@ -79,12 +79,12 @@ pause
 goto menu
 
 :check_live
-python editorial_console.py check-live --all --open
+python editorial_console.py check-live --open
 pause
 goto menu
 
 :blocked_reasons
-python editorial_console.py check-live --all --blocked-only --open
+python editorial_console.py check-live --blocked-only --open
 pause
 goto menu
 
@@ -100,7 +100,7 @@ if "%PUBLISH_DATE%"=="" (
     echo.
     echo [OK] Publish + push GitHub da chay xong cho batch moi nhat.
     echo [INFO] Dang mo live status report de kiem tra trang thai thuc te...
-    python editorial_console.py check-live --all --open
+    python editorial_console.py check-live --open
 ) else (
     echo Dang publish cac bai da approved cua ngay %PUBLISH_DATE% bang smart validation, va se push len GitHub neu thanh cong...
     python editorial_console.py publish-ready --date %PUBLISH_DATE% --validation-mode smart
@@ -109,7 +109,7 @@ if "%PUBLISH_DATE%"=="" (
     echo.
     echo [OK] Publish + push GitHub da chay xong cho ngay %PUBLISH_DATE%.
     echo [INFO] Dang mo live status report de kiem tra trang thai thuc te...
-    python editorial_console.py check-live --all --open
+    python editorial_console.py check-live --date %PUBLISH_DATE% --open
 )
 pause
 goto menu
@@ -130,7 +130,7 @@ goto menu
 echo.
 echo [ERROR] Publish hoac push GitHub that bai cho hom nay.
 echo [INFO] Dang mo live status report de xem bai nao dang local/docs/git/live...
-python editorial_console.py check-live --all --open
+python editorial_console.py check-live --open
 pause
 goto menu
 
@@ -138,7 +138,7 @@ goto menu
 echo.
 echo [ERROR] Publish hoac push GitHub that bai cho ngay %PUBLISH_DATE%.
 echo [INFO] Dang mo live status report de xem bai nao dang local/docs/git/live...
-python editorial_console.py check-live --all --open
+python editorial_console.py check-live --date %PUBLISH_DATE% --open
 pause
 goto menu
 
