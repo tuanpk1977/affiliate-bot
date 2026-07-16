@@ -4587,14 +4587,26 @@ class DailyEditorialWorkflow:
                 git_status=git_status,
                 live_probe=live_probe,
             )
+            editorial_status = self._editorial_status_for_item(queue_item, publish_row)
+            publish_gate_status = self._publish_gate_status_for_item(queue_item, publish_row)
+            publish_queue_status = str(PublishGate.normalize_existing_row(publish_row).get("normalized_status") or publish_row.get("status") or "missing")
+            if not include_all and not self._should_show_in_live_status(
+                editorial_status=editorial_status,
+                publish_gate_status=publish_gate_status,
+                publish_queue_status=publish_queue_status,
+                local_exists=local_exists,
+                docs_exists=docs_exists,
+                display_status=display_status,
+            ):
+                continue
             items.append(
                 {
                     "slug": slug,
                     "title": str(metadata.get("title") or publish_row.get("title") or slug),
-                    "editorial_status": self._editorial_status_for_item(queue_item, publish_row),
-                    "publish_gate_status": self._publish_gate_status_for_item(queue_item, publish_row),
-                    "publish_queue_status": str(PublishGate.normalize_existing_row(publish_row).get("normalized_status") or publish_row.get("status") or "missing"),
-                    "publish_queue_label": self._operator_status_label(str(PublishGate.normalize_existing_row(publish_row).get("normalized_status") or publish_row.get("status") or "missing")),
+                    "editorial_status": editorial_status,
+                    "publish_gate_status": publish_gate_status,
+                    "publish_queue_status": publish_queue_status,
+                    "publish_queue_label": self._operator_status_label(publish_queue_status),
                     "local_status": local_status,
                     "site_output_exists": site_file.exists(),
                     "published_static_exists": local_article_file.exists(),
@@ -4615,6 +4627,28 @@ class DailyEditorialWorkflow:
                 }
             )
         return items
+
+    def _should_show_in_live_status(
+        self,
+        *,
+        editorial_status: str,
+        publish_gate_status: str,
+        publish_queue_status: str,
+        local_exists: bool,
+        docs_exists: bool,
+        display_status: str,
+    ) -> bool:
+        if display_status in {"Live 200", "Awaiting Push", "Published Local", "Committed Local", "Deploy Pending", "Push Blocked", "Rebase Conflict", "Unexpected Live 404"}:
+            return True
+        if editorial_status in {"Human Approved", "Published"}:
+            return True
+        if publish_gate_status in {"Ready for Publish", "Published"}:
+            return True
+        if publish_queue_status in {"approved_for_publish", "published_local", "committed_local", "pushed", "live", "published", "awaiting_push", "push_blocked", "rebase_conflict", "blocked"}:
+            return True
+        if local_exists or docs_exists:
+            return True
+        return False
 
     def _live_display_status(
         self,
@@ -5335,8 +5369,11 @@ class DailyEditorialWorkflow:
         for slug in slugs:
             paths.extend(
                 [
+                    self.root / "assets" / "og" / "pages" / f"{slug}.svg",
                     self.root / "docs" / slug,
+                    self.root / "docs" / "assets" / "og" / "pages" / f"{slug}.svg",
                     self.site_output_dir / slug,
+                    self.site_output_dir / "assets" / "og" / "pages" / f"{slug}.svg",
                     self.data_dir / "published_static_pages" / slug,
                     self.data_dir / "production_article_drafts" / slug,
                     self.review_root / batch_date / slug,
@@ -5413,7 +5450,10 @@ class DailyEditorialWorkflow:
             for slug in slugs
             for prefix in (
                 f"docs/{slug}",
+                f"docs/assets/og/pages/{slug}.svg",
                 f"site_output/{slug}",
+                f"site_output/assets/og/pages/{slug}.svg",
+                f"assets/og/pages/{slug}.svg",
                 f"data/published_static_pages/{slug}",
                 f"data/production_article_drafts/{slug}",
                 f"site_output/review/{batch_date}/{slug}",

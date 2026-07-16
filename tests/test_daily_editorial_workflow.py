@@ -2095,6 +2095,24 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertNotIn("upload/2026-07-11", paths)
             self.assertFalse(any("unrelated-article" in path for path in paths))
 
+    def test_targeted_stage_plan_includes_only_selected_og_assets(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
+            selected = "selected-article"
+            unrelated = "unrelated-article"
+            for base in (root / "assets", root / "docs" / "assets", root / "site_output" / "assets"):
+                (base / "og" / "pages").mkdir(parents=True)
+                (base / "og" / "pages" / f"{selected}.svg").write_text("<svg></svg>", encoding="utf-8")
+                (base / "og" / "pages" / f"{unrelated}.svg").write_text("<svg></svg>", encoding="utf-8")
+
+            paths = workflow._publish_stage_paths(batch_date="2026-07-11", published=[{"slug": selected}])
+
+            self.assertIn(f"assets/og/pages/{selected}.svg", paths)
+            self.assertIn(f"docs/assets/og/pages/{selected}.svg", paths)
+            self.assertIn(f"site_output/assets/og/pages/{selected}.svg", paths)
+            self.assertFalse(any(unrelated in path for path in paths))
+
     def test_targeted_stage_scope_rejects_unrelated_path(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
@@ -2206,6 +2224,50 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertTrue((data_dir / "live_status_report.json").exists())
             self.assertTrue((data_dir / "live_status_report.md").exists())
             self.assertTrue((data_dir / "live_status_report.html").exists())
+
+    def test_check_live_default_excludes_non_publishable_draft_topics(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            data_dir = root / "data"
+            workflow = DailyEditorialWorkflow(root=root, data_dir=data_dir, site_output_dir=root / "site_output")
+            ready_slug = "ready-article"
+            draft_slug = "draft-only-topic"
+            _write_json(
+                data_dir / "editorial_queue" / "2026-07-16" / "topics.json",
+                {
+                    "topics": [
+                        {"slug": ready_slug, "status": "approved", "title": "Ready Article"},
+                        {"slug": draft_slug, "status": "draft", "title": "Draft Only Topic"},
+                    ]
+                },
+            )
+            _write_json(
+                data_dir / "publish_queue.json",
+                [
+                    {"slug": ready_slug, "status": "approved_for_publish", "url": f"https://smileaireviewhub.com/{ready_slug}/"},
+                    {"slug": draft_slug, "status": "drafted", "url": f"https://smileaireviewhub.com/{draft_slug}/"},
+                ],
+            )
+            (root / "site_output" / ready_slug).mkdir(parents=True)
+            (root / "site_output" / ready_slug / "index.html").write_text("<html></html>", encoding="utf-8")
+            (root / "docs" / ready_slug).mkdir(parents=True)
+            (root / "docs" / ready_slug / "index.html").write_text("<html></html>", encoding="utf-8")
+
+            def fake_git(command: list[str], **_kwargs: object) -> dict[str, object]:
+                if command[:2] == ["git", "rev-list"]:
+                    return {"returncode": 0, "stdout": "0 0\n", "stderr": ""}
+                return {"returncode": 1, "stdout": "", "stderr": ""}
+
+            with patch.object(workflow, "_run_command", side_effect=fake_git), patch.object(
+                workflow,
+                "_probe_live_url",
+                return_value={"status": "404", "http_status": 404, "reason": "HTTP Error 404"},
+            ):
+                default_report = workflow.check_live(batch_date="2026-07-16")
+                all_report = workflow.check_live(batch_date="2026-07-16", include_all=True)
+
+            self.assertEqual([item["slug"] for item in default_report["items"]], [ready_slug])
+            self.assertEqual({item["slug"] for item in all_report["items"]}, {ready_slug, draft_slug})
 
     def test_check_live_keeps_committed_local_separate_from_live(self) -> None:
         with TemporaryDirectory() as temp_dir:
@@ -2578,7 +2640,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             with patch.object(workflow, "_probe_live_url", return_value={"status": "404", "http_status": 404, "reason": "HTTP Error 404"}):
                 report = workflow.check_live(batch_date="2026-07-07")
 
-            self.assertNotEqual(report["items"][0]["display_status"], "Unexpected Live 404")
+            self.assertEqual(report["items"], [])
             self.assertEqual(report["summary"]["unexpected_live_404"], 0)
 
     def test_already_approved_detail_does_not_show_active_approve_button(self) -> None:
