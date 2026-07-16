@@ -130,6 +130,25 @@ class ReviewDashboardServerTests(unittest.TestCase):
             self.assertEqual(resolved["draft_count"], 1)
             self.assertEqual(resolved["latest_batch_detection"], "latest draft-ready batch")
 
+    def test_latest_resolution_allows_published_batch_with_artifacts(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            workflow = _seed_workflow(root)
+            slug = "published-article"
+            draft_dir = workflow.data_dir / "production_article_drafts" / slug
+            draft_dir.mkdir(parents=True, exist_ok=True)
+            (draft_dir / "index.html").write_text("<!doctype html><html><body>Published</body></html>", encoding="utf-8")
+            _write_json(
+                workflow.data_dir / "editorial_queue" / "2026-07-16" / "topics.json",
+                {"date": "2026-07-16", "topics": [{"slug": slug, "status": "published", "draft_file": str(draft_dir / "index.html")}]},
+            )
+            _write_json(workflow.data_dir / "publish_queue.json", [{"slug": slug, "status": "live"}])
+
+            resolved = ReviewDashboardServer._resolve_batch_date_for_workflow(workflow, "latest", default_date="latest")
+
+            self.assertEqual(resolved["resolved_date"], "2026-07-16")
+            self.assertEqual(resolved["draft_count"], 1)
+
     def test_latest_date_reads_seven_reviewable_drafts_fixture(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

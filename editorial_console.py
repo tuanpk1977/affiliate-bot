@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from modules.daily_editorial_workflow import DailyEditorialWorkflow, REVIEWABLE_BATCH_STATES  # noqa: E402
+from modules.daily_editorial_workflow import DASHBOARD_BATCH_STATES, DailyEditorialWorkflow  # noqa: E402
 from modules.review_dashboard_server import ReviewDashboardServer  # noqa: E402
 from modules.publish_lock import PublishLock  # noqa: E402
 
@@ -757,8 +757,8 @@ def main(argv: list[str] | None = None) -> int:
             requested_date = args.date
             resolved_date = ""
             if str(requested_date or "").strip().lower() == "latest":
-                resolved_date = workflow.resolve_latest_batch_by_state(REVIEWABLE_BATCH_STATES) if hasattr(workflow, "resolve_latest_batch_by_state") else ""
-            elif hasattr(workflow, "batch_state") and workflow.batch_state(requested_date) in REVIEWABLE_BATCH_STATES:
+                resolved_date = workflow.resolve_latest_batch_by_state(DASHBOARD_BATCH_STATES) if hasattr(workflow, "resolve_latest_batch_by_state") else ""
+            elif hasattr(workflow, "batch_state") and workflow.batch_state(requested_date) in DASHBOARD_BATCH_STATES:
                 resolved_date = requested_date
             if not resolved_date:
                 print("No draft available. Run Codex Writer first.", flush=True)

@@ -14,7 +14,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
 
-from modules.daily_editorial_workflow import DailyEditorialWorkflow, REVIEWABLE_BATCH_STATES
+from modules.daily_editorial_workflow import DASHBOARD_BATCH_STATES, DailyEditorialWorkflow
 
 
 class ReviewDashboardServer:
@@ -214,7 +214,7 @@ class ReviewDashboardServer:
                 "topics": len(topics),
                 "draft_count": draft_count,
                 "batch_state": batch_state,
-                "valid": bool(path.exists() and batch_state in REVIEWABLE_BATCH_STATES and draft_count > 0),
+                "valid": bool(path.exists() and batch_state in DASHBOARD_BATCH_STATES and draft_count > 0),
             }
 
         requested_info = None if requested.lower() == "latest" else batch_info(requested)
