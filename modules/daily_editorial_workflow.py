@@ -5028,6 +5028,7 @@ class DailyEditorialWorkflow:
             repo=self.root,
             run_command=lambda command: self._run_command(command, cwd=self.root, check=False),
             progress=self._report_progress,
+            allow_dirty_preflight_when_current=True,
         )
         preflight_result = preflight_recovery.preflight_sync_before_publish().to_dict()
         if str(preflight_result.get("status") or "") not in {"preflight_in_sync", "preflight_ahead_only", "preflight_rebased"}:

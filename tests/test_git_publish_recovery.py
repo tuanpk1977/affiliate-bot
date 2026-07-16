@@ -28,8 +28,13 @@ class FakeGit:
 
 
 class GitPublishRecoveryTests(unittest.TestCase):
-    def _recovery(self, root: Path, fake: FakeGit) -> GitPublishRecovery:
-        return GitPublishRecovery(repo=root, run_command=fake, progress=lambda _message: None)
+    def _recovery(self, root: Path, fake: FakeGit, *, allow_dirty_preflight_when_current: bool = False) -> GitPublishRecovery:
+        return GitPublishRecovery(
+            repo=root,
+            run_command=fake,
+            progress=lambda _message: None,
+            allow_dirty_preflight_when_current=allow_dirty_preflight_when_current,
+        )
 
     def test_parse_ahead_behind_uses_origin_left_head_right(self) -> None:
         ahead, behind = parse_ahead_behind("1\t2\n")
@@ -196,6 +201,47 @@ class GitPublishRecoveryTests(unittest.TestCase):
             self.assertEqual(result.status, "preflight_blocked")
             self.assertIn("working tree is dirty", result.reason)
             self.assertFalse(fake.called(["git", "fetch", "origin", "main"]))
+
+    def test_publish_preflight_allows_dirty_tree_when_branch_is_not_behind(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            (root / ".git").mkdir()
+            fake = FakeGit(
+                {
+                    ("git", "branch", "--show-current"): [_result(0, "main\n")],
+                    ("git", "rev-parse", "--verify", "origin/main"): [_result(0, "abc\n")],
+                    ("git", "fetch", "origin", "main"): [_result(0)],
+                    ("git", "rev-list", "--left-right", "--count", "origin/main...HEAD"): [_result(0, "0\t2\n")],
+                }
+            )
+
+            result = self._recovery(root, fake, allow_dirty_preflight_when_current=True).preflight_sync_before_publish()
+
+            self.assertEqual(result.status, "preflight_ahead_only")
+            self.assertTrue(fake.called(["git", "fetch", "origin", "main"]))
+            self.assertFalse(fake.called(["git", "status", "--porcelain"]))
+            self.assertFalse(fake.called(["git", "pull", "--rebase", "origin", "main"]))
+
+    def test_publish_preflight_still_blocks_dirty_tree_when_rebase_is_required(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            (root / ".git").mkdir()
+            fake = FakeGit(
+                {
+                    ("git", "branch", "--show-current"): [_result(0, "main\n")],
+                    ("git", "rev-parse", "--verify", "origin/main"): [_result(0, "abc\n")],
+                    ("git", "fetch", "origin", "main"): [_result(0)],
+                    ("git", "rev-list", "--left-right", "--count", "origin/main...HEAD"): [_result(0, "1\t2\n")],
+                    ("git", "status", "--porcelain"): [_result(0, " M data/report.json\n")],
+                }
+            )
+
+            result = self._recovery(root, fake, allow_dirty_preflight_when_current=True).preflight_sync_before_publish()
+
+            self.assertEqual(result.status, "preflight_blocked")
+            self.assertIn("working tree is dirty", result.reason)
+            self.assertTrue(fake.called(["git", "fetch", "origin", "main"]))
+            self.assertFalse(fake.called(["git", "pull", "--rebase", "origin", "main"]))
 
 
 if __name__ == "__main__":

@@ -69,12 +69,14 @@ class GitPublishRecovery:
         progress: Progress | None = None,
         branch: str = "main",
         remote: str = "origin",
+        allow_dirty_preflight_when_current: bool = False,
     ) -> None:
         self.repo = repo
         self.run_command = run_command
         self.progress = progress or (lambda message: None)
         self.branch = branch
         self.remote = remote
+        self.allow_dirty_preflight_when_current = allow_dirty_preflight_when_current
 
     def push_with_recovery(self) -> GitPushRecoveryResult:
         initial = self._run(["git", "push", self.remote, self.branch], "[6/7] Git push origin main")
@@ -144,7 +146,7 @@ class GitPublishRecovery:
 
     def preflight_sync_before_publish(self) -> GitPushRecoveryResult:
         empty = {"returncode": 0, "stdout": "", "stderr": ""}
-        guard_error = self._pre_rebase_guard()
+        guard_error = self._pre_rebase_guard(check_dirty=not self.allow_dirty_preflight_when_current)
         if guard_error:
             return GitPushRecoveryResult(status="preflight_blocked", initial_push=empty, reason=guard_error)
 
@@ -159,6 +161,11 @@ class GitPublishRecovery:
         if behind <= 0:
             status = "preflight_in_sync" if ahead == 0 else "preflight_ahead_only"
             return GitPushRecoveryResult(status=status, initial_push=empty, fetch=fetch, sync=sync_before)
+
+        if self.allow_dirty_preflight_when_current:
+            dirty_error = self._dirty_worktree_error()
+            if dirty_error:
+                return GitPushRecoveryResult(status="preflight_blocked", initial_push=empty, fetch=fetch, sync=sync_before, reason=dirty_error)
 
         self.progress("[preflight] Rebasing local branch onto origin/main before publish...")
         rebase = self._run(["git", "pull", "--rebase", self.remote, self.branch], "")
@@ -185,7 +192,7 @@ class GitPublishRecovery:
             sync=sync_after,
         )
 
-    def _pre_rebase_guard(self) -> str:
+    def _pre_rebase_guard(self, *, check_dirty: bool = True) -> str:
         branch = self._run(["git", "branch", "--show-current"], "")
         if str(branch.get("stdout") or "").strip() != self.branch:
             return f"current branch is not {self.branch}"
@@ -194,6 +201,13 @@ class GitPublishRecovery:
             return f"remote branch {self.remote}/{self.branch} is missing"
         if has_git_operation_in_progress(self.repo):
             return "rebase, merge, or cherry-pick is already in progress"
+        if check_dirty:
+            dirty_error = self._dirty_worktree_error()
+            if dirty_error:
+                return dirty_error
+        return ""
+
+    def _dirty_worktree_error(self) -> str:
         status = self._run(["git", "status", "--porcelain"], "")
         dirty = str(status.get("stdout") or "").strip()
         if dirty:
