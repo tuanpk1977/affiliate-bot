@@ -1,0 +1,19 @@
+{
+  "generated_at": "2026-07-16T22:24:03.691723+00:00",
+  "writer": {
+    "provider": "codex",
+    "mode": "interactive_repository_writer",
+    "api_call_used": false,
+    "openai_api_used": false,
+    "heuristic_fallback_used": false
+  },
+  "source_count": 4,
+  "source_urls": [
+    "https://www.producthunt.com/products/eddie-your-ai-video-editor",
+    "https://www.manilatimes.net/2026/06/25/tmt-newswire/globenewswire/reged-expands-ai-powered-advertising-review-to-support-sec-compliance-for-investment-advisers/2372351",
+    "https://www.technologyreview.com/2026/04/16/1135216/making-ai-operational-in-constrained-public-sector-environments/",
+    "https://www.law.com/legaltechnews/2026/06/09/better-than-tar-nearly-expert-what-a-major-study-shows-about-gen-ai-and-tar-in-a-complex-document-review/"
+  ],
+  "human_approval_required": true,
+  "published": false
+}
