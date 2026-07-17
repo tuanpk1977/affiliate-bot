@@ -1,0 +1,19 @@
+{
+  "generated_at": "2026-07-17T21:21:21.235246+00:00",
+  "writer": {
+    "provider": "codex",
+    "mode": "interactive_repository_writer",
+    "api_call_used": false,
+    "openai_api_used": false,
+    "heuristic_fallback_used": false
+  },
+  "source_count": 4,
+  "source_urls": [
+    "https://www.analyticsinsight.net/artificial-intelligence/top-10-marketing-automation-software-platforms-for-businesses-in-2026",
+    "https://www.pcmag.com/picks/the-best-email-marketing-software",
+    "https://www.forbes.com/advisor/business/software/best-crm-software/",
+    "https://www.morningstar.com/news/pr-newswire/20260305la02426/consensus-named-one-of-g2s-top-5-sales-software-platforms-of-2026-proving-demo-automation-is-now-a-must-have-in-every-gtm-stack"
+  ],
+  "human_approval_required": true,
+  "published": false
+}

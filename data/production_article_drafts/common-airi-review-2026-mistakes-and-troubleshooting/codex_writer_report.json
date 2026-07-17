@@ -1,0 +1,17 @@
+{
+  "generated_at": "2026-07-17T21:21:18.559984+00:00",
+  "writer": {
+    "provider": "codex",
+    "mode": "interactive_repository_writer",
+    "api_call_used": false,
+    "openai_api_used": false,
+    "heuristic_fallback_used": false
+  },
+  "source_count": 2,
+  "source_urls": [
+    "https://github.com/moeru-ai/airi",
+    "https://quantrimang.com/cong-nghe/lien-quan-bang-ngoc-va-trang-bi-airi-mua-24-193421"
+  ],
+  "human_approval_required": true,
+  "published": false
+}

@@ -1,0 +1,20 @@
+{
+  "generated_at": "2026-07-17T21:21:23.761693+00:00",
+  "writer": {
+    "provider": "codex",
+    "mode": "interactive_repository_writer",
+    "api_call_used": false,
+    "openai_api_used": false,
+    "heuristic_fallback_used": false
+  },
+  "source_count": 5,
+  "source_urls": [
+    "https://www.forbes.com/councils/forbesagencycouncil/2026/07/09/how-to-overcome-real-world-challenges-in-ai-marketing-automation/",
+    "https://www.inc.com/leila-sheridan/googles-750-million-plan-to-move-ai-from-experiments-to-the-real-world/91334694",
+    "https://www.dqindia.com/data-and-ai/ai-tools-in-2026-what-each-platform-does-best-in-real-world-workflows-11262991",
+    "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/",
+    "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/"
+  ],
+  "human_approval_required": true,
+  "published": false
+}
