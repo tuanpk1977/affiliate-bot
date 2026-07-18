@@ -1,17 +1,25 @@
 # Multi-Site Affiliate Engine Foundation
 
-## Scope and status
+## Current implementation
 
 This document describes the foundation implemented in the current repository. It does not describe a completed multi-site publishing system.
 
-The repository still runs Smile AI Review Hub through the existing settings, editorial queues, renderers, menus, publish gate, `docs/` output, GitHub push, Cloudflare Pages deployment, and indexing workflow. The new platform layer adds:
+The repository still runs Smile AI Review Hub through the existing settings, editorial queues, renderers, menus, publish gate, `docs/` output, GitHub push, Cloudflare Pages deployment, and indexing workflow. `config.py` remains the production authority, and no second site can build, publish, deploy, or submit indexing.
+
+## Completed foundation components
+
+The platform layer adds:
 
 - validated repository-local site profiles;
 - one production-compatible Smile AI Review Hub profile;
 - two inactive example profiles;
 - validated affiliate partner, product, and link contracts;
 - a fail-closed affiliate-link resolver;
-- read-only profile inspection commands.
+- read-only profile inspection and config-drift diagnostics.
+
+The Health and Sports profiles are configuration examples only. They are inactive, use reserved domains, and are not production-ready.
+
+## Read-only compatibility scope
 
 The platform layer now has one bounded renderer integration: `modules/site_builder.py::page_shell`
 resolves only `site_name` through an immutable compatibility adapter. The adapter keeps
@@ -233,7 +241,7 @@ python scripts/show_site_runtime_config.py --site smile_ai_review_hub --strict
 
 These commands load local JSON, print validation results, and return a nonzero exit code on failure. They do not build, write state, publish, call an API, or use the network.
 
-## No-paid-API policy
+## No-paid-API boundary
 
 The foundation uses `json`, `pathlib`, `dataclasses`, `re`, and `urllib.parse` from the Python standard library. It adds:
 
@@ -245,15 +253,44 @@ The foundation uses `json`, `pathlib`, `dataclasses`, `re`, and `urllib.parse` f
 
 Future paid-provider integrations are out of scope and must remain optional and disabled unless separately approved.
 
-## Migration phases
+## Implementation status
 
-1. **Completed foundation:** profile schema/loader, example profiles, affiliate data contract, resolver, read-only CLI, tests.
-2. **Completed bounded adapter checkpoint:** immutable legacy-authority context and `page_shell.site_name` integration with exact output-parity tests.
-3. **Future verified affiliate migration:** classify operator-owned links separately from official/program pages, then preview conversion into the new catalog.
-4. **Future targeted integration:** migrate another single field/component only after a separate compatibility and parity review.
-5. **Future additional production site:** only after independent output, Git/deployment, sitemap, legal, source, and operational designs are approved.
+| Milestone | Status | Current scope |
+|---|---|---|
+| Validated site-profile and affiliate foundation | **COMPLETED** | Local profile schema/loaders, inactive examples, per-site affiliate catalogs, and fail-closed resolver |
+| Read-only diagnostics | **COMPLETED** | Profile inspection, validation, runtime comparison, and config-drift analysis |
+| Immutable compatibility runtime adapter | **COMPLETED** | Legacy values remain authoritative; incompatible or inactive profiles fall back or fail closed according to mode |
+| Single renderer-field integration | **COMPLETED** | Only `modules/site_builder.py::page_shell` obtains displayed `site_name` through the adapter, with byte-equivalent regression coverage |
+| Production multi-site routing | **NOT IMPLEMENTED** | No profile-owned queue, output, staging, publish, or site-selection routing |
+| Affiliate CTA integration | **NOT IMPLEMENTED** | The resolver is not called by production CTA rendering |
+| Canonical and sitemap profile migration | **NOT IMPLEMENTED** | Existing production authority and generation paths remain unchanged |
+| Social profile integration | **NOT IMPLEMENTED** | Social generation still uses the existing Smile AI-specific workflow |
+| Deployment and indexing isolation | **NOT IMPLEMENTED** | No per-site deployment target, branch, output root, or indexing ownership |
 
-Only phase 1 is implemented.
+Completed foundation milestones do not make the renderer, publish workflow, or repository production-multi-site capable.
+
+## Not implemented
+
+The following capabilities remain outside the current implementation:
+
+- profile authority over canonical URLs, sitemap generation, social output, dashboards, or menus;
+- production CTA selection through the affiliate resolver;
+- per-site editorial queue, article state, output namespace, or staging allowlist ownership;
+- per-site publish, Git, deployment, Cloudflare Pages, or indexing isolation;
+- production activation of the Health or Sports examples;
+- building, publishing, deploying, or indexing any second site.
+
+## Migration gates
+
+Future work must pass separately reviewed gates in this order:
+
+1. Classify and verify operator-owned affiliate links separately from official or affiliate-program information pages.
+2. Preview any legacy affiliate conversion without changing production CTA behavior.
+3. Migrate one additional field or component only after compatibility, no-mutation, and output-parity tests pass.
+4. Define explicit per-site queue ownership, output roots, staging allowlists, canonical and sitemap ownership, deployment targets, and indexing isolation.
+5. Approve a second production site only after legal, disclosure, source, rendering, publish, deployment, and rollback requirements are independently validated.
+
+No future gate in this list is represented as completed.
 
 ## Adding a new niche example
 
@@ -296,7 +333,7 @@ Changing an example profile to active is insufficient.
 
 Do not manually alter queues, article state, publish reports, generated dashboards, generated article HTML, sitemap output, or live history to simulate a profile migration. Profile/catalog source files must be changed deliberately and validated; production integration must occur in code with tests.
 
-## Safe next boundary
+## Safe next extension
 
 The read-only compatibility report now exists in `modules/platform/config_drift.py` with the CLI:
 
