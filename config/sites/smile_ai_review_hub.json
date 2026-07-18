@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "site_id": "smile_ai_review_hub",
+  "site_name": "MS Smile AI Review Hub",
+  "brand_name": "Smile AI Review Hub",
+  "domain": "https://smileaireviewhub.com",
+  "default_language": "en",
+  "supported_languages": [
+    "en",
+    "vi"
+  ],
+  "niche": "AI software, SaaS, automation, and productivity tools",
+  "categories": [
+    "AI Software",
+    "SaaS",
+    "Automation",
+    "Productivity",
+    "AI Coding"
+  ],
+  "content_types": [
+    "review",
+    "comparison",
+    "pricing",
+    "buyer_guide",
+    "how_to",
+    "deep_dive"
+  ],
+  "affiliate_disclosure": "Some links may be affiliate links. We may earn a commission at no extra cost to you.",
+  "editorial_settings": {
+    "human_approval_required": true,
+    "automatic_approval_allowed": false,
+    "publish_gate_required": true
+  },
+  "seo_defaults": {
+    "canonical_base_url": "https://smileaireviewhub.com",
+    "robots_public": "index,follow",
+    "default_locale": "en_US"
+  },
+  "social_platform_settings": {
+    "manual_publish_only": true,
+    "automatic_publish_allowed": false,
+    "source_requires_live_http_200": true
+  },
+  "source_policy": {
+    "minimum_usable_sources": 2,
+    "require_verified_sources": true,
+    "require_freshness_check": true,
+    "reject_entity_mismatch": true
+  },
+  "output": {
+    "namespace": "",
+    "site_output_dir": "site_output",
+    "production_output_dir": "docs",
+    "published_static_pages_dir": "data/published_static_pages"
+  },
+  "active": true,
+  "production_enabled": true,
+  "example": false
+}

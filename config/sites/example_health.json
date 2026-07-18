@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "site_id": "example_health",
+  "site_name": "Example Health Editorial Site",
+  "brand_name": "Example Health",
+  "domain": "https://health.example.invalid",
+  "default_language": "en",
+  "supported_languages": [
+    "en"
+  ],
+  "niche": "General health education example",
+  "categories": [
+    "Wellness",
+    "Consumer Health"
+  ],
+  "content_types": [
+    "educational_guide",
+    "comparison"
+  ],
+  "affiliate_disclosure": "Example disclosure for testing only. This profile cannot publish.",
+  "editorial_settings": {
+    "human_approval_required": true,
+    "automatic_approval_allowed": false,
+    "publish_gate_required": true
+  },
+  "seo_defaults": {
+    "canonical_base_url": "https://health.example.invalid",
+    "robots_public": "noindex,nofollow",
+    "default_locale": "en_US"
+  },
+  "social_platform_settings": {
+    "manual_publish_only": true,
+    "automatic_publish_allowed": false,
+    "source_requires_live_http_200": true
+  },
+  "source_policy": {
+    "minimum_usable_sources": 3,
+    "require_verified_sources": true,
+    "require_freshness_check": true,
+    "reject_entity_mismatch": true
+  },
+  "output": {
+    "namespace": "example_health",
+    "site_output_dir": "site_output/sites/example_health",
+    "production_output_dir": "docs/sites/example_health",
+    "published_static_pages_dir": "data/sites/example_health/published_static_pages"
+  },
+  "active": false,
+  "production_enabled": false,
+  "example": true
+}

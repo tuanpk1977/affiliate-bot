@@ -20,6 +20,7 @@ from modules.internal_linker import post_process_internal_links
 from modules.intent_page_generator import generate_intent_pages
 from modules.indexing_policy import INDEXABLE_ROBOTS_META, REDIRECT_ROBOTS_META, is_redirect_page, robots_meta_for_path
 from modules.money_content_builder import generate_money_content_pages
+from modules.platform.site_runtime_config import build_site_runtime_config
 from modules.priority_page_builder import generate_priority_pages
 from modules.pricing_page_builder import generate_pricing_pages
 from modules.review_page_builder import generate_review_pages
@@ -1453,6 +1454,8 @@ def page_shell(
     robots: str = "auto",
     canonical_url: str | None = None,
 ) -> str:
+    runtime_config = build_site_runtime_config(settings_source=settings)
+    site_name = runtime_config.site_name
     base = (settings.base_site_url or settings.site_domain or "https://yourdomain.com").rstrip("/")
     page_path = path or f"/{title.lower().replace(' ', '-')}/"
     robots = robots_meta_for_path(page_path) if robots == "auto" else str(robots or "")
@@ -1473,7 +1476,7 @@ def page_shell(
     )
     return f"""<!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{html.escape(title)} - {html.escape(settings.site_name)}</title><meta name="description" content="{html.escape(description)}"><meta name="robots" content="{html.escape(robots, quote=True)}"><link rel="canonical" href="{html.escape(canonical, quote=True)}"><link rel="alternate" type="application/rss+xml" title="{html.escape(settings.site_name)} RSS" href="{html.escape(site_url('/rss.xml'), quote=True)}"><meta property="og:title" content="{html.escape(title)} - {html.escape(settings.site_name)}"><meta property="og:description" content="{html.escape(description)}"><meta property="og:type" content="{html.escape(page_type)}"><meta property="og:image" content="{html.escape(site_url(image_path), quote=True)}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{html.escape(site_url(image_path), quote=True)}"><meta name="google-site-verification" content="{html.escape(settings.google_site_verification, quote=True)}" />{impact_site_verification_meta()}{analytics_snippet()}{schemas}<style>{base_css()}</style></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{html.escape(title)} - {html.escape(site_name)}</title><meta name="description" content="{html.escape(description)}"><meta name="robots" content="{html.escape(robots, quote=True)}"><link rel="canonical" href="{html.escape(canonical, quote=True)}"><link rel="alternate" type="application/rss+xml" title="{html.escape(site_name)} RSS" href="{html.escape(site_url('/rss.xml'), quote=True)}"><meta property="og:title" content="{html.escape(title)} - {html.escape(site_name)}"><meta property="og:description" content="{html.escape(description)}"><meta property="og:type" content="{html.escape(page_type)}"><meta property="og:image" content="{html.escape(site_url(image_path), quote=True)}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{html.escape(site_url(image_path), quote=True)}"><meta name="google-site-verification" content="{html.escape(settings.google_site_verification, quote=True)}" />{impact_site_verification_meta()}{analytics_snippet()}{schemas}<style>{base_css()}</style></head>
 <body>{nav_html()}<main class="wrap legal">{body}</main>{footer_html()}</body></html>"""
 
 
