@@ -65,8 +65,12 @@ def article_structured_data(
     canonical: str,
     site_name: str,
     author_name: str,
+    author_url: str = "",
 ) -> list[dict]:
     base = _site_root(canonical)
+    author = {"@type": "Person", "name": author_name}
+    if author_url:
+        author["url"] = author_url
     return [
         {
             "@context": "https://schema.org",
@@ -75,7 +79,7 @@ def article_structured_data(
             "description": description,
             "url": canonical,
             "mainEntityOfPage": canonical,
-            "author": {"@type": "Person", "name": author_name},
+            "author": author,
             "publisher": {"@type": "Organization", "name": site_name, "url": base},
         },
         breadcrumb_structured_data(title=title, canonical=canonical),

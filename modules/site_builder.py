@@ -5,6 +5,7 @@ import json
 import shutil
 from datetime import date
 from pathlib import Path
+from urllib.parse import urlparse
 
 import pandas as pd
 
@@ -57,6 +58,18 @@ FAQ_SCHEMA_DISABLED_PATHS = {
     "/vi/comparisons/framer-vs-webflow/",
 }
 IMPACT_SITE_VERIFICATION_ID = "e41dba46-8780-4a26-8314-596af1e3980b"
+PUBLIC_SITE_NAME = "Smile AI Review Hub"
+AUTHOR_NAME = "Nguyen Quoc Tuan"
+AUTHOR_ROUTE = "/about-author/"
+AUTHOR_SUMMARY = (
+    "Independent AI and SaaS researcher documenting software workflows, "
+    "source-backed comparisons, and practical buying checks."
+)
+UNVERIFIED_CONTACT_EMAILS = {
+    "",
+    "contact@smileaireviewhub.com",
+    "admin@smileaireviewhub.com",
+}
 
 LEGAL_SLUGS = ["privacy-policy", "terms-of-service", "terms", "contact", "affiliate-disclosure"]
 CONTENT_SLUGS = [
@@ -70,6 +83,17 @@ CONTENT_SLUGS = [
     "how-we-review-tools",
     "testing-methodology",
 ]
+
+
+def public_site_name() -> str:
+    return PUBLIC_SITE_NAME
+
+
+def verified_contact_email() -> str:
+    value = str(settings.contact_email or "").strip()
+    if not value or value.lower() in UNVERIFIED_CONTACT_EMAILS or "@" not in value:
+        return ""
+    return value
 CATEGORY_SLUGS = [
     "category/ai-video-tools",
     "category/ai-voice-tools",
@@ -307,7 +331,7 @@ def write_index(
     *,
     published_root: Path | None = None,
 ) -> None:
-    site_stats = load_site_stats()
+    site_name = public_site_name()
     base_url = (settings.base_site_url or settings.site_domain or "https://yourdomain.com").rstrip("/")
     content_records = merge_content(
         discover_published_content(
@@ -381,9 +405,25 @@ def write_index(
     updated_label = date.today().strftime("%d/%m/%Y")
     recent = "\n".join(f"<li><a href='/{html.escape(page['slug'])}/'><span translate='no'>{html.escape(page['brand_name'])}</span></a> <span>Updated: {updated_label}</span></li>" for page in pages[:6])
     popular = section_html("Popular Reviews", pages[:6])
-    social_proof = social_proof_html(site_stats)
-    popular_tools = popular_tools_this_week_html(site_stats)
-    homepage_title = f"Independent AI Software Reviews - {settings.site_name}"
+    social_proof = social_proof_html({})
+    popular_tools = popular_tools_this_week_html(content_records)
+    supplemental_sections = "\n".join(
+        section
+        for section in [
+            f'<section><h2>Best AI tools by category</h2><div class="cards">{category_cards}</div></section>' if pages and category_cards else "",
+            f'<section><h2>Top priority pages</h2><div class="cards">{priority_links}</div></section>' if pages and priority_links and "Browse reviews" not in priority_links else "",
+            f'<section><h2>Review pages</h2><div class="cards">{review_links}</div></section>' if pages and review_links else "",
+            f'<section><h2>Comparison pages</h2><div class="cards">{comparison_links}</div></section>' if pages and comparison_links else "",
+            f'<section><h2>Pricing pages</h2><div class="cards">{pricing_links}</div></section>' if pages and pricing_links else "",
+            f'<section><h2>Hub pages</h2><div class="cards">{hub_links}</div></section>' if pages and hub_links else "",
+            f'<section><h2>Latest Reviews</h2><div class="cards">{cards}</div></section>' if pages and cards else "",
+            f'<section class="list-section"><h2>Recently Updated Reviews</h2><ul>{recent}</ul></section>' if pages and recent else "",
+            popular if pages else "",
+            sections if pages else "",
+        ]
+        if section
+    )
+    homepage_title = f"Independent AI Software Reviews - {site_name}"
     homepage_description = (
         "Independent AI software reviews, comparisons, practical tutorials, "
         "and buying guides for evaluating tools before purchase."
@@ -393,15 +433,15 @@ def write_index(
         title=homepage_title,
         description=homepage_description,
         canonical=f"{base_url}/",
-        site_name=settings.site_name,
+        site_name=site_name,
         page_type="website",
         image_url=site_url("/assets/og/home.svg"),
         image_path=homepage_image,
     )
     homepage_schema = homepage_structured_data(
-        site_name=settings.site_name,
+        site_name=site_name,
         canonical=f"{base_url}/",
-        contact_email=settings.contact_email or "",
+        contact_email=verified_contact_email(),
     )
     faq_schema = faq_structured_data(homepage_faq_items)
     if faq_schema:
@@ -414,7 +454,7 @@ def write_index(
   <title>{html.escape(homepage_title)}</title>
   <meta name="description" content="{html.escape(homepage_description, quote=True)}">
   <link rel="canonical" href="{html.escape(base_url + '/', quote=True)}">
-  <link rel="alternate" type="application/rss+xml" title="{html.escape(settings.site_name)} RSS" href="{html.escape(site_url('/rss.xml'), quote=True)}">
+  <link rel="alternate" type="application/rss+xml" title="{html.escape(site_name)} RSS" href="{html.escape(site_url('/rss.xml'), quote=True)}">
   {metadata}
   <meta name="google-site-verification" content="{html.escape(settings.google_site_verification, quote=True)}" />
   <meta name="yandex-verification" content="265dcf14a6c419f2" />
@@ -428,17 +468,8 @@ def write_index(
   <header class="hero"><div class="wrap"><span class="badge">Independent software research</span><h1>Smile AI Review Hub</h1>{social_proof}<p>Independent AI software reviews, comparisons, practical tutorials, and buying guides. We focus on workflow fit, limitations, pricing checks, and evidence readers can verify.</p><p class="hero-actions"><a class="btn" href="/reviews/">Browse reviews</a><a class="btn secondary" href="/comparisons/">Compare tools</a><a class="btn secondary" href="/blog/">Read latest articles</a></p>{popular_tools}</div></header>
   <main class="wrap" id="reviews">
     {content_hub}
-    <section class="card trust"><h2>How this site works</h2><p>Our pages distinguish source-based research from hands-on checks and ask readers to verify current vendor details. Some links may be affiliate links and may earn the site a commission, subject to the partner's terms.</p><p><a href="/about/">About</a> · <a href="/editorial-policy/">Editorial Policy</a> · <a href="/how-we-review/">How We Review</a> · <a href="/affiliate-disclosure/">Affiliate Disclosure</a></p></section>
-    <section><h2>Best AI tools by category</h2><div class="cards">{category_cards}</div></section>
-    <section><h2>Top priority pages</h2><div class="cards">{priority_links}</div></section>
-    <section><h2>Review pages</h2><div class="cards">{review_links}</div></section>
-    <section><h2>Comparison pages</h2><div class="cards">{comparison_links}</div></section>
-    <section><h2>Pricing pages</h2><div class="cards">{pricing_links}</div></section>
-    <section><h2>Hub pages</h2><div class="cards">{hub_links}</div></section>
-    <section><h2>Latest Reviews</h2><div class="cards">{cards}</div></section>
-    <section class="list-section"><h2>Recently Updated Reviews</h2><ul>{recent}</ul></section>
-    {popular}
-    {sections}
+    <section class="card trust"><h2>How this site works</h2><p>Our pages distinguish source-based research from hands-on checks and ask readers to verify current vendor details. Some links may be affiliate links and may earn the site a commission, subject to the partner's terms.</p><p><a href="/about/">About</a> &middot; <a href="/editorial-policy/">Editorial Policy</a> &middot; <a href="/how-we-review/">How We Review</a> &middot; <a href="/affiliate-disclosure/">Affiliate Disclosure</a></p></section>
+    {supplemental_sections}
     {newsletter_html()}
     <section class="card"><h2>About this review hub</h2><p>This website is an independent-style AI/SaaS review hub for research and comparison purposes. Reviews are written to help readers compare features, tradeoffs, alternatives, and policy notes before visiting an official vendor website.</p></section>
     {community_proof_html()}
@@ -474,29 +505,37 @@ def section_html(title: str, pages: list[dict]) -> str:
 
 
 def social_proof_html(site_stats: dict) -> str:
-    cards = []
-    markers = ["FB", "WK", "AI", "UP"]
-    for item in site_stats.get("socialProof", [])[:4]:
-        marker = html.escape(markers[len(cards)] if len(cards) < len(markers) else "OK")
-        value = html.escape(str(item.get("value", "")).strip())
-        label = html.escape(str(item.get("label", "")).strip())
-        if value and label:
-            cards.append(f"<article class='social-proof-card'><span class='social-proof-icon' aria-hidden='true'>{marker}</span><strong>{value}</strong><span>{label}</span></article>")
-    if not cards:
-        return ""
-    return f"<div class='social-proof-grid' aria-label='Site trust signals'>{''.join(cards)}</div><p class='social-proof-note'>Real audience signals from our public content and weekly AI review updates. Metrics are based on public content activity and are updated monthly. They are not website visitor claims.</p>"
+    cards = [
+        ("RS", "Research-first reviews", "Pages separate official sources, workflow checks, and claims that still need verification."),
+        ("CP", "Practical comparisons", "Guides focus on buyer workflow fit, limitations, pricing checks, and alternatives."),
+        ("TR", "Transparent disclosure", "Affiliate relationships are disclosed and do not guarantee favorable recommendations."),
+        ("UP", "Update-aware content", "Readers are asked to verify current vendor pricing, terms, and product limits."),
+    ]
+    rendered = "".join(
+        "<article class='social-proof-card'><span class='social-proof-icon' aria-hidden='true'>{marker}</span>"
+        "<strong>{value}</strong><span>{label}</span></article>".format(
+            marker=html.escape(marker),
+            value=html.escape(value),
+            label=html.escape(label),
+        )
+        for marker, value, label in cards
+    )
+    return f"<div class='social-proof-grid' aria-label='Site trust signals'>{rendered}</div>"
 
 
-def popular_tools_this_week_html(site_stats: dict) -> str:
+def popular_tools_this_week_html(content_records: list[PublishedContent]) -> str:
     tools = []
-    for item in site_stats.get("popularToolsThisWeek", []):
-        name = html.escape(str(item.get("name", "")).strip())
-        url = html.escape(str(item.get("url", "#")).strip() or "#", quote=True)
-        if name:
-            tools.append(f"<li><a href='{url}'><span translate='no'>{name}</span></a></li>")
+    for item in content_records[:6]:
+        parsed = urlparse(item.url)
+        if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+            continue
+        name = html.escape(item.title.strip())
+        url = html.escape(item.url.strip(), quote=True)
+        if name and url:
+            tools.append(f"<li><a href='{url}'><span>{name}</span></a></li>")
     if not tools:
         return ""
-    return f"<section class='popular-tools'><h2>Most Popular AI Tools This Week</h2><ul class='popular-tools-list'>{''.join(tools)}</ul></section>"
+    return f"<section class='popular-tools'><h2>Featured AI Tools</h2><ul class='popular-tools-list'>{''.join(tools)}</ul></section>"
 
 
 def nav_card_links(items: list[tuple[str, str, str]]) -> str:
@@ -1056,13 +1095,20 @@ def write_comparisons_page(output: Path, pages: list[dict]) -> None:
 def write_about_page(output: Path) -> None:
     folder = output / "about"
     folder.mkdir(parents=True, exist_ok=True)
-    body = f"""<section class="card"><h1>About {html.escape(settings.site_name)}</h1>
-    <p>{html.escape(settings.site_name)} is a practical AI tools review hub focused on real workflow questions, not polished software demos.</p>
+    site_name = public_site_name()
+    contact = verified_contact_email()
+    contact_block = (
+        f"""<section aria-labelledby="official-contact"><h2 id="official-contact">Official Contact</h2>
+    <p>Contact: <a href="mailto:{html.escape(contact)}">{html.escape(contact)}</a></p></section>"""
+        if contact
+        else """<section aria-labelledby="official-contact"><h2 id="official-contact">Contact</h2>
+    <p>Use the contact page for corrections, editorial questions, and partnership requests.</p></section>"""
+    )
+    body = f"""<section class="card"><h1>About {html.escape(site_name)}</h1>
+    <p>{html.escape(site_name)} is a practical AI tools review hub focused on real workflow questions, not polished software demos.</p>
     <p>The site covers AI coding tools, SEO tools, automation software, and builder workflows. The goal is to help readers understand where a tool fits, where it fails, what needs manual verification, and whether it is worth adding to a shortlist.</p>
     <p>Most pages are written from a research-first perspective: compare the workflow, check pricing risk, verify official terms, and avoid exaggerated claims. We do not promise outcomes, rankings, revenue, or guaranteed productivity.</p>
-    <section aria-labelledby="official-contact"><h2 id="official-contact">Official Contact</h2>
-    <p>Official Contact: <a href="mailto:{html.escape(settings.contact_email)}">{html.escape(settings.contact_email)}</a></p>
-    <p>Partnership: <a href="mailto:{html.escape(settings.admin_email)}">{html.escape(settings.admin_email)}</a></p></section></section>
+    {contact_block}</section>
     {community_proof_html()}"""
     (folder / "index.html").write_text(
         page_shell(
@@ -1561,8 +1607,7 @@ def page_shell(
     faq_items: list[tuple[str, str]] | None = None,
     related_candidates: list[PublishedContent] | None = None,
 ) -> str:
-    runtime_config = build_site_runtime_config(settings_source=settings)
-    site_name = runtime_config.site_name
+    site_name = public_site_name()
     base = (settings.base_site_url or settings.site_domain or "https://yourdomain.com").rstrip("/")
     page_path = path or f"/{title.lower().replace(' ', '-')}/"
     robots = robots_meta_for_path(page_path) if robots == "auto" else str(robots or "")
@@ -1580,7 +1625,8 @@ def page_shell(
             description=description,
             canonical=canonical,
             site_name=site_name,
-            author_name="Nguyen Quoc Tuan",
+            author_name=AUTHOR_NAME,
+            author_url=site_url(AUTHOR_ROUTE),
         )
     else:
         schema_items = standard_page_structured_data(title=title, canonical=canonical)
@@ -1603,10 +1649,22 @@ def page_shell(
         related_html = render_related_content(
             resolve_related_content(canonical, related_candidates, max_links=5)
         )
+    author_box = author_box_html() if resolved_kind == "article" else ""
     return f"""<!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{html.escape(title)} - {html.escape(site_name)}</title><meta name="description" content="{html.escape(description, quote=True)}"><meta name="robots" content="{html.escape(robots, quote=True)}"><link rel="canonical" href="{html.escape(canonical, quote=True)}"><link rel="alternate" type="application/rss+xml" title="{html.escape(site_name)} RSS" href="{html.escape(site_url('/rss.xml'), quote=True)}">{metadata}<meta name="google-site-verification" content="{html.escape(settings.google_site_verification, quote=True)}" />{impact_site_verification_meta()}{analytics_snippet()}{schemas}<style>{base_css()}</style></head>
-<body>{nav_html()}<main class="wrap legal">{body}{related_html}</main>{footer_html()}</body></html>"""
+<body>{nav_html()}<main class="wrap legal">{body}{author_box}{related_html}</main>{footer_html()}</body></html>"""
+
+
+def author_box_html() -> str:
+    return (
+        "<section class='card author-box'>"
+        "<h2>Author and editorial review</h2>"
+        f"<p><strong>Written by <a href='{html.escape(AUTHOR_ROUTE, quote=True)}'>{html.escape(AUTHOR_NAME)}</a>.</strong> "
+        f"{html.escape(AUTHOR_SUMMARY)}</p>"
+        "<p>Reviews should be verified against official pricing, documentation, and policy pages before buying or promoting a tool.</p>"
+        "</section>"
+    )
 
 
 def write_legal_pages(output: Path) -> None:
@@ -1616,7 +1674,7 @@ def write_legal_pages(output: Path) -> None:
         robots = "index,follow"
         page = page_shell(
             title,
-            f"{title} for {settings.site_name}.",
+            f"{title} for {public_site_name()}.",
             f"<h1>{html.escape(title)}</h1>{body}",
             f"/{slug}/",
             page_type="website",
@@ -1642,13 +1700,14 @@ def impact_site_verification_text() -> str:
 def write_og_images(output: Path, pages: list[dict]) -> None:
     og_dir = output / "assets" / "og"
     og_dir.mkdir(parents=True, exist_ok=True)
-    write_og_svg(og_dir / "home.svg", settings.site_name, "AI & SaaS Reviews")
-    write_og_svg(og_dir / "site.svg", settings.site_name, "Independent research hub")
-    write_og_svg(og_dir / "blog.svg", "AI & SaaS Blog", settings.site_name)
+    site_name = public_site_name()
+    write_og_svg(og_dir / "home.svg", site_name, "AI & SaaS Reviews")
+    write_og_svg(og_dir / "site.svg", site_name, "Independent research hub")
+    write_og_svg(og_dir / "blog.svg", "AI & SaaS Blog", site_name)
     for page in pages:
-        write_og_svg(og_dir / f"{page['slug']}.svg", f"{page['brand_name']} Review", settings.site_name)
+        write_og_svg(og_dir / f"{page['slug']}.svg", f"{page['brand_name']} Review", site_name)
     for slug, title, _ in BLOG_POSTS:
-        write_og_svg(og_dir / f"{slug}.svg", title, settings.site_name)
+        write_og_svg(og_dir / f"{slug}.svg", title, site_name)
 
 
 def write_og_svg(path: Path, title: str, subtitle: str) -> None:
@@ -1675,6 +1734,7 @@ def write_html_sitemap(output: Path, pages: list[dict]) -> None:
 
 def write_rss(output: Path, pages: list[dict] | None = None) -> None:
     base = (settings.base_site_url or settings.site_domain or "https://yourdomain.com").rstrip("/")
+    site_name = public_site_name()
     blog_items = "\n".join(
         f"<item><title>{html.escape(title)}</title><link>{base}/blog/{html.escape(slug)}/</link><guid>{base}/blog/{html.escape(slug)}/</guid><description>{html.escape(summary)}</description></item>"
         for slug, title, summary in BLOG_POSTS
@@ -1688,14 +1748,21 @@ def write_rss(output: Path, pages: list[dict] | None = None) -> None:
         for slug in COMPARISON_SLUGS[:10]
     )
     rss = f"""<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0"><channel><title>{html.escape(settings.site_name)}</title><link>{base}/</link><description>AI and SaaS reviews, comparisons, and research guides.</description>{review_items}{comparison_items}{blog_items}</channel></rss>"""
+<rss version="2.0"><channel><title>{html.escape(site_name)}</title><link>{base}/</link><description>AI and SaaS reviews, comparisons, and research guides.</description>{review_items}{comparison_items}{blog_items}</channel></rss>"""
     (output / "rss.xml").write_text(rss, encoding="utf-8")
 
 
 def write_media_kit(output: Path) -> None:
     folder = output / "media-kit"
     folder.mkdir(parents=True, exist_ok=True)
-    body = f"""<section class='card'><h1>Media Kit</h1><p><strong>{html.escape(settings.site_name)}</strong> is an independent-style AI and SaaS review hub focused on research, comparisons, and transparent affiliate disclosure.</p><h2>Business Contact</h2><p>Business Inquiries: <a href='mailto:{html.escape(settings.contact_email)}'>{html.escape(settings.contact_email)}</a></p><p>Partnership Requests: <a href='mailto:{html.escape(settings.admin_email)}'>{html.escape(settings.admin_email)}</a></p><p>Website: <a href='{html.escape(settings.base_site_url)}'>{html.escape(settings.base_site_url)}</a></p></section>
+    site_name = public_site_name()
+    contact = verified_contact_email()
+    contact_markup = (
+        f"<p>Contact: <a href='mailto:{html.escape(contact)}'>{html.escape(contact)}</a></p>"
+        if contact
+        else "<p>Contact: use the public contact page for corrections, editorial questions, and partnerships.</p>"
+    )
+    body = f"""<section class='card'><h1>Media Kit</h1><p><strong>{html.escape(site_name)}</strong> is an independent-style AI and SaaS review hub focused on research, comparisons, and transparent affiliate disclosure.</p><h2>Business Contact</h2>{contact_markup}<p>Website: <a href='{html.escape(settings.base_site_url)}'>{html.escape(settings.base_site_url)}</a></p></section>
     <section class='grid'><div class='card'><h2>Categories</h2><ul><li>AI Tools</li><li>Marketing</li><li>CRM</li><li>Website Builders</li><li>Productivity</li></ul></div><div class='card'><h2>Social preview</h2><img loading='lazy' src='/assets/og/home.svg' alt='AI Tool Review Hub social preview' style='width:100%;border-radius:8px'></div></section>"""
     (folder / "index.html").write_text(page_shell("Media Kit", "Brand, category, contact, and social preview information.", body, "/media-kit/", robots="index,follow"), encoding="utf-8")
 
@@ -1798,8 +1865,9 @@ def base_schemas(title: str, description: str, canonical: str) -> list[str]:
         title=title,
         description=description,
         canonical=canonical,
-        site_name=settings.site_name,
-        author_name="Nguyen Quoc Tuan",
+        site_name=public_site_name(),
+        author_name=AUTHOR_NAME,
+        author_url=site_url(AUTHOR_ROUTE),
     )
     # Legacy callers add their own breadcrumb trail.
     return [
@@ -1946,6 +2014,7 @@ def short_description(brand: str, niche: str) -> str:
 
 
 def nav_html(content_records: list[PublishedContent] | None = None) -> str:
+    site_name = public_site_name()
     if content_records is None:
         navigation = [
             ("Home", "/"),
@@ -1965,9 +2034,7 @@ def nav_html(content_records: list[PublishedContent] | None = None) -> str:
     )
     return (
         f'<nav class="nav"><div class="wrap nav-inner"><a class="logo" href="/">'
-        f'{html.escape(settings.site_name)}</a><div class="menu">{links}</div>'
-        '<div class="language-switcher" aria-label="Language switcher">'
-        '<span>Vietnamese</span><a href="?lang=en">English</a></div></div>'
+        f'{html.escape(site_name)}</a><div class="menu">{links}</div></div>'
         '<div class="wrap"><p class="note">Some links may be affiliate links. '
         'The site may earn a commission subject to each partner\'s terms.</p></div></nav>'
     )
@@ -1982,13 +2049,14 @@ def community_links() -> list[tuple[str, str, str]]:
         label = str(item.get("label") or "").strip()
         url = str(item.get("url") or "").strip()
         if name and label and url:
-            links.append((name, label, url))
+            safe_label = "Public profile" if any(char.isdigit() for char in label) else label
+            links.append((name, safe_label, url))
     return links
 
 
 def community_proof_html() -> str:
     cards = "".join(
-        "<a class='community-card' href='{url}' target='_blank' rel='noopener noreferrer'>"
+        "<a class='community-card' href='{url}' target='_blank' rel='me noopener noreferrer'>"
         "<strong>{platform}</strong><span>{signal}</span></a>".format(
             url=html.escape(url, quote=True),
             platform=html.escape(platform),
@@ -1996,39 +2064,43 @@ def community_proof_html() -> str:
         )
         for platform, signal, url in community_links()
     )
+    if not cards:
+        return ""
     return f"""<section class="card community-proof">
       <div class="community-proof-header">
         <span class="badge">Public content channels</span>
-        <h2>Our Community Signals</h2>
-        <p>AI Tools Review Hub is built in public across multiple platforms. We share AI tool reviews, automation workflows, SaaS comparisons, and real-world AI experiments.</p>
+        <h2>Follow Our Public Channels</h2>
+        <p>{html.escape(public_site_name())} is built in public across verified channels where we share AI tool reviews, automation workflows, SaaS comparisons, and practical experiments.</p>
       </div>
       <div class="community-signal-grid">{cards}</div>
-      <p class="community-note">Metrics are based on public content activity and are updated monthly. They are not website visitor claims.</p>
     </section>"""
 
 
 def footer_html() -> str:
-    contact = settings.contact_email or ""
+    site_name = public_site_name()
+    contact = verified_contact_email()
     contact_markup = (
         f'<p>Contact: <a href="mailto:{html.escape(contact)}">{html.escape(contact)}</a></p>'
         if contact
         else '<p><a href="/contact/">Contact the site operator</a></p>'
     )
     follow_links = " | ".join(
-        f'<a href="{html.escape(url, quote=True)}" target="_blank" rel="noopener noreferrer">{html.escape(platform)}</a>'
+        f'<a href="{html.escape(url, quote=True)}" target="_blank" rel="me noopener noreferrer">{html.escape(platform)}</a>'
         for platform, _, url in community_links()
     )
-    return f'<footer><div class="wrap"><p><strong>{html.escape(settings.site_name)}</strong></p>{contact_markup}<a href="/about/">About</a><a href="/editorial-policy/">Editorial Policy</a><a href="/how-we-review/">How We Review</a><a href="/affiliate-disclosure/">Affiliate Disclosure</a><a href="/contact/">Contact</a><a href="/privacy-policy/">Privacy Policy</a><a href="/terms/">Terms of Use</a><a href="/reviews/">Reviews</a><a href="/comparisons/">Comparisons</a><p class="footer-social"><strong>Follow AI Tools Review Hub:</strong> {follow_links}</p><p>&copy; 2026 {html.escape(settings.site_name)}.</p><p>Some links may be affiliate links. Commission terms vary by partner.</p><p>Reviews are research content and not professional advice.</p>{impact_site_verification_text()}</div></footer>'
+    return f'<footer><div class="wrap"><p><strong>{html.escape(site_name)}</strong></p>{contact_markup}<a href="/about/">About</a><a href="/editorial-policy/">Editorial Policy</a><a href="/how-we-review/">How We Review</a><a href="/affiliate-disclosure/">Affiliate Disclosure</a><a href="/contact/">Contact</a><a href="/privacy-policy/">Privacy Policy</a><a href="/terms/">Terms of Use</a><a href="/reviews/">Reviews</a><a href="/comparisons/">Comparisons</a><p class="footer-social"><strong>Follow {html.escape(site_name)}:</strong> {follow_links}</p><p>&copy; 2026 {html.escape(site_name)}.</p><p>Some links may be affiliate links. Commission terms vary by partner.</p><p>Reviews are research content and not professional advice.</p>{impact_site_verification_text()}</div></footer>'
 
 
 def newsletter_html() -> str:
     newsletter = load_site_stats().get("newsletter", {})
-    heading = html.escape(str(newsletter.get("heading") or "Get Weekly AI Tool Updates"))
+    heading = html.escape(str(newsletter.get("heading") or "Follow New AI Review Updates"))
     description = html.escape(str(newsletter.get("description") or "Practical AI reviews, pricing checks, comparison guides, and build-in-public notes."))
-    placeholder = html.escape(str(newsletter.get("emailPlaceholder") or "Email address"), quote=True)
-    button = html.escape(str(newsletter.get("buttonLabel") or "Subscribe"))
-    status = html.escape(str(newsletter.get("statusMessage") or "Newsletter integration coming soon."))
-    return f"<section class='card newsletter-card'><h2>{heading}</h2><p>{description}</p><form class='newsletter-form'><input class='search' type='email' name='email' placeholder='{placeholder}' aria-label='Email address'><button class='btn' type='button'>{button}</button></form><p class='note'>{status}</p></section>"
+    links = "".join(
+        f'<a class="btn secondary" href="{html.escape(url, quote=True)}" target="_blank" rel="me noopener noreferrer">{html.escape(platform)}</a>'
+        for platform, _, url in community_links()[:4]
+    )
+    follow = links or '<a class="btn secondary" href="/blog/">Read the latest articles</a>'
+    return f"<section class='card newsletter-card'><h2>{heading}</h2><p>{description}</p><div class='newsletter-links'>{follow}</div></section>"
 
 
 def share_buttons(path: str, title: str) -> str:
@@ -2049,23 +2121,35 @@ def site_url(path: str) -> str:
 
 
 def legal_pages() -> dict[str, tuple[str, str]]:
-    site_name = html.escape(settings.site_name)
-    owner = html.escape(settings.site_owner or "Site owner")
-    email = html.escape(settings.contact_email or "contact@smileaireviewhub.com")
-    admin_email = html.escape(settings.admin_email or "admin@smileaireviewhub.com")
+    site_name = html.escape(public_site_name())
     domain = html.escape(settings.site_domain or settings.base_site_url or "")
-    contact_link = f'<a href="mailto:{email}">{email}</a>'
+    contact = verified_contact_email()
+    contact_link = (
+        f'<a href="mailto:{html.escape(contact)}">{html.escape(contact)}</a>'
+        if contact
+        else '<a href="/contact/">contact page</a>'
+    )
+    business_contact = (
+        f'<p><strong>Business Inquiries:</strong> <a href="mailto:{html.escape(contact)}">{html.escape(contact)}</a></p>'
+        if contact
+        else "<p><strong>Business Inquiries:</strong> Use this contact page for corrections, editorial questions, and partnership requests.</p>"
+    )
+    partnership_contact = (
+        f'<p><strong>Partnership Requests:</strong> <a href="mailto:{html.escape(contact)}">{html.escape(contact)}</a></p>'
+        if contact
+        else ""
+    )
     return {
         "contact": (
             "Contact",
             f"""
             <section class="card">
               <h2>{site_name}</h2>
-              <p><strong>Business Inquiries:</strong> {contact_link}</p>
-              <p><strong>Partnership Requests:</strong> <a href="mailto:{admin_email}">{admin_email}</a></p>
+              {business_contact}
+              {partnership_contact}
               <p><strong>Website:</strong> <a href="{domain}">{domain}</a></p>
               <p>This website publishes practical AI/SaaS tool reviews for research and comparison purposes, with a strong focus on AI coding, SEO, automation, and real workflow decisions.</p>
-              <p>If you want to suggest a tool, report an outdated pricing note, or ask about editorial/affiliate disclosure, email the address above.</p>
+              <p>If you want to suggest a tool, report an outdated pricing note, or ask about editorial/affiliate disclosure, use the contact route above.</p>
             </section>
             """,
         ),
@@ -2152,11 +2236,11 @@ def legal_pages() -> dict[str, tuple[str, str]]:
 
 def base_css() -> str:
     return """
-    *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f7f9fc;color:#17202a;line-height:1.6}.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-    .nav{background:#fff;border-bottom:1px solid #dbe3ef}.nav-inner{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}.logo{font-weight:800;color:#0f172a;text-decoration:none;flex:0 0 auto}.menu{display:flex;gap:18px;flex-wrap:wrap;align-items:center}.menu a{color:#475569;text-decoration:none;font-size:14px}.language-switcher{display:flex;gap:6px;align-items:center;justify-content:center;flex-wrap:wrap;border:1px solid #dbe3ef;border-radius:999px;padding:4px 10px;background:#f8fafc;font-size:13px;line-height:1.2;max-width:100%;white-space:normal}.language-switcher span{font-weight:800;color:#0f766e}.language-switcher a{color:#475569;text-decoration:none;white-space:nowrap}
+    :root{--link-color:#0f766e;--link-hover:#0f4f49;--focus-ring:#0f766e}*{box-sizing:border-box}html,body{max-width:100%;overflow-x:hidden}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f7f9fc;color:#17202a;line-height:1.6}a,a:visited{color:var(--link-color)}a:hover{color:var(--link-hover);text-decoration-thickness:2px}a:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px}.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 20px}
+    .nav{background:#fff;border-bottom:1px solid #dbe3ef}.nav-inner{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}.logo{font-weight:800;color:#0f172a;text-decoration:none;flex:0 0 auto;overflow-wrap:anywhere}.menu{display:flex;gap:18px;flex-wrap:wrap;align-items:center;min-width:0}.menu a{color:#475569;text-decoration:none;font-size:14px;white-space:normal}
     .hero{padding:56px 0;background:linear-gradient(180deg,#fff,#f7f9fc)}h1{font-size:44px;line-height:1.08;margin:10px 0}h2{font-size:26px;line-height:1.25;margin:28px 0 12px;white-space:normal;overflow:visible;text-overflow:clip;word-break:normal}h3{margin:0 0 8px}.muted,p,li{color:#596579}.badge{display:inline-block;border:1px solid #a7f3d0;background:#ecfdf5;color:#047857;border-radius:999px;padding:5px 10px;font-size:13px;font-weight:700}
     .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0}.hero-actions .btn{margin:0}.social-proof-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:22px 0 8px;max-width:920px}.social-proof-card{position:relative;background:#fff;border:1px solid #dbeafe;border-radius:8px;padding:15px 16px 15px 48px;box-shadow:0 6px 18px rgba(15,23,42,.05);min-width:0}.social-proof-icon{position:absolute;left:14px;top:15px;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:7px;background:#eff6ff;color:#1d4ed8;font-size:11px;font-weight:800}.social-proof-card strong{display:block;color:#0f172a;font-size:20px;line-height:1.2;overflow-wrap:anywhere}.social-proof-card span:not(.social-proof-icon){display:block;color:#64748b;font-size:13px;margin-top:4px}.social-proof-note{margin:8px 0 18px;color:#64748b;font-size:13px}.popular-tools{margin:20px 0 0;padding:16px 0 0;border-top:1px solid #e2e8f0;max-width:920px}.popular-tools h2{font-size:20px;margin:0 0 10px}.popular-tools-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;list-style:none;margin:0;padding:0}.popular-tools-list li{margin:0}.popular-tools-list a{display:block;border:1px solid #dbeafe;border-radius:8px;background:#fff;color:#0f172a;text-decoration:none;font-weight:800;padding:11px 13px;box-shadow:0 4px 12px rgba(15,23,42,.04)}.popular-tools-list a:hover{border-color:#93c5fd;box-shadow:0 6px 16px rgba(15,23,42,.06)}
-    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}.card{background:#fff;border:1px solid #dbe3ef;border-radius:8px;padding:18px;box-shadow:0 1px 2px rgba(15,23,42,.04);max-width:100%;overflow-wrap:break-word}.btn{display:inline-block;background:#0f766e;color:#fff;text-decoration:none;padding:10px 14px;border-radius:6px;font-weight:800;margin-right:10px}.btn.secondary{background:#e2e8f0;color:#0f172a}.search{width:100%;padding:12px 14px;border:1px solid #cbd5e1;border-radius:8px;margin:8px 0 18px}.share a{display:inline-block;margin:0 8px 8px 0;color:#0f766e;font-weight:700}.breadcrumb{font-size:14px;color:#64748b;margin-bottom:18px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}.review-layout{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:20px;align-items:start}.review-layout>.breadcrumb{grid-column:1/-1}.review-layout>.toc{grid-column:2;grid-row:2;position:sticky;top:84px;max-height:70vh;overflow-y:auto;z-index:1}.review-layout>div{grid-column:1;grid-row:2;min-width:0}.toc{position:relative;max-width:100%}.toc a{display:block;color:#475569;text-decoration:none;padding:6px 0;border-bottom:1px solid #edf2f7}.auto-toc-block{margin:18px 0;max-height:70vh;overflow-y:auto}.note{font-size:13px;color:#7c2d12}.status{display:inline-block;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:800}.status.planned{background:#f1f5f9;color:#334155}.status.doing{background:#fef3c7;color:#92400e}.status.done{background:#dcfce7;color:#166534}.list-section ul{background:#fff;border:1px solid #dbe3ef;border-radius:8px;padding:18px 28px}.list-section li{margin:8px 0}.list-section span{color:#64748b;margin-left:8px}.legal{padding-top:44px;padding-bottom:44px}.trust{border-left:4px solid #9a3412;background:#fff7ed}details{border-top:1px solid #e6edf5;padding:12px 0}summary{cursor:pointer;font-weight:800;color:#334155}pre,.code-block,.prompt{max-width:100%;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;background:#0f172a;color:#e2e8f0;border:1px solid #1e293b;border-radius:8px;padding:14px 16px;font-size:13px;line-height:1.55;box-sizing:border-box}pre code,code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,'Liberation Mono','Courier New',monospace}pre code{display:block;white-space:inherit;overflow-wrap:inherit;word-break:inherit;color:inherit}p code,li code{background:#f1f5f9;color:#334155;border-radius:4px;padding:2px 5px;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #dbe3ef;border-radius:8px;overflow:hidden}th,td{text-align:left;border-bottom:1px solid #e6edf5;padding:12px;vertical-align:top}th{background:#f1f5f9;color:#334155}
-    .community-proof{background:#ffffff;border-color:#cfdbea}.community-proof-header{max-width:820px}.community-proof-header h2{margin-top:10px}.community-signal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}.community-card{display:flex;flex-direction:column;gap:5px;min-height:104px;padding:15px;border:1px solid #dbe3ef;border-radius:8px;background:#f8fafc;color:#17202a;text-decoration:none;transition:border-color .15s ease,box-shadow .15s ease,transform .15s ease}.community-card:hover{border-color:#0f766e;box-shadow:0 8px 18px rgba(15,23,42,.08);transform:translateY(-1px)}.community-card strong{color:#0f172a;font-size:16px}.community-card span{color:#596579;font-size:14px;line-height:1.45}.community-note{margin:18px 0 0;color:#334155;font-weight:600}.newsletter-card{border-color:#bfdbfe;background:#f8fbff}.newsletter-form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}.newsletter-form .search{margin:0;width:100%}.related-research h3{font-size:18px;margin:16px 0 8px}.related-card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}.related-research-card{border:1px solid #dbeafe;background:#fff;border-radius:8px;padding:13px}.related-research-card h4{display:block;color:#0f172a;margin:0 0 5px;font-size:16px}.related-research-card p{display:block;color:#64748b;font-size:14px;margin:0 0 8px}.related-research-card a{color:#0f766e;font-weight:800;text-decoration:none}.footer-social{margin-top:14px}.footer-social a{margin:0 6px}
-    footer{margin-top:36px;background:#0f172a;color:#cbd5e1;padding:28px 0}footer a{color:#e2e8f0;text-decoration:none;margin-right:14px}footer p{color:#cbd5e1}@media(max-width:900px){.review-layout{grid-template-columns:1fr}.review-layout>.breadcrumb,.review-layout>.toc,.review-layout>div{grid-column:1;grid-row:auto}.review-layout>.toc,.toc{position:relative;top:auto;max-height:none;overflow:visible}}@media(max-width:760px){.nav-inner{height:auto;padding:14px 0;align-items:flex-start;flex-direction:column}.menu{gap:12px}.language-switcher{margin-top:6px;padding:4px 8px;font-size:12px}h1{font-size:34px}.hero-actions{display:grid;grid-template-columns:1fr;max-width:360px}.hero-actions .btn{display:block;text-align:center}.social-proof-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.social-proof-card{padding:13px 12px 13px 43px}.social-proof-icon{left:12px;top:13px}.popular-tools-list,.newsletter-form{grid-template-columns:1fr}.newsletter-form .btn{display:block;text-align:center}.community-signal-grid{grid-template-columns:1fr}.community-card{min-height:auto}.footer-social a{display:inline-block;margin-bottom:6px}}
+    .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}.content-hub-section.single-card .cards{grid-template-columns:minmax(0,760px)}.content-hub-section.single-card .content-card{display:grid;grid-template-columns:minmax(180px,260px) minmax(0,1fr);gap:18px;align-items:start}.content-hub-section.single-card .content-card img{margin:0}.card{background:#fff;border:1px solid #dbe3ef;border-radius:8px;padding:18px;box-shadow:0 1px 2px rgba(15,23,42,.04);max-width:100%;min-width:0;overflow:hidden;overflow-wrap:anywhere;word-break:normal}.cards>.card,.cards>article.card,.content-card{display:flex;flex-direction:column;height:100%}.content-card img,.card img{display:block;width:100%;max-width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:6px;margin:0 0 12px}.content-card h3,.card h3{overflow-wrap:anywhere}.content-card p,.card p{overflow-wrap:anywhere}.author-box{border-left:4px solid #0f766e;background:#f8fffd}.author-box h2{font-size:22px;margin-top:0}.btn{display:inline-block;background:#0f766e;color:#fff;text-decoration:none;padding:10px 14px;border-radius:6px;font-weight:800;margin-right:10px;max-width:100%;white-space:normal;text-align:center}.btn:visited{color:#fff}.btn.secondary{background:#e2e8f0;color:#0f172a}.btn.secondary:visited{color:#0f172a}.search{width:100%;padding:12px 14px;border:1px solid #cbd5e1;border-radius:8px;margin:8px 0 18px}.share a{display:inline-block;margin:0 8px 8px 0;color:#0f766e;font-weight:700}.breadcrumb{font-size:14px;color:#64748b;margin-bottom:18px;overflow-wrap:anywhere}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}.review-layout{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:20px;align-items:start}.review-layout>.breadcrumb{grid-column:1/-1}.review-layout>.toc{grid-column:2;grid-row:2;position:sticky;top:84px;max-height:70vh;overflow-y:auto;z-index:1}.review-layout>div{grid-column:1;grid-row:2;min-width:0}.toc{position:relative;max-width:100%}.toc a{display:block;color:#475569;text-decoration:none;padding:6px 0;border-bottom:1px solid #edf2f7}.auto-toc-block{margin:18px 0;max-height:70vh;overflow-y:auto}.note{font-size:13px;color:#7c2d12}.status{display:inline-block;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:800}.status.planned{background:#f1f5f9;color:#334155}.status.doing{background:#fef3c7;color:#92400e}.status.done{background:#dcfce7;color:#166534}.list-section ul{background:#fff;border:1px solid #dbe3ef;border-radius:8px;padding:18px 28px}.list-section li{margin:8px 0}.list-section span{color:#64748b;margin-left:8px}.legal{padding-top:44px;padding-bottom:44px}.trust{border-left:4px solid #9a3412;background:#fff7ed}details{border-top:1px solid #e6edf5;padding:12px 0}summary{cursor:pointer;font-weight:800;color:#334155}pre,.code-block,.prompt{max-width:100%;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;background:#0f172a;color:#e2e8f0;border:1px solid #1e293b;border-radius:8px;padding:14px 16px;font-size:13px;line-height:1.55;box-sizing:border-box}pre code,code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,'Liberation Mono','Courier New',monospace}pre code{display:block;white-space:inherit;overflow-wrap:inherit;word-break:inherit;color:inherit}p code,li code{background:#f1f5f9;color:#334155;border-radius:4px;padding:2px 5px;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #dbe3ef;border-radius:8px;overflow:hidden}th,td{text-align:left;border-bottom:1px solid #e6edf5;padding:12px;vertical-align:top}th{background:#f1f5f9;color:#334155}
+    .community-proof{background:#ffffff;border-color:#cfdbea}.community-proof-header{max-width:820px}.community-proof-header h2{margin-top:10px}.community-signal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}.community-card{display:flex;flex-direction:column;gap:5px;min-height:104px;padding:15px;border:1px solid #dbe3ef;border-radius:8px;background:#f8fafc;color:#17202a;text-decoration:none;transition:border-color .15s ease,box-shadow .15s ease,transform .15s ease}.community-card:visited{color:#17202a}.community-card:hover{border-color:#0f766e;box-shadow:0 8px 18px rgba(15,23,42,.08);transform:translateY(-1px)}.community-card strong{color:#0f172a;font-size:16px}.community-card span{color:#596579;font-size:14px;line-height:1.45}.content-hub-section.single-card .content-card{display:grid;grid-template-columns:minmax(180px,260px) minmax(0,1fr);gap:18px;align-items:start}.content-hub-section.single-card .content-card img{margin:0}.newsletter-card{border-color:#bfdbfe;background:#f8fbff}.newsletter-links{display:flex;flex-wrap:wrap;gap:10px}.newsletter-links .btn{margin:0}.related-research h3{font-size:18px;margin:16px 0 8px}.related-card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}.related-research-card{border:1px solid #dbeafe;background:#fff;border-radius:8px;padding:13px}.related-research-card h4{display:block;color:#0f172a;margin:0 0 5px;font-size:16px}.related-research-card p{display:block;color:#64748b;font-size:14px;margin:0 0 8px}.related-research-card a{color:#0f766e;font-weight:800;text-decoration:none}.footer-social{margin-top:14px}.footer-social a{margin:0 6px}
+    footer{margin-top:36px;background:#0f172a;color:#cbd5e1;padding:28px 0}footer a,footer a:visited{color:#e2e8f0;text-decoration:none;margin:0 14px 8px 0;display:inline-block;overflow-wrap:anywhere}footer p{color:#cbd5e1;overflow-wrap:anywhere}@media(max-width:1024px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.social-proof-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:900px){.review-layout{grid-template-columns:1fr}.review-layout>.breadcrumb,.review-layout>.toc,.review-layout>div{grid-column:1;grid-row:auto}.review-layout>.toc,.toc{position:relative;top:auto;max-height:none;overflow:visible}.content-hub-section.single-card .content-card{grid-template-columns:1fr}.content-hub-section.single-card .content-card img{margin:0 0 12px}}@media(max-width:760px){.nav-inner{height:auto;padding:14px 0;align-items:flex-start;flex-direction:column}.menu{gap:12px}h1{font-size:34px}.hero-actions{display:grid;grid-template-columns:1fr;max-width:360px}.hero-actions .btn{display:block;text-align:center}.social-proof-card{padding:13px 12px 13px 43px}.social-proof-icon{left:12px;top:13px}.popular-tools-list{grid-template-columns:1fr}.newsletter-links{display:grid;grid-template-columns:1fr;max-width:360px}.community-signal-grid{grid-template-columns:1fr}.community-card{min-height:auto}.footer-social a{display:inline-block;margin-bottom:6px}}@media(max-width:640px){.cards,.social-proof-grid{grid-template-columns:1fr}.wrap{padding:0 16px}h1{font-size:30px;line-height:1.12}h2{font-size:23px}.card{padding:16px}.list-section ul{padding:16px 20px}}
     """

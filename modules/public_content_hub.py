@@ -289,7 +289,8 @@ def _render_section(title: str, items: list[PublishedContent], *, base_url: str)
                 excerpt=html.escape(item.excerpt),
             )
         )
-    return f"<section class='content-hub-section'><h2>{html.escape(title)}</h2><div class='cards'>{''.join(cards)}</div></section>"
+    section_class = "content-hub-section single-card" if len(cards) == 1 else "content-hub-section"
+    return f"<section class='{section_class}'><h2>{html.escape(title)}</h2><div class='cards'>{''.join(cards)}</div></section>"
 
 
 def _select(
