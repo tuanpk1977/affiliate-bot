@@ -1,0 +1,1672 @@
+{
+  "date": "2026-07-19",
+  "summary": {
+    "date": "2026-07-19",
+    "requested_date": "2026-07-19",
+    "week_start": "2026-07-13",
+    "week_end": "2026-07-19",
+    "daily_angle": "Deep dive: buying decision",
+    "total_topics": 10,
+    "drafted": 0,
+    "approved": 7,
+    "rejected": 0,
+    "published": 0,
+    "missing_files": 3,
+    "dashboard_file": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-19\\index.html",
+    "operator_console": "D:\\AFFILATE BOT\\data\\editorial_operations_console.html",
+    "upload_dir": "D:\\AFFILATE BOT\\upload\\2026-07-19",
+    "master_dashboard": "D:\\AFFILATE BOT\\upload\\dashboard.html",
+    "ready_for_publish": 7,
+    "publish_blocked": 0,
+    "human_approval_required": 0,
+    "published_local": 0,
+    "drafts": 3,
+    "needs_review": 0,
+    "human_approved": 7,
+    "published_this_batch": 0,
+    "top_block_reasons": [],
+    "next_recommended_command": "python editorial_console.py publish-ready --date 2026-07-19",
+    "archived_unpublished": 19
+  },
+  "topics": [
+    {
+      "keyword": "is airi Review 2026 worth it for small business",
+      "slug": "is-airi-review-2026-worth-it-for-small-business",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 60,
+      "content_type": "buying_decision",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/moeru-ai/airi",
+        "https://quantrimang.com/cong-nghe/lien-quan-bang-ngoc-va-trang-bi-airi-mua-24-193421"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "buying_decision follow-up for airi Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Competition estimate is low-to-medium.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 2,
+      "confidence": "medium",
+      "total_score": 62.9,
+      "raw_total_score": 62.9,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "root_topic_id": "airi-review-2026",
+      "title": "airi Review 2026",
+      "primary_keyword": "airi Review 2026",
+      "category": "review",
+      "trend_score": 60.0,
+      "business_value": 44.0,
+      "sources": [
+        "https://github.com/moeru-ai/airi",
+        "https://quantrimang.com/cong-nghe/lien-quan-bang-ngoc-va-trang-bi-airi-mua-24-193421"
+      ],
+      "entities": [],
+      "week_start": "2026-07-13",
+      "status": "research_ready",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "airi Review 2026",
+      "parent_slug": "airi-review-2026",
+      "daily_angles": {
+        "2026-07-16": {
+          "angle": "main_review",
+          "title": "airi Review 2026",
+          "slug": "airi-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-17": {
+          "angle": "use_cases",
+          "title": "best airi Review 2026 workflows and use cases",
+          "slug": "best-airi-review-2026-workflows-and-use-cases",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-18": {
+          "angle": "troubleshooting",
+          "title": "common airi Review 2026 mistakes and troubleshooting",
+          "slug": "common-airi-review-2026-mistakes-and-troubleshooting",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        }
+      },
+      "rank": 1,
+      "root_title": "airi Review 2026",
+      "daily_angle": "buying_decision",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "airi Review 2026",
+          "slug": "airi-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-16"
+        },
+        {
+          "angle": "use_cases",
+          "title": "best airi Review 2026 workflows and use cases",
+          "slug": "best-airi-review-2026-workflows-and-use-cases",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-17"
+        },
+        {
+          "angle": "troubleshooting",
+          "title": "common airi Review 2026 mistakes and troubleshooting",
+          "slug": "common-airi-review-2026-mistakes-and-troubleshooting",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-18"
+        }
+      ],
+      "batch_date": "2026-07-19",
+      "mode": "advanced",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://github.com/moeru-ai/airi",
+          "https://quantrimang.com/cong-nghe/lien-quan-bang-ngoc-va-trang-bi-airi-mua-24-193421"
+        ],
+        "unique_source_domains": [
+          "github.com",
+          "quantrimang.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\is-airi-review-2026-worth-it-for-small-business",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 54.43,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "",
+      "review_preview": "",
+      "human_approval_status": "not_started",
+      "publish_gate_status": "not_started",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "codex_writer_hold_reason": "held: fewer than two semantically relevant independent sources for the exact entity/topic"
+    },
+    {
+      "keyword": "is Review by Eddie AI worth it for small business",
+      "slug": "is-review-by-eddie-ai-worth-it-for-small-business",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 47,
+      "content_type": "buying_decision",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://www.producthunt.com/products/eddie-your-ai-video-editor",
+        "https://www.manilatimes.net/2026/06/25/tmt-newswire/globenewswire/reged-expands-ai-powered-advertising-review-to-support-sec-compliance-for-investment-advisers/2372351",
+        "https://www.technologyreview.com/2026/04/16/1135216/making-ai-operational-in-constrained-public-sector-environments/",
+        "https://www.law.com/legaltechnews/2026/06/09/better-than-tar-nearly-expert-what-a-major-study-shows-about-gen-ai-and-tar-in-a-complex-document-review/"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "buying_decision follow-up for Review by Eddie AI",
+      "why_selected": [
+        "Detected across 1 source(s): product_hunt.",
+        "Competition estimate is low-to-medium.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 4,
+      "confidence": "medium",
+      "total_score": 60.8,
+      "raw_total_score": 60.8,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "root_topic_id": "review-by-eddie-ai",
+      "title": "Review by Eddie AI",
+      "primary_keyword": "Review by Eddie AI",
+      "category": "review",
+      "trend_score": 47.0,
+      "business_value": 44.0,
+      "sources": [
+        "https://www.producthunt.com/products/eddie-your-ai-video-editor",
+        "https://www.manilatimes.net/2026/06/25/tmt-newswire/globenewswire/reged-expands-ai-powered-advertising-review-to-support-sec-compliance-for-investment-advisers/2372351",
+        "https://www.technologyreview.com/2026/04/16/1135216/making-ai-operational-in-constrained-public-sector-environments/",
+        "https://www.law.com/legaltechnews/2026/06/09/better-than-tar-nearly-expert-what-a-major-study-shows-about-gen-ai-and-tar-in-a-complex-document-review/"
+      ],
+      "entities": [],
+      "week_start": "2026-07-13",
+      "status": "research_ready",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "Review by Eddie AI",
+      "parent_slug": "review-by-eddie-ai",
+      "daily_angles": {
+        "2026-07-16": {
+          "angle": "main_review",
+          "title": "Review by Eddie AI",
+          "slug": "review-by-eddie-ai",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-17": {
+          "angle": "use_cases",
+          "title": "best Review by Eddie AI workflows and use cases",
+          "slug": "best-review-by-eddie-ai-workflows-and-use-cases",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-18": {
+          "angle": "troubleshooting",
+          "title": "common Review by Eddie AI mistakes and troubleshooting",
+          "slug": "common-review-by-eddie-ai-mistakes-and-troubleshooting",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        }
+      },
+      "rank": 2,
+      "root_title": "Review by Eddie AI",
+      "daily_angle": "buying_decision",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "Review by Eddie AI",
+          "slug": "review-by-eddie-ai",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-16"
+        },
+        {
+          "angle": "use_cases",
+          "title": "best Review by Eddie AI workflows and use cases",
+          "slug": "best-review-by-eddie-ai-workflows-and-use-cases",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-17"
+        },
+        {
+          "angle": "troubleshooting",
+          "title": "common Review by Eddie AI mistakes and troubleshooting",
+          "slug": "common-review-by-eddie-ai-mistakes-and-troubleshooting",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-18"
+        }
+      ],
+      "batch_date": "2026-07-19",
+      "mode": "advanced",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 4,
+        "source_urls": [
+          "https://www.producthunt.com/products/eddie-your-ai-video-editor",
+          "https://www.manilatimes.net/2026/06/25/tmt-newswire/globenewswire/reged-expands-ai-powered-advertising-review-to-support-sec-compliance-for-investment-advisers/2372351",
+          "https://www.technologyreview.com/2026/04/16/1135216/making-ai-operational-in-constrained-public-sector-environments/",
+          "https://www.law.com/legaltechnews/2026/06/09/better-than-tar-nearly-expert-what-a-major-study-shows-about-gen-ai-and-tar-in-a-complex-document-review/"
+        ],
+        "unique_source_domains": [
+          "producthunt.com",
+          "manilatimes.net",
+          "technologyreview.com",
+          "law.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\is-review-by-eddie-ai-worth-it-for-small-business",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 56.43,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 4,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "",
+      "review_preview": "",
+      "human_approval_status": "not_started",
+      "publish_gate_status": "not_started",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "codex_writer_hold_reason": "held: fewer than two semantically relevant independent sources for the exact entity/topic"
+    },
+    {
+      "keyword": "is Companies are buying AI tools. That doesn't mean they know what to do with them. worth it for small business",
+      "slug": "is-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-worth-it-for-small-business",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 56,
+      "competition_difficulty_score": 59,
+      "product_availability_score": 58,
+      "content_freshness_score": 46,
+      "content_type": "buying_decision",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://www.msn.com/en-us/money/general/companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them/ar-AA27ixDK",
+        "https://www.forbes.com/councils/forbestechcouncil/2026/04/24/why-companies-regret-laying-off-workers-for-ai/",
+        "https://techcrunch.com/2026/05/29/coders-are-refusing-to-work-without-ai-and-that-could-come-back-to-bite-them/"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "buying_decision follow-up for Companies are buying AI tools. That doesn't mean they know what to do with them.",
+      "why_selected": [
+        "Detected across 1 source(s): bing_trending.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 5,
+      "confidence": "medium",
+      "total_score": 59.6,
+      "raw_total_score": 59.6,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "root_topic_id": "companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them",
+      "title": "Companies are buying AI tools. That doesn't mean they know what to do with them.",
+      "primary_keyword": "Companies are buying AI tools. That doesn't mean they know what to do with them.",
+      "category": "listicle",
+      "trend_score": 46.0,
+      "business_value": 56.0,
+      "sources": [
+        "https://www.msn.com/en-us/money/general/companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them/ar-AA27ixDK",
+        "https://www.forbes.com/councils/forbestechcouncil/2026/04/24/why-companies-regret-laying-off-workers-for-ai/",
+        "https://techcrunch.com/2026/05/29/coders-are-refusing-to-work-without-ai-and-that-could-come-back-to-bite-them/"
+      ],
+      "entities": [],
+      "week_start": "2026-07-13",
+      "status": "approved",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "Companies are buying AI tools. That doesn't mean they know what to do with them.",
+      "parent_slug": "companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them",
+      "daily_angles": {
+        "2026-07-16": {
+          "angle": "main_review",
+          "title": "Companies are buying AI tools. That doesn't mean they know what to do with them.",
+          "slug": "companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-17": {
+          "angle": "use_cases",
+          "title": "best Companies are buying AI tools. That doesn't mean they know what to do with them. workflows and use cases",
+          "slug": "best-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-workflows-and-use-cases",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-18": {
+          "angle": "troubleshooting",
+          "title": "",
+          "slug": "common-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-mistakes-and-troubleshooting",
+          "search_intent": "",
+          "status": "held",
+          "reason": "weekly slug collision: companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them"
+        }
+      },
+      "rank": 3,
+      "root_title": "Companies are buying AI tools. That doesn't mean they know what to do with them.",
+      "daily_angle": "buying_decision",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "Companies are buying AI tools. That doesn't mean they know what to do with them.",
+          "slug": "companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-16"
+        },
+        {
+          "angle": "use_cases",
+          "title": "best Companies are buying AI tools. That doesn't mean they know what to do with them. workflows and use cases",
+          "slug": "best-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-workflows-and-use-cases",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-17"
+        },
+        {
+          "angle": "troubleshooting",
+          "title": "",
+          "slug": "common-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-mistakes-and-troubleshooting",
+          "search_intent": "",
+          "status": "held",
+          "reason": "weekly slug collision: companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them",
+          "date": "2026-07-18"
+        }
+      ],
+      "batch_date": "2026-07-19",
+      "mode": "advanced",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 3,
+        "source_urls": [
+          "https://www.msn.com/en-us/money/general/companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them/ar-AA27ixDK",
+          "https://www.forbes.com/councils/forbestechcouncil/2026/04/24/why-companies-regret-laying-off-workers-for-ai/",
+          "https://techcrunch.com/2026/05/29/coders-are-refusing-to-work-without-ai-and-that-could-come-back-to-bite-them/"
+        ],
+        "unique_source_domains": [
+          "msn.com",
+          "forbes.com",
+          "techcrunch.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\is-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-worth-it-for-small-business",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 54.0,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 3,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\is-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-worth-it-for-small-business",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-19\\is-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-worth-it-for-small-business\\index.html",
+      "human_approval_status": "human_approved",
+      "publish_gate_status": "approved_for_publish",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\is-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-worth-it-for-small-business\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\is-companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them-worth-it-for-small-business\\metadata.json",
+      "review_status": "human_approved",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      },
+      "approved_by": "editor"
+    },
+    {
+      "keyword": "is Most Companies Have AI Tools, But Many Don't Rewire Themselves For AI worth it for small business",
+      "slug": "is-most-companies-have-ai-tools-but-many-don-t-rewire-themselves-for-ai-worth-it-for-small-business",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 54,
+      "competition_difficulty_score": 59,
+      "product_availability_score": 58,
+      "content_freshness_score": 46,
+      "content_type": "buying_decision",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://www.forbes.com/councils/forbestechcouncil/2026/07/13/most-companies-have-ai-tools-but-many-dont-rewire-themselves-for-ai/",
+        "https://www.fastcompany.com/91556901/the-most-important-ai-in-your-company-isnt-a-tool",
+        "https://www.cnbc.com/2026/06/04/ramp-valuation-funding-ai-spend.html",
+        "https://www.entrepreneur.com/business-news/tech/companies-dont-want-ai-for-client-emails-heres-why",
+        "https://www.ttnews.com/articles/companies-dial-back-ai-use",
+        "https://www.cio.com/article/4183037/ai-is-becoming-a-single-point-of-failure-and-most-companies-dont-see-it.html",
+        "https://www.msn.com/en-us/money/smallbusiness/ai-can-do-a-lot-but-most-companies-don-t-want-it-talking-to-their-clients-here-s-why/ar-AA253ljC",
+        "https://www.jdsupra.com/legalnews/why-many-legal-ai-tools-fail-to-deliver-9954398/"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "buying_decision follow-up for Most Companies Have AI Tools, But Many Don't Rewire Themselves For AI",
+      "why_selected": [
+        "Detected across 1 source(s): bing_trending.",
+        "Commercial terminology suggests above-average CPC potential.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 12,
+      "confidence": "medium",
+      "total_score": 59.1,
+      "raw_total_score": 59.1,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "root_topic_id": "most-companies-have-ai-tools-but-many-don-t-rewire-themselves-for-ai",
+      "title": "Most Companies Have AI Tools, But Many Don't Rewire Themselves For AI",
+      "primary_keyword": "Most Companies Have AI Tools, But Many Don't Rewire Themselves For AI",
+      "category": "listicle",
+      "trend_score": 46.0,
+      "business_value": 54.0,
+      "sources": [
+        "https://www.forbes.com/councils/forbestechcouncil/2026/07/13/most-companies-have-ai-tools-but-many-dont-rewire-themselves-for-ai/",
+        "https://www.fastcompany.com/91556901/the-most-important-ai-in-your-company-isnt-a-tool",
+        "https://www.cnbc.com/2026/06/04/ramp-valuation-funding-ai-spend.html",
+        "https://www.entrepreneur.com/business-news/tech/companies-dont-want-ai-for-client-emails-heres-why",
+        "https://www.ttnews.com/articles/companies-dial-back-ai-use",
+        "https://www.cio.com/article/4183037/ai-is-becoming-a-single-point-of-failure-and-most-companies-dont-see-it.html",
+        "https://www.msn.com/en-us/money/smallbusiness/ai-can-do-a-lot-but-most-companies-don-t-want-it-talking-to-their-clients-here-s-why/ar-AA253ljC",
+        "https://www.jdsupra.com/legalnews/why-many-legal-ai-tools-fail-to-deliver-9954398/"
+      ],
+      "entities": [],
+      "week_start": "2026-07-13",
+      "status": "approved",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "Most Companies Have AI Tools, But Many Don't Rewire Themselves For AI",
+      "parent_slug": "most-companies-have-ai-tools-but-many-don-t-rewire-themselves-for-ai",
+      "daily_angles": {
+        "2026-07-16": {
+          "angle": "main_review",
+          "title": "Most Companies Have AI Tools, But Many Don't Rewire Themselves For AI",
+          "slug": "most-companies-have-ai-tools-but-many-don-t-rewire-themselves-for-ai",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-17": {
+          "angle": "use_cases",
+          "title": "best Most Companies Have AI Tools, But Many Don't Rewire Themselves For AI workflows and use cases",
+          "slug": "best-most-companies-have-ai-tools-but-many-don-t-rewire-themselves-for-ai-workflows-and-use-cases",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-18": {
+          "angle": "troubleshooting",
+          "title": "common Most Companies Have AI Tools, But Many Don't Rewire Themselves For AI mistakes and troubleshooting",
+          "slug": "common-most-companies-have-ai-tools-but-many-don-t-rewire-themselves-for-ai-mistakes-and-troubleshooting",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        }
+      },
+      "rank": 4,
+      "root_title": "Most Companies Have AI Tools, But Many Don't Rewire Themselves For AI",
+      "daily_angle": "buying_decision",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "Most Companies Have AI Tools, But Many Don't Rewire Themselves For AI",
+          "slug": "most-companies-have-ai-tools-but-many-don-t-rewire-themselves-for-ai",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-16"
+        },
+        {
+          "angle": "use_cases",
+          "title": "best Most Companies Have AI Tools, But Many Don't Rewire Themselves For AI workflows and use cases",
+          "slug": "best-most-companies-have-ai-tools-but-many-don-t-rewire-themselves-for-ai-workflows-and-use-cases",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-17"
+        },
+        {
+          "angle": "troubleshooting",
+          "title": "common Most Companies Have AI Tools, But Many Don't Rewire Themselves For AI mistakes and troubleshooting",
+          "slug": "common-most-companies-have-ai-tools-but-many-don-t-rewire-themselves-for-ai-mistakes-and-troubleshooting",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-18"
+        }
+      ],
+      "batch_date": "2026-07-19",
+      "mode": "advanced",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 8,
+        "source_urls": [
+          "https://www.forbes.com/councils/forbestechcouncil/2026/07/13/most-companies-have-ai-tools-but-many-dont-rewire-themselves-for-ai/",
+          "https://www.fastcompany.com/91556901/the-most-important-ai-in-your-company-isnt-a-tool",
+          "https://www.cnbc.com/2026/06/04/ramp-valuation-funding-ai-spend.html",
+          "https://www.entrepreneur.com/business-news/tech/companies-dont-want-ai-for-client-emails-heres-why",
+          "https://www.ttnews.com/articles/companies-dial-back-ai-use",
+          "https://www.cio.com/article/4183037/ai-is-becoming-a-single-point-of-failure-and-most-companies-dont-see-it.html",
+          "https://www.msn.com/en-us/money/smallbusiness/ai-can-do-a-lot-but-most-companies-don-t-want-it-talking-to-their-clients-here-s-why/ar-AA253ljC",
+          "https://www.jdsupra.com/legalnews/why-many-legal-ai-tools-fail-to-deliver-9954398/"
+        ],
+        "unique_source_domains": [
+          "forbes.com",
+          "fastcompany.com",
+          "cnbc.com",
+          "entrepreneur.com",
+          "ttnews.com",
+          "cio.com",
+          "msn.com",
+          "jdsupra.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\is-most-companies-have-ai-tools-but-many-don-t-rewire-themselves-for-ai-worth-it-for-small-business",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 58.86,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 8,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\is-most-companies-have-ai-tools-but-many-don-t-rewire-themselves-for-ai-worth-it-for-small-business",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-19\\is-most-companies-have-ai-tools-but-many-don-t-rewire-themselves-for-ai-worth-it-for-small-business\\index.html",
+      "human_approval_status": "human_approved",
+      "publish_gate_status": "approved_for_publish",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\is-most-companies-have-ai-tools-but-many-don-t-rewire-themselves-for-ai-worth-it-for-small-business\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\is-most-companies-have-ai-tools-but-many-don-t-rewire-themselves-for-ai-worth-it-for-small-business\\metadata.json",
+      "review_status": "human_approved",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      },
+      "approved_by": "editor"
+    },
+    {
+      "keyword": "is Top 10 Marketing Automation Software Platforms for Businesses in 2026 worth it for small business",
+      "slug": "is-top-10-marketing-automation-software-platforms-for-businesses-in-2026-worth-it-for-small-business",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 37,
+      "competition_difficulty_score": 59,
+      "product_availability_score": 58,
+      "content_freshness_score": 46,
+      "content_type": "buying_decision",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://www.analyticsinsight.net/artificial-intelligence/top-10-marketing-automation-software-platforms-for-businesses-in-2026",
+        "https://www.pcmag.com/picks/the-best-email-marketing-software",
+        "https://www.forbes.com/advisor/business/software/best-crm-software/",
+        "https://www.morningstar.com/news/pr-newswire/20260305la02426/consensus-named-one-of-g2s-top-5-sales-software-platforms-of-2026-proving-demo-automation-is-now-a-must-have-in-every-gtm-stack"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/",
+        "/category/automation-tools/",
+        "/zapier-pricing/",
+        "/compare/make-vs-zapier/"
+      ],
+      "suggested_article_angle": "buying_decision follow-up for Top 10 Marketing Automation Software Platforms for Businesses in 2026",
+      "why_selected": [
+        "Detected across 1 source(s): bing_trending.",
+        "Can remain useful after the current news cycle.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 5,
+      "confidence": "medium",
+      "total_score": 55.0,
+      "raw_total_score": 55.0,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "root_topic_id": "top-10-marketing-automation-software-platforms-for-businesses-in-2026",
+      "title": "Top 10 Marketing Automation Software Platforms for Businesses in 2026",
+      "primary_keyword": "Top 10 Marketing Automation Software Platforms for Businesses in 2026",
+      "category": "listicle",
+      "trend_score": 46.0,
+      "business_value": 37.0,
+      "sources": [
+        "https://www.analyticsinsight.net/artificial-intelligence/top-10-marketing-automation-software-platforms-for-businesses-in-2026",
+        "https://www.pcmag.com/picks/the-best-email-marketing-software",
+        "https://www.forbes.com/advisor/business/software/best-crm-software/",
+        "https://www.morningstar.com/news/pr-newswire/20260305la02426/consensus-named-one-of-g2s-top-5-sales-software-platforms-of-2026-proving-demo-automation-is-now-a-must-have-in-every-gtm-stack"
+      ],
+      "entities": [],
+      "week_start": "2026-07-13",
+      "status": "approved",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "Top 10 Marketing Automation Software Platforms for Businesses in 2026",
+      "parent_slug": "top-10-marketing-automation-software-platforms-for-businesses-in-2026",
+      "daily_angles": {
+        "2026-07-16": {
+          "angle": "main_review",
+          "title": "Top 10 Marketing Automation Software Platforms for Businesses in 2026",
+          "slug": "top-10-marketing-automation-software-platforms-for-businesses-in-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-17": {
+          "angle": "use_cases",
+          "title": "best Top 10 Marketing Automation Software Platforms for Businesses in 2026 workflows and use cases",
+          "slug": "best-top-10-marketing-automation-software-platforms-for-businesses-in-2026-workflows-and-use-cases",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-18": {
+          "angle": "troubleshooting",
+          "title": "common Top 10 Marketing Automation Software Platforms for Businesses in 2026 mistakes and troubleshooting",
+          "slug": "common-top-10-marketing-automation-software-platforms-for-businesses-in-2026-mistakes-and-troubleshooting",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        }
+      },
+      "rank": 5,
+      "root_title": "Top 10 Marketing Automation Software Platforms for Businesses in 2026",
+      "daily_angle": "buying_decision",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "Top 10 Marketing Automation Software Platforms for Businesses in 2026",
+          "slug": "top-10-marketing-automation-software-platforms-for-businesses-in-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-16"
+        },
+        {
+          "angle": "use_cases",
+          "title": "best Top 10 Marketing Automation Software Platforms for Businesses in 2026 workflows and use cases",
+          "slug": "best-top-10-marketing-automation-software-platforms-for-businesses-in-2026-workflows-and-use-cases",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-17"
+        },
+        {
+          "angle": "troubleshooting",
+          "title": "common Top 10 Marketing Automation Software Platforms for Businesses in 2026 mistakes and troubleshooting",
+          "slug": "common-top-10-marketing-automation-software-platforms-for-businesses-in-2026-mistakes-and-troubleshooting",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-18"
+        }
+      ],
+      "batch_date": "2026-07-19",
+      "mode": "advanced",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 4,
+        "source_urls": [
+          "https://www.analyticsinsight.net/artificial-intelligence/top-10-marketing-automation-software-platforms-for-businesses-in-2026",
+          "https://www.pcmag.com/picks/the-best-email-marketing-software",
+          "https://www.forbes.com/advisor/business/software/best-crm-software/",
+          "https://www.morningstar.com/news/pr-newswire/20260305la02426/consensus-named-one-of-g2s-top-5-sales-software-platforms-of-2026-proving-demo-automation-is-now-a-must-have-in-every-gtm-stack"
+        ],
+        "unique_source_domains": [
+          "analyticsinsight.net",
+          "pcmag.com",
+          "forbes.com",
+          "morningstar.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\is-top-10-marketing-automation-software-platforms-for-businesses-in-2026-worth-it-for-small-business",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 68.0,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 4,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\is-top-10-marketing-automation-software-platforms-for-businesses-in-2026-worth-it-for-small-business",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-19\\is-top-10-marketing-automation-software-platforms-for-businesses-in-2026-worth-it-for-small-business\\index.html",
+      "human_approval_status": "human_approved",
+      "publish_gate_status": "approved_for_publish",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\is-top-10-marketing-automation-software-platforms-for-businesses-in-2026-worth-it-for-small-business\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\is-top-10-marketing-automation-software-platforms-for-businesses-in-2026-worth-it-for-small-business\\metadata.json",
+      "review_status": "human_approved",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      },
+      "approved_by": "editor"
+    },
+    {
+      "keyword": "is Microsoft Study Finds AI Coding Agents Lift Pull Requests by 24% worth it for small business",
+      "slug": "is-microsoft-study-finds-ai-coding-agents-lift-pull-requests-by-24-worth-it-for-small-business",
+      "search_intent": "mixed informational and commercial",
+      "search_intent_score": 64,
+      "affiliate_monetization_score": 37,
+      "competition_difficulty_score": 47,
+      "product_availability_score": 40,
+      "content_freshness_score": 46,
+      "content_type": "buying_decision",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://www.techrepublic.com/article/news-ai-coding-agents-microsoft-pull-requests/",
+        "https://adtmag.com/articles/2026/05/27/ai-coding-agents-are-already-spreading-across-github.aspx"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/",
+        "/category/ai-coding-tools/",
+        "/compare/cursor-vs-github-copilot-2026/",
+        "/review/windsurf-review-2026/"
+      ],
+      "suggested_article_angle": "buying_decision follow-up for Microsoft Study Finds AI Coding Agents Lift Pull Requests by 24%",
+      "why_selected": [
+        "Detected across 1 source(s): bing_trending.",
+        "Competition estimate is low-to-medium.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 4,
+      "confidence": "medium",
+      "total_score": 47.9,
+      "raw_total_score": 47.9,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "root_topic_id": "microsoft-study-finds-ai-coding-agents-lift-pull-requests-by-24",
+      "title": "Microsoft Study Finds AI Coding Agents Lift Pull Requests by 24%",
+      "primary_keyword": "Microsoft Study Finds AI Coding Agents Lift Pull Requests by 24%",
+      "category": "review",
+      "trend_score": 46.0,
+      "business_value": 37.0,
+      "sources": [
+        "https://www.techrepublic.com/article/news-ai-coding-agents-microsoft-pull-requests/",
+        "https://adtmag.com/articles/2026/05/27/ai-coding-agents-are-already-spreading-across-github.aspx"
+      ],
+      "entities": [],
+      "week_start": "2026-07-13",
+      "status": "approved",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "Microsoft Study Finds AI Coding Agents Lift Pull Requests by 24%",
+      "parent_slug": "microsoft-study-finds-ai-coding-agents-lift-pull-requests-by-24",
+      "daily_angles": {
+        "2026-07-16": {
+          "angle": "main_review",
+          "title": "Microsoft Study Finds AI Coding Agents Lift Pull Requests by 24%",
+          "slug": "microsoft-study-finds-ai-coding-agents-lift-pull-requests-by-24",
+          "search_intent": "mixed informational and commercial",
+          "status": "queue_created"
+        },
+        "2026-07-17": {
+          "angle": "use_cases",
+          "title": "best Microsoft Study Finds AI Coding Agents Lift Pull Requests by 24% workflows and use cases",
+          "slug": "best-microsoft-study-finds-ai-coding-agents-lift-pull-requests-by-24-workflows-and-use-cases",
+          "search_intent": "informational",
+          "status": "queue_created"
+        },
+        "2026-07-18": {
+          "angle": "troubleshooting",
+          "title": "common Microsoft Study Finds AI Coding Agents Lift Pull Requests by 24% mistakes and troubleshooting",
+          "slug": "common-microsoft-study-finds-ai-coding-agents-lift-pull-requests-by-24-mistakes-and-troubleshooting",
+          "search_intent": "mixed informational and commercial",
+          "status": "queue_created"
+        }
+      },
+      "rank": 6,
+      "root_title": "Microsoft Study Finds AI Coding Agents Lift Pull Requests by 24%",
+      "daily_angle": "buying_decision",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "Microsoft Study Finds AI Coding Agents Lift Pull Requests by 24%",
+          "slug": "microsoft-study-finds-ai-coding-agents-lift-pull-requests-by-24",
+          "search_intent": "mixed informational and commercial",
+          "status": "queue_created",
+          "date": "2026-07-16"
+        },
+        {
+          "angle": "use_cases",
+          "title": "best Microsoft Study Finds AI Coding Agents Lift Pull Requests by 24% workflows and use cases",
+          "slug": "best-microsoft-study-finds-ai-coding-agents-lift-pull-requests-by-24-workflows-and-use-cases",
+          "search_intent": "informational",
+          "status": "queue_created",
+          "date": "2026-07-17"
+        },
+        {
+          "angle": "troubleshooting",
+          "title": "common Microsoft Study Finds AI Coding Agents Lift Pull Requests by 24% mistakes and troubleshooting",
+          "slug": "common-microsoft-study-finds-ai-coding-agents-lift-pull-requests-by-24-mistakes-and-troubleshooting",
+          "search_intent": "mixed informational and commercial",
+          "status": "queue_created",
+          "date": "2026-07-18"
+        }
+      ],
+      "batch_date": "2026-07-19",
+      "mode": "advanced",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://www.techrepublic.com/article/news-ai-coding-agents-microsoft-pull-requests/",
+          "https://adtmag.com/articles/2026/05/27/ai-coding-agents-are-already-spreading-across-github.aspx"
+        ],
+        "unique_source_domains": [
+          "techrepublic.com",
+          "adtmag.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\is-microsoft-study-finds-ai-coding-agents-lift-pull-requests-by-24-worth-it-for-small-business",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 68.0,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\is-microsoft-study-finds-ai-coding-agents-lift-pull-requests-by-24-worth-it-for-small-business",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-19\\is-microsoft-study-finds-ai-coding-agents-lift-pull-requests-by-24-worth-it-for-small-business\\index.html",
+      "human_approval_status": "human_approved",
+      "publish_gate_status": "approved_for_publish",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\is-microsoft-study-finds-ai-coding-agents-lift-pull-requests-by-24-worth-it-for-small-business\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\is-microsoft-study-finds-ai-coding-agents-lift-pull-requests-by-24-worth-it-for-small-business\\metadata.json",
+      "review_status": "human_approved",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      },
+      "approved_by": "editor"
+    },
+    {
+      "keyword": "is Reco Launches Industry-First AI Agent Security to Tackle Agent Sprawl Across SaaS worth it for small business",
+      "slug": "is-reco-launches-industry-first-ai-agent-security-to-tackle-agent-sprawl-across-saas-worth-it-for-small-business",
+      "search_intent": "mixed informational and commercial",
+      "search_intent_score": 64,
+      "affiliate_monetization_score": 37,
+      "competition_difficulty_score": 47,
+      "product_availability_score": 40,
+      "content_freshness_score": 46,
+      "content_type": "buying_decision",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://www.sctimes.com/press-release/story/44822/reco-launches-industry-first-ai-agent-security-to-tackle-agent-sprawl-across-saas/",
+        "https://finance.yahoo.com/technology/ai/articles/reco-launches-agent-security-enterprise-130300406.html",
+        "https://www.manilatimes.net/2026/06/25/tmt-newswire/globenewswire/reco-launches-agent-security-for-enterprise-ecosystems/2372954"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "buying_decision follow-up for Reco Launches Industry-First AI Agent Security to Tackle Agent Sprawl Across SaaS",
+      "why_selected": [
+        "Detected across 1 source(s): bing_trending.",
+        "Competition estimate is low-to-medium.",
+        "Commercial terminology suggests above-average CPC potential.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 3,
+      "confidence": "medium",
+      "total_score": 47.9,
+      "raw_total_score": 47.9,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "root_topic_id": "reco-launches-industry-first-ai-agent-security-to-tackle-agent-sprawl-across-saas",
+      "title": "Reco Launches Industry-First AI Agent Security to Tackle Agent Sprawl Across SaaS",
+      "primary_keyword": "Reco Launches Industry-First AI Agent Security to Tackle Agent Sprawl Across SaaS",
+      "category": "news/update",
+      "trend_score": 46.0,
+      "business_value": 37.0,
+      "sources": [
+        "https://www.sctimes.com/press-release/story/44822/reco-launches-industry-first-ai-agent-security-to-tackle-agent-sprawl-across-saas/",
+        "https://finance.yahoo.com/technology/ai/articles/reco-launches-agent-security-enterprise-130300406.html",
+        "https://www.manilatimes.net/2026/06/25/tmt-newswire/globenewswire/reco-launches-agent-security-for-enterprise-ecosystems/2372954"
+      ],
+      "entities": [],
+      "week_start": "2026-07-13",
+      "status": "approved",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "Reco Launches Industry-First AI Agent Security to Tackle Agent Sprawl Across SaaS",
+      "parent_slug": "reco-launches-industry-first-ai-agent-security-to-tackle-agent-sprawl-across-saas",
+      "daily_angles": {
+        "2026-07-16": {
+          "angle": "main_review",
+          "title": "Reco Launches Industry-First AI Agent Security to Tackle Agent Sprawl Across SaaS",
+          "slug": "reco-launches-industry-first-ai-agent-security-to-tackle-agent-sprawl-across-saas",
+          "search_intent": "mixed informational and commercial",
+          "status": "queue_created"
+        },
+        "2026-07-17": {
+          "angle": "use_cases",
+          "title": "best Reco Launches Industry-First AI Agent Security to Tackle Agent Sprawl Across SaaS workflows and use cases",
+          "slug": "best-reco-launches-industry-first-ai-agent-security-to-tackle-agent-sprawl-across-saas-workflows-and-use-cases",
+          "search_intent": "informational",
+          "status": "queue_created"
+        },
+        "2026-07-18": {
+          "angle": "troubleshooting",
+          "title": "common Reco Launches Industry-First AI Agent Security to Tackle Agent Sprawl Across SaaS mistakes and troubleshooting",
+          "slug": "common-reco-launches-industry-first-ai-agent-security-to-tackle-agent-sprawl-across-saas-mistakes-and-troubleshooting",
+          "search_intent": "mixed informational and commercial",
+          "status": "queue_created"
+        }
+      },
+      "rank": 7,
+      "root_title": "Reco Launches Industry-First AI Agent Security to Tackle Agent Sprawl Across SaaS",
+      "daily_angle": "buying_decision",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "Reco Launches Industry-First AI Agent Security to Tackle Agent Sprawl Across SaaS",
+          "slug": "reco-launches-industry-first-ai-agent-security-to-tackle-agent-sprawl-across-saas",
+          "search_intent": "mixed informational and commercial",
+          "status": "queue_created",
+          "date": "2026-07-16"
+        },
+        {
+          "angle": "use_cases",
+          "title": "best Reco Launches Industry-First AI Agent Security to Tackle Agent Sprawl Across SaaS workflows and use cases",
+          "slug": "best-reco-launches-industry-first-ai-agent-security-to-tackle-agent-sprawl-across-saas-workflows-and-use-cases",
+          "search_intent": "informational",
+          "status": "queue_created",
+          "date": "2026-07-17"
+        },
+        {
+          "angle": "troubleshooting",
+          "title": "common Reco Launches Industry-First AI Agent Security to Tackle Agent Sprawl Across SaaS mistakes and troubleshooting",
+          "slug": "common-reco-launches-industry-first-ai-agent-security-to-tackle-agent-sprawl-across-saas-mistakes-and-troubleshooting",
+          "search_intent": "mixed informational and commercial",
+          "status": "queue_created",
+          "date": "2026-07-18"
+        }
+      ],
+      "batch_date": "2026-07-19",
+      "mode": "advanced",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 3,
+        "source_urls": [
+          "https://www.sctimes.com/press-release/story/44822/reco-launches-industry-first-ai-agent-security-to-tackle-agent-sprawl-across-saas/",
+          "https://finance.yahoo.com/technology/ai/articles/reco-launches-agent-security-enterprise-130300406.html",
+          "https://www.manilatimes.net/2026/06/25/tmt-newswire/globenewswire/reco-launches-agent-security-for-enterprise-ecosystems/2372954"
+        ],
+        "unique_source_domains": [
+          "sctimes.com",
+          "finance.yahoo.com",
+          "manilatimes.net"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\is-reco-launches-industry-first-ai-agent-security-to-tackle-agent-sprawl-across-saas-worth-it-for-small-business",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 55.43,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 3,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\is-reco-launches-industry-first-ai-agent-security-to-tackle-agent-sprawl-across-saas-worth-it-for-small-business",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-19\\is-reco-launches-industry-first-ai-agent-security-to-tackle-agent-sprawl-across-saas-worth-it-for-small-business\\index.html",
+      "human_approval_status": "human_approved",
+      "publish_gate_status": "approved_for_publish",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\is-reco-launches-industry-first-ai-agent-security-to-tackle-agent-sprawl-across-saas-worth-it-for-small-business\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\is-reco-launches-industry-first-ai-agent-security-to-tackle-agent-sprawl-across-saas-worth-it-for-small-business\\metadata.json",
+      "review_status": "human_approved",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      },
+      "approved_by": "editor"
+    },
+    {
+      "keyword": "is How To Overcome Real-World Challenges In AI Marketing Automation worth it for small business",
+      "slug": "is-how-to-overcome-real-world-challenges-in-ai-marketing-automation-worth-it-for-small-business",
+      "search_intent": "informational",
+      "search_intent_score": 70,
+      "affiliate_monetization_score": 32,
+      "competition_difficulty_score": 47,
+      "product_availability_score": 40,
+      "content_freshness_score": 46,
+      "content_type": "buying_decision",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://www.forbes.com/councils/forbesagencycouncil/2026/07/09/how-to-overcome-real-world-challenges-in-ai-marketing-automation/",
+        "https://www.inc.com/leila-sheridan/googles-750-million-plan-to-move-ai-from-experiments-to-the-real-world/91334694",
+        "https://www.dqindia.com/data-and-ai/ai-tools-in-2026-what-each-platform-does-best-in-real-world-workflows-11262991",
+        "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/",
+        "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/",
+        "/category/automation-tools/",
+        "/zapier-pricing/",
+        "/compare/make-vs-zapier/"
+      ],
+      "suggested_article_angle": "buying_decision follow-up for How To Overcome Real-World Challenges In AI Marketing Automation",
+      "why_selected": [
+        "Detected across 1 source(s): bing_trending.",
+        "Competition estimate is low-to-medium.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 7,
+      "confidence": "medium",
+      "total_score": 48.0,
+      "raw_total_score": 48.0,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "root_topic_id": "how-to-overcome-real-world-challenges-in-ai-marketing-automation",
+      "title": "How To Overcome Real-World Challenges In AI Marketing Automation",
+      "primary_keyword": "How To Overcome Real-World Challenges In AI Marketing Automation",
+      "category": "tutorial",
+      "trend_score": 46.0,
+      "business_value": 32.0,
+      "sources": [
+        "https://www.forbes.com/councils/forbesagencycouncil/2026/07/09/how-to-overcome-real-world-challenges-in-ai-marketing-automation/",
+        "https://www.inc.com/leila-sheridan/googles-750-million-plan-to-move-ai-from-experiments-to-the-real-world/91334694",
+        "https://www.dqindia.com/data-and-ai/ai-tools-in-2026-what-each-platform-does-best-in-real-world-workflows-11262991",
+        "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/",
+        "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/"
+      ],
+      "entities": [],
+      "week_start": "2026-07-13",
+      "status": "approved",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "How To Overcome Real-World Challenges In AI Marketing Automation",
+      "parent_slug": "how-to-overcome-real-world-challenges-in-ai-marketing-automation",
+      "daily_angles": {
+        "2026-07-16": {
+          "angle": "main_review",
+          "title": "How To Overcome Real-World Challenges In AI Marketing Automation",
+          "slug": "how-to-overcome-real-world-challenges-in-ai-marketing-automation",
+          "search_intent": "informational",
+          "status": "queue_created"
+        },
+        "2026-07-17": {
+          "angle": "use_cases",
+          "title": "best How To Overcome Real-World Challenges In AI Marketing Automation workflows and use cases",
+          "slug": "best-how-to-overcome-real-world-challenges-in-ai-marketing-automation-workflows-and-use-cases",
+          "search_intent": "informational",
+          "status": "queue_created"
+        },
+        "2026-07-18": {
+          "angle": "troubleshooting",
+          "title": "common How To Overcome Real-World Challenges In AI Marketing Automation mistakes and troubleshooting",
+          "slug": "common-how-to-overcome-real-world-challenges-in-ai-marketing-automation-mistakes-and-troubleshooting",
+          "search_intent": "informational",
+          "status": "queue_created"
+        }
+      },
+      "rank": 8,
+      "root_title": "How To Overcome Real-World Challenges In AI Marketing Automation",
+      "daily_angle": "buying_decision",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "How To Overcome Real-World Challenges In AI Marketing Automation",
+          "slug": "how-to-overcome-real-world-challenges-in-ai-marketing-automation",
+          "search_intent": "informational",
+          "status": "queue_created",
+          "date": "2026-07-16"
+        },
+        {
+          "angle": "use_cases",
+          "title": "best How To Overcome Real-World Challenges In AI Marketing Automation workflows and use cases",
+          "slug": "best-how-to-overcome-real-world-challenges-in-ai-marketing-automation-workflows-and-use-cases",
+          "search_intent": "informational",
+          "status": "queue_created",
+          "date": "2026-07-17"
+        },
+        {
+          "angle": "troubleshooting",
+          "title": "common How To Overcome Real-World Challenges In AI Marketing Automation mistakes and troubleshooting",
+          "slug": "common-how-to-overcome-real-world-challenges-in-ai-marketing-automation-mistakes-and-troubleshooting",
+          "search_intent": "informational",
+          "status": "queue_created",
+          "date": "2026-07-18"
+        }
+      ],
+      "batch_date": "2026-07-19",
+      "mode": "advanced",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 5,
+        "source_urls": [
+          "https://www.forbes.com/councils/forbesagencycouncil/2026/07/09/how-to-overcome-real-world-challenges-in-ai-marketing-automation/",
+          "https://www.inc.com/leila-sheridan/googles-750-million-plan-to-move-ai-from-experiments-to-the-real-world/91334694",
+          "https://www.dqindia.com/data-and-ai/ai-tools-in-2026-what-each-platform-does-best-in-real-world-workflows-11262991",
+          "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/",
+          "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/"
+        ],
+        "unique_source_domains": [
+          "forbes.com",
+          "inc.com",
+          "dqindia.com",
+          "semiengineering.com",
+          "news.microsoft.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\is-how-to-overcome-real-world-challenges-in-ai-marketing-automation-worth-it-for-small-business",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 66.57,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 5,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\is-how-to-overcome-real-world-challenges-in-ai-marketing-automation-worth-it-for-small-business",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-19\\is-how-to-overcome-real-world-challenges-in-ai-marketing-automation-worth-it-for-small-business\\index.html",
+      "human_approval_status": "human_approved",
+      "publish_gate_status": "approved_for_publish",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\is-how-to-overcome-real-world-challenges-in-ai-marketing-automation-worth-it-for-small-business\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\is-how-to-overcome-real-world-challenges-in-ai-marketing-automation-worth-it-for-small-business\\metadata.json",
+      "review_status": "human_approved",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      },
+      "approved_by": "editor"
+    },
+    {
+      "keyword": "is AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement worth it for small business",
+      "slug": "is-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-worth-it-for-small-business",
+      "search_intent": "mixed informational and commercial",
+      "search_intent_score": 64,
+      "affiliate_monetization_score": 32,
+      "competition_difficulty_score": 47,
+      "product_availability_score": 40,
+      "content_freshness_score": 46,
+      "content_type": "buying_decision",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://www.forbes.com/councils/forbesbusinesscouncil/2026/05/08/ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement/",
+        "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+        "https://www.utusan.com.my/pr-newswire-en/2026/05/doceree-healthcare-marketings-ai-powered-operating-system-earns-frost-sullivans-2026-global-technology-innovation-leadership-recognition/",
+        "https://www.healthcareitnews.com/news/healthcare-orgs-moving-beyond-ai-hype-cycle-himss26-attendees-agree"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/",
+        "/category/automation-tools/",
+        "/zapier-pricing/",
+        "/compare/make-vs-zapier/"
+      ],
+      "suggested_article_angle": "buying_decision follow-up for AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement",
+      "why_selected": [
+        "Detected across 1 source(s): bing_trending.",
+        "Competition estimate is low-to-medium.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 7,
+      "confidence": "medium",
+      "total_score": 46.7,
+      "raw_total_score": 46.7,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "root_topic_id": "ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement",
+      "title": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement",
+      "primary_keyword": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement",
+      "category": "review",
+      "trend_score": 46.0,
+      "business_value": 32.0,
+      "sources": [
+        "https://www.forbes.com/councils/forbesbusinesscouncil/2026/05/08/ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement/",
+        "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+        "https://www.utusan.com.my/pr-newswire-en/2026/05/doceree-healthcare-marketings-ai-powered-operating-system-earns-frost-sullivans-2026-global-technology-innovation-leadership-recognition/",
+        "https://www.healthcareitnews.com/news/healthcare-orgs-moving-beyond-ai-hype-cycle-himss26-attendees-agree"
+      ],
+      "entities": [],
+      "week_start": "2026-07-13",
+      "status": "approved",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement",
+      "parent_slug": "ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement",
+      "daily_angles": {
+        "2026-07-16": {
+          "angle": "main_review",
+          "title": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement",
+          "slug": "ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement",
+          "search_intent": "mixed informational and commercial",
+          "status": "queue_created"
+        },
+        "2026-07-17": {
+          "angle": "use_cases",
+          "title": "best AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement workflows and use cases",
+          "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases",
+          "search_intent": "informational",
+          "status": "queue_created"
+        },
+        "2026-07-18": {
+          "angle": "troubleshooting",
+          "title": "common AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement mistakes and troubleshooting",
+          "slug": "common-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-mistakes-and-troubleshooting",
+          "search_intent": "mixed informational and commercial",
+          "status": "queue_created"
+        }
+      },
+      "rank": 9,
+      "root_title": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement",
+      "daily_angle": "buying_decision",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement",
+          "slug": "ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement",
+          "search_intent": "mixed informational and commercial",
+          "status": "queue_created",
+          "date": "2026-07-16"
+        },
+        {
+          "angle": "use_cases",
+          "title": "best AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement workflows and use cases",
+          "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases",
+          "search_intent": "informational",
+          "status": "queue_created",
+          "date": "2026-07-17"
+        },
+        {
+          "angle": "troubleshooting",
+          "title": "common AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement mistakes and troubleshooting",
+          "slug": "common-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-mistakes-and-troubleshooting",
+          "search_intent": "mixed informational and commercial",
+          "status": "queue_created",
+          "date": "2026-07-18"
+        }
+      ],
+      "batch_date": "2026-07-19",
+      "mode": "advanced",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 4,
+        "source_urls": [
+          "https://www.forbes.com/councils/forbesbusinesscouncil/2026/05/08/ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement/",
+          "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+          "https://www.utusan.com.my/pr-newswire-en/2026/05/doceree-healthcare-marketings-ai-powered-operating-system-earns-frost-sullivans-2026-global-technology-innovation-leadership-recognition/",
+          "https://www.healthcareitnews.com/news/healthcare-orgs-moving-beyond-ai-hype-cycle-himss26-attendees-agree"
+        ],
+        "unique_source_domains": [
+          "forbes.com",
+          "finance.yahoo.com",
+          "utusan.com.my",
+          "healthcareitnews.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\is-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-worth-it-for-small-business",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 68.0,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 4,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\is-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-worth-it-for-small-business",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-19\\is-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-worth-it-for-small-business\\index.html",
+      "human_approval_status": "human_approved",
+      "publish_gate_status": "approved_for_publish",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\is-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-worth-it-for-small-business\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\is-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-worth-it-for-small-business\\metadata.json",
+      "review_status": "human_approved",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      },
+      "approved_by": "editor"
+    },
+    {
+      "keyword": "is New AI tools by IFTTT worth it for small business",
+      "slug": "is-new-ai-tools-by-ifttt-worth-it-for-small-business",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 59,
+      "product_availability_score": 58,
+      "content_freshness_score": 47,
+      "content_type": "buying_decision",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://www.producthunt.com/products/ifttt",
+        "https://www.crn.com/news/managed-services/2026/10-hot-msp-tools-to-expand-automation-ai-agentic-ai-capabilities",
+        "https://www.androidheadlines.com/2026/05/google-just-announced-a-wave-of-ai-tools-for-workspace-and-cloud-heres-everything-thats-new.html"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "buying_decision follow-up for New AI tools by IFTTT",
+      "why_selected": [
+        "Detected across 1 source(s): product_hunt.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 3,
+      "confidence": "medium",
+      "total_score": 56.9,
+      "raw_total_score": 56.9,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "root_topic_id": "new-ai-tools-by-ifttt",
+      "title": "New AI tools by IFTTT",
+      "primary_keyword": "New AI tools by IFTTT",
+      "category": "listicle",
+      "trend_score": 47.0,
+      "business_value": 44.0,
+      "sources": [
+        "https://www.producthunt.com/products/ifttt",
+        "https://www.crn.com/news/managed-services/2026/10-hot-msp-tools-to-expand-automation-ai-agentic-ai-capabilities",
+        "https://www.androidheadlines.com/2026/05/google-just-announced-a-wave-of-ai-tools-for-workspace-and-cloud-heres-everything-thats-new.html"
+      ],
+      "entities": [],
+      "week_start": "2026-07-13",
+      "status": "research_ready",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "New AI tools by IFTTT",
+      "parent_slug": "new-ai-tools-by-ifttt",
+      "daily_angles": {
+        "2026-07-16": {
+          "angle": "main_review",
+          "title": "New AI tools by IFTTT",
+          "slug": "new-ai-tools-by-ifttt",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-17": {
+          "angle": "use_cases",
+          "title": "best New AI tools by IFTTT workflows and use cases",
+          "slug": "best-new-ai-tools-by-ifttt-workflows-and-use-cases",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-18": {
+          "angle": "troubleshooting",
+          "title": "common New AI tools by IFTTT mistakes and troubleshooting",
+          "slug": "common-new-ai-tools-by-ifttt-mistakes-and-troubleshooting",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        }
+      },
+      "rank": 10,
+      "root_title": "New AI tools by IFTTT",
+      "daily_angle": "buying_decision",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "New AI tools by IFTTT",
+          "slug": "new-ai-tools-by-ifttt",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-16"
+        },
+        {
+          "angle": "use_cases",
+          "title": "best New AI tools by IFTTT workflows and use cases",
+          "slug": "best-new-ai-tools-by-ifttt-workflows-and-use-cases",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-17"
+        },
+        {
+          "angle": "troubleshooting",
+          "title": "common New AI tools by IFTTT mistakes and troubleshooting",
+          "slug": "common-new-ai-tools-by-ifttt-mistakes-and-troubleshooting",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-18"
+        }
+      ],
+      "batch_date": "2026-07-19",
+      "mode": "advanced",
+      "source_readiness": {
+        "passes": true,
+        "source_count": 3,
+        "source_urls": [
+          "https://www.producthunt.com/products/ifttt",
+          "https://www.crn.com/news/managed-services/2026/10-hot-msp-tools-to-expand-automation-ai-agentic-ai-capabilities",
+          "https://www.androidheadlines.com/2026/05/google-just-announced-a-wave-of-ai-tools-for-workspace-and-cloud-heres-everything-thats-new.html"
+        ],
+        "unique_source_domains": [
+          "producthunt.com",
+          "crn.com",
+          "androidheadlines.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\is-new-ai-tools-by-ifttt-worth-it-for-small-business",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 55.43,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 3,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "",
+      "review_preview": "",
+      "human_approval_status": "not_started",
+      "publish_gate_status": "not_started",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "codex_writer_hold_reason": "held: fewer than two semantically relevant independent sources for the exact entity/topic"
+    }
+  ],
+  "dashboard_file": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-19\\index.html",
+  "operator_console": "D:\\AFFILATE BOT\\data\\editorial_operations_console.html",
+  "publish_launcher": "",
+  "upload_dir": "D:\\AFFILATE BOT\\upload\\2026-07-19"
+}

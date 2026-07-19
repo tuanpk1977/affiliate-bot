@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-07-18T23:16:33.223840+00:00",
+  "writer": {
+    "provider": "codex",
+    "mode": "interactive_repository_writer",
+    "api_call_used": false,
+    "openai_api_used": false,
+    "heuristic_fallback_used": false
+  },
+  "source_count": 3,
+  "source_urls": [
+    "https://www.sctimes.com/press-release/story/44822/reco-launches-industry-first-ai-agent-security-to-tackle-agent-sprawl-across-saas/",
+    "https://finance.yahoo.com/technology/ai/articles/reco-launches-agent-security-enterprise-130300406.html",
+    "https://www.manilatimes.net/2026/06/25/tmt-newswire/globenewswire/reco-launches-agent-security-for-enterprise-ecosystems/2372954"
+  ],
+  "human_approval_required": true,
+  "published": false
+}

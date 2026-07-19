@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-07-18T23:16:30.709036+00:00",
+  "writer": {
+    "provider": "codex",
+    "mode": "interactive_repository_writer",
+    "api_call_used": false,
+    "openai_api_used": false,
+    "heuristic_fallback_used": false
+  },
+  "source_count": 3,
+  "source_urls": [
+    "https://www.msn.com/en-us/money/general/companies-are-buying-ai-tools-that-doesn-t-mean-they-know-what-to-do-with-them/ar-AA27ixDK",
+    "https://www.forbes.com/councils/forbestechcouncil/2026/04/24/why-companies-regret-laying-off-workers-for-ai/",
+    "https://techcrunch.com/2026/05/29/coders-are-refusing-to-work-without-ai-and-that-could-come-back-to-bite-them/"
+  ],
+  "human_approval_required": true,
+  "published": false
+}
