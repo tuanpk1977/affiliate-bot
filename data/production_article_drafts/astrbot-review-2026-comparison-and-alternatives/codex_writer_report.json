@@ -1,0 +1,17 @@
+{
+  "generated_at": "2026-07-22T01:03:45.000889+00:00",
+  "writer": {
+    "provider": "codex",
+    "mode": "interactive_repository_writer",
+    "api_call_used": false,
+    "openai_api_used": false,
+    "heuristic_fallback_used": false
+  },
+  "source_count": 2,
+  "source_urls": [
+    "https://github.com/AstrBotDevs/AstrBot",
+    "https://astrbot.app"
+  ],
+  "human_approval_required": true,
+  "published": false
+}

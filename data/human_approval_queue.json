@@ -798,5 +798,95 @@
     "approved_at": "2026-07-20T09:46:47.801640+00:00",
     "approved_by": "editor",
     "reason": ""
+  },
+  {
+    "slug": "astrbot-review-2026-comparison-and-alternatives",
+    "topic": "AstrBot Review 2026 comparison and alternatives",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-22T01:03:44.418738+00:00",
+    "approved_at": "2026-07-22T05:14:13.209772+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "wigolo-review-2026-comparison-and-alternatives",
+    "topic": "wigolo Review 2026 comparison and alternatives",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-22T01:03:45.684389+00:00",
+    "approved_at": "2026-07-22T05:14:26.395360+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "posthog-review-2026-comparison-and-alternatives",
+    "topic": "posthog Review 2026 comparison and alternatives",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-22T01:03:46.806378+00:00",
+    "approved_at": "2026-07-22T05:19:12.495802+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "copilot-sdk-review-2026-comparison-and-alternatives",
+    "topic": "copilot-sdk Review 2026 comparison and alternatives",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-22T01:03:48.001942+00:00",
+    "approved_at": "2026-07-22T05:19:41.362475+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "code-review-graph-review-2026-comparison-and-alternatives",
+    "topic": "code-review-graph Review 2026 comparison and alternatives",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-22T01:03:49.146423+00:00",
+    "approved_at": "2026-07-22T05:14:36.393643+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "voicebox-review-2026-comparison-and-alternatives",
+    "topic": "voicebox Review 2026 comparison and alternatives",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-22T01:03:50.200638+00:00",
+    "approved_at": "2026-07-22T05:19:55.156055+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "ktransformers-review-2026-comparison-and-alternatives",
+    "topic": "ktransformers Review 2026 comparison and alternatives",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-22T01:03:51.298920+00:00",
+    "approved_at": "2026-07-22T05:15:07.059262+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "wrenai-review-2026-comparison-and-alternatives",
+    "topic": "WrenAI Review 2026 comparison and alternatives",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-22T01:03:52.455872+00:00",
+    "approved_at": "2026-07-22T05:14:47.970169+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "free-ai-tools-comparison-and-alternatives",
+    "topic": "Free AI Tools comparison and alternatives",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-22T01:03:53.847770+00:00",
+    "approved_at": "2026-07-22T05:20:09.108111+00:00",
+    "approved_by": "editor",
+    "reason": ""
   }
 ]
