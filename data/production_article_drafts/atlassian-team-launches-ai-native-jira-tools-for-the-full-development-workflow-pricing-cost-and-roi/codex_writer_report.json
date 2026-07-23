@@ -1,0 +1,17 @@
+{
+  "generated_at": "2026-07-23T00:58:38.203750+00:00",
+  "writer": {
+    "provider": "codex",
+    "mode": "interactive_repository_writer",
+    "api_call_used": false,
+    "openai_api_used": false,
+    "heuristic_fallback_used": false
+  },
+  "source_count": 2,
+  "source_urls": [
+    "https://finance.yahoo.com/technology/ai/articles/atlassian-team-launches-ai-native-081408148.html",
+    "https://uk.finance.yahoo.com/news/atlassian-team-launches-ai-native-081408148.html"
+  ],
+  "human_approval_required": true,
+  "published": false
+}

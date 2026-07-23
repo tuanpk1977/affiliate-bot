@@ -1,0 +1,2392 @@
+{
+  "date": "2026-07-23",
+  "summary": {
+    "date": "2026-07-23",
+    "requested_date": "2026-07-23",
+    "week_start": "2026-07-20",
+    "week_end": "2026-07-26",
+    "daily_angle": "Deep dive: pricing",
+    "total_topics": 10,
+    "drafted": 10,
+    "approved": 0,
+    "rejected": 0,
+    "published": 0,
+    "missing_files": 0,
+    "dashboard_file": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-23\\index.html",
+    "operator_console": "D:\\AFFILATE BOT\\data\\editorial_operations_console.html",
+    "upload_dir": "D:\\AFFILATE BOT\\upload\\2026-07-23",
+    "master_dashboard": "D:\\AFFILATE BOT\\upload\\dashboard.html",
+    "ready_for_publish": 0,
+    "publish_blocked": 0,
+    "human_approval_required": 10,
+    "published_local": 0,
+    "drafts": 0,
+    "needs_review": 10,
+    "human_approved": 0,
+    "published_this_batch": 0,
+    "top_block_reasons": [],
+    "next_recommended_command": "python editorial_console.py approve --slug <slug> --date 2026-07-23",
+    "archived_unpublished": 19
+  },
+  "topics": [
+    {
+      "keyword": "AstrBot Review 2026 pricing cost and ROI",
+      "slug": "astrbot-review-2026-pricing-cost-and-roi",
+      "search_intent": "commercial investigation",
+      "search_intent_score": 88,
+      "affiliate_monetization_score": 59,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 59,
+      "content_type": "pricing",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/AstrBotDevs/AstrBot",
+        "https://astrbot.app"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "pricing follow-up for AstrBot Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Competition estimate is low-to-medium.",
+        "Can remain useful after the current news cycle.",
+        "Commercial terminology suggests above-average CPC potential.",
+        "Official project homepage confirmed from GitHub repository metadata."
+      ],
+      "signals": 1,
+      "confidence": "medium",
+      "total_score": 65.9,
+      "raw_total_score": 66.3,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://github.com/AstrBotDevs/AstrBot",
+          "https://astrbot.app"
+        ],
+        "unique_source_domains": [
+          "github.com",
+          "astrbot.app"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "root_topic_id": "astrbot-review-2026",
+      "title": "AstrBot Review 2026",
+      "primary_keyword": "AstrBot Review 2026",
+      "category": "review",
+      "trend_score": 59.0,
+      "business_value": 59.0,
+      "sources": [
+        "https://github.com/AstrBotDevs/AstrBot",
+        "https://astrbot.app"
+      ],
+      "entities": [],
+      "week_start": "2026-07-20",
+      "status": "drafted",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "AstrBot Review 2026",
+      "parent_slug": "astrbot-review-2026",
+      "daily_angles": {
+        "2026-07-20": {
+          "angle": "main_review",
+          "title": "AstrBot Review 2026",
+          "slug": "astrbot-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-21": {
+          "angle": "implementation_guide",
+          "title": "how to implement AstrBot Review 2026",
+          "slug": "how-to-implement-astrbot-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-22": {
+          "angle": "comparison",
+          "title": "AstrBot Review 2026 comparison and alternatives",
+          "slug": "astrbot-review-2026-comparison-and-alternatives",
+          "search_intent": "comparison",
+          "status": "queue_created"
+        }
+      },
+      "rank": 1,
+      "content_strategy": {
+        "content_type": "Review",
+        "audience": "Small business operators",
+        "search_intent": "commercial research",
+        "marketing_funnel": "Middle of funnel",
+        "primary_keyword": "AstrBot Review 2026",
+        "secondary_semantic_keywords": [
+          "astrbot",
+          "2026"
+        ],
+        "suggested_internal_links": [
+          {
+            "slug": "code-review-graph-review-2026",
+            "title": "code-review-graph Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "copilot-sdk-review-2026",
+            "title": "copilot-sdk Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "ktransformers-review-2026",
+            "title": "ktransformers Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "posthog-review-2026",
+            "title": "posthog Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "related_weekly_topics": [
+          {
+            "slug": "code-review-graph-review-2026",
+            "title": "code-review-graph Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "copilot-sdk-review-2026",
+            "title": "copilot-sdk Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "ktransformers-review-2026",
+            "title": "ktransformers Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "posthog-review-2026",
+            "title": "posthog Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "recommended_cta": "Read the full review",
+        "estimated_search_intent": "commercial research",
+        "suggested_external_link_count": 3,
+        "recommended_faq_count": 5,
+        "suggested_heading_count": 8,
+        "reading_level": "Grade 8-10",
+        "target_audience": "Small business operators",
+        "content_freshness": "current",
+        "topical_authority_score": 77,
+        "entity_keywords": [
+          "astrbot",
+          "2026"
+        ],
+        "schema_recommendation": [
+          "Article",
+          "BreadcrumbList",
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Product"
+        ],
+        "cluster_health": "healthy",
+        "planning_scope": "weekly_batch_only"
+      },
+      "content_quality_warnings": [
+        "Warning only: duplicate search intent appears 10 times in this weekly batch.",
+        "Warning only: duplicate CTA appears 8 times in this weekly batch.",
+        "Warning only: duplicate FAQ pattern appears 10 times in this weekly batch."
+      ],
+      "root_title": "AstrBot Review 2026",
+      "daily_angle": "pricing",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "AstrBot Review 2026",
+          "slug": "astrbot-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-20"
+        },
+        {
+          "angle": "implementation_guide",
+          "title": "how to implement AstrBot Review 2026",
+          "slug": "how-to-implement-astrbot-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-21"
+        },
+        {
+          "angle": "comparison",
+          "title": "AstrBot Review 2026 comparison and alternatives",
+          "slug": "astrbot-review-2026-comparison-and-alternatives",
+          "search_intent": "comparison",
+          "status": "queue_created",
+          "date": "2026-07-22"
+        }
+      ],
+      "batch_date": "2026-07-23",
+      "mode": "advanced",
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\astrbot-review-2026-pricing-cost-and-roi",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 50.71,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "entity_coverage_score 36.0 below initial threshold 40.0",
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\astrbot-review-2026-pricing-cost-and-roi",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-23\\astrbot-review-2026-pricing-cost-and-roi\\index.html",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\astrbot-review-2026-pricing-cost-and-roi\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\astrbot-review-2026-pricing-cost-and-roi\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      }
+    },
+    {
+      "keyword": "wigolo Review 2026 pricing cost and ROI",
+      "slug": "wigolo-review-2026-pricing-cost-and-roi",
+      "search_intent": "commercial investigation",
+      "search_intent_score": 88,
+      "affiliate_monetization_score": 54,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 64,
+      "content_type": "pricing",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/KnockOutEZ/wigolo",
+        "https://knockoutez.github.io/wigolo/"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "pricing follow-up for wigolo Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Commercial terminology suggests above-average CPC potential.",
+        "Official project homepage confirmed from GitHub repository metadata."
+      ],
+      "signals": 1,
+      "confidence": "medium",
+      "total_score": 65.5,
+      "raw_total_score": 65.9,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://github.com/KnockOutEZ/wigolo",
+          "https://knockoutez.github.io/wigolo/"
+        ],
+        "unique_source_domains": [
+          "github.com",
+          "knockoutez.github.io"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "root_topic_id": "wigolo-review-2026",
+      "title": "wigolo Review 2026",
+      "primary_keyword": "wigolo Review 2026",
+      "category": "review",
+      "trend_score": 64.0,
+      "business_value": 54.0,
+      "sources": [
+        "https://github.com/KnockOutEZ/wigolo",
+        "https://knockoutez.github.io/wigolo/"
+      ],
+      "entities": [],
+      "week_start": "2026-07-20",
+      "status": "drafted",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "wigolo Review 2026",
+      "parent_slug": "wigolo-review-2026",
+      "daily_angles": {
+        "2026-07-20": {
+          "angle": "main_review",
+          "title": "wigolo Review 2026",
+          "slug": "wigolo-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-21": {
+          "angle": "implementation_guide",
+          "title": "how to implement wigolo Review 2026",
+          "slug": "how-to-implement-wigolo-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-22": {
+          "angle": "comparison",
+          "title": "wigolo Review 2026 comparison and alternatives",
+          "slug": "wigolo-review-2026-comparison-and-alternatives",
+          "search_intent": "comparison",
+          "status": "queue_created"
+        }
+      },
+      "rank": 2,
+      "content_strategy": {
+        "content_type": "Review",
+        "audience": "Small business operators",
+        "search_intent": "commercial research",
+        "marketing_funnel": "Middle of funnel",
+        "primary_keyword": "wigolo Review 2026",
+        "secondary_semantic_keywords": [
+          "wigolo",
+          "2026"
+        ],
+        "suggested_internal_links": [
+          {
+            "slug": "astrbot-review-2026",
+            "title": "AstrBot Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "code-review-graph-review-2026",
+            "title": "code-review-graph Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "copilot-sdk-review-2026",
+            "title": "copilot-sdk Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "ktransformers-review-2026",
+            "title": "ktransformers Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "related_weekly_topics": [
+          {
+            "slug": "astrbot-review-2026",
+            "title": "AstrBot Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "code-review-graph-review-2026",
+            "title": "code-review-graph Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "copilot-sdk-review-2026",
+            "title": "copilot-sdk Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "ktransformers-review-2026",
+            "title": "ktransformers Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "recommended_cta": "Read the full review",
+        "estimated_search_intent": "commercial research",
+        "suggested_external_link_count": 3,
+        "recommended_faq_count": 5,
+        "suggested_heading_count": 8,
+        "reading_level": "Grade 8-10",
+        "target_audience": "Small business operators",
+        "content_freshness": "current",
+        "topical_authority_score": 77,
+        "entity_keywords": [
+          "wigolo",
+          "2026"
+        ],
+        "schema_recommendation": [
+          "Article",
+          "BreadcrumbList",
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Product"
+        ],
+        "cluster_health": "healthy",
+        "planning_scope": "weekly_batch_only"
+      },
+      "content_quality_warnings": [
+        "Warning only: duplicate search intent appears 10 times in this weekly batch.",
+        "Warning only: duplicate CTA appears 8 times in this weekly batch.",
+        "Warning only: duplicate FAQ pattern appears 10 times in this weekly batch."
+      ],
+      "root_title": "wigolo Review 2026",
+      "daily_angle": "pricing",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "wigolo Review 2026",
+          "slug": "wigolo-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-20"
+        },
+        {
+          "angle": "implementation_guide",
+          "title": "how to implement wigolo Review 2026",
+          "slug": "how-to-implement-wigolo-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-21"
+        },
+        {
+          "angle": "comparison",
+          "title": "wigolo Review 2026 comparison and alternatives",
+          "slug": "wigolo-review-2026-comparison-and-alternatives",
+          "search_intent": "comparison",
+          "status": "queue_created",
+          "date": "2026-07-22"
+        }
+      ],
+      "batch_date": "2026-07-23",
+      "mode": "advanced",
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\wigolo-review-2026-pricing-cost-and-roi",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 50.71,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "entity_coverage_score 36.0 below initial threshold 40.0",
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\wigolo-review-2026-pricing-cost-and-roi",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-23\\wigolo-review-2026-pricing-cost-and-roi\\index.html",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\wigolo-review-2026-pricing-cost-and-roi\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\wigolo-review-2026-pricing-cost-and-roi\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      }
+    },
+    {
+      "keyword": "posthog Review 2026 pricing cost and ROI",
+      "slug": "posthog-review-2026-pricing-cost-and-roi",
+      "search_intent": "commercial investigation",
+      "search_intent_score": 88,
+      "affiliate_monetization_score": 54,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 63,
+      "content_type": "pricing",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/PostHog/posthog",
+        "https://posthog.com"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "pricing follow-up for posthog Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Can remain useful after the current news cycle.",
+        "Commercial terminology suggests above-average CPC potential.",
+        "Official project homepage confirmed from GitHub repository metadata."
+      ],
+      "signals": 1,
+      "confidence": "medium",
+      "total_score": 65.3,
+      "raw_total_score": 65.8,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://github.com/PostHog/posthog",
+          "https://posthog.com"
+        ],
+        "unique_source_domains": [
+          "github.com",
+          "posthog.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "root_topic_id": "posthog-review-2026",
+      "title": "posthog Review 2026",
+      "primary_keyword": "posthog Review 2026",
+      "category": "review",
+      "trend_score": 63.0,
+      "business_value": 54.0,
+      "sources": [
+        "https://github.com/PostHog/posthog",
+        "https://posthog.com"
+      ],
+      "entities": [],
+      "week_start": "2026-07-20",
+      "status": "drafted",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "posthog Review 2026",
+      "parent_slug": "posthog-review-2026",
+      "daily_angles": {
+        "2026-07-20": {
+          "angle": "main_review",
+          "title": "posthog Review 2026",
+          "slug": "posthog-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-21": {
+          "angle": "implementation_guide",
+          "title": "how to implement posthog Review 2026",
+          "slug": "how-to-implement-posthog-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-22": {
+          "angle": "comparison",
+          "title": "posthog Review 2026 comparison and alternatives",
+          "slug": "posthog-review-2026-comparison-and-alternatives",
+          "search_intent": "comparison",
+          "status": "queue_created"
+        }
+      },
+      "rank": 3,
+      "content_strategy": {
+        "content_type": "Review",
+        "audience": "Small business operators",
+        "search_intent": "commercial research",
+        "marketing_funnel": "Middle of funnel",
+        "primary_keyword": "posthog Review 2026",
+        "secondary_semantic_keywords": [
+          "posthog",
+          "2026"
+        ],
+        "suggested_internal_links": [
+          {
+            "slug": "astrbot-review-2026",
+            "title": "AstrBot Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "code-review-graph-review-2026",
+            "title": "code-review-graph Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "copilot-sdk-review-2026",
+            "title": "copilot-sdk Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "ktransformers-review-2026",
+            "title": "ktransformers Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "related_weekly_topics": [
+          {
+            "slug": "astrbot-review-2026",
+            "title": "AstrBot Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "code-review-graph-review-2026",
+            "title": "code-review-graph Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "copilot-sdk-review-2026",
+            "title": "copilot-sdk Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "ktransformers-review-2026",
+            "title": "ktransformers Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "recommended_cta": "Read the full review",
+        "estimated_search_intent": "commercial research",
+        "suggested_external_link_count": 3,
+        "recommended_faq_count": 5,
+        "suggested_heading_count": 8,
+        "reading_level": "Grade 8-10",
+        "target_audience": "Small business operators",
+        "content_freshness": "current",
+        "topical_authority_score": 77,
+        "entity_keywords": [
+          "posthog",
+          "2026"
+        ],
+        "schema_recommendation": [
+          "Article",
+          "BreadcrumbList",
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Product"
+        ],
+        "cluster_health": "healthy",
+        "planning_scope": "weekly_batch_only"
+      },
+      "content_quality_warnings": [
+        "Warning only: duplicate search intent appears 10 times in this weekly batch.",
+        "Warning only: duplicate CTA appears 8 times in this weekly batch.",
+        "Warning only: duplicate FAQ pattern appears 10 times in this weekly batch."
+      ],
+      "root_title": "posthog Review 2026",
+      "daily_angle": "pricing",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "posthog Review 2026",
+          "slug": "posthog-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-20"
+        },
+        {
+          "angle": "implementation_guide",
+          "title": "how to implement posthog Review 2026",
+          "slug": "how-to-implement-posthog-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-21"
+        },
+        {
+          "angle": "comparison",
+          "title": "posthog Review 2026 comparison and alternatives",
+          "slug": "posthog-review-2026-comparison-and-alternatives",
+          "search_intent": "comparison",
+          "status": "queue_created",
+          "date": "2026-07-22"
+        }
+      ],
+      "batch_date": "2026-07-23",
+      "mode": "advanced",
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\posthog-review-2026-pricing-cost-and-roi",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 50.71,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "entity_coverage_score 36.0 below initial threshold 40.0",
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\posthog-review-2026-pricing-cost-and-roi",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-23\\posthog-review-2026-pricing-cost-and-roi\\index.html",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\posthog-review-2026-pricing-cost-and-roi\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\posthog-review-2026-pricing-cost-and-roi\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      }
+    },
+    {
+      "keyword": "copilot-sdk Review 2026 pricing cost and ROI",
+      "slug": "copilot-sdk-review-2026-pricing-cost-and-roi",
+      "search_intent": "commercial investigation",
+      "search_intent_score": 88,
+      "affiliate_monetization_score": 54,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 57,
+      "content_type": "pricing",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/github/copilot-sdk",
+        "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "pricing follow-up for copilot-sdk Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Competition estimate is low-to-medium.",
+        "Can remain useful after the current news cycle.",
+        "Commercial terminology suggests above-average CPC potential.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 2,
+      "confidence": "medium",
+      "total_score": 64.4,
+      "raw_total_score": 64.8,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://github.com/github/copilot-sdk",
+          "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+        ],
+        "unique_source_domains": [
+          "github.com",
+          "sdtimes.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "root_topic_id": "copilot-sdk-review-2026",
+      "title": "copilot-sdk Review 2026",
+      "primary_keyword": "copilot-sdk Review 2026",
+      "category": "review",
+      "trend_score": 57.0,
+      "business_value": 54.0,
+      "sources": [
+        "https://github.com/github/copilot-sdk",
+        "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+      ],
+      "entities": [],
+      "week_start": "2026-07-20",
+      "status": "drafted",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "copilot-sdk Review 2026",
+      "parent_slug": "copilot-sdk-review-2026",
+      "daily_angles": {
+        "2026-07-20": {
+          "angle": "main_review",
+          "title": "copilot-sdk Review 2026",
+          "slug": "copilot-sdk-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-21": {
+          "angle": "implementation_guide",
+          "title": "how to implement copilot-sdk Review 2026",
+          "slug": "how-to-implement-copilot-sdk-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-22": {
+          "angle": "comparison",
+          "title": "copilot-sdk Review 2026 comparison and alternatives",
+          "slug": "copilot-sdk-review-2026-comparison-and-alternatives",
+          "search_intent": "comparison",
+          "status": "queue_created"
+        }
+      },
+      "rank": 4,
+      "content_strategy": {
+        "content_type": "Review",
+        "audience": "Small business operators",
+        "search_intent": "commercial research",
+        "marketing_funnel": "Middle of funnel",
+        "primary_keyword": "copilot-sdk Review 2026",
+        "secondary_semantic_keywords": [
+          "copilot",
+          "sdk",
+          "2026"
+        ],
+        "suggested_internal_links": [
+          {
+            "slug": "astrbot-review-2026",
+            "title": "AstrBot Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "code-review-graph-review-2026",
+            "title": "code-review-graph Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "ktransformers-review-2026",
+            "title": "ktransformers Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "posthog-review-2026",
+            "title": "posthog Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "related_weekly_topics": [
+          {
+            "slug": "astrbot-review-2026",
+            "title": "AstrBot Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "code-review-graph-review-2026",
+            "title": "code-review-graph Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "ktransformers-review-2026",
+            "title": "ktransformers Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "posthog-review-2026",
+            "title": "posthog Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "recommended_cta": "Read the full review",
+        "estimated_search_intent": "commercial research",
+        "suggested_external_link_count": 3,
+        "recommended_faq_count": 5,
+        "suggested_heading_count": 8,
+        "reading_level": "Grade 8-10",
+        "target_audience": "Small business operators",
+        "content_freshness": "current",
+        "topical_authority_score": 77,
+        "entity_keywords": [
+          "copilot",
+          "2026"
+        ],
+        "schema_recommendation": [
+          "Article",
+          "BreadcrumbList",
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Product"
+        ],
+        "cluster_health": "healthy",
+        "planning_scope": "weekly_batch_only"
+      },
+      "content_quality_warnings": [
+        "Warning only: duplicate search intent appears 10 times in this weekly batch.",
+        "Warning only: duplicate CTA appears 8 times in this weekly batch.",
+        "Warning only: duplicate FAQ pattern appears 10 times in this weekly batch."
+      ],
+      "root_title": "copilot-sdk Review 2026",
+      "daily_angle": "pricing",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "copilot-sdk Review 2026",
+          "slug": "copilot-sdk-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-20"
+        },
+        {
+          "angle": "implementation_guide",
+          "title": "how to implement copilot-sdk Review 2026",
+          "slug": "how-to-implement-copilot-sdk-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-21"
+        },
+        {
+          "angle": "comparison",
+          "title": "copilot-sdk Review 2026 comparison and alternatives",
+          "slug": "copilot-sdk-review-2026-comparison-and-alternatives",
+          "search_intent": "comparison",
+          "status": "queue_created",
+          "date": "2026-07-22"
+        }
+      ],
+      "batch_date": "2026-07-23",
+      "mode": "advanced",
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\copilot-sdk-review-2026-pricing-cost-and-roi",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 50.71,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "entity_coverage_score 36.0 below initial threshold 40.0",
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\copilot-sdk-review-2026-pricing-cost-and-roi",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-23\\copilot-sdk-review-2026-pricing-cost-and-roi\\index.html",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\copilot-sdk-review-2026-pricing-cost-and-roi\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\copilot-sdk-review-2026-pricing-cost-and-roi\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      }
+    },
+    {
+      "keyword": "code-review-graph Review 2026 pricing cost and ROI",
+      "slug": "code-review-graph-review-2026-pricing-cost-and-roi",
+      "search_intent": "commercial investigation",
+      "search_intent_score": 88,
+      "affiliate_monetization_score": 49,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 64,
+      "content_type": "pricing",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/tirth8205/code-review-graph",
+        "https://code-review-graph.com"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "pricing follow-up for code-review-graph Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Official project homepage confirmed from GitHub repository metadata."
+      ],
+      "signals": 1,
+      "confidence": "medium",
+      "total_score": 64.3,
+      "raw_total_score": 64.7,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://github.com/tirth8205/code-review-graph",
+          "https://code-review-graph.com"
+        ],
+        "unique_source_domains": [
+          "github.com",
+          "code-review-graph.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "root_topic_id": "code-review-graph-review-2026",
+      "title": "code-review-graph Review 2026",
+      "primary_keyword": "code-review-graph Review 2026",
+      "category": "review",
+      "trend_score": 64.0,
+      "business_value": 49.0,
+      "sources": [
+        "https://github.com/tirth8205/code-review-graph",
+        "https://code-review-graph.com"
+      ],
+      "entities": [],
+      "week_start": "2026-07-20",
+      "status": "drafted",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "code-review-graph Review 2026",
+      "parent_slug": "code-review-graph-review-2026",
+      "daily_angles": {
+        "2026-07-20": {
+          "angle": "main_review",
+          "title": "code-review-graph Review 2026",
+          "slug": "code-review-graph-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-21": {
+          "angle": "implementation_guide",
+          "title": "how to implement code-review-graph Review 2026",
+          "slug": "how-to-implement-code-review-graph-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-22": {
+          "angle": "comparison",
+          "title": "code-review-graph Review 2026 comparison and alternatives",
+          "slug": "code-review-graph-review-2026-comparison-and-alternatives",
+          "search_intent": "comparison",
+          "status": "queue_created"
+        }
+      },
+      "rank": 5,
+      "content_strategy": {
+        "content_type": "Review",
+        "audience": "Small business operators",
+        "search_intent": "commercial research",
+        "marketing_funnel": "Middle of funnel",
+        "primary_keyword": "code-review-graph Review 2026",
+        "secondary_semantic_keywords": [
+          "code",
+          "graph",
+          "2026"
+        ],
+        "suggested_internal_links": [
+          {
+            "slug": "astrbot-review-2026",
+            "title": "AstrBot Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "copilot-sdk-review-2026",
+            "title": "copilot-sdk Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "ktransformers-review-2026",
+            "title": "ktransformers Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "posthog-review-2026",
+            "title": "posthog Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "related_weekly_topics": [
+          {
+            "slug": "astrbot-review-2026",
+            "title": "AstrBot Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "copilot-sdk-review-2026",
+            "title": "copilot-sdk Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "ktransformers-review-2026",
+            "title": "ktransformers Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "posthog-review-2026",
+            "title": "posthog Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "recommended_cta": "Read the full review",
+        "estimated_search_intent": "commercial research",
+        "suggested_external_link_count": 3,
+        "recommended_faq_count": 5,
+        "suggested_heading_count": 8,
+        "reading_level": "Grade 8-10",
+        "target_audience": "Small business operators",
+        "content_freshness": "current",
+        "topical_authority_score": 77,
+        "entity_keywords": [
+          "code",
+          "graph",
+          "2026"
+        ],
+        "schema_recommendation": [
+          "Article",
+          "BreadcrumbList",
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Product"
+        ],
+        "cluster_health": "healthy",
+        "planning_scope": "weekly_batch_only"
+      },
+      "content_quality_warnings": [
+        "Warning only: duplicate search intent appears 10 times in this weekly batch.",
+        "Warning only: duplicate CTA appears 8 times in this weekly batch.",
+        "Warning only: duplicate FAQ pattern appears 10 times in this weekly batch."
+      ],
+      "root_title": "code-review-graph Review 2026",
+      "daily_angle": "pricing",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "code-review-graph Review 2026",
+          "slug": "code-review-graph-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-20"
+        },
+        {
+          "angle": "implementation_guide",
+          "title": "how to implement code-review-graph Review 2026",
+          "slug": "how-to-implement-code-review-graph-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-21"
+        },
+        {
+          "angle": "comparison",
+          "title": "code-review-graph Review 2026 comparison and alternatives",
+          "slug": "code-review-graph-review-2026-comparison-and-alternatives",
+          "search_intent": "comparison",
+          "status": "queue_created",
+          "date": "2026-07-22"
+        }
+      ],
+      "batch_date": "2026-07-23",
+      "mode": "advanced",
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\code-review-graph-review-2026-pricing-cost-and-roi",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 50.71,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "entity_coverage_score 36.0 below initial threshold 40.0",
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\code-review-graph-review-2026-pricing-cost-and-roi",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-23\\code-review-graph-review-2026-pricing-cost-and-roi\\index.html",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\code-review-graph-review-2026-pricing-cost-and-roi\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\code-review-graph-review-2026-pricing-cost-and-roi\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      }
+    },
+    {
+      "keyword": "voicebox Review 2026 pricing cost and ROI",
+      "slug": "voicebox-review-2026-pricing-cost-and-roi",
+      "search_intent": "commercial investigation",
+      "search_intent_score": 88,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 64,
+      "content_type": "pricing",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/jamiepine/voicebox",
+        "https://voicebox.sh"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "pricing follow-up for voicebox Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Official project homepage confirmed from GitHub repository metadata."
+      ],
+      "signals": 1,
+      "confidence": "medium",
+      "total_score": 63.1,
+      "raw_total_score": 63.5,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://github.com/jamiepine/voicebox",
+          "https://voicebox.sh"
+        ],
+        "unique_source_domains": [
+          "github.com",
+          "voicebox.sh"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "root_topic_id": "voicebox-review-2026",
+      "title": "voicebox Review 2026",
+      "primary_keyword": "voicebox Review 2026",
+      "category": "review",
+      "trend_score": 64.0,
+      "business_value": 44.0,
+      "sources": [
+        "https://github.com/jamiepine/voicebox",
+        "https://voicebox.sh"
+      ],
+      "entities": [],
+      "week_start": "2026-07-20",
+      "status": "drafted",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "voicebox Review 2026",
+      "parent_slug": "voicebox-review-2026",
+      "daily_angles": {
+        "2026-07-20": {
+          "angle": "main_review",
+          "title": "voicebox Review 2026",
+          "slug": "voicebox-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-21": {
+          "angle": "implementation_guide",
+          "title": "how to implement voicebox Review 2026",
+          "slug": "how-to-implement-voicebox-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-22": {
+          "angle": "comparison",
+          "title": "voicebox Review 2026 comparison and alternatives",
+          "slug": "voicebox-review-2026-comparison-and-alternatives",
+          "search_intent": "comparison",
+          "status": "queue_created"
+        }
+      },
+      "rank": 6,
+      "content_strategy": {
+        "content_type": "Review",
+        "audience": "Small business operators",
+        "search_intent": "commercial research",
+        "marketing_funnel": "Middle of funnel",
+        "primary_keyword": "voicebox Review 2026",
+        "secondary_semantic_keywords": [
+          "voicebox",
+          "2026"
+        ],
+        "suggested_internal_links": [
+          {
+            "slug": "astrbot-review-2026",
+            "title": "AstrBot Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "code-review-graph-review-2026",
+            "title": "code-review-graph Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "copilot-sdk-review-2026",
+            "title": "copilot-sdk Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "ktransformers-review-2026",
+            "title": "ktransformers Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "related_weekly_topics": [
+          {
+            "slug": "astrbot-review-2026",
+            "title": "AstrBot Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "code-review-graph-review-2026",
+            "title": "code-review-graph Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "copilot-sdk-review-2026",
+            "title": "copilot-sdk Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "ktransformers-review-2026",
+            "title": "ktransformers Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "recommended_cta": "Read the full review",
+        "estimated_search_intent": "commercial research",
+        "suggested_external_link_count": 3,
+        "recommended_faq_count": 5,
+        "suggested_heading_count": 8,
+        "reading_level": "Grade 8-10",
+        "target_audience": "Small business operators",
+        "content_freshness": "current",
+        "topical_authority_score": 77,
+        "entity_keywords": [
+          "voicebox",
+          "2026"
+        ],
+        "schema_recommendation": [
+          "Article",
+          "BreadcrumbList",
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Product"
+        ],
+        "cluster_health": "healthy",
+        "planning_scope": "weekly_batch_only"
+      },
+      "content_quality_warnings": [
+        "Warning only: duplicate search intent appears 10 times in this weekly batch.",
+        "Warning only: duplicate CTA appears 8 times in this weekly batch.",
+        "Warning only: duplicate FAQ pattern appears 10 times in this weekly batch."
+      ],
+      "root_title": "voicebox Review 2026",
+      "daily_angle": "pricing",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "voicebox Review 2026",
+          "slug": "voicebox-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-20"
+        },
+        {
+          "angle": "implementation_guide",
+          "title": "how to implement voicebox Review 2026",
+          "slug": "how-to-implement-voicebox-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-21"
+        },
+        {
+          "angle": "comparison",
+          "title": "voicebox Review 2026 comparison and alternatives",
+          "slug": "voicebox-review-2026-comparison-and-alternatives",
+          "search_intent": "comparison",
+          "status": "queue_created",
+          "date": "2026-07-22"
+        }
+      ],
+      "batch_date": "2026-07-23",
+      "mode": "advanced",
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\voicebox-review-2026-pricing-cost-and-roi",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 50.71,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "entity_coverage_score 36.0 below initial threshold 40.0",
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\voicebox-review-2026-pricing-cost-and-roi",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-23\\voicebox-review-2026-pricing-cost-and-roi\\index.html",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\voicebox-review-2026-pricing-cost-and-roi\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\voicebox-review-2026-pricing-cost-and-roi\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      }
+    },
+    {
+      "keyword": "ktransformers Review 2026 pricing cost and ROI",
+      "slug": "ktransformers-review-2026-pricing-cost-and-roi",
+      "search_intent": "commercial investigation",
+      "search_intent_score": 88,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 62,
+      "content_type": "pricing",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/kvcache-ai/ktransformers",
+        "https://kvcache-ai.github.io/ktransformers/"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "pricing follow-up for ktransformers Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Official project homepage confirmed from GitHub repository metadata."
+      ],
+      "signals": 1,
+      "confidence": "medium",
+      "total_score": 62.8,
+      "raw_total_score": 63.2,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://github.com/kvcache-ai/ktransformers",
+          "https://kvcache-ai.github.io/ktransformers/"
+        ],
+        "unique_source_domains": [
+          "github.com",
+          "kvcache-ai.github.io"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "root_topic_id": "ktransformers-review-2026",
+      "title": "ktransformers Review 2026",
+      "primary_keyword": "ktransformers Review 2026",
+      "category": "review",
+      "trend_score": 62.0,
+      "business_value": 44.0,
+      "sources": [
+        "https://github.com/kvcache-ai/ktransformers",
+        "https://kvcache-ai.github.io/ktransformers/"
+      ],
+      "entities": [],
+      "week_start": "2026-07-20",
+      "status": "drafted",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "ktransformers Review 2026",
+      "parent_slug": "ktransformers-review-2026",
+      "daily_angles": {
+        "2026-07-20": {
+          "angle": "main_review",
+          "title": "ktransformers Review 2026",
+          "slug": "ktransformers-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-21": {
+          "angle": "implementation_guide",
+          "title": "how to implement ktransformers Review 2026",
+          "slug": "how-to-implement-ktransformers-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-22": {
+          "angle": "comparison",
+          "title": "ktransformers Review 2026 comparison and alternatives",
+          "slug": "ktransformers-review-2026-comparison-and-alternatives",
+          "search_intent": "comparison",
+          "status": "queue_created"
+        }
+      },
+      "rank": 7,
+      "content_strategy": {
+        "content_type": "Review",
+        "audience": "Small business operators",
+        "search_intent": "commercial research",
+        "marketing_funnel": "Middle of funnel",
+        "primary_keyword": "ktransformers Review 2026",
+        "secondary_semantic_keywords": [
+          "ktransformers",
+          "2026"
+        ],
+        "suggested_internal_links": [
+          {
+            "slug": "astrbot-review-2026",
+            "title": "AstrBot Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "code-review-graph-review-2026",
+            "title": "code-review-graph Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "copilot-sdk-review-2026",
+            "title": "copilot-sdk Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "posthog-review-2026",
+            "title": "posthog Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "related_weekly_topics": [
+          {
+            "slug": "astrbot-review-2026",
+            "title": "AstrBot Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "code-review-graph-review-2026",
+            "title": "code-review-graph Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "copilot-sdk-review-2026",
+            "title": "copilot-sdk Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "posthog-review-2026",
+            "title": "posthog Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "recommended_cta": "Read the full review",
+        "estimated_search_intent": "commercial research",
+        "suggested_external_link_count": 3,
+        "recommended_faq_count": 5,
+        "suggested_heading_count": 8,
+        "reading_level": "Grade 8-10",
+        "target_audience": "Small business operators",
+        "content_freshness": "current",
+        "topical_authority_score": 77,
+        "entity_keywords": [
+          "ktransformers",
+          "2026"
+        ],
+        "schema_recommendation": [
+          "Article",
+          "BreadcrumbList",
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Product"
+        ],
+        "cluster_health": "healthy",
+        "planning_scope": "weekly_batch_only"
+      },
+      "content_quality_warnings": [
+        "Warning only: duplicate search intent appears 10 times in this weekly batch.",
+        "Warning only: duplicate CTA appears 8 times in this weekly batch.",
+        "Warning only: duplicate FAQ pattern appears 10 times in this weekly batch."
+      ],
+      "root_title": "ktransformers Review 2026",
+      "daily_angle": "pricing",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "ktransformers Review 2026",
+          "slug": "ktransformers-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-20"
+        },
+        {
+          "angle": "implementation_guide",
+          "title": "how to implement ktransformers Review 2026",
+          "slug": "how-to-implement-ktransformers-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-21"
+        },
+        {
+          "angle": "comparison",
+          "title": "ktransformers Review 2026 comparison and alternatives",
+          "slug": "ktransformers-review-2026-comparison-and-alternatives",
+          "search_intent": "comparison",
+          "status": "queue_created",
+          "date": "2026-07-22"
+        }
+      ],
+      "batch_date": "2026-07-23",
+      "mode": "advanced",
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\ktransformers-review-2026-pricing-cost-and-roi",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 50.71,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "entity_coverage_score 36.0 below initial threshold 40.0",
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\ktransformers-review-2026-pricing-cost-and-roi",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-23\\ktransformers-review-2026-pricing-cost-and-roi\\index.html",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\ktransformers-review-2026-pricing-cost-and-roi\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\ktransformers-review-2026-pricing-cost-and-roi\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      }
+    },
+    {
+      "keyword": "WrenAI Review 2026 pricing cost and ROI",
+      "slug": "wrenai-review-2026-pricing-cost-and-roi",
+      "search_intent": "commercial investigation",
+      "search_intent_score": 88,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 60,
+      "content_type": "pricing",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/Canner/WrenAI",
+        "https://docs.getwren.ai/oss/introduction"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "pricing follow-up for WrenAI Review 2026",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Official project homepage confirmed from GitHub repository metadata."
+      ],
+      "signals": 1,
+      "confidence": "medium",
+      "total_score": 62.5,
+      "raw_total_score": 62.9,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://github.com/Canner/WrenAI",
+          "https://docs.getwren.ai/oss/introduction"
+        ],
+        "unique_source_domains": [
+          "github.com",
+          "docs.getwren.ai"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "root_topic_id": "wrenai-review-2026",
+      "title": "WrenAI Review 2026",
+      "primary_keyword": "WrenAI Review 2026",
+      "category": "review",
+      "trend_score": 60.0,
+      "business_value": 44.0,
+      "sources": [
+        "https://github.com/Canner/WrenAI",
+        "https://docs.getwren.ai/oss/introduction"
+      ],
+      "entities": [],
+      "week_start": "2026-07-20",
+      "status": "drafted",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "WrenAI Review 2026",
+      "parent_slug": "wrenai-review-2026",
+      "daily_angles": {
+        "2026-07-20": {
+          "angle": "main_review",
+          "title": "WrenAI Review 2026",
+          "slug": "wrenai-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-21": {
+          "angle": "implementation_guide",
+          "title": "how to implement WrenAI Review 2026",
+          "slug": "how-to-implement-wrenai-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-22": {
+          "angle": "comparison",
+          "title": "WrenAI Review 2026 comparison and alternatives",
+          "slug": "wrenai-review-2026-comparison-and-alternatives",
+          "search_intent": "comparison",
+          "status": "queue_created"
+        }
+      },
+      "rank": 8,
+      "content_strategy": {
+        "content_type": "Review",
+        "audience": "Small business operators",
+        "search_intent": "commercial research",
+        "marketing_funnel": "Middle of funnel",
+        "primary_keyword": "WrenAI Review 2026",
+        "secondary_semantic_keywords": [
+          "wrenai",
+          "2026"
+        ],
+        "suggested_internal_links": [
+          {
+            "slug": "astrbot-review-2026",
+            "title": "AstrBot Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "code-review-graph-review-2026",
+            "title": "code-review-graph Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "copilot-sdk-review-2026",
+            "title": "copilot-sdk Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "ktransformers-review-2026",
+            "title": "ktransformers Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "related_weekly_topics": [
+          {
+            "slug": "astrbot-review-2026",
+            "title": "AstrBot Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "code-review-graph-review-2026",
+            "title": "code-review-graph Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "copilot-sdk-review-2026",
+            "title": "copilot-sdk Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "ktransformers-review-2026",
+            "title": "ktransformers Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "recommended_cta": "Read the full review",
+        "estimated_search_intent": "commercial research",
+        "suggested_external_link_count": 3,
+        "recommended_faq_count": 5,
+        "suggested_heading_count": 8,
+        "reading_level": "Grade 8-10",
+        "target_audience": "Small business operators",
+        "content_freshness": "current",
+        "topical_authority_score": 77,
+        "entity_keywords": [
+          "wrenai",
+          "2026"
+        ],
+        "schema_recommendation": [
+          "Article",
+          "BreadcrumbList",
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Product"
+        ],
+        "cluster_health": "healthy",
+        "planning_scope": "weekly_batch_only"
+      },
+      "content_quality_warnings": [
+        "Warning only: duplicate search intent appears 10 times in this weekly batch.",
+        "Warning only: duplicate CTA appears 8 times in this weekly batch.",
+        "Warning only: duplicate FAQ pattern appears 10 times in this weekly batch."
+      ],
+      "root_title": "WrenAI Review 2026",
+      "daily_angle": "pricing",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "WrenAI Review 2026",
+          "slug": "wrenai-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-20"
+        },
+        {
+          "angle": "implementation_guide",
+          "title": "how to implement WrenAI Review 2026",
+          "slug": "how-to-implement-wrenai-review-2026",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-21"
+        },
+        {
+          "angle": "comparison",
+          "title": "WrenAI Review 2026 comparison and alternatives",
+          "slug": "wrenai-review-2026-comparison-and-alternatives",
+          "search_intent": "comparison",
+          "status": "queue_created",
+          "date": "2026-07-22"
+        }
+      ],
+      "batch_date": "2026-07-23",
+      "mode": "advanced",
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\wrenai-review-2026-pricing-cost-and-roi",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 50.71,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "entity_coverage_score 36.0 below initial threshold 40.0",
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\wrenai-review-2026-pricing-cost-and-roi",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-23\\wrenai-review-2026-pricing-cost-and-roi\\index.html",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\wrenai-review-2026-pricing-cost-and-roi\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\wrenai-review-2026-pricing-cost-and-roi\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      }
+    },
+    {
+      "keyword": "Free AI Tools pricing cost and ROI",
+      "slug": "free-ai-tools-pricing-cost-and-roi",
+      "search_intent": "commercial investigation",
+      "search_intent_score": 88,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 59,
+      "product_availability_score": 58,
+      "content_freshness_score": 47,
+      "content_type": "pricing",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://www.producthunt.com/products/free-ai-tools-4",
+        "https://www.tennessean.com/press-release/story/205402/aleynray-ai-expands-access-to-free-ai-tools-for-writing-images-video-audio-and-code/",
+        "https://www.aol.com/articles/5-free-ai-tools-might-234500000.html"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "pricing follow-up for Free AI Tools",
+      "why_selected": [
+        "Detected across 1 source(s): product_hunt.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 3,
+      "confidence": "medium",
+      "total_score": 56.4,
+      "raw_total_score": 56.9,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "source_readiness": {
+        "passes": true,
+        "source_count": 3,
+        "source_urls": [
+          "https://www.producthunt.com/products/free-ai-tools-4",
+          "https://www.tennessean.com/press-release/story/205402/aleynray-ai-expands-access-to-free-ai-tools-for-writing-images-video-audio-and-code/",
+          "https://www.aol.com/articles/5-free-ai-tools-might-234500000.html"
+        ],
+        "unique_source_domains": [
+          "producthunt.com",
+          "tennessean.com",
+          "aol.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "root_topic_id": "free-ai-tools",
+      "title": "Free AI Tools",
+      "primary_keyword": "Free AI Tools",
+      "category": "listicle",
+      "trend_score": 47.0,
+      "business_value": 44.0,
+      "sources": [
+        "https://www.producthunt.com/products/free-ai-tools-4",
+        "https://www.tennessean.com/press-release/story/205402/aleynray-ai-expands-access-to-free-ai-tools-for-writing-images-video-audio-and-code/",
+        "https://www.aol.com/articles/5-free-ai-tools-might-234500000.html"
+      ],
+      "entities": [],
+      "week_start": "2026-07-20",
+      "status": "drafted",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "Free AI Tools",
+      "parent_slug": "free-ai-tools",
+      "daily_angles": {
+        "2026-07-20": {
+          "angle": "main_review",
+          "title": "Free AI Tools",
+          "slug": "free-ai-tools",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-21": {
+          "angle": "implementation_guide",
+          "title": "how to implement Free AI Tools",
+          "slug": "how-to-implement-free-ai-tools",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-22": {
+          "angle": "comparison",
+          "title": "Free AI Tools comparison and alternatives",
+          "slug": "free-ai-tools-comparison-and-alternatives",
+          "search_intent": "comparison",
+          "status": "queue_created"
+        }
+      },
+      "rank": 9,
+      "content_strategy": {
+        "content_type": "Best List",
+        "audience": "Small business operators",
+        "search_intent": "commercial research",
+        "marketing_funnel": "Middle of funnel",
+        "primary_keyword": "Free AI Tools",
+        "secondary_semantic_keywords": [
+          "free"
+        ],
+        "suggested_internal_links": [],
+        "related_weekly_topics": [],
+        "recommended_cta": "Compare the shortlisted options",
+        "estimated_search_intent": "commercial research",
+        "suggested_external_link_count": 3,
+        "recommended_faq_count": 5,
+        "suggested_heading_count": 8,
+        "reading_level": "Grade 8-10",
+        "target_audience": "Small business operators",
+        "content_freshness": "current",
+        "topical_authority_score": 63,
+        "entity_keywords": [
+          "free"
+        ],
+        "schema_recommendation": [
+          "Article",
+          "BreadcrumbList",
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Product"
+        ],
+        "cluster_health": "orphan",
+        "planning_scope": "weekly_batch_only"
+      },
+      "content_quality_warnings": [
+        "Warning only: duplicate search intent appears 10 times in this weekly batch.",
+        "Warning only: duplicate CTA appears 2 times in this weekly batch.",
+        "Warning only: duplicate FAQ pattern appears 10 times in this weekly batch."
+      ],
+      "root_title": "Free AI Tools",
+      "daily_angle": "pricing",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "Free AI Tools",
+          "slug": "free-ai-tools",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-20"
+        },
+        {
+          "angle": "implementation_guide",
+          "title": "how to implement Free AI Tools",
+          "slug": "how-to-implement-free-ai-tools",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-21"
+        },
+        {
+          "angle": "comparison",
+          "title": "Free AI Tools comparison and alternatives",
+          "slug": "free-ai-tools-comparison-and-alternatives",
+          "search_intent": "comparison",
+          "status": "queue_created",
+          "date": "2026-07-22"
+        }
+      ],
+      "batch_date": "2026-07-23",
+      "mode": "advanced",
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\free-ai-tools-pricing-cost-and-roi",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 51.71,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 3,
+        "minimum_sources": 2,
+        "warnings": [
+          "entity_coverage_score 36.0 below initial threshold 40.0",
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\free-ai-tools-pricing-cost-and-roi",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-23\\free-ai-tools-pricing-cost-and-roi\\index.html",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\free-ai-tools-pricing-cost-and-roi\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\free-ai-tools-pricing-cost-and-roi\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      }
+    },
+    {
+      "keyword": "Atlassian (TEAM) Launches AI Native Jira Tools For The Full Development Workflow pricing cost and ROI",
+      "slug": "atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow-pricing-cost-and-roi",
+      "search_intent": "commercial investigation",
+      "search_intent_score": 88,
+      "affiliate_monetization_score": 37,
+      "competition_difficulty_score": 59,
+      "product_availability_score": 58,
+      "content_freshness_score": 46,
+      "content_type": "pricing",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://finance.yahoo.com/technology/ai/articles/atlassian-team-launches-ai-native-081408148.html",
+        "https://uk.finance.yahoo.com/news/atlassian-team-launches-ai-native-081408148.html"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "pricing follow-up for Atlassian (TEAM) Launches AI Native Jira Tools For The Full Development Workflow",
+      "why_selected": [
+        "Detected across 1 source(s): bing_trending.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 2,
+      "confidence": "medium",
+      "total_score": 54.6,
+      "raw_total_score": 55.0,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://finance.yahoo.com/technology/ai/articles/atlassian-team-launches-ai-native-081408148.html",
+          "https://uk.finance.yahoo.com/news/atlassian-team-launches-ai-native-081408148.html"
+        ],
+        "unique_source_domains": [
+          "finance.yahoo.com",
+          "uk.finance.yahoo.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "root_topic_id": "atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow",
+      "title": "Atlassian (TEAM) Launches AI Native Jira Tools For The Full Development Workflow",
+      "primary_keyword": "Atlassian (TEAM) Launches AI Native Jira Tools For The Full Development Workflow",
+      "category": "tutorial",
+      "trend_score": 46.0,
+      "business_value": 37.0,
+      "sources": [
+        "https://finance.yahoo.com/technology/ai/articles/atlassian-team-launches-ai-native-081408148.html",
+        "https://uk.finance.yahoo.com/news/atlassian-team-launches-ai-native-081408148.html"
+      ],
+      "entities": [],
+      "week_start": "2026-07-20",
+      "status": "drafted",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "Atlassian (TEAM) Launches AI Native Jira Tools For The Full Development Workflow",
+      "parent_slug": "atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow",
+      "daily_angles": {
+        "2026-07-20": {
+          "angle": "main_review",
+          "title": "Atlassian (TEAM) Launches AI Native Jira Tools For The Full Development Workflow",
+          "slug": "atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow",
+          "search_intent": "commercial research",
+          "status": "queue_created"
+        },
+        "2026-07-21": {
+          "angle": "implementation_guide",
+          "title": "",
+          "slug": "how-to-implement-atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow",
+          "search_intent": "",
+          "status": "held",
+          "reason": "weekly slug collision: atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow"
+        },
+        "2026-07-22": {
+          "angle": "comparison",
+          "title": "",
+          "slug": "atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow-comparison-and-alternatives",
+          "search_intent": "",
+          "status": "held",
+          "reason": "weekly slug collision: atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow"
+        }
+      },
+      "rank": 10,
+      "content_strategy": {
+        "content_type": "Best List",
+        "audience": "Small business operators",
+        "search_intent": "commercial research",
+        "marketing_funnel": "Middle of funnel",
+        "primary_keyword": "Atlassian (TEAM) Launches AI Native Jira Tools For The Full Development Workflow",
+        "secondary_semantic_keywords": [
+          "atlassian",
+          "team",
+          "launches",
+          "native",
+          "jira",
+          "full",
+          "development",
+          "workflow"
+        ],
+        "suggested_internal_links": [],
+        "related_weekly_topics": [],
+        "recommended_cta": "Compare the shortlisted options",
+        "estimated_search_intent": "commercial research",
+        "suggested_external_link_count": 3,
+        "recommended_faq_count": 5,
+        "suggested_heading_count": 8,
+        "reading_level": "Grade 8-10",
+        "target_audience": "Small business operators",
+        "content_freshness": "current",
+        "topical_authority_score": 57,
+        "entity_keywords": [
+          "atlassian",
+          "team",
+          "launches",
+          "native",
+          "jira",
+          "full"
+        ],
+        "schema_recommendation": [
+          "Article",
+          "BreadcrumbList",
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Product"
+        ],
+        "cluster_health": "orphan",
+        "planning_scope": "weekly_batch_only"
+      },
+      "content_quality_warnings": [
+        "Warning only: duplicate search intent appears 10 times in this weekly batch.",
+        "Warning only: duplicate CTA appears 2 times in this weekly batch.",
+        "Warning only: duplicate FAQ pattern appears 10 times in this weekly batch."
+      ],
+      "root_title": "Atlassian (TEAM) Launches AI Native Jira Tools For The Full Development Workflow",
+      "daily_angle": "pricing",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "Atlassian (TEAM) Launches AI Native Jira Tools For The Full Development Workflow",
+          "slug": "atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow",
+          "search_intent": "commercial research",
+          "status": "queue_created",
+          "date": "2026-07-20"
+        },
+        {
+          "angle": "implementation_guide",
+          "title": "",
+          "slug": "how-to-implement-atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow",
+          "search_intent": "",
+          "status": "held",
+          "reason": "weekly slug collision: atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow",
+          "date": "2026-07-21"
+        },
+        {
+          "angle": "comparison",
+          "title": "",
+          "slug": "atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow-comparison-and-alternatives",
+          "search_intent": "",
+          "status": "held",
+          "reason": "weekly slug collision: atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow",
+          "date": "2026-07-22"
+        }
+      ],
+      "batch_date": "2026-07-23",
+      "mode": "advanced",
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow-pricing-cost-and-roi",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 51.86,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow-pricing-cost-and-roi",
+      "review_preview": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-23\\atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow-pricing-cost-and-roi\\index.html",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow-pricing-cost-and-roi\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow-pricing-cost-and-roi\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "provider": "codex",
+        "mode": "interactive_repository_writer",
+        "api_call_used": false,
+        "openai_api_used": false,
+        "heuristic_fallback_used": false
+      }
+    }
+  ],
+  "dashboard_file": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-23\\index.html",
+  "operator_console": "D:\\AFFILATE BOT\\data\\editorial_operations_console.html",
+  "publish_launcher": "",
+  "upload_dir": "D:\\AFFILATE BOT\\upload\\2026-07-23"
+}

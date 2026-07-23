@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-07-23T00:58:37.218984+00:00",
+  "writer": {
+    "provider": "codex",
+    "mode": "interactive_repository_writer",
+    "api_call_used": false,
+    "openai_api_used": false,
+    "heuristic_fallback_used": false
+  },
+  "source_count": 3,
+  "source_urls": [
+    "https://www.producthunt.com/products/free-ai-tools-4",
+    "https://www.tennessean.com/press-release/story/205402/aleynray-ai-expands-access-to-free-ai-tools-for-writing-images-video-audio-and-code/",
+    "https://www.aol.com/articles/5-free-ai-tools-might-234500000.html"
+  ],
+  "human_approval_required": true,
+  "published": false
+}
