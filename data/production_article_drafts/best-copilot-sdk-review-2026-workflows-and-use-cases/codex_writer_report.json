@@ -1,0 +1,17 @@
+{
+  "generated_at": "2026-07-24T01:09:44.555581+00:00",
+  "writer": {
+    "provider": "codex",
+    "mode": "interactive_repository_writer",
+    "api_call_used": false,
+    "openai_api_used": false,
+    "heuristic_fallback_used": false
+  },
+  "source_count": 2,
+  "source_urls": [
+    "https://github.com/github/copilot-sdk",
+    "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+  ],
+  "human_approval_required": true,
+  "published": false
+}
