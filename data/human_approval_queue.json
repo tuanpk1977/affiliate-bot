@@ -1088,5 +1088,105 @@
     "approved_at": "2026-07-24T01:20:34.023734+00:00",
     "approved_by": "editor",
     "reason": ""
+  },
+  {
+    "slug": "common-astrbot-review-2026-mistakes-and-troubleshooting",
+    "topic": "AstrBot Review 2026 mistakes and troubleshooting",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-25T02:10:49.613597+00:00",
+    "approved_at": "2026-07-25T02:21:03.853053+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "common-wigolo-review-2026-mistakes-and-troubleshooting",
+    "topic": "wigolo Review 2026 mistakes and troubleshooting",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-25T02:10:50.804456+00:00",
+    "approved_at": "2026-07-25T02:22:34.401995+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "common-posthog-review-2026-mistakes-and-troubleshooting",
+    "topic": "posthog Review 2026 mistakes and troubleshooting",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-25T02:10:52.057972+00:00",
+    "approved_at": "2026-07-25T02:21:13.173144+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "common-copilot-sdk-review-2026-mistakes-and-troubleshooting",
+    "topic": "copilot-sdk Review 2026 mistakes and troubleshooting",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-25T02:10:53.119652+00:00",
+    "approved_at": "2026-07-25T02:22:23.416801+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "common-code-review-graph-review-2026-mistakes-and-troubleshooting",
+    "topic": "code-review-graph Review 2026 mistakes and troubleshooting",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-25T02:10:54.225455+00:00",
+    "approved_at": "2026-07-25T02:21:21.756894+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "common-voicebox-review-2026-mistakes-and-troubleshooting",
+    "topic": "voicebox Review 2026 mistakes and troubleshooting",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-25T02:10:55.462491+00:00",
+    "approved_at": "2026-07-25T02:22:12.877332+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "common-ktransformers-review-2026-mistakes-and-troubleshooting",
+    "topic": "ktransformers Review 2026 mistakes and troubleshooting",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-25T02:10:56.603582+00:00",
+    "approved_at": "2026-07-25T02:21:31.473105+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "common-wrenai-review-2026-mistakes-and-troubleshooting",
+    "topic": "WrenAI Review 2026 mistakes and troubleshooting",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-25T02:10:57.851819+00:00",
+    "approved_at": "2026-07-25T02:21:43.731402+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "common-free-ai-tools-mistakes-and-troubleshooting",
+    "topic": "Free AI Tools mistakes and troubleshooting",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-25T02:10:59.057471+00:00",
+    "approved_at": "2026-07-25T02:21:52.540081+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "common-atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow-mistakes-and-troubleshooting",
+    "topic": "Atlassian (TEAM) Launches AI Native Jira Tools For The Full Development Workflow mistakes and troubleshooting",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-25T02:11:00.197623+00:00",
+    "approved_at": "2026-07-25T02:22:00.381561+00:00",
+    "approved_by": "editor",
+    "reason": ""
   }
 ]

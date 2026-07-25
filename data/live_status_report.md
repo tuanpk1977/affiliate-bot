@@ -1,4 +1,4 @@
-# Live Status Report 2026-07-23
+# Live Status Report 2026-07-24
 
 - Total items: 10
 ## Deployment summary
@@ -25,13 +25,13 @@
 
 | Slug | Editorial | Publish gate | Deployment | Local | Docs | Git | Block reason | How to fix | URL |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| astrbot-review-2026-pricing-cost-and-roi | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/astrbot-review-2026-pricing-cost-and-roi/ |
-| wigolo-review-2026-pricing-cost-and-roi | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/wigolo-review-2026-pricing-cost-and-roi/ |
-| posthog-review-2026-pricing-cost-and-roi | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/posthog-review-2026-pricing-cost-and-roi/ |
-| copilot-sdk-review-2026-pricing-cost-and-roi | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/copilot-sdk-review-2026-pricing-cost-and-roi/ |
-| code-review-graph-review-2026-pricing-cost-and-roi | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/code-review-graph-review-2026-pricing-cost-and-roi/ |
-| voicebox-review-2026-pricing-cost-and-roi | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/voicebox-review-2026-pricing-cost-and-roi/ |
-| ktransformers-review-2026-pricing-cost-and-roi | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/ktransformers-review-2026-pricing-cost-and-roi/ |
-| wrenai-review-2026-pricing-cost-and-roi | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/wrenai-review-2026-pricing-cost-and-roi/ |
-| free-ai-tools-pricing-cost-and-roi | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/free-ai-tools-pricing-cost-and-roi/ |
-| atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow-pricing-cost-and-roi | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow-pricing-cost-and-roi/ |
+| best-astrbot-review-2026-workflows-and-use-cases | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-astrbot-review-2026-workflows-and-use-cases/ |
+| best-wigolo-review-2026-workflows-and-use-cases | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-wigolo-review-2026-workflows-and-use-cases/ |
+| best-posthog-review-2026-workflows-and-use-cases | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-posthog-review-2026-workflows-and-use-cases/ |
+| best-copilot-sdk-review-2026-workflows-and-use-cases | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-copilot-sdk-review-2026-workflows-and-use-cases/ |
+| best-code-review-graph-review-2026-workflows-and-use-cases | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-code-review-graph-review-2026-workflows-and-use-cases/ |
+| best-voicebox-review-2026-workflows-and-use-cases | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-voicebox-review-2026-workflows-and-use-cases/ |
+| best-ktransformers-review-2026-workflows-and-use-cases | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-ktransformers-review-2026-workflows-and-use-cases/ |
+| best-wrenai-review-2026-workflows-and-use-cases | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-wrenai-review-2026-workflows-and-use-cases/ |
+| best-free-ai-tools-workflows-and-use-cases | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-free-ai-tools-workflows-and-use-cases/ |
+| best-atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow-workflows-and-use-cases | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow-workflows-and-use-cases/ |
