@@ -1,11 +1,11 @@
 {
   "summary": {
-    "items": 119,
-    "blocked": 17,
+    "items": 129,
+    "blocked": 25,
     "needs_human_review": 3,
     "ready_for_publish": 1,
     "approved_for_publish": 1,
-    "published_local": 19,
+    "published_local": 11,
     "publish_failed": 0
   },
   "items": [
@@ -5599,7 +5599,7 @@
     {
       "slug": "common-astrbot-review-2026-mistakes-and-troubleshooting",
       "topic": "AstrBot Review 2026 mistakes and troubleshooting",
-      "status": "published_local",
+      "status": "live",
       "checked_at": "2026-07-25T02:21:04.031790+00:00",
       "failures": [],
       "hard_blockers": [],
@@ -5638,12 +5638,26 @@
       "url": "https://smileaireviewhub.com/common-astrbot-review-2026-mistakes-and-troubleshooting/",
       "title": "Troubleshooting AstrBot Review 2026: Common Mistakes",
       "description": "Independent AstrBot Review 2026 mistakes and troubleshooting guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice.",
-      "published_at": "2026-07-25T02:27:24.639792+00:00"
+      "published_at": "2026-07-25T02:27:24.639792+00:00",
+      "publish_queue_status": "live",
+      "deployment_state": "live",
+      "updated_at": "2026-07-25T02:28:46.055280+00:00",
+      "committed_local": true,
+      "pushed": true,
+      "pushed_at": "2026-07-25T02:28:46.055280+00:00",
+      "git_push_status": "pushed",
+      "git_push_reason": "",
+      "git_push_retry_count": 0,
+      "force_push_used": false,
+      "live": true,
+      "live_at": "2026-07-25T02:28:46.055280+00:00",
+      "post_push_live_status": "live_ok",
+      "post_push_live_message": "Website live OK: 10/10 URLs returned 200/3xx after push."
     },
     {
       "slug": "common-wigolo-review-2026-mistakes-and-troubleshooting",
       "topic": "wigolo Review 2026 mistakes and troubleshooting",
-      "status": "published_local",
+      "status": "live",
       "checked_at": "2026-07-25T02:22:34.767303+00:00",
       "failures": [],
       "hard_blockers": [],
@@ -5682,12 +5696,26 @@
       "url": "https://smileaireviewhub.com/common-wigolo-review-2026-mistakes-and-troubleshooting/",
       "title": "Troubleshooting wigolo Review 2026: Common Mistakes",
       "description": "Independent wigolo Review 2026 mistakes and troubleshooting guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice.",
-      "published_at": "2026-07-25T02:27:24.689074+00:00"
+      "published_at": "2026-07-25T02:27:24.689074+00:00",
+      "publish_queue_status": "live",
+      "deployment_state": "live",
+      "updated_at": "2026-07-25T02:28:46.055280+00:00",
+      "committed_local": true,
+      "pushed": true,
+      "pushed_at": "2026-07-25T02:28:46.055280+00:00",
+      "git_push_status": "pushed",
+      "git_push_reason": "",
+      "git_push_retry_count": 0,
+      "force_push_used": false,
+      "live": true,
+      "live_at": "2026-07-25T02:28:46.055280+00:00",
+      "post_push_live_status": "live_ok",
+      "post_push_live_message": "Website live OK: 10/10 URLs returned 200/3xx after push."
     },
     {
       "slug": "common-posthog-review-2026-mistakes-and-troubleshooting",
       "topic": "posthog Review 2026 mistakes and troubleshooting",
-      "status": "published_local",
+      "status": "live",
       "checked_at": "2026-07-25T02:21:13.328386+00:00",
       "failures": [],
       "hard_blockers": [],
@@ -5726,12 +5754,26 @@
       "url": "https://smileaireviewhub.com/common-posthog-review-2026-mistakes-and-troubleshooting/",
       "title": "Troubleshooting posthog Review 2026: Common Mistakes",
       "description": "Independent posthog Review 2026 mistakes and troubleshooting guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice.",
-      "published_at": "2026-07-25T02:27:24.739684+00:00"
+      "published_at": "2026-07-25T02:27:24.739684+00:00",
+      "publish_queue_status": "live",
+      "deployment_state": "live",
+      "updated_at": "2026-07-25T02:28:46.055280+00:00",
+      "committed_local": true,
+      "pushed": true,
+      "pushed_at": "2026-07-25T02:28:46.055280+00:00",
+      "git_push_status": "pushed",
+      "git_push_reason": "",
+      "git_push_retry_count": 0,
+      "force_push_used": false,
+      "live": true,
+      "live_at": "2026-07-25T02:28:46.055280+00:00",
+      "post_push_live_status": "live_ok",
+      "post_push_live_message": "Website live OK: 10/10 URLs returned 200/3xx after push."
     },
     {
       "slug": "common-copilot-sdk-review-2026-mistakes-and-troubleshooting",
       "topic": "copilot-sdk Review 2026 mistakes and troubleshooting",
-      "status": "published_local",
+      "status": "live",
       "checked_at": "2026-07-25T02:22:23.639408+00:00",
       "failures": [],
       "hard_blockers": [],
@@ -5770,12 +5812,26 @@
       "url": "https://smileaireviewhub.com/common-copilot-sdk-review-2026-mistakes-and-troubleshooting/",
       "title": "Troubleshooting copilot-sdk Review 2026: Common Mistakes",
       "description": "Independent copilot-sdk Review 2026 mistakes and troubleshooting guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow adv.",
-      "published_at": "2026-07-25T02:27:24.791376+00:00"
+      "published_at": "2026-07-25T02:27:24.791376+00:00",
+      "publish_queue_status": "live",
+      "deployment_state": "live",
+      "updated_at": "2026-07-25T02:28:46.055280+00:00",
+      "committed_local": true,
+      "pushed": true,
+      "pushed_at": "2026-07-25T02:28:46.055280+00:00",
+      "git_push_status": "pushed",
+      "git_push_reason": "",
+      "git_push_retry_count": 0,
+      "force_push_used": false,
+      "live": true,
+      "live_at": "2026-07-25T02:28:46.055280+00:00",
+      "post_push_live_status": "live_ok",
+      "post_push_live_message": "Website live OK: 10/10 URLs returned 200/3xx after push."
     },
     {
       "slug": "common-code-review-graph-review-2026-mistakes-and-troubleshooting",
       "topic": "code-review-graph Review 2026 mistakes and troubleshooting",
-      "status": "published_local",
+      "status": "live",
       "checked_at": "2026-07-25T02:21:21.902934+00:00",
       "failures": [],
       "hard_blockers": [],
@@ -5814,12 +5870,26 @@
       "url": "https://smileaireviewhub.com/common-code-review-graph-review-2026-mistakes-and-troubleshooting/",
       "title": "Troubleshooting code-review-graph Review 2026",
       "description": "Independent code-review-graph Review 2026 mistakes and troubleshooting guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workfl.",
-      "published_at": "2026-07-25T02:27:24.839915+00:00"
+      "published_at": "2026-07-25T02:27:24.839915+00:00",
+      "publish_queue_status": "live",
+      "deployment_state": "live",
+      "updated_at": "2026-07-25T02:28:46.055280+00:00",
+      "committed_local": true,
+      "pushed": true,
+      "pushed_at": "2026-07-25T02:28:46.055280+00:00",
+      "git_push_status": "pushed",
+      "git_push_reason": "",
+      "git_push_retry_count": 0,
+      "force_push_used": false,
+      "live": true,
+      "live_at": "2026-07-25T02:28:46.055280+00:00",
+      "post_push_live_status": "live_ok",
+      "post_push_live_message": "Website live OK: 10/10 URLs returned 200/3xx after push."
     },
     {
       "slug": "common-voicebox-review-2026-mistakes-and-troubleshooting",
       "topic": "voicebox Review 2026 mistakes and troubleshooting",
-      "status": "published_local",
+      "status": "live",
       "checked_at": "2026-07-25T02:22:13.053002+00:00",
       "failures": [],
       "hard_blockers": [],
@@ -5858,12 +5928,26 @@
       "url": "https://smileaireviewhub.com/common-voicebox-review-2026-mistakes-and-troubleshooting/",
       "title": "Troubleshooting voicebox Review 2026: Common Mistakes",
       "description": "Independent voicebox Review 2026 mistakes and troubleshooting guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice.",
-      "published_at": "2026-07-25T02:27:24.888205+00:00"
+      "published_at": "2026-07-25T02:27:24.888205+00:00",
+      "publish_queue_status": "live",
+      "deployment_state": "live",
+      "updated_at": "2026-07-25T02:28:46.055280+00:00",
+      "committed_local": true,
+      "pushed": true,
+      "pushed_at": "2026-07-25T02:28:46.055280+00:00",
+      "git_push_status": "pushed",
+      "git_push_reason": "",
+      "git_push_retry_count": 0,
+      "force_push_used": false,
+      "live": true,
+      "live_at": "2026-07-25T02:28:46.055280+00:00",
+      "post_push_live_status": "live_ok",
+      "post_push_live_message": "Website live OK: 10/10 URLs returned 200/3xx after push."
     },
     {
       "slug": "common-ktransformers-review-2026-mistakes-and-troubleshooting",
       "topic": "ktransformers Review 2026 mistakes and troubleshooting",
-      "status": "published_local",
+      "status": "live",
       "checked_at": "2026-07-25T02:21:31.634678+00:00",
       "failures": [],
       "hard_blockers": [],
@@ -5902,12 +5986,26 @@
       "url": "https://smileaireviewhub.com/common-ktransformers-review-2026-mistakes-and-troubleshooting/",
       "title": "Troubleshooting ktransformers Review 2026: Common Mistakes",
       "description": "Independent ktransformers Review 2026 mistakes and troubleshooting guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow a.",
-      "published_at": "2026-07-25T02:27:24.932011+00:00"
+      "published_at": "2026-07-25T02:27:24.932011+00:00",
+      "publish_queue_status": "live",
+      "deployment_state": "live",
+      "updated_at": "2026-07-25T02:28:46.055280+00:00",
+      "committed_local": true,
+      "pushed": true,
+      "pushed_at": "2026-07-25T02:28:46.055280+00:00",
+      "git_push_status": "pushed",
+      "git_push_reason": "",
+      "git_push_retry_count": 0,
+      "force_push_used": false,
+      "live": true,
+      "live_at": "2026-07-25T02:28:46.055280+00:00",
+      "post_push_live_status": "live_ok",
+      "post_push_live_message": "Website live OK: 10/10 URLs returned 200/3xx after push."
     },
     {
       "slug": "common-wrenai-review-2026-mistakes-and-troubleshooting",
       "topic": "WrenAI Review 2026 mistakes and troubleshooting",
-      "status": "published_local",
+      "status": "live",
       "checked_at": "2026-07-25T02:21:43.885539+00:00",
       "failures": [],
       "hard_blockers": [],
@@ -5946,12 +6044,26 @@
       "url": "https://smileaireviewhub.com/common-wrenai-review-2026-mistakes-and-troubleshooting/",
       "title": "Troubleshooting WrenAI Review 2026: Common Mistakes",
       "description": "Independent WrenAI Review 2026 mistakes and troubleshooting guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice.",
-      "published_at": "2026-07-25T02:27:24.979726+00:00"
+      "published_at": "2026-07-25T02:27:24.979726+00:00",
+      "publish_queue_status": "live",
+      "deployment_state": "live",
+      "updated_at": "2026-07-25T02:28:46.055280+00:00",
+      "committed_local": true,
+      "pushed": true,
+      "pushed_at": "2026-07-25T02:28:46.055280+00:00",
+      "git_push_status": "pushed",
+      "git_push_reason": "",
+      "git_push_retry_count": 0,
+      "force_push_used": false,
+      "live": true,
+      "live_at": "2026-07-25T02:28:46.055280+00:00",
+      "post_push_live_status": "live_ok",
+      "post_push_live_message": "Website live OK: 10/10 URLs returned 200/3xx after push."
     },
     {
       "slug": "common-free-ai-tools-mistakes-and-troubleshooting",
       "topic": "Free AI Tools mistakes and troubleshooting",
-      "status": "published_local",
+      "status": "live",
       "checked_at": "2026-07-25T02:21:52.723040+00:00",
       "failures": [],
       "hard_blockers": [],
@@ -5990,12 +6102,26 @@
       "url": "https://smileaireviewhub.com/common-free-ai-tools-mistakes-and-troubleshooting/",
       "title": "Troubleshooting Free AI Tools: Common Mistakes",
       "description": "Independent Free AI Tools mistakes and troubleshooting guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice.",
-      "published_at": "2026-07-25T02:27:25.026956+00:00"
+      "published_at": "2026-07-25T02:27:25.026956+00:00",
+      "publish_queue_status": "live",
+      "deployment_state": "live",
+      "updated_at": "2026-07-25T02:28:46.055280+00:00",
+      "committed_local": true,
+      "pushed": true,
+      "pushed_at": "2026-07-25T02:28:46.055280+00:00",
+      "git_push_status": "pushed",
+      "git_push_reason": "",
+      "git_push_retry_count": 0,
+      "force_push_used": false,
+      "live": true,
+      "live_at": "2026-07-25T02:28:46.055280+00:00",
+      "post_push_live_status": "live_ok",
+      "post_push_live_message": "Website live OK: 10/10 URLs returned 200/3xx after push."
     },
     {
       "slug": "common-atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow-mistakes-and-troubleshooting",
       "topic": "Atlassian (TEAM) Launches AI Native Jira Tools For The Full Development Workflow mistakes and troubleshooting",
-      "status": "published_local",
+      "status": "live",
       "checked_at": "2026-07-25T02:22:00.585237+00:00",
       "failures": [],
       "hard_blockers": [],
@@ -6034,7 +6160,509 @@
       "url": "https://smileaireviewhub.com/common-atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow-mistakes-and-troubleshooting/",
       "title": "Troubleshooting Atlassian (TEAM) Launches AI Native Jira",
       "description": "Independent Atlassian (TEAM) Launches AI Native Jira Tools For The Full Development Workflow mistakes and troubleshooting guide with pricing checks, pros.",
-      "published_at": "2026-07-25T02:27:25.071562+00:00"
+      "published_at": "2026-07-25T02:27:25.071562+00:00",
+      "publish_queue_status": "live",
+      "deployment_state": "live",
+      "updated_at": "2026-07-25T02:28:46.055280+00:00",
+      "committed_local": true,
+      "pushed": true,
+      "pushed_at": "2026-07-25T02:28:46.055280+00:00",
+      "git_push_status": "pushed",
+      "git_push_reason": "",
+      "git_push_retry_count": 0,
+      "force_push_used": false,
+      "live": true,
+      "live_at": "2026-07-25T02:28:46.055280+00:00",
+      "post_push_live_status": "live_ok",
+      "post_push_live_message": "Website live OK: 10/10 URLs returned 200/3xx after push."
+    },
+    {
+      "slug": "is-astrbot-review-2026-worth-it-for-small-business",
+      "topic": "is AstrBot Review 2026 worth it for small business",
+      "status": "published_local",
+      "checked_at": "2026-07-26T08:33:05.656783+00:00",
+      "failures": [],
+      "hard_blockers": [],
+      "warnings": [
+        "AI quality review required"
+      ],
+      "pending_reviews": [],
+      "review_states": {
+        "ai_review": "warning",
+        "source_review": "passed",
+        "freshness_review": "passed"
+      },
+      "severity_counts": {
+        "BLOCK": 0,
+        "WARNING": 1,
+        "HUMAN_REVIEW_REQUIRED": 0
+      },
+      "total_score": 52.06,
+      "score_band": "needs_revision",
+      "final_gate": "Ready for Publish",
+      "research_quality_passed": true,
+      "verified_source_score_passed": true,
+      "knowledge_freshness_passed": true,
+      "ai_review_passed": true,
+      "human_approval_passed": true,
+      "broken_links": [],
+      "duplicate_title_meta": false,
+      "affiliate_disclosure_present": true,
+      "minimum_business_score_passed": true,
+      "minimum_readability_score_passed": true,
+      "business_score": 54.9,
+      "readability_score": 57.98,
+      "verified_source_score": 70.0,
+      "knowledge_freshness_score": 80.0,
+      "publish_ready": true,
+      "url": "https://smileaireviewhub.com/is-astrbot-review-2026-worth-it-for-small-business/",
+      "title": "AstrBot Review 2026",
+      "description": "An evidence-led small-business review of AstrBot, covering fit, risks, costs, verification steps, and a safer pilot plan.",
+      "published_at": "2026-07-26T08:35:49.665105+00:00"
+    },
+    {
+      "slug": "is-atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow-worth-it-for-small-business",
+      "topic": "is Atlassian (TEAM) Launches AI Native Jira Tools For The Full Development Workflow worth it for small business",
+      "status": "blocked",
+      "checked_at": "2026-07-26T07:57:10.891290+00:00",
+      "failures": [
+        "public workflow marker leakage"
+      ],
+      "hard_blockers": [
+        "public workflow marker leakage"
+      ],
+      "warnings": [
+        "AI review failed",
+        "AI quality review required"
+      ],
+      "pending_reviews": [
+        "human approval missing"
+      ],
+      "review_states": {
+        "ai_review": "warning",
+        "source_review": "passed",
+        "freshness_review": "passed"
+      },
+      "severity_counts": {
+        "BLOCK": 1,
+        "WARNING": 2,
+        "HUMAN_REVIEW_REQUIRED": 1
+      },
+      "total_score": 51.9,
+      "score_band": "needs_revision",
+      "final_gate": "Publish Blocked",
+      "research_quality_passed": true,
+      "verified_source_score_passed": true,
+      "knowledge_freshness_passed": true,
+      "ai_review_passed": false,
+      "human_approval_passed": false,
+      "broken_links": [],
+      "duplicate_title_meta": false,
+      "affiliate_disclosure_present": true,
+      "minimum_business_score_passed": true,
+      "minimum_readability_score_passed": true,
+      "business_score": 54.9,
+      "readability_score": 56.02,
+      "verified_source_score": 70.0,
+      "knowledge_freshness_score": 80.0,
+      "publish_ready": false,
+      "url": "https://smileaireviewhub.com/is-atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow-worth-it-for-small-business/",
+      "title": "Atlassian (TEAM) Launches AI Native Jira Tools For The Full Development Workflow",
+      "description": "An evidence-led small-business review of Atlassian's reported AI-native Jira workflow update, covering fit, risks, costs, verification steps, and a safer pi."
+    },
+    {
+      "slug": "is-code-review-graph-review-2026-worth-it-for-small-business",
+      "topic": "is code-review-graph Review 2026 worth it for small business",
+      "status": "blocked",
+      "checked_at": "2026-07-26T07:57:17.418509+00:00",
+      "failures": [
+        "public workflow marker leakage"
+      ],
+      "hard_blockers": [
+        "public workflow marker leakage"
+      ],
+      "warnings": [
+        "AI review failed",
+        "AI quality review required"
+      ],
+      "pending_reviews": [
+        "human approval missing"
+      ],
+      "review_states": {
+        "ai_review": "warning",
+        "source_review": "passed",
+        "freshness_review": "passed"
+      },
+      "severity_counts": {
+        "BLOCK": 1,
+        "WARNING": 2,
+        "HUMAN_REVIEW_REQUIRED": 1
+      },
+      "total_score": 52.04,
+      "score_band": "needs_revision",
+      "final_gate": "Publish Blocked",
+      "research_quality_passed": true,
+      "verified_source_score_passed": true,
+      "knowledge_freshness_passed": true,
+      "ai_review_passed": false,
+      "human_approval_passed": false,
+      "broken_links": [],
+      "duplicate_title_meta": false,
+      "affiliate_disclosure_present": true,
+      "minimum_business_score_passed": true,
+      "minimum_readability_score_passed": true,
+      "business_score": 54.9,
+      "readability_score": 57.81,
+      "verified_source_score": 70.0,
+      "knowledge_freshness_score": 80.0,
+      "publish_ready": false,
+      "url": "https://smileaireviewhub.com/is-code-review-graph-review-2026-worth-it-for-small-business/",
+      "title": "code-review-graph Review 2026",
+      "description": "An evidence-led small-business review of code-review-graph, covering fit, risks, costs, verification steps, and a safer pilot plan."
+    },
+    {
+      "slug": "is-copilot-sdk-review-2026-worth-it-for-small-business",
+      "topic": "is copilot-sdk Review 2026 worth it for small business",
+      "status": "blocked",
+      "checked_at": "2026-07-26T07:57:24.511935+00:00",
+      "failures": [
+        "public workflow marker leakage"
+      ],
+      "hard_blockers": [
+        "public workflow marker leakage"
+      ],
+      "warnings": [
+        "AI review failed",
+        "AI quality review required"
+      ],
+      "pending_reviews": [
+        "human approval missing"
+      ],
+      "review_states": {
+        "ai_review": "warning",
+        "source_review": "passed",
+        "freshness_review": "passed"
+      },
+      "severity_counts": {
+        "BLOCK": 1,
+        "WARNING": 2,
+        "HUMAN_REVIEW_REQUIRED": 1
+      },
+      "total_score": 52.07,
+      "score_band": "needs_revision",
+      "final_gate": "Publish Blocked",
+      "research_quality_passed": true,
+      "verified_source_score_passed": true,
+      "knowledge_freshness_passed": true,
+      "ai_review_passed": false,
+      "human_approval_passed": false,
+      "broken_links": [],
+      "duplicate_title_meta": false,
+      "affiliate_disclosure_present": true,
+      "minimum_business_score_passed": true,
+      "minimum_readability_score_passed": true,
+      "business_score": 54.9,
+      "readability_score": 58.0,
+      "verified_source_score": 70.0,
+      "knowledge_freshness_score": 80.0,
+      "publish_ready": false,
+      "url": "https://smileaireviewhub.com/is-copilot-sdk-review-2026-worth-it-for-small-business/",
+      "title": "copilot-sdk Review 2026",
+      "description": "An evidence-led small-business review of GitHub copilot-sdk, covering fit, risks, costs, verification steps, and a safer pilot plan."
+    },
+    {
+      "slug": "is-free-ai-tools-worth-it-for-small-business",
+      "topic": "is Free AI Tools worth it for small business",
+      "status": "blocked",
+      "checked_at": "2026-07-26T07:57:30.863028+00:00",
+      "failures": [
+        "public workflow marker leakage"
+      ],
+      "hard_blockers": [
+        "public workflow marker leakage"
+      ],
+      "warnings": [
+        "AI review failed",
+        "AI quality review required"
+      ],
+      "pending_reviews": [
+        "human approval missing"
+      ],
+      "review_states": {
+        "ai_review": "warning",
+        "source_review": "passed",
+        "freshness_review": "passed"
+      },
+      "severity_counts": {
+        "BLOCK": 1,
+        "WARNING": 2,
+        "HUMAN_REVIEW_REQUIRED": 1
+      },
+      "total_score": 53.28,
+      "score_band": "needs_revision",
+      "final_gate": "Publish Blocked",
+      "research_quality_passed": true,
+      "verified_source_score_passed": true,
+      "knowledge_freshness_passed": true,
+      "ai_review_passed": false,
+      "human_approval_passed": false,
+      "broken_links": [],
+      "duplicate_title_meta": false,
+      "affiliate_disclosure_present": true,
+      "minimum_business_score_passed": true,
+      "minimum_readability_score_passed": true,
+      "business_score": 54.9,
+      "readability_score": 58.03,
+      "verified_source_score": 70.0,
+      "knowledge_freshness_score": 80.0,
+      "publish_ready": false,
+      "url": "https://smileaireviewhub.com/is-free-ai-tools-worth-it-for-small-business/",
+      "title": "Free AI Tools",
+      "description": "An evidence-led small-business review of free AI tools, covering fit, risks, costs, verification steps, and a safer pilot plan."
+    },
+    {
+      "slug": "is-ktransformers-review-2026-worth-it-for-small-business",
+      "topic": "is ktransformers Review 2026 worth it for small business",
+      "status": "blocked",
+      "checked_at": "2026-07-26T07:57:37.890801+00:00",
+      "failures": [
+        "public workflow marker leakage"
+      ],
+      "hard_blockers": [
+        "public workflow marker leakage"
+      ],
+      "warnings": [
+        "AI review failed",
+        "AI quality review required"
+      ],
+      "pending_reviews": [
+        "human approval missing"
+      ],
+      "review_states": {
+        "ai_review": "warning",
+        "source_review": "passed",
+        "freshness_review": "passed"
+      },
+      "severity_counts": {
+        "BLOCK": 1,
+        "WARNING": 2,
+        "HUMAN_REVIEW_REQUIRED": 1
+      },
+      "total_score": 52.03,
+      "score_band": "needs_revision",
+      "final_gate": "Publish Blocked",
+      "research_quality_passed": true,
+      "verified_source_score_passed": true,
+      "knowledge_freshness_passed": true,
+      "ai_review_passed": false,
+      "human_approval_passed": false,
+      "broken_links": [],
+      "duplicate_title_meta": false,
+      "affiliate_disclosure_present": true,
+      "minimum_business_score_passed": true,
+      "minimum_readability_score_passed": true,
+      "business_score": 54.9,
+      "readability_score": 57.74,
+      "verified_source_score": 70.0,
+      "knowledge_freshness_score": 80.0,
+      "publish_ready": false,
+      "url": "https://smileaireviewhub.com/is-ktransformers-review-2026-worth-it-for-small-business/",
+      "title": "ktransformers Review 2026",
+      "description": "An evidence-led small-business review of KTransformers, covering fit, risks, costs, verification steps, and a safer pilot plan."
+    },
+    {
+      "slug": "is-posthog-review-2026-worth-it-for-small-business",
+      "topic": "is posthog Review 2026 worth it for small business",
+      "status": "blocked",
+      "checked_at": "2026-07-26T07:57:44.634011+00:00",
+      "failures": [
+        "public workflow marker leakage"
+      ],
+      "hard_blockers": [
+        "public workflow marker leakage"
+      ],
+      "warnings": [
+        "AI review failed",
+        "AI quality review required"
+      ],
+      "pending_reviews": [
+        "human approval missing"
+      ],
+      "review_states": {
+        "ai_review": "warning",
+        "source_review": "passed",
+        "freshness_review": "passed"
+      },
+      "severity_counts": {
+        "BLOCK": 1,
+        "WARNING": 2,
+        "HUMAN_REVIEW_REQUIRED": 1
+      },
+      "total_score": 52.13,
+      "score_band": "needs_revision",
+      "final_gate": "Publish Blocked",
+      "research_quality_passed": true,
+      "verified_source_score_passed": true,
+      "knowledge_freshness_passed": true,
+      "ai_review_passed": false,
+      "human_approval_passed": false,
+      "broken_links": [],
+      "duplicate_title_meta": false,
+      "affiliate_disclosure_present": true,
+      "minimum_business_score_passed": true,
+      "minimum_readability_score_passed": true,
+      "business_score": 54.9,
+      "readability_score": 58.5,
+      "verified_source_score": 70.0,
+      "knowledge_freshness_score": 80.0,
+      "publish_ready": false,
+      "url": "https://smileaireviewhub.com/is-posthog-review-2026-worth-it-for-small-business/",
+      "title": "posthog Review 2026",
+      "description": "An evidence-led small-business review of PostHog, covering fit, risks, costs, verification steps, and a safer pilot plan."
+    },
+    {
+      "slug": "is-voicebox-review-2026-worth-it-for-small-business",
+      "topic": "is voicebox Review 2026 worth it for small business",
+      "status": "blocked",
+      "checked_at": "2026-07-26T07:57:51.571858+00:00",
+      "failures": [
+        "public workflow marker leakage"
+      ],
+      "hard_blockers": [
+        "public workflow marker leakage"
+      ],
+      "warnings": [
+        "AI review failed",
+        "AI quality review required"
+      ],
+      "pending_reviews": [
+        "human approval missing"
+      ],
+      "review_states": {
+        "ai_review": "warning",
+        "source_review": "passed",
+        "freshness_review": "passed"
+      },
+      "severity_counts": {
+        "BLOCK": 1,
+        "WARNING": 2,
+        "HUMAN_REVIEW_REQUIRED": 1
+      },
+      "total_score": 52.12,
+      "score_band": "needs_revision",
+      "final_gate": "Publish Blocked",
+      "research_quality_passed": true,
+      "verified_source_score_passed": true,
+      "knowledge_freshness_passed": true,
+      "ai_review_passed": false,
+      "human_approval_passed": false,
+      "broken_links": [],
+      "duplicate_title_meta": false,
+      "affiliate_disclosure_present": true,
+      "minimum_business_score_passed": true,
+      "minimum_readability_score_passed": true,
+      "business_score": 54.9,
+      "readability_score": 58.46,
+      "verified_source_score": 70.0,
+      "knowledge_freshness_score": 80.0,
+      "publish_ready": false,
+      "url": "https://smileaireviewhub.com/is-voicebox-review-2026-worth-it-for-small-business/",
+      "title": "voicebox Review 2026",
+      "description": "An evidence-led small-business review of Voicebox, covering fit, risks, costs, verification steps, and a safer pilot plan."
+    },
+    {
+      "slug": "is-wigolo-review-2026-worth-it-for-small-business",
+      "topic": "is wigolo Review 2026 worth it for small business",
+      "status": "published_local",
+      "checked_at": "2026-07-26T08:33:05.806915+00:00",
+      "failures": [],
+      "hard_blockers": [],
+      "warnings": [
+        "AI quality review required"
+      ],
+      "pending_reviews": [],
+      "review_states": {
+        "ai_review": "warning",
+        "source_review": "passed",
+        "freshness_review": "passed"
+      },
+      "severity_counts": {
+        "BLOCK": 0,
+        "WARNING": 1,
+        "HUMAN_REVIEW_REQUIRED": 0
+      },
+      "total_score": 52.13,
+      "score_band": "needs_revision",
+      "final_gate": "Ready for Publish",
+      "research_quality_passed": true,
+      "verified_source_score_passed": true,
+      "knowledge_freshness_passed": true,
+      "ai_review_passed": true,
+      "human_approval_passed": true,
+      "broken_links": [],
+      "duplicate_title_meta": false,
+      "affiliate_disclosure_present": true,
+      "minimum_business_score_passed": true,
+      "minimum_readability_score_passed": true,
+      "business_score": 54.9,
+      "readability_score": 58.49,
+      "verified_source_score": 70.0,
+      "knowledge_freshness_score": 80.0,
+      "publish_ready": true,
+      "url": "https://smileaireviewhub.com/is-wigolo-review-2026-worth-it-for-small-business/",
+      "title": "wigolo Review 2026",
+      "description": "An evidence-led small-business review of wigolo, covering fit, risks, costs, verification steps, and a safer pilot plan.",
+      "published_at": "2026-07-26T08:35:49.721177+00:00"
+    },
+    {
+      "slug": "is-wrenai-review-2026-worth-it-for-small-business",
+      "topic": "is WrenAI Review 2026 worth it for small business",
+      "status": "blocked",
+      "checked_at": "2026-07-26T07:58:04.366907+00:00",
+      "failures": [
+        "public workflow marker leakage"
+      ],
+      "hard_blockers": [
+        "public workflow marker leakage"
+      ],
+      "warnings": [
+        "AI review failed",
+        "AI quality review required"
+      ],
+      "pending_reviews": [
+        "human approval missing"
+      ],
+      "review_states": {
+        "ai_review": "warning",
+        "source_review": "passed",
+        "freshness_review": "passed"
+      },
+      "severity_counts": {
+        "BLOCK": 1,
+        "WARNING": 2,
+        "HUMAN_REVIEW_REQUIRED": 1
+      },
+      "total_score": 52.09,
+      "score_band": "needs_revision",
+      "final_gate": "Publish Blocked",
+      "research_quality_passed": true,
+      "verified_source_score_passed": true,
+      "knowledge_freshness_passed": true,
+      "ai_review_passed": false,
+      "human_approval_passed": false,
+      "broken_links": [],
+      "duplicate_title_meta": false,
+      "affiliate_disclosure_present": true,
+      "minimum_business_score_passed": true,
+      "minimum_readability_score_passed": true,
+      "business_score": 54.9,
+      "readability_score": 58.2,
+      "verified_source_score": 70.0,
+      "knowledge_freshness_score": 80.0,
+      "publish_ready": false,
+      "url": "https://smileaireviewhub.com/is-wrenai-review-2026-worth-it-for-small-business/",
+      "title": "WrenAI Review 2026",
+      "description": "An evidence-led small-business review of WrenAI, covering fit, risks, costs, verification steps, and a safer pilot plan."
     }
   ]
 }

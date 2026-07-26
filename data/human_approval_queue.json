@@ -1188,5 +1188,105 @@
     "approved_at": "2026-07-25T02:22:00.381561+00:00",
     "approved_by": "editor",
     "reason": ""
+  },
+  {
+    "slug": "is-astrbot-review-2026-worth-it-for-small-business",
+    "topic": "is AstrBot Review 2026 worth it for small business",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-26T07:57:03.083168+00:00",
+    "approved_at": "2026-07-26T07:58:51.035918+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "is-atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow-worth-it-for-small-business",
+    "topic": "is Atlassian (TEAM) Launches AI Native Jira Tools For The Full Development Workflow worth it for small business",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-26T07:57:10.054081+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "internal links missing; duplicate content risk too high; publish readiness below threshold"
+  },
+  {
+    "slug": "is-code-review-graph-review-2026-worth-it-for-small-business",
+    "topic": "is code-review-graph Review 2026 worth it for small business",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-26T07:57:16.787376+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "internal links missing; duplicate content risk too high; publish readiness below threshold"
+  },
+  {
+    "slug": "is-copilot-sdk-review-2026-worth-it-for-small-business",
+    "topic": "is copilot-sdk Review 2026 worth it for small business",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-26T07:57:23.703861+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "internal links missing; duplicate content risk too high; publish readiness below threshold"
+  },
+  {
+    "slug": "is-free-ai-tools-worth-it-for-small-business",
+    "topic": "is Free AI Tools worth it for small business",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-26T07:57:30.198489+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "internal links missing; duplicate content risk too high; publish readiness below threshold"
+  },
+  {
+    "slug": "is-ktransformers-review-2026-worth-it-for-small-business",
+    "topic": "is ktransformers Review 2026 worth it for small business",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-26T07:57:37.311178+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "internal links missing; duplicate content risk too high; publish readiness below threshold"
+  },
+  {
+    "slug": "is-posthog-review-2026-worth-it-for-small-business",
+    "topic": "is posthog Review 2026 worth it for small business",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-26T07:57:43.988496+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "internal links missing; duplicate content risk too high; publish readiness below threshold"
+  },
+  {
+    "slug": "is-voicebox-review-2026-worth-it-for-small-business",
+    "topic": "is voicebox Review 2026 worth it for small business",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-26T07:57:50.958607+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "internal links missing; duplicate content risk too high; publish readiness below threshold"
+  },
+  {
+    "slug": "is-wigolo-review-2026-worth-it-for-small-business",
+    "topic": "is wigolo Review 2026 worth it for small business",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-26T07:57:57.248736+00:00",
+    "approved_at": "2026-07-26T08:00:49.471523+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "is-wrenai-review-2026-worth-it-for-small-business",
+    "topic": "is WrenAI Review 2026 worth it for small business",
+    "status": "needs_revision",
+    "required": true,
+    "reviewed_at": "2026-07-26T07:58:03.758068+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "internal links missing; duplicate content risk too high; publish readiness below threshold"
   }
 ]
