@@ -1288,5 +1288,25 @@
     "approved_at": "",
     "approved_by": "",
     "reason": "internal links missing; duplicate content risk too high; publish readiness below threshold"
+  },
+  {
+    "slug": "ego-lite-review-2026",
+    "topic": "ego-lite Review 2026",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-28T14:00:19.531098+00:00",
+    "approved_at": "2026-07-28T14:01:42.567984+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "impeccable-review-2026",
+    "topic": "impeccable Review 2026",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-28T14:00:39.564265+00:00",
+    "approved_at": "2026-07-28T14:01:52.882324+00:00",
+    "approved_by": "editor",
+    "reason": ""
   }
 ]

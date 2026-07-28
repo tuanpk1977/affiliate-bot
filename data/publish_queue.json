@@ -6169,7 +6169,7 @@
   {
     "slug": "is-astrbot-review-2026-worth-it-for-small-business",
     "topic": "is AstrBot Review 2026 worth it for small business",
-    "status": "published_local",
+    "status": "live",
     "checked_at": "2026-07-26T08:33:05.656783+00:00",
     "failures": [],
     "hard_blockers": [],
@@ -6208,7 +6208,21 @@
     "url": "https://smileaireviewhub.com/is-astrbot-review-2026-worth-it-for-small-business/",
     "title": "AstrBot Review 2026",
     "description": "An evidence-led small-business review of AstrBot, covering fit, risks, costs, verification steps, and a safer pilot plan.",
-    "published_at": "2026-07-26T08:35:49.665105+00:00"
+    "published_at": "2026-07-26T08:35:49.665105+00:00",
+    "publish_queue_status": "live",
+    "deployment_state": "live",
+    "updated_at": "2026-07-26T08:36:58.386029+00:00",
+    "committed_local": true,
+    "pushed": true,
+    "pushed_at": "2026-07-26T08:36:58.386029+00:00",
+    "git_push_status": "pushed",
+    "git_push_reason": "",
+    "git_push_retry_count": 0,
+    "force_push_used": false,
+    "live": true,
+    "live_at": "2026-07-26T08:36:58.386029+00:00",
+    "post_push_live_status": "live_ok",
+    "post_push_live_message": "Website live OK: 2/2 URLs returned 200/3xx after push."
   },
   {
     "slug": "is-atlassian-team-launches-ai-native-jira-tools-for-the-full-development-workflow-worth-it-for-small-business",
@@ -6563,7 +6577,7 @@
   {
     "slug": "is-wigolo-review-2026-worth-it-for-small-business",
     "topic": "is wigolo Review 2026 worth it for small business",
-    "status": "published_local",
+    "status": "live",
     "checked_at": "2026-07-26T08:33:05.806915+00:00",
     "failures": [],
     "hard_blockers": [],
@@ -6602,7 +6616,21 @@
     "url": "https://smileaireviewhub.com/is-wigolo-review-2026-worth-it-for-small-business/",
     "title": "wigolo Review 2026",
     "description": "An evidence-led small-business review of wigolo, covering fit, risks, costs, verification steps, and a safer pilot plan.",
-    "published_at": "2026-07-26T08:35:49.721177+00:00"
+    "published_at": "2026-07-26T08:35:49.721177+00:00",
+    "publish_queue_status": "live",
+    "deployment_state": "live",
+    "updated_at": "2026-07-26T08:36:58.386029+00:00",
+    "committed_local": true,
+    "pushed": true,
+    "pushed_at": "2026-07-26T08:36:58.386029+00:00",
+    "git_push_status": "pushed",
+    "git_push_reason": "",
+    "git_push_retry_count": 0,
+    "force_push_used": false,
+    "live": true,
+    "live_at": "2026-07-26T08:36:58.386029+00:00",
+    "post_push_live_status": "live_ok",
+    "post_push_live_message": "Website live OK: 2/2 URLs returned 200/3xx after push."
   },
   {
     "slug": "is-wrenai-review-2026-worth-it-for-small-business",
@@ -6653,5 +6681,93 @@
     "url": "https://smileaireviewhub.com/is-wrenai-review-2026-worth-it-for-small-business/",
     "title": "WrenAI Review 2026",
     "description": "An evidence-led small-business review of WrenAI, covering fit, risks, costs, verification steps, and a safer pilot plan."
+  },
+  {
+    "slug": "ego-lite-review-2026",
+    "topic": "ego-lite Review 2026",
+    "status": "published_local",
+    "checked_at": "2026-07-28T14:02:42.945429+00:00",
+    "failures": [],
+    "hard_blockers": [],
+    "warnings": [
+      "AI quality review required"
+    ],
+    "pending_reviews": [],
+    "review_states": {
+      "ai_review": "warning",
+      "source_review": "passed",
+      "freshness_review": "passed"
+    },
+    "severity_counts": {
+      "BLOCK": 0,
+      "WARNING": 1,
+      "HUMAN_REVIEW_REQUIRED": 0
+    },
+    "total_score": 62.45,
+    "score_band": "needs_revision",
+    "final_gate": "Ready for Publish",
+    "research_quality_passed": true,
+    "verified_source_score_passed": true,
+    "knowledge_freshness_passed": true,
+    "ai_review_passed": true,
+    "human_approval_passed": true,
+    "broken_links": [],
+    "duplicate_title_meta": false,
+    "affiliate_disclosure_present": true,
+    "minimum_business_score_passed": true,
+    "minimum_readability_score_passed": true,
+    "business_score": 54.9,
+    "readability_score": 59.89,
+    "verified_source_score": 70.0,
+    "knowledge_freshness_score": 80.0,
+    "publish_ready": true,
+    "url": "https://smileaireviewhub.com/ego-lite-review-2026/",
+    "title": "ego-lite Review 2026: A Shared Browser for AI Agents",
+    "description": "An evidence-led ego-lite review covering its shared browser model, agent workflow, privacy claims, risks, alternatives, and pilot checklist.",
+    "published_at": "2026-07-28T14:05:30.288599+00:00"
+  },
+  {
+    "slug": "impeccable-review-2026",
+    "topic": "impeccable Review 2026",
+    "status": "published_local",
+    "checked_at": "2026-07-28T14:02:43.116480+00:00",
+    "failures": [],
+    "hard_blockers": [],
+    "warnings": [
+      "AI quality review required"
+    ],
+    "pending_reviews": [],
+    "review_states": {
+      "ai_review": "warning",
+      "source_review": "passed",
+      "freshness_review": "passed"
+    },
+    "severity_counts": {
+      "BLOCK": 0,
+      "WARNING": 1,
+      "HUMAN_REVIEW_REQUIRED": 0
+    },
+    "total_score": 62.36,
+    "score_band": "needs_revision",
+    "final_gate": "Ready for Publish",
+    "research_quality_passed": true,
+    "verified_source_score_passed": true,
+    "knowledge_freshness_passed": true,
+    "ai_review_passed": true,
+    "human_approval_passed": true,
+    "broken_links": [],
+    "duplicate_title_meta": false,
+    "affiliate_disclosure_present": true,
+    "minimum_business_score_passed": true,
+    "minimum_readability_score_passed": true,
+    "business_score": 54.9,
+    "readability_score": 60.25,
+    "verified_source_score": 70.0,
+    "knowledge_freshness_score": 80.0,
+    "publish_ready": true,
+    "url": "https://smileaireviewhub.com/impeccable-review-2026/",
+    "title": "Impeccable Review 2026: AI Design Workflow Skills",
+    "description": "An evidence-led Impeccable review covering setup, AI coding integrations, hooks, design workflow, risks, alternatives, and adoption checks.",
+    "published_at": "2026-07-28T14:05:30.340345+00:00"
   }
 ]

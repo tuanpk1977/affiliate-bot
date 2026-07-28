@@ -1,0 +1,47 @@
+{
+  "schema_version": "website_style_gate_v1",
+  "task_type": "WEBSITE_FOUNDATION",
+  "metrics": {
+    "word_count": 1991,
+    "paragraph_count": 47,
+    "h1_count": 1,
+    "h2_count": 13,
+    "h3_count": 8,
+    "heading_count": 22,
+    "faq_question_count": 4,
+    "table_count": 1,
+    "duplicate_paragraph_count": 0,
+    "duplicate_heading_count": 0
+  },
+  "checks": {
+    "word_count": true,
+    "h1": true,
+    "h2": true,
+    "h3": true,
+    "faq": true,
+    "tables": true,
+    "duplicate_paragraphs": true,
+    "duplicate_headings": true
+  },
+  "score": 100.0,
+  "minimum_score": 90,
+  "errors": [],
+  "decision": "PASS",
+  "comparisons": [
+    {
+      "schema_version": "article_style_comparison_v1",
+      "reference_paragraphs": 47,
+      "candidate_paragraphs": 52,
+      "shared_normalized_paragraphs": 0,
+      "normalized_paragraph_overlap_percent": 0.0,
+      "heading_sequence_similarity_percent": 18.6,
+      "body_sequence_similarity_percent": 1.91,
+      "differentiation_score": 94.97,
+      "near_template_duplicate": false,
+      "decision": "PASS",
+      "reference_slug": "ego-lite-review-2026",
+      "candidate_slug": "impeccable-review-2026",
+      "comparison_type": "same_return_package"
+    }
+  ]
+}

@@ -1,0 +1,3512 @@
+{
+  "date": "2026-07-27",
+  "summary": {
+    "date": "2026-07-27",
+    "requested_date": "2026-07-27",
+    "week_start": "2026-07-27",
+    "week_end": "2026-08-02",
+    "daily_angle": "Week-start hottrend / pillar batch",
+    "total_topics": 5,
+    "drafted": 2,
+    "approved": 0,
+    "rejected": 0,
+    "published": 0,
+    "missing_files": 5,
+    "dashboard_file": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-27\\index.html",
+    "operator_console": "D:\\AFFILATE BOT\\data\\editorial_operations_console.html",
+    "upload_dir": "D:\\AFFILATE BOT\\upload\\2026-07-27",
+    "master_dashboard": "D:\\AFFILATE BOT\\upload\\dashboard.html",
+    "ready_for_publish": 0,
+    "publish_blocked": 2,
+    "human_approval_required": 0,
+    "published_local": 0,
+    "drafts": 3,
+    "needs_review": 2,
+    "human_approved": 0,
+    "published_this_batch": 0,
+    "top_block_reasons": [
+      "public workflow marker leakage (2)"
+    ],
+    "next_recommended_command": "python editorial_console.py approve --slug <slug> --date 2026-07-27",
+    "archived_unpublished": 19
+  },
+  "topics": [
+    {
+      "keyword": "open-code-review Review 2026",
+      "slug": "open-code-review-review-2026",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 54,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 65,
+      "content_type": "review",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/alibaba/open-code-review",
+        "https://open-codereview.ai",
+        "https://gigazine.net/gsc_news/en/20260607-open-code-review"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "Review open-code-review Review 2026 with independent methodology, use cases, pricing cautions, pros, cons, and alternatives.",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Can remain useful after the current news cycle.",
+        "Recent multi-source activity indicates timely interest.",
+        "Commercial terminology suggests above-average CPC potential.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "signals": 2,
+      "confidence": "medium",
+      "total_score": 66.1,
+      "raw_total_score": 66.1,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "source_readiness": {
+        "passes": true,
+        "source_count": 3,
+        "source_urls": [
+          "https://github.com/alibaba/open-code-review",
+          "https://open-codereview.ai",
+          "https://gigazine.net/gsc_news/en/20260607-open-code-review"
+        ],
+        "unique_source_domains": [
+          "github.com",
+          "open-codereview.ai",
+          "gigazine.net"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "topic_score_report": {
+        "candidate_id": "open-code-review-review-2026",
+        "content_lane": "FOUNDATION_MAIN",
+        "title": "open-code-review Review 2026",
+        "scoring_owner": "modules.ai_trend_discovery",
+        "scoring_version": "topic_scoring_v2",
+        "score_scale": "0-100",
+        "raw_component_values": {
+          "search_volume_potential": 90,
+          "low_competition_opportunity": 63.0,
+          "affiliate_opportunity": 54,
+          "evergreen_value": 58,
+          "news_freshness": 65,
+          "cpc_potential": null
+        },
+        "normalized_component_values": {
+          "search_volume_potential": 90.0,
+          "low_competition_opportunity": 63.0,
+          "affiliate_opportunity": 54.0,
+          "evergreen_value": 58.0,
+          "news_freshness": 65.0,
+          "cpc_potential": 50.0
+        },
+        "component_weights": {
+          "search_volume_potential": 0.22,
+          "low_competition_opportunity": 0.16,
+          "affiliate_opportunity": 0.2,
+          "evergreen_value": 0.14,
+          "news_freshness": 0.16,
+          "cpc_potential": 0.12
+        },
+        "component_reports": {
+          "search_volume_potential": {
+            "raw_value": 90,
+            "normalized_value": 90.0,
+            "weight": 0.22,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "low_competition_opportunity": {
+            "raw_value": 63.0,
+            "normalized_value": 63.0,
+            "weight": 0.16,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "affiliate_opportunity": {
+            "raw_value": 54,
+            "normalized_value": 54.0,
+            "weight": 0.2,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "evergreen_value": {
+            "raw_value": 58,
+            "normalized_value": 58.0,
+            "weight": 0.14,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "news_freshness": {
+            "raw_value": 65,
+            "normalized_value": 65.0,
+            "weight": 0.16,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "cpc_potential": {
+            "raw_value": null,
+            "normalized_value": 50.0,
+            "weight": 0.12,
+            "status": "OPTIONAL_MISSING_NEUTRAL",
+            "missing_policy": "OPTIONAL",
+            "reason": "Optional component missing; neutral 50 used and score confidence reduced."
+          }
+        },
+        "missing_fields": [
+          "cpc_potential"
+        ],
+        "weights_applied": 1.0,
+        "weights_available": 0.88,
+        "weights_redistributed": false,
+        "hard_gate_results": [
+          {
+            "gate": "all_required_gates",
+            "passed": true,
+            "reason": "PASS"
+          }
+        ],
+        "hard_gates_passed": true,
+        "score_confidence": 0.88,
+        "total_score": 66.1,
+        "computed_total_score": 65.2,
+        "scoring_adjustments": [
+          "workflow-adjusted total_score 66.1 used instead of component recompute 65.2"
+        ],
+        "recommended_threshold": 65.0,
+        "absolute_minimum_floor": 50.0,
+        "rank": 1,
+        "selection_result": "SELECTED_THRESHOLD_PASS",
+        "reason": "Passed hard gates and met the recommended quality threshold.",
+        "scale_warnings": []
+      },
+      "selection_result": "SELECTED_THRESHOLD_PASS",
+      "selection_reason": "Passed hard gates and met the recommended quality threshold.",
+      "rank": 1,
+      "root_topic_id": "open-code-review-review-2026",
+      "title": "open-code-review Review 2026",
+      "primary_keyword": "open-code-review Review 2026",
+      "category": "review",
+      "trend_score": 65.0,
+      "business_value": 54.0,
+      "sources": [
+        "https://github.com/alibaba/open-code-review",
+        "https://open-codereview.ai",
+        "https://gigazine.net/gsc_news/en/20260607-open-code-review"
+      ],
+      "entities": [],
+      "week_start": "2026-07-27",
+      "status": "research_ready",
+      "content_lane": "FOUNDATION_MAIN",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "open-code-review Review 2026",
+      "parent_slug": "open-code-review-review-2026",
+      "daily_angles": {},
+      "series_plan": [
+        {
+          "root_topic_id": "open-code-review-review-2026",
+          "root_title": "open-code-review Review 2026",
+          "content_lane": "FOUNDATION_MAIN",
+          "article_id": "open-code-review-review-2026-main_review",
+          "sequence_number": 1,
+          "scheduled_date": "2026-07-27",
+          "planned_publishing_day": "2026-07-27",
+          "daily_angle": "main_review",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate open-code-review Review 2026 for category overview?",
+          "unique_thesis": "open-code-review Review 2026 should be judged through category overview, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use open-code-review Review 2026 for category overview.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Category Overview context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare category overview options without repeating the Monday table.",
+          "faq_set": [
+            "main_review_faq_1",
+            "main_review_faq_2",
+            "main_review_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "implementation_guide",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "implementation_guide",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "open-code-review-review-2026",
+          "root_title": "open-code-review Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "open-code-review-review-2026-implementation_guide",
+          "sequence_number": 2,
+          "scheduled_date": "2026-07-28",
+          "planned_publishing_day": "2026-07-28",
+          "daily_angle": "implementation_guide",
+          "primary_search_intent": "implementation guide",
+          "search_intent": "implementation guide",
+          "reader_question": "How should a small business evaluate open-code-review Review 2026 for implementation workflow?",
+          "unique_thesis": "open-code-review Review 2026 should be judged through implementation workflow, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use open-code-review Review 2026 for implementation workflow.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Implementation Workflow context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare implementation workflow options without repeating the Monday table.",
+          "faq_set": [
+            "implementation_guide_faq_1",
+            "implementation_guide_faq_2",
+            "implementation_guide_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "main_review",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "comparison",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "comparison",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "open-code-review-review-2026",
+          "root_title": "open-code-review Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "open-code-review-review-2026-comparison",
+          "sequence_number": 3,
+          "scheduled_date": "2026-07-29",
+          "planned_publishing_day": "2026-07-29",
+          "daily_angle": "comparison",
+          "primary_search_intent": "comparison",
+          "search_intent": "comparison",
+          "reader_question": "How should a small business evaluate open-code-review Review 2026 for comparison and alternatives?",
+          "unique_thesis": "open-code-review Review 2026 should be judged through comparison and alternatives, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use open-code-review Review 2026 for comparison and alternatives.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Comparison And Alternatives context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare comparison and alternatives options without repeating the Monday table.",
+          "faq_set": [
+            "comparison_faq_1",
+            "comparison_faq_2",
+            "comparison_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "implementation_guide",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "pricing",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "pricing",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "open-code-review-review-2026",
+          "root_title": "open-code-review Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "open-code-review-review-2026-pricing",
+          "sequence_number": 4,
+          "scheduled_date": "2026-07-30",
+          "planned_publishing_day": "2026-07-30",
+          "daily_angle": "pricing",
+          "primary_search_intent": "commercial investigation",
+          "search_intent": "commercial investigation",
+          "reader_question": "How should a small business evaluate open-code-review Review 2026 for pricing, cost, and ROI?",
+          "unique_thesis": "open-code-review Review 2026 should be judged through pricing, cost, and ROI, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use open-code-review Review 2026 for pricing, cost, and ROI.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Pricing, Cost, And Roi context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare pricing, cost, and ROI options without repeating the Monday table.",
+          "faq_set": [
+            "pricing_faq_1",
+            "pricing_faq_2",
+            "pricing_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "comparison",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "use_cases",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "use_cases",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "open-code-review-review-2026",
+          "root_title": "open-code-review Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "open-code-review-review-2026-use_cases",
+          "sequence_number": 5,
+          "scheduled_date": "2026-07-31",
+          "planned_publishing_day": "2026-07-31",
+          "daily_angle": "use_cases",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate open-code-review Review 2026 for workflows and use cases?",
+          "unique_thesis": "open-code-review Review 2026 should be judged through workflows and use cases, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use open-code-review Review 2026 for workflows and use cases.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Workflows And Use Cases context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare workflows and use cases options without repeating the Monday table.",
+          "faq_set": [
+            "use_cases_faq_1",
+            "use_cases_faq_2",
+            "use_cases_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "pricing",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "troubleshooting",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "troubleshooting",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "open-code-review-review-2026",
+          "root_title": "open-code-review Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "open-code-review-review-2026-troubleshooting",
+          "sequence_number": 6,
+          "scheduled_date": "2026-08-01",
+          "planned_publishing_day": "2026-08-01",
+          "daily_angle": "troubleshooting",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate open-code-review Review 2026 for mistakes and troubleshooting?",
+          "unique_thesis": "open-code-review Review 2026 should be judged through mistakes and troubleshooting, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use open-code-review Review 2026 for mistakes and troubleshooting.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Mistakes And Troubleshooting context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare mistakes and troubleshooting options without repeating the Monday table.",
+          "faq_set": [
+            "troubleshooting_faq_1",
+            "troubleshooting_faq_2",
+            "troubleshooting_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "use_cases",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "buying_decision",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "buying_decision",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "open-code-review-review-2026",
+          "root_title": "open-code-review Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "open-code-review-review-2026-buying_decision",
+          "sequence_number": 7,
+          "scheduled_date": "2026-08-02",
+          "planned_publishing_day": "2026-08-02",
+          "daily_angle": "buying_decision",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate open-code-review Review 2026 for small-business buying decision?",
+          "unique_thesis": "open-code-review Review 2026 should be judged through small-business buying decision, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use open-code-review Review 2026 for small-business buying decision.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Small-Business Buying Decision context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare small-business buying decision options without repeating the Monday table.",
+          "faq_set": [
+            "buying_decision_faq_1",
+            "buying_decision_faq_2",
+            "buying_decision_faq_3"
+          ],
+          "cta_intent": "close the same-root editorial series",
+          "previous_article": "troubleshooting",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "",
+            "bridge_state": "SERIES_COMPLETE"
+          },
+          "next_article": "",
+          "bridge_state": "SERIES_COMPLETE",
+          "series_status": "planned",
+          "article_state": "planned"
+        }
+      ],
+      "content_strategy": {
+        "content_type": "Review",
+        "audience": "Small business operators",
+        "search_intent": "commercial research",
+        "marketing_funnel": "Middle of funnel",
+        "primary_keyword": "open-code-review Review 2026",
+        "secondary_semantic_keywords": [
+          "open",
+          "code",
+          "2026"
+        ],
+        "suggested_internal_links": [
+          {
+            "slug": "chat2db-review-2026",
+            "title": "Chat2DB Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "ego-lite-review-2026",
+            "title": "ego-lite Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "impeccable-review-2026",
+            "title": "impeccable Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "instatic-review-2026",
+            "title": "Instatic Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "related_weekly_topics": [
+          {
+            "slug": "chat2db-review-2026",
+            "title": "Chat2DB Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "ego-lite-review-2026",
+            "title": "ego-lite Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "impeccable-review-2026",
+            "title": "impeccable Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "instatic-review-2026",
+            "title": "Instatic Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "recommended_cta": "Read the full review",
+        "estimated_search_intent": "commercial research",
+        "suggested_external_link_count": 3,
+        "recommended_faq_count": 5,
+        "suggested_heading_count": 8,
+        "reading_level": "Grade 8-10",
+        "target_audience": "Small business operators",
+        "content_freshness": "current",
+        "topical_authority_score": 83,
+        "entity_keywords": [
+          "open",
+          "code",
+          "2026"
+        ],
+        "schema_recommendation": [
+          "Article",
+          "BreadcrumbList",
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Product"
+        ],
+        "cluster_health": "healthy",
+        "planning_scope": "weekly_batch_only"
+      },
+      "content_quality_warnings": [
+        "Warning only: duplicate search intent appears 5 times in this weekly batch.",
+        "Warning only: duplicate CTA appears 5 times in this weekly batch.",
+        "Warning only: duplicate FAQ pattern appears 5 times in this weekly batch."
+      ],
+      "normalized_root_topic": "open-code-review-review-2026",
+      "root_title": "open-code-review Review 2026",
+      "topic_category": "REVIEW",
+      "primary_entity": "open-code-review Review 2026",
+      "primary_search_intent": "commercial research",
+      "reason_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Can remain useful after the current news cycle.",
+        "Recent multi-source activity indicates timely interest.",
+        "Commercial terminology suggests above-average CPC potential.",
+        "Supplemental Bing source aggregation found at least two independent source domains."
+      ],
+      "selection_score": 66.1,
+      "freshness_score": 65.0,
+      "official_source_confidence": "unknown",
+      "likely_search_demand": 90.0,
+      "commercial_relevance": 54.0,
+      "depth_potential": 66.1,
+      "source_references": [
+        "https://github.com/alibaba/open-code-review",
+        "https://open-codereview.ai",
+        "https://gigazine.net/gsc_news/en/20260607-open-code-review"
+      ],
+      "selected": true,
+      "selected_status": "selected",
+      "series_status": "active",
+      "maximum_useful_article_angles": 7,
+      "daily_angle": "main_review",
+      "batch_date": "2026-07-27",
+      "mode": "standard",
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\open-code-review-review-2026",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 53.14,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 3,
+        "minimum_sources": 2,
+        "warnings": [
+          "entity_coverage_score 36.0 below initial threshold 40.0",
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "",
+      "review_preview": "",
+      "human_approval_status": "not_started",
+      "publish_gate_status": "not_started",
+      "batch_state": "QUEUE_CREATED",
+      "error": ""
+    },
+    {
+      "keyword": "ego-lite Review 2026",
+      "slug": "ego-lite-review-2026",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 49,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 65,
+      "content_type": "review",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/citrolabs/ego-lite",
+        "https://lite.ego.app"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "Review ego-lite Review 2026 with independent methodology, use cases, pricing cautions, pros, cons, and alternatives.",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Can remain useful after the current news cycle.",
+        "Recent multi-source activity indicates timely interest.",
+        "Commercial terminology suggests above-average CPC potential.",
+        "Official project homepage confirmed from GitHub repository metadata."
+      ],
+      "signals": 1,
+      "confidence": "medium",
+      "total_score": 64.9,
+      "raw_total_score": 64.9,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://github.com/citrolabs/ego-lite",
+          "https://lite.ego.app"
+        ],
+        "unique_source_domains": [
+          "github.com",
+          "lite.ego.app"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "topic_score_report": {
+        "candidate_id": "ego-lite-review-2026",
+        "content_lane": "FOUNDATION_MAIN",
+        "title": "ego-lite Review 2026",
+        "scoring_owner": "modules.ai_trend_discovery",
+        "scoring_version": "topic_scoring_v2",
+        "score_scale": "0-100",
+        "raw_component_values": {
+          "search_volume_potential": 90,
+          "low_competition_opportunity": 63.0,
+          "affiliate_opportunity": 49,
+          "evergreen_value": 58,
+          "news_freshness": 65,
+          "cpc_potential": null
+        },
+        "normalized_component_values": {
+          "search_volume_potential": 90.0,
+          "low_competition_opportunity": 63.0,
+          "affiliate_opportunity": 49.0,
+          "evergreen_value": 58.0,
+          "news_freshness": 65.0,
+          "cpc_potential": 50.0
+        },
+        "component_weights": {
+          "search_volume_potential": 0.22,
+          "low_competition_opportunity": 0.16,
+          "affiliate_opportunity": 0.2,
+          "evergreen_value": 0.14,
+          "news_freshness": 0.16,
+          "cpc_potential": 0.12
+        },
+        "component_reports": {
+          "search_volume_potential": {
+            "raw_value": 90,
+            "normalized_value": 90.0,
+            "weight": 0.22,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "low_competition_opportunity": {
+            "raw_value": 63.0,
+            "normalized_value": 63.0,
+            "weight": 0.16,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "affiliate_opportunity": {
+            "raw_value": 49,
+            "normalized_value": 49.0,
+            "weight": 0.2,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "evergreen_value": {
+            "raw_value": 58,
+            "normalized_value": 58.0,
+            "weight": 0.14,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "news_freshness": {
+            "raw_value": 65,
+            "normalized_value": 65.0,
+            "weight": 0.16,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "cpc_potential": {
+            "raw_value": null,
+            "normalized_value": 50.0,
+            "weight": 0.12,
+            "status": "OPTIONAL_MISSING_NEUTRAL",
+            "missing_policy": "OPTIONAL",
+            "reason": "Optional component missing; neutral 50 used and score confidence reduced."
+          }
+        },
+        "missing_fields": [
+          "cpc_potential"
+        ],
+        "weights_applied": 1.0,
+        "weights_available": 0.88,
+        "weights_redistributed": false,
+        "hard_gate_results": [
+          {
+            "gate": "all_required_gates",
+            "passed": true,
+            "reason": "PASS"
+          }
+        ],
+        "hard_gates_passed": true,
+        "score_confidence": 0.88,
+        "total_score": 64.9,
+        "computed_total_score": 64.2,
+        "scoring_adjustments": [
+          "workflow-adjusted total_score 64.9 used instead of component recompute 64.2"
+        ],
+        "recommended_threshold": 65.0,
+        "absolute_minimum_floor": 50.0,
+        "rank": 2,
+        "selection_result": "SELECTED_QUALITY_LIMITED",
+        "reason": "Passed hard gates and stayed above the absolute floor; selected as quality-limited fill from the strongest available candidates.",
+        "scale_warnings": []
+      },
+      "selection_result": "SELECTED_QUALITY_LIMITED",
+      "selection_reason": "Passed hard gates and stayed above the absolute floor; selected as quality-limited fill from the strongest available candidates.",
+      "rank": 2,
+      "root_topic_id": "ego-lite-review-2026",
+      "title": "ego-lite Review 2026",
+      "primary_keyword": "ego-lite Review 2026",
+      "category": "review",
+      "trend_score": 65.0,
+      "business_value": 49.0,
+      "sources": [
+        "https://github.com/citrolabs/ego-lite",
+        "https://lite.ego.app"
+      ],
+      "entities": [],
+      "week_start": "2026-07-27",
+      "status": "drafted",
+      "content_lane": "FOUNDATION_MAIN",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "ego-lite Review 2026",
+      "parent_slug": "ego-lite-review-2026",
+      "daily_angles": {},
+      "series_plan": [
+        {
+          "root_topic_id": "ego-lite-review-2026",
+          "root_title": "ego-lite Review 2026",
+          "content_lane": "FOUNDATION_MAIN",
+          "article_id": "ego-lite-review-2026-main_review",
+          "sequence_number": 1,
+          "scheduled_date": "2026-07-27",
+          "planned_publishing_day": "2026-07-27",
+          "daily_angle": "main_review",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate ego-lite Review 2026 for category overview?",
+          "unique_thesis": "ego-lite Review 2026 should be judged through category overview, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use ego-lite Review 2026 for category overview.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Category Overview context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare category overview options without repeating the Monday table.",
+          "faq_set": [
+            "main_review_faq_1",
+            "main_review_faq_2",
+            "main_review_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "implementation_guide",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "implementation_guide",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "ego-lite-review-2026",
+          "root_title": "ego-lite Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "ego-lite-review-2026-implementation_guide",
+          "sequence_number": 2,
+          "scheduled_date": "2026-07-28",
+          "planned_publishing_day": "2026-07-28",
+          "daily_angle": "implementation_guide",
+          "primary_search_intent": "implementation guide",
+          "search_intent": "implementation guide",
+          "reader_question": "How should a small business evaluate ego-lite Review 2026 for implementation workflow?",
+          "unique_thesis": "ego-lite Review 2026 should be judged through implementation workflow, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use ego-lite Review 2026 for implementation workflow.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Implementation Workflow context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare implementation workflow options without repeating the Monday table.",
+          "faq_set": [
+            "implementation_guide_faq_1",
+            "implementation_guide_faq_2",
+            "implementation_guide_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "main_review",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "comparison",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "comparison",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "ego-lite-review-2026",
+          "root_title": "ego-lite Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "ego-lite-review-2026-comparison",
+          "sequence_number": 3,
+          "scheduled_date": "2026-07-29",
+          "planned_publishing_day": "2026-07-29",
+          "daily_angle": "comparison",
+          "primary_search_intent": "comparison",
+          "search_intent": "comparison",
+          "reader_question": "How should a small business evaluate ego-lite Review 2026 for comparison and alternatives?",
+          "unique_thesis": "ego-lite Review 2026 should be judged through comparison and alternatives, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use ego-lite Review 2026 for comparison and alternatives.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Comparison And Alternatives context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare comparison and alternatives options without repeating the Monday table.",
+          "faq_set": [
+            "comparison_faq_1",
+            "comparison_faq_2",
+            "comparison_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "implementation_guide",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "pricing",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "pricing",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "ego-lite-review-2026",
+          "root_title": "ego-lite Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "ego-lite-review-2026-pricing",
+          "sequence_number": 4,
+          "scheduled_date": "2026-07-30",
+          "planned_publishing_day": "2026-07-30",
+          "daily_angle": "pricing",
+          "primary_search_intent": "commercial investigation",
+          "search_intent": "commercial investigation",
+          "reader_question": "How should a small business evaluate ego-lite Review 2026 for pricing, cost, and ROI?",
+          "unique_thesis": "ego-lite Review 2026 should be judged through pricing, cost, and ROI, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use ego-lite Review 2026 for pricing, cost, and ROI.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Pricing, Cost, And Roi context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare pricing, cost, and ROI options without repeating the Monday table.",
+          "faq_set": [
+            "pricing_faq_1",
+            "pricing_faq_2",
+            "pricing_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "comparison",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "use_cases",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "use_cases",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "ego-lite-review-2026",
+          "root_title": "ego-lite Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "ego-lite-review-2026-use_cases",
+          "sequence_number": 5,
+          "scheduled_date": "2026-07-31",
+          "planned_publishing_day": "2026-07-31",
+          "daily_angle": "use_cases",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate ego-lite Review 2026 for workflows and use cases?",
+          "unique_thesis": "ego-lite Review 2026 should be judged through workflows and use cases, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use ego-lite Review 2026 for workflows and use cases.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Workflows And Use Cases context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare workflows and use cases options without repeating the Monday table.",
+          "faq_set": [
+            "use_cases_faq_1",
+            "use_cases_faq_2",
+            "use_cases_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "pricing",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "troubleshooting",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "troubleshooting",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "ego-lite-review-2026",
+          "root_title": "ego-lite Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "ego-lite-review-2026-troubleshooting",
+          "sequence_number": 6,
+          "scheduled_date": "2026-08-01",
+          "planned_publishing_day": "2026-08-01",
+          "daily_angle": "troubleshooting",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate ego-lite Review 2026 for mistakes and troubleshooting?",
+          "unique_thesis": "ego-lite Review 2026 should be judged through mistakes and troubleshooting, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use ego-lite Review 2026 for mistakes and troubleshooting.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Mistakes And Troubleshooting context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare mistakes and troubleshooting options without repeating the Monday table.",
+          "faq_set": [
+            "troubleshooting_faq_1",
+            "troubleshooting_faq_2",
+            "troubleshooting_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "use_cases",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "buying_decision",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "buying_decision",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "ego-lite-review-2026",
+          "root_title": "ego-lite Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "ego-lite-review-2026-buying_decision",
+          "sequence_number": 7,
+          "scheduled_date": "2026-08-02",
+          "planned_publishing_day": "2026-08-02",
+          "daily_angle": "buying_decision",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate ego-lite Review 2026 for small-business buying decision?",
+          "unique_thesis": "ego-lite Review 2026 should be judged through small-business buying decision, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use ego-lite Review 2026 for small-business buying decision.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Small-Business Buying Decision context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare small-business buying decision options without repeating the Monday table.",
+          "faq_set": [
+            "buying_decision_faq_1",
+            "buying_decision_faq_2",
+            "buying_decision_faq_3"
+          ],
+          "cta_intent": "close the same-root editorial series",
+          "previous_article": "troubleshooting",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "",
+            "bridge_state": "SERIES_COMPLETE"
+          },
+          "next_article": "",
+          "bridge_state": "SERIES_COMPLETE",
+          "series_status": "planned",
+          "article_state": "planned"
+        }
+      ],
+      "content_strategy": {
+        "content_type": "Review",
+        "audience": "Small business operators",
+        "search_intent": "commercial research",
+        "marketing_funnel": "Middle of funnel",
+        "primary_keyword": "ego-lite Review 2026",
+        "secondary_semantic_keywords": [
+          "ego",
+          "lite",
+          "2026"
+        ],
+        "suggested_internal_links": [
+          {
+            "slug": "chat2db-review-2026",
+            "title": "Chat2DB Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "impeccable-review-2026",
+            "title": "impeccable Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "instatic-review-2026",
+            "title": "Instatic Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "open-code-review-review-2026",
+            "title": "open-code-review Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "related_weekly_topics": [
+          {
+            "slug": "chat2db-review-2026",
+            "title": "Chat2DB Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "impeccable-review-2026",
+            "title": "impeccable Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "instatic-review-2026",
+            "title": "Instatic Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "open-code-review-review-2026",
+            "title": "open-code-review Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "recommended_cta": "Read the full review",
+        "estimated_search_intent": "commercial research",
+        "suggested_external_link_count": 3,
+        "recommended_faq_count": 5,
+        "suggested_heading_count": 8,
+        "reading_level": "Grade 8-10",
+        "target_audience": "Small business operators",
+        "content_freshness": "current",
+        "topical_authority_score": 77,
+        "entity_keywords": [
+          "lite",
+          "2026"
+        ],
+        "schema_recommendation": [
+          "Article",
+          "BreadcrumbList",
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Product"
+        ],
+        "cluster_health": "healthy",
+        "planning_scope": "weekly_batch_only"
+      },
+      "content_quality_warnings": [
+        "Warning only: duplicate search intent appears 5 times in this weekly batch.",
+        "Warning only: duplicate CTA appears 5 times in this weekly batch.",
+        "Warning only: duplicate FAQ pattern appears 5 times in this weekly batch."
+      ],
+      "normalized_root_topic": "ego-lite-review-2026",
+      "root_title": "ego-lite Review 2026",
+      "topic_category": "REVIEW",
+      "primary_entity": "ego-lite Review 2026",
+      "primary_search_intent": "commercial research",
+      "reason_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Can remain useful after the current news cycle.",
+        "Recent multi-source activity indicates timely interest.",
+        "Commercial terminology suggests above-average CPC potential.",
+        "Official project homepage confirmed from GitHub repository metadata."
+      ],
+      "selection_score": 64.9,
+      "freshness_score": 65.0,
+      "official_source_confidence": "unknown",
+      "likely_search_demand": 90.0,
+      "commercial_relevance": 49.0,
+      "depth_potential": 64.9,
+      "source_references": [
+        "https://github.com/citrolabs/ego-lite",
+        "https://lite.ego.app"
+      ],
+      "selected": true,
+      "selected_status": "selected",
+      "series_status": "active",
+      "maximum_useful_article_angles": 7,
+      "daily_angle": "main_review",
+      "batch_date": "2026-07-27",
+      "mode": "standard",
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\ego-lite-review-2026",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 52.14,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "entity_coverage_score 36.0 below initial threshold 40.0",
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\ego-lite-review-2026",
+      "review_preview": "",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "blocked",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\ego-lite-review-2026\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\ego-lite-review-2026\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "writer_type": "external_ai",
+        "writer_name": "ChatGPT",
+        "writer_version": "GPT-5.6 Thinking",
+        "generated_at": "2026-07-28T13:12:52.276532+00:00",
+        "package_id": "79d7a38d543ead65",
+        "task_id": "website_foundation-2026-07-27-a24b009e1874f878",
+        "revision": 1
+      }
+    },
+    {
+      "keyword": "Instatic Review 2026",
+      "slug": "instatic-review-2026",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 49,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 65,
+      "content_type": "review",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/CoreBunch/Instatic",
+        "https://instatic.com"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "Review Instatic Review 2026 with independent methodology, use cases, pricing cautions, pros, cons, and alternatives.",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Recent multi-source activity indicates timely interest.",
+        "Official project homepage confirmed from GitHub repository metadata."
+      ],
+      "signals": 1,
+      "confidence": "medium",
+      "total_score": 64.9,
+      "raw_total_score": 64.9,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://github.com/CoreBunch/Instatic",
+          "https://instatic.com"
+        ],
+        "unique_source_domains": [
+          "github.com",
+          "instatic.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "topic_score_report": {
+        "candidate_id": "instatic-review-2026",
+        "content_lane": "FOUNDATION_MAIN",
+        "title": "Instatic Review 2026",
+        "scoring_owner": "modules.ai_trend_discovery",
+        "scoring_version": "topic_scoring_v2",
+        "score_scale": "0-100",
+        "raw_component_values": {
+          "search_volume_potential": 90,
+          "low_competition_opportunity": 63.0,
+          "affiliate_opportunity": 49,
+          "evergreen_value": 58,
+          "news_freshness": 65,
+          "cpc_potential": null
+        },
+        "normalized_component_values": {
+          "search_volume_potential": 90.0,
+          "low_competition_opportunity": 63.0,
+          "affiliate_opportunity": 49.0,
+          "evergreen_value": 58.0,
+          "news_freshness": 65.0,
+          "cpc_potential": 50.0
+        },
+        "component_weights": {
+          "search_volume_potential": 0.22,
+          "low_competition_opportunity": 0.16,
+          "affiliate_opportunity": 0.2,
+          "evergreen_value": 0.14,
+          "news_freshness": 0.16,
+          "cpc_potential": 0.12
+        },
+        "component_reports": {
+          "search_volume_potential": {
+            "raw_value": 90,
+            "normalized_value": 90.0,
+            "weight": 0.22,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "low_competition_opportunity": {
+            "raw_value": 63.0,
+            "normalized_value": 63.0,
+            "weight": 0.16,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "affiliate_opportunity": {
+            "raw_value": 49,
+            "normalized_value": 49.0,
+            "weight": 0.2,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "evergreen_value": {
+            "raw_value": 58,
+            "normalized_value": 58.0,
+            "weight": 0.14,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "news_freshness": {
+            "raw_value": 65,
+            "normalized_value": 65.0,
+            "weight": 0.16,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "cpc_potential": {
+            "raw_value": null,
+            "normalized_value": 50.0,
+            "weight": 0.12,
+            "status": "OPTIONAL_MISSING_NEUTRAL",
+            "missing_policy": "OPTIONAL",
+            "reason": "Optional component missing; neutral 50 used and score confidence reduced."
+          }
+        },
+        "missing_fields": [
+          "cpc_potential"
+        ],
+        "weights_applied": 1.0,
+        "weights_available": 0.88,
+        "weights_redistributed": false,
+        "hard_gate_results": [
+          {
+            "gate": "all_required_gates",
+            "passed": true,
+            "reason": "PASS"
+          }
+        ],
+        "hard_gates_passed": true,
+        "score_confidence": 0.88,
+        "total_score": 64.9,
+        "computed_total_score": 64.2,
+        "scoring_adjustments": [
+          "workflow-adjusted total_score 64.9 used instead of component recompute 64.2"
+        ],
+        "recommended_threshold": 65.0,
+        "absolute_minimum_floor": 50.0,
+        "rank": 3,
+        "selection_result": "SELECTED_QUALITY_LIMITED",
+        "reason": "Passed hard gates and stayed above the absolute floor; selected as quality-limited fill from the strongest available candidates.",
+        "scale_warnings": []
+      },
+      "selection_result": "SELECTED_QUALITY_LIMITED",
+      "selection_reason": "Passed hard gates and stayed above the absolute floor; selected as quality-limited fill from the strongest available candidates.",
+      "rank": 3,
+      "root_topic_id": "instatic-review-2026",
+      "title": "Instatic Review 2026",
+      "primary_keyword": "Instatic Review 2026",
+      "category": "review",
+      "trend_score": 65.0,
+      "business_value": 49.0,
+      "sources": [
+        "https://github.com/CoreBunch/Instatic",
+        "https://instatic.com"
+      ],
+      "entities": [],
+      "week_start": "2026-07-27",
+      "status": "research_ready",
+      "content_lane": "FOUNDATION_MAIN",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "Instatic Review 2026",
+      "parent_slug": "instatic-review-2026",
+      "daily_angles": {},
+      "series_plan": [
+        {
+          "root_topic_id": "instatic-review-2026",
+          "root_title": "Instatic Review 2026",
+          "content_lane": "FOUNDATION_MAIN",
+          "article_id": "instatic-review-2026-main_review",
+          "sequence_number": 1,
+          "scheduled_date": "2026-07-27",
+          "planned_publishing_day": "2026-07-27",
+          "daily_angle": "main_review",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate Instatic Review 2026 for category overview?",
+          "unique_thesis": "Instatic Review 2026 should be judged through category overview, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Instatic Review 2026 for category overview.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Category Overview context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare category overview options without repeating the Monday table.",
+          "faq_set": [
+            "main_review_faq_1",
+            "main_review_faq_2",
+            "main_review_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "implementation_guide",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "implementation_guide",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "instatic-review-2026",
+          "root_title": "Instatic Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "instatic-review-2026-implementation_guide",
+          "sequence_number": 2,
+          "scheduled_date": "2026-07-28",
+          "planned_publishing_day": "2026-07-28",
+          "daily_angle": "implementation_guide",
+          "primary_search_intent": "implementation guide",
+          "search_intent": "implementation guide",
+          "reader_question": "How should a small business evaluate Instatic Review 2026 for implementation workflow?",
+          "unique_thesis": "Instatic Review 2026 should be judged through implementation workflow, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Instatic Review 2026 for implementation workflow.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Implementation Workflow context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare implementation workflow options without repeating the Monday table.",
+          "faq_set": [
+            "implementation_guide_faq_1",
+            "implementation_guide_faq_2",
+            "implementation_guide_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "main_review",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "comparison",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "comparison",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "instatic-review-2026",
+          "root_title": "Instatic Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "instatic-review-2026-comparison",
+          "sequence_number": 3,
+          "scheduled_date": "2026-07-29",
+          "planned_publishing_day": "2026-07-29",
+          "daily_angle": "comparison",
+          "primary_search_intent": "comparison",
+          "search_intent": "comparison",
+          "reader_question": "How should a small business evaluate Instatic Review 2026 for comparison and alternatives?",
+          "unique_thesis": "Instatic Review 2026 should be judged through comparison and alternatives, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Instatic Review 2026 for comparison and alternatives.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Comparison And Alternatives context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare comparison and alternatives options without repeating the Monday table.",
+          "faq_set": [
+            "comparison_faq_1",
+            "comparison_faq_2",
+            "comparison_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "implementation_guide",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "pricing",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "pricing",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "instatic-review-2026",
+          "root_title": "Instatic Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "instatic-review-2026-pricing",
+          "sequence_number": 4,
+          "scheduled_date": "2026-07-30",
+          "planned_publishing_day": "2026-07-30",
+          "daily_angle": "pricing",
+          "primary_search_intent": "commercial investigation",
+          "search_intent": "commercial investigation",
+          "reader_question": "How should a small business evaluate Instatic Review 2026 for pricing, cost, and ROI?",
+          "unique_thesis": "Instatic Review 2026 should be judged through pricing, cost, and ROI, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Instatic Review 2026 for pricing, cost, and ROI.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Pricing, Cost, And Roi context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare pricing, cost, and ROI options without repeating the Monday table.",
+          "faq_set": [
+            "pricing_faq_1",
+            "pricing_faq_2",
+            "pricing_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "comparison",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "use_cases",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "use_cases",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "instatic-review-2026",
+          "root_title": "Instatic Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "instatic-review-2026-use_cases",
+          "sequence_number": 5,
+          "scheduled_date": "2026-07-31",
+          "planned_publishing_day": "2026-07-31",
+          "daily_angle": "use_cases",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate Instatic Review 2026 for workflows and use cases?",
+          "unique_thesis": "Instatic Review 2026 should be judged through workflows and use cases, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Instatic Review 2026 for workflows and use cases.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Workflows And Use Cases context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare workflows and use cases options without repeating the Monday table.",
+          "faq_set": [
+            "use_cases_faq_1",
+            "use_cases_faq_2",
+            "use_cases_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "pricing",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "troubleshooting",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "troubleshooting",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "instatic-review-2026",
+          "root_title": "Instatic Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "instatic-review-2026-troubleshooting",
+          "sequence_number": 6,
+          "scheduled_date": "2026-08-01",
+          "planned_publishing_day": "2026-08-01",
+          "daily_angle": "troubleshooting",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate Instatic Review 2026 for mistakes and troubleshooting?",
+          "unique_thesis": "Instatic Review 2026 should be judged through mistakes and troubleshooting, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Instatic Review 2026 for mistakes and troubleshooting.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Mistakes And Troubleshooting context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare mistakes and troubleshooting options without repeating the Monday table.",
+          "faq_set": [
+            "troubleshooting_faq_1",
+            "troubleshooting_faq_2",
+            "troubleshooting_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "use_cases",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "buying_decision",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "buying_decision",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "instatic-review-2026",
+          "root_title": "Instatic Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "instatic-review-2026-buying_decision",
+          "sequence_number": 7,
+          "scheduled_date": "2026-08-02",
+          "planned_publishing_day": "2026-08-02",
+          "daily_angle": "buying_decision",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate Instatic Review 2026 for small-business buying decision?",
+          "unique_thesis": "Instatic Review 2026 should be judged through small-business buying decision, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Instatic Review 2026 for small-business buying decision.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Small-Business Buying Decision context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare small-business buying decision options without repeating the Monday table.",
+          "faq_set": [
+            "buying_decision_faq_1",
+            "buying_decision_faq_2",
+            "buying_decision_faq_3"
+          ],
+          "cta_intent": "close the same-root editorial series",
+          "previous_article": "troubleshooting",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "",
+            "bridge_state": "SERIES_COMPLETE"
+          },
+          "next_article": "",
+          "bridge_state": "SERIES_COMPLETE",
+          "series_status": "planned",
+          "article_state": "planned"
+        }
+      ],
+      "content_strategy": {
+        "content_type": "Review",
+        "audience": "Small business operators",
+        "search_intent": "commercial research",
+        "marketing_funnel": "Middle of funnel",
+        "primary_keyword": "Instatic Review 2026",
+        "secondary_semantic_keywords": [
+          "instatic",
+          "2026"
+        ],
+        "suggested_internal_links": [
+          {
+            "slug": "chat2db-review-2026",
+            "title": "Chat2DB Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "ego-lite-review-2026",
+            "title": "ego-lite Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "impeccable-review-2026",
+            "title": "impeccable Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "open-code-review-review-2026",
+            "title": "open-code-review Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "related_weekly_topics": [
+          {
+            "slug": "chat2db-review-2026",
+            "title": "Chat2DB Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "ego-lite-review-2026",
+            "title": "ego-lite Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "impeccable-review-2026",
+            "title": "impeccable Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "open-code-review-review-2026",
+            "title": "open-code-review Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "recommended_cta": "Read the full review",
+        "estimated_search_intent": "commercial research",
+        "suggested_external_link_count": 3,
+        "recommended_faq_count": 5,
+        "suggested_heading_count": 8,
+        "reading_level": "Grade 8-10",
+        "target_audience": "Small business operators",
+        "content_freshness": "current",
+        "topical_authority_score": 77,
+        "entity_keywords": [
+          "instatic",
+          "2026"
+        ],
+        "schema_recommendation": [
+          "Article",
+          "BreadcrumbList",
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Product"
+        ],
+        "cluster_health": "healthy",
+        "planning_scope": "weekly_batch_only"
+      },
+      "content_quality_warnings": [
+        "Warning only: duplicate search intent appears 5 times in this weekly batch.",
+        "Warning only: duplicate CTA appears 5 times in this weekly batch.",
+        "Warning only: duplicate FAQ pattern appears 5 times in this weekly batch."
+      ],
+      "normalized_root_topic": "instatic-review-2026",
+      "root_title": "Instatic Review 2026",
+      "topic_category": "REVIEW",
+      "primary_entity": "Instatic Review 2026",
+      "primary_search_intent": "commercial research",
+      "reason_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Recent multi-source activity indicates timely interest.",
+        "Official project homepage confirmed from GitHub repository metadata."
+      ],
+      "selection_score": 64.9,
+      "freshness_score": 65.0,
+      "official_source_confidence": "unknown",
+      "likely_search_demand": 90.0,
+      "commercial_relevance": 49.0,
+      "depth_potential": 64.9,
+      "source_references": [
+        "https://github.com/CoreBunch/Instatic",
+        "https://instatic.com"
+      ],
+      "selected": true,
+      "selected_status": "selected",
+      "series_status": "active",
+      "maximum_useful_article_angles": 7,
+      "daily_angle": "main_review",
+      "batch_date": "2026-07-27",
+      "mode": "standard",
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\instatic-review-2026",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 52.14,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "entity_coverage_score 36.0 below initial threshold 40.0",
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "",
+      "review_preview": "",
+      "human_approval_status": "not_started",
+      "publish_gate_status": "not_started",
+      "batch_state": "QUEUE_CREATED",
+      "error": ""
+    },
+    {
+      "keyword": "Chat2DB Review 2026",
+      "slug": "chat2db-review-2026",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 49,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 63,
+      "content_type": "review",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/OtterMind/Chat2DB",
+        "https://chat2db.ai"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "Review Chat2DB Review 2026 with independent methodology, use cases, pricing cautions, pros, cons, and alternatives.",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Can remain useful after the current news cycle.",
+        "Official project homepage confirmed from GitHub repository metadata."
+      ],
+      "signals": 1,
+      "confidence": "medium",
+      "total_score": 64.6,
+      "raw_total_score": 64.6,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://github.com/OtterMind/Chat2DB",
+          "https://chat2db.ai"
+        ],
+        "unique_source_domains": [
+          "github.com",
+          "chat2db.ai"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "topic_score_report": {
+        "candidate_id": "chat2db-review-2026",
+        "content_lane": "FOUNDATION_MAIN",
+        "title": "Chat2DB Review 2026",
+        "scoring_owner": "modules.ai_trend_discovery",
+        "scoring_version": "topic_scoring_v2",
+        "score_scale": "0-100",
+        "raw_component_values": {
+          "search_volume_potential": 90,
+          "low_competition_opportunity": 63.0,
+          "affiliate_opportunity": 49,
+          "evergreen_value": 58,
+          "news_freshness": 63,
+          "cpc_potential": null
+        },
+        "normalized_component_values": {
+          "search_volume_potential": 90.0,
+          "low_competition_opportunity": 63.0,
+          "affiliate_opportunity": 49.0,
+          "evergreen_value": 58.0,
+          "news_freshness": 63.0,
+          "cpc_potential": 50.0
+        },
+        "component_weights": {
+          "search_volume_potential": 0.22,
+          "low_competition_opportunity": 0.16,
+          "affiliate_opportunity": 0.2,
+          "evergreen_value": 0.14,
+          "news_freshness": 0.16,
+          "cpc_potential": 0.12
+        },
+        "component_reports": {
+          "search_volume_potential": {
+            "raw_value": 90,
+            "normalized_value": 90.0,
+            "weight": 0.22,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "low_competition_opportunity": {
+            "raw_value": 63.0,
+            "normalized_value": 63.0,
+            "weight": 0.16,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "affiliate_opportunity": {
+            "raw_value": 49,
+            "normalized_value": 49.0,
+            "weight": 0.2,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "evergreen_value": {
+            "raw_value": 58,
+            "normalized_value": 58.0,
+            "weight": 0.14,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "news_freshness": {
+            "raw_value": 63,
+            "normalized_value": 63.0,
+            "weight": 0.16,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "cpc_potential": {
+            "raw_value": null,
+            "normalized_value": 50.0,
+            "weight": 0.12,
+            "status": "OPTIONAL_MISSING_NEUTRAL",
+            "missing_policy": "OPTIONAL",
+            "reason": "Optional component missing; neutral 50 used and score confidence reduced."
+          }
+        },
+        "missing_fields": [
+          "cpc_potential"
+        ],
+        "weights_applied": 1.0,
+        "weights_available": 0.88,
+        "weights_redistributed": false,
+        "hard_gate_results": [
+          {
+            "gate": "all_required_gates",
+            "passed": true,
+            "reason": "PASS"
+          }
+        ],
+        "hard_gates_passed": true,
+        "score_confidence": 0.88,
+        "total_score": 64.6,
+        "computed_total_score": 63.9,
+        "scoring_adjustments": [
+          "workflow-adjusted total_score 64.6 used instead of component recompute 63.9"
+        ],
+        "recommended_threshold": 65.0,
+        "absolute_minimum_floor": 50.0,
+        "rank": 4,
+        "selection_result": "SELECTED_QUALITY_LIMITED",
+        "reason": "Passed hard gates and stayed above the absolute floor; selected as quality-limited fill from the strongest available candidates.",
+        "scale_warnings": []
+      },
+      "selection_result": "SELECTED_QUALITY_LIMITED",
+      "selection_reason": "Passed hard gates and stayed above the absolute floor; selected as quality-limited fill from the strongest available candidates.",
+      "rank": 4,
+      "root_topic_id": "chat2db-review-2026",
+      "title": "Chat2DB Review 2026",
+      "primary_keyword": "Chat2DB Review 2026",
+      "category": "review",
+      "trend_score": 63.0,
+      "business_value": 49.0,
+      "sources": [
+        "https://github.com/OtterMind/Chat2DB",
+        "https://chat2db.ai"
+      ],
+      "entities": [],
+      "week_start": "2026-07-27",
+      "status": "research_ready",
+      "content_lane": "FOUNDATION_MAIN",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "Chat2DB Review 2026",
+      "parent_slug": "chat2db-review-2026",
+      "daily_angles": {},
+      "series_plan": [
+        {
+          "root_topic_id": "chat2db-review-2026",
+          "root_title": "Chat2DB Review 2026",
+          "content_lane": "FOUNDATION_MAIN",
+          "article_id": "chat2db-review-2026-main_review",
+          "sequence_number": 1,
+          "scheduled_date": "2026-07-27",
+          "planned_publishing_day": "2026-07-27",
+          "daily_angle": "main_review",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate Chat2DB Review 2026 for category overview?",
+          "unique_thesis": "Chat2DB Review 2026 should be judged through category overview, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Chat2DB Review 2026 for category overview.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Category Overview context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare category overview options without repeating the Monday table.",
+          "faq_set": [
+            "main_review_faq_1",
+            "main_review_faq_2",
+            "main_review_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "implementation_guide",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "implementation_guide",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "chat2db-review-2026",
+          "root_title": "Chat2DB Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "chat2db-review-2026-implementation_guide",
+          "sequence_number": 2,
+          "scheduled_date": "2026-07-28",
+          "planned_publishing_day": "2026-07-28",
+          "daily_angle": "implementation_guide",
+          "primary_search_intent": "implementation guide",
+          "search_intent": "implementation guide",
+          "reader_question": "How should a small business evaluate Chat2DB Review 2026 for implementation workflow?",
+          "unique_thesis": "Chat2DB Review 2026 should be judged through implementation workflow, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Chat2DB Review 2026 for implementation workflow.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Implementation Workflow context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare implementation workflow options without repeating the Monday table.",
+          "faq_set": [
+            "implementation_guide_faq_1",
+            "implementation_guide_faq_2",
+            "implementation_guide_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "main_review",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "comparison",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "comparison",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "chat2db-review-2026",
+          "root_title": "Chat2DB Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "chat2db-review-2026-comparison",
+          "sequence_number": 3,
+          "scheduled_date": "2026-07-29",
+          "planned_publishing_day": "2026-07-29",
+          "daily_angle": "comparison",
+          "primary_search_intent": "comparison",
+          "search_intent": "comparison",
+          "reader_question": "How should a small business evaluate Chat2DB Review 2026 for comparison and alternatives?",
+          "unique_thesis": "Chat2DB Review 2026 should be judged through comparison and alternatives, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Chat2DB Review 2026 for comparison and alternatives.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Comparison And Alternatives context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare comparison and alternatives options without repeating the Monday table.",
+          "faq_set": [
+            "comparison_faq_1",
+            "comparison_faq_2",
+            "comparison_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "implementation_guide",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "pricing",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "pricing",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "chat2db-review-2026",
+          "root_title": "Chat2DB Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "chat2db-review-2026-pricing",
+          "sequence_number": 4,
+          "scheduled_date": "2026-07-30",
+          "planned_publishing_day": "2026-07-30",
+          "daily_angle": "pricing",
+          "primary_search_intent": "commercial investigation",
+          "search_intent": "commercial investigation",
+          "reader_question": "How should a small business evaluate Chat2DB Review 2026 for pricing, cost, and ROI?",
+          "unique_thesis": "Chat2DB Review 2026 should be judged through pricing, cost, and ROI, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Chat2DB Review 2026 for pricing, cost, and ROI.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Pricing, Cost, And Roi context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare pricing, cost, and ROI options without repeating the Monday table.",
+          "faq_set": [
+            "pricing_faq_1",
+            "pricing_faq_2",
+            "pricing_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "comparison",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "use_cases",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "use_cases",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "chat2db-review-2026",
+          "root_title": "Chat2DB Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "chat2db-review-2026-use_cases",
+          "sequence_number": 5,
+          "scheduled_date": "2026-07-31",
+          "planned_publishing_day": "2026-07-31",
+          "daily_angle": "use_cases",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate Chat2DB Review 2026 for workflows and use cases?",
+          "unique_thesis": "Chat2DB Review 2026 should be judged through workflows and use cases, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Chat2DB Review 2026 for workflows and use cases.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Workflows And Use Cases context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare workflows and use cases options without repeating the Monday table.",
+          "faq_set": [
+            "use_cases_faq_1",
+            "use_cases_faq_2",
+            "use_cases_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "pricing",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "troubleshooting",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "troubleshooting",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "chat2db-review-2026",
+          "root_title": "Chat2DB Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "chat2db-review-2026-troubleshooting",
+          "sequence_number": 6,
+          "scheduled_date": "2026-08-01",
+          "planned_publishing_day": "2026-08-01",
+          "daily_angle": "troubleshooting",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate Chat2DB Review 2026 for mistakes and troubleshooting?",
+          "unique_thesis": "Chat2DB Review 2026 should be judged through mistakes and troubleshooting, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Chat2DB Review 2026 for mistakes and troubleshooting.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Mistakes And Troubleshooting context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare mistakes and troubleshooting options without repeating the Monday table.",
+          "faq_set": [
+            "troubleshooting_faq_1",
+            "troubleshooting_faq_2",
+            "troubleshooting_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "use_cases",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "buying_decision",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "buying_decision",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "chat2db-review-2026",
+          "root_title": "Chat2DB Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "chat2db-review-2026-buying_decision",
+          "sequence_number": 7,
+          "scheduled_date": "2026-08-02",
+          "planned_publishing_day": "2026-08-02",
+          "daily_angle": "buying_decision",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate Chat2DB Review 2026 for small-business buying decision?",
+          "unique_thesis": "Chat2DB Review 2026 should be judged through small-business buying decision, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Chat2DB Review 2026 for small-business buying decision.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Small-Business Buying Decision context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare small-business buying decision options without repeating the Monday table.",
+          "faq_set": [
+            "buying_decision_faq_1",
+            "buying_decision_faq_2",
+            "buying_decision_faq_3"
+          ],
+          "cta_intent": "close the same-root editorial series",
+          "previous_article": "troubleshooting",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "",
+            "bridge_state": "SERIES_COMPLETE"
+          },
+          "next_article": "",
+          "bridge_state": "SERIES_COMPLETE",
+          "series_status": "planned",
+          "article_state": "planned"
+        }
+      ],
+      "content_strategy": {
+        "content_type": "Review",
+        "audience": "Small business operators",
+        "search_intent": "commercial research",
+        "marketing_funnel": "Middle of funnel",
+        "primary_keyword": "Chat2DB Review 2026",
+        "secondary_semantic_keywords": [
+          "chat2db",
+          "2026"
+        ],
+        "suggested_internal_links": [
+          {
+            "slug": "ego-lite-review-2026",
+            "title": "ego-lite Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "impeccable-review-2026",
+            "title": "impeccable Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "instatic-review-2026",
+            "title": "Instatic Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "open-code-review-review-2026",
+            "title": "open-code-review Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "related_weekly_topics": [
+          {
+            "slug": "ego-lite-review-2026",
+            "title": "ego-lite Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "impeccable-review-2026",
+            "title": "impeccable Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "instatic-review-2026",
+            "title": "Instatic Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "open-code-review-review-2026",
+            "title": "open-code-review Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "recommended_cta": "Read the full review",
+        "estimated_search_intent": "commercial research",
+        "suggested_external_link_count": 3,
+        "recommended_faq_count": 5,
+        "suggested_heading_count": 8,
+        "reading_level": "Grade 8-10",
+        "target_audience": "Small business operators",
+        "content_freshness": "current",
+        "topical_authority_score": 77,
+        "entity_keywords": [
+          "chat2db",
+          "2026"
+        ],
+        "schema_recommendation": [
+          "Article",
+          "BreadcrumbList",
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Product"
+        ],
+        "cluster_health": "healthy",
+        "planning_scope": "weekly_batch_only"
+      },
+      "content_quality_warnings": [
+        "Warning only: duplicate search intent appears 5 times in this weekly batch.",
+        "Warning only: duplicate CTA appears 5 times in this weekly batch.",
+        "Warning only: duplicate FAQ pattern appears 5 times in this weekly batch."
+      ],
+      "normalized_root_topic": "chat2db-review-2026",
+      "root_title": "Chat2DB Review 2026",
+      "topic_category": "REVIEW",
+      "primary_entity": "Chat2DB Review 2026",
+      "primary_search_intent": "commercial research",
+      "reason_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Can remain useful after the current news cycle.",
+        "Official project homepage confirmed from GitHub repository metadata."
+      ],
+      "selection_score": 64.6,
+      "freshness_score": 63.0,
+      "official_source_confidence": "unknown",
+      "likely_search_demand": 90.0,
+      "commercial_relevance": 49.0,
+      "depth_potential": 64.6,
+      "source_references": [
+        "https://github.com/OtterMind/Chat2DB",
+        "https://chat2db.ai"
+      ],
+      "selected": true,
+      "selected_status": "selected",
+      "series_status": "active",
+      "maximum_useful_article_angles": 7,
+      "daily_angle": "main_review",
+      "batch_date": "2026-07-27",
+      "mode": "standard",
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\chat2db-review-2026",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 52.14,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "entity_coverage_score 36.0 below initial threshold 40.0",
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "",
+      "review_preview": "",
+      "human_approval_status": "not_started",
+      "publish_gate_status": "not_started",
+      "batch_state": "QUEUE_CREATED",
+      "error": ""
+    },
+    {
+      "keyword": "impeccable Review 2026",
+      "slug": "impeccable-review-2026",
+      "search_intent": "commercial research",
+      "search_intent_score": 90,
+      "affiliate_monetization_score": 44,
+      "competition_difficulty_score": 37,
+      "product_availability_score": 58,
+      "content_freshness_score": 63,
+      "content_type": "review",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/pbakaus/impeccable",
+        "https://impeccable.style"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "Review impeccable Review 2026 with independent methodology, use cases, pricing cautions, pros, cons, and alternatives.",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Official project homepage confirmed from GitHub repository metadata."
+      ],
+      "signals": 1,
+      "confidence": "medium",
+      "total_score": 63.4,
+      "raw_total_score": 63.4,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://github.com/pbakaus/impeccable",
+          "https://impeccable.style"
+        ],
+        "unique_source_domains": [
+          "github.com",
+          "impeccable.style"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "topic_score_report": {
+        "candidate_id": "impeccable-review-2026",
+        "content_lane": "FOUNDATION_MAIN",
+        "title": "impeccable Review 2026",
+        "scoring_owner": "modules.ai_trend_discovery",
+        "scoring_version": "topic_scoring_v2",
+        "score_scale": "0-100",
+        "raw_component_values": {
+          "search_volume_potential": 90,
+          "low_competition_opportunity": 63.0,
+          "affiliate_opportunity": 44,
+          "evergreen_value": 58,
+          "news_freshness": 63,
+          "cpc_potential": null
+        },
+        "normalized_component_values": {
+          "search_volume_potential": 90.0,
+          "low_competition_opportunity": 63.0,
+          "affiliate_opportunity": 44.0,
+          "evergreen_value": 58.0,
+          "news_freshness": 63.0,
+          "cpc_potential": 50.0
+        },
+        "component_weights": {
+          "search_volume_potential": 0.22,
+          "low_competition_opportunity": 0.16,
+          "affiliate_opportunity": 0.2,
+          "evergreen_value": 0.14,
+          "news_freshness": 0.16,
+          "cpc_potential": 0.12
+        },
+        "component_reports": {
+          "search_volume_potential": {
+            "raw_value": 90,
+            "normalized_value": 90.0,
+            "weight": 0.22,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "low_competition_opportunity": {
+            "raw_value": 63.0,
+            "normalized_value": 63.0,
+            "weight": 0.16,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "affiliate_opportunity": {
+            "raw_value": 44,
+            "normalized_value": 44.0,
+            "weight": 0.2,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "evergreen_value": {
+            "raw_value": 58,
+            "normalized_value": 58.0,
+            "weight": 0.14,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "news_freshness": {
+            "raw_value": 63,
+            "normalized_value": 63.0,
+            "weight": 0.16,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "cpc_potential": {
+            "raw_value": null,
+            "normalized_value": 50.0,
+            "weight": 0.12,
+            "status": "OPTIONAL_MISSING_NEUTRAL",
+            "missing_policy": "OPTIONAL",
+            "reason": "Optional component missing; neutral 50 used and score confidence reduced."
+          }
+        },
+        "missing_fields": [
+          "cpc_potential"
+        ],
+        "weights_applied": 1.0,
+        "weights_available": 0.88,
+        "weights_redistributed": false,
+        "hard_gate_results": [
+          {
+            "gate": "all_required_gates",
+            "passed": true,
+            "reason": "PASS"
+          }
+        ],
+        "hard_gates_passed": true,
+        "score_confidence": 0.88,
+        "total_score": 63.4,
+        "computed_total_score": 62.9,
+        "scoring_adjustments": [
+          "workflow-adjusted total_score 63.4 used instead of component recompute 62.9"
+        ],
+        "recommended_threshold": 65.0,
+        "absolute_minimum_floor": 50.0,
+        "rank": 5,
+        "selection_result": "SELECTED_QUALITY_LIMITED",
+        "reason": "Passed hard gates and stayed above the absolute floor; selected as quality-limited fill from the strongest available candidates.",
+        "scale_warnings": []
+      },
+      "selection_result": "SELECTED_QUALITY_LIMITED",
+      "selection_reason": "Passed hard gates and stayed above the absolute floor; selected as quality-limited fill from the strongest available candidates.",
+      "rank": 5,
+      "root_topic_id": "impeccable-review-2026",
+      "title": "impeccable Review 2026",
+      "primary_keyword": "impeccable Review 2026",
+      "category": "review",
+      "trend_score": 63.0,
+      "business_value": 44.0,
+      "sources": [
+        "https://github.com/pbakaus/impeccable",
+        "https://impeccable.style"
+      ],
+      "entities": [],
+      "week_start": "2026-07-27",
+      "status": "drafted",
+      "content_lane": "FOUNDATION_MAIN",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "impeccable Review 2026",
+      "parent_slug": "impeccable-review-2026",
+      "daily_angles": {},
+      "series_plan": [
+        {
+          "root_topic_id": "impeccable-review-2026",
+          "root_title": "impeccable Review 2026",
+          "content_lane": "FOUNDATION_MAIN",
+          "article_id": "impeccable-review-2026-main_review",
+          "sequence_number": 1,
+          "scheduled_date": "2026-07-27",
+          "planned_publishing_day": "2026-07-27",
+          "daily_angle": "main_review",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate impeccable Review 2026 for category overview?",
+          "unique_thesis": "impeccable Review 2026 should be judged through category overview, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use impeccable Review 2026 for category overview.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Category Overview context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare category overview options without repeating the Monday table.",
+          "faq_set": [
+            "main_review_faq_1",
+            "main_review_faq_2",
+            "main_review_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "implementation_guide",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "implementation_guide",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "impeccable-review-2026",
+          "root_title": "impeccable Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "impeccable-review-2026-implementation_guide",
+          "sequence_number": 2,
+          "scheduled_date": "2026-07-28",
+          "planned_publishing_day": "2026-07-28",
+          "daily_angle": "implementation_guide",
+          "primary_search_intent": "implementation guide",
+          "search_intent": "implementation guide",
+          "reader_question": "How should a small business evaluate impeccable Review 2026 for implementation workflow?",
+          "unique_thesis": "impeccable Review 2026 should be judged through implementation workflow, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use impeccable Review 2026 for implementation workflow.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Implementation Workflow context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare implementation workflow options without repeating the Monday table.",
+          "faq_set": [
+            "implementation_guide_faq_1",
+            "implementation_guide_faq_2",
+            "implementation_guide_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "main_review",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "comparison",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "comparison",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "impeccable-review-2026",
+          "root_title": "impeccable Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "impeccable-review-2026-comparison",
+          "sequence_number": 3,
+          "scheduled_date": "2026-07-29",
+          "planned_publishing_day": "2026-07-29",
+          "daily_angle": "comparison",
+          "primary_search_intent": "comparison",
+          "search_intent": "comparison",
+          "reader_question": "How should a small business evaluate impeccable Review 2026 for comparison and alternatives?",
+          "unique_thesis": "impeccable Review 2026 should be judged through comparison and alternatives, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use impeccable Review 2026 for comparison and alternatives.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Comparison And Alternatives context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare comparison and alternatives options without repeating the Monday table.",
+          "faq_set": [
+            "comparison_faq_1",
+            "comparison_faq_2",
+            "comparison_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "implementation_guide",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "pricing",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "pricing",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "impeccable-review-2026",
+          "root_title": "impeccable Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "impeccable-review-2026-pricing",
+          "sequence_number": 4,
+          "scheduled_date": "2026-07-30",
+          "planned_publishing_day": "2026-07-30",
+          "daily_angle": "pricing",
+          "primary_search_intent": "commercial investigation",
+          "search_intent": "commercial investigation",
+          "reader_question": "How should a small business evaluate impeccable Review 2026 for pricing, cost, and ROI?",
+          "unique_thesis": "impeccable Review 2026 should be judged through pricing, cost, and ROI, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use impeccable Review 2026 for pricing, cost, and ROI.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Pricing, Cost, And Roi context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare pricing, cost, and ROI options without repeating the Monday table.",
+          "faq_set": [
+            "pricing_faq_1",
+            "pricing_faq_2",
+            "pricing_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "comparison",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "use_cases",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "use_cases",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "impeccable-review-2026",
+          "root_title": "impeccable Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "impeccable-review-2026-use_cases",
+          "sequence_number": 5,
+          "scheduled_date": "2026-07-31",
+          "planned_publishing_day": "2026-07-31",
+          "daily_angle": "use_cases",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate impeccable Review 2026 for workflows and use cases?",
+          "unique_thesis": "impeccable Review 2026 should be judged through workflows and use cases, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use impeccable Review 2026 for workflows and use cases.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Workflows And Use Cases context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare workflows and use cases options without repeating the Monday table.",
+          "faq_set": [
+            "use_cases_faq_1",
+            "use_cases_faq_2",
+            "use_cases_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "pricing",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "troubleshooting",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "troubleshooting",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "impeccable-review-2026",
+          "root_title": "impeccable Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "impeccable-review-2026-troubleshooting",
+          "sequence_number": 6,
+          "scheduled_date": "2026-08-01",
+          "planned_publishing_day": "2026-08-01",
+          "daily_angle": "troubleshooting",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate impeccable Review 2026 for mistakes and troubleshooting?",
+          "unique_thesis": "impeccable Review 2026 should be judged through mistakes and troubleshooting, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use impeccable Review 2026 for mistakes and troubleshooting.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Mistakes And Troubleshooting context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare mistakes and troubleshooting options without repeating the Monday table.",
+          "faq_set": [
+            "troubleshooting_faq_1",
+            "troubleshooting_faq_2",
+            "troubleshooting_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "use_cases",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "buying_decision",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "buying_decision",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "impeccable-review-2026",
+          "root_title": "impeccable Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "impeccable-review-2026-buying_decision",
+          "sequence_number": 7,
+          "scheduled_date": "2026-08-02",
+          "planned_publishing_day": "2026-08-02",
+          "daily_angle": "buying_decision",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate impeccable Review 2026 for small-business buying decision?",
+          "unique_thesis": "impeccable Review 2026 should be judged through small-business buying decision, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use impeccable Review 2026 for small-business buying decision.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Small-Business Buying Decision context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare small-business buying decision options without repeating the Monday table.",
+          "faq_set": [
+            "buying_decision_faq_1",
+            "buying_decision_faq_2",
+            "buying_decision_faq_3"
+          ],
+          "cta_intent": "close the same-root editorial series",
+          "previous_article": "troubleshooting",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "",
+            "bridge_state": "SERIES_COMPLETE"
+          },
+          "next_article": "",
+          "bridge_state": "SERIES_COMPLETE",
+          "series_status": "planned",
+          "article_state": "planned"
+        }
+      ],
+      "content_strategy": {
+        "content_type": "Review",
+        "audience": "Small business operators",
+        "search_intent": "commercial research",
+        "marketing_funnel": "Middle of funnel",
+        "primary_keyword": "impeccable Review 2026",
+        "secondary_semantic_keywords": [
+          "impeccable",
+          "2026"
+        ],
+        "suggested_internal_links": [
+          {
+            "slug": "chat2db-review-2026",
+            "title": "Chat2DB Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "ego-lite-review-2026",
+            "title": "ego-lite Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "instatic-review-2026",
+            "title": "Instatic Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "open-code-review-review-2026",
+            "title": "open-code-review Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "related_weekly_topics": [
+          {
+            "slug": "chat2db-review-2026",
+            "title": "Chat2DB Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "ego-lite-review-2026",
+            "title": "ego-lite Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "instatic-review-2026",
+            "title": "Instatic Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          },
+          {
+            "slug": "open-code-review-review-2026",
+            "title": "open-code-review Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "recommended_cta": "Read the full review",
+        "estimated_search_intent": "commercial research",
+        "suggested_external_link_count": 3,
+        "recommended_faq_count": 5,
+        "suggested_heading_count": 8,
+        "reading_level": "Grade 8-10",
+        "target_audience": "Small business operators",
+        "content_freshness": "current",
+        "topical_authority_score": 77,
+        "entity_keywords": [
+          "impeccable",
+          "2026"
+        ],
+        "schema_recommendation": [
+          "Article",
+          "BreadcrumbList",
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Product"
+        ],
+        "cluster_health": "healthy",
+        "planning_scope": "weekly_batch_only"
+      },
+      "content_quality_warnings": [
+        "Warning only: duplicate search intent appears 5 times in this weekly batch.",
+        "Warning only: duplicate CTA appears 5 times in this weekly batch.",
+        "Warning only: duplicate FAQ pattern appears 5 times in this weekly batch."
+      ],
+      "normalized_root_topic": "impeccable-review-2026",
+      "root_title": "impeccable Review 2026",
+      "topic_category": "REVIEW",
+      "primary_entity": "impeccable Review 2026",
+      "primary_search_intent": "commercial research",
+      "reason_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Official project homepage confirmed from GitHub repository metadata."
+      ],
+      "selection_score": 63.4,
+      "freshness_score": 63.0,
+      "official_source_confidence": "unknown",
+      "likely_search_demand": 90.0,
+      "commercial_relevance": 44.0,
+      "depth_potential": 63.4,
+      "source_references": [
+        "https://github.com/pbakaus/impeccable",
+        "https://impeccable.style"
+      ],
+      "selected": true,
+      "selected_status": "selected",
+      "series_status": "active",
+      "maximum_useful_article_angles": 7,
+      "daily_angle": "main_review",
+      "batch_date": "2026-07-27",
+      "mode": "standard",
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\impeccable-review-2026",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 52.14,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "entity_coverage_score 36.0 below initial threshold 40.0",
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\impeccable-review-2026",
+      "review_preview": "",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "blocked",
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\impeccable-review-2026\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\impeccable-review-2026\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "writer_type": "external_ai",
+        "writer_name": "ChatGPT",
+        "writer_version": "GPT-5.6 Thinking",
+        "generated_at": "2026-07-28T13:12:52.276532+00:00",
+        "package_id": "79d7a38d543ead65",
+        "task_id": "website_foundation-2026-07-27-784db078a8ba9ca3",
+        "revision": 1
+      }
+    }
+  ],
+  "dashboard_file": "D:\\AFFILATE BOT\\site_output\\review\\2026-07-27\\index.html",
+  "operator_console": "D:\\AFFILATE BOT\\data\\editorial_operations_console.html",
+  "publish_launcher": "",
+  "upload_dir": "D:\\AFFILATE BOT\\upload\\2026-07-27"
+}

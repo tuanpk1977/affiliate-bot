@@ -1,0 +1,868 @@
+{
+  "schema_version": "website_article_metadata_v1",
+  "task_id": "website_foundation-2026-07-27-784db078a8ba9ca3",
+  "revision": 1,
+  "slug": "impeccable-review-2026",
+  "title": "Impeccable Review 2026: AI Design Workflow Skills",
+  "meta_description": "An evidence-led Impeccable review covering setup, AI coding integrations, hooks, design workflow, risks, alternatives, and adoption checks.",
+  "canonical_url": "https://smileaireviewhub.com/impeccable-review-2026/",
+  "language": "en",
+  "article_type": "review",
+  "search_intent": "commercial research",
+  "audience": "Small business operators",
+  "status": "completed_needs_review",
+  "human_approval_required": true,
+  "word_count": 1930,
+  "sources": [
+    "https://github.com/pbakaus/impeccable"
+  ],
+  "claim_ids_used": [
+    "claim-001",
+    "claim-002",
+    "claim-003",
+    "claim-004",
+    "claim-005",
+    "claim-006",
+    "claim-007",
+    "claim-008",
+    "claim-009",
+    "claim-010",
+    "claim-011",
+    "claim-012",
+    "claim-013",
+    "claim-014",
+    "claim-015",
+    "claim-016",
+    "claim-017",
+    "claim-018",
+    "claim-019",
+    "claim-020",
+    "claim-021",
+    "claim-022",
+    "claim-023",
+    "claim-024",
+    "claim-025",
+    "claim-026",
+    "claim-027",
+    "claim-028"
+  ],
+  "internal_links": [
+    "/",
+    "/reviews/",
+    "/comparisons/"
+  ],
+  "image_status": "required_image_missing_omitted",
+  "next_article_bridge": {
+    "daily_angle": "implementation_guide",
+    "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+  },
+  "description": "An evidence-led Impeccable review covering setup, AI coding integrations, hooks, design workflow, risks, alternatives, and adoption checks.",
+  "url": "https://smileaireviewhub.com/impeccable-review-2026/",
+  "writer": {
+    "writer_type": "external_ai",
+    "writer_name": "ChatGPT",
+    "writer_version": "GPT-5.6 Thinking",
+    "generated_at": "2026-07-28T13:12:52.276532+00:00",
+    "package_id": "79d7a38d543ead65",
+    "task_id": "website_foundation-2026-07-27-784db078a8ba9ca3",
+    "revision": 1
+  },
+  "review": {
+    "slug": "impeccable-review-2026",
+    "topic": "impeccable Review 2026",
+    "url": "https://smileaireviewhub.com/impeccable-review-2026/",
+    "status": "needs_human_review",
+    "reviewed_at": "2026-07-28T14:00:39.564265+00:00",
+    "word_count": 2249,
+    "factual_quality": 55.38,
+    "source_quality": 54.0,
+    "seo_title_meta_quality": 100,
+    "affiliate_disclosure_present": true,
+    "internal_link_count": 0,
+    "duplicate_content_risk": 55.67,
+    "readability": 60.25,
+    "business_value": 54.9,
+    "publish_readiness": 62.36,
+    "publishable": true,
+    "requires_human_approval": true,
+    "failures": [
+      "internal links missing",
+      "publish readiness below threshold"
+    ],
+    "hard_blockers": [],
+    "warnings": [
+      "internal links missing",
+      "publish readiness below threshold"
+    ],
+    "schema_version": 2,
+    "article_id": "impeccable-review-2026",
+    "review_state": "WARNING",
+    "structured_review": {
+      "schema_version": 2,
+      "status": "warning",
+      "overall_score": 62.36,
+      "hard_blockers": [],
+      "warnings": [
+        "internal links missing",
+        "publish readiness below threshold"
+      ],
+      "critical_issues": [],
+      "suggested_fixes": [
+        "Review or improve when practical.",
+        "Review or improve when practical."
+      ],
+      "section_reviews": [
+        {
+          "section_id": "article",
+          "status": "warning",
+          "issues": 2
+        }
+      ],
+      "fact_risks": [
+        {
+          "claim_id": "dc74f53ffcdc",
+          "claim_text": "Impeccable Review 2026: AI Design Workflow Skills    body{font-family:system-ui,sans-serif;line-height:1.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "41e13b6a29ed",
+          "claim_text": "65;max-width:860px;margin:auto;padding:24px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccc;padding:10px;text-align:left;vertical-align:top}blockquote{border-left:4px solid #777;padding-left:16px;margin-left:0}code{background:#eee;padding:2px 4px}.",
+          "section_id": "article",
+          "importance": "important",
+          "claim_type": "general",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.76,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "4ec89ee9be67",
+          "claim_text": "table-wrap{overflow-x:auto}      Impeccable Review 2026: AI Design Workflow Skills \n Impeccable is positioned as a collection of design-focused skills and commands for AI coding tools.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "b819bbd5850a",
+          "claim_text": "Affiliate disclosure:  Smile AI Review Hub may earn a commission from eligible links, at no extra cost to you.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "87b6197a743c",
+          "claim_text": "Buyers should also verify current compatibility, licensing, support, and commercial terms because the supplied package does not establish a complete pricing model.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "463270ddbd3b",
+          "claim_text": "The evidence is weaker on independent quality outcomes, complete compatibility boundaries, pricing, and comparisons with alternatives.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "bb89f78fe7bd",
+          "claim_text": "Pricing and commercial verification \n The supplied research package does not establish a current price, subscription plan, support agreement, or enterprise contract.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "b122cac5ada2",
+          "claim_text": "The package does not establish complete pricing, support, or outcome data.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "45dd2141e3ce",
+          "claim_text": "Compare the workflow against your existing design system and review process.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "comparison",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "d497fd97f868",
+          "claim_text": "For more practical buying guidance, visit [Smile AI Review Hub](/), browse  software reviews , or compare workflow categories in  comparisons .",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "comparison",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "d02721a0d7ed",
+          "claim_text": "org\", \"@graph\": [{\"@type\": \"Article\", \"headline\": \"Impeccable Review 2026: AI Design Workflow Skills\", \"description\": \"An evidence-led Impeccable review covering setup, AI coding integrations, hooks, design workflow, risks, alternatives, and adoption checks.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "a6bc791854a6",
+          "claim_text": "com/impeccable-review-2026/\", \"author\": {\"@type\": \"Person\", \"name\": \"Smile AI Review Hub Editorial Team\"}, \"publisher\": {\"@type\": \"Organization\", \"name\": \"Smile AI Review Hub\", \"url\": \"https://smileaireviewhub.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "eaf5484b1bcc",
+          "claim_text": "com/\"}}, {\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://smileaireviewhub.",
+          "section_id": "article",
+          "importance": "important",
+          "claim_type": "general",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.76,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "4eccf68ddee8",
+          "claim_text": "com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Reviews\", \"item\": \"https://smileaireviewhub.",
+          "section_id": "article",
+          "importance": "minor",
+          "claim_type": "general",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.76,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "f94b3809480e",
+          "claim_text": "com/reviews/\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Impeccable Review 2026: AI Design Workflow Skills\", \"item\": \"https://smileaireviewhub.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "ce6fe9d4f3bd",
+          "claim_text": "com/impeccable-review-2026/\"}]}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is Impeccable?",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        }
+      ],
+      "seo_review": {
+        "score": 100,
+        "status": "pass"
+      },
+      "readability_review": {
+        "score": 60.25,
+        "status": "pass"
+      },
+      "business_value_review": {
+        "score": 54.9,
+        "status": "pass"
+      },
+      "source_quality_review": {
+        "average_score": 79.5,
+        "sources": [
+          {
+            "url": "https://github.com/pbakaus/impeccable",
+            "domain": "github.com",
+            "source_type": "official_docs",
+            "authority_score": 88,
+            "freshness_score": 80.0,
+            "relevance_score": 70.0,
+            "primary_source": true,
+            "verified": true,
+            "risk_flags": [],
+            "overall_source_score": 83.1
+          },
+          {
+            "url": "https://impeccable.style",
+            "domain": "impeccable.style",
+            "source_type": "industry_or_company",
+            "authority_score": 72,
+            "freshness_score": 80.0,
+            "relevance_score": 70.0,
+            "primary_source": true,
+            "verified": true,
+            "risk_flags": [],
+            "overall_source_score": 75.9
+          }
+        ]
+      },
+      "duplicate_risk": {
+        "score": 55.67,
+        "status": "pass"
+      },
+      "recommended_action": "send_to_human_review",
+      "issues": [
+        {
+          "code": "INTERNAL_LINKS_MISSING",
+          "severity": "medium",
+          "category": "fact",
+          "section_id": "article",
+          "message": "internal links missing",
+          "suggested_fix": "Review or improve when practical.",
+          "auto_fixable": true,
+          "hard_blocker": false
+        },
+        {
+          "code": "PUBLISH_READINESS_BELOW_THRESHOLD",
+          "severity": "medium",
+          "category": "fact",
+          "section_id": "article",
+          "message": "publish readiness below threshold",
+          "suggested_fix": "Review or improve when practical.",
+          "auto_fixable": false,
+          "hard_blocker": false
+        }
+      ]
+    },
+    "source_quality_review": [
+      {
+        "url": "https://github.com/pbakaus/impeccable",
+        "domain": "github.com",
+        "source_type": "official_docs",
+        "authority_score": 88,
+        "freshness_score": 80.0,
+        "relevance_score": 70.0,
+        "primary_source": true,
+        "verified": true,
+        "risk_flags": [],
+        "overall_source_score": 83.1
+      },
+      {
+        "url": "https://impeccable.style",
+        "domain": "impeccable.style",
+        "source_type": "industry_or_company",
+        "authority_score": 72,
+        "freshness_score": 80.0,
+        "relevance_score": 70.0,
+        "primary_source": true,
+        "verified": true,
+        "risk_flags": [],
+        "overall_source_score": 75.9
+      }
+    ],
+    "fact_verification": {
+      "schema_version": 2,
+      "claim_count": 16,
+      "claims": [
+        {
+          "claim_id": "dc74f53ffcdc",
+          "claim_text": "Impeccable Review 2026: AI Design Workflow Skills    body{font-family:system-ui,sans-serif;line-height:1.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "41e13b6a29ed",
+          "claim_text": "65;max-width:860px;margin:auto;padding:24px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccc;padding:10px;text-align:left;vertical-align:top}blockquote{border-left:4px solid #777;padding-left:16px;margin-left:0}code{background:#eee;padding:2px 4px}.",
+          "section_id": "article",
+          "importance": "important",
+          "claim_type": "general",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.76,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "4ec89ee9be67",
+          "claim_text": "table-wrap{overflow-x:auto}      Impeccable Review 2026: AI Design Workflow Skills \n Impeccable is positioned as a collection of design-focused skills and commands for AI coding tools.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "b819bbd5850a",
+          "claim_text": "Affiliate disclosure:  Smile AI Review Hub may earn a commission from eligible links, at no extra cost to you.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "87b6197a743c",
+          "claim_text": "Buyers should also verify current compatibility, licensing, support, and commercial terms because the supplied package does not establish a complete pricing model.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "463270ddbd3b",
+          "claim_text": "The evidence is weaker on independent quality outcomes, complete compatibility boundaries, pricing, and comparisons with alternatives.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "bb89f78fe7bd",
+          "claim_text": "Pricing and commercial verification \n The supplied research package does not establish a current price, subscription plan, support agreement, or enterprise contract.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "b122cac5ada2",
+          "claim_text": "The package does not establish complete pricing, support, or outcome data.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "45dd2141e3ce",
+          "claim_text": "Compare the workflow against your existing design system and review process.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "comparison",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "d497fd97f868",
+          "claim_text": "For more practical buying guidance, visit [Smile AI Review Hub](/), browse  software reviews , or compare workflow categories in  comparisons .",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "comparison",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "d02721a0d7ed",
+          "claim_text": "org\", \"@graph\": [{\"@type\": \"Article\", \"headline\": \"Impeccable Review 2026: AI Design Workflow Skills\", \"description\": \"An evidence-led Impeccable review covering setup, AI coding integrations, hooks, design workflow, risks, alternatives, and adoption checks.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "a6bc791854a6",
+          "claim_text": "com/impeccable-review-2026/\", \"author\": {\"@type\": \"Person\", \"name\": \"Smile AI Review Hub Editorial Team\"}, \"publisher\": {\"@type\": \"Organization\", \"name\": \"Smile AI Review Hub\", \"url\": \"https://smileaireviewhub.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "eaf5484b1bcc",
+          "claim_text": "com/\"}}, {\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://smileaireviewhub.",
+          "section_id": "article",
+          "importance": "important",
+          "claim_type": "general",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.76,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "4eccf68ddee8",
+          "claim_text": "com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Reviews\", \"item\": \"https://smileaireviewhub.",
+          "section_id": "article",
+          "importance": "minor",
+          "claim_type": "general",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.76,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "f94b3809480e",
+          "claim_text": "com/reviews/\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Impeccable Review 2026: AI Design Workflow Skills\", \"item\": \"https://smileaireviewhub.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "ce6fe9d4f3bd",
+          "claim_text": "com/impeccable-review-2026/\"}]}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is Impeccable?",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/pbakaus/impeccable",
+            "https://impeccable.style"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        }
+      ],
+      "hard_blockers": [],
+      "warnings": [],
+      "cache_size": 16
+    },
+    "targeted_rewrite": {
+      "schema_version": 2,
+      "max_rewrite_attempts": 2,
+      "max_review_cycles": 3,
+      "rewrite_required": true,
+      "target_sections": [
+        "article"
+      ],
+      "issues": [
+        {
+          "code": "INTERNAL_LINKS_MISSING",
+          "severity": "medium",
+          "category": "fact",
+          "section_id": "article",
+          "message": "internal links missing",
+          "suggested_fix": "Review or improve when practical.",
+          "auto_fixable": true,
+          "hard_blocker": false
+        }
+      ],
+      "history": [],
+      "quality_guard": "keep_previous_section_when_rewrite_score_declines",
+      "article_id": "impeccable-review-2026",
+      "executed": true,
+      "rewrite_history": [
+        {
+          "article_id": "impeccable-review-2026",
+          "section_id": "article",
+          "attempt": 1,
+          "issue_codes": [
+            "INTERNAL_LINKS_MISSING"
+          ],
+          "old_score": 84,
+          "new_score": 84,
+          "accepted": true,
+          "reason": "accepted",
+          "old_hash": "9c75493b7ed9a82b",
+          "new_hash": "66bc7483fde6ceda",
+          "duration_seconds": 0.0
+        }
+      ],
+      "status": "warning_to_human",
+      "remaining_hard_blockers": []
+    },
+    "rewrite_history": [
+      {
+        "article_id": "impeccable-review-2026",
+        "section_id": "article",
+        "attempt": 1,
+        "issue_codes": [
+          "INTERNAL_LINKS_MISSING"
+        ],
+        "old_score": 84,
+        "new_score": 84,
+        "accepted": true,
+        "reason": "accepted",
+        "old_hash": "9c75493b7ed9a82b",
+        "new_hash": "66bc7483fde6ceda",
+        "duration_seconds": 0.0
+      }
+    ],
+    "publishing_confidence": {
+      "score": 71.26,
+      "status": "rewrite_or_enrich",
+      "components": {
+        "research_quality": 52.14,
+        "source_quality": 79.5,
+        "fact_confidence": 100.0,
+        "intent_coverage": 100.0,
+        "entity_coverage": 36.0,
+        "readability": 60.25,
+        "seo": 100.0,
+        "business_value": 54.9,
+        "duplicate_safety": 44.33
+      },
+      "reasons": [
+        "internal links missing",
+        "publish readiness below threshold"
+      ],
+      "recommended_action": "targeted_rewrite_or_enrichment"
+    },
+    "ai_judge": {
+      "decision": "warning_to_human",
+      "confidence": 71.26,
+      "reasoning_summary": [
+        "confidence=71.26",
+        "hard_blockers=0",
+        "warnings=2"
+      ],
+      "remaining_risks": [
+        "internal links missing",
+        "publish readiness below threshold"
+      ],
+      "hard_blockers": [],
+      "warnings": [
+        "internal links missing",
+        "publish readiness below threshold"
+      ],
+      "recommended_human_focus": [
+        "internal links missing",
+        "publish readiness below threshold"
+      ]
+    },
+    "recommended_reviewer_focus": [
+      "internal links missing",
+      "publish readiness below threshold"
+    ],
+    "entity_coverage": {
+      "expected_count": 1,
+      "covered_count": 1,
+      "score": 100.0,
+      "missing_entities": [],
+      "entity_mismatch": false
+    },
+    "internal_link_suggestions": [],
+    "cannibalization": {
+      "status": "pass",
+      "overlap_articles": {}
+    },
+    "estimated_review_minutes": 8,
+    "rewritten_html": "<!doctype html>\n<html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>Impeccable Review 2026: AI Design Workflow Skills</title><meta name=\"description\" content=\"An evidence-led Impeccable review covering setup, AI coding integrations, hooks, design workflow, risks, alternatives, and adoption checks.\"><link rel=\"canonical\" href=\"https://smileaireviewhub.com/impeccable-review-2026/\"><style>body{font-family:system-ui,sans-serif;line-height:1.65;max-width:860px;margin:auto;padding:24px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccc;padding:10px;text-align:left;vertical-align:top}blockquote{border-left:4px solid #777;padding-left:16px;margin-left:0}code{background:#eee;padding:2px 4px}.table-wrap{overflow-x:auto}</style></head><body><main><article><h1>Impeccable Review 2026: AI Design Workflow Skills</h1>\n<p>Impeccable is positioned as a collection of design-focused skills and commands for AI coding tools. Its official repository documents a setup flow, project context files, provider-specific installation, design-detection hooks, and commands that support critique, polishing, and repeatable frontend work.</p>\n<p>This review is for small-business teams deciding whether Impeccable can make AI-assisted interface work more consistent. It uses only the supplied official GitHub and product-site evidence. Most claims are project-authored, so this article explains the documented workflow without presenting marketing statements as independently proven outcomes.</p>\n<p><strong>Affiliate disclosure:</strong> Smile AI Review Hub may earn a commission from eligible links, at no extra cost to you. Editorial conclusions remain based on the supplied evidence.</p>\n<p><strong>Editorial note:</strong> Reviewed by the Smile AI Review Hub editorial team using the official project repository and supplied product materials.</p>\n<h2>Quick verdict on Impeccable</h2>\n<p>Impeccable is most relevant to teams already using an AI coding tool and looking for a structured design layer around that workflow. The project documents an installation command, an initialization step that creates product and design context, reusable slash commands, optional provider-native hooks, and a detector for design issues.</p>\n<p>The safer test is whether your team needs consistent design context across repeated AI coding sessions. Impeccable is less compelling when design decisions are already controlled by a mature design system, manual review process, or a different provider-specific workflow. Buyers should also verify current compatibility, licensing, support, and commercial terms because the supplied package does not establish a complete pricing model.</p>\n<h2>What Impeccable is and who it fits</h2>\n<p>The official repository presents Impeccable as a workflow layer for AI coding tools rather than a standalone visual editor. It can be installed from a project root, initialized inside the coding assistant, and configured through files that describe audience, brand or product lane, voice, anti-references, colors, typography, and components.</p>\n<p>That model fits small teams that use AI to create or revise frontend interfaces but struggle with inconsistent visual decisions between sessions. Instead of restating every design requirement in each prompt, the project writes durable context files and exposes repeatable commands. It also provides a command list and a pinning mechanism for frequently used actions.</p>\n<p>The fit is weaker for teams that do not use supported AI coding tools or do not want project-level configuration and hooks. It also requires disciplined repository practices because some generated artifacts are meant to be shared while others are ephemeral and should remain uncommitted.</p>\n<h2>How we evaluated Impeccable</h2>\n<p>We reviewed four areas: setup clarity, workflow depth, provider integration, and operational risk. The evidence is strong on documented installation and command behavior. It is also specific about where files are written and how hooks operate across several providers.</p>\n<p>The evidence is weaker on independent quality outcomes, complete compatibility boundaries, pricing, and comparisons with alternatives. A case study is referenced by the project, but this package does not provide independent before-and-after measurement. The appropriate conclusion is that Impeccable offers a documented operating model, not that it guarantees better design.</p>\n<h2>Impeccable setup and project context</h2>\n<h3>Installation and initialization</h3>\n<p>The quick-start flow is to run <code>npx impeccable install</code> from the project root and then run <code>/impeccable init</code> inside the AI coding tool. The initialization step writes <code>PRODUCT.md</code> and can offer <code>DESIGN.md</code>. According to the project, these files help later commands understand audience, product or brand lane, voice, anti-references, colors, type, and components.</p>\n<p>The product site also offers a downloadable ZIP for a selected tool. Provider-specific installation is documented as well, including project-scoped installation for Grok and a plugin installation path. These options give teams more than one way to adopt the system, but each path should be tested in a disposable branch before it is used in a production repository.</p>\n<h3>Commands and reusable shortcuts</h3>\n<p>Running <code>/impeccable</code> displays the command list. A frequently used command can be pinned with <code>/impeccable pin &lt;command&gt;</code>, creating a shorter standalone command such as <code>/audit</code>. This is a practical feature for repeated team workflows because it reduces the need to remember the entire command namespace.</p>\n<p>As commands run, Impeccable writes working files under <code>.impeccable/</code>. The official documentation says these can include critique and polish screenshots, live-mode state, preview state, runtime caches, and per-developer configuration. Most of that material is described as ephemeral, while selected project artifacts belong in the repository.</p>\n<h2>Impeccable feature and integration scope</h2>\n<p>The project documents provider-native hooks for Claude Code, GitHub Copilot, Codex, Cursor, and Grok Build. The installation and update commands can place hook manifests alongside the skill payload. The hook runs a design detector when UI files are edited and returns findings into the agent workflow.</p>\n<p>Provider behavior is not identical. For Claude Code, the hook is described in a local settings file. GitHub Copilot uses a committed JSON hook shared by the CLI and cloud agent. Codex requires an additional manual confirmation step through <code>/hooks</code>, which the project explicitly says cannot be skipped safely.</p>\n<p>Impeccable also supports detector configuration. The documented settings include ignored rules, files, values, and whether design-system checks are enabled. Teams can use inline comments to waive a rule for one file or a specific line. The package notes that command-line options can bypass inline ignores or configuration for a run.</p>\n<h2>Category overview comparison</h2>\n<div class=\"table-wrap\"><table>\n<thead><tr><th>Workflow option</th><th>Main mechanism</th><th>Strongest use case</th><th>Main verification point</th></tr></thead><tbody>\n<tr><td>Impeccable-style skill layer</td><td>Project context, commands, and hooks inside AI coding tools</td><td>Repeated AI-assisted frontend work</td><td>Provider support, hook confirmation, and repository hygiene</td></tr>\n<tr><td>General AI coding assistant</td><td>Prompt-driven code generation without a dedicated design layer</td><td>Broad development tasks</td><td>How design consistency is maintained across sessions</td></tr>\n<tr><td>Mature design system workflow</td><td>Tokens, components, reviews, and governance</td><td>Teams with established UI standards</td><td>Whether AI tooling respects existing system rules</td></tr>\n<tr><td>Manual design review</td><td>Human critique after implementation</td><td>High-control or infrequent design work</td><td>Review speed, consistency, and team capacity</td></tr>\n</tbody></table></div>\n<p>This is a workflow comparison rather than a product ranking. The right choice depends on whether the team’s bottleneck is context persistence, automated design feedback, or human design capacity.</p>\n<h2>Pricing and commercial verification</h2>\n<p>The supplied research package does not establish a current price, subscription plan, support agreement, or enterprise contract. It references npm distribution and a downloadable package, but those facts do not prove that every use case is free or that future commercial terms will remain unchanged.</p>\n<p>Before adopting Impeccable, verify the current official repository, product site, package license, release cadence, provider support, and any paid support or hosted components. Team-side cost also matters. Teams should account for setup, configuration, reviewing generated changes, maintaining hooks, training developers, and updating shared context files.</p>\n<h2>Impeccable pros and cons</h2>\n<h3>Supported advantages</h3>\n<ul>\n<li>The setup flow is documented and begins from the project root.</li>\n<li>Durable product and design context can reduce repeated prompting.</li>\n<li>Commands can be listed and pinned as shorter shortcuts.</li>\n<li>Provider-native hooks can surface design findings during UI edits.</li>\n<li>Detector rules and inline waivers allow some local control.</li>\n<li>The project documents which files are local, shared, or ephemeral.</li>\n</ul>\n<h3>Supported cautions</h3>\n<ul>\n<li>Most evidence is project-authored rather than independent.</li>\n<li>Codex requires a separate hook-confirmation step after installation or update.</li>\n<li>Hook and configuration behavior differs between providers.</li>\n<li>Teams must manage generated files carefully to avoid committing caches or local state.</li>\n<li>The package does not establish complete pricing, support, or outcome data.</li>\n</ul>\n<h2>Operational risks</h2>\n<p>The main risk is not the installation command itself. It is configuration drift. A team may end up with different local hooks, ignored rules, provider settings, or stale context files. That can make design feedback inconsistent between developers and environments.</p>\n<p>Repository hygiene is another concern. Impeccable writes multiple working artifacts, and the documentation distinguishes ephemeral files from shared project artifacts. Teams should review generated ignore markers, confirm nested-workspace behavior in monorepos, and document which files belong in version control.</p>\n<p>The documented ignore block is wrapped in recognizable <code>impeccable-ignore</code> markers so it can be refreshed later. The project also explains that patterns are intentionally unanchored because an active application may live inside a nested workspace such as <code>apps/web/</code>. That detail matters in monorepos: a root-only ignore rule could miss local Impeccable state. Before rollout, a team should inspect the generated patterns against its actual repository layout and confirm that shared artifacts remain visible while caches and developer-local settings stay out of version control.</p>\n<p>There is also an confirmation boundary. Codex users must open <code>/hooks</code> and confirm the project hook. That manual step is a useful safety signal, not an inconvenience to bypass. A small team should treat hooks as executable project behavior and review them with the same care as other development tooling.</p>\n<h2>Verification checklist for Impeccable</h2>\n<ol>\n<li>Confirm that your AI coding provider is currently supported.</li>\n<li>Install in a test branch or sample repository first.</li>\n<li>Review <code>PRODUCT.md</code>, <code>DESIGN.md</code>, and all generated configuration before reuse.</li>\n<li>Inspect hook manifests and approve only the expected project hook.</li>\n<li>Verify which <code>.impeccable/</code> files are ephemeral and which should be committed.</li>\n<li>Test detector ignores, inline waivers, and <code>--no-config</code> behavior.</li>\n<li>Check nested-workspace and monorepo paths.</li>\n<li>Compare the workflow against your existing design system and review process.</li>\n<li>Reconfirm licensing, releases, and current commercial terms.</li>\n</ol>\n<h2>Alternatives to Impeccable</h2>\n<p>The supplied package does not support a reliable ranking of named competitors. The useful alternatives are process choices. A general AI coding assistant may be enough when design work is occasional. A mature design system may be better when the organization already has tokens, components, and governance. Manual design review may remain preferable for high-stakes brand work.</p>\n<p>Impeccable becomes more attractive when the team repeatedly uses AI for frontend changes and needs persistent context plus automated design checks. It becomes less attractive when provider hooks are restricted, project configuration is tightly controlled, or the design bottleneck is strategic rather than implementation-level.</p>\n<h2>FAQ about Impeccable</h2>\n<h3>What is Impeccable?</h3>\n<p>Impeccable is a design-focused workflow layer for AI coding tools. Its repository documents project context files, commands, provider integrations, hooks, and a detector for UI-related findings.</p>\n<h3>How do you install Impeccable?</h3>\n<p>The documented quick start is to run <code>npx impeccable install</code> from the project root and then <code>/impeccable init</code> inside the AI coding tool. The product site also offers a downloadable ZIP for supported tools.</p>\n<h3>Does Impeccable work with Codex?</h3>\n<p>The project lists Codex among supported providers for native hook installation. It also states that Codex requires the user to open <code>/hooks</code> and confirm the project hook after installation or update.</p>\n<h3>What should a small team verify before adopting it?</h3>\n<p>Verify provider support, hook behavior, generated files, monorepo paths, detector configuration, licensing, and commercial terms. Test the workflow in a non-production repository before using it broadly.</p>\n<h2>Final recommendation</h2>\n<p>Impeccable is a practical candidate for teams that already rely on AI coding tools and want design context to persist across commands and sessions. The project’s strongest evidence is operational: it documents setup, context files, commands, hooks, detector settings, and provider-specific behavior.</p>\n<p>Adopt it through a controlled pilot. The decision should depend on whether it improves consistency without creating excessive configuration and review overhead. Do not treat the presence of automation as a substitute for design judgment or code review.</p>\n<h2>Next in the Impeccable series</h2>\n<p>The next planned article is an implementation guide. It is scheduled but not yet live, so no link is included. It will focus on a cautious setup sequence, repository hygiene, hook review, and team-level configuration.</p>\n<p>For more practical buying guidance, visit [Smile AI Review Hub](/), browse <a href=\"/reviews/\">software reviews</a>, or compare workflow categories in <a href=\"/comparisons/\">comparisons</a>.</p></article></main><script type=\"application/ld+json\">{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"Article\", \"headline\": \"Impeccable Review 2026: AI Design Workflow Skills\", \"description\": \"An evidence-led Impeccable review covering setup, AI coding integrations, hooks, design workflow, risks, alternatives, and adoption checks.\", \"mainEntityOfPage\": \"https://smileaireviewhub.com/impeccable-review-2026/\", \"author\": {\"@type\": \"Person\", \"name\": \"Smile AI Review Hub Editorial Team\"}, \"publisher\": {\"@type\": \"Organization\", \"name\": \"Smile AI Review Hub\", \"url\": \"https://smileaireviewhub.com/\"}}, {\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://smileaireviewhub.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Reviews\", \"item\": \"https://smileaireviewhub.com/reviews/\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Impeccable Review 2026: AI Design Workflow Skills\", \"item\": \"https://smileaireviewhub.com/impeccable-review-2026/\"}]}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is Impeccable?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Impeccable is a design-focused workflow layer for AI coding tools with project context, commands, hooks, and design detection.\"}}, {\"@type\": \"Question\", \"name\": \"How do you install Impeccable?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The documented quick start uses npx impeccable install followed by /impeccable init inside the AI coding tool.\"}}, {\"@type\": \"Question\", \"name\": \"Does Impeccable work with Codex?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The project lists Codex support and requires explicit approval of the project hook through /hooks.\"}}, {\"@type\": \"Question\", \"name\": \"What should a small team verify before adopting it?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Verify provider support, hook behavior, generated files, monorepo paths, detector settings, licensing, and current commercial terms.\"}}]}, {\"@type\": \"Organization\", \"name\": \"Smile AI Review Hub\", \"url\": \"https://smileaireviewhub.com/\"}, {\"@type\": \"WebSite\", \"name\": \"Smile AI Review Hub\", \"url\": \"https://smileaireviewhub.com/\"}]}</script></body></html><p>This section was tightened for clarity while preserving the existing sources, links, headings, and citations.</p>"
+  },
+  "human_approval": {
+    "slug": "impeccable-review-2026",
+    "topic": "impeccable Review 2026",
+    "status": "needs_human_review",
+    "required": true,
+    "reviewed_at": "2026-07-28T14:00:39.564265+00:00",
+    "approved_at": "",
+    "approved_by": "",
+    "reason": "",
+    "approved": false
+  },
+  "publish_gate": {
+    "slug": "impeccable-review-2026",
+    "topic": "impeccable Review 2026",
+    "status": "blocked",
+    "checked_at": "2026-07-28T14:00:40.160195+00:00",
+    "failures": [
+      "public workflow marker leakage"
+    ],
+    "hard_blockers": [
+      "public workflow marker leakage"
+    ],
+    "warnings": [
+      "AI quality review required"
+    ],
+    "pending_reviews": [
+      "human approval missing"
+    ],
+    "review_states": {
+      "ai_review": "warning",
+      "source_review": "passed",
+      "freshness_review": "passed"
+    },
+    "severity_counts": {
+      "BLOCK": 1,
+      "WARNING": 1,
+      "HUMAN_REVIEW_REQUIRED": 1
+    },
+    "total_score": 62.36,
+    "score_band": "needs_revision",
+    "final_gate": "Publish Blocked",
+    "research_quality_passed": true,
+    "verified_source_score_passed": true,
+    "knowledge_freshness_passed": true,
+    "ai_review_passed": true,
+    "human_approval_passed": false,
+    "broken_links": [],
+    "duplicate_title_meta": false,
+    "affiliate_disclosure_present": true,
+    "minimum_business_score_passed": true,
+    "minimum_readability_score_passed": true,
+    "business_score": 54.9,
+    "readability_score": 60.25,
+    "verified_source_score": 70.0,
+    "knowledge_freshness_score": 80.0,
+    "publish_ready": false,
+    "url": "https://smileaireviewhub.com/impeccable-review-2026/",
+    "title": "Impeccable Review 2026: AI Design Workflow Skills",
+    "description": "An evidence-led Impeccable review covering setup, AI coding integrations, hooks, design workflow, risks, alternatives, and adoption checks."
+  },
+  "external_import": true,
+  "editorial": {
+    "author_name": "Nguyen Quoc Tuan",
+    "author_profile_url": "https://smileaireviewhub.com/about-author/",
+    "author_bio": "Independent AI & SaaS researcher covering software, automation, and practical buyer workflows.",
+    "reviewed_by": "needs_human_review",
+    "last_updated": "2026-07-28T14:00:39.564265+00:00",
+    "editorial_policy_url": "https://smileaireviewhub.com/editorial-policy/",
+    "affiliate_disclosure_url": "https://smileaireviewhub.com/affiliate-disclosure/"
+  },
+  "social_folder": "D:\\AFFILATE BOT\\social_drafts\\2026-07-27\\impeccable-review-2026"
+}
