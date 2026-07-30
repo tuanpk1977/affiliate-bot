@@ -1,0 +1,66 @@
+{
+  "status": "PASS",
+  "generation_attempt": 1,
+  "research_utilization": {
+    "artifacts": [
+      "FACT_LEDGER.json",
+      "SOURCE_EXCERPTS.json",
+      "sources.json",
+      "outline.json",
+      "writing_plan.json",
+      "faq.json",
+      "competitor_analysis.json",
+      "entities.json",
+      "research_inventory.json"
+    ],
+    "used_claim_ids": [
+      "claim-001",
+      "claim-002",
+      "claim-005",
+      "claim-006",
+      "claim-007",
+      "claim-008",
+      "claim-009",
+      "claim-015",
+      "claim-016",
+      "claim-017",
+      "claim-018",
+      "claim-019",
+      "claim-020",
+      "claim-021",
+      "claim-024",
+      "claim-025",
+      "claim-026",
+      "claim-029",
+      "claim-045",
+      "claim-047",
+      "claim-048",
+      "claim-057",
+      "claim-060",
+      "claim-061",
+      "claim-062",
+      "claim-065",
+      "claim-068",
+      "claim-073",
+      "claim-074",
+      "claim-075"
+    ],
+    "citation_urls": [
+      "https://github.com/citrolabs/ego-lite",
+      "https://lite.ego.app"
+    ]
+  },
+  "checks": {
+    "article_spec": "PASS",
+    "website_advanced_contract": "PASS",
+    "pricing": "PASS",
+    "security": "PASS",
+    "integrations": "PASS",
+    "comparison": "PASS",
+    "faq": "PASS",
+    "citations": "PASS",
+    "internal_links": "PASS",
+    "affiliate_disclosure": "PASS",
+    "json_ld": "PASS"
+  }
+}

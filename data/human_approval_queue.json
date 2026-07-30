@@ -1308,5 +1308,45 @@
     "approved_at": "2026-07-28T14:01:52.882324+00:00",
     "approved_by": "editor",
     "reason": ""
+  },
+  {
+    "slug": "ego-lite-review-2026-comparison-and-alternatives",
+    "topic": "ego-lite Review 2026 comparison and alternatives",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-29T13:42:04.572904+00:00",
+    "approved_at": "2026-07-29T14:01:03.010833+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "impeccable-review-2026-comparison-and-alternatives",
+    "topic": "impeccable Review 2026 comparison and alternatives",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-29T13:42:24.982832+00:00",
+    "approved_at": "2026-07-29T14:01:22.468704+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "ego-lite-review-2026-pricing-cost-and-roi",
+    "topic": "ego-lite Review 2026 pricing cost and ROI",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-30T02:08:27.701653+00:00",
+    "approved_at": "2026-07-30T02:11:38.592056+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "impeccable-review-2026-pricing-cost-and-roi",
+    "topic": "impeccable Review 2026 pricing cost and ROI",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-07-30T02:08:45.659634+00:00",
+    "approved_at": "2026-07-30T02:11:55.838833+00:00",
+    "approved_by": "editor",
+    "reason": ""
   }
 ]
