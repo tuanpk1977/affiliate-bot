@@ -1,0 +1,18 @@
+{
+  "writer": {
+    "writer_type": "external_ai",
+    "writer_name": "ChatGPT",
+    "writer_version": "Codex GPT-5",
+    "generated_at": "2026-07-31T01:04:53.884226+00:00",
+    "package_id": "2962687a34b17927",
+    "task_id": "website_advanced-2026-07-31-187356fc4fa1dce1",
+    "revision": 1
+  },
+  "source_urls": [
+    "https://github.com/citrolabs/ego-lite",
+    "https://lite.ego.app"
+  ],
+  "human_approval_required": true,
+  "approved": false,
+  "published": false
+}

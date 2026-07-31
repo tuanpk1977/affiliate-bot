@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-07-28T14:06:43.415140+00:00",
-  "batch_date": "2026-07-27",
+  "generated_at": "2026-07-30T02:42:19.956144+00:00",
+  "batch_date": "2026-07-30",
   "items": [
     {
-      "checked_at": "2026-07-28T14:06:43.414528+00:00",
-      "batch_date": "2026-07-27",
-      "slug": "ego-lite-review-2026",
-      "url": "https://smileaireviewhub.com/ego-lite-review-2026/",
+      "checked_at": "2026-07-30T02:42:19.955609+00:00",
+      "batch_date": "2026-07-30",
+      "slug": "ego-lite-review-2026-pricing-cost-and-roi",
+      "url": "https://smileaireviewhub.com/ego-lite-review-2026-pricing-cost-and-roi/",
       "live_status": "live",
       "live_http_status": 200,
       "live_reason": "reachable",
       "post_push_status": "live_ok",
       "post_push_message": "Website live OK: 2/2 URLs returned 200/3xx after push.",
-      "site_file": "D:\\AFFILATE BOT\\site_output\\ego-lite-review-2026\\index.html",
-      "article_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\ego-lite-review-2026\\index.html"
+      "site_file": "D:\\AFFILATE BOT\\site_output\\ego-lite-review-2026-pricing-cost-and-roi\\index.html",
+      "article_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\ego-lite-review-2026-pricing-cost-and-roi\\index.html"
     },
     {
-      "checked_at": "2026-07-28T14:06:43.414560+00:00",
-      "batch_date": "2026-07-27",
-      "slug": "impeccable-review-2026",
-      "url": "https://smileaireviewhub.com/impeccable-review-2026/",
+      "checked_at": "2026-07-30T02:42:19.955641+00:00",
+      "batch_date": "2026-07-30",
+      "slug": "impeccable-review-2026-pricing-cost-and-roi",
+      "url": "https://smileaireviewhub.com/impeccable-review-2026-pricing-cost-and-roi/",
       "live_status": "live",
       "live_http_status": 200,
       "live_reason": "reachable",
       "post_push_status": "live_ok",
       "post_push_message": "Website live OK: 2/2 URLs returned 200/3xx after push.",
-      "site_file": "D:\\AFFILATE BOT\\site_output\\impeccable-review-2026\\index.html",
-      "article_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\impeccable-review-2026\\index.html"
+      "site_file": "D:\\AFFILATE BOT\\site_output\\impeccable-review-2026-pricing-cost-and-roi\\index.html",
+      "article_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\impeccable-review-2026-pricing-cost-and-roi\\index.html"
     }
   ]
 }

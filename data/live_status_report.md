@@ -2,9 +2,9 @@
 
 - Total items: 2
 ## Deployment summary
-- Live 200: 0
+- Live 200: 2
 - Awaiting Publish: 0
-- Awaiting Push: 2
+- Awaiting Push: 0
 - Published Local: 0
 - Committed Local: 0
 - Pushed: 0
@@ -17,13 +17,13 @@
 - Unknown: 0
 
 ## Editorial/publish summary
-- Human Approved: 2
-- Ready for Publish: 2
+- Human Approved: 0
+- Ready for Publish: 0
 - Publish Blocked: 0
 - Rejected: 0
-- Live This Batch: 0
+- Live This Batch: 2
 
 | Slug | Editorial | Publish gate | Deployment | Local | Docs | Git | Block reason | How to fix | URL |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| ego-lite-review-2026-pricing-cost-and-roi | Human Approved | Ready for Publish | Awaiting Push | docs_synced | yes | not_committed | Awaiting Push: file not tracked by git | Recommended Action: rerun publish-ready so docs/site files are added, committed, and pushed. | https://smileaireviewhub.com/ego-lite-review-2026-pricing-cost-and-roi/ |
-| impeccable-review-2026-pricing-cost-and-roi | Human Approved | Ready for Publish | Awaiting Push | docs_synced | yes | not_committed | Awaiting Push: file not tracked by git | Recommended Action: rerun publish-ready so docs/site files are added, committed, and pushed. | https://smileaireviewhub.com/impeccable-review-2026-pricing-cost-and-roi/ |
+| ego-lite-review-2026-pricing-cost-and-roi | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/ego-lite-review-2026-pricing-cost-and-roi/ |
+| impeccable-review-2026-pricing-cost-and-roi | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/impeccable-review-2026-pricing-cost-and-roi/ |
