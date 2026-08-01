@@ -1,10 +1,10 @@
 {
   "summary": {
-    "items": 137,
+    "items": 139,
     "needs_revision": 11,
     "ai_review_passed": 0,
     "needs_human_review": 1,
-    "human_approved": 125,
+    "human_approved": 127,
     "rejected": 0
   },
   "items": [
@@ -98827,6 +98827,1590 @@
         "score": 0.0,
         "missing_entities": [
           "best-impeccable-review-2026-workflows-and-use-cases"
+        ],
+        "entity_mismatch": false
+      },
+      "internal_link_suggestions": [],
+      "cannibalization": {
+        "status": "pass",
+        "overlap_articles": {}
+      },
+      "estimated_review_minutes": 8
+    },
+    {
+      "slug": "common-ego-lite-review-2026-mistakes-and-troubleshooting",
+      "topic": "ego-lite Review 2026 mistakes and troubleshooting",
+      "url": "https://smileaireviewhub.com/common-ego-lite-review-2026-mistakes-and-troubleshooting/",
+      "status": "human_approved",
+      "reviewed_at": "2026-08-01T00:08:20.904388+00:00",
+      "word_count": 2553,
+      "factual_quality": 55.38,
+      "source_quality": 54.0,
+      "seo_title_meta_quality": 65,
+      "affiliate_disclosure_present": true,
+      "internal_link_count": 4,
+      "duplicate_content_risk": 84.62,
+      "readability": 59.29,
+      "business_value": 54.9,
+      "publish_readiness": 62.99,
+      "publishable": true,
+      "requires_human_approval": true,
+      "failures": [],
+      "hard_blockers": [],
+      "warnings": [
+        "duplicate content risk too high",
+        "publish readiness below threshold"
+      ],
+      "schema_version": 2,
+      "article_id": "common-ego-lite-review-2026-mistakes-and-troubleshooting",
+      "review_state": "WARNING",
+      "structured_review": {
+        "schema_version": 2,
+        "status": "warning",
+        "overall_score": 62.99,
+        "hard_blockers": [],
+        "warnings": [
+          "duplicate content risk too high",
+          "publish readiness below threshold"
+        ],
+        "critical_issues": [],
+        "suggested_fixes": [
+          "Review or improve when practical.",
+          "Review or improve when practical."
+        ],
+        "section_reviews": [
+          {
+            "section_id": "article",
+            "status": "warning",
+            "issues": 2
+          }
+        ],
+        "fact_risks": [
+          {
+            "claim_id": "88f7f94c0f73",
+            "claim_text": "ego-lite Review 2026: common mistakes and troubleshooting \n \n \n {\"@context\":\"https://schema.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "date",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "a4cf988c452d",
+            "claim_text": "org\",\"@type\":\"Article\",\"headline\":\"ego-lite Review 2026: common mistakes and troubleshooting\",\"description\":\"A practical troubleshooting review of ego-lite for small business operators, covering setup mistakes, pricing checks, security, integrations, comparison criteria, and FAQ.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "95075027147d",
+            "claim_text": "\",\"datePublished\":\"2026-08-01\",\"dateModified\":\"2026-08-01\",\"mainEntityOfPage\":\"https://smileaireviewhub.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "date",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "f531b08cc695",
+            "claim_text": "com/common-ego-lite-review-2026-mistakes-and-troubleshooting/\",\"publisher\":{\"@type\":\"Organization\",\"name\":\"Smile AI Review Hub\"}} \n \n \n \n ego-lite Review 2026: common mistakes and troubleshooting \n Quick verdict: ego-lite is worth testing when the team has a real browser-based AI agent work bottleneck, but it should not be adopted until setup, security, pricing, integrations, and failure handling are verified.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "074a12b116e4",
+            "claim_text": "Affiliate disclosure: Smile AI Review Hub may earn a commission from some outbound links.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "de80f723cc95",
+            "claim_text": "It does not repeat the earlier main review, pricing article, or use-case article.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "fdd6e0d0d953",
+            "claim_text": "Either way, ego lite adds the ego-browser skill to every agent&#x27;s skills directory on your machine.",
+            "section_id": "article",
+            "importance": "minor",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.76,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "8690e2db3423",
+            "claim_text": "On first launch, ego lite asks one question, whether to migrate your Chrome data.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "date",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "748072fb7bd6",
+            "claim_text": "Common mistake 1: buying the headline instead of the workflow \n The first mistake is evaluating ego-lite as a general AI productivity product.",
+            "section_id": "article",
+            "importance": "important",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.76,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "c25a0631f4bb",
+            "claim_text": "Common mistake 2: skipping setup verification \n The second mistake is assuming installation success means operational readiness.",
+            "section_id": "article",
+            "importance": "important",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.76,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "fca8e2ada528",
+            "claim_text": "Verification checklist \n Use this checklist before a team decides that ego-lite is ready for normal work: verify the official source, install from the documented channel, run one realistic task, record failure messages, confirm where data is stored, and compare the result with the manual baseline.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "comparison",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "c3259986ea7d",
+            "claim_text": "Pricing and cost traps \n The package describes the browser as a separate free download, but teams should still verify current license terms, support expectations, and operating costs before rollout.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "6f52d9db9171",
+            "claim_text": "The direct purchase price is only one part of the decision.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "3398d2a3df5f",
+            "claim_text": "Comparison: when an alternative is safer \n Compare ego-lite against browser automation frameworks and AI browsers with a built-in agent.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "comparison",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "2aa6de368407",
+            "claim_text": "Mistakes and troubleshooting comparison table \n The table below compares the mistakes that usually matter during evaluation.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "comparison",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "aad9d11a9b6f",
+            "claim_text": "It is not a pricing ranking and should not be read as a universal recommendation.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "6d3f74c2fb57",
+            "claim_text": "Area  Common mistake  Safer troubleshooting move    \n  Headline fit  Assuming the demo matches the real workflow  Run one real task and record failures  \n  Setup  Treating install success as readiness  Test permissions, scope, and rollback  \n  Security  Granting broad access too early  Start with non-sensitive projects  \n  Integrations  Checking only one provider  Verify the actual stack  \n  Pricing  Ignoring review and retry cost  Measure cost per accepted workflow  \n  \n Operational risks after adoption \n The biggest post-adoption risk is treating a successful test as permanent proof.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "ca16a92edbad",
+            "claim_text": "Someone should check the official source for ego-lite, review release notes or repository changes, and decide whether the team&#x27;s checklist needs to change before the next content or operations cycle.",
+            "section_id": "article",
+            "importance": "important",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.76,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "385789f643b8",
+            "claim_text": "Best-fit recommendation \n ego-lite is best for operators who need an AI agent to use authenticated browser sessions without taking over the human user&#x27;s tabs.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "6cf16d79845b",
+            "claim_text": "If the trial passes, continue the same-root editorial series and compare the buying decision against the broader category before publishing a final recommendation.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "comparison",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          }
+        ],
+        "seo_review": {
+          "score": 65,
+          "status": "pass"
+        },
+        "readability_review": {
+          "score": 59.29,
+          "status": "pass"
+        },
+        "business_value_review": {
+          "score": 54.9,
+          "status": "pass"
+        },
+        "source_quality_review": {
+          "average_score": 79.5,
+          "sources": [
+            {
+              "url": "https://github.com/citrolabs/ego-lite",
+              "domain": "github.com",
+              "source_type": "official_docs",
+              "authority_score": 88,
+              "freshness_score": 80.0,
+              "relevance_score": 70.0,
+              "primary_source": true,
+              "verified": true,
+              "risk_flags": [],
+              "overall_source_score": 83.1
+            },
+            {
+              "url": "https://lite.ego.app",
+              "domain": "lite.ego.app",
+              "source_type": "industry_or_company",
+              "authority_score": 72,
+              "freshness_score": 80.0,
+              "relevance_score": 70.0,
+              "primary_source": true,
+              "verified": true,
+              "risk_flags": [],
+              "overall_source_score": 75.9
+            }
+          ]
+        },
+        "duplicate_risk": {
+          "score": 84.62,
+          "status": "warning"
+        },
+        "recommended_action": "send_to_human_review",
+        "issues": [
+          {
+            "code": "DUPLICATE_CONTENT_RISK_TOO_HIGH",
+            "severity": "medium",
+            "category": "structure",
+            "section_id": "article",
+            "message": "duplicate content risk too high",
+            "suggested_fix": "Review or improve when practical.",
+            "auto_fixable": false,
+            "hard_blocker": false
+          },
+          {
+            "code": "PUBLISH_READINESS_BELOW_THRESHOLD",
+            "severity": "medium",
+            "category": "fact",
+            "section_id": "article",
+            "message": "publish readiness below threshold",
+            "suggested_fix": "Review or improve when practical.",
+            "auto_fixable": false,
+            "hard_blocker": false
+          }
+        ]
+      },
+      "source_quality_review": [
+        {
+          "url": "https://github.com/citrolabs/ego-lite",
+          "domain": "github.com",
+          "source_type": "official_docs",
+          "authority_score": 88,
+          "freshness_score": 80.0,
+          "relevance_score": 70.0,
+          "primary_source": true,
+          "verified": true,
+          "risk_flags": [],
+          "overall_source_score": 83.1
+        },
+        {
+          "url": "https://lite.ego.app",
+          "domain": "lite.ego.app",
+          "source_type": "industry_or_company",
+          "authority_score": 72,
+          "freshness_score": 80.0,
+          "relevance_score": 70.0,
+          "primary_source": true,
+          "verified": true,
+          "risk_flags": [],
+          "overall_source_score": 75.9
+        }
+      ],
+      "fact_verification": {
+        "schema_version": 2,
+        "claim_count": 20,
+        "claims": [
+          {
+            "claim_id": "88f7f94c0f73",
+            "claim_text": "ego-lite Review 2026: common mistakes and troubleshooting \n \n \n {\"@context\":\"https://schema.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "date",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "a4cf988c452d",
+            "claim_text": "org\",\"@type\":\"Article\",\"headline\":\"ego-lite Review 2026: common mistakes and troubleshooting\",\"description\":\"A practical troubleshooting review of ego-lite for small business operators, covering setup mistakes, pricing checks, security, integrations, comparison criteria, and FAQ.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "95075027147d",
+            "claim_text": "\",\"datePublished\":\"2026-08-01\",\"dateModified\":\"2026-08-01\",\"mainEntityOfPage\":\"https://smileaireviewhub.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "date",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "f531b08cc695",
+            "claim_text": "com/common-ego-lite-review-2026-mistakes-and-troubleshooting/\",\"publisher\":{\"@type\":\"Organization\",\"name\":\"Smile AI Review Hub\"}} \n \n \n \n ego-lite Review 2026: common mistakes and troubleshooting \n Quick verdict: ego-lite is worth testing when the team has a real browser-based AI agent work bottleneck, but it should not be adopted until setup, security, pricing, integrations, and failure handling are verified.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "074a12b116e4",
+            "claim_text": "Affiliate disclosure: Smile AI Review Hub may earn a commission from some outbound links.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "de80f723cc95",
+            "claim_text": "It does not repeat the earlier main review, pricing article, or use-case article.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "fdd6e0d0d953",
+            "claim_text": "Either way, ego lite adds the ego-browser skill to every agent&#x27;s skills directory on your machine.",
+            "section_id": "article",
+            "importance": "minor",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.76,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "8690e2db3423",
+            "claim_text": "On first launch, ego lite asks one question, whether to migrate your Chrome data.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "date",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "748072fb7bd6",
+            "claim_text": "Common mistake 1: buying the headline instead of the workflow \n The first mistake is evaluating ego-lite as a general AI productivity product.",
+            "section_id": "article",
+            "importance": "important",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.76,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "c25a0631f4bb",
+            "claim_text": "Common mistake 2: skipping setup verification \n The second mistake is assuming installation success means operational readiness.",
+            "section_id": "article",
+            "importance": "important",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.76,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "fca8e2ada528",
+            "claim_text": "Verification checklist \n Use this checklist before a team decides that ego-lite is ready for normal work: verify the official source, install from the documented channel, run one realistic task, record failure messages, confirm where data is stored, and compare the result with the manual baseline.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "comparison",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "c3259986ea7d",
+            "claim_text": "Pricing and cost traps \n The package describes the browser as a separate free download, but teams should still verify current license terms, support expectations, and operating costs before rollout.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "6f52d9db9171",
+            "claim_text": "The direct purchase price is only one part of the decision.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "3398d2a3df5f",
+            "claim_text": "Comparison: when an alternative is safer \n Compare ego-lite against browser automation frameworks and AI browsers with a built-in agent.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "comparison",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "2aa6de368407",
+            "claim_text": "Mistakes and troubleshooting comparison table \n The table below compares the mistakes that usually matter during evaluation.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "comparison",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "aad9d11a9b6f",
+            "claim_text": "It is not a pricing ranking and should not be read as a universal recommendation.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "6d3f74c2fb57",
+            "claim_text": "Area  Common mistake  Safer troubleshooting move    \n  Headline fit  Assuming the demo matches the real workflow  Run one real task and record failures  \n  Setup  Treating install success as readiness  Test permissions, scope, and rollback  \n  Security  Granting broad access too early  Start with non-sensitive projects  \n  Integrations  Checking only one provider  Verify the actual stack  \n  Pricing  Ignoring review and retry cost  Measure cost per accepted workflow  \n  \n Operational risks after adoption \n The biggest post-adoption risk is treating a successful test as permanent proof.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "ca16a92edbad",
+            "claim_text": "Someone should check the official source for ego-lite, review release notes or repository changes, and decide whether the team&#x27;s checklist needs to change before the next content or operations cycle.",
+            "section_id": "article",
+            "importance": "important",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.76,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "385789f643b8",
+            "claim_text": "Best-fit recommendation \n ego-lite is best for operators who need an AI agent to use authenticated browser sessions without taking over the human user&#x27;s tabs.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "6cf16d79845b",
+            "claim_text": "If the trial passes, continue the same-root editorial series and compare the buying decision against the broader category before publishing a final recommendation.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "comparison",
+            "matched_sources": [
+              "https://github.com/citrolabs/ego-lite",
+              "https://lite.ego.app"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          }
+        ],
+        "hard_blockers": [],
+        "warnings": [],
+        "cache_size": 20
+      },
+      "targeted_rewrite": {
+        "schema_version": 2,
+        "max_rewrite_attempts": 2,
+        "max_review_cycles": 3,
+        "rewrite_required": false,
+        "target_sections": [],
+        "issues": [],
+        "history": [],
+        "quality_guard": "keep_previous_section_when_rewrite_score_declines",
+        "article_id": "common-ego-lite-review-2026-mistakes-and-troubleshooting",
+        "executed": false,
+        "rewrite_history": [],
+        "status": "warning_to_human",
+        "remaining_hard_blockers": []
+      },
+      "rewrite_history": [],
+      "publishing_confidence": {
+        "score": 61.97,
+        "status": "rewrite_or_enrich",
+        "components": {
+          "research_quality": 52.14,
+          "source_quality": 79.5,
+          "fact_confidence": 100.0,
+          "intent_coverage": 65.0,
+          "entity_coverage": 36.0,
+          "readability": 59.29,
+          "seo": 65.0,
+          "business_value": 54.9,
+          "duplicate_safety": 15.38
+        },
+        "reasons": [
+          "duplicate content risk too high",
+          "publish readiness below threshold"
+        ],
+        "recommended_action": "targeted_rewrite_or_enrichment"
+      },
+      "ai_judge": {
+        "decision": "warning_to_human",
+        "confidence": 61.97,
+        "reasoning_summary": [
+          "confidence=61.97",
+          "hard_blockers=0",
+          "warnings=2"
+        ],
+        "remaining_risks": [
+          "duplicate content risk too high",
+          "publish readiness below threshold"
+        ],
+        "hard_blockers": [],
+        "warnings": [
+          "duplicate content risk too high",
+          "publish readiness below threshold"
+        ],
+        "recommended_human_focus": [
+          "duplicate content risk too high",
+          "publish readiness below threshold"
+        ]
+      },
+      "recommended_reviewer_focus": [
+        "duplicate content risk too high",
+        "publish readiness below threshold"
+      ],
+      "entity_coverage": {
+        "expected_count": 1,
+        "covered_count": 0,
+        "score": 0.0,
+        "missing_entities": [
+          "common-ego-lite-review-2026-mistakes-and-troubleshooting"
+        ],
+        "entity_mismatch": false
+      },
+      "internal_link_suggestions": [],
+      "cannibalization": {
+        "status": "pass",
+        "overlap_articles": {}
+      },
+      "estimated_review_minutes": 8
+    },
+    {
+      "slug": "common-impeccable-review-2026-mistakes-and-troubleshooting",
+      "topic": "impeccable Review 2026 mistakes and troubleshooting",
+      "url": "https://smileaireviewhub.com/common-impeccable-review-2026-mistakes-and-troubleshooting/",
+      "status": "human_approved",
+      "reviewed_at": "2026-08-01T00:08:44.984607+00:00",
+      "word_count": 2481,
+      "factual_quality": 55.38,
+      "source_quality": 54.0,
+      "seo_title_meta_quality": 65,
+      "affiliate_disclosure_present": true,
+      "internal_link_count": 4,
+      "duplicate_content_risk": 81.48,
+      "readability": 59.22,
+      "business_value": 54.9,
+      "publish_readiness": 63.38,
+      "publishable": true,
+      "requires_human_approval": true,
+      "failures": [],
+      "hard_blockers": [],
+      "warnings": [
+        "duplicate content risk too high",
+        "publish readiness below threshold"
+      ],
+      "schema_version": 2,
+      "article_id": "common-impeccable-review-2026-mistakes-and-troubleshooting",
+      "review_state": "WARNING",
+      "structured_review": {
+        "schema_version": 2,
+        "status": "warning",
+        "overall_score": 63.38,
+        "hard_blockers": [],
+        "warnings": [
+          "duplicate content risk too high",
+          "publish readiness below threshold"
+        ],
+        "critical_issues": [],
+        "suggested_fixes": [
+          "Review or improve when practical.",
+          "Review or improve when practical."
+        ],
+        "section_reviews": [
+          {
+            "section_id": "article",
+            "status": "warning",
+            "issues": 2
+          }
+        ],
+        "fact_risks": [
+          {
+            "claim_id": "d8dc53ec749b",
+            "claim_text": "Impeccable Review 2026: common mistakes and troubleshooting \n \n \n {\"@context\":\"https://schema.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "date",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "08ca0bb3c45e",
+            "claim_text": "org\",\"@type\":\"Article\",\"headline\":\"Impeccable Review 2026: common mistakes and troubleshooting\",\"description\":\"A practical troubleshooting review of Impeccable for small business operators, covering setup mistakes, pricing checks, security, integrations, comparison criteria, and FAQ.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "f374c6b044e1",
+            "claim_text": "\",\"datePublished\":\"2026-08-01\",\"dateModified\":\"2026-08-01\",\"mainEntityOfPage\":\"https://smileaireviewhub.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "date",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "032313a064c9",
+            "claim_text": "com/common-impeccable-review-2026-mistakes-and-troubleshooting/\",\"publisher\":{\"@type\":\"Organization\",\"name\":\"Smile AI Review Hub\"}} \n \n \n \n Impeccable Review 2026: common mistakes and troubleshooting \n Quick verdict: Impeccable is worth testing when the team has a real AI-generated frontend design review bottleneck, but it should not be adopted until setup, security, pricing, integrations, and failure handling are verified.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "9c93eafc933e",
+            "claim_text": "Affiliate disclosure: Smile AI Review Hub may earn a commission from some outbound links.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "becc1edc4ec3",
+            "claim_text": "It does not repeat the earlier main review, pricing article, or use-case article.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "d97f2477f361",
+            "claim_text": "Several claims matter for troubleshooting: 1 skill, 23 commands, live browser iteration, and 60 deterministic detector rules for AI-generated frontend design.",
+            "section_id": "article",
+            "importance": "important",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.76,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "1ecc198f4931",
+            "claim_text": "Anthropic&#x27;s frontend-design was the first widely-used design skill for Claude.",
+            "section_id": "article",
+            "importance": "minor",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.76,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "d519bc087154",
+            "claim_text": "60 deterministic detector rules plus LLM-only critique checks.",
+            "section_id": "article",
+            "importance": "minor",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.76,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "d4a0a43c93df",
+            "claim_text": "Common mistake 1: buying the headline instead of the workflow \n The first mistake is evaluating Impeccable as a general AI productivity product.",
+            "section_id": "article",
+            "importance": "important",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.76,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "24f9f260ccab",
+            "claim_text": "Common mistake 2: skipping setup verification \n The second mistake is assuming installation success means operational readiness.",
+            "section_id": "article",
+            "importance": "important",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.76,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "07b9c53b8023",
+            "claim_text": "Verification checklist \n Use this checklist before a team decides that Impeccable is ready for normal work: verify the official source, install from the documented channel, run one realistic task, record failure messages, confirm where data is stored, and compare the result with the manual baseline.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "comparison",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "30fb27f3a927",
+            "claim_text": "Pricing and cost traps \n The repository centers on installation and workflow rather than a conventional SaaS pricing page, so buyers should verify current license, support, and implementation costs before relying on it.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "d5e0e1d793eb",
+            "claim_text": "The direct purchase price is only one part of the decision.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "49c7e25014ab",
+            "claim_text": "Comparison: when an alternative is safer \n Compare Impeccable against generic prompt-only design guidance and manual design QA without deterministic rules.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "comparison",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "3c363d6391db",
+            "claim_text": "Mistakes and troubleshooting comparison table \n The table below compares the mistakes that usually matter during evaluation.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "comparison",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "cb15358a5e92",
+            "claim_text": "It is not a pricing ranking and should not be read as a universal recommendation.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "cd636353d7fc",
+            "claim_text": "Area  Common mistake  Safer troubleshooting move    \n  Headline fit  Assuming the demo matches the real workflow  Run one real task and record failures  \n  Setup  Treating install success as readiness  Test permissions, scope, and rollback  \n  Security  Granting broad access too early  Start with non-sensitive projects  \n  Integrations  Checking only one provider  Verify the actual stack  \n  Pricing  Ignoring review and retry cost  Measure cost per accepted workflow  \n  \n Operational risks after adoption \n The biggest post-adoption risk is treating a successful test as permanent proof.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "726bc6740b85",
+            "claim_text": "Someone should check the official source for Impeccable, review release notes or repository changes, and decide whether the team&#x27;s checklist needs to change before the next content or operations cycle.",
+            "section_id": "article",
+            "importance": "important",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.76,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "4361b2f687c8",
+            "claim_text": "If the trial passes, continue the same-root editorial series and compare the buying decision against the broader category before publishing a final recommendation.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "comparison",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          }
+        ],
+        "seo_review": {
+          "score": 65,
+          "status": "pass"
+        },
+        "readability_review": {
+          "score": 59.22,
+          "status": "pass"
+        },
+        "business_value_review": {
+          "score": 54.9,
+          "status": "pass"
+        },
+        "source_quality_review": {
+          "average_score": 79.5,
+          "sources": [
+            {
+              "url": "https://github.com/pbakaus/impeccable",
+              "domain": "github.com",
+              "source_type": "official_docs",
+              "authority_score": 88,
+              "freshness_score": 80.0,
+              "relevance_score": 70.0,
+              "primary_source": true,
+              "verified": true,
+              "risk_flags": [],
+              "overall_source_score": 83.1
+            },
+            {
+              "url": "https://impeccable.style",
+              "domain": "impeccable.style",
+              "source_type": "industry_or_company",
+              "authority_score": 72,
+              "freshness_score": 80.0,
+              "relevance_score": 70.0,
+              "primary_source": true,
+              "verified": true,
+              "risk_flags": [],
+              "overall_source_score": 75.9
+            }
+          ]
+        },
+        "duplicate_risk": {
+          "score": 81.48,
+          "status": "warning"
+        },
+        "recommended_action": "send_to_human_review",
+        "issues": [
+          {
+            "code": "DUPLICATE_CONTENT_RISK_TOO_HIGH",
+            "severity": "medium",
+            "category": "structure",
+            "section_id": "article",
+            "message": "duplicate content risk too high",
+            "suggested_fix": "Review or improve when practical.",
+            "auto_fixable": false,
+            "hard_blocker": false
+          },
+          {
+            "code": "PUBLISH_READINESS_BELOW_THRESHOLD",
+            "severity": "medium",
+            "category": "fact",
+            "section_id": "article",
+            "message": "publish readiness below threshold",
+            "suggested_fix": "Review or improve when practical.",
+            "auto_fixable": false,
+            "hard_blocker": false
+          }
+        ]
+      },
+      "source_quality_review": [
+        {
+          "url": "https://github.com/pbakaus/impeccable",
+          "domain": "github.com",
+          "source_type": "official_docs",
+          "authority_score": 88,
+          "freshness_score": 80.0,
+          "relevance_score": 70.0,
+          "primary_source": true,
+          "verified": true,
+          "risk_flags": [],
+          "overall_source_score": 83.1
+        },
+        {
+          "url": "https://impeccable.style",
+          "domain": "impeccable.style",
+          "source_type": "industry_or_company",
+          "authority_score": 72,
+          "freshness_score": 80.0,
+          "relevance_score": 70.0,
+          "primary_source": true,
+          "verified": true,
+          "risk_flags": [],
+          "overall_source_score": 75.9
+        }
+      ],
+      "fact_verification": {
+        "schema_version": 2,
+        "claim_count": 20,
+        "claims": [
+          {
+            "claim_id": "d8dc53ec749b",
+            "claim_text": "Impeccable Review 2026: common mistakes and troubleshooting \n \n \n {\"@context\":\"https://schema.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "date",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "08ca0bb3c45e",
+            "claim_text": "org\",\"@type\":\"Article\",\"headline\":\"Impeccable Review 2026: common mistakes and troubleshooting\",\"description\":\"A practical troubleshooting review of Impeccable for small business operators, covering setup mistakes, pricing checks, security, integrations, comparison criteria, and FAQ.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "f374c6b044e1",
+            "claim_text": "\",\"datePublished\":\"2026-08-01\",\"dateModified\":\"2026-08-01\",\"mainEntityOfPage\":\"https://smileaireviewhub.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "date",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "032313a064c9",
+            "claim_text": "com/common-impeccable-review-2026-mistakes-and-troubleshooting/\",\"publisher\":{\"@type\":\"Organization\",\"name\":\"Smile AI Review Hub\"}} \n \n \n \n Impeccable Review 2026: common mistakes and troubleshooting \n Quick verdict: Impeccable is worth testing when the team has a real AI-generated frontend design review bottleneck, but it should not be adopted until setup, security, pricing, integrations, and failure handling are verified.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "9c93eafc933e",
+            "claim_text": "Affiliate disclosure: Smile AI Review Hub may earn a commission from some outbound links.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "becc1edc4ec3",
+            "claim_text": "It does not repeat the earlier main review, pricing article, or use-case article.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "d97f2477f361",
+            "claim_text": "Several claims matter for troubleshooting: 1 skill, 23 commands, live browser iteration, and 60 deterministic detector rules for AI-generated frontend design.",
+            "section_id": "article",
+            "importance": "important",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.76,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "1ecc198f4931",
+            "claim_text": "Anthropic&#x27;s frontend-design was the first widely-used design skill for Claude.",
+            "section_id": "article",
+            "importance": "minor",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.76,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "d519bc087154",
+            "claim_text": "60 deterministic detector rules plus LLM-only critique checks.",
+            "section_id": "article",
+            "importance": "minor",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.76,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "d4a0a43c93df",
+            "claim_text": "Common mistake 1: buying the headline instead of the workflow \n The first mistake is evaluating Impeccable as a general AI productivity product.",
+            "section_id": "article",
+            "importance": "important",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.76,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "24f9f260ccab",
+            "claim_text": "Common mistake 2: skipping setup verification \n The second mistake is assuming installation success means operational readiness.",
+            "section_id": "article",
+            "importance": "important",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.76,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "07b9c53b8023",
+            "claim_text": "Verification checklist \n Use this checklist before a team decides that Impeccable is ready for normal work: verify the official source, install from the documented channel, run one realistic task, record failure messages, confirm where data is stored, and compare the result with the manual baseline.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "comparison",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "30fb27f3a927",
+            "claim_text": "Pricing and cost traps \n The repository centers on installation and workflow rather than a conventional SaaS pricing page, so buyers should verify current license, support, and implementation costs before relying on it.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "d5e0e1d793eb",
+            "claim_text": "The direct purchase price is only one part of the decision.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "49c7e25014ab",
+            "claim_text": "Comparison: when an alternative is safer \n Compare Impeccable against generic prompt-only design guidance and manual design QA without deterministic rules.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "comparison",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "3c363d6391db",
+            "claim_text": "Mistakes and troubleshooting comparison table \n The table below compares the mistakes that usually matter during evaluation.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "comparison",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "cb15358a5e92",
+            "claim_text": "It is not a pricing ranking and should not be read as a universal recommendation.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "cd636353d7fc",
+            "claim_text": "Area  Common mistake  Safer troubleshooting move    \n  Headline fit  Assuming the demo matches the real workflow  Run one real task and record failures  \n  Setup  Treating install success as readiness  Test permissions, scope, and rollback  \n  Security  Granting broad access too early  Start with non-sensitive projects  \n  Integrations  Checking only one provider  Verify the actual stack  \n  Pricing  Ignoring review and retry cost  Measure cost per accepted workflow  \n  \n Operational risks after adoption \n The biggest post-adoption risk is treating a successful test as permanent proof.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "number",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "726bc6740b85",
+            "claim_text": "Someone should check the official source for Impeccable, review release notes or repository changes, and decide whether the team&#x27;s checklist needs to change before the next content or operations cycle.",
+            "section_id": "article",
+            "importance": "important",
+            "claim_type": "general",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.76,
+            "requires_human_review": false
+          },
+          {
+            "claim_id": "4361b2f687c8",
+            "claim_text": "If the trial passes, continue the same-root editorial series and compare the buying decision against the broader category before publishing a final recommendation.",
+            "section_id": "article",
+            "importance": "critical",
+            "claim_type": "comparison",
+            "matched_sources": [
+              "https://github.com/pbakaus/impeccable",
+              "https://impeccable.style"
+            ],
+            "support_status": "supported",
+            "confidence": 0.86,
+            "requires_human_review": false
+          }
+        ],
+        "hard_blockers": [],
+        "warnings": [],
+        "cache_size": 20
+      },
+      "targeted_rewrite": {
+        "schema_version": 2,
+        "max_rewrite_attempts": 2,
+        "max_review_cycles": 3,
+        "rewrite_required": false,
+        "target_sections": [],
+        "issues": [],
+        "history": [],
+        "quality_guard": "keep_previous_section_when_rewrite_score_declines",
+        "article_id": "common-impeccable-review-2026-mistakes-and-troubleshooting",
+        "executed": false,
+        "rewrite_history": [],
+        "status": "warning_to_human",
+        "remaining_hard_blockers": []
+      },
+      "rewrite_history": [],
+      "publishing_confidence": {
+        "score": 62.27,
+        "status": "rewrite_or_enrich",
+        "components": {
+          "research_quality": 52.14,
+          "source_quality": 79.5,
+          "fact_confidence": 100.0,
+          "intent_coverage": 65.0,
+          "entity_coverage": 36.0,
+          "readability": 59.22,
+          "seo": 65.0,
+          "business_value": 54.9,
+          "duplicate_safety": 18.52
+        },
+        "reasons": [
+          "duplicate content risk too high",
+          "publish readiness below threshold"
+        ],
+        "recommended_action": "targeted_rewrite_or_enrichment"
+      },
+      "ai_judge": {
+        "decision": "warning_to_human",
+        "confidence": 62.27,
+        "reasoning_summary": [
+          "confidence=62.27",
+          "hard_blockers=0",
+          "warnings=2"
+        ],
+        "remaining_risks": [
+          "duplicate content risk too high",
+          "publish readiness below threshold"
+        ],
+        "hard_blockers": [],
+        "warnings": [
+          "duplicate content risk too high",
+          "publish readiness below threshold"
+        ],
+        "recommended_human_focus": [
+          "duplicate content risk too high",
+          "publish readiness below threshold"
+        ]
+      },
+      "recommended_reviewer_focus": [
+        "duplicate content risk too high",
+        "publish readiness below threshold"
+      ],
+      "entity_coverage": {
+        "expected_count": 1,
+        "covered_count": 0,
+        "score": 0.0,
+        "missing_entities": [
+          "common-impeccable-review-2026-mistakes-and-troubleshooting"
         ],
         "entity_mismatch": false
       },

@@ -1,0 +1,18 @@
+{
+  "writer": {
+    "writer_type": "external_ai",
+    "writer_name": "ChatGPT",
+    "writer_version": "web",
+    "generated_at": "2026-08-01T00:01:22.198635+00:00",
+    "package_id": "3a60fbefde4ffb3f",
+    "task_id": "website_advanced-2026-08-01-824588b6a7b92a2b",
+    "revision": 1
+  },
+  "source_urls": [
+    "https://github.com/pbakaus/impeccable",
+    "https://impeccable.style"
+  ],
+  "human_approval_required": true,
+  "approved": false,
+  "published": false
+}

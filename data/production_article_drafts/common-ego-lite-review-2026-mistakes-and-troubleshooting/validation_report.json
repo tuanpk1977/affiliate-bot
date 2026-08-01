@@ -1,0 +1,73 @@
+{
+  "schema_version": "website_external_writer_validation_v1",
+  "status": "PASS",
+  "generation_attempt": 1,
+  "word_count_markdown": 2469,
+  "word_count_html": 2553,
+  "h2_count": 14,
+  "faq_count": 12,
+  "source_urls": [
+    "https://github.com/citrolabs/ego-lite",
+    "https://lite.ego.app"
+  ],
+  "research_utilization": {
+    "artifacts": [
+      "FACT_LEDGER.json",
+      "SOURCE_EXCERPTS.json",
+      "sources.json",
+      "outline.json",
+      "writing_plan.json",
+      "faq.json",
+      "competitor_analysis.json",
+      "entities.json",
+      "research_inventory.json"
+    ],
+    "used_claim_ids": [
+      "claim-001",
+      "claim-002",
+      "claim-003",
+      "claim-004",
+      "claim-005",
+      "claim-006",
+      "claim-007",
+      "claim-008",
+      "claim-009",
+      "claim-010",
+      "claim-011",
+      "claim-012",
+      "claim-013",
+      "claim-014",
+      "claim-015",
+      "claim-016",
+      "claim-017",
+      "claim-018",
+      "claim-019",
+      "claim-020",
+      "claim-021",
+      "claim-022",
+      "claim-023",
+      "claim-024",
+      "claim-025"
+    ],
+    "citation_urls": [
+      "https://github.com/citrolabs/ego-lite",
+      "https://lite.ego.app"
+    ]
+  },
+  "checks": {
+    "article_spec_followed": true,
+    "website_advanced_contract": true,
+    "pricing_section": true,
+    "security_section": true,
+    "integrations_section": true,
+    "comparison_section": true,
+    "faq": true,
+    "affiliate_disclosure": true,
+    "internal_links": true,
+    "external_citations": true,
+    "json_ld": true,
+    "approval_changed": false,
+    "published": false
+  },
+  "warnings": []
+}

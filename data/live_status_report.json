@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-07-30T02:43:34.541278+00:00",
-  "date": "2026-07-30",
+  "generated_at": "2026-07-31T01:12:46.091437+00:00",
+  "date": "2026-07-31",
   "summary": {
-    "date": "2026-07-30",
+    "date": "2026-07-31",
     "include_all": false,
     "blocked_only": false,
     "total_items": 2,
@@ -31,8 +31,8 @@
   },
   "items": [
     {
-      "slug": "ego-lite-review-2026-pricing-cost-and-roi",
-      "title": "ego-lite Review 2026: Pricing, Cost, and ROI for Small Teams",
+      "slug": "best-ego-lite-review-2026-workflows-and-use-cases",
+      "title": "ego-lite Review 2026: Workflows and Use Cases for Small Teams",
       "editorial_status": "Published",
       "publish_gate_status": "Published",
       "publish_queue_status": "live",
@@ -43,7 +43,7 @@
       "docs_synced": true,
       "git_status": "pushed",
       "git_reason": "file commit is contained in origin/main",
-      "url": "https://smileaireviewhub.com/ego-lite-review-2026-pricing-cost-and-roi/",
+      "url": "https://smileaireviewhub.com/best-ego-lite-review-2026-workflows-and-use-cases/",
       "live_status": "live",
       "display_status": "Live 200",
       "live_http_status": 200,
@@ -51,13 +51,13 @@
       "block_reason": "No blocking issue detected",
       "resolution": "Article appears ready or already published.",
       "next_action_command": "",
-      "site_output_file": "D:\\AFFILATE BOT\\site_output\\ego-lite-review-2026-pricing-cost-and-roi\\index.html",
-      "docs_file": "D:\\AFFILATE BOT\\docs\\ego-lite-review-2026-pricing-cost-and-roi\\index.html",
-      "published_static_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\ego-lite-review-2026-pricing-cost-and-roi\\index.html"
+      "site_output_file": "D:\\AFFILATE BOT\\site_output\\best-ego-lite-review-2026-workflows-and-use-cases\\index.html",
+      "docs_file": "D:\\AFFILATE BOT\\docs\\best-ego-lite-review-2026-workflows-and-use-cases\\index.html",
+      "published_static_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\best-ego-lite-review-2026-workflows-and-use-cases\\index.html"
     },
     {
-      "slug": "impeccable-review-2026-pricing-cost-and-roi",
-      "title": "Impeccable Review 2026: Pricing, Cost, and ROI for Frontend Teams",
+      "slug": "best-impeccable-review-2026-workflows-and-use-cases",
+      "title": "Impeccable Review 2026: Practical Workflows and Use Cases",
       "editorial_status": "Published",
       "publish_gate_status": "Published",
       "publish_queue_status": "live",
@@ -68,7 +68,7 @@
       "docs_synced": true,
       "git_status": "pushed",
       "git_reason": "file commit is contained in origin/main",
-      "url": "https://smileaireviewhub.com/impeccable-review-2026-pricing-cost-and-roi/",
+      "url": "https://smileaireviewhub.com/best-impeccable-review-2026-workflows-and-use-cases/",
       "live_status": "live",
       "display_status": "Live 200",
       "live_http_status": 200,
@@ -76,9 +76,9 @@
       "block_reason": "No blocking issue detected",
       "resolution": "Article appears ready or already published.",
       "next_action_command": "",
-      "site_output_file": "D:\\AFFILATE BOT\\site_output\\impeccable-review-2026-pricing-cost-and-roi\\index.html",
-      "docs_file": "D:\\AFFILATE BOT\\docs\\impeccable-review-2026-pricing-cost-and-roi\\index.html",
-      "published_static_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\impeccable-review-2026-pricing-cost-and-roi\\index.html"
+      "site_output_file": "D:\\AFFILATE BOT\\site_output\\best-impeccable-review-2026-workflows-and-use-cases\\index.html",
+      "docs_file": "D:\\AFFILATE BOT\\docs\\best-impeccable-review-2026-workflows-and-use-cases\\index.html",
+      "published_static_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\best-impeccable-review-2026-workflows-and-use-cases\\index.html"
     }
   ],
   "repo_sync": {

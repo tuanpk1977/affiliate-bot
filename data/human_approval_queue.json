@@ -1368,5 +1368,25 @@
     "approved_at": "2026-07-31T01:08:17.299485+00:00",
     "approved_by": "editor",
     "reason": ""
+  },
+  {
+    "slug": "common-ego-lite-review-2026-mistakes-and-troubleshooting",
+    "topic": "ego-lite Review 2026 mistakes and troubleshooting",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-08-01T00:08:20.904388+00:00",
+    "approved_at": "2026-08-01T00:22:26.662778+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "common-impeccable-review-2026-mistakes-and-troubleshooting",
+    "topic": "impeccable Review 2026 mistakes and troubleshooting",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-08-01T00:08:44.984607+00:00",
+    "approved_at": "2026-08-01T00:22:40.380195+00:00",
+    "approved_by": "editor",
+    "reason": ""
   }
 ]

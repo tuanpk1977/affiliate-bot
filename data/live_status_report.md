@@ -1,4 +1,4 @@
-# Live Status Report 2026-07-30
+# Live Status Report 2026-07-31
 
 - Total items: 2
 ## Deployment summary
@@ -25,5 +25,5 @@
 
 | Slug | Editorial | Publish gate | Deployment | Local | Docs | Git | Block reason | How to fix | URL |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| ego-lite-review-2026-pricing-cost-and-roi | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/ego-lite-review-2026-pricing-cost-and-roi/ |
-| impeccable-review-2026-pricing-cost-and-roi | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/impeccable-review-2026-pricing-cost-and-roi/ |
+| best-ego-lite-review-2026-workflows-and-use-cases | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-ego-lite-review-2026-workflows-and-use-cases/ |
+| best-impeccable-review-2026-workflows-and-use-cases | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-impeccable-review-2026-workflows-and-use-cases/ |
