@@ -1,8 +1,8 @@
-# Live Status Report 2026-07-31
+# Live Status Report 2026-08-03
 
-- Total items: 2
+- Total items: 0
 ## Deployment summary
-- Live 200: 2
+- Live 200: 0
 - Awaiting Publish: 0
 - Awaiting Push: 0
 - Published Local: 0
@@ -21,9 +21,7 @@
 - Ready for Publish: 0
 - Publish Blocked: 0
 - Rejected: 0
-- Live This Batch: 2
+- Live This Batch: 0
 
 | Slug | Editorial | Publish gate | Deployment | Local | Docs | Git | Block reason | How to fix | URL |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| best-ego-lite-review-2026-workflows-and-use-cases | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-ego-lite-review-2026-workflows-and-use-cases/ |
-| best-impeccable-review-2026-workflows-and-use-cases | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-impeccable-review-2026-workflows-and-use-cases/ |

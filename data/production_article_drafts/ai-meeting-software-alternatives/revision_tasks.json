@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "website_foundation-2026-08-03-d292efd95e376ea1",
+  "slug": "ai-meeting-software-alternatives",
+  "revision": 1,
+  "status": "REVISION_REQUIRED",
+  "tasks": [
+    {
+      "revision_task_id": "website_foundation-2026-08-03-d292efd95e376ea1-r1-001",
+      "task_id": "website_foundation-2026-08-03-d292efd95e376ea1",
+      "slug": "ai-meeting-software-alternatives",
+      "revision": 1,
+      "task_type": "EVIDENCE_GAP",
+      "section": "general",
+      "status": "PENDING",
+      "reason": "The external writer validation report requires editorial revision.",
+      "research_enrichment_required": false
+    }
+  ]
+}

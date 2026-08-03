@@ -1388,5 +1388,25 @@
     "approved_at": "2026-08-01T00:22:40.380195+00:00",
     "approved_by": "editor",
     "reason": ""
+  },
+  {
+    "slug": "ai-meeting-software-alternatives",
+    "topic": "ai meeting software alternatives",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-08-03T01:31:18.638237+00:00",
+    "approved_at": "2026-08-03T01:32:17.624445+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "ai-productivity-tools-pricing",
+    "topic": "ai productivity tools pricing",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-08-03T01:31:25.273182+00:00",
+    "approved_at": "2026-08-03T01:32:33.369297+00:00",
+    "approved_by": "editor",
+    "reason": ""
   }
 ]

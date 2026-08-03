@@ -1,0 +1,18 @@
+{
+  "schema_version": "external_writer_validation_v1",
+  "task_id": "website_foundation-2026-08-03-d1286bb9204cc6e2",
+  "slug": "ai-productivity-tools-pricing",
+  "revision": 1,
+  "result": "PASS",
+  "generation_attempt": 1,
+  "word_count": 2545,
+  "h2_count": 16,
+  "faq_count": 6,
+  "required_sections_present": true,
+  "required_table_present": true,
+  "citations_validated_against_package": true,
+  "unsupported_claims_added": false,
+  "placeholders_present": false,
+  "approval_changed": false,
+  "published": false
+}
