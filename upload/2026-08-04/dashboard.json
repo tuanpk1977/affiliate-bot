@@ -1,0 +1,1449 @@
+{
+  "date": "2026-08-04",
+  "summary": {
+    "date": "2026-08-04",
+    "requested_date": "2026-08-04",
+    "week_start": "2026-08-03",
+    "week_end": "2026-08-09",
+    "daily_angle": "Deep dive: implementation guide",
+    "total_topics": 2,
+    "drafted": 2,
+    "approved": 0,
+    "rejected": 0,
+    "published": 0,
+    "missing_files": 2,
+    "dashboard_file": "D:\\AFFILATE BOT\\site_output\\review\\2026-08-04\\index.html",
+    "operator_console": "D:\\AFFILATE BOT\\data\\editorial_operations_console.html",
+    "upload_dir": "D:\\AFFILATE BOT\\upload\\2026-08-04",
+    "master_dashboard": "D:\\AFFILATE BOT\\upload\\dashboard.html",
+    "ready_for_publish": 0,
+    "publish_blocked": 0,
+    "human_approval_required": 2,
+    "published_local": 0,
+    "drafts": 0,
+    "needs_review": 2,
+    "human_approved": 0,
+    "published_this_batch": 0,
+    "top_block_reasons": [],
+    "next_recommended_command": "python editorial_console.py approve --slug <slug> --date 2026-08-04",
+    "archived_unpublished": 19
+  },
+  "topics": [
+    {
+      "root_topic_id": "ai-meeting-software-alternatives",
+      "root_title": "Ai meeting software alternatives",
+      "title": "Ai meeting software alternatives",
+      "keyword": "how to implement ai meeting software alternatives",
+      "primary_keyword": "ai meeting software alternatives",
+      "slug": "how-to-implement-ai-meeting-software-alternatives",
+      "parent_slug": "ai-meeting-software-alternatives",
+      "search_intent": "comparison",
+      "primary_search_intent": "comparison",
+      "selection_score": 89.75,
+      "total_score": 69.8,
+      "reason_selected": [
+        "No matching local page found.",
+        "Supports a multi-angle topical-authority series."
+      ],
+      "content_lane": "FOUNDATION_ADVANCED",
+      "selected": true,
+      "selected_status": "selected",
+      "series_status": "active",
+      "rank": 1,
+      "content_plan": [
+        {
+          "angle": "pillar",
+          "article_type": "foundation",
+          "title": "Ai meeting software alternatives: Complete Review and Buyer Guide"
+        },
+        {
+          "angle": "comparison",
+          "article_type": "comparison",
+          "title": "Ai meeting software alternatives: Comparison and Alternatives"
+        },
+        {
+          "angle": "use_cases",
+          "article_type": "use_case",
+          "title": "Ai meeting software alternatives: Workflows and Use Cases"
+        },
+        {
+          "angle": "pricing",
+          "article_type": "pricing",
+          "title": "Ai meeting software alternatives: Pricing, Cost, and ROI"
+        },
+        {
+          "angle": "pros_cons",
+          "article_type": "review",
+          "title": "Ai meeting software alternatives: Pros, Cons, and Limitations"
+        },
+        {
+          "angle": "tutorial",
+          "article_type": "tutorial",
+          "title": "How to Implement Ai meeting software alternatives"
+        },
+        {
+          "angle": "security_privacy",
+          "article_type": "security",
+          "title": "Ai meeting software alternatives: Security and Privacy"
+        },
+        {
+          "angle": "case_study",
+          "article_type": "implementation_guide",
+          "title": "Ai meeting software alternatives: Implementation Guide and Case Study"
+        }
+      ],
+      "series_plan": [
+        {
+          "root_topic_id": "ai-meeting-software-alternatives",
+          "root_title": "Ai meeting software alternatives",
+          "content_lane": "FOUNDATION_MAIN",
+          "article_id": "ai-meeting-software-alternatives-main_review",
+          "sequence_number": 1,
+          "scheduled_date": "2026-08-03",
+          "planned_publishing_day": "2026-08-03",
+          "daily_angle": "main_review",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate Ai meeting software alternatives for category overview?",
+          "unique_thesis": "Ai meeting software alternatives should be judged through category overview, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Ai meeting software alternatives for category overview.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Category Overview context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare category overview options without repeating the Monday table.",
+          "faq_set": [
+            "main_review_faq_1",
+            "main_review_faq_2",
+            "main_review_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "implementation_guide",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "implementation_guide",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "ai-meeting-software-alternatives",
+          "root_title": "Ai meeting software alternatives",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "ai-meeting-software-alternatives-implementation_guide",
+          "sequence_number": 2,
+          "scheduled_date": "2026-08-04",
+          "planned_publishing_day": "2026-08-04",
+          "daily_angle": "implementation_guide",
+          "primary_search_intent": "implementation guide",
+          "search_intent": "implementation guide",
+          "reader_question": "How should a small business evaluate Ai meeting software alternatives for implementation workflow?",
+          "unique_thesis": "Ai meeting software alternatives should be judged through implementation workflow, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Ai meeting software alternatives for implementation workflow.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Implementation Workflow context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare implementation workflow options without repeating the Monday table.",
+          "faq_set": [
+            "implementation_guide_faq_1",
+            "implementation_guide_faq_2",
+            "implementation_guide_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "main_review",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "comparison",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "comparison",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "ai-meeting-software-alternatives",
+          "root_title": "Ai meeting software alternatives",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "ai-meeting-software-alternatives-comparison",
+          "sequence_number": 3,
+          "scheduled_date": "2026-08-05",
+          "planned_publishing_day": "2026-08-05",
+          "daily_angle": "comparison",
+          "primary_search_intent": "comparison",
+          "search_intent": "comparison",
+          "reader_question": "How should a small business evaluate Ai meeting software alternatives for comparison and alternatives?",
+          "unique_thesis": "Ai meeting software alternatives should be judged through comparison and alternatives, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Ai meeting software alternatives for comparison and alternatives.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Comparison And Alternatives context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare comparison and alternatives options without repeating the Monday table.",
+          "faq_set": [
+            "comparison_faq_1",
+            "comparison_faq_2",
+            "comparison_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "implementation_guide",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "pricing",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "pricing",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "ai-meeting-software-alternatives",
+          "root_title": "Ai meeting software alternatives",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "ai-meeting-software-alternatives-pricing",
+          "sequence_number": 4,
+          "scheduled_date": "2026-08-06",
+          "planned_publishing_day": "2026-08-06",
+          "daily_angle": "pricing",
+          "primary_search_intent": "commercial investigation",
+          "search_intent": "commercial investigation",
+          "reader_question": "How should a small business evaluate Ai meeting software alternatives for pricing, cost, and ROI?",
+          "unique_thesis": "Ai meeting software alternatives should be judged through pricing, cost, and ROI, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Ai meeting software alternatives for pricing, cost, and ROI.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Pricing, Cost, And Roi context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare pricing, cost, and ROI options without repeating the Monday table.",
+          "faq_set": [
+            "pricing_faq_1",
+            "pricing_faq_2",
+            "pricing_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "comparison",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "use_cases",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "use_cases",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "ai-meeting-software-alternatives",
+          "root_title": "Ai meeting software alternatives",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "ai-meeting-software-alternatives-use_cases",
+          "sequence_number": 5,
+          "scheduled_date": "2026-08-07",
+          "planned_publishing_day": "2026-08-07",
+          "daily_angle": "use_cases",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate Ai meeting software alternatives for workflows and use cases?",
+          "unique_thesis": "Ai meeting software alternatives should be judged through workflows and use cases, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Ai meeting software alternatives for workflows and use cases.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Workflows And Use Cases context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare workflows and use cases options without repeating the Monday table.",
+          "faq_set": [
+            "use_cases_faq_1",
+            "use_cases_faq_2",
+            "use_cases_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "pricing",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "troubleshooting",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "troubleshooting",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "ai-meeting-software-alternatives",
+          "root_title": "Ai meeting software alternatives",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "ai-meeting-software-alternatives-troubleshooting",
+          "sequence_number": 6,
+          "scheduled_date": "2026-08-08",
+          "planned_publishing_day": "2026-08-08",
+          "daily_angle": "troubleshooting",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate Ai meeting software alternatives for mistakes and troubleshooting?",
+          "unique_thesis": "Ai meeting software alternatives should be judged through mistakes and troubleshooting, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Ai meeting software alternatives for mistakes and troubleshooting.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Mistakes And Troubleshooting context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare mistakes and troubleshooting options without repeating the Monday table.",
+          "faq_set": [
+            "troubleshooting_faq_1",
+            "troubleshooting_faq_2",
+            "troubleshooting_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "use_cases",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "buying_decision",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "buying_decision",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "ai-meeting-software-alternatives",
+          "root_title": "Ai meeting software alternatives",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "ai-meeting-software-alternatives-buying_decision",
+          "sequence_number": 7,
+          "scheduled_date": "2026-08-09",
+          "planned_publishing_day": "2026-08-09",
+          "daily_angle": "buying_decision",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate Ai meeting software alternatives for small-business buying decision?",
+          "unique_thesis": "Ai meeting software alternatives should be judged through small-business buying decision, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Ai meeting software alternatives for small-business buying decision.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Small-Business Buying Decision context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare small-business buying decision options without repeating the Monday table.",
+          "faq_set": [
+            "buying_decision_faq_1",
+            "buying_decision_faq_2",
+            "buying_decision_faq_3"
+          ],
+          "cta_intent": "close the same-root editorial series",
+          "previous_article": "troubleshooting",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "",
+            "bridge_state": "SERIES_COMPLETE"
+          },
+          "next_article": "",
+          "bridge_state": "SERIES_COMPLETE",
+          "series_status": "planned",
+          "article_state": "planned"
+        }
+      ],
+      "normalized_root_topic": "ai-meeting-software-alternatives",
+      "topic_category": "EVERGREEN",
+      "primary_entity": "Ai meeting software alternatives",
+      "freshness_score": 0.0,
+      "official_source_confidence": "unknown",
+      "likely_search_demand": 0.0,
+      "commercial_relevance": 0.0,
+      "depth_potential": 89.75,
+      "source_references": [],
+      "maximum_useful_article_angles": 7,
+      "category": "AI Tools",
+      "trend_score": 0.0,
+      "business_value": 0.0,
+      "sources": [],
+      "entities": [],
+      "week_start": "2026-08-03",
+      "status": "drafted",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "ai meeting software alternatives",
+      "daily_angles": {
+        "2026-08-03": {
+          "angle": "main_review",
+          "title": "ai meeting software alternatives",
+          "slug": "ai-meeting-software-alternatives",
+          "search_intent": "comparison",
+          "status": "queue_created"
+        }
+      },
+      "content_type": "implementation_guide",
+      "search_intent_score": 86.0,
+      "daily_angle": "implementation_guide",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "ai meeting software alternatives",
+          "slug": "ai-meeting-software-alternatives",
+          "search_intent": "comparison",
+          "status": "queue_created",
+          "date": "2026-08-03"
+        }
+      ],
+      "suggested_article_angle": "implementation_guide follow-up for ai meeting software alternatives",
+      "batch_date": "2026-08-04",
+      "editorial_week_id": "",
+      "parent_monday_article": {
+        "root_topic_id": "ai-meeting-software-alternatives",
+        "slug": "ai-meeting-software-alternatives",
+        "title": "ai meeting software alternatives",
+        "scheduled_date": "2026-08-03"
+      },
+      "mode": "advanced",
+      "sequence_number": 2,
+      "reader_question": "How should a small business evaluate Ai meeting software alternatives for implementation workflow?",
+      "unique_thesis": "Ai meeting software alternatives should be judged through implementation workflow, not a repeated feature checklist.",
+      "required_evidence": [
+        "prepared sources",
+        "official source where available",
+        "same-root article history"
+      ],
+      "prohibited_overlap": [
+        "same search intent as an earlier article",
+        "same FAQ set as an earlier article",
+        "same table purpose as an earlier article",
+        "same conclusion/CTA purpose as an earlier article"
+      ],
+      "next_article_bridge": {
+        "root_topic_id": "ai-meeting-software-alternatives",
+        "state": "NEXT_SCHEDULED_NOT_LIVE",
+        "daily_angle": "comparison",
+        "instructions": "End with a natural bridge to the next scheduled same-root angle, comparison. Do not link or claim it is published."
+      },
+      "affiliate_monetization_score": 70.0,
+      "competition_difficulty_score": 45.0,
+      "product_availability_score": 65.0,
+      "content_freshness_score": 70.0,
+      "source_readiness": {
+        "passes": true,
+        "source_count": 3,
+        "source_urls": [
+          "https://reclaim.ai",
+          "https://help.reclaim.ai/",
+          "https://updates.reclaim.ai/"
+        ],
+        "unique_source_domains": [
+          "reclaim.ai",
+          "help.reclaim.ai",
+          "updates.reclaim.ai"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-meeting-software-alternatives",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 62.93,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 8,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\how-to-implement-ai-meeting-software-alternatives",
+      "review_preview": "",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "article_readiness": {
+        "task_id": "website-advanced-2026-08-04-how-to-implement-ai-meeting-software-alternatives",
+        "slug": "how-to-implement-ai-meeting-software-alternatives",
+        "status": "RESEARCH_MINIMUM",
+        "article_ready": false,
+        "sources_attempted": 12,
+        "sources_retrieved": 11,
+        "sources_blocked": 1,
+        "usable_paragraphs": 326,
+        "candidate_claims": 609,
+        "publishable_claims": 33,
+        "rejected_claims": 576,
+        "mandatory_sections_covered": 10,
+        "mandatory_sections_total": 10,
+        "blockers": [
+          "Angle research plan blocked: Angle requires 2 verified comparator entities; resolved 0.",
+          "Angle research plan blocked: Comparator confirmation required; review comparator_candidate_report.md and confirm exactly two verified entities.",
+          "Entity Ai meeting software has 0 accepted claim(s); requires 5.",
+          "Entity Ai meeting software coverage 0.00 is below 0.60."
+        ],
+        "warnings": [],
+        "validation_errors": [],
+        "artifact_dir": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-meeting-software-alternatives",
+        "research_level": "RESEARCH_MINIMUM",
+        "draft_exportable": true,
+        "critical_safety_violations": [],
+        "research_tasks": [
+          {
+            "task_id": "research-comparators",
+            "task_type": "MISSING_COMPARATOR",
+            "section": "comparison",
+            "status": "HELD_WAITING_COMPARATORS",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Comparison requires 2 verified comparators; 0 currently verified.",
+            "recommended_source_families": [
+              "official_docs",
+              "product_page",
+              "integration_page"
+            ],
+            "recommended_wording": "Omit rankings and direct comparisons until comparator evidence is verified."
+          },
+          {
+            "task_id": "research-001",
+            "task_type": "EVIDENCE_GAP",
+            "section": "limitations",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for limitations.",
+            "recommended_source_families": [
+              "faq",
+              "support",
+              "github"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-002",
+            "task_type": "EVIDENCE_GAP",
+            "section": "cons",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for cons.",
+            "recommended_source_families": [
+              "faq",
+              "support",
+              "github"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-003",
+            "task_type": "EVIDENCE_GAP",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Entity Ai meeting software has 0 accepted claim(s); requires 5.",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-004",
+            "task_type": "WEAK_SECTION",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Entity Ai meeting software coverage 0.00 is below 0.60.",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          }
+        ],
+        "known_uncertainties": [
+          "Comparison requires 2 verified comparators; 0 currently verified.",
+          "Evidence is incomplete for limitations.",
+          "Evidence is incomplete for cons.",
+          "Entity Ai meeting software has 0 accepted claim(s); requires 5.",
+          "Entity Ai meeting software coverage 0.00 is below 0.60."
+        ],
+        "weak_sections": [
+          "limitations",
+          "alternatives",
+          "cons"
+        ],
+        "comparison_status": "HELD_WAITING_COMPARATORS",
+        "estimated_publish_readiness": 0.8765,
+        "revision_count": 0
+      },
+      "research_artifacts": {
+        "task_id": "website-advanced-2026-08-04-how-to-implement-ai-meeting-software-alternatives",
+        "slug": "how-to-implement-ai-meeting-software-alternatives",
+        "batch_date": "2026-08-04",
+        "canonical_dir": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-meeting-software-alternatives",
+        "package_file": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-meeting-software-alternatives\\package.json",
+        "enrichment_report_file": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-meeting-software-alternatives\\enrichment_report.json",
+        "source_excerpts_file": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-meeting-software-alternatives\\SOURCE_EXCERPTS.json",
+        "fact_ledger_file": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-meeting-software-alternatives\\FACT_LEDGER.json",
+        "article_blueprint_file": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-meeting-software-alternatives\\ARTICLE_BLUEPRINT.json",
+        "evidence_coverage_file": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-meeting-software-alternatives\\evidence_coverage.json",
+        "angle_research_plan_file": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-meeting-software-alternatives\\ANGLE_RESEARCH_PLAN.json",
+        "claim_extraction_diagnostics_file": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-meeting-software-alternatives\\claim_extraction_diagnostics.json",
+        "duplicate_dirs": [],
+        "slug_aliases": [],
+        "missing_files": [],
+        "legacy_reasons": [],
+        "paragraph_count": 326,
+        "claim_count": 33,
+        "coverage_score": 0.81,
+        "angle_profile": "comparison_and_alternatives",
+        "required_entity_count": 3,
+        "resolved_entity_count": 1,
+        "entity_coverage_score": 0.0,
+        "candidate_claim_count": 609,
+        "rejected_claim_count": 576,
+        "mandatory_sections_covered": 10,
+        "mandatory_sections_total": 10,
+        "status": "RESEARCH_MINIMUM",
+        "article_ready": false,
+        "research_level": "RESEARCH_MINIMUM",
+        "draft_exportable": true,
+        "critical_safety_violations": [],
+        "outstanding_research_tasks": 5,
+        "weak_sections": [
+          "limitations",
+          "alternatives",
+          "cons"
+        ],
+        "comparison_status": "HELD_WAITING_COMPARATORS",
+        "estimated_publish_readiness": 0.8765,
+        "revision_count": 0,
+        "is_legacy": false
+      },
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "research_level": "RESEARCH_MINIMUM",
+      "comparison_status": "HELD_WAITING_COMPARATORS",
+      "outstanding_research_tasks": 5,
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\how-to-implement-ai-meeting-software-alternatives\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\how-to-implement-ai-meeting-software-alternatives\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "writer_type": "external_ai",
+        "writer_name": "ChatGPT",
+        "writer_version": "web",
+        "generated_at": "2026-08-04T01:16:41.449636+00:00",
+        "package_id": "047c463291634c0f",
+        "task_id": "website_advanced-2026-08-04-5171a3c715eff690",
+        "revision": 1
+      }
+    },
+    {
+      "root_topic_id": "ai-productivity-tools-pricing",
+      "root_title": "Ai productivity tools pricing",
+      "title": "Ai productivity tools pricing",
+      "keyword": "how to implement ai productivity tools pricing",
+      "primary_keyword": "ai productivity tools pricing",
+      "slug": "how-to-implement-ai-productivity-tools-pricing",
+      "parent_slug": "ai-productivity-tools-pricing",
+      "search_intent": "commercial investigation",
+      "primary_search_intent": "commercial investigation",
+      "selection_score": 89.75,
+      "total_score": 70.3,
+      "reason_selected": [
+        "No matching local page found.",
+        "Supports a multi-angle topical-authority series."
+      ],
+      "content_lane": "FOUNDATION_ADVANCED",
+      "selected": true,
+      "selected_status": "selected",
+      "series_status": "active",
+      "rank": 2,
+      "content_plan": [
+        {
+          "angle": "pillar",
+          "article_type": "foundation",
+          "title": "Ai productivity tools pricing: Complete Review and Buyer Guide"
+        },
+        {
+          "angle": "comparison",
+          "article_type": "comparison",
+          "title": "Ai productivity tools pricing: Comparison and Alternatives"
+        },
+        {
+          "angle": "use_cases",
+          "article_type": "use_case",
+          "title": "Ai productivity tools pricing: Workflows and Use Cases"
+        },
+        {
+          "angle": "pricing",
+          "article_type": "pricing",
+          "title": "Ai productivity tools pricing: Pricing, Cost, and ROI"
+        },
+        {
+          "angle": "pros_cons",
+          "article_type": "review",
+          "title": "Ai productivity tools pricing: Pros, Cons, and Limitations"
+        },
+        {
+          "angle": "tutorial",
+          "article_type": "tutorial",
+          "title": "How to Implement Ai productivity tools pricing"
+        },
+        {
+          "angle": "security_privacy",
+          "article_type": "security",
+          "title": "Ai productivity tools pricing: Security and Privacy"
+        },
+        {
+          "angle": "case_study",
+          "article_type": "implementation_guide",
+          "title": "Ai productivity tools pricing: Implementation Guide and Case Study"
+        }
+      ],
+      "series_plan": [
+        {
+          "root_topic_id": "ai-productivity-tools-pricing",
+          "root_title": "Ai productivity tools pricing",
+          "content_lane": "FOUNDATION_MAIN",
+          "article_id": "ai-productivity-tools-pricing-main_review",
+          "sequence_number": 1,
+          "scheduled_date": "2026-08-03",
+          "planned_publishing_day": "2026-08-03",
+          "daily_angle": "main_review",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate Ai productivity tools pricing for category overview?",
+          "unique_thesis": "Ai productivity tools pricing should be judged through category overview, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Ai productivity tools pricing for category overview.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Category Overview context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare category overview options without repeating the Monday table.",
+          "faq_set": [
+            "main_review_faq_1",
+            "main_review_faq_2",
+            "main_review_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "implementation_guide",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "implementation_guide",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "ai-productivity-tools-pricing",
+          "root_title": "Ai productivity tools pricing",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "ai-productivity-tools-pricing-implementation_guide",
+          "sequence_number": 2,
+          "scheduled_date": "2026-08-04",
+          "planned_publishing_day": "2026-08-04",
+          "daily_angle": "implementation_guide",
+          "primary_search_intent": "implementation guide",
+          "search_intent": "implementation guide",
+          "reader_question": "How should a small business evaluate Ai productivity tools pricing for implementation workflow?",
+          "unique_thesis": "Ai productivity tools pricing should be judged through implementation workflow, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Ai productivity tools pricing for implementation workflow.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Implementation Workflow context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare implementation workflow options without repeating the Monday table.",
+          "faq_set": [
+            "implementation_guide_faq_1",
+            "implementation_guide_faq_2",
+            "implementation_guide_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "main_review",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "comparison",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "comparison",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "ai-productivity-tools-pricing",
+          "root_title": "Ai productivity tools pricing",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "ai-productivity-tools-pricing-comparison",
+          "sequence_number": 3,
+          "scheduled_date": "2026-08-05",
+          "planned_publishing_day": "2026-08-05",
+          "daily_angle": "comparison",
+          "primary_search_intent": "comparison",
+          "search_intent": "comparison",
+          "reader_question": "How should a small business evaluate Ai productivity tools pricing for comparison and alternatives?",
+          "unique_thesis": "Ai productivity tools pricing should be judged through comparison and alternatives, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Ai productivity tools pricing for comparison and alternatives.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Comparison And Alternatives context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare comparison and alternatives options without repeating the Monday table.",
+          "faq_set": [
+            "comparison_faq_1",
+            "comparison_faq_2",
+            "comparison_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "implementation_guide",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "pricing",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "pricing",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "ai-productivity-tools-pricing",
+          "root_title": "Ai productivity tools pricing",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "ai-productivity-tools-pricing-pricing",
+          "sequence_number": 4,
+          "scheduled_date": "2026-08-06",
+          "planned_publishing_day": "2026-08-06",
+          "daily_angle": "pricing",
+          "primary_search_intent": "commercial investigation",
+          "search_intent": "commercial investigation",
+          "reader_question": "How should a small business evaluate Ai productivity tools pricing for pricing, cost, and ROI?",
+          "unique_thesis": "Ai productivity tools pricing should be judged through pricing, cost, and ROI, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Ai productivity tools pricing for pricing, cost, and ROI.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Pricing, Cost, And Roi context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare pricing, cost, and ROI options without repeating the Monday table.",
+          "faq_set": [
+            "pricing_faq_1",
+            "pricing_faq_2",
+            "pricing_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "comparison",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "use_cases",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "use_cases",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "ai-productivity-tools-pricing",
+          "root_title": "Ai productivity tools pricing",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "ai-productivity-tools-pricing-use_cases",
+          "sequence_number": 5,
+          "scheduled_date": "2026-08-07",
+          "planned_publishing_day": "2026-08-07",
+          "daily_angle": "use_cases",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate Ai productivity tools pricing for workflows and use cases?",
+          "unique_thesis": "Ai productivity tools pricing should be judged through workflows and use cases, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Ai productivity tools pricing for workflows and use cases.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Workflows And Use Cases context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare workflows and use cases options without repeating the Monday table.",
+          "faq_set": [
+            "use_cases_faq_1",
+            "use_cases_faq_2",
+            "use_cases_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "pricing",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "troubleshooting",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "troubleshooting",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "ai-productivity-tools-pricing",
+          "root_title": "Ai productivity tools pricing",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "ai-productivity-tools-pricing-troubleshooting",
+          "sequence_number": 6,
+          "scheduled_date": "2026-08-08",
+          "planned_publishing_day": "2026-08-08",
+          "daily_angle": "troubleshooting",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate Ai productivity tools pricing for mistakes and troubleshooting?",
+          "unique_thesis": "Ai productivity tools pricing should be judged through mistakes and troubleshooting, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Ai productivity tools pricing for mistakes and troubleshooting.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Mistakes And Troubleshooting context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare mistakes and troubleshooting options without repeating the Monday table.",
+          "faq_set": [
+            "troubleshooting_faq_1",
+            "troubleshooting_faq_2",
+            "troubleshooting_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "use_cases",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "buying_decision",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "buying_decision",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "ai-productivity-tools-pricing",
+          "root_title": "Ai productivity tools pricing",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "ai-productivity-tools-pricing-buying_decision",
+          "sequence_number": 7,
+          "scheduled_date": "2026-08-09",
+          "planned_publishing_day": "2026-08-09",
+          "daily_angle": "buying_decision",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate Ai productivity tools pricing for small-business buying decision?",
+          "unique_thesis": "Ai productivity tools pricing should be judged through small-business buying decision, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use Ai productivity tools pricing for small-business buying decision.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Small-Business Buying Decision context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare small-business buying decision options without repeating the Monday table.",
+          "faq_set": [
+            "buying_decision_faq_1",
+            "buying_decision_faq_2",
+            "buying_decision_faq_3"
+          ],
+          "cta_intent": "close the same-root editorial series",
+          "previous_article": "troubleshooting",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "",
+            "bridge_state": "SERIES_COMPLETE"
+          },
+          "next_article": "",
+          "bridge_state": "SERIES_COMPLETE",
+          "series_status": "planned",
+          "article_state": "planned"
+        }
+      ],
+      "normalized_root_topic": "ai-productivity-tools-pricing",
+      "topic_category": "EVERGREEN",
+      "primary_entity": "Ai productivity tools pricing",
+      "freshness_score": 0.0,
+      "official_source_confidence": "unknown",
+      "likely_search_demand": 0.0,
+      "commercial_relevance": 0.0,
+      "depth_potential": 89.75,
+      "source_references": [],
+      "maximum_useful_article_angles": 7,
+      "category": "AI Tools",
+      "trend_score": 0.0,
+      "business_value": 0.0,
+      "sources": [],
+      "entities": [],
+      "week_start": "2026-08-03",
+      "status": "drafted",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "ai productivity tools pricing",
+      "daily_angles": {
+        "2026-08-03": {
+          "angle": "main_review",
+          "title": "ai productivity tools pricing",
+          "slug": "ai-productivity-tools-pricing",
+          "search_intent": "commercial investigation",
+          "status": "queue_created"
+        }
+      },
+      "content_type": "implementation_guide",
+      "search_intent_score": 88.0,
+      "daily_angle": "implementation_guide",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "ai productivity tools pricing",
+          "slug": "ai-productivity-tools-pricing",
+          "search_intent": "commercial investigation",
+          "status": "queue_created",
+          "date": "2026-08-03"
+        }
+      ],
+      "suggested_article_angle": "implementation_guide follow-up for ai productivity tools pricing",
+      "batch_date": "2026-08-04",
+      "editorial_week_id": "",
+      "parent_monday_article": {
+        "root_topic_id": "ai-productivity-tools-pricing",
+        "slug": "ai-productivity-tools-pricing",
+        "title": "ai productivity tools pricing",
+        "scheduled_date": "2026-08-03"
+      },
+      "mode": "advanced",
+      "sequence_number": 2,
+      "reader_question": "How should a small business evaluate Ai productivity tools pricing for implementation workflow?",
+      "unique_thesis": "Ai productivity tools pricing should be judged through implementation workflow, not a repeated feature checklist.",
+      "required_evidence": [
+        "prepared sources",
+        "official source where available",
+        "same-root article history"
+      ],
+      "prohibited_overlap": [
+        "same search intent as an earlier article",
+        "same FAQ set as an earlier article",
+        "same table purpose as an earlier article",
+        "same conclusion/CTA purpose as an earlier article"
+      ],
+      "next_article_bridge": {
+        "root_topic_id": "ai-productivity-tools-pricing",
+        "state": "NEXT_SCHEDULED_NOT_LIVE",
+        "daily_angle": "comparison",
+        "instructions": "End with a natural bridge to the next scheduled same-root angle, comparison. Do not link or claim it is published."
+      },
+      "affiliate_monetization_score": 70.0,
+      "competition_difficulty_score": 45.0,
+      "product_availability_score": 65.0,
+      "content_freshness_score": 70.0,
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://www.notion.com",
+          "https://gamma.app"
+        ],
+        "unique_source_domains": [
+          "notion.com",
+          "gamma.app"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-productivity-tools-pricing",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 60.79,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 7,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\how-to-implement-ai-productivity-tools-pricing",
+      "review_preview": "",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "needs_human_review",
+      "article_readiness": {
+        "task_id": "website-advanced-2026-08-04-how-to-implement-ai-productivity-tools-pricing",
+        "slug": "how-to-implement-ai-productivity-tools-pricing",
+        "status": "RESEARCH_STRONG",
+        "article_ready": false,
+        "sources_attempted": 12,
+        "sources_retrieved": 10,
+        "sources_blocked": 2,
+        "usable_paragraphs": 65,
+        "candidate_claims": 117,
+        "publishable_claims": 50,
+        "rejected_claims": 67,
+        "mandatory_sections_covered": 10,
+        "mandatory_sections_total": 10,
+        "blockers": [
+          "Entity Ai productivity tools has 0 accepted claim(s); requires 8.",
+          "Entity Ai productivity tools coverage 0.00 is below 0.65."
+        ],
+        "warnings": [],
+        "validation_errors": [],
+        "artifact_dir": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-productivity-tools-pricing",
+        "research_level": "RESEARCH_STRONG",
+        "draft_exportable": true,
+        "critical_safety_violations": [],
+        "research_tasks": [
+          {
+            "task_id": "research-001",
+            "task_type": "EVIDENCE_GAP",
+            "section": "feature-scope",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for feature-scope.",
+            "recommended_source_families": [
+              "changelog"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-002",
+            "task_type": "MISSING_COMPARATOR",
+            "section": "alternatives",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for alternatives.",
+            "recommended_source_families": [
+              "community"
+            ],
+            "recommended_wording": "Omit direct rankings and state that alternatives require verification."
+          },
+          {
+            "task_id": "research-003",
+            "task_type": "EVIDENCE_GAP",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Entity Ai productivity tools has 0 accepted claim(s); requires 8.",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-004",
+            "task_type": "WEAK_SECTION",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Entity Ai productivity tools coverage 0.00 is below 0.65.",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          }
+        ],
+        "known_uncertainties": [
+          "Evidence is incomplete for feature-scope.",
+          "Evidence is incomplete for alternatives.",
+          "Entity Ai productivity tools has 0 accepted claim(s); requires 8.",
+          "Entity Ai productivity tools coverage 0.00 is below 0.65."
+        ],
+        "weak_sections": [
+          "feature-scope",
+          "alternatives"
+        ],
+        "comparison_status": "NOT_APPLICABLE",
+        "estimated_publish_readiness": 0.9253,
+        "revision_count": 0
+      },
+      "research_artifacts": {
+        "task_id": "website-advanced-2026-08-04-how-to-implement-ai-productivity-tools-pricing",
+        "slug": "how-to-implement-ai-productivity-tools-pricing",
+        "batch_date": "2026-08-04",
+        "canonical_dir": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-productivity-tools-pricing",
+        "package_file": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-productivity-tools-pricing\\package.json",
+        "enrichment_report_file": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-productivity-tools-pricing\\enrichment_report.json",
+        "source_excerpts_file": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-productivity-tools-pricing\\SOURCE_EXCERPTS.json",
+        "fact_ledger_file": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-productivity-tools-pricing\\FACT_LEDGER.json",
+        "article_blueprint_file": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-productivity-tools-pricing\\ARTICLE_BLUEPRINT.json",
+        "evidence_coverage_file": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-productivity-tools-pricing\\evidence_coverage.json",
+        "angle_research_plan_file": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-productivity-tools-pricing\\ANGLE_RESEARCH_PLAN.json",
+        "claim_extraction_diagnostics_file": "D:\\AFFILATE BOT\\data\\research\\how-to-implement-ai-productivity-tools-pricing\\claim_extraction_diagnostics.json",
+        "duplicate_dirs": [],
+        "slug_aliases": [],
+        "missing_files": [],
+        "legacy_reasons": [],
+        "paragraph_count": 65,
+        "claim_count": 50,
+        "coverage_score": 0.885,
+        "angle_profile": "pricing_and_value",
+        "required_entity_count": 1,
+        "resolved_entity_count": 1,
+        "entity_coverage_score": 0.0,
+        "candidate_claim_count": 117,
+        "rejected_claim_count": 67,
+        "mandatory_sections_covered": 10,
+        "mandatory_sections_total": 10,
+        "status": "RESEARCH_STRONG",
+        "article_ready": false,
+        "research_level": "RESEARCH_STRONG",
+        "draft_exportable": true,
+        "critical_safety_violations": [],
+        "outstanding_research_tasks": 4,
+        "weak_sections": [
+          "feature-scope",
+          "alternatives"
+        ],
+        "comparison_status": "NOT_APPLICABLE",
+        "estimated_publish_readiness": 0.9253,
+        "revision_count": 0,
+        "is_legacy": false
+      },
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "research_level": "RESEARCH_STRONG",
+      "comparison_status": "NOT_APPLICABLE",
+      "outstanding_research_tasks": 4,
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\how-to-implement-ai-productivity-tools-pricing\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\how-to-implement-ai-productivity-tools-pricing\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "writer_type": "external_ai",
+        "writer_name": "ChatGPT",
+        "writer_version": "web",
+        "generated_at": "2026-08-04T01:16:41.449636+00:00",
+        "package_id": "047c463291634c0f",
+        "task_id": "website_advanced-2026-08-04-b9f595b3822d536e",
+        "revision": 1
+      }
+    }
+  ],
+  "dashboard_file": "D:\\AFFILATE BOT\\site_output\\review\\2026-08-04\\index.html",
+  "operator_console": "D:\\AFFILATE BOT\\data\\editorial_operations_console.html",
+  "publish_launcher": "",
+  "upload_dir": "D:\\AFFILATE BOT\\upload\\2026-08-04"
+}

@@ -1408,5 +1408,25 @@
     "approved_at": "2026-08-03T01:32:33.369297+00:00",
     "approved_by": "editor",
     "reason": ""
+  },
+  {
+    "slug": "how-to-implement-ai-meeting-software-alternatives",
+    "topic": "how to implement ai meeting software alternatives",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-08-04T01:19:19.542305+00:00",
+    "approved_at": "2026-08-04T01:20:16.428721+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "how-to-implement-ai-productivity-tools-pricing",
+    "topic": "how to implement ai productivity tools pricing",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-08-04T01:19:39.008800+00:00",
+    "approved_at": "2026-08-04T01:20:39.306878+00:00",
+    "approved_by": "editor",
+    "reason": ""
   }
 ]

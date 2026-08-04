@@ -1,0 +1,22 @@
+{
+  "writer": {
+    "writer_type": "external_ai",
+    "writer_name": "ChatGPT",
+    "writer_version": "web",
+    "generated_at": "2026-08-04T01:16:41.449636+00:00",
+    "package_id": "047c463291634c0f",
+    "task_id": "website_advanced-2026-08-04-5171a3c715eff690",
+    "revision": 1
+  },
+  "source_urls": [
+    "https://reclaim.ai/affiliate-program",
+    "https://help.reclaim.ai/",
+    "https://reclaim.ai/pricing",
+    "https://reclaim.ai/",
+    "https://updates.reclaim.ai/",
+    "https://reclaim.ai"
+  ],
+  "human_approval_required": true,
+  "approved": false,
+  "published": false
+}
