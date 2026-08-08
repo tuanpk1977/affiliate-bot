@@ -1,0 +1,22 @@
+{
+  "writer": {
+    "writer_type": "external_ai",
+    "writer_name": "Codex",
+    "writer_version": "GPT-5",
+    "generated_at": "2026-08-08T04:52:54.076968+00:00",
+    "package_id": "e4359e757a6558d1",
+    "task_id": "website_advanced-2026-08-08-1115dcf1326f3d19",
+    "revision": 1
+  },
+  "source_urls": [
+    "https://reclaim.ai/affiliate-program",
+    "https://help.reclaim.ai/",
+    "https://reclaim.ai/pricing",
+    "https://reclaim.ai/",
+    "https://updates.reclaim.ai/",
+    "https://reclaim.ai"
+  ],
+  "human_approval_required": true,
+  "approved": false,
+  "published": false
+}

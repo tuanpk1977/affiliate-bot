@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "website_advanced-2026-08-08-1115dcf1326f3d19",
+  "slug": "common-ai-meeting-software-alternatives-mistakes-and-troubleshooting",
+  "revision": 1,
+  "status": "REVISION_REQUIRED",
+  "tasks": [
+    {
+      "revision_task_id": "website_advanced-2026-08-08-1115dcf1326f3d19-r1-001",
+      "task_id": "website_advanced-2026-08-08-1115dcf1326f3d19",
+      "slug": "common-ai-meeting-software-alternatives-mistakes-and-troubleshooting",
+      "revision": 1,
+      "task_type": "EVIDENCE_GAP",
+      "section": "general",
+      "status": "PENDING",
+      "reason": "The external writer validation report requires editorial revision.",
+      "research_enrichment_required": false
+    }
+  ]
+}

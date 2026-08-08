@@ -1428,5 +1428,25 @@
     "approved_at": "2026-08-04T01:20:39.306878+00:00",
     "approved_by": "editor",
     "reason": ""
+  },
+  {
+    "slug": "common-ai-meeting-software-alternatives-mistakes-and-troubleshooting",
+    "topic": "Ai meeting software alternatives mistakes and troubleshooting",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-08-08T04:53:57.602331+00:00",
+    "approved_at": "2026-08-08T04:55:09.867299+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "common-ai-productivity-tools-pricing-mistakes-and-troubleshooting",
+    "topic": "Ai productivity tools pricing mistakes and troubleshooting",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-08-08T04:54:17.350365+00:00",
+    "approved_at": "2026-08-08T04:55:24.359102+00:00",
+    "approved_by": "editor",
+    "reason": ""
   }
 ]

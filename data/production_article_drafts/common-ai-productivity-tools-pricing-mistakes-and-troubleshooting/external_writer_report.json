@@ -1,0 +1,23 @@
+{
+  "writer": {
+    "writer_type": "external_ai",
+    "writer_name": "Codex",
+    "writer_version": "GPT-5",
+    "generated_at": "2026-08-08T04:52:54.076968+00:00",
+    "package_id": "e4359e757a6558d1",
+    "task_id": "website_advanced-2026-08-08-5355d176027ad6fd",
+    "revision": 1
+  },
+  "source_urls": [
+    "https://www.notion.com/partners",
+    "https://www.notion.com/help",
+    "https://www.notion.com/pricing",
+    "https://www.notion.com/",
+    "https://www.notion.com/releases",
+    "https://www.notion.com",
+    "https://gamma.app"
+  ],
+  "human_approval_required": true,
+  "approved": false,
+  "published": false
+}
