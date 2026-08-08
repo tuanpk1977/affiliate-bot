@@ -1448,5 +1448,25 @@
     "approved_at": "2026-08-08T04:55:24.359102+00:00",
     "approved_by": "editor",
     "reason": ""
+  },
+  {
+    "slug": "is-ai-meeting-software-alternatives-worth-it-for-small-business",
+    "topic": "is ai meeting software alternatives worth it for small business",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-08-08T22:47:34.468087+00:00",
+    "approved_at": "2026-08-08T22:49:30.141983+00:00",
+    "approved_by": "editor",
+    "reason": ""
+  },
+  {
+    "slug": "is-ai-productivity-tools-pricing-worth-it-for-small-business",
+    "topic": "is ai productivity tools pricing worth it for small business",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-08-08T22:47:54.775533+00:00",
+    "approved_at": "2026-08-08T22:49:45.215370+00:00",
+    "approved_by": "editor",
+    "reason": ""
   }
 ]

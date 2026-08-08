@@ -1,4 +1,4 @@
-# Live Status Report 2026-08-04
+# Live Status Report 2026-08-08
 
 - Total items: 2
 ## Deployment summary
@@ -25,5 +25,5 @@
 
 | Slug | Editorial | Publish gate | Deployment | Local | Docs | Git | Block reason | How to fix | URL |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| how-to-implement-ai-meeting-software-alternatives | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/how-to-implement-ai-meeting-software-alternatives/ |
-| how-to-implement-ai-productivity-tools-pricing | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/how-to-implement-ai-productivity-tools-pricing/ |
+| common-ai-meeting-software-alternatives-mistakes-and-troubleshooting | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/common-ai-meeting-software-alternatives-mistakes-and-troubleshooting/ |
+| common-ai-productivity-tools-pricing-mistakes-and-troubleshooting | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/common-ai-productivity-tools-pricing-mistakes-and-troubleshooting/ |

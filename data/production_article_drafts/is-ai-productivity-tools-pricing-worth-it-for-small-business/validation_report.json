@@ -1,0 +1,57 @@
+{
+  "generation_attempt": 1,
+  "predicted_ai_score": 91,
+  "word_count": 2819,
+  "duplicate_risk": 0,
+  "coverage": "ARTICLE_SPEC_PASS",
+  "missing_sections": [],
+  "expected_menu_w_result": "VALIDATION_PASS",
+  "research_utilization": {
+    "artifacts": [
+      "FACT_LEDGER.json",
+      "SOURCE_EXCERPTS.json",
+      "sources.json",
+      "outline.json",
+      "writing_plan.json",
+      "faq.json",
+      "competitor_analysis.json",
+      "entities.json",
+      "research_inventory.json"
+    ],
+    "used_claim_ids": [
+      "claim-001",
+      "claim-002",
+      "claim-003",
+      "claim-004",
+      "claim-005",
+      "claim-006",
+      "claim-007",
+      "claim-008",
+      "claim-009",
+      "claim-010",
+      "claim-011",
+      "claim-012",
+      "claim-013",
+      "claim-014",
+      "claim-015",
+      "claim-016",
+      "claim-017",
+      "claim-018",
+      "claim-019",
+      "claim-020"
+    ],
+    "citation_urls": [
+      "https://www.notion.com/partners",
+      "https://www.notion.com/pricing",
+      "https://www.notion.com/help",
+      "https://www.notion.com/",
+      "https://www.notion.com/releases",
+      "https://www.notion.com"
+    ],
+    "entities": [
+      "Notion",
+      "Gamma",
+      "Notion AI"
+    ]
+  }
+}

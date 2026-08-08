@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-04T01:25:07.473633+00:00",
-  "date": "2026-08-04",
+  "generated_at": "2026-08-08T04:59:58.644274+00:00",
+  "date": "2026-08-08",
   "summary": {
-    "date": "2026-08-04",
+    "date": "2026-08-08",
     "include_all": false,
     "blocked_only": false,
     "total_items": 2,
@@ -31,8 +31,8 @@
   },
   "items": [
     {
-      "slug": "how-to-implement-ai-meeting-software-alternatives",
-      "title": "Implement AI Meeting Software Alternatives Without Repeating Manual Scheduling Problems",
+      "slug": "common-ai-meeting-software-alternatives-mistakes-and-troubleshooting",
+      "title": "Reclaim AI Troubleshooting: Fix Calendar Automation Mistakes",
       "editorial_status": "Published",
       "publish_gate_status": "Published",
       "publish_queue_status": "live",
@@ -43,7 +43,7 @@
       "docs_synced": true,
       "git_status": "pushed",
       "git_reason": "file commit is contained in origin/main",
-      "url": "https://smileaireviewhub.com/how-to-implement-ai-meeting-software-alternatives/",
+      "url": "https://smileaireviewhub.com/common-ai-meeting-software-alternatives-mistakes-and-troubleshooting/",
       "live_status": "live",
       "display_status": "Live 200",
       "live_http_status": 200,
@@ -51,13 +51,13 @@
       "block_reason": "No blocking issue detected",
       "resolution": "Article appears ready or already published.",
       "next_action_command": "",
-      "site_output_file": "D:\\AFFILATE BOT\\site_output\\how-to-implement-ai-meeting-software-alternatives\\index.html",
-      "docs_file": "D:\\AFFILATE BOT\\docs\\how-to-implement-ai-meeting-software-alternatives\\index.html",
-      "published_static_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\how-to-implement-ai-meeting-software-alternatives\\index.html"
+      "site_output_file": "D:\\AFFILATE BOT\\site_output\\common-ai-meeting-software-alternatives-mistakes-and-troubleshooting\\index.html",
+      "docs_file": "D:\\AFFILATE BOT\\docs\\common-ai-meeting-software-alternatives-mistakes-and-troubleshooting\\index.html",
+      "published_static_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\common-ai-meeting-software-alternatives-mistakes-and-troubleshooting\\index.html"
     },
     {
-      "slug": "how-to-implement-ai-productivity-tools-pricing",
-      "title": "Implement AI Productivity Tools Pricing Checks Before Your Team Adds Another Subscription",
+      "slug": "common-ai-productivity-tools-pricing-mistakes-and-troubleshooting",
+      "title": "Notion AI Pricing Troubleshooting: Avoid Cost Surprises",
       "editorial_status": "Published",
       "publish_gate_status": "Published",
       "publish_queue_status": "live",
@@ -68,7 +68,7 @@
       "docs_synced": true,
       "git_status": "pushed",
       "git_reason": "file commit is contained in origin/main",
-      "url": "https://smileaireviewhub.com/how-to-implement-ai-productivity-tools-pricing/",
+      "url": "https://smileaireviewhub.com/common-ai-productivity-tools-pricing-mistakes-and-troubleshooting/",
       "live_status": "live",
       "display_status": "Live 200",
       "live_http_status": 200,
@@ -76,9 +76,9 @@
       "block_reason": "No blocking issue detected",
       "resolution": "Article appears ready or already published.",
       "next_action_command": "",
-      "site_output_file": "D:\\AFFILATE BOT\\site_output\\how-to-implement-ai-productivity-tools-pricing\\index.html",
-      "docs_file": "D:\\AFFILATE BOT\\docs\\how-to-implement-ai-productivity-tools-pricing\\index.html",
-      "published_static_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\how-to-implement-ai-productivity-tools-pricing\\index.html"
+      "site_output_file": "D:\\AFFILATE BOT\\site_output\\common-ai-productivity-tools-pricing-mistakes-and-troubleshooting\\index.html",
+      "docs_file": "D:\\AFFILATE BOT\\docs\\common-ai-productivity-tools-pricing-mistakes-and-troubleshooting\\index.html",
+      "published_static_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\common-ai-productivity-tools-pricing-mistakes-and-troubleshooting\\index.html"
     }
   ],
   "repo_sync": {
