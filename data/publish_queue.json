@@ -8332,7 +8332,7 @@
   {
     "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
     "topic": "ai in healthcare marketing: moving from automation to intelligent engagement: pricing, cost, and roi",
-    "status": "published_local",
+    "status": "live",
     "checked_at": "2026-08-24T13:26:02.036357+00:00",
     "failures": [],
     "hard_blockers": [],
@@ -8654,12 +8654,26 @@
     ],
     "historical_published_at": "2026-08-24T13:10:41.708130+00:00",
     "historical_url": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/",
-    "published_at": "2026-08-24T13:35:21.847534+00:00"
+    "published_at": "2026-08-24T13:35:21.847534+00:00",
+    "publish_queue_status": "live",
+    "deployment_state": "live",
+    "updated_at": "2026-08-24T13:35:42.570444+00:00",
+    "committed_local": true,
+    "pushed": true,
+    "pushed_at": "2026-08-24T13:35:42.570444+00:00",
+    "git_push_status": "pushed",
+    "git_push_reason": "",
+    "git_push_retry_count": 0,
+    "force_push_used": false,
+    "live": true,
+    "live_at": "2026-08-24T13:35:42.570444+00:00",
+    "post_push_live_status": "live_ok",
+    "post_push_live_message": "Website live OK: 1/1 URLs returned 200/3xx after push."
   },
   {
     "slug": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
     "topic": "copilot-sdk review 2026: security and privacy",
-    "status": "approved_for_publish",
+    "status": "published_local",
     "checked_at": "2026-08-24T13:26:18.067983+00:00",
     "failures": [],
     "hard_blockers": [],
@@ -8949,9 +8963,15 @@
         "status": "published_local",
         "published_at": "2026-08-24T13:10:41.792723+00:00",
         "url": "https://smileaireviewhub.com/best-copilot-sdk-review-2026-workflows-and-use-cases-security/"
+      },
+      {
+        "status": "published_local",
+        "published_at": "2026-08-24T13:38:51.870037+00:00",
+        "url": "https://smileaireviewhub.com/best-copilot-sdk-review-2026-workflows-and-use-cases-security/"
       }
     ],
     "historical_published_at": "2026-08-24T13:10:41.792723+00:00",
-    "historical_url": "https://smileaireviewhub.com/best-copilot-sdk-review-2026-workflows-and-use-cases-security/"
+    "historical_url": "https://smileaireviewhub.com/best-copilot-sdk-review-2026-workflows-and-use-cases-security/",
+    "published_at": "2026-08-24T13:38:51.870037+00:00"
   }
 ]
