@@ -3,9 +3,9 @@
     "items": 151,
     "blocked": 28,
     "needs_human_review": 4,
-    "ready_for_publish": 2,
-    "approved_for_publish": 2,
-    "published_local": 10,
+    "ready_for_publish": 3,
+    "approved_for_publish": 3,
+    "published_local": 9,
     "publish_failed": 0
   },
   "items": [
@@ -8343,7 +8343,7 @@
       "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
       "topic": "ai in healthcare marketing: moving from automation to intelligent engagement: pricing, cost, and roi",
       "status": "published_local",
-      "checked_at": "2026-08-24T13:07:58.874755+00:00",
+      "checked_at": "2026-08-24T13:26:02.036357+00:00",
       "failures": [],
       "hard_blockers": [],
       "warnings": [
@@ -8372,8 +8372,8 @@
       "ai_review_task_id": "website_foundation-2026-08-24-fb31237f7c234ffc",
       "human_approval_passed": true,
       "approval_binding_status": "MATCHED",
-      "current_content_hash": "852d360a1514e2763b30de5c6bc4dd981d6ad2f2ea355d1ebca528651e9646de",
-      "current_revision_id": "website-revision-v1:852d360a1514e2763b30de5c6bc4dd981d6ad2f2ea355d1ebca528651e9646de",
+      "current_content_hash": "d85507ff73378ce6de4fc04a3a6c26f50eb9e18494e2b3f68dac6af7301a4aee",
+      "current_revision_id": "website-revision-v1:d85507ff73378ce6de4fc04a3a6c26f50eb9e18494e2b3f68dac6af7301a4aee",
       "content_hash_version": "sha256_utf8_exact_v1",
       "current_authorization": "valid",
       "public_marker_violations": [],
@@ -8388,11 +8388,11 @@
       "knowledge_freshness_score": 80.0,
       "seo_geo_validation": {
         "schema_version": "seo_geo_validation_v1",
-        "checked_at": "2026-08-24T13:07:58.911387+00:00",
+        "checked_at": "2026-08-24T13:26:02.095468+00:00",
         "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
         "page_url": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/",
         "article_type": "pricing",
-        "content_sha256": "852d360a1514e2763b30de5c6bc4dd981d6ad2f2ea355d1ebca528651e9646de",
+        "content_sha256": "d85507ff73378ce6de4fc04a3a6c26f50eb9e18494e2b3f68dac6af7301a4aee",
         "semantic_html_status": "PASS",
         "heading_status": "PASS",
         "author_metadata_status": "PASS",
@@ -8498,10 +8498,10 @@
             "status": "PASS",
             "reasons": [],
             "evidence": [
-              "visible_words=2745",
+              "visible_words=2800",
               "main=1",
-              "article=1",
-              "section=13",
+              "article=7",
+              "section=14",
               "nav=2",
               "footer=1",
               "table=1",
@@ -8648,21 +8648,29 @@
       "url": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/",
       "title": "AI Healthcare Marketing ROI: A Buyer’s Cost Framework",
       "description": "A practical framework for evaluating AI healthcare marketing workflow costs, governance, evidence quality, and ROI before adoption.",
-      "published_at": "2026-08-24T13:10:41.708130+00:00",
       "historically_deployed": true,
+      "deployment_status": "approved_for_publish",
       "deployment_history": [
         {
           "status": "published_local",
           "published_at": "2026-08-24T13:10:41.708130+00:00",
           "url": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/"
+        },
+        {
+          "status": "published_local",
+          "published_at": "2026-08-24T13:35:21.847534+00:00",
+          "url": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/"
         }
-      ]
+      ],
+      "historical_published_at": "2026-08-24T13:10:41.708130+00:00",
+      "historical_url": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/",
+      "published_at": "2026-08-24T13:35:21.847534+00:00"
     },
     {
       "slug": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
       "topic": "copilot-sdk review 2026: security and privacy",
-      "status": "published_local",
-      "checked_at": "2026-08-24T13:08:01.109400+00:00",
+      "status": "approved_for_publish",
+      "checked_at": "2026-08-24T13:26:18.067983+00:00",
       "failures": [],
       "hard_blockers": [],
       "warnings": [],
@@ -8689,8 +8697,8 @@
       "ai_review_task_id": "website_foundation-2026-08-24-90f0323bcbd653d1",
       "human_approval_passed": true,
       "approval_binding_status": "MATCHED",
-      "current_content_hash": "b5d1f6e297432819a0f120e894dbb551d82e13f34cbdbb2519edd1e536de348a",
-      "current_revision_id": "website-revision-v1:b5d1f6e297432819a0f120e894dbb551d82e13f34cbdbb2519edd1e536de348a",
+      "current_content_hash": "c61897dbeb29ce391a54641cac6536ad1225e5894b4f6f44934b070f476673da",
+      "current_revision_id": "website-revision-v1:c61897dbeb29ce391a54641cac6536ad1225e5894b4f6f44934b070f476673da",
       "content_hash_version": "sha256_utf8_exact_v1",
       "current_authorization": "valid",
       "public_marker_violations": [],
@@ -8705,11 +8713,11 @@
       "knowledge_freshness_score": 80.0,
       "seo_geo_validation": {
         "schema_version": "seo_geo_validation_v1",
-        "checked_at": "2026-08-24T13:08:01.169058+00:00",
+        "checked_at": "2026-08-24T13:26:18.124249+00:00",
         "slug": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
         "page_url": "https://smileaireviewhub.com/best-copilot-sdk-review-2026-workflows-and-use-cases-security/",
         "article_type": "review",
-        "content_sha256": "b5d1f6e297432819a0f120e894dbb551d82e13f34cbdbb2519edd1e536de348a",
+        "content_sha256": "c61897dbeb29ce391a54641cac6536ad1225e5894b4f6f44934b070f476673da",
         "semantic_html_status": "PASS",
         "heading_status": "PASS",
         "author_metadata_status": "PASS",
@@ -8815,10 +8823,10 @@
             "status": "PASS",
             "reasons": [],
             "evidence": [
-              "visible_words=2539",
+              "visible_words=2594",
               "main=1",
-              "article=1",
-              "section=13",
+              "article=7",
+              "section=14",
               "nav=2",
               "footer=1",
               "table=1",
@@ -8944,15 +8952,17 @@
       "url": "https://smileaireviewhub.com/best-copilot-sdk-review-2026-workflows-and-use-cases-security/",
       "title": "GitHub Copilot SDK Security Review for Enterprise Teams",
       "description": "An evidence-led enterprise review of GitHub Copilot SDK workflows, permissions, authentication, deployment boundaries, and security research gaps.",
-      "published_at": "2026-08-24T13:10:41.792723+00:00",
       "historically_deployed": true,
+      "deployment_status": "approved_for_publish",
       "deployment_history": [
         {
           "status": "published_local",
           "published_at": "2026-08-24T13:10:41.792723+00:00",
           "url": "https://smileaireviewhub.com/best-copilot-sdk-review-2026-workflows-and-use-cases-security/"
         }
-      ]
+      ],
+      "historical_published_at": "2026-08-24T13:10:41.792723+00:00",
+      "historical_url": "https://smileaireviewhub.com/best-copilot-sdk-review-2026-workflows-and-use-cases-security/"
     }
   ]
 }

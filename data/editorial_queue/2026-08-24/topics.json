@@ -896,7 +896,7 @@
       "block_reason": "",
       "validation_errors": [],
       "next_action": "",
-      "published_at": "2026-08-24T13:10:41.674541+00:00"
+      "published_at": "2026-08-24T13:35:21.836651+00:00"
     },
     {
       "root_topic_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
@@ -1373,7 +1373,7 @@
       "batch_date": "2026-08-24",
       "week_start": "2026-08-24",
       "mode": "standard",
-      "status": "published",
+      "status": "approved",
       "content_strategy": {
         "content_type": "Review",
         "audience": "Enterprise operators",

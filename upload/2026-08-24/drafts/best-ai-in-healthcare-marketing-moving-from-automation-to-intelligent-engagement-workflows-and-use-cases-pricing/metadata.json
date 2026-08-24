@@ -1268,13 +1268,13 @@
     "status": "human_approved",
     "required": true,
     "reviewed_at": "2026-08-24T12:24:45.313422+00:00",
-    "approved_at": "2026-08-24T12:32:17.764716+00:00",
-    "approved_by": "editor",
+    "approved_at": "2026-08-24T12:57:52.063147+00:00",
+    "approved_by": "operator",
     "reason": "",
     "canonical_task_id": "",
     "legacy_task_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
-    "revision_id": "website-revision-v1:8a29209f7440b18536335ea9085c21093f18ee0ce40777538710e3d8062d4eaa",
-    "content_hash": "8a29209f7440b18536335ea9085c21093f18ee0ce40777538710e3d8062d4eaa",
+    "revision_id": "website-revision-v1:852d360a1514e2763b30de5c6bc4dd981d6ad2f2ea355d1ebca528651e9646de",
+    "content_hash": "852d360a1514e2763b30de5c6bc4dd981d6ad2f2ea355d1ebca528651e9646de",
     "content_hash_version": "sha256_utf8_exact_v1",
     "approval_scope": "website",
     "approval_binding_status": "MATCHED",
@@ -1323,16 +1323,31 @@
         "superseded_reason": "content revision changed or entered re-review",
         "source_event": "sync_review",
         "source_reference": "2026-08-24T12:24:45.313422+00:00"
+      },
+      {
+        "status": "human_approved",
+        "approved_at": "2026-08-24T12:32:17.764716+00:00",
+        "approved_by": "editor",
+        "canonical_task_id": "",
+        "legacy_task_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+        "revision_id": "website-revision-v1:8a29209f7440b18536335ea9085c21093f18ee0ce40777538710e3d8062d4eaa",
+        "content_hash": "8a29209f7440b18536335ea9085c21093f18ee0ce40777538710e3d8062d4eaa",
+        "approval_scope": "website",
+        "binding_status": "MATCHED",
+        "superseded_at": "2026-08-24T12:57:52.063118+00:00",
+        "superseded_reason": "new explicit human approval for a different revision",
+        "source_event": "explicit_human_approval",
+        "source_reference": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing"
       }
     ],
-    "approved_revision_id": "website-revision-v1:8a29209f7440b18536335ea9085c21093f18ee0ce40777538710e3d8062d4eaa",
-    "approved_content_hash": "8a29209f7440b18536335ea9085c21093f18ee0ce40777538710e3d8062d4eaa"
+    "approved_revision_id": "website-revision-v1:852d360a1514e2763b30de5c6bc4dd981d6ad2f2ea355d1ebca528651e9646de",
+    "approved_content_hash": "852d360a1514e2763b30de5c6bc4dd981d6ad2f2ea355d1ebca528651e9646de"
   },
   "publish_gate": {
     "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
     "topic": "ai in healthcare marketing: moving from automation to intelligent engagement: pricing, cost, and roi",
     "status": "approved_for_publish",
-    "checked_at": "2026-08-24T12:33:27.869089+00:00",
+    "checked_at": "2026-08-24T13:07:58.874755+00:00",
     "failures": [],
     "hard_blockers": [],
     "warnings": [
@@ -1361,8 +1376,8 @@
     "ai_review_task_id": "website_foundation-2026-08-24-fb31237f7c234ffc",
     "human_approval_passed": true,
     "approval_binding_status": "MATCHED",
-    "current_content_hash": "8a29209f7440b18536335ea9085c21093f18ee0ce40777538710e3d8062d4eaa",
-    "current_revision_id": "website-revision-v1:8a29209f7440b18536335ea9085c21093f18ee0ce40777538710e3d8062d4eaa",
+    "current_content_hash": "852d360a1514e2763b30de5c6bc4dd981d6ad2f2ea355d1ebca528651e9646de",
+    "current_revision_id": "website-revision-v1:852d360a1514e2763b30de5c6bc4dd981d6ad2f2ea355d1ebca528651e9646de",
     "content_hash_version": "sha256_utf8_exact_v1",
     "current_authorization": "valid",
     "public_marker_violations": [],
@@ -1377,11 +1392,11 @@
     "knowledge_freshness_score": 80.0,
     "seo_geo_validation": {
       "schema_version": "seo_geo_validation_v1",
-      "checked_at": "2026-08-24T12:33:27.903292+00:00",
+      "checked_at": "2026-08-24T13:07:58.911387+00:00",
       "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
       "page_url": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/",
       "article_type": "pricing",
-      "content_sha256": "8a29209f7440b18536335ea9085c21093f18ee0ce40777538710e3d8062d4eaa",
+      "content_sha256": "852d360a1514e2763b30de5c6bc4dd981d6ad2f2ea355d1ebca528651e9646de",
       "semantic_html_status": "PASS",
       "heading_status": "PASS",
       "author_metadata_status": "PASS",
@@ -1487,15 +1502,15 @@
           "status": "PASS",
           "reasons": [],
           "evidence": [
-            "visible_words=2626",
+            "visible_words=2745",
             "main=1",
-            "article=0",
-            "section=11",
-            "nav=0",
-            "footer=0",
+            "article=1",
+            "section=13",
+            "nav=2",
+            "footer=1",
             "table=1",
-            "ul=1",
-            "ol=0"
+            "ul=5",
+            "ol=1"
           ]
         },
         "heading": {
@@ -1536,29 +1551,29 @@
           "reasons": [],
           "evidence": [
             "Article",
-            "FAQPage"
+            "BreadcrumbList"
           ]
         },
         "author_trust": {
           "status": "PASS",
           "reasons": [],
           "evidence": [
-            "author_signals=0",
-            "date_signals=0"
+            "author_signals=4",
+            "date_signals=1"
           ]
         },
         "indexability": {
           "status": "PASS",
           "reasons": [],
           "evidence": [
-            "index,follow"
+            "index,follow,max-image-preview:large"
           ]
         },
         "internal_links": {
           "status": "PASS",
           "reasons": [],
           "evidence": [
-            "internal_links=1",
+            "internal_links=23",
             "broken_links=0"
           ]
         },
@@ -1569,7 +1584,7 @@
           ],
           "evidence": [
             "supplied_sources=17",
-            "matched_sources=5",
+            "matched_sources=2",
             "concise_answer_blocks=21"
           ]
         },
