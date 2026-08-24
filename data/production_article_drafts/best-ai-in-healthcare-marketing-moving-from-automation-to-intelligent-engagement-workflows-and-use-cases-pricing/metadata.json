@@ -1,0 +1,1657 @@
+{
+  "title": "AI Healthcare Marketing ROI: A Buyer’s Cost Framework",
+  "description": "A practical framework for evaluating AI healthcare marketing workflow costs, governance, evidence quality, and ROI before adoption.",
+  "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+  "canonical_url": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/",
+  "author": "Nguyen Quoc Tuan",
+  "datePublished": "2026-08-24",
+  "dateModified": "2026-08-24",
+  "article_type": "Article",
+  "schema_types": [
+    "Article",
+    "FAQPage"
+  ],
+  "image": {
+    "src": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/assets/hero.png",
+    "alt": "AI Healthcare Marketing ROI: A Buyer’s Cost Framework editorial cover",
+    "width": 1200,
+    "height": 630,
+    "generated_by": "OpenAI built-in image generation"
+  },
+  "og_image": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/assets/hero.png",
+  "twitter_image": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/assets/hero.png",
+  "source_urls": [
+    "https://zapier.com",
+    "https://www.adcreative.ai",
+    "https://www.make.com",
+    "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+    "https://www.forbes.com/advisor/business/software/best-crm-software/"
+  ],
+  "url": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/",
+  "writer": {
+    "writer_type": "external_ai",
+    "writer_name": "ChatGPT",
+    "writer_version": "web",
+    "generated_at": "2026-08-24T09:51:20.115871+00:00",
+    "package_id": "5a6c6537d014aeee",
+    "task_id": "website_foundation-2026-08-24-fb31237f7c234ffc",
+    "revision": 2
+  },
+  "review": {
+    "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+    "topic": "ai in healthcare marketing: moving from automation to intelligent engagement: pricing, cost, and roi",
+    "url": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/",
+    "status": "human_approved",
+    "reviewed_at": "2026-08-24T12:24:45.313422+00:00",
+    "word_count": 3460,
+    "factual_quality": 69.47,
+    "source_quality": 85.0,
+    "seo_title_meta_quality": 80,
+    "affiliate_disclosure_present": true,
+    "internal_link_count": 1,
+    "duplicate_content_risk": 49.61,
+    "readability": 59.97,
+    "business_value": 60.5,
+    "publish_readiness": 69.17,
+    "publishable": true,
+    "requires_human_approval": true,
+    "failures": [],
+    "hard_blockers": [],
+    "warnings": [],
+    "schema_version": 2,
+    "article_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+    "review_state": "PASS",
+    "structured_review": {
+      "schema_version": 2,
+      "status": "pass",
+      "overall_score": 69.17,
+      "hard_blockers": [],
+      "warnings": [],
+      "critical_issues": [],
+      "suggested_fixes": [],
+      "section_reviews": [
+        {
+          "section_id": "article",
+          "status": "pass",
+          "issues": 0
+        }
+      ],
+      "fact_risks": [
+        {
+          "claim_id": "a34cda330261",
+          "claim_text": "com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/\", \"mainEntityOfPage\": {\"@type\": \"WebPage\", \"@id\": \"https://smileaireviewhub.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "423c68a034a0",
+          "claim_text": "com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/\"}, \"author\": {\"@type\": \"Person\", \"name\": \"Nguyen Quoc Tuan\"}, \"datePublished\": \"2026-08-24\", \"dateModified\": \"2026-08-24\", \"image\": \"https://smileaireviewhub.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "9614eb004cc0",
+          "claim_text": "com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/assets/hero.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "f50667fae74b",
+          "claim_text": "It is not one standardized product category with identical features or prices.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "acd3f756de2b",
+          "claim_text": "Only then compare the feature, integration, and usage model needed to run that workflow.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "comparison",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "78300f7ad018",
+          "claim_text": "\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Update it whenever pricing, plan limits, integrations, governance controls, or official policies change.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "dc968e567790",
+          "claim_text": "\"}}, {\"@type\": \"Question\", \"name\": \"How does the category compare with alternatives?",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "comparison",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "d7a6a68ffa19",
+          "claim_text": "\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Compare operating roles rather than labels.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "comparison",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "0f3b4acefb75",
+          "claim_text": "\"}}, {\"@type\": \"Question\", \"name\": \"What should readers verify about Make pricing?",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "a7d8a1053117",
+          "claim_text": "\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The supplied package contains Make learning and community resources but no verified current Make pricing page or amount.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "ac1802728851",
+          "claim_text": "\"}}, {\"@type\": \"Question\", \"name\": \"What if official pricing or feature details conflict?",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "3ee13426f707",
+          "claim_text": "\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Use the current official product or pricing page as the decision reference, record the date, and avoid publishing the disputed detail until it is resolved.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "9cc3bb661147",
+          "claim_text": "If you purchase through one, Smile AI Review Hub may earn a commission at no additional cost to you.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "ed10f02e04b7",
+          "claim_text": "\"}}]} \n \n \n \n  AI Healthcare Marketing ROI: A Buyer’s Cost Framework \n \n AI in healthcare marketing is not one product category with one price tag.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "9076cc5a735d",
+          "claim_text": "Zapier describes itself as an automation platform connecting more than 9,000 applications, with workflows, app connections, and governance controls.",
+          "section_id": "article",
+          "importance": "important",
+          "claim_type": "general",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.76,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "c58771531c77",
+          "claim_text": "Make supplies learning materials, guides, and a user community, but the package does not establish its current prices or a healthcare-specific feature set.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "f5aceb1ae1e3",
+          "claim_text": "Zapier’s public pricing material describes self-serve Free, Professional, and Team plans, plus a sales-assisted Enterprise offering.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "636d46aa974b",
+          "claim_text": "Those resources may reduce learning friction, but they do not establish current integration coverage, support commitments, or pricing.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "1e6c3c654a51",
+          "claim_text": "The package supplies no verified claims about HIPAA eligibility, business associate agreements, encryption, data residency, model training, retention periods, breach procedures, or healthcare consent requirements for the compared tools.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "comparison",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "1852119090e7",
+          "claim_text": "AI healthcare marketing pricing, cost, and ROI \n The verified pricing evidence is strongest for Zapier.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        }
+      ],
+      "seo_review": {
+        "score": 80,
+        "status": "pass"
+      },
+      "readability_review": {
+        "score": 59.97,
+        "status": "pass"
+      },
+      "business_value_review": {
+        "score": 60.5,
+        "status": "pass"
+      },
+      "source_quality_review": {
+        "average_score": 75.84,
+        "sources": [
+          {
+            "url": "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "domain": "finance.yahoo.com",
+            "source_type": "industry_or_company",
+            "authority_score": 72,
+            "freshness_score": 80.0,
+            "relevance_score": 70.0,
+            "primary_source": true,
+            "verified": true,
+            "risk_flags": [],
+            "overall_source_score": 75.9
+          },
+          {
+            "url": "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "domain": "news.microsoft.com",
+            "source_type": "industry_or_company",
+            "authority_score": 72,
+            "freshness_score": 80.0,
+            "relevance_score": 70.0,
+            "primary_source": true,
+            "verified": true,
+            "risk_flags": [],
+            "overall_source_score": 75.9
+          },
+          {
+            "url": "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/",
+            "domain": "semiengineering.com",
+            "source_type": "industry_or_company",
+            "authority_score": 72,
+            "freshness_score": 80.0,
+            "relevance_score": 70.0,
+            "primary_source": true,
+            "verified": true,
+            "risk_flags": [],
+            "overall_source_score": 75.9
+          },
+          {
+            "url": "https://www.adcreative.ai",
+            "domain": "adcreative.ai",
+            "source_type": "industry_or_company",
+            "authority_score": 72,
+            "freshness_score": 80.0,
+            "relevance_score": 70.0,
+            "primary_source": true,
+            "verified": true,
+            "risk_flags": [],
+            "overall_source_score": 75.9
+          },
+          {
+            "url": "https://www.analyticsinsight.net/artificial-intelligence/top-10-marketing-automation-software-platforms-for-businesses-in-2026",
+            "domain": "analyticsinsight.net",
+            "source_type": "industry_or_company",
+            "authority_score": 72,
+            "freshness_score": 80.0,
+            "relevance_score": 70.0,
+            "primary_source": true,
+            "verified": true,
+            "risk_flags": [],
+            "overall_source_score": 75.9
+          },
+          {
+            "url": "https://www.dqindia.com/data-and-ai/ai-tools-in-2026-what-each-platform-does-best-in-real-world-workflows-11262991",
+            "domain": "dqindia.com",
+            "source_type": "industry_or_company",
+            "authority_score": 72,
+            "freshness_score": 80.0,
+            "relevance_score": 70.0,
+            "primary_source": true,
+            "verified": true,
+            "risk_flags": [],
+            "overall_source_score": 75.9
+          },
+          {
+            "url": "https://www.forbes.com/advisor/business/software/best-crm-software/",
+            "domain": "forbes.com",
+            "source_type": "industry_or_company",
+            "authority_score": 72,
+            "freshness_score": 80.0,
+            "relevance_score": 70.0,
+            "primary_source": true,
+            "verified": true,
+            "risk_flags": [],
+            "overall_source_score": 75.9
+          },
+          {
+            "url": "https://www.healthcareitnews.com/news/healthcare-orgs-moving-beyond-ai-hype-cycle-himss26-attendees-agree",
+            "domain": "healthcareitnews.com",
+            "source_type": "industry_or_company",
+            "authority_score": 72,
+            "freshness_score": 80.0,
+            "relevance_score": 70.0,
+            "primary_source": true,
+            "verified": true,
+            "risk_flags": [],
+            "overall_source_score": 75.9
+          },
+          {
+            "url": "https://www.inc.com/leila-sheridan/googles-750-million-plan-to-move-ai-from-experiments-to-the-real-world/91334694",
+            "domain": "inc.com",
+            "source_type": "industry_or_company",
+            "authority_score": 72,
+            "freshness_score": 80.0,
+            "relevance_score": 70.0,
+            "primary_source": true,
+            "verified": true,
+            "risk_flags": [],
+            "overall_source_score": 75.9
+          },
+          {
+            "url": "https://www.make.com",
+            "domain": "make.com",
+            "source_type": "industry_or_company",
+            "authority_score": 72,
+            "freshness_score": 80.0,
+            "relevance_score": 70.0,
+            "primary_source": true,
+            "verified": true,
+            "risk_flags": [],
+            "overall_source_score": 75.9
+          },
+          {
+            "url": "https://www.morningstar.com/news/pr-newswire/20260305la02426/consensus-named-one-of-g2s-top-5-sales-software-platforms-of-2026-proving-demo-automation-is-now-a-must-have-in-every-gtm-stack",
+            "domain": "morningstar.com",
+            "source_type": "industry_or_company",
+            "authority_score": 72,
+            "freshness_score": 80.0,
+            "relevance_score": 70.0,
+            "primary_source": true,
+            "verified": true,
+            "risk_flags": [],
+            "overall_source_score": 75.9
+          },
+          {
+            "url": "https://www.pcmag.com/picks/the-best-email-marketing-software",
+            "domain": "pcmag.com",
+            "source_type": "industry_or_company",
+            "authority_score": 72,
+            "freshness_score": 80.0,
+            "relevance_score": 70.0,
+            "primary_source": true,
+            "verified": true,
+            "risk_flags": [],
+            "overall_source_score": 75.9
+          },
+          {
+            "url": "https://www.utusan.com.my/pr-newswire-en/2026/05/doceree-healthcare-marketings-ai-powered-operating-system-earns-frost-sullivans-2026-global-technology-innovation-leadership-recognition/",
+            "domain": "utusan.com.my",
+            "source_type": "industry_or_company",
+            "authority_score": 72,
+            "freshness_score": 80.0,
+            "relevance_score": 70.0,
+            "primary_source": true,
+            "verified": true,
+            "risk_flags": [],
+            "overall_source_score": 75.9
+          },
+          {
+            "url": "https://zapier.com",
+            "domain": "zapier.com",
+            "source_type": "industry_or_company",
+            "authority_score": 72,
+            "freshness_score": 80.0,
+            "relevance_score": 70.0,
+            "primary_source": true,
+            "verified": true,
+            "risk_flags": [],
+            "overall_source_score": 75.9
+          },
+          {
+            "url": "https://www.forbes.com/councils/forbesbusinesscouncil/2026/05/08/ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement/",
+            "domain": "forbes.com",
+            "source_type": "industry_or_company",
+            "authority_score": 72,
+            "freshness_score": 80.0,
+            "relevance_score": 70.0,
+            "primary_source": true,
+            "verified": true,
+            "risk_flags": [],
+            "overall_source_score": 75.9
+          },
+          {
+            "url": "https://www.forbes.com/councils/forbesagencycouncil/2026/07/09/how-to-overcome-real-world-challenges-in-ai-marketing-automation/",
+            "domain": "forbes.com",
+            "source_type": "industry_or_company",
+            "authority_score": 72,
+            "freshness_score": 80.0,
+            "relevance_score": 70.0,
+            "primary_source": true,
+            "verified": true,
+            "risk_flags": [],
+            "overall_source_score": 75.9
+          },
+          {
+            "url": "https://www.make.com/en/affiliates",
+            "domain": "make.com",
+            "source_type": "industry_or_company",
+            "authority_score": 72,
+            "freshness_score": 75.0,
+            "relevance_score": 70.0,
+            "primary_source": true,
+            "verified": true,
+            "risk_flags": [],
+            "overall_source_score": 74.9
+          }
+        ]
+      },
+      "duplicate_risk": {
+        "score": 49.61,
+        "status": "pass"
+      },
+      "recommended_action": "send_to_human_review",
+      "issues": []
+    },
+    "source_quality_review": [
+      {
+        "url": "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+        "domain": "finance.yahoo.com",
+        "source_type": "industry_or_company",
+        "authority_score": 72,
+        "freshness_score": 80.0,
+        "relevance_score": 70.0,
+        "primary_source": true,
+        "verified": true,
+        "risk_flags": [],
+        "overall_source_score": 75.9
+      },
+      {
+        "url": "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+        "domain": "news.microsoft.com",
+        "source_type": "industry_or_company",
+        "authority_score": 72,
+        "freshness_score": 80.0,
+        "relevance_score": 70.0,
+        "primary_source": true,
+        "verified": true,
+        "risk_flags": [],
+        "overall_source_score": 75.9
+      },
+      {
+        "url": "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/",
+        "domain": "semiengineering.com",
+        "source_type": "industry_or_company",
+        "authority_score": 72,
+        "freshness_score": 80.0,
+        "relevance_score": 70.0,
+        "primary_source": true,
+        "verified": true,
+        "risk_flags": [],
+        "overall_source_score": 75.9
+      },
+      {
+        "url": "https://www.adcreative.ai",
+        "domain": "adcreative.ai",
+        "source_type": "industry_or_company",
+        "authority_score": 72,
+        "freshness_score": 80.0,
+        "relevance_score": 70.0,
+        "primary_source": true,
+        "verified": true,
+        "risk_flags": [],
+        "overall_source_score": 75.9
+      },
+      {
+        "url": "https://www.analyticsinsight.net/artificial-intelligence/top-10-marketing-automation-software-platforms-for-businesses-in-2026",
+        "domain": "analyticsinsight.net",
+        "source_type": "industry_or_company",
+        "authority_score": 72,
+        "freshness_score": 80.0,
+        "relevance_score": 70.0,
+        "primary_source": true,
+        "verified": true,
+        "risk_flags": [],
+        "overall_source_score": 75.9
+      },
+      {
+        "url": "https://www.dqindia.com/data-and-ai/ai-tools-in-2026-what-each-platform-does-best-in-real-world-workflows-11262991",
+        "domain": "dqindia.com",
+        "source_type": "industry_or_company",
+        "authority_score": 72,
+        "freshness_score": 80.0,
+        "relevance_score": 70.0,
+        "primary_source": true,
+        "verified": true,
+        "risk_flags": [],
+        "overall_source_score": 75.9
+      },
+      {
+        "url": "https://www.forbes.com/advisor/business/software/best-crm-software/",
+        "domain": "forbes.com",
+        "source_type": "industry_or_company",
+        "authority_score": 72,
+        "freshness_score": 80.0,
+        "relevance_score": 70.0,
+        "primary_source": true,
+        "verified": true,
+        "risk_flags": [],
+        "overall_source_score": 75.9
+      },
+      {
+        "url": "https://www.healthcareitnews.com/news/healthcare-orgs-moving-beyond-ai-hype-cycle-himss26-attendees-agree",
+        "domain": "healthcareitnews.com",
+        "source_type": "industry_or_company",
+        "authority_score": 72,
+        "freshness_score": 80.0,
+        "relevance_score": 70.0,
+        "primary_source": true,
+        "verified": true,
+        "risk_flags": [],
+        "overall_source_score": 75.9
+      },
+      {
+        "url": "https://www.inc.com/leila-sheridan/googles-750-million-plan-to-move-ai-from-experiments-to-the-real-world/91334694",
+        "domain": "inc.com",
+        "source_type": "industry_or_company",
+        "authority_score": 72,
+        "freshness_score": 80.0,
+        "relevance_score": 70.0,
+        "primary_source": true,
+        "verified": true,
+        "risk_flags": [],
+        "overall_source_score": 75.9
+      },
+      {
+        "url": "https://www.make.com",
+        "domain": "make.com",
+        "source_type": "industry_or_company",
+        "authority_score": 72,
+        "freshness_score": 80.0,
+        "relevance_score": 70.0,
+        "primary_source": true,
+        "verified": true,
+        "risk_flags": [],
+        "overall_source_score": 75.9
+      },
+      {
+        "url": "https://www.morningstar.com/news/pr-newswire/20260305la02426/consensus-named-one-of-g2s-top-5-sales-software-platforms-of-2026-proving-demo-automation-is-now-a-must-have-in-every-gtm-stack",
+        "domain": "morningstar.com",
+        "source_type": "industry_or_company",
+        "authority_score": 72,
+        "freshness_score": 80.0,
+        "relevance_score": 70.0,
+        "primary_source": true,
+        "verified": true,
+        "risk_flags": [],
+        "overall_source_score": 75.9
+      },
+      {
+        "url": "https://www.pcmag.com/picks/the-best-email-marketing-software",
+        "domain": "pcmag.com",
+        "source_type": "industry_or_company",
+        "authority_score": 72,
+        "freshness_score": 80.0,
+        "relevance_score": 70.0,
+        "primary_source": true,
+        "verified": true,
+        "risk_flags": [],
+        "overall_source_score": 75.9
+      },
+      {
+        "url": "https://www.utusan.com.my/pr-newswire-en/2026/05/doceree-healthcare-marketings-ai-powered-operating-system-earns-frost-sullivans-2026-global-technology-innovation-leadership-recognition/",
+        "domain": "utusan.com.my",
+        "source_type": "industry_or_company",
+        "authority_score": 72,
+        "freshness_score": 80.0,
+        "relevance_score": 70.0,
+        "primary_source": true,
+        "verified": true,
+        "risk_flags": [],
+        "overall_source_score": 75.9
+      },
+      {
+        "url": "https://zapier.com",
+        "domain": "zapier.com",
+        "source_type": "industry_or_company",
+        "authority_score": 72,
+        "freshness_score": 80.0,
+        "relevance_score": 70.0,
+        "primary_source": true,
+        "verified": true,
+        "risk_flags": [],
+        "overall_source_score": 75.9
+      },
+      {
+        "url": "https://www.forbes.com/councils/forbesbusinesscouncil/2026/05/08/ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement/",
+        "domain": "forbes.com",
+        "source_type": "industry_or_company",
+        "authority_score": 72,
+        "freshness_score": 80.0,
+        "relevance_score": 70.0,
+        "primary_source": true,
+        "verified": true,
+        "risk_flags": [],
+        "overall_source_score": 75.9
+      },
+      {
+        "url": "https://www.forbes.com/councils/forbesagencycouncil/2026/07/09/how-to-overcome-real-world-challenges-in-ai-marketing-automation/",
+        "domain": "forbes.com",
+        "source_type": "industry_or_company",
+        "authority_score": 72,
+        "freshness_score": 80.0,
+        "relevance_score": 70.0,
+        "primary_source": true,
+        "verified": true,
+        "risk_flags": [],
+        "overall_source_score": 75.9
+      },
+      {
+        "url": "https://www.make.com/en/affiliates",
+        "domain": "make.com",
+        "source_type": "industry_or_company",
+        "authority_score": 72,
+        "freshness_score": 75.0,
+        "relevance_score": 70.0,
+        "primary_source": true,
+        "verified": true,
+        "risk_flags": [],
+        "overall_source_score": 74.9
+      }
+    ],
+    "fact_verification": {
+      "schema_version": 2,
+      "claim_count": 20,
+      "claims": [
+        {
+          "claim_id": "a34cda330261",
+          "claim_text": "com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/\", \"mainEntityOfPage\": {\"@type\": \"WebPage\", \"@id\": \"https://smileaireviewhub.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "423c68a034a0",
+          "claim_text": "com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/\"}, \"author\": {\"@type\": \"Person\", \"name\": \"Nguyen Quoc Tuan\"}, \"datePublished\": \"2026-08-24\", \"dateModified\": \"2026-08-24\", \"image\": \"https://smileaireviewhub.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "9614eb004cc0",
+          "claim_text": "com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/assets/hero.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "f50667fae74b",
+          "claim_text": "It is not one standardized product category with identical features or prices.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "acd3f756de2b",
+          "claim_text": "Only then compare the feature, integration, and usage model needed to run that workflow.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "comparison",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "78300f7ad018",
+          "claim_text": "\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Update it whenever pricing, plan limits, integrations, governance controls, or official policies change.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "dc968e567790",
+          "claim_text": "\"}}, {\"@type\": \"Question\", \"name\": \"How does the category compare with alternatives?",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "comparison",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "d7a6a68ffa19",
+          "claim_text": "\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Compare operating roles rather than labels.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "comparison",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "0f3b4acefb75",
+          "claim_text": "\"}}, {\"@type\": \"Question\", \"name\": \"What should readers verify about Make pricing?",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "a7d8a1053117",
+          "claim_text": "\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The supplied package contains Make learning and community resources but no verified current Make pricing page or amount.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "ac1802728851",
+          "claim_text": "\"}}, {\"@type\": \"Question\", \"name\": \"What if official pricing or feature details conflict?",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "3ee13426f707",
+          "claim_text": "\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Use the current official product or pricing page as the decision reference, record the date, and avoid publishing the disputed detail until it is resolved.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "9cc3bb661147",
+          "claim_text": "If you purchase through one, Smile AI Review Hub may earn a commission at no additional cost to you.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "ed10f02e04b7",
+          "claim_text": "\"}}]} \n \n \n \n  AI Healthcare Marketing ROI: A Buyer’s Cost Framework \n \n AI in healthcare marketing is not one product category with one price tag.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "9076cc5a735d",
+          "claim_text": "Zapier describes itself as an automation platform connecting more than 9,000 applications, with workflows, app connections, and governance controls.",
+          "section_id": "article",
+          "importance": "important",
+          "claim_type": "general",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.76,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "c58771531c77",
+          "claim_text": "Make supplies learning materials, guides, and a user community, but the package does not establish its current prices or a healthcare-specific feature set.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "f5aceb1ae1e3",
+          "claim_text": "Zapier’s public pricing material describes self-serve Free, Professional, and Team plans, plus a sales-assisted Enterprise offering.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "636d46aa974b",
+          "claim_text": "Those resources may reduce learning friction, but they do not establish current integration coverage, support commitments, or pricing.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "1e6c3c654a51",
+          "claim_text": "The package supplies no verified claims about HIPAA eligibility, business associate agreements, encryption, data residency, model training, retention periods, breach procedures, or healthcare consent requirements for the compared tools.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "comparison",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "1852119090e7",
+          "claim_text": "AI healthcare marketing pricing, cost, and ROI \n The verified pricing evidence is strongest for Zapier.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        }
+      ],
+      "hard_blockers": [],
+      "warnings": [],
+      "cache_size": 20
+    },
+    "targeted_rewrite": {
+      "schema_version": 2,
+      "max_rewrite_attempts": 2,
+      "max_review_cycles": 3,
+      "rewrite_required": false,
+      "target_sections": [],
+      "issues": [],
+      "history": [],
+      "quality_guard": "keep_previous_section_when_rewrite_score_declines",
+      "article_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+      "executed": false,
+      "rewrite_history": [],
+      "status": "warning_to_human",
+      "remaining_hard_blockers": []
+    },
+    "rewrite_history": [],
+    "publishing_confidence": {
+      "score": 71.42,
+      "status": "rewrite_or_enrich",
+      "components": {
+        "research_quality": 60.86,
+        "source_quality": 75.84,
+        "fact_confidence": 100.0,
+        "intent_coverage": 80.0,
+        "entity_coverage": 60.0,
+        "readability": 59.97,
+        "seo": 80.0,
+        "business_value": 60.5,
+        "duplicate_safety": 50.39
+      },
+      "reasons": [],
+      "recommended_action": "targeted_rewrite_or_enrichment"
+    },
+    "ai_judge": {
+      "decision": "warning_to_human",
+      "confidence": 71.42,
+      "reasoning_summary": [
+        "confidence=71.42",
+        "hard_blockers=0",
+        "warnings=0"
+      ],
+      "remaining_risks": [],
+      "hard_blockers": [],
+      "warnings": [],
+      "recommended_human_focus": [
+        "Confirm source-backed claims and affiliate fit before approval."
+      ]
+    },
+    "recommended_reviewer_focus": [
+      "Confirm source-backed claims and affiliate fit before approval."
+    ],
+    "entity_coverage": {
+      "expected_count": 6,
+      "covered_count": 3,
+      "score": 50.0,
+      "missing_entities": [
+        "adcreative-ai",
+        "ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-pricing-cost-and-roi",
+        "shopify"
+      ],
+      "entity_mismatch": true
+    },
+    "internal_link_suggestions": [
+      {
+        "entity_id": "shopify",
+        "target_article_id": "ai-accounting-automation-software-comparison",
+        "reason": "shared entity coverage"
+      },
+      {
+        "entity_id": "shopify",
+        "target_article_id": "ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement",
+        "reason": "shared entity coverage"
+      },
+      {
+        "entity_id": "shopify",
+        "target_article_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases",
+        "reason": "shared entity coverage"
+      },
+      {
+        "entity_id": "shopify",
+        "target_article_id": "best-how-to-overcome-real-world-challenges-in-ai-marketing-automation-workflows-and-use-cases",
+        "reason": "shared entity coverage"
+      },
+      {
+        "entity_id": "shopify",
+        "target_article_id": "best-top-10-marketing-automation-software-platforms-for-businesses-in-2026-workflows-and-use-cases",
+        "reason": "shared entity coverage"
+      },
+      {
+        "entity_id": "shopify",
+        "target_article_id": "common-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-mistakes-and-troubleshooting",
+        "reason": "shared entity coverage"
+      },
+      {
+        "entity_id": "shopify",
+        "target_article_id": "common-how-to-overcome-real-world-challenges-in-ai-marketing-automation-mistakes-and-troubleshooting",
+        "reason": "shared entity coverage"
+      },
+      {
+        "entity_id": "shopify",
+        "target_article_id": "common-top-10-marketing-automation-software-platforms-for-businesses-in-2026-mistakes-and-troubleshooting",
+        "reason": "shared entity coverage"
+      },
+      {
+        "entity_id": "shopify",
+        "target_article_id": "how-to-overcome-real-world-challenges-in-ai-marketing-automation",
+        "reason": "shared entity coverage"
+      },
+      {
+        "entity_id": "shopify",
+        "target_article_id": "is-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-worth-it-for-small-business",
+        "reason": "shared entity coverage"
+      }
+    ],
+    "cannibalization": {
+      "status": "warning",
+      "overlap_articles": {
+        "ai-accounting-automation-software-comparison": 5,
+        "ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement": 5,
+        "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases": 5,
+        "best-how-to-overcome-real-world-challenges-in-ai-marketing-automation-workflows-and-use-cases": 5,
+        "best-top-10-marketing-automation-software-platforms-for-businesses-in-2026-workflows-and-use-cases": 5,
+        "common-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-mistakes-and-troubleshooting": 5,
+        "common-how-to-overcome-real-world-challenges-in-ai-marketing-automation-mistakes-and-troubleshooting": 5,
+        "common-top-10-marketing-automation-software-platforms-for-businesses-in-2026-mistakes-and-troubleshooting": 5,
+        "how-to-overcome-real-world-challenges-in-ai-marketing-automation": 5,
+        "is-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-worth-it-for-small-business": 5,
+        "is-how-to-overcome-real-world-challenges-in-ai-marketing-automation-worth-it-for-small-business": 5,
+        "is-top-10-marketing-automation-software-platforms-for-businesses-in-2026-worth-it-for-small-business": 5,
+        "top-10-marketing-automation-software-platforms-for-businesses-in-2026": 5,
+        "ai-meeting-software-alternatives": 1,
+        "tooljet-review-2026": 1
+      }
+    },
+    "estimated_review_minutes": 5,
+    "ai_review_passed": true,
+    "ai_review_source": "D:\\AFFILATE BOT\\data\\import_history\\external_writer\\2026-08-24\\5a6c6537d014aeee\\import.json",
+    "package_id": "5a6c6537d014aeee",
+    "task_id": "website_foundation-2026-08-24-fb31237f7c234ffc",
+    "batch_date": "2026-08-24"
+  },
+  "human_approval": {
+    "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+    "topic": "ai in healthcare marketing: moving from automation to intelligent engagement: pricing, cost, and roi",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-08-24T12:24:45.313422+00:00",
+    "approved_at": "2026-08-24T12:57:52.063147+00:00",
+    "approved_by": "operator",
+    "reason": "",
+    "canonical_task_id": "",
+    "legacy_task_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+    "revision_id": "website-revision-v1:852d360a1514e2763b30de5c6bc4dd981d6ad2f2ea355d1ebca528651e9646de",
+    "content_hash": "852d360a1514e2763b30de5c6bc4dd981d6ad2f2ea355d1ebca528651e9646de",
+    "content_hash_version": "sha256_utf8_exact_v1",
+    "approval_scope": "website",
+    "approval_binding_status": "MATCHED",
+    "approval_history": [
+      {
+        "status": "human_approved",
+        "approved_at": "2026-08-24T07:56:33.828858+00:00",
+        "approved_by": "editor",
+        "canonical_task_id": "",
+        "legacy_task_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+        "revision_id": "website-revision-v1:872e495af4ed98e5319396bd1341ff3c79430c641b316352778bbd2cf19c2b5c",
+        "content_hash": "872e495af4ed98e5319396bd1341ff3c79430c641b316352778bbd2cf19c2b5c",
+        "approval_scope": "website",
+        "binding_status": "CONTENT_HASH_MISMATCH",
+        "superseded_at": "2026-08-24T09:55:09.170205+00:00",
+        "superseded_reason": "content revision changed or entered re-review",
+        "source_event": "sync_review",
+        "source_reference": "2026-08-24T09:55:09.170205+00:00"
+      },
+      {
+        "status": "human_approved",
+        "approved_at": "2026-08-24T09:56:02.482483+00:00",
+        "approved_by": "editor",
+        "canonical_task_id": "",
+        "legacy_task_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+        "revision_id": "website-revision-v1:3b960fd90831f7b901a1f842f524924b19212b418e0e778280af9e0d085904b8",
+        "content_hash": "3b960fd90831f7b901a1f842f524924b19212b418e0e778280af9e0d085904b8",
+        "approval_scope": "website",
+        "binding_status": "CONTENT_HASH_MISMATCH",
+        "superseded_at": "2026-08-24T10:07:04.419850+00:00",
+        "superseded_reason": "content revision changed or entered re-review",
+        "source_event": "sync_review",
+        "source_reference": "2026-08-24T10:07:04.419850+00:00"
+      },
+      {
+        "status": "human_approved",
+        "approved_at": "2026-08-24T12:11:19.145779+00:00",
+        "approved_by": "editor",
+        "canonical_task_id": "",
+        "legacy_task_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+        "revision_id": "website-revision-v1:8a29209f7440b18536335ea9085c21093f18ee0ce40777538710e3d8062d4eaa",
+        "content_hash": "8a29209f7440b18536335ea9085c21093f18ee0ce40777538710e3d8062d4eaa",
+        "approval_scope": "website",
+        "binding_status": "CONTENT_HASH_MISMATCH",
+        "superseded_at": "2026-08-24T12:24:45.313422+00:00",
+        "superseded_reason": "content revision changed or entered re-review",
+        "source_event": "sync_review",
+        "source_reference": "2026-08-24T12:24:45.313422+00:00"
+      },
+      {
+        "status": "human_approved",
+        "approved_at": "2026-08-24T12:32:17.764716+00:00",
+        "approved_by": "editor",
+        "canonical_task_id": "",
+        "legacy_task_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+        "revision_id": "website-revision-v1:8a29209f7440b18536335ea9085c21093f18ee0ce40777538710e3d8062d4eaa",
+        "content_hash": "8a29209f7440b18536335ea9085c21093f18ee0ce40777538710e3d8062d4eaa",
+        "approval_scope": "website",
+        "binding_status": "MATCHED",
+        "superseded_at": "2026-08-24T12:57:52.063118+00:00",
+        "superseded_reason": "new explicit human approval for a different revision",
+        "source_event": "explicit_human_approval",
+        "source_reference": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing"
+      }
+    ],
+    "approved_revision_id": "website-revision-v1:852d360a1514e2763b30de5c6bc4dd981d6ad2f2ea355d1ebca528651e9646de",
+    "approved_content_hash": "852d360a1514e2763b30de5c6bc4dd981d6ad2f2ea355d1ebca528651e9646de"
+  },
+  "publish_gate": {
+    "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+    "topic": "ai in healthcare marketing: moving from automation to intelligent engagement: pricing, cost, and roi",
+    "status": "approved_for_publish",
+    "checked_at": "2026-08-24T13:07:58.874755+00:00",
+    "failures": [],
+    "hard_blockers": [],
+    "warnings": [
+      "SEO/GEO: citation_structure: Only part of the supplied source set is cited in the candidate HTML."
+    ],
+    "pending_reviews": [],
+    "review_states": {
+      "ai_review": "passed",
+      "source_review": "passed",
+      "freshness_review": "passed"
+    },
+    "severity_counts": {
+      "BLOCK": 0,
+      "WARNING": 1,
+      "HUMAN_REVIEW_REQUIRED": 0
+    },
+    "total_score": 69.17,
+    "score_band": "human_review_required",
+    "final_gate": "Ready for Publish",
+    "research_quality_passed": true,
+    "verified_source_score_passed": true,
+    "knowledge_freshness_passed": true,
+    "ai_review_passed": true,
+    "ai_review_source": "D:\\AFFILATE BOT\\data\\import_history\\external_writer\\2026-08-24\\5a6c6537d014aeee\\import.json",
+    "ai_review_package_id": "5a6c6537d014aeee",
+    "ai_review_task_id": "website_foundation-2026-08-24-fb31237f7c234ffc",
+    "human_approval_passed": true,
+    "approval_binding_status": "MATCHED",
+    "current_content_hash": "852d360a1514e2763b30de5c6bc4dd981d6ad2f2ea355d1ebca528651e9646de",
+    "current_revision_id": "website-revision-v1:852d360a1514e2763b30de5c6bc4dd981d6ad2f2ea355d1ebca528651e9646de",
+    "content_hash_version": "sha256_utf8_exact_v1",
+    "current_authorization": "valid",
+    "public_marker_violations": [],
+    "broken_links": [],
+    "duplicate_title_meta": false,
+    "affiliate_disclosure_present": true,
+    "minimum_business_score_passed": true,
+    "minimum_readability_score_passed": true,
+    "business_score": 60.5,
+    "readability_score": 59.97,
+    "verified_source_score": 70.0,
+    "knowledge_freshness_score": 80.0,
+    "seo_geo_validation": {
+      "schema_version": "seo_geo_validation_v1",
+      "checked_at": "2026-08-24T13:07:58.911387+00:00",
+      "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+      "page_url": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/",
+      "article_type": "pricing",
+      "content_sha256": "852d360a1514e2763b30de5c6bc4dd981d6ad2f2ea355d1ebca528651e9646de",
+      "semantic_html_status": "PASS",
+      "heading_status": "PASS",
+      "author_metadata_status": "PASS",
+      "structured_data_status": "PASS",
+      "canonical_status": "PASS",
+      "indexability_status": "PASS",
+      "internal_link_status": "PASS",
+      "source_citation_status": "WARNING",
+      "disclosure_status": "PASS",
+      "geo_claim_protection_status": "PASS",
+      "crawlability_status": "PASS",
+      "ai_crawler_advisory": {
+        "status": "INFO",
+        "robots_path": "D:\\AFFILATE BOT\\site_output\\robots.txt",
+        "reason": "Crawler directives are reported as owner-controlled policy; no directive was changed.",
+        "matrix": [
+          {
+            "crawler": "OAI-SearchBot",
+            "purpose": "search",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Preserve the owner-selected search visibility policy."
+          },
+          {
+            "crawler": "ChatGPT-User",
+            "purpose": "user_fetch",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Preserve explicit user-requested retrieval control."
+          },
+          {
+            "crawler": "PerplexityBot",
+            "purpose": "search",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Preserve the owner-selected answer-engine policy."
+          },
+          {
+            "crawler": "ClaudeBot",
+            "purpose": "ai_crawler",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Review periodically; this is an owner policy decision."
+          },
+          {
+            "crawler": "Google-Extended",
+            "purpose": "ai_training_control",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Keep separate from Googlebot search crawling."
+          },
+          {
+            "crawler": "GPTBot",
+            "purpose": "ai_training",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+          },
+          {
+            "crawler": "CCBot",
+            "purpose": "dataset_crawler",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate dataset-crawler control."
+          },
+          {
+            "crawler": "anthropic-ai",
+            "purpose": "ai_training",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+          },
+          {
+            "crawler": "Bytespider",
+            "purpose": "ai_training",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+          }
+        ],
+        "policy_changed": false
+      },
+      "checks": {
+        "semantic_html": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "visible_words=2745",
+            "main=1",
+            "article=1",
+            "section=13",
+            "nav=2",
+            "footer=1",
+            "table=1",
+            "ul=5",
+            "ol=1"
+          ]
+        },
+        "heading": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "H1: AI Healthcare Marketing ROI: A Buyer’s Cost Framework",
+            "H2: AI healthcare marketing category overview",
+            "H2: Core workflow for intelligent engagement",
+            "H2: AI healthcare marketing features and integrations to verify",
+            "H2: AI healthcare marketing security, privacy, and operational risks",
+            "H2: AI healthcare marketing pricing, cost, and ROI",
+            "H2: Alternatives and category comparison",
+            "H2: Evidence-supported advantages",
+            "H2: Evidence-supported disadvantages",
+            "H2: Final recommendation and verification checklist",
+            "H2: FAQ",
+            "H3: What is AI healthcare marketing automation, and who is it for?",
+            "H3: How should beginners evaluate it before buying?",
+            "H3: What workflow problems does it solve best?",
+            "H3: Which integrations matter most?",
+            "H3: What implementation risks appear when teams scale?",
+            "H3: How often should this content be updated?",
+            "H3: How does the category compare with alternatives?",
+            "H3: When should a buyer choose an alternative?",
+            "H3: What should readers verify about Make pricing?"
+          ]
+        },
+        "canonical": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/"
+          ]
+        },
+        "structured_data": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "Article",
+            "BreadcrumbList"
+          ]
+        },
+        "author_trust": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "author_signals=4",
+            "date_signals=1"
+          ]
+        },
+        "indexability": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "index,follow,max-image-preview:large"
+          ]
+        },
+        "internal_links": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "internal_links=23",
+            "broken_links=0"
+          ]
+        },
+        "citation_structure": {
+          "status": "WARNING",
+          "reasons": [
+            "Only part of the supplied source set is cited in the candidate HTML."
+          ],
+          "evidence": [
+            "supplied_sources=17",
+            "matched_sources=2",
+            "concise_answer_blocks=21"
+          ]
+        },
+        "affiliate_disclosure": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "required=True",
+            "present=True"
+          ]
+        },
+        "geo_claim_protection": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": []
+        },
+        "crawlability": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "D:\\AFFILATE BOT\\site_output\\robots.txt",
+            "D:\\AFFILATE BOT\\site_output\\sitemap.xml"
+          ]
+        }
+      },
+      "blocking_reasons": [],
+      "warnings": [
+        "citation_structure: Only part of the supplied source set is cited in the candidate HTML."
+      ],
+      "recommended_fixes": [
+        "Only part of the supplied source set is cited in the candidate HTML."
+      ],
+      "final_result": "WARNING",
+      "human_approval_required": true,
+      "auto_publish": false,
+      "paid_api_used": false,
+      "inputs": {
+        "source_urls": [
+          "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+          "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+          "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/",
+          "https://www.adcreative.ai/",
+          "https://www.analyticsinsight.net/artificial-intelligence/top-10-marketing-automation-software-platforms-for-businesses-in-2026/",
+          "https://www.dqindia.com/data-and-ai/ai-tools-in-2026-what-each-platform-does-best-in-real-world-workflows-11262991/",
+          "https://www.forbes.com/advisor/business/software/best-crm-software/",
+          "https://www.forbes.com/councils/forbesagencycouncil/2026/07/09/how-to-overcome-real-world-challenges-in-ai-marketing-automation/",
+          "https://www.forbes.com/councils/forbesbusinesscouncil/2026/05/08/ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement/",
+          "https://www.healthcareitnews.com/news/healthcare-orgs-moving-beyond-ai-hype-cycle-himss26-attendees-agree/",
+          "https://www.inc.com/leila-sheridan/googles-750-million-plan-to-move-ai-from-experiments-to-the-real-world/91334694/",
+          "https://www.make.com/",
+          "https://www.make.com/en/affiliates/",
+          "https://www.morningstar.com/news/pr-newswire/20260305la02426/consensus-named-one-of-g2s-top-5-sales-software-platforms-of-2026-proving-demo-automation-is-now-a-must-have-in-every-gtm-stack/",
+          "https://www.pcmag.com/picks/the-best-email-marketing-software/",
+          "https://www.utusan.com.my/pr-newswire-en/2026/05/doceree-healthcare-marketings-ai-powered-operating-system-earns-frost-sullivans-2026-global-technology-innovation-leadership-recognition/",
+          "https://zapier.com/"
+        ],
+        "required_internal_links": [],
+        "affiliate_required": true
+      },
+      "report_path": "D:\\AFFILATE BOT\\data\\seo_geo_validation\\best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing.json",
+      "console_output": "SEO/GEO VALIDATION\n--------------------------------\nSemantic HTML: PASS\nHeading hierarchy: PASS\nCanonical: PASS\nAuthor metadata: PASS\nStructured data: PASS\nIndexability: PASS\nInternal links: PASS\nSource attribution: WARNING\nAffiliate disclosure: PASS\nGEO claim protection: PASS\nCrawlability: PASS\nAI crawler policy: INFO\n\nFINAL_RESULT: WARNING\nHuman approval is still required.\n\nWarnings:\n- citation_structure: Only part of the supplied source set is cited in the candidate HTML."
+    },
+    "seo_geo_validation_status": "WARNING",
+    "publish_ready": true,
+    "url": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/",
+    "title": "AI Healthcare Marketing ROI: A Buyer’s Cost Framework",
+    "description": "A practical framework for evaluating AI healthcare marketing workflow costs, governance, evidence quality, and ROI before adoption."
+  },
+  "external_import": true
+}

@@ -1,11 +1,11 @@
 {
   "summary": {
-    "items": 147,
-    "blocked": 27,
-    "needs_human_review": 3,
-    "ready_for_publish": 1,
-    "approved_for_publish": 1,
-    "published_local": 11,
+    "items": 151,
+    "blocked": 28,
+    "needs_human_review": 4,
+    "ready_for_publish": 2,
+    "approved_for_publish": 2,
+    "published_local": 10,
     "publish_failed": 0
   },
   "items": [
@@ -808,45 +808,301 @@
     },
     {
       "slug": "best-best-ai-meeting-software-for-small-business",
-      "topic": "best best ai meeting software for small business",
-      "status": "published_local",
-      "checked_at": "2026-07-11T05:07:46.334622+00:00",
+      "topic": "small-business meeting workflow audit",
+      "status": "approved_for_publish",
+      "checked_at": "2026-08-17T00:53:48.552410+00:00",
       "failures": [],
       "hard_blockers": [],
       "warnings": [],
       "pending_reviews": [],
       "review_states": {
-        "ai_review": "warning",
+        "ai_review": "passed",
         "source_review": "passed",
         "freshness_review": "passed"
       },
       "severity_counts": {
         "BLOCK": 0,
-        "WARNING": 2,
-        "HUMAN_REVIEW_REQUIRED": 1
+        "WARNING": 0,
+        "HUMAN_REVIEW_REQUIRED": 0
       },
-      "total_score": 69.64,
+      "total_score": 76.35,
       "score_band": "human_review_required",
-      "final_gate": "Human Approval Required",
+      "final_gate": "Ready for Publish",
       "research_quality_passed": true,
       "verified_source_score_passed": true,
       "knowledge_freshness_passed": true,
-      "ai_review_passed": false,
-      "human_approval_passed": false,
+      "ai_review_passed": true,
+      "ai_review_source": "",
+      "ai_review_package_id": "",
+      "ai_review_task_id": "",
+      "human_approval_passed": true,
+      "approval_binding_status": "MATCHED",
+      "current_content_hash": "e0042b573a18addd90bd310168415cad5c7efe4bfc2614193e10d074e9e6433e",
+      "current_revision_id": "website-revision-v1:e0042b573a18addd90bd310168415cad5c7efe4bfc2614193e10d074e9e6433e",
+      "content_hash_version": "sha256_utf8_exact_v1",
+      "current_authorization": "valid",
+      "public_marker_violations": [],
       "broken_links": [],
       "duplicate_title_meta": false,
       "affiliate_disclosure_present": true,
       "minimum_business_score_passed": true,
       "minimum_readability_score_passed": true,
-      "business_score": 58.55,
-      "readability_score": 55.23,
+      "business_score": 84.55,
+      "readability_score": 56.38,
       "verified_source_score": 79.0,
       "knowledge_freshness_score": 91.6,
-      "publish_ready": false,
+      "seo_geo_validation": {
+        "schema_version": "seo_geo_validation_v1",
+        "checked_at": "2026-08-17T00:53:48.625969+00:00",
+        "slug": "best-best-ai-meeting-software-for-small-business",
+        "page_url": "https://smileaireviewhub.com/best-best-ai-meeting-software-for-small-business/",
+        "article_type": "article",
+        "content_sha256": "e0042b573a18addd90bd310168415cad5c7efe4bfc2614193e10d074e9e6433e",
+        "semantic_html_status": "PASS",
+        "heading_status": "PASS",
+        "author_metadata_status": "PASS",
+        "structured_data_status": "PASS",
+        "canonical_status": "PASS",
+        "indexability_status": "PASS",
+        "internal_link_status": "PASS",
+        "source_citation_status": "PASS",
+        "disclosure_status": "PASS",
+        "geo_claim_protection_status": "PASS",
+        "crawlability_status": "PASS",
+        "ai_crawler_advisory": {
+          "status": "INFO",
+          "robots_path": "D:\\AFFILATE BOT\\site_output\\robots.txt",
+          "reason": "Crawler directives are reported as owner-controlled policy; no directive was changed.",
+          "matrix": [
+            {
+              "crawler": "OAI-SearchBot",
+              "purpose": "search",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Preserve the owner-selected search visibility policy."
+            },
+            {
+              "crawler": "ChatGPT-User",
+              "purpose": "user_fetch",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Preserve explicit user-requested retrieval control."
+            },
+            {
+              "crawler": "PerplexityBot",
+              "purpose": "search",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Preserve the owner-selected answer-engine policy."
+            },
+            {
+              "crawler": "ClaudeBot",
+              "purpose": "ai_crawler",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Review periodically; this is an owner policy decision."
+            },
+            {
+              "crawler": "Google-Extended",
+              "purpose": "ai_training_control",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Keep separate from Googlebot search crawling."
+            },
+            {
+              "crawler": "GPTBot",
+              "purpose": "ai_training",
+              "current_policy": "ALLOWED_BY_WILDCARD",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+            },
+            {
+              "crawler": "CCBot",
+              "purpose": "dataset_crawler",
+              "current_policy": "ALLOWED_BY_WILDCARD",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Choose explicitly if the owner wants separate dataset-crawler control."
+            },
+            {
+              "crawler": "anthropic-ai",
+              "purpose": "ai_training",
+              "current_policy": "ALLOWED_BY_WILDCARD",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+            },
+            {
+              "crawler": "Bytespider",
+              "purpose": "ai_training",
+              "current_policy": "ALLOWED_BY_WILDCARD",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+            }
+          ],
+          "policy_changed": false
+        },
+        "checks": {
+          "semantic_html": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "visible_words=1047",
+              "main=1",
+              "article=1",
+              "section=2",
+              "nav=2",
+              "footer=1",
+              "table=1",
+              "ul=6",
+              "ol=2"
+            ]
+          },
+          "heading": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "H1: Small-Business Meeting Workflow Audit: Decide What to Automate Before Choosing Software",
+              "H2: Affiliate disclosure",
+              "H2: Start With the Workflow, Not the Software",
+              "H2: Step 1: Locate the Actual Meeting Bottleneck",
+              "H3: Lane A: Scheduling and Calendar Congestion",
+              "H3: Lane B: Capture and Retrieval",
+              "H3: Lane C: Follow-Up Ownership",
+              "H3: Lane D: Too Many Meetings",
+              "H2: Step 2: Build a Small-Business Decision Scorecard",
+              "H2: Step 3: Evaluate Reclaim AI Only for the Supported Use Case",
+              "H2: Step 4: Run a Seven-Day Controlled Trial",
+              "H2: Trade-Offs to Make Explicit",
+              "H3: Automation Versus Control",
+              "H3: Convenience Versus Evidence",
+              "H3: Fast Adoption Versus Administration",
+              "H3: Broad Platform Versus Narrow Fix",
+              "H2: When to Choose an Alternative",
+              "H2: Sources Used for This Evaluation",
+              "H2: Final Decision",
+              "H2: Author and editorial review"
+            ]
+          },
+          "canonical": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "https://smileaireviewhub.com/best-best-ai-meeting-software-for-small-business/"
+            ]
+          },
+          "structured_data": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          "author_trust": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "author_signals=4",
+              "date_signals=1"
+            ]
+          },
+          "indexability": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "index,follow,max-image-preview:large"
+            ]
+          },
+          "internal_links": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "internal_links=22",
+              "broken_links=0"
+            ]
+          },
+          "citation_structure": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "supplied_sources=5",
+              "matched_sources=5",
+              "concise_answer_blocks=13"
+            ]
+          },
+          "affiliate_disclosure": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "required=True",
+              "present=True"
+            ]
+          },
+          "geo_claim_protection": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": []
+          },
+          "crawlability": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "D:\\AFFILATE BOT\\site_output\\robots.txt",
+              "D:\\AFFILATE BOT\\site_output\\sitemap.xml"
+            ]
+          }
+        },
+        "blocking_reasons": [],
+        "warnings": [],
+        "recommended_fixes": [],
+        "final_result": "PASS",
+        "human_approval_required": true,
+        "auto_publish": false,
+        "paid_api_used": false,
+        "inputs": {
+          "source_urls": [
+            "https://help.reclaim.ai/en/",
+            "https://reclaim.ai/",
+            "https://reclaim.ai/affiliate-program/",
+            "https://reclaim.ai/pricing/",
+            "https://updates.reclaim.ai/"
+          ],
+          "required_internal_links": [
+            "/best-ai-meeting-software/",
+            "/ai-meeting-software-alternatives/"
+          ],
+          "affiliate_required": true
+        },
+        "report_path": "D:\\AFFILATE BOT\\data\\seo_geo_validation\\best-best-ai-meeting-software-for-small-business.json",
+        "console_output": "SEO/GEO VALIDATION\n--------------------------------\nSemantic HTML: PASS\nHeading hierarchy: PASS\nCanonical: PASS\nAuthor metadata: PASS\nStructured data: PASS\nIndexability: PASS\nInternal links: PASS\nSource attribution: PASS\nAffiliate disclosure: PASS\nGEO claim protection: PASS\nCrawlability: PASS\nAI crawler policy: INFO\n\nFINAL_RESULT: PASS\nHuman approval is still required."
+      },
+      "seo_geo_validation_status": "PASS",
+      "publish_ready": true,
       "url": "https://smileaireviewhub.com/best-best-ai-meeting-software-for-small-business/",
-      "title": "best best ai meeting software for small business 2026",
-      "description": "Independent best best ai meeting software for small business guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice.",
-      "published_local": true
+      "title": "Small-Business Meeting Workflow Audit: Decide What to Automate Before Choosing Software",
+      "description": "Audit scheduling, meeting capture, follow-up, and meeting load before choosing AI meeting software for a small business.",
+      "historically_deployed": true,
+      "deployment_status": "published_local",
+      "deployment_history": [],
+      "historical_published_at": "",
+      "historical_url": "https://smileaireviewhub.com/best-best-ai-meeting-software-for-small-business/"
     },
     {
       "slug": "best-best-ai-meeting-tools-for-small-business",
@@ -7621,7 +7877,7 @@
     {
       "slug": "is-ai-meeting-software-alternatives-worth-it-for-small-business",
       "topic": "is ai meeting software alternatives worth it for small business",
-      "status": "published_local",
+      "status": "live",
       "checked_at": "2026-08-08T22:50:11.707812+00:00",
       "failures": [],
       "hard_blockers": [],
@@ -7662,12 +7918,26 @@
       "url": "https://smileaireviewhub.com/is-ai-meeting-software-alternatives-worth-it-for-small-business/",
       "title": "Are AI Meeting Software Alternatives Worth It for a Small Business?",
       "description": "A source-backed small-business buying guide for AI meeting software alternatives.",
-      "published_at": "2026-08-08T22:53:01.915121+00:00"
+      "published_at": "2026-08-08T22:53:01.915121+00:00",
+      "publish_queue_status": "live",
+      "deployment_state": "live",
+      "updated_at": "2026-08-08T22:54:14.052449+00:00",
+      "committed_local": true,
+      "pushed": true,
+      "pushed_at": "2026-08-08T22:54:14.052449+00:00",
+      "git_push_status": "pushed",
+      "git_push_reason": "",
+      "git_push_retry_count": 0,
+      "force_push_used": false,
+      "live": true,
+      "live_at": "2026-08-08T22:54:14.052449+00:00",
+      "post_push_live_status": "live_ok",
+      "post_push_live_message": "Website live OK: 2/2 URLs returned 200/3xx after push."
     },
     {
       "slug": "is-ai-productivity-tools-pricing-worth-it-for-small-business",
       "topic": "is ai productivity tools pricing worth it for small business",
-      "status": "published_local",
+      "status": "live",
       "checked_at": "2026-08-08T22:50:11.991535+00:00",
       "failures": [],
       "hard_blockers": [],
@@ -7708,7 +7978,981 @@
       "url": "https://smileaireviewhub.com/is-ai-productivity-tools-pricing-worth-it-for-small-business/",
       "title": "Are AI Productivity Tool Subscriptions Worth the Price for a Small Business?",
       "description": "A source-backed small-business buying guide for AI productivity tools pricing.",
-      "published_at": "2026-08-08T22:53:01.987366+00:00"
+      "published_at": "2026-08-08T22:53:01.987366+00:00",
+      "publish_queue_status": "live",
+      "deployment_state": "live",
+      "updated_at": "2026-08-08T22:54:14.052449+00:00",
+      "committed_local": true,
+      "pushed": true,
+      "pushed_at": "2026-08-08T22:54:14.052449+00:00",
+      "git_push_status": "pushed",
+      "git_push_reason": "",
+      "git_push_retry_count": 0,
+      "force_push_used": false,
+      "live": true,
+      "live_at": "2026-08-08T22:54:14.052449+00:00",
+      "post_push_live_status": "live_ok",
+      "post_push_live_message": "Website live OK: 2/2 URLs returned 200/3xx after push."
+    },
+    {
+      "slug": "ai-accounting-automation-software-comparison",
+      "topic": "ai accounting automation software comparison",
+      "status": "blocked",
+      "checked_at": "2026-08-10T13:58:28.691496+00:00",
+      "failures": [
+        "zero usable sources"
+      ],
+      "hard_blockers": [
+        "zero usable sources"
+      ],
+      "warnings": [
+        "verified source score below initial threshold",
+        "knowledge freshness below initial threshold"
+      ],
+      "pending_reviews": [],
+      "review_states": {
+        "ai_review": "passed",
+        "source_review": "failed",
+        "freshness_review": "warning"
+      },
+      "severity_counts": {
+        "BLOCK": 1,
+        "WARNING": 2,
+        "HUMAN_REVIEW_REQUIRED": 0
+      },
+      "total_score": 61.56,
+      "score_band": "needs_revision",
+      "final_gate": "Publish Blocked",
+      "research_quality_passed": true,
+      "verified_source_score_passed": false,
+      "knowledge_freshness_passed": false,
+      "ai_review_passed": true,
+      "ai_review_source": "D:\\AFFILATE BOT\\data\\import_history\\external_writer\\2026-08-10\\4bca209b003e44ec\\import.json",
+      "ai_review_package_id": "4bca209b003e44ec",
+      "ai_review_task_id": "website_foundation-2026-08-10-cde4f8b438e73445",
+      "human_approval_passed": true,
+      "public_marker_violations": [],
+      "broken_links": [],
+      "duplicate_title_meta": false,
+      "affiliate_disclosure_present": true,
+      "minimum_business_score_passed": true,
+      "minimum_readability_score_passed": true,
+      "business_score": 60.5,
+      "readability_score": 59.31,
+      "verified_source_score": 0.0,
+      "knowledge_freshness_score": 0.0,
+      "publish_ready": false,
+      "url": "https://smileaireviewhub.com/ai-accounting-automation-software-comparison/",
+      "title": "AI Accounting Automation: A Small-Business Comparison",
+      "description": "A source-backed framework for comparing AI accounting automation workflows, controls, integrations, risks, and total cost for small businesses."
+    },
+    {
+      "slug": "tooljet-review-2026",
+      "topic": "ToolJet Review 2026",
+      "status": "needs_human_review",
+      "checked_at": "2026-08-20T14:21:18.341197+00:00",
+      "failures": [],
+      "hard_blockers": [],
+      "warnings": [],
+      "pending_reviews": [
+        "human approval missing"
+      ],
+      "review_states": {
+        "ai_review": "passed",
+        "source_review": "passed",
+        "freshness_review": "passed"
+      },
+      "severity_counts": {
+        "BLOCK": 0,
+        "WARNING": 0,
+        "HUMAN_REVIEW_REQUIRED": 1
+      },
+      "total_score": 67.62,
+      "score_band": "human_review_required",
+      "final_gate": "Human Approval Required",
+      "research_quality_passed": true,
+      "verified_source_score_passed": true,
+      "knowledge_freshness_passed": true,
+      "ai_review_passed": true,
+      "ai_review_source": "",
+      "ai_review_package_id": "",
+      "ai_review_task_id": "",
+      "human_approval_passed": false,
+      "approval_binding_status": "APPROVAL_NOT_GRANTED",
+      "current_content_hash": "a463ad237a3dc0119d5ef29ba0bc24a8b96417c31a58e810d9a856984170ec53",
+      "current_revision_id": "website-revision-v1:a463ad237a3dc0119d5ef29ba0bc24a8b96417c31a58e810d9a856984170ec53",
+      "content_hash_version": "sha256_utf8_exact_v1",
+      "current_authorization": "review_required",
+      "public_marker_violations": [],
+      "broken_links": [],
+      "duplicate_title_meta": false,
+      "affiliate_disclosure_present": true,
+      "minimum_business_score_passed": true,
+      "minimum_readability_score_passed": true,
+      "business_score": 54.9,
+      "readability_score": 57.3,
+      "verified_source_score": 70.0,
+      "knowledge_freshness_score": 80.0,
+      "seo_geo_validation": {
+        "schema_version": "seo_geo_validation_v1",
+        "checked_at": "2026-08-20T14:21:18.380302+00:00",
+        "slug": "tooljet-review-2026",
+        "page_url": "https://smileaireviewhub.com/tooljet-review-2026/",
+        "article_type": "review",
+        "content_sha256": "a463ad237a3dc0119d5ef29ba0bc24a8b96417c31a58e810d9a856984170ec53",
+        "semantic_html_status": "PASS",
+        "heading_status": "PASS",
+        "author_metadata_status": "PASS",
+        "structured_data_status": "PASS",
+        "canonical_status": "PASS",
+        "indexability_status": "PASS",
+        "internal_link_status": "PASS",
+        "source_citation_status": "PASS",
+        "disclosure_status": "PASS",
+        "geo_claim_protection_status": "PASS",
+        "crawlability_status": "PASS",
+        "ai_crawler_advisory": {
+          "status": "INFO",
+          "robots_path": "D:\\AFFILATE BOT\\site_output\\robots.txt",
+          "reason": "Crawler directives are reported as owner-controlled policy; no directive was changed.",
+          "matrix": [
+            {
+              "crawler": "OAI-SearchBot",
+              "purpose": "search",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Preserve the owner-selected search visibility policy."
+            },
+            {
+              "crawler": "ChatGPT-User",
+              "purpose": "user_fetch",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Preserve explicit user-requested retrieval control."
+            },
+            {
+              "crawler": "PerplexityBot",
+              "purpose": "search",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Preserve the owner-selected answer-engine policy."
+            },
+            {
+              "crawler": "ClaudeBot",
+              "purpose": "ai_crawler",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Review periodically; this is an owner policy decision."
+            },
+            {
+              "crawler": "Google-Extended",
+              "purpose": "ai_training_control",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Keep separate from Googlebot search crawling."
+            },
+            {
+              "crawler": "GPTBot",
+              "purpose": "ai_training",
+              "current_policy": "ALLOWED_BY_WILDCARD",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+            },
+            {
+              "crawler": "CCBot",
+              "purpose": "dataset_crawler",
+              "current_policy": "ALLOWED_BY_WILDCARD",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Choose explicitly if the owner wants separate dataset-crawler control."
+            },
+            {
+              "crawler": "anthropic-ai",
+              "purpose": "ai_training",
+              "current_policy": "ALLOWED_BY_WILDCARD",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+            },
+            {
+              "crawler": "Bytespider",
+              "purpose": "ai_training",
+              "current_policy": "ALLOWED_BY_WILDCARD",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+            }
+          ],
+          "policy_changed": false
+        },
+        "checks": {
+          "semantic_html": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "visible_words=2213",
+              "main=1",
+              "article=1",
+              "section=0",
+              "nav=0",
+              "footer=0",
+              "table=1",
+              "ul=2",
+              "ol=1"
+            ]
+          },
+          "heading": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "H1: ToolJet Review 2026: A Practical Small-Business Guide",
+              "H2: ToolJet category overview and product identity",
+              "H2: How the ToolJet core workflow operates",
+              "H2: ToolJet integrations and feature scope for small teams",
+              "H2: ToolJet security and operational limitations",
+              "H2: ToolJet pricing discussion without unsupported numbers",
+              "H2: ToolJet alternatives and comparison boundaries",
+              "H2: ToolJet pros supported by official evidence",
+              "H2: ToolJet cons and decision cautions",
+              "H2: Final ToolJet recommendation and verification checklist",
+              "H2: ToolJet FAQ",
+              "H3: What is ToolJet Review 2026 and who is it for?",
+              "H3: How should beginners evaluate ToolJet before buying?",
+              "H3: What workflow problems does ToolJet solve best?",
+              "H3: Which integrations matter most when using ToolJet?",
+              "H3: What implementation risks appear when teams scale ToolJet?",
+              "H3: How often should ToolJet content be updated after product changes?",
+              "H3: How does ToolJet compare with alternatives?",
+              "H3: When should a buyer choose an alternative instead?",
+              "H3: What should readers verify on the ToolJet pricing page?"
+            ]
+          },
+          "canonical": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "https://smileaireviewhub.com/tooljet-review-2026/"
+            ]
+          },
+          "structured_data": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "Article",
+              "FAQPage"
+            ]
+          },
+          "author_trust": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "author_signals=0",
+              "date_signals=0"
+            ]
+          },
+          "indexability": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "index,follow"
+            ]
+          },
+          "internal_links": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "internal_links=3",
+              "broken_links=0"
+            ]
+          },
+          "citation_structure": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "supplied_sources=2",
+              "matched_sources=2",
+              "concise_answer_blocks=19"
+            ]
+          },
+          "affiliate_disclosure": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "required=True",
+              "present=True"
+            ]
+          },
+          "geo_claim_protection": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": []
+          },
+          "crawlability": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "D:\\AFFILATE BOT\\site_output\\robots.txt",
+              "D:\\AFFILATE BOT\\site_output\\sitemap.xml"
+            ]
+          }
+        },
+        "blocking_reasons": [],
+        "warnings": [],
+        "recommended_fixes": [],
+        "final_result": "PASS",
+        "human_approval_required": true,
+        "auto_publish": false,
+        "paid_api_used": false,
+        "inputs": {
+          "source_urls": [
+            "https://github.com/ToolJet/ToolJet/",
+            "https://tooljet.com/"
+          ],
+          "required_internal_links": [
+            "/reviews/",
+            "/comparisons/",
+            "/"
+          ],
+          "affiliate_required": true
+        },
+        "report_path": "D:\\AFFILATE BOT\\data\\seo_geo_validation\\tooljet-review-2026.json",
+        "console_output": "SEO/GEO VALIDATION\n--------------------------------\nSemantic HTML: PASS\nHeading hierarchy: PASS\nCanonical: PASS\nAuthor metadata: PASS\nStructured data: PASS\nIndexability: PASS\nInternal links: PASS\nSource attribution: PASS\nAffiliate disclosure: PASS\nGEO claim protection: PASS\nCrawlability: PASS\nAI crawler policy: INFO\n\nFINAL_RESULT: PASS\nHuman approval is still required."
+      },
+      "seo_geo_validation_status": "PASS",
+      "publish_ready": false,
+      "url": "https://smileaireviewhub.com/tooljet-review-2026/",
+      "title": "ToolJet Review 2026: A Practical Small-Business Guide",
+      "description": "An evidence-based ToolJet review for small businesses covering product fit, workflows, features, deployment, risks, pricing checks, and buying criteria."
+    },
+    {
+      "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+      "topic": "ai in healthcare marketing: moving from automation to intelligent engagement: pricing, cost, and roi",
+      "status": "published_local",
+      "checked_at": "2026-08-24T13:07:58.874755+00:00",
+      "failures": [],
+      "hard_blockers": [],
+      "warnings": [
+        "SEO/GEO: citation_structure: Only part of the supplied source set is cited in the candidate HTML."
+      ],
+      "pending_reviews": [],
+      "review_states": {
+        "ai_review": "passed",
+        "source_review": "passed",
+        "freshness_review": "passed"
+      },
+      "severity_counts": {
+        "BLOCK": 0,
+        "WARNING": 1,
+        "HUMAN_REVIEW_REQUIRED": 0
+      },
+      "total_score": 69.17,
+      "score_band": "human_review_required",
+      "final_gate": "Ready for Publish",
+      "research_quality_passed": true,
+      "verified_source_score_passed": true,
+      "knowledge_freshness_passed": true,
+      "ai_review_passed": true,
+      "ai_review_source": "D:\\AFFILATE BOT\\data\\import_history\\external_writer\\2026-08-24\\5a6c6537d014aeee\\import.json",
+      "ai_review_package_id": "5a6c6537d014aeee",
+      "ai_review_task_id": "website_foundation-2026-08-24-fb31237f7c234ffc",
+      "human_approval_passed": true,
+      "approval_binding_status": "MATCHED",
+      "current_content_hash": "852d360a1514e2763b30de5c6bc4dd981d6ad2f2ea355d1ebca528651e9646de",
+      "current_revision_id": "website-revision-v1:852d360a1514e2763b30de5c6bc4dd981d6ad2f2ea355d1ebca528651e9646de",
+      "content_hash_version": "sha256_utf8_exact_v1",
+      "current_authorization": "valid",
+      "public_marker_violations": [],
+      "broken_links": [],
+      "duplicate_title_meta": false,
+      "affiliate_disclosure_present": true,
+      "minimum_business_score_passed": true,
+      "minimum_readability_score_passed": true,
+      "business_score": 60.5,
+      "readability_score": 59.97,
+      "verified_source_score": 70.0,
+      "knowledge_freshness_score": 80.0,
+      "seo_geo_validation": {
+        "schema_version": "seo_geo_validation_v1",
+        "checked_at": "2026-08-24T13:07:58.911387+00:00",
+        "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+        "page_url": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/",
+        "article_type": "pricing",
+        "content_sha256": "852d360a1514e2763b30de5c6bc4dd981d6ad2f2ea355d1ebca528651e9646de",
+        "semantic_html_status": "PASS",
+        "heading_status": "PASS",
+        "author_metadata_status": "PASS",
+        "structured_data_status": "PASS",
+        "canonical_status": "PASS",
+        "indexability_status": "PASS",
+        "internal_link_status": "PASS",
+        "source_citation_status": "WARNING",
+        "disclosure_status": "PASS",
+        "geo_claim_protection_status": "PASS",
+        "crawlability_status": "PASS",
+        "ai_crawler_advisory": {
+          "status": "INFO",
+          "robots_path": "D:\\AFFILATE BOT\\site_output\\robots.txt",
+          "reason": "Crawler directives are reported as owner-controlled policy; no directive was changed.",
+          "matrix": [
+            {
+              "crawler": "OAI-SearchBot",
+              "purpose": "search",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Preserve the owner-selected search visibility policy."
+            },
+            {
+              "crawler": "ChatGPT-User",
+              "purpose": "user_fetch",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Preserve explicit user-requested retrieval control."
+            },
+            {
+              "crawler": "PerplexityBot",
+              "purpose": "search",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Preserve the owner-selected answer-engine policy."
+            },
+            {
+              "crawler": "ClaudeBot",
+              "purpose": "ai_crawler",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Review periodically; this is an owner policy decision."
+            },
+            {
+              "crawler": "Google-Extended",
+              "purpose": "ai_training_control",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Keep separate from Googlebot search crawling."
+            },
+            {
+              "crawler": "GPTBot",
+              "purpose": "ai_training",
+              "current_policy": "ALLOWED_BY_WILDCARD",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+            },
+            {
+              "crawler": "CCBot",
+              "purpose": "dataset_crawler",
+              "current_policy": "ALLOWED_BY_WILDCARD",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Choose explicitly if the owner wants separate dataset-crawler control."
+            },
+            {
+              "crawler": "anthropic-ai",
+              "purpose": "ai_training",
+              "current_policy": "ALLOWED_BY_WILDCARD",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+            },
+            {
+              "crawler": "Bytespider",
+              "purpose": "ai_training",
+              "current_policy": "ALLOWED_BY_WILDCARD",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+            }
+          ],
+          "policy_changed": false
+        },
+        "checks": {
+          "semantic_html": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "visible_words=2745",
+              "main=1",
+              "article=1",
+              "section=13",
+              "nav=2",
+              "footer=1",
+              "table=1",
+              "ul=5",
+              "ol=1"
+            ]
+          },
+          "heading": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "H1: AI Healthcare Marketing ROI: A Buyer’s Cost Framework",
+              "H2: AI healthcare marketing category overview",
+              "H2: Core workflow for intelligent engagement",
+              "H2: AI healthcare marketing features and integrations to verify",
+              "H2: AI healthcare marketing security, privacy, and operational risks",
+              "H2: AI healthcare marketing pricing, cost, and ROI",
+              "H2: Alternatives and category comparison",
+              "H2: Evidence-supported advantages",
+              "H2: Evidence-supported disadvantages",
+              "H2: Final recommendation and verification checklist",
+              "H2: FAQ",
+              "H3: What is AI healthcare marketing automation, and who is it for?",
+              "H3: How should beginners evaluate it before buying?",
+              "H3: What workflow problems does it solve best?",
+              "H3: Which integrations matter most?",
+              "H3: What implementation risks appear when teams scale?",
+              "H3: How often should this content be updated?",
+              "H3: How does the category compare with alternatives?",
+              "H3: When should a buyer choose an alternative?",
+              "H3: What should readers verify about Make pricing?"
+            ]
+          },
+          "canonical": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/"
+            ]
+          },
+          "structured_data": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          "author_trust": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "author_signals=4",
+              "date_signals=1"
+            ]
+          },
+          "indexability": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "index,follow,max-image-preview:large"
+            ]
+          },
+          "internal_links": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "internal_links=23",
+              "broken_links=0"
+            ]
+          },
+          "citation_structure": {
+            "status": "WARNING",
+            "reasons": [
+              "Only part of the supplied source set is cited in the candidate HTML."
+            ],
+            "evidence": [
+              "supplied_sources=17",
+              "matched_sources=2",
+              "concise_answer_blocks=21"
+            ]
+          },
+          "affiliate_disclosure": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "required=True",
+              "present=True"
+            ]
+          },
+          "geo_claim_protection": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": []
+          },
+          "crawlability": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "D:\\AFFILATE BOT\\site_output\\robots.txt",
+              "D:\\AFFILATE BOT\\site_output\\sitemap.xml"
+            ]
+          }
+        },
+        "blocking_reasons": [],
+        "warnings": [
+          "citation_structure: Only part of the supplied source set is cited in the candidate HTML."
+        ],
+        "recommended_fixes": [
+          "Only part of the supplied source set is cited in the candidate HTML."
+        ],
+        "final_result": "WARNING",
+        "human_approval_required": true,
+        "auto_publish": false,
+        "paid_api_used": false,
+        "inputs": {
+          "source_urls": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/",
+            "https://www.adcreative.ai/",
+            "https://www.analyticsinsight.net/artificial-intelligence/top-10-marketing-automation-software-platforms-for-businesses-in-2026/",
+            "https://www.dqindia.com/data-and-ai/ai-tools-in-2026-what-each-platform-does-best-in-real-world-workflows-11262991/",
+            "https://www.forbes.com/advisor/business/software/best-crm-software/",
+            "https://www.forbes.com/councils/forbesagencycouncil/2026/07/09/how-to-overcome-real-world-challenges-in-ai-marketing-automation/",
+            "https://www.forbes.com/councils/forbesbusinesscouncil/2026/05/08/ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement/",
+            "https://www.healthcareitnews.com/news/healthcare-orgs-moving-beyond-ai-hype-cycle-himss26-attendees-agree/",
+            "https://www.inc.com/leila-sheridan/googles-750-million-plan-to-move-ai-from-experiments-to-the-real-world/91334694/",
+            "https://www.make.com/",
+            "https://www.make.com/en/affiliates/",
+            "https://www.morningstar.com/news/pr-newswire/20260305la02426/consensus-named-one-of-g2s-top-5-sales-software-platforms-of-2026-proving-demo-automation-is-now-a-must-have-in-every-gtm-stack/",
+            "https://www.pcmag.com/picks/the-best-email-marketing-software/",
+            "https://www.utusan.com.my/pr-newswire-en/2026/05/doceree-healthcare-marketings-ai-powered-operating-system-earns-frost-sullivans-2026-global-technology-innovation-leadership-recognition/",
+            "https://zapier.com/"
+          ],
+          "required_internal_links": [],
+          "affiliate_required": true
+        },
+        "report_path": "D:\\AFFILATE BOT\\data\\seo_geo_validation\\best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing.json",
+        "console_output": "SEO/GEO VALIDATION\n--------------------------------\nSemantic HTML: PASS\nHeading hierarchy: PASS\nCanonical: PASS\nAuthor metadata: PASS\nStructured data: PASS\nIndexability: PASS\nInternal links: PASS\nSource attribution: WARNING\nAffiliate disclosure: PASS\nGEO claim protection: PASS\nCrawlability: PASS\nAI crawler policy: INFO\n\nFINAL_RESULT: WARNING\nHuman approval is still required.\n\nWarnings:\n- citation_structure: Only part of the supplied source set is cited in the candidate HTML."
+      },
+      "seo_geo_validation_status": "WARNING",
+      "publish_ready": true,
+      "url": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/",
+      "title": "AI Healthcare Marketing ROI: A Buyer’s Cost Framework",
+      "description": "A practical framework for evaluating AI healthcare marketing workflow costs, governance, evidence quality, and ROI before adoption.",
+      "published_at": "2026-08-24T13:10:41.708130+00:00",
+      "historically_deployed": true,
+      "deployment_history": [
+        {
+          "status": "published_local",
+          "published_at": "2026-08-24T13:10:41.708130+00:00",
+          "url": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/"
+        }
+      ]
+    },
+    {
+      "slug": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+      "topic": "copilot-sdk review 2026: security and privacy",
+      "status": "published_local",
+      "checked_at": "2026-08-24T13:08:01.109400+00:00",
+      "failures": [],
+      "hard_blockers": [],
+      "warnings": [],
+      "pending_reviews": [],
+      "review_states": {
+        "ai_review": "passed",
+        "source_review": "passed",
+        "freshness_review": "passed"
+      },
+      "severity_counts": {
+        "BLOCK": 0,
+        "WARNING": 0,
+        "HUMAN_REVIEW_REQUIRED": 0
+      },
+      "total_score": 62.14,
+      "score_band": "needs_revision",
+      "final_gate": "Ready for Publish",
+      "research_quality_passed": true,
+      "verified_source_score_passed": true,
+      "knowledge_freshness_passed": true,
+      "ai_review_passed": true,
+      "ai_review_source": "D:\\AFFILATE BOT\\data\\import_history\\external_writer\\2026-08-24\\5a6c6537d014aeee\\import.json",
+      "ai_review_package_id": "5a6c6537d014aeee",
+      "ai_review_task_id": "website_foundation-2026-08-24-90f0323bcbd653d1",
+      "human_approval_passed": true,
+      "approval_binding_status": "MATCHED",
+      "current_content_hash": "b5d1f6e297432819a0f120e894dbb551d82e13f34cbdbb2519edd1e536de348a",
+      "current_revision_id": "website-revision-v1:b5d1f6e297432819a0f120e894dbb551d82e13f34cbdbb2519edd1e536de348a",
+      "content_hash_version": "sha256_utf8_exact_v1",
+      "current_authorization": "valid",
+      "public_marker_violations": [],
+      "broken_links": [],
+      "duplicate_title_meta": false,
+      "affiliate_disclosure_present": true,
+      "minimum_business_score_passed": true,
+      "minimum_readability_score_passed": true,
+      "business_score": 54.9,
+      "readability_score": 59.04,
+      "verified_source_score": 70.0,
+      "knowledge_freshness_score": 80.0,
+      "seo_geo_validation": {
+        "schema_version": "seo_geo_validation_v1",
+        "checked_at": "2026-08-24T13:08:01.169058+00:00",
+        "slug": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+        "page_url": "https://smileaireviewhub.com/best-copilot-sdk-review-2026-workflows-and-use-cases-security/",
+        "article_type": "review",
+        "content_sha256": "b5d1f6e297432819a0f120e894dbb551d82e13f34cbdbb2519edd1e536de348a",
+        "semantic_html_status": "PASS",
+        "heading_status": "PASS",
+        "author_metadata_status": "PASS",
+        "structured_data_status": "PASS",
+        "canonical_status": "PASS",
+        "indexability_status": "PASS",
+        "internal_link_status": "PASS",
+        "source_citation_status": "PASS",
+        "disclosure_status": "PASS",
+        "geo_claim_protection_status": "PASS",
+        "crawlability_status": "PASS",
+        "ai_crawler_advisory": {
+          "status": "INFO",
+          "robots_path": "D:\\AFFILATE BOT\\site_output\\robots.txt",
+          "reason": "Crawler directives are reported as owner-controlled policy; no directive was changed.",
+          "matrix": [
+            {
+              "crawler": "OAI-SearchBot",
+              "purpose": "search",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Preserve the owner-selected search visibility policy."
+            },
+            {
+              "crawler": "ChatGPT-User",
+              "purpose": "user_fetch",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Preserve explicit user-requested retrieval control."
+            },
+            {
+              "crawler": "PerplexityBot",
+              "purpose": "search",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Preserve the owner-selected answer-engine policy."
+            },
+            {
+              "crawler": "ClaudeBot",
+              "purpose": "ai_crawler",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Review periodically; this is an owner policy decision."
+            },
+            {
+              "crawler": "Google-Extended",
+              "purpose": "ai_training_control",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Keep separate from Googlebot search crawling."
+            },
+            {
+              "crawler": "GPTBot",
+              "purpose": "ai_training",
+              "current_policy": "ALLOWED_BY_WILDCARD",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+            },
+            {
+              "crawler": "CCBot",
+              "purpose": "dataset_crawler",
+              "current_policy": "ALLOWED_BY_WILDCARD",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Choose explicitly if the owner wants separate dataset-crawler control."
+            },
+            {
+              "crawler": "anthropic-ai",
+              "purpose": "ai_training",
+              "current_policy": "ALLOWED_BY_WILDCARD",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+            },
+            {
+              "crawler": "Bytespider",
+              "purpose": "ai_training",
+              "current_policy": "ALLOWED_BY_WILDCARD",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+            }
+          ],
+          "policy_changed": false
+        },
+        "checks": {
+          "semantic_html": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "visible_words=2539",
+              "main=1",
+              "article=1",
+              "section=13",
+              "nav=2",
+              "footer=1",
+              "table=1",
+              "ul=5",
+              "ol=1"
+            ]
+          },
+          "heading": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "H1: GitHub Copilot SDK Security Review for Enterprise Teams",
+              "H2: GitHub Copilot SDK product identity",
+              "H2: How the Copilot SDK workflow operates",
+              "H2: Copilot SDK feature and integration scope",
+              "H2: Copilot SDK security, privacy, and permission controls",
+              "H2: Copilot SDK pricing and cost boundaries",
+              "H2: Copilot SDK implementation approaches compared",
+              "H2: Evidence-supported advantages of the Copilot SDK",
+              "H2: Copilot SDK disadvantages and operational risks",
+              "H2: Final recommendation and enterprise verification checklist",
+              "H2: FAQ",
+              "H3: What is the GitHub Copilot SDK, and who is it for?",
+              "H3: How should a beginner evaluate it before adopting it?",
+              "H3: What workflow problems does it solve best?",
+              "H3: Which integrations matter most?",
+              "H3: What risks appear when teams scale the SDK?",
+              "H3: How often should this review be updated?",
+              "H3: How does the SDK compare with alternatives?",
+              "H3: When should a team choose an alternative?",
+              "H3: What should readers verify about pricing?"
+            ]
+          },
+          "canonical": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "https://smileaireviewhub.com/best-copilot-sdk-review-2026-workflows-and-use-cases-security/"
+            ]
+          },
+          "structured_data": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          "author_trust": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "author_signals=4",
+              "date_signals=1"
+            ]
+          },
+          "indexability": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "index,follow,max-image-preview:large"
+            ]
+          },
+          "internal_links": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "internal_links=20",
+              "broken_links=0"
+            ]
+          },
+          "citation_structure": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "supplied_sources=2",
+              "matched_sources=2",
+              "concise_answer_blocks=21"
+            ]
+          },
+          "affiliate_disclosure": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "required=True",
+              "present=True"
+            ]
+          },
+          "geo_claim_protection": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": []
+          },
+          "crawlability": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "D:\\AFFILATE BOT\\site_output\\robots.txt",
+              "D:\\AFFILATE BOT\\site_output\\sitemap.xml"
+            ]
+          }
+        },
+        "blocking_reasons": [],
+        "warnings": [],
+        "recommended_fixes": [],
+        "final_result": "PASS",
+        "human_approval_required": true,
+        "auto_publish": false,
+        "paid_api_used": false,
+        "inputs": {
+          "source_urls": [
+            "https://github.com/github/copilot-sdk/",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "required_internal_links": [],
+          "affiliate_required": true
+        },
+        "report_path": "D:\\AFFILATE BOT\\data\\seo_geo_validation\\best-copilot-sdk-review-2026-workflows-and-use-cases-security.json",
+        "console_output": "SEO/GEO VALIDATION\n--------------------------------\nSemantic HTML: PASS\nHeading hierarchy: PASS\nCanonical: PASS\nAuthor metadata: PASS\nStructured data: PASS\nIndexability: PASS\nInternal links: PASS\nSource attribution: PASS\nAffiliate disclosure: PASS\nGEO claim protection: PASS\nCrawlability: PASS\nAI crawler policy: INFO\n\nFINAL_RESULT: PASS\nHuman approval is still required."
+      },
+      "seo_geo_validation_status": "PASS",
+      "publish_ready": true,
+      "url": "https://smileaireviewhub.com/best-copilot-sdk-review-2026-workflows-and-use-cases-security/",
+      "title": "GitHub Copilot SDK Security Review for Enterprise Teams",
+      "description": "An evidence-led enterprise review of GitHub Copilot SDK workflows, permissions, authentication, deployment boundaries, and security research gaps.",
+      "published_at": "2026-08-24T13:10:41.792723+00:00",
+      "historically_deployed": true,
+      "deployment_history": [
+        {
+          "status": "published_local",
+          "published_at": "2026-08-24T13:10:41.792723+00:00",
+          "url": "https://smileaireviewhub.com/best-copilot-sdk-review-2026-workflows-and-use-cases-security/"
+        }
+      ]
     }
   ]
 }

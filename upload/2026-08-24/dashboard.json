@@ -1,0 +1,1855 @@
+{
+  "date": "2026-08-24",
+  "summary": {
+    "date": "2026-08-24",
+    "requested_date": "2026-08-24",
+    "week_start": "2026-08-24",
+    "week_end": "2026-08-30",
+    "daily_angle": "Week-start hottrend / pillar batch",
+    "total_topics": 2,
+    "drafted": 0,
+    "approved": 2,
+    "rejected": 0,
+    "published": 0,
+    "missing_files": 2,
+    "dashboard_file": "D:\\AFFILATE BOT\\site_output\\review\\2026-08-24\\index.html",
+    "operator_console": "D:\\AFFILATE BOT\\data\\editorial_operations_console.html",
+    "upload_dir": "D:\\AFFILATE BOT\\upload\\2026-08-24",
+    "master_dashboard": "D:\\AFFILATE BOT\\upload\\dashboard.html",
+    "ready_for_publish": 2,
+    "publish_blocked": 0,
+    "human_approval_required": 0,
+    "published_local": 0,
+    "drafts": 0,
+    "needs_review": 0,
+    "human_approved": 2,
+    "waiting_for_draft": 0,
+    "blocked_research": 0,
+    "published_this_batch": 0,
+    "top_block_reasons": [],
+    "next_recommended_command": "python editorial_console.py publish-ready --date 2026-08-24",
+    "archived_unpublished": 19
+  },
+  "topics": [
+    {
+      "root_topic_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+      "root_title": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI",
+      "title": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI",
+      "keyword": "ai in healthcare marketing: moving from automation to intelligent engagement: pricing, cost, and roi",
+      "primary_keyword": "ai in healthcare marketing: moving from automation to intelligent engagement: pricing, cost, and roi",
+      "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+      "parent_slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+      "search_intent": "commercial investigation",
+      "primary_search_intent": "commercial investigation",
+      "selection_score": 78.96,
+      "total_score": 78.96,
+      "reason_selected": [
+        "Selected as existing root expansion.",
+        "freshness_gap=18.0",
+        "topical_depth_gap=17.0",
+        "commercial_value=15.0"
+      ],
+      "content_lane": "FOUNDATION_MAIN",
+      "selected": true,
+      "selected_status": "selected",
+      "series_status": "active",
+      "rank": 1,
+      "topic_tier": 1,
+      "topic_tier_id": "CORE_AI",
+      "category": "ai_automation",
+      "subcategory": "ai_automation",
+      "content_plan": [
+        {
+          "angle": "pillar",
+          "title": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI"
+        },
+        {
+          "angle": "implementation",
+          "title": "How to evaluate AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI"
+        },
+        {
+          "angle": "limitations",
+          "title": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI: limitations and risks"
+        }
+      ],
+      "series_plan": [
+        {
+          "root_topic_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+          "root_title": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI",
+          "content_lane": "FOUNDATION_MAIN",
+          "article_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing-main_review",
+          "sequence_number": 1,
+          "scheduled_date": "2026-08-24",
+          "planned_publishing_day": "2026-08-24",
+          "daily_angle": "main_review",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI for category overview?",
+          "unique_thesis": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI should be judged through category overview, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI for category overview.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Category Overview context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare category overview options without repeating the Monday table.",
+          "faq_set": [
+            "main_review_faq_1",
+            "main_review_faq_2",
+            "main_review_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "implementation_guide",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "implementation_guide",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+          "root_title": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing-implementation_guide",
+          "sequence_number": 2,
+          "scheduled_date": "2026-08-25",
+          "planned_publishing_day": "2026-08-25",
+          "daily_angle": "implementation_guide",
+          "primary_search_intent": "implementation guide",
+          "search_intent": "implementation guide",
+          "reader_question": "How should a small business evaluate AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI for implementation workflow?",
+          "unique_thesis": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI should be judged through implementation workflow, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI for implementation workflow.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Implementation Workflow context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare implementation workflow options without repeating the Monday table.",
+          "faq_set": [
+            "implementation_guide_faq_1",
+            "implementation_guide_faq_2",
+            "implementation_guide_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "main_review",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "comparison",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "comparison",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+          "root_title": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing-comparison",
+          "sequence_number": 3,
+          "scheduled_date": "2026-08-26",
+          "planned_publishing_day": "2026-08-26",
+          "daily_angle": "comparison",
+          "primary_search_intent": "comparison",
+          "search_intent": "comparison",
+          "reader_question": "How should a small business evaluate AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI for comparison and alternatives?",
+          "unique_thesis": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI should be judged through comparison and alternatives, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI for comparison and alternatives.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Comparison And Alternatives context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare comparison and alternatives options without repeating the Monday table.",
+          "faq_set": [
+            "comparison_faq_1",
+            "comparison_faq_2",
+            "comparison_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "implementation_guide",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "pricing",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "pricing",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+          "root_title": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing-pricing",
+          "sequence_number": 4,
+          "scheduled_date": "2026-08-27",
+          "planned_publishing_day": "2026-08-27",
+          "daily_angle": "pricing",
+          "primary_search_intent": "commercial investigation",
+          "search_intent": "commercial investigation",
+          "reader_question": "How should a small business evaluate AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI for pricing, cost, and ROI?",
+          "unique_thesis": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI should be judged through pricing, cost, and ROI, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI for pricing, cost, and ROI.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Pricing, Cost, And Roi context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare pricing, cost, and ROI options without repeating the Monday table.",
+          "faq_set": [
+            "pricing_faq_1",
+            "pricing_faq_2",
+            "pricing_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "comparison",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "use_cases",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "use_cases",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+          "root_title": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing-use_cases",
+          "sequence_number": 5,
+          "scheduled_date": "2026-08-28",
+          "planned_publishing_day": "2026-08-28",
+          "daily_angle": "use_cases",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI for workflows and use cases?",
+          "unique_thesis": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI should be judged through workflows and use cases, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI for workflows and use cases.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Workflows And Use Cases context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare workflows and use cases options without repeating the Monday table.",
+          "faq_set": [
+            "use_cases_faq_1",
+            "use_cases_faq_2",
+            "use_cases_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "pricing",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "troubleshooting",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "troubleshooting",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+          "root_title": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing-troubleshooting",
+          "sequence_number": 6,
+          "scheduled_date": "2026-08-29",
+          "planned_publishing_day": "2026-08-29",
+          "daily_angle": "troubleshooting",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI for mistakes and troubleshooting?",
+          "unique_thesis": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI should be judged through mistakes and troubleshooting, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI for mistakes and troubleshooting.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Mistakes And Troubleshooting context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare mistakes and troubleshooting options without repeating the Monday table.",
+          "faq_set": [
+            "troubleshooting_faq_1",
+            "troubleshooting_faq_2",
+            "troubleshooting_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "use_cases",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "buying_decision",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "buying_decision",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+          "root_title": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing-buying_decision",
+          "sequence_number": 7,
+          "scheduled_date": "2026-08-30",
+          "planned_publishing_day": "2026-08-30",
+          "daily_angle": "buying_decision",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI for small-business buying decision?",
+          "unique_thesis": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI should be judged through small-business buying decision, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI for small-business buying decision.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Small-Business Buying Decision context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare small-business buying decision options without repeating the Monday table.",
+          "faq_set": [
+            "buying_decision_faq_1",
+            "buying_decision_faq_2",
+            "buying_decision_faq_3"
+          ],
+          "cta_intent": "close the same-root editorial series",
+          "previous_article": "troubleshooting",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "",
+            "bridge_state": "SERIES_COMPLETE"
+          },
+          "next_article": "",
+          "bridge_state": "SERIES_COMPLETE",
+          "series_status": "planned",
+          "article_state": "planned"
+        }
+      ],
+      "selection_source": "weekly_content_planning",
+      "fallback_level": 2,
+      "opportunity_type": "existing_root_expansion",
+      "parent_root_id": "ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement",
+      "source_article_slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases",
+      "proposed_new_intent": "commercial investigation",
+      "upgrade_opportunity_score": 78.96,
+      "score_breakdown": {
+        "schema_version": "upgrade_opportunity_score_v1",
+        "config_schema_version": "content_opportunity_fallback_config_v1",
+        "opportunity_type": "existing_root_expansion",
+        "upgrade_opportunity_score": 78.96,
+        "freshness_gap": 18.0,
+        "commercial_value": 15.0,
+        "affiliate_opportunity": 0.0,
+        "partnerstack_opportunity": 0.0,
+        "topical_depth_gap": 17.0,
+        "internal_link_opportunity": 3.96,
+        "source_availability": 12.0,
+        "existing_authority_value": 5.0,
+        "entity_coverage_gap": 8.0,
+        "duplication_penalty": 0.0,
+        "source_penalty": 0.0,
+        "obsolete_product_penalty": 0.0,
+        "low_relevance_penalty": 0.0
+      },
+      "unique_thesis": "Evaluate AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement through pricing, cost, and roi, a different decision question from the existing commercial research article.",
+      "refresh_thesis": null,
+      "update_scope": null,
+      "existing_slug": null,
+      "refresh_reason": [],
+      "refresh_scope": [],
+      "preserve_slug": false,
+      "create_new_url": true,
+      "deep_dive_eligible": true,
+      "refresh_existing_article": false,
+      "human_approval_required": true,
+      "duplicate_risk": "low",
+      "cannibalization_risk": false,
+      "source_readiness": {
+        "passes": true,
+        "verified_source_count": 17,
+        "source_family_count": 14,
+        "source_urls": [
+          "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+          "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+          "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/",
+          "https://www.adcreative.ai",
+          "https://www.analyticsinsight.net/artificial-intelligence/top-10-marketing-automation-software-platforms-for-businesses-in-2026",
+          "https://www.dqindia.com/data-and-ai/ai-tools-in-2026-what-each-platform-does-best-in-real-world-workflows-11262991",
+          "https://www.forbes.com/advisor/business/software/best-crm-software/",
+          "https://www.forbes.com/councils/forbesagencycouncil/2026/07/09/how-to-overcome-real-world-challenges-in-ai-marketing-automation/",
+          "https://www.forbes.com/councils/forbesbusinesscouncil/2026/05/08/ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement/",
+          "https://www.healthcareitnews.com/news/healthcare-orgs-moving-beyond-ai-hype-cycle-himss26-attendees-agree",
+          "https://www.inc.com/leila-sheridan/googles-750-million-plan-to-move-ai-from-experiments-to-the-real-world/91334694",
+          "https://www.make.com",
+          "https://www.make.com/en/affiliates",
+          "https://www.morningstar.com/news/pr-newswire/20260305la02426/consensus-named-one-of-g2s-top-5-sales-software-platforms-of-2026-proving-demo-automation-is-now-a-must-have-in-every-gtm-stack",
+          "https://www.pcmag.com/picks/the-best-email-marketing-software",
+          "https://www.utusan.com.my/pr-newswire-en/2026/05/doceree-healthcare-marketings-ai-powered-operating-system-earns-frost-sullivans-2026-global-technology-innovation-leadership-recognition/",
+          "https://zapier.com"
+        ],
+        "source_domains": [
+          "adcreative.ai",
+          "analyticsinsight.net",
+          "dqindia.com",
+          "finance.yahoo.com",
+          "forbes.com",
+          "healthcareitnews.com",
+          "inc.com",
+          "make.com",
+          "morningstar.com",
+          "news.microsoft.com",
+          "pcmag.com",
+          "semiengineering.com",
+          "utusan.com.my",
+          "zapier.com"
+        ],
+        "reason": "PASS"
+      },
+      "normalized_root_topic": "ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-pricing-cost-and-roi",
+      "topic_category": "AI_AUTOMATION",
+      "primary_entity": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI",
+      "freshness_score": 0.0,
+      "official_source_confidence": "unknown",
+      "likely_search_demand": 0.0,
+      "commercial_relevance": 0.0,
+      "depth_potential": 78.96,
+      "source_references": [],
+      "maximum_useful_article_angles": 7,
+      "parent_keyword": "ai in healthcare marketing: moving from automation to intelligent engagement: pricing, cost, and roi",
+      "daily_angle": "main_review",
+      "batch_date": "2026-08-24",
+      "week_start": "2026-08-24",
+      "mode": "standard",
+      "status": "approved",
+      "content_strategy": {
+        "content_type": "Buying Guide",
+        "audience": "Marketing teams",
+        "search_intent": "commercial investigation",
+        "marketing_funnel": "Bottom of funnel",
+        "primary_keyword": "ai in healthcare marketing: moving from automation to intelligent engagement: pricing, cost, and roi",
+        "secondary_semantic_keywords": [
+          "healthcare",
+          "marketing",
+          "moving",
+          "automation",
+          "intelligent",
+          "engagement",
+          "pricing",
+          "cost",
+          "roi"
+        ],
+        "suggested_internal_links": [],
+        "related_weekly_topics": [],
+        "recommended_cta": "Use the buyer checklist",
+        "estimated_search_intent": "commercial investigation",
+        "suggested_external_link_count": 2,
+        "recommended_faq_count": 5,
+        "suggested_heading_count": 8,
+        "reading_level": "Grade 8-10",
+        "target_audience": "Marketing teams",
+        "content_freshness": "evergreen_or_needs_refresh",
+        "topical_authority_score": 45,
+        "entity_keywords": [
+          "healthcare",
+          "marketing",
+          "moving",
+          "automation",
+          "intelligent",
+          "engagement"
+        ],
+        "schema_recommendation": [
+          "Article",
+          "BreadcrumbList",
+          "Organization",
+          "WebSite",
+          "FAQPage"
+        ],
+        "cluster_health": "orphan",
+        "planning_scope": "weekly_batch_only"
+      },
+      "content_quality_warnings": [
+        "Warning only: duplicate FAQ pattern appears 2 times in this weekly batch."
+      ],
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 60.86,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 14,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+      "review_preview": "",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "approved_for_publish",
+      "article_readiness": {
+        "task_id": "website-advanced-2026-08-24-best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+        "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+        "status": "RESEARCH_STRONG",
+        "article_ready": false,
+        "sources_attempted": 46,
+        "sources_retrieved": 14,
+        "sources_blocked": 31,
+        "usable_paragraphs": 156,
+        "candidate_claims": 393,
+        "publishable_claims": 54,
+        "rejected_claims": 339,
+        "mandatory_sections_covered": 10,
+        "mandatory_sections_total": 10,
+        "blockers": [
+          "Advanced article contract is incomplete: reader_question",
+          "Entity AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: , Cost, and ROI has 0 accepted claim(s); requires 8.",
+          "Entity AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: , Cost, and ROI coverage 0.00 is below 0.65.",
+          "pricing_source_score 0 is below required 20."
+        ],
+        "warnings": [],
+        "validation_errors": [],
+        "artifact_dir": "D:\\AFFILATE BOT\\data\\research\\best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+        "research_level": "RESEARCH_STRONG",
+        "draft_exportable": false,
+        "critical_safety_violations": [],
+        "research_tasks": [
+          {
+            "task_id": "research-001",
+            "task_type": "EVIDENCE_GAP",
+            "section": "limitations",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for limitations.",
+            "recommended_source_families": [
+              "faq",
+              "support",
+              "github"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-002",
+            "task_type": "MISSING_COMPARATOR",
+            "section": "alternatives",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for alternatives.",
+            "recommended_source_families": [
+              "blog",
+              "marketplace",
+              "community"
+            ],
+            "recommended_wording": "Omit direct rankings and state that alternatives require verification."
+          },
+          {
+            "task_id": "research-003",
+            "task_type": "EVIDENCE_GAP",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Advanced article contract is incomplete: reader_question",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-004",
+            "task_type": "EVIDENCE_GAP",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Entity AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: , Cost, and ROI has 0 accepted claim(s); requires 8.",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-005",
+            "task_type": "WEAK_SECTION",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Entity AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: , Cost, and ROI coverage 0.00 is below 0.65.",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-006",
+            "task_type": "MISSING_PRICING",
+            "section": "pricing",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "pricing_source_score 0 is below required 20.",
+            "recommended_source_families": [],
+            "recommended_wording": "Do not state a price; direct readers to the current official pricing page."
+          }
+        ],
+        "known_uncertainties": [
+          "Evidence is incomplete for limitations.",
+          "Evidence is incomplete for alternatives.",
+          "Advanced article contract is incomplete: reader_question",
+          "Entity AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: , Cost, and ROI has 0 accepted claim(s); requires 8.",
+          "Entity AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: , Cost, and ROI coverage 0.00 is below 0.65.",
+          "pricing_source_score 0 is below required 20."
+        ],
+        "weak_sections": [
+          "limitations",
+          "alternatives"
+        ],
+        "comparison_status": "NOT_APPLICABLE",
+        "identified_comparison_entities": [
+          "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: , Cost, and ROI"
+        ],
+        "official_sources_per_entity": {
+          "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: , Cost, and ROI": []
+        },
+        "entity_coverage": [
+          {
+            "canonical_entity_id": "ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-cost-and-roi",
+            "canonical_entity_name": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: , Cost, and ROI",
+            "entity_role": "root",
+            "source_count": 14,
+            "claim_count": 0,
+            "claim_categories": [],
+            "sections_covered": [],
+            "sections_required": [
+              "product-identity",
+              "pricing",
+              "limitations",
+              "final-recommendation"
+            ],
+            "coverage_score": 0.0,
+            "status": "MISSING"
+          }
+        ],
+        "source_family_counts": {
+          "affiliate_program_page": 2,
+          "independent_evidence": 7,
+          "official_docs": 3,
+          "pricing_page": 1,
+          "product_page": 1
+        },
+        "evidence_coverage_score": 0.885,
+        "estimated_publish_readiness": 0.9253,
+        "revision_count": 0,
+        "unique_thesis": "Evaluate AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement through pricing, cost, and roi, a different decision question from the existing commercial research article.",
+        "unique_thesis_status": "PROVIDED"
+      },
+      "research_artifacts": {
+        "task_id": "website-advanced-2026-08-24-best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+        "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+        "batch_date": "2026-08-24",
+        "canonical_dir": "D:\\AFFILATE BOT\\data\\research\\best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+        "package_file": "D:\\AFFILATE BOT\\data\\research\\best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing\\package.json",
+        "enrichment_report_file": "D:\\AFFILATE BOT\\data\\research\\best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing\\enrichment_report.json",
+        "source_excerpts_file": "D:\\AFFILATE BOT\\data\\research\\best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing\\SOURCE_EXCERPTS.json",
+        "fact_ledger_file": "D:\\AFFILATE BOT\\data\\research\\best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing\\FACT_LEDGER.json",
+        "article_blueprint_file": "D:\\AFFILATE BOT\\data\\research\\best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing\\ARTICLE_BLUEPRINT.json",
+        "evidence_coverage_file": "D:\\AFFILATE BOT\\data\\research\\best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing\\evidence_coverage.json",
+        "angle_research_plan_file": "D:\\AFFILATE BOT\\data\\research\\best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing\\ANGLE_RESEARCH_PLAN.json",
+        "claim_extraction_diagnostics_file": "D:\\AFFILATE BOT\\data\\research\\best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing\\claim_extraction_diagnostics.json",
+        "duplicate_dirs": [],
+        "slug_aliases": [],
+        "missing_files": [],
+        "legacy_reasons": [],
+        "paragraph_count": 156,
+        "claim_count": 54,
+        "coverage_score": 0.885,
+        "angle_profile": "pricing_and_value",
+        "required_entity_count": 1,
+        "resolved_entity_count": 1,
+        "entity_coverage_score": 0.0,
+        "candidate_claim_count": 393,
+        "rejected_claim_count": 339,
+        "mandatory_sections_covered": 10,
+        "mandatory_sections_total": 10,
+        "status": "RESEARCH_STRONG",
+        "article_ready": false,
+        "research_level": "RESEARCH_STRONG",
+        "draft_exportable": true,
+        "critical_safety_violations": [],
+        "outstanding_research_tasks": 6,
+        "weak_sections": [
+          "limitations",
+          "alternatives"
+        ],
+        "comparison_status": "NOT_APPLICABLE",
+        "estimated_publish_readiness": 0.9253,
+        "revision_count": 0,
+        "total_source_count": 14,
+        "official_source_count": 1,
+        "verified_source_count": 14,
+        "source_families": [
+          "affiliate_program_page",
+          "independent_evidence",
+          "official_docs",
+          "pricing_page",
+          "product_page"
+        ],
+        "source_quality_score": 100.0,
+        "failing_gates": [],
+        "is_legacy": false
+      },
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "research_level": "RESEARCH_STRONG",
+      "comparison_status": "NOT_APPLICABLE",
+      "outstanding_research_tasks": 6,
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "writer_type": "external_ai",
+        "writer_name": "ChatGPT",
+        "writer_version": "web",
+        "generated_at": "2026-08-24T09:51:20.115871+00:00",
+        "package_id": "5a6c6537d014aeee",
+        "task_id": "website_foundation-2026-08-24-fb31237f7c234ffc",
+        "revision": 2
+      },
+      "approved_by": "editor",
+      "validation_mode": "smart",
+      "validation_status": "failed",
+      "autofix_status": "fixed",
+      "cta_status": "fixed",
+      "faq_schema_status": "ok",
+      "meta_description_status": "ok",
+      "redirect_status": "fixed",
+      "block_reason": "site_output stylesheet link is missing; site_output site header class is missing; site_output article layout class is missing; site_output canonical site footer is missing; site_output footer class is missing: footer-grid",
+      "validation_errors": [
+        "site_output stylesheet link is missing",
+        "site_output site header class is missing",
+        "site_output article layout class is missing",
+        "site_output canonical site footer is missing",
+        "site_output footer class is missing: footer-grid",
+        "site_output footer class is missing: footer-column",
+        "site_output footer class is missing: footer-links",
+        "site_output footer class is missing: footer-bottom",
+        "site_output footer class is missing: footer-brand",
+        "site_output footer class is missing: footer-description",
+        "site_output footer class is missing: footer-social-links",
+        "site_output comparison tables must use table-wrapper and article-table",
+        "site_output CTA links must use cta-button classes",
+        "docs stylesheet link is missing",
+        "docs site header class is missing",
+        "docs article layout class is missing",
+        "docs canonical site footer is missing",
+        "docs footer class is missing: footer-grid",
+        "docs footer class is missing: footer-column",
+        "docs footer class is missing: footer-links",
+        "docs footer class is missing: footer-bottom",
+        "docs footer class is missing: footer-brand",
+        "docs footer class is missing: footer-description",
+        "docs footer class is missing: footer-social-links",
+        "docs comparison tables must use table-wrapper and article-table",
+        "docs CTA links must use cta-button classes"
+      ],
+      "next_action": "python editorial_console.py autofix-batch --date 2026-08-24"
+    },
+    {
+      "root_topic_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+      "root_title": "copilot-sdk Review 2026: Security and Privacy",
+      "title": "copilot-sdk Review 2026: Security and Privacy",
+      "keyword": "copilot-sdk review 2026: security and privacy",
+      "primary_keyword": "copilot-sdk review 2026: security and privacy",
+      "slug": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+      "parent_slug": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+      "search_intent": "security research",
+      "primary_search_intent": "security research",
+      "selection_score": 78.96,
+      "total_score": 78.96,
+      "reason_selected": [
+        "Selected as existing root expansion.",
+        "freshness_gap=18.0",
+        "topical_depth_gap=17.0",
+        "commercial_value=15.0"
+      ],
+      "content_lane": "FOUNDATION_MAIN",
+      "selected": true,
+      "selected_status": "selected",
+      "series_status": "active",
+      "rank": 2,
+      "topic_tier": 1,
+      "topic_tier_id": "CORE_AI",
+      "category": "ai_assistants",
+      "subcategory": "copilot",
+      "content_plan": [
+        {
+          "angle": "pillar",
+          "title": "copilot-sdk Review 2026: Security and Privacy"
+        },
+        {
+          "angle": "implementation",
+          "title": "How to evaluate copilot-sdk Review 2026: Security and Privacy"
+        },
+        {
+          "angle": "limitations",
+          "title": "copilot-sdk Review 2026: Security and Privacy: limitations and risks"
+        }
+      ],
+      "series_plan": [
+        {
+          "root_topic_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+          "root_title": "copilot-sdk Review 2026: Security and Privacy",
+          "content_lane": "FOUNDATION_MAIN",
+          "article_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security-main_review",
+          "sequence_number": 1,
+          "scheduled_date": "2026-08-24",
+          "planned_publishing_day": "2026-08-24",
+          "daily_angle": "main_review",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate copilot-sdk Review 2026: Security and Privacy for category overview?",
+          "unique_thesis": "copilot-sdk Review 2026: Security and Privacy should be judged through category overview, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use copilot-sdk Review 2026: Security and Privacy for category overview.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Category Overview context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare category overview options without repeating the Monday table.",
+          "faq_set": [
+            "main_review_faq_1",
+            "main_review_faq_2",
+            "main_review_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "implementation_guide",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "implementation_guide",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+          "root_title": "copilot-sdk Review 2026: Security and Privacy",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security-implementation_guide",
+          "sequence_number": 2,
+          "scheduled_date": "2026-08-25",
+          "planned_publishing_day": "2026-08-25",
+          "daily_angle": "implementation_guide",
+          "primary_search_intent": "implementation guide",
+          "search_intent": "implementation guide",
+          "reader_question": "How should a small business evaluate copilot-sdk Review 2026: Security and Privacy for implementation workflow?",
+          "unique_thesis": "copilot-sdk Review 2026: Security and Privacy should be judged through implementation workflow, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use copilot-sdk Review 2026: Security and Privacy for implementation workflow.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Implementation Workflow context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare implementation workflow options without repeating the Monday table.",
+          "faq_set": [
+            "implementation_guide_faq_1",
+            "implementation_guide_faq_2",
+            "implementation_guide_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "main_review",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "comparison",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "comparison",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+          "root_title": "copilot-sdk Review 2026: Security and Privacy",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security-comparison",
+          "sequence_number": 3,
+          "scheduled_date": "2026-08-26",
+          "planned_publishing_day": "2026-08-26",
+          "daily_angle": "comparison",
+          "primary_search_intent": "comparison",
+          "search_intent": "comparison",
+          "reader_question": "How should a small business evaluate copilot-sdk Review 2026: Security and Privacy for comparison and alternatives?",
+          "unique_thesis": "copilot-sdk Review 2026: Security and Privacy should be judged through comparison and alternatives, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use copilot-sdk Review 2026: Security and Privacy for comparison and alternatives.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Comparison And Alternatives context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare comparison and alternatives options without repeating the Monday table.",
+          "faq_set": [
+            "comparison_faq_1",
+            "comparison_faq_2",
+            "comparison_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "implementation_guide",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "pricing",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "pricing",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+          "root_title": "copilot-sdk Review 2026: Security and Privacy",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security-pricing",
+          "sequence_number": 4,
+          "scheduled_date": "2026-08-27",
+          "planned_publishing_day": "2026-08-27",
+          "daily_angle": "pricing",
+          "primary_search_intent": "commercial investigation",
+          "search_intent": "commercial investigation",
+          "reader_question": "How should a small business evaluate copilot-sdk Review 2026: Security and Privacy for pricing, cost, and ROI?",
+          "unique_thesis": "copilot-sdk Review 2026: Security and Privacy should be judged through pricing, cost, and ROI, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use copilot-sdk Review 2026: Security and Privacy for pricing, cost, and ROI.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Pricing, Cost, And Roi context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare pricing, cost, and ROI options without repeating the Monday table.",
+          "faq_set": [
+            "pricing_faq_1",
+            "pricing_faq_2",
+            "pricing_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "comparison",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "use_cases",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "use_cases",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+          "root_title": "copilot-sdk Review 2026: Security and Privacy",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security-use_cases",
+          "sequence_number": 5,
+          "scheduled_date": "2026-08-28",
+          "planned_publishing_day": "2026-08-28",
+          "daily_angle": "use_cases",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate copilot-sdk Review 2026: Security and Privacy for workflows and use cases?",
+          "unique_thesis": "copilot-sdk Review 2026: Security and Privacy should be judged through workflows and use cases, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use copilot-sdk Review 2026: Security and Privacy for workflows and use cases.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Workflows And Use Cases context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare workflows and use cases options without repeating the Monday table.",
+          "faq_set": [
+            "use_cases_faq_1",
+            "use_cases_faq_2",
+            "use_cases_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "pricing",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "troubleshooting",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "troubleshooting",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+          "root_title": "copilot-sdk Review 2026: Security and Privacy",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security-troubleshooting",
+          "sequence_number": 6,
+          "scheduled_date": "2026-08-29",
+          "planned_publishing_day": "2026-08-29",
+          "daily_angle": "troubleshooting",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate copilot-sdk Review 2026: Security and Privacy for mistakes and troubleshooting?",
+          "unique_thesis": "copilot-sdk Review 2026: Security and Privacy should be judged through mistakes and troubleshooting, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use copilot-sdk Review 2026: Security and Privacy for mistakes and troubleshooting.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Mistakes And Troubleshooting context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare mistakes and troubleshooting options without repeating the Monday table.",
+          "faq_set": [
+            "troubleshooting_faq_1",
+            "troubleshooting_faq_2",
+            "troubleshooting_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "use_cases",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "buying_decision",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "buying_decision",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+          "root_title": "copilot-sdk Review 2026: Security and Privacy",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security-buying_decision",
+          "sequence_number": 7,
+          "scheduled_date": "2026-08-30",
+          "planned_publishing_day": "2026-08-30",
+          "daily_angle": "buying_decision",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate copilot-sdk Review 2026: Security and Privacy for small-business buying decision?",
+          "unique_thesis": "copilot-sdk Review 2026: Security and Privacy should be judged through small-business buying decision, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use copilot-sdk Review 2026: Security and Privacy for small-business buying decision.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Small-Business Buying Decision context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare small-business buying decision options without repeating the Monday table.",
+          "faq_set": [
+            "buying_decision_faq_1",
+            "buying_decision_faq_2",
+            "buying_decision_faq_3"
+          ],
+          "cta_intent": "close the same-root editorial series",
+          "previous_article": "troubleshooting",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "",
+            "bridge_state": "SERIES_COMPLETE"
+          },
+          "next_article": "",
+          "bridge_state": "SERIES_COMPLETE",
+          "series_status": "planned",
+          "article_state": "planned"
+        }
+      ],
+      "selection_source": "weekly_content_planning",
+      "fallback_level": 2,
+      "opportunity_type": "existing_root_expansion",
+      "parent_root_id": "copilot-sdk-review-2026",
+      "source_article_slug": "best-copilot-sdk-review-2026-workflows-and-use-cases",
+      "proposed_new_intent": "security research",
+      "upgrade_opportunity_score": 78.96,
+      "score_breakdown": {
+        "schema_version": "upgrade_opportunity_score_v1",
+        "config_schema_version": "content_opportunity_fallback_config_v1",
+        "opportunity_type": "existing_root_expansion",
+        "upgrade_opportunity_score": 78.96,
+        "freshness_gap": 18.0,
+        "commercial_value": 15.0,
+        "affiliate_opportunity": 0.0,
+        "partnerstack_opportunity": 0.0,
+        "topical_depth_gap": 17.0,
+        "internal_link_opportunity": 3.96,
+        "source_availability": 12.0,
+        "existing_authority_value": 5.0,
+        "entity_coverage_gap": 8.0,
+        "duplication_penalty": 0.0,
+        "source_penalty": 0.0,
+        "obsolete_product_penalty": 0.0,
+        "low_relevance_penalty": 0.0
+      },
+      "unique_thesis": "Evaluate copilot-sdk Review 2026 through security and privacy, a different decision question from the existing implementation guide article.",
+      "refresh_thesis": null,
+      "update_scope": null,
+      "existing_slug": null,
+      "refresh_reason": [],
+      "refresh_scope": [],
+      "preserve_slug": false,
+      "create_new_url": true,
+      "deep_dive_eligible": true,
+      "refresh_existing_article": false,
+      "human_approval_required": true,
+      "duplicate_risk": "low",
+      "cannibalization_risk": false,
+      "source_readiness": {
+        "passes": true,
+        "verified_source_count": 2,
+        "source_family_count": 2,
+        "source_urls": [
+          "https://github.com/github/copilot-sdk",
+          "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+        ],
+        "source_domains": [
+          "github.com",
+          "sdtimes.com"
+        ],
+        "reason": "PASS"
+      },
+      "normalized_root_topic": "copilot-sdk-review-2026-security-and-privacy",
+      "topic_category": "AI_ASSISTANTS",
+      "primary_entity": "copilot-sdk Review 2026: Security and Privacy",
+      "freshness_score": 0.0,
+      "official_source_confidence": "unknown",
+      "likely_search_demand": 0.0,
+      "commercial_relevance": 0.0,
+      "depth_potential": 78.96,
+      "source_references": [],
+      "maximum_useful_article_angles": 7,
+      "parent_keyword": "copilot-sdk review 2026: security and privacy",
+      "daily_angle": "main_review",
+      "batch_date": "2026-08-24",
+      "week_start": "2026-08-24",
+      "mode": "standard",
+      "status": "approved",
+      "content_strategy": {
+        "content_type": "Review",
+        "audience": "Enterprise operators",
+        "search_intent": "security research",
+        "marketing_funnel": "Middle of funnel",
+        "primary_keyword": "copilot-sdk review 2026: security and privacy",
+        "secondary_semantic_keywords": [
+          "copilot",
+          "sdk",
+          "2026",
+          "security",
+          "privacy"
+        ],
+        "suggested_internal_links": [],
+        "related_weekly_topics": [],
+        "recommended_cta": "Read the full review",
+        "estimated_search_intent": "security research",
+        "suggested_external_link_count": 3,
+        "recommended_faq_count": 5,
+        "suggested_heading_count": 8,
+        "reading_level": "Grade 8-10",
+        "target_audience": "Enterprise operators",
+        "content_freshness": "evergreen_or_needs_refresh",
+        "topical_authority_score": 45,
+        "entity_keywords": [
+          "copilot",
+          "2026",
+          "security",
+          "privacy"
+        ],
+        "schema_recommendation": [
+          "Article",
+          "BreadcrumbList",
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Product"
+        ],
+        "cluster_health": "orphan",
+        "planning_scope": "weekly_batch_only"
+      },
+      "content_quality_warnings": [
+        "Warning only: duplicate FAQ pattern appears 2 times in this weekly batch."
+      ],
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 52.14,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "entity_coverage_score 36.0 below initial threshold 40.0",
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+      "review_preview": "",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "approved_for_publish",
+      "article_readiness": {
+        "task_id": "website-advanced-2026-08-24-best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+        "slug": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+        "status": "RESEARCH_MINIMUM",
+        "article_ready": false,
+        "sources_attempted": 2,
+        "sources_retrieved": 2,
+        "sources_blocked": 0,
+        "usable_paragraphs": 29,
+        "candidate_claims": 56,
+        "publishable_claims": 0,
+        "rejected_claims": 56,
+        "mandatory_sections_covered": 4,
+        "mandatory_sections_total": 10,
+        "blockers": [
+          "Only 0 directly supported claims; software_review evidence target is 25.",
+          "Mandatory evidence sections blocked: product-identity, core-workflow, feature-scope, pros, final-recommendation, faq",
+          "Evidence coverage score 0.10 is below the required 0.65.",
+          "Advanced article contract is incomplete: reader_question",
+          "Angle research plan blocked: Root entity copilot-sdk : Security and Privacy has no approved official source.",
+          "Entity copilot-sdk : Security and Privacy has 0 accepted claim(s); requires 8.",
+          "Entity copilot-sdk : Security and Privacy coverage 0.00 is below 0.70."
+        ],
+        "warnings": [],
+        "validation_errors": [],
+        "artifact_dir": "D:\\AFFILATE BOT\\data\\research\\best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+        "research_level": "RESEARCH_MINIMUM",
+        "draft_exportable": false,
+        "critical_safety_violations": [],
+        "research_tasks": [
+          {
+            "task_id": "research-001",
+            "task_type": "EVIDENCE_GAP",
+            "section": "product-identity",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for product-identity.",
+            "recommended_source_families": [
+              "official_website",
+              "docs",
+              "github",
+              "readme"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-002",
+            "task_type": "EVIDENCE_GAP",
+            "section": "core-workflow",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for core-workflow.",
+            "recommended_source_families": [
+              "docs",
+              "tutorial",
+              "examples",
+              "readme"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-003",
+            "task_type": "EVIDENCE_GAP",
+            "section": "feature-scope",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for feature-scope.",
+            "recommended_source_families": [
+              "docs",
+              "api_docs",
+              "release_notes",
+              "changelog"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-004",
+            "task_type": "EVIDENCE_GAP",
+            "section": "limitations",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for limitations.",
+            "recommended_source_families": [
+              "docs",
+              "faq",
+              "support",
+              "github"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-005",
+            "task_type": "MISSING_PRICING",
+            "section": "pricing",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for pricing.",
+            "recommended_source_families": [
+              "pricing"
+            ],
+            "recommended_wording": "Do not state a price; direct readers to the current official pricing page."
+          },
+          {
+            "task_id": "research-006",
+            "task_type": "MISSING_COMPARATOR",
+            "section": "alternatives",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for alternatives.",
+            "recommended_source_families": [
+              "blog",
+              "marketplace",
+              "community"
+            ],
+            "recommended_wording": "Omit direct rankings and state that alternatives require verification."
+          },
+          {
+            "task_id": "research-007",
+            "task_type": "EVIDENCE_GAP",
+            "section": "pros",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for pros.",
+            "recommended_source_families": [
+              "docs",
+              "examples",
+              "tutorial"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-008",
+            "task_type": "EVIDENCE_GAP",
+            "section": "cons",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for cons.",
+            "recommended_source_families": [
+              "faq",
+              "support",
+              "github"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-009",
+            "task_type": "EVIDENCE_GAP",
+            "section": "final-recommendation",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for final-recommendation.",
+            "recommended_source_families": [
+              "official_website",
+              "docs",
+              "pricing"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-010",
+            "task_type": "EVIDENCE_GAP",
+            "section": "faq",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for faq.",
+            "recommended_source_families": [
+              "faq",
+              "docs",
+              "support"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-011",
+            "task_type": "EVIDENCE_GAP",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Only 0 directly supported claims; software_review evidence target is 25.",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-012",
+            "task_type": "WEAK_SECTION",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Mandatory evidence sections blocked: product-identity, core-workflow, feature-scope, pros, final-recommendation, faq",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-013",
+            "task_type": "WEAK_SECTION",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence coverage score 0.10 is below the required 0.65.",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-014",
+            "task_type": "EVIDENCE_GAP",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Advanced article contract is incomplete: reader_question",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-015",
+            "task_type": "MISSING_SECURITY",
+            "section": "security",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Angle research plan blocked: Root entity copilot-sdk : Security and Privacy has no approved official source.",
+            "recommended_source_families": [],
+            "recommended_wording": "Do not claim compliance, certification, or security guarantees."
+          },
+          {
+            "task_id": "research-016",
+            "task_type": "MISSING_SECURITY",
+            "section": "security",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Entity copilot-sdk : Security and Privacy has 0 accepted claim(s); requires 8.",
+            "recommended_source_families": [],
+            "recommended_wording": "Do not claim compliance, certification, or security guarantees."
+          },
+          {
+            "task_id": "research-017",
+            "task_type": "MISSING_SECURITY",
+            "section": "security",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Entity copilot-sdk : Security and Privacy coverage 0.00 is below 0.70.",
+            "recommended_source_families": [],
+            "recommended_wording": "Do not claim compliance, certification, or security guarantees."
+          }
+        ],
+        "known_uncertainties": [
+          "Evidence is incomplete for product-identity.",
+          "Evidence is incomplete for core-workflow.",
+          "Evidence is incomplete for feature-scope.",
+          "Evidence is incomplete for limitations.",
+          "Evidence is incomplete for pricing.",
+          "Evidence is incomplete for alternatives.",
+          "Evidence is incomplete for pros.",
+          "Evidence is incomplete for cons.",
+          "Evidence is incomplete for final-recommendation.",
+          "Evidence is incomplete for faq.",
+          "Only 0 directly supported claims; software_review evidence target is 25.",
+          "Mandatory evidence sections blocked: product-identity, core-workflow, feature-scope, pros, final-recommendation, faq",
+          "Evidence coverage score 0.10 is below the required 0.65.",
+          "Advanced article contract is incomplete: reader_question",
+          "Angle research plan blocked: Root entity copilot-sdk : Security and Privacy has no approved official source.",
+          "Entity copilot-sdk : Security and Privacy has 0 accepted claim(s); requires 8.",
+          "Entity copilot-sdk : Security and Privacy coverage 0.00 is below 0.70."
+        ],
+        "weak_sections": [
+          "product-identity",
+          "core-workflow",
+          "feature-scope",
+          "limitations",
+          "pricing",
+          "alternatives",
+          "pros",
+          "cons",
+          "final-recommendation",
+          "faq"
+        ],
+        "comparison_status": "NOT_APPLICABLE",
+        "identified_comparison_entities": [
+          "copilot-sdk : Security and Privacy"
+        ],
+        "official_sources_per_entity": {
+          "copilot-sdk : Security and Privacy": []
+        },
+        "entity_coverage": [
+          {
+            "canonical_entity_id": "copilot-sdk-security-and-privacy",
+            "canonical_entity_name": "copilot-sdk : Security and Privacy",
+            "entity_role": "root",
+            "source_count": 2,
+            "claim_count": 0,
+            "claim_categories": [],
+            "sections_covered": [],
+            "sections_required": [
+              "product-identity",
+              "feature-scope",
+              "limitations",
+              "final-recommendation"
+            ],
+            "coverage_score": 0.0,
+            "status": "MISSING"
+          }
+        ],
+        "source_family_counts": {
+          "independent_evidence": 2
+        },
+        "evidence_coverage_score": 0.1,
+        "estimated_publish_readiness": 0.5,
+        "revision_count": 0,
+        "unique_thesis": "Evaluate copilot-sdk Review 2026 through security and privacy, a different decision question from the existing implementation guide article.",
+        "unique_thesis_status": "PROVIDED"
+      },
+      "research_artifacts": {
+        "task_id": "website-advanced-2026-08-24-best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+        "slug": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+        "batch_date": "2026-08-24",
+        "canonical_dir": "D:\\AFFILATE BOT\\data\\research\\best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+        "package_file": "D:\\AFFILATE BOT\\data\\research\\best-copilot-sdk-review-2026-workflows-and-use-cases-security\\package.json",
+        "enrichment_report_file": "D:\\AFFILATE BOT\\data\\research\\best-copilot-sdk-review-2026-workflows-and-use-cases-security\\enrichment_report.json",
+        "source_excerpts_file": "D:\\AFFILATE BOT\\data\\research\\best-copilot-sdk-review-2026-workflows-and-use-cases-security\\SOURCE_EXCERPTS.json",
+        "fact_ledger_file": "D:\\AFFILATE BOT\\data\\research\\best-copilot-sdk-review-2026-workflows-and-use-cases-security\\FACT_LEDGER.json",
+        "article_blueprint_file": "D:\\AFFILATE BOT\\data\\research\\best-copilot-sdk-review-2026-workflows-and-use-cases-security\\ARTICLE_BLUEPRINT.json",
+        "evidence_coverage_file": "D:\\AFFILATE BOT\\data\\research\\best-copilot-sdk-review-2026-workflows-and-use-cases-security\\evidence_coverage.json",
+        "angle_research_plan_file": "D:\\AFFILATE BOT\\data\\research\\best-copilot-sdk-review-2026-workflows-and-use-cases-security\\ANGLE_RESEARCH_PLAN.json",
+        "claim_extraction_diagnostics_file": "D:\\AFFILATE BOT\\data\\research\\best-copilot-sdk-review-2026-workflows-and-use-cases-security\\claim_extraction_diagnostics.json",
+        "duplicate_dirs": [],
+        "slug_aliases": [],
+        "missing_files": [],
+        "legacy_reasons": [
+          "FACT_LEDGER contains zero claims"
+        ],
+        "paragraph_count": 29,
+        "claim_count": 0,
+        "coverage_score": 0.1,
+        "angle_profile": "security_and_privacy",
+        "required_entity_count": 1,
+        "resolved_entity_count": 1,
+        "entity_coverage_score": 0.0,
+        "candidate_claim_count": 56,
+        "rejected_claim_count": 56,
+        "mandatory_sections_covered": 4,
+        "mandatory_sections_total": 10,
+        "status": "RESEARCH_MINIMUM",
+        "article_ready": false,
+        "research_level": "RESEARCH_MINIMUM",
+        "draft_exportable": true,
+        "critical_safety_violations": [],
+        "outstanding_research_tasks": 17,
+        "weak_sections": [
+          "product-identity",
+          "core-workflow",
+          "feature-scope",
+          "limitations",
+          "pricing",
+          "alternatives",
+          "pros",
+          "cons",
+          "final-recommendation",
+          "faq"
+        ],
+        "comparison_status": "NOT_APPLICABLE",
+        "estimated_publish_readiness": 0.5,
+        "revision_count": 0,
+        "total_source_count": 2,
+        "official_source_count": 1,
+        "verified_source_count": 2,
+        "source_families": [
+          "independent_evidence"
+        ],
+        "source_quality_score": 80.0,
+        "failing_gates": [],
+        "is_legacy": true
+      },
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "research_level": "RESEARCH_MINIMUM",
+      "comparison_status": "NOT_APPLICABLE",
+      "outstanding_research_tasks": 17,
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-copilot-sdk-review-2026-workflows-and-use-cases-security\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\best-copilot-sdk-review-2026-workflows-and-use-cases-security\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "writer_type": "external_ai",
+        "writer_name": "ChatGPT",
+        "writer_version": "web",
+        "generated_at": "2026-08-24T09:51:20.115871+00:00",
+        "package_id": "5a6c6537d014aeee",
+        "task_id": "website_foundation-2026-08-24-90f0323bcbd653d1",
+        "revision": 2
+      },
+      "approved_by": "editor",
+      "validation_mode": "smart",
+      "validation_status": "failed",
+      "autofix_status": "fixed",
+      "cta_status": "fixed",
+      "faq_schema_status": "ok",
+      "meta_description_status": "ok",
+      "redirect_status": "ok",
+      "block_reason": "site_output stylesheet link is missing; site_output site header class is missing; site_output article layout class is missing; site_output canonical site footer is missing; site_output footer class is missing: footer-grid",
+      "validation_errors": [
+        "site_output stylesheet link is missing",
+        "site_output site header class is missing",
+        "site_output article layout class is missing",
+        "site_output canonical site footer is missing",
+        "site_output footer class is missing: footer-grid",
+        "site_output footer class is missing: footer-column",
+        "site_output footer class is missing: footer-links",
+        "site_output footer class is missing: footer-bottom",
+        "site_output footer class is missing: footer-brand",
+        "site_output footer class is missing: footer-description",
+        "site_output footer class is missing: footer-social-links",
+        "site_output comparison tables must use table-wrapper and article-table",
+        "site_output CTA links must use cta-button classes",
+        "docs stylesheet link is missing",
+        "docs site header class is missing",
+        "docs article layout class is missing",
+        "docs canonical site footer is missing",
+        "docs footer class is missing: footer-grid",
+        "docs footer class is missing: footer-column",
+        "docs footer class is missing: footer-links",
+        "docs footer class is missing: footer-bottom",
+        "docs footer class is missing: footer-brand",
+        "docs footer class is missing: footer-description",
+        "docs footer class is missing: footer-social-links",
+        "docs comparison tables must use table-wrapper and article-table",
+        "docs CTA links must use cta-button classes"
+      ],
+      "next_action": "python editorial_console.py autofix-batch --date 2026-08-24"
+    }
+  ],
+  "dashboard_file": "D:\\AFFILATE BOT\\site_output\\review\\2026-08-24\\index.html",
+  "operator_console": "D:\\AFFILATE BOT\\data\\editorial_operations_console.html",
+  "publish_launcher": "",
+  "upload_dir": "D:\\AFFILATE BOT\\upload\\2026-08-24"
+}

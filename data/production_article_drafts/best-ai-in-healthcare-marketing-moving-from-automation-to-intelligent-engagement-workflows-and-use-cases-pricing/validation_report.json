@@ -1,0 +1,57 @@
+{
+  "status": "passed",
+  "generation_attempt": 1,
+  "task_id": "website_foundation-2026-08-24-fb31237f7c234ffc",
+  "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+  "checks": {
+    "title_consistency": true,
+    "canonical_present": true,
+    "indexable": true,
+    "article_schema_present": true,
+    "faq_schema_present": true,
+    "faq_count": 12,
+    "human_approval_required": true,
+    "published": false
+  },
+  "research_utilization": {
+    "used_claim_ids": [
+      "claim-003",
+      "claim-004",
+      "claim-005",
+      "claim-006",
+      "claim-007",
+      "claim-010",
+      "claim-011",
+      "claim-014",
+      "claim-029",
+      "claim-030",
+      "claim-031",
+      "claim-037",
+      "claim-038",
+      "claim-039",
+      "claim-040",
+      "claim-041",
+      "claim-042",
+      "claim-043",
+      "claim-044",
+      "claim-045",
+      "claim-046",
+      "claim-047",
+      "claim-048",
+      "claim-049",
+      "claim-050",
+      "claim-051",
+      "claim-052",
+      "claim-053",
+      "claim-054"
+    ],
+    "citation_urls": [
+      "https://zapier.com",
+      "https://www.adcreative.ai",
+      "https://www.make.com",
+      "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+      "https://www.forbes.com/advisor/business/software/best-crm-software/"
+    ]
+  },
+  "article_html_sha256": "8a29209f7440b18536335ea9085c21093f18ee0ce40777538710e3d8062d4eaa"
+}
