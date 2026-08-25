@@ -1,10 +1,10 @@
-# Live Status Report 2026-08-24
+# Live Status Report 2026-08-25
 
-- Total items: 2
+- Total items: 1
 ## Deployment summary
-- Live 200: 2
+- Live 200: 0
 - Awaiting Publish: 0
-- Awaiting Push: 0
+- Awaiting Push: 1
 - Published Local: 0
 - Committed Local: 0
 - Pushed: 0
@@ -17,13 +17,12 @@
 - Unknown: 0
 
 ## Editorial/publish summary
-- Human Approved: 0
-- Ready for Publish: 0
+- Human Approved: 1
+- Ready for Publish: 1
 - Publish Blocked: 0
 - Rejected: 0
-- Live This Batch: 2
+- Live This Batch: 0
 
 | Slug | Editorial | Publish gate | Deployment | Local | Docs | Git | Block reason | How to fix | URL |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing/ |
-| best-copilot-sdk-review-2026-workflows-and-use-cases-security | Published | Published | Live 200 | docs_synced | yes | pushed | No blocking issue detected | Article appears ready or already published. | https://smileaireviewhub.com/best-copilot-sdk-review-2026-workflows-and-use-cases-security/ |
+| how-to-implement-copilot-sdk-review-2026-security-and-privacy | Human Approved | Ready for Publish | Awaiting Push | docs_synced | yes | not_committed | Awaiting Push: file not tracked by git | Recommended Action: rerun publish-ready so docs/site files are added, committed, and pushed. | https://smileaireviewhub.com/how-to-implement-copilot-sdk-review-2026-security-and-privacy/ |

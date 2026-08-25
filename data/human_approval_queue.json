@@ -1712,5 +1712,41 @@
     ],
     "approved_revision_id": "website-revision-v1:c61897dbeb29ce391a54641cac6536ad1225e5894b4f6f44934b070f476673da",
     "approved_content_hash": "c61897dbeb29ce391a54641cac6536ad1225e5894b4f6f44934b070f476673da"
+  },
+  {
+    "slug": "how-to-implement-copilot-sdk-review-2026-security-and-privacy",
+    "topic": "how to implement copilot-sdk review 2026: security and privacy",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-08-25T00:13:41.018672+00:00",
+    "approved_at": "2026-08-25T07:25:15.263131+00:00",
+    "approved_by": "editor",
+    "reason": "",
+    "canonical_task_id": "",
+    "legacy_task_id": "how-to-implement-copilot-sdk-review-2026-security-and-privacy",
+    "revision_id": "website-revision-v1:db34fc5a0c947576962882900ccaff342ca4902c57c5ac40279d561982c56373",
+    "content_hash": "db34fc5a0c947576962882900ccaff342ca4902c57c5ac40279d561982c56373",
+    "content_hash_version": "sha256_utf8_exact_v1",
+    "approval_scope": "website",
+    "approved_revision_id": "website-revision-v1:db34fc5a0c947576962882900ccaff342ca4902c57c5ac40279d561982c56373",
+    "approved_content_hash": "db34fc5a0c947576962882900ccaff342ca4902c57c5ac40279d561982c56373",
+    "approval_binding_status": "MATCHED",
+    "approval_history": [
+      {
+        "status": "human_approved",
+        "approved_at": "2026-08-25T00:19:48.480777+00:00",
+        "approved_by": "editor",
+        "canonical_task_id": "",
+        "legacy_task_id": "how-to-implement-copilot-sdk-review-2026-security-and-privacy",
+        "revision_id": "website-revision-v1:e34487d2d45145d0d65d683f24881ba167d46d551facc8d6999c39748633d6a4",
+        "content_hash": "e34487d2d45145d0d65d683f24881ba167d46d551facc8d6999c39748633d6a4",
+        "approval_scope": "website",
+        "binding_status": "MATCHED",
+        "superseded_at": "2026-08-25T07:25:15.263111+00:00",
+        "superseded_reason": "new explicit human approval for a different revision",
+        "source_event": "explicit_human_approval",
+        "source_reference": "how-to-implement-copilot-sdk-review-2026-security-and-privacy"
+      }
+    ]
   }
 ]

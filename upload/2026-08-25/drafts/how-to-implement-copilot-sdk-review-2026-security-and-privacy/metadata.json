@@ -1,0 +1,1179 @@
+{
+  "title": "Implementing the GitHub Copilot SDK: A Security-First Guide",
+  "slug": "how-to-implement-copilot-sdk-review-2026-security-and-privacy",
+  "canonical_url": "https://smileaireviewhub.com/how-to-implement-copilot-sdk-review-2026-security-and-privacy/",
+  "url": "https://smileaireviewhub.com/how-to-implement-copilot-sdk-review-2026-security-and-privacy/",
+  "description": "A practical, source-backed guide to implementing the GitHub Copilot SDK with scoped tools, permission controls, cost checks, and verification steps.",
+  "written_date": "2026-08-25",
+  "published": false,
+  "author": {
+    "type": "Person",
+    "name": "Nguyen Quoc Tuan"
+  },
+  "image_status": "not_supplied_in_verified_package",
+  "production_render": {
+    "status": "COMPLETE_BEFORE_HUMAN_REVIEW",
+    "article_schema": {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Implementing the GitHub Copilot SDK: A Security-First Guide",
+      "description": "A practical, source-backed guide to implementing the GitHub Copilot SDK with scoped tools, permission controls, cost checks, and verification steps.",
+      "url": "https://smileaireviewhub.com/how-to-implement-copilot-sdk-review-2026-security-and-privacy/",
+      "datePublished": "2026-08-25",
+      "dateModified": "2026-08-24T22:34:58.447326+00:00",
+      "author": {
+        "@type": "Person",
+        "name": "Nguyen Quoc Tuan",
+        "url": "https://smileaireviewhub.com/about-author/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "MS Smile AI Review Hub",
+        "url": "https://smileaireviewhub.com"
+      },
+      "about": "Implementing the GitHub Copilot SDK: A Security-First Guide"
+    }
+  },
+  "writer": {
+    "writer_type": "external_ai",
+    "writer_name": "ChatGPT",
+    "writer_version": "web",
+    "generated_at": "2026-08-24T22:34:58.447326+00:00",
+    "package_id": "3a3f88f3f8c06296",
+    "task_id": "website_advanced-2026-08-25-0d2db64f0a4cef40",
+    "revision": 1
+  },
+  "review": {
+    "slug": "how-to-implement-copilot-sdk-review-2026-security-and-privacy",
+    "topic": "how to implement copilot-sdk review 2026: security and privacy",
+    "url": "https://smileaireviewhub.com/how-to-implement-copilot-sdk-review-2026-security-and-privacy/",
+    "status": "human_approved",
+    "reviewed_at": "2026-08-25T00:13:41.018672+00:00",
+    "word_count": 2888,
+    "factual_quality": 54.59,
+    "source_quality": 54.0,
+    "seo_title_meta_quality": 80,
+    "affiliate_disclosure_present": true,
+    "internal_link_count": 16,
+    "duplicate_content_risk": 40.38,
+    "readability": 58.8,
+    "business_value": 54.9,
+    "publish_readiness": 70.24,
+    "publishable": true,
+    "requires_human_approval": true,
+    "failures": [],
+    "hard_blockers": [],
+    "warnings": [],
+    "schema_version": 2,
+    "article_id": "how-to-implement-copilot-sdk-review-2026-security-and-privacy",
+    "review_state": "PASS",
+    "structured_review": {
+      "schema_version": 2,
+      "status": "pass",
+      "overall_score": 70.24,
+      "hard_blockers": [],
+      "warnings": [],
+      "critical_issues": [],
+      "suggested_fixes": [],
+      "section_reviews": [
+        {
+          "section_id": "article",
+          "status": "pass",
+          "issues": 0
+        }
+      ],
+      "fact_risks": [
+        {
+          "claim_id": "72838443b11c",
+          "claim_text": "com/how-to-implement-copilot-sdk-review-2026-security-and-privacy/\",\n  \"datePublished\": \"2026-08-25\",\n  \"dateModified\": \"2026-08-24T22:34:58.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "0c105ce6e55c",
+          "claim_text": "447326+00:00\",\n  \"author\": {\n    \"@type\": \"Person\",\n    \"name\": \"Nguyen Quoc Tuan\",\n    \"url\": \"https://smileaireviewhub.",
+          "section_id": "article",
+          "importance": "important",
+          "claim_type": "general",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.76,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "3f4bda469c07",
+          "claim_text": "org\",\n  \"@type\": \"BreadcrumbList\",\n  \"itemListElement\": [\n    {\n      \"@type\": \"ListItem\",\n      \"position\": 1,\n      \"name\": \"Home\",\n      \"item\": \"https://smileaireviewhub.",
+          "section_id": "article",
+          "importance": "important",
+          "claim_type": "general",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.76,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "099a228f7dbb",
+          "claim_text": "com/\"\n    },\n    {\n      \"@type\": \"ListItem\",\n      \"position\": 2,\n      \"name\": \"Implementing the GitHub Copilot SDK: A Security-First Guide\",\n      \"item\": \"https://smileaireviewhub.",
+          "section_id": "article",
+          "importance": "important",
+          "claim_type": "general",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.76,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "3316119be5b7",
+          "claim_text": "com/how-to-implement-copilot-sdk-review-2026-security-and-privacy/\"\n    }\n  ]\n} \n \n \n   \n     \n       MS Smile AI Review Hub \n       \n         \n            Reviews  \n            Comparisons  \n            Contact  \n         \n       \n     \n   \n   \n     \n        Home  \n        Reviews  \n       Implementing the GitHub Copilot SDK: A Security-First Guide \n     \n   \n    \n Implementing the GitHub Copilot SDK: A Security-First Guide  The GitHub Copilot SDK offers a way to place agentic software workflows inside an application instead of asking users to move every task into a separate chat or command-line session.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "d69aa3735823",
+          "claim_text": "This implementation guide turns the earlier “copilot-sdk Review 2026: Security and Privacy” topic into an operational plan.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "5599118d8ac9",
+          "claim_text": "Pricing discussion: validate the operating model, not a stale number \n The supplied official source confirms that standard SDK use requires a GitHub Copilot subscription unless the team uses BYOK.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "3716ae226d96",
+          "claim_text": "It also says the standard pricing page includes a free tier with limited usage and that each prompt counts toward the same usage allowance model as Copilot CLI.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "4fb8034dba06",
+          "claim_text": "The package does not include a verified current price, so this guide does not quote one.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "5d23c8847f30",
+          "claim_text": "Before approval, check the current official pricing and usage documentation.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "8e6bf44f16d1",
+          "claim_text": "The source package does not establish current numeric pricing, service-level commitments, complete privacy terms, compliance coverage, regional data handling, benchmark performance, or a supported competitor ranking.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "46a4670297a8",
+          "claim_text": "The next scheduled article in this same editorial series will compare implementation choices using verified evidence; it is not yet live.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "comparison",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "7621a7571d65",
+          "claim_text": "Affiliate disclosure:  Smile AI Review Hub may earn a commission from qualifying links, at no additional cost to the reader.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "0b663af58163",
+          "claim_text": "FAQ about implementing the GitHub Copilot SDK \n What is the main use case for copilot-sdk Review 2026: Security and Privacy?",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "3948ea3cd8f6",
+          "claim_text": "What is the core workflow for copilot-sdk Review 2026: Security and Privacy?",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "ccaec6e3cf2a",
+          "claim_text": "What should buyers verify before choosing copilot-sdk Review 2026: Security and Privacy?",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "22b5fd97ebe7",
+          "claim_text": "What pricing details matter most for copilot-sdk Review 2026: Security and Privacy?",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "c98f1bc7de6a",
+          "claim_text": "Check current official pricing rather than relying on a number in an article.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "9b9beb1585d8",
+          "claim_text": "What are the main limitations of copilot-sdk Review 2026: Security and Privacy?",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "e59af8a894b9",
+          "claim_text": "What alternatives should be compared with copilot-sdk Review 2026: Security and Privacy?",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        }
+      ],
+      "seo_review": {
+        "score": 80,
+        "status": "pass"
+      },
+      "readability_review": {
+        "score": 58.8,
+        "status": "pass"
+      },
+      "business_value_review": {
+        "score": 54.9,
+        "status": "pass"
+      },
+      "source_quality_review": {
+        "average_score": 79.5,
+        "sources": [
+          {
+            "url": "https://github.com/github/copilot-sdk",
+            "domain": "github.com",
+            "source_type": "official_docs",
+            "authority_score": 88,
+            "freshness_score": 80.0,
+            "relevance_score": 70.0,
+            "primary_source": true,
+            "verified": true,
+            "risk_flags": [],
+            "overall_source_score": 83.1
+          },
+          {
+            "url": "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/",
+            "domain": "sdtimes.com",
+            "source_type": "industry_or_company",
+            "authority_score": 72,
+            "freshness_score": 80.0,
+            "relevance_score": 70.0,
+            "primary_source": true,
+            "verified": true,
+            "risk_flags": [],
+            "overall_source_score": 75.9
+          }
+        ]
+      },
+      "duplicate_risk": {
+        "score": 40.38,
+        "status": "pass"
+      },
+      "recommended_action": "send_to_human_review",
+      "issues": []
+    },
+    "source_quality_review": [
+      {
+        "url": "https://github.com/github/copilot-sdk",
+        "domain": "github.com",
+        "source_type": "official_docs",
+        "authority_score": 88,
+        "freshness_score": 80.0,
+        "relevance_score": 70.0,
+        "primary_source": true,
+        "verified": true,
+        "risk_flags": [],
+        "overall_source_score": 83.1
+      },
+      {
+        "url": "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/",
+        "domain": "sdtimes.com",
+        "source_type": "industry_or_company",
+        "authority_score": 72,
+        "freshness_score": 80.0,
+        "relevance_score": 70.0,
+        "primary_source": true,
+        "verified": true,
+        "risk_flags": [],
+        "overall_source_score": 75.9
+      }
+    ],
+    "fact_verification": {
+      "schema_version": 2,
+      "claim_count": 20,
+      "claims": [
+        {
+          "claim_id": "72838443b11c",
+          "claim_text": "com/how-to-implement-copilot-sdk-review-2026-security-and-privacy/\",\n  \"datePublished\": \"2026-08-25\",\n  \"dateModified\": \"2026-08-24T22:34:58.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "0c105ce6e55c",
+          "claim_text": "447326+00:00\",\n  \"author\": {\n    \"@type\": \"Person\",\n    \"name\": \"Nguyen Quoc Tuan\",\n    \"url\": \"https://smileaireviewhub.",
+          "section_id": "article",
+          "importance": "important",
+          "claim_type": "general",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.76,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "3f4bda469c07",
+          "claim_text": "org\",\n  \"@type\": \"BreadcrumbList\",\n  \"itemListElement\": [\n    {\n      \"@type\": \"ListItem\",\n      \"position\": 1,\n      \"name\": \"Home\",\n      \"item\": \"https://smileaireviewhub.",
+          "section_id": "article",
+          "importance": "important",
+          "claim_type": "general",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.76,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "099a228f7dbb",
+          "claim_text": "com/\"\n    },\n    {\n      \"@type\": \"ListItem\",\n      \"position\": 2,\n      \"name\": \"Implementing the GitHub Copilot SDK: A Security-First Guide\",\n      \"item\": \"https://smileaireviewhub.",
+          "section_id": "article",
+          "importance": "important",
+          "claim_type": "general",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.76,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "3316119be5b7",
+          "claim_text": "com/how-to-implement-copilot-sdk-review-2026-security-and-privacy/\"\n    }\n  ]\n} \n \n \n   \n     \n       MS Smile AI Review Hub \n       \n         \n            Reviews  \n            Comparisons  \n            Contact  \n         \n       \n     \n   \n   \n     \n        Home  \n        Reviews  \n       Implementing the GitHub Copilot SDK: A Security-First Guide \n     \n   \n    \n Implementing the GitHub Copilot SDK: A Security-First Guide  The GitHub Copilot SDK offers a way to place agentic software workflows inside an application instead of asking users to move every task into a separate chat or command-line session.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "d69aa3735823",
+          "claim_text": "This implementation guide turns the earlier “copilot-sdk Review 2026: Security and Privacy” topic into an operational plan.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "5599118d8ac9",
+          "claim_text": "Pricing discussion: validate the operating model, not a stale number \n The supplied official source confirms that standard SDK use requires a GitHub Copilot subscription unless the team uses BYOK.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "3716ae226d96",
+          "claim_text": "It also says the standard pricing page includes a free tier with limited usage and that each prompt counts toward the same usage allowance model as Copilot CLI.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "4fb8034dba06",
+          "claim_text": "The package does not include a verified current price, so this guide does not quote one.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "5d23c8847f30",
+          "claim_text": "Before approval, check the current official pricing and usage documentation.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "8e6bf44f16d1",
+          "claim_text": "The source package does not establish current numeric pricing, service-level commitments, complete privacy terms, compliance coverage, regional data handling, benchmark performance, or a supported competitor ranking.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "46a4670297a8",
+          "claim_text": "The next scheduled article in this same editorial series will compare implementation choices using verified evidence; it is not yet live.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "comparison",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "7621a7571d65",
+          "claim_text": "Affiliate disclosure:  Smile AI Review Hub may earn a commission from qualifying links, at no additional cost to the reader.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "0b663af58163",
+          "claim_text": "FAQ about implementing the GitHub Copilot SDK \n What is the main use case for copilot-sdk Review 2026: Security and Privacy?",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "3948ea3cd8f6",
+          "claim_text": "What is the core workflow for copilot-sdk Review 2026: Security and Privacy?",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "ccaec6e3cf2a",
+          "claim_text": "What should buyers verify before choosing copilot-sdk Review 2026: Security and Privacy?",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "22b5fd97ebe7",
+          "claim_text": "What pricing details matter most for copilot-sdk Review 2026: Security and Privacy?",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "c98f1bc7de6a",
+          "claim_text": "Check current official pricing rather than relying on a number in an article.",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "number",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "9b9beb1585d8",
+          "claim_text": "What are the main limitations of copilot-sdk Review 2026: Security and Privacy?",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        },
+        {
+          "claim_id": "e59af8a894b9",
+          "claim_text": "What alternatives should be compared with copilot-sdk Review 2026: Security and Privacy?",
+          "section_id": "article",
+          "importance": "critical",
+          "claim_type": "date",
+          "matched_sources": [
+            "https://github.com/github/copilot-sdk",
+            "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+          ],
+          "support_status": "supported",
+          "confidence": 0.86,
+          "requires_human_review": false
+        }
+      ],
+      "hard_blockers": [],
+      "warnings": [],
+      "cache_size": 20
+    },
+    "targeted_rewrite": {
+      "schema_version": 2,
+      "max_rewrite_attempts": 2,
+      "max_review_cycles": 3,
+      "rewrite_required": false,
+      "target_sections": [],
+      "issues": [],
+      "history": [],
+      "quality_guard": "keep_previous_section_when_rewrite_score_declines",
+      "article_id": "how-to-implement-copilot-sdk-review-2026-security-and-privacy",
+      "executed": false,
+      "rewrite_history": [],
+      "status": "warning_to_human",
+      "remaining_hard_blockers": []
+    },
+    "rewrite_history": [],
+    "publishing_confidence": {
+      "score": 68.84,
+      "status": "rewrite_or_enrich",
+      "components": {
+        "research_quality": 50.71,
+        "source_quality": 79.5,
+        "fact_confidence": 100.0,
+        "intent_coverage": 80.0,
+        "entity_coverage": 36.0,
+        "readability": 58.8,
+        "seo": 80.0,
+        "business_value": 54.9,
+        "duplicate_safety": 59.62
+      },
+      "reasons": [],
+      "recommended_action": "targeted_rewrite_or_enrichment"
+    },
+    "ai_judge": {
+      "decision": "warning_to_human",
+      "confidence": 68.84,
+      "reasoning_summary": [
+        "confidence=68.84",
+        "hard_blockers=0",
+        "warnings=0"
+      ],
+      "remaining_risks": [],
+      "hard_blockers": [],
+      "warnings": [],
+      "recommended_human_focus": [
+        "Confirm source-backed claims and affiliate fit before approval."
+      ]
+    },
+    "recommended_reviewer_focus": [
+      "Confirm source-backed claims and affiliate fit before approval."
+    ],
+    "entity_coverage": {
+      "expected_count": 2,
+      "covered_count": 1,
+      "score": 50.0,
+      "missing_entities": [
+        "how-to-implement-copilot-sdk-review-2026-security-and-privacy"
+      ],
+      "entity_mismatch": false
+    },
+    "internal_link_suggestions": [
+      {
+        "entity_id": "sdk",
+        "target_article_id": "best-copilot-sdk-review-2026-workflows-and-use-cases",
+        "reason": "shared entity coverage"
+      },
+      {
+        "entity_id": "sdk",
+        "target_article_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+        "reason": "shared entity coverage"
+      },
+      {
+        "entity_id": "sdk",
+        "target_article_id": "common-copilot-sdk-review-2026-mistakes-and-troubleshooting",
+        "reason": "shared entity coverage"
+      },
+      {
+        "entity_id": "sdk",
+        "target_article_id": "copilot-sdk-review-2026",
+        "reason": "shared entity coverage"
+      },
+      {
+        "entity_id": "sdk",
+        "target_article_id": "copilot-sdk-review-2026-comparison-and-alternatives",
+        "reason": "shared entity coverage"
+      },
+      {
+        "entity_id": "sdk",
+        "target_article_id": "copilot-sdk-review-2026-pricing-cost-and-roi",
+        "reason": "shared entity coverage"
+      },
+      {
+        "entity_id": "sdk",
+        "target_article_id": "is-copilot-sdk-review-2026-worth-it-for-small-business",
+        "reason": "shared entity coverage"
+      }
+    ],
+    "cannibalization": {
+      "status": "pass",
+      "overlap_articles": {
+        "best-copilot-sdk-review-2026-workflows-and-use-cases": 1,
+        "best-copilot-sdk-review-2026-workflows-and-use-cases-security": 1,
+        "common-copilot-sdk-review-2026-mistakes-and-troubleshooting": 1,
+        "copilot-sdk-review-2026": 1,
+        "copilot-sdk-review-2026-comparison-and-alternatives": 1,
+        "copilot-sdk-review-2026-pricing-cost-and-roi": 1,
+        "is-copilot-sdk-review-2026-worth-it-for-small-business": 1
+      }
+    },
+    "estimated_review_minutes": 5,
+    "ai_review_passed": true,
+    "ai_review_source": "D:\\AFFILATE BOT\\data\\import_history\\external_writer\\2026-08-25\\3a3f88f3f8c06296\\import.json",
+    "package_id": "3a3f88f3f8c06296",
+    "task_id": "website_advanced-2026-08-25-0d2db64f0a4cef40",
+    "batch_date": "2026-08-25"
+  },
+  "human_approval": {
+    "slug": "how-to-implement-copilot-sdk-review-2026-security-and-privacy",
+    "topic": "how to implement copilot-sdk review 2026: security and privacy",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-08-25T00:13:41.018672+00:00",
+    "approved_at": "2026-08-25T07:25:15.263131+00:00",
+    "approved_by": "editor",
+    "reason": "",
+    "canonical_task_id": "",
+    "legacy_task_id": "how-to-implement-copilot-sdk-review-2026-security-and-privacy",
+    "revision_id": "website-revision-v1:db34fc5a0c947576962882900ccaff342ca4902c57c5ac40279d561982c56373",
+    "content_hash": "db34fc5a0c947576962882900ccaff342ca4902c57c5ac40279d561982c56373",
+    "content_hash_version": "sha256_utf8_exact_v1",
+    "approval_scope": "website",
+    "approved_revision_id": "website-revision-v1:db34fc5a0c947576962882900ccaff342ca4902c57c5ac40279d561982c56373",
+    "approved_content_hash": "db34fc5a0c947576962882900ccaff342ca4902c57c5ac40279d561982c56373",
+    "approval_binding_status": "MATCHED",
+    "approval_history": [
+      {
+        "status": "human_approved",
+        "approved_at": "2026-08-25T00:19:48.480777+00:00",
+        "approved_by": "editor",
+        "canonical_task_id": "",
+        "legacy_task_id": "how-to-implement-copilot-sdk-review-2026-security-and-privacy",
+        "revision_id": "website-revision-v1:e34487d2d45145d0d65d683f24881ba167d46d551facc8d6999c39748633d6a4",
+        "content_hash": "e34487d2d45145d0d65d683f24881ba167d46d551facc8d6999c39748633d6a4",
+        "approval_scope": "website",
+        "binding_status": "MATCHED",
+        "superseded_at": "2026-08-25T07:25:15.263111+00:00",
+        "superseded_reason": "new explicit human approval for a different revision",
+        "source_event": "explicit_human_approval",
+        "source_reference": "how-to-implement-copilot-sdk-review-2026-security-and-privacy"
+      }
+    ]
+  },
+  "publish_gate": {
+    "slug": "how-to-implement-copilot-sdk-review-2026-security-and-privacy",
+    "topic": "how to implement copilot-sdk review 2026: security and privacy",
+    "status": "approved_for_publish",
+    "checked_at": "2026-08-25T07:25:54.764391+00:00",
+    "failures": [],
+    "hard_blockers": [],
+    "warnings": [],
+    "pending_reviews": [],
+    "review_states": {
+      "ai_review": "passed",
+      "source_review": "passed",
+      "freshness_review": "passed"
+    },
+    "severity_counts": {
+      "BLOCK": 0,
+      "WARNING": 0,
+      "HUMAN_REVIEW_REQUIRED": 0
+    },
+    "total_score": 70.24,
+    "score_band": "human_review_required",
+    "final_gate": "Ready for Publish",
+    "research_quality_passed": true,
+    "verified_source_score_passed": true,
+    "knowledge_freshness_passed": true,
+    "ai_review_passed": true,
+    "ai_review_source": "D:\\AFFILATE BOT\\data\\import_history\\external_writer\\2026-08-25\\3a3f88f3f8c06296\\import.json",
+    "ai_review_package_id": "3a3f88f3f8c06296",
+    "ai_review_task_id": "website_advanced-2026-08-25-0d2db64f0a4cef40",
+    "human_approval_passed": true,
+    "approval_binding_status": "MATCHED",
+    "current_content_hash": "db34fc5a0c947576962882900ccaff342ca4902c57c5ac40279d561982c56373",
+    "current_revision_id": "website-revision-v1:db34fc5a0c947576962882900ccaff342ca4902c57c5ac40279d561982c56373",
+    "content_hash_version": "sha256_utf8_exact_v1",
+    "current_authorization": "valid",
+    "public_marker_violations": [],
+    "broken_links": [],
+    "duplicate_title_meta": false,
+    "affiliate_disclosure_present": true,
+    "minimum_business_score_passed": true,
+    "minimum_readability_score_passed": true,
+    "business_score": 54.9,
+    "readability_score": 58.8,
+    "verified_source_score": 70.0,
+    "knowledge_freshness_score": 80.0,
+    "seo_geo_validation": {
+      "schema_version": "seo_geo_validation_v1",
+      "checked_at": "2026-08-25T07:25:54.797797+00:00",
+      "slug": "how-to-implement-copilot-sdk-review-2026-security-and-privacy",
+      "page_url": "https://smileaireviewhub.com/how-to-implement-copilot-sdk-review-2026-security-and-privacy/",
+      "article_type": "implementation_guide",
+      "content_sha256": "db34fc5a0c947576962882900ccaff342ca4902c57c5ac40279d561982c56373",
+      "semantic_html_status": "PASS",
+      "heading_status": "PASS",
+      "author_metadata_status": "PASS",
+      "structured_data_status": "PASS",
+      "canonical_status": "PASS",
+      "indexability_status": "PASS",
+      "internal_link_status": "PASS",
+      "source_citation_status": "PASS",
+      "disclosure_status": "PASS",
+      "geo_claim_protection_status": "PASS",
+      "crawlability_status": "PASS",
+      "ai_crawler_advisory": {
+        "status": "INFO",
+        "robots_path": "D:\\AFFILATE BOT\\site_output\\robots.txt",
+        "reason": "Crawler directives are reported as owner-controlled policy; no directive was changed.",
+        "matrix": [
+          {
+            "crawler": "OAI-SearchBot",
+            "purpose": "search",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Preserve the owner-selected search visibility policy."
+          },
+          {
+            "crawler": "ChatGPT-User",
+            "purpose": "user_fetch",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Preserve explicit user-requested retrieval control."
+          },
+          {
+            "crawler": "PerplexityBot",
+            "purpose": "search",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Preserve the owner-selected answer-engine policy."
+          },
+          {
+            "crawler": "ClaudeBot",
+            "purpose": "ai_crawler",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Review periodically; this is an owner policy decision."
+          },
+          {
+            "crawler": "Google-Extended",
+            "purpose": "ai_training_control",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Keep separate from Googlebot search crawling."
+          },
+          {
+            "crawler": "GPTBot",
+            "purpose": "ai_training",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+          },
+          {
+            "crawler": "CCBot",
+            "purpose": "dataset_crawler",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate dataset-crawler control."
+          },
+          {
+            "crawler": "anthropic-ai",
+            "purpose": "ai_training",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+          },
+          {
+            "crawler": "Bytespider",
+            "purpose": "ai_training",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+          }
+        ],
+        "policy_changed": false
+      },
+      "checks": {
+        "semantic_html": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "visible_words=2678",
+            "main=1",
+            "article=7",
+            "section=2",
+            "nav=2",
+            "footer=1",
+            "table=1",
+            "ul=5",
+            "ol=1"
+          ]
+        },
+        "heading": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "H1: Implementing the GitHub Copilot SDK: A Security-First Guide",
+            "H2: Product identity: what the GitHub Copilot SDK actually exposes",
+            "H2: Core implementation workflow: begin with one bounded task",
+            "H2: Feature scope and integrations: expose only what the workflow needs",
+            "H2: Security, privacy limitations, and operational risks",
+            "H2: Pricing discussion: validate the operating model, not a stale number",
+            "H2: Comparison of implementation workflow options",
+            "H2: Pros derived from the supplied evidence",
+            "H2: Cons and unresolved evidence gaps",
+            "H2: Final recommendation and verification checklist",
+            "H2: FAQ about implementing the GitHub Copilot SDK",
+            "H3: What is the main use case for copilot-sdk Review 2026: Security and Privacy?",
+            "H3: What is the core workflow for copilot-sdk Review 2026: Security and Privacy?",
+            "H3: What should buyers verify before choosing copilot-sdk Review 2026: Security and Privacy?",
+            "H3: What pricing details matter most for copilot-sdk Review 2026: Security and Privacy?",
+            "H3: What are the main limitations of copilot-sdk Review 2026: Security and Privacy?",
+            "H3: What alternatives should be compared with copilot-sdk Review 2026: Security and Privacy?",
+            "H3: How should copilot-sdk Review 2026: Security and Privacy be tested?",
+            "H3: Who should use copilot-sdk Review 2026: Security and Privacy?",
+            "H3: How does copilot-sdk Review 2026: Security and Privacy compare with competitors?"
+          ]
+        },
+        "canonical": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "https://smileaireviewhub.com/how-to-implement-copilot-sdk-review-2026-security-and-privacy/"
+          ]
+        },
+        "structured_data": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "Article",
+            "BreadcrumbList"
+          ]
+        },
+        "author_trust": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "author_signals=4",
+            "date_signals=1"
+          ]
+        },
+        "indexability": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "index,follow,max-image-preview:large"
+          ]
+        },
+        "internal_links": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "internal_links=19",
+            "broken_links=0"
+          ]
+        },
+        "citation_structure": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "supplied_sources=2",
+            "matched_sources=2",
+            "concise_answer_blocks=21"
+          ]
+        },
+        "affiliate_disclosure": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "required=True",
+            "present=True"
+          ]
+        },
+        "geo_claim_protection": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": []
+        },
+        "crawlability": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "D:\\AFFILATE BOT\\site_output\\robots.txt",
+            "D:\\AFFILATE BOT\\site_output\\sitemap.xml"
+          ]
+        }
+      },
+      "blocking_reasons": [],
+      "warnings": [],
+      "recommended_fixes": [],
+      "final_result": "PASS",
+      "human_approval_required": true,
+      "auto_publish": false,
+      "paid_api_used": false,
+      "inputs": {
+        "source_urls": [
+          "https://github.com/github/copilot-sdk/",
+          "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+        ],
+        "required_internal_links": [],
+        "affiliate_required": true
+      },
+      "report_path": "D:\\AFFILATE BOT\\data\\seo_geo_validation\\how-to-implement-copilot-sdk-review-2026-security-and-privacy.json",
+      "console_output": "SEO/GEO VALIDATION\n--------------------------------\nSemantic HTML: PASS\nHeading hierarchy: PASS\nCanonical: PASS\nAuthor metadata: PASS\nStructured data: PASS\nIndexability: PASS\nInternal links: PASS\nSource attribution: PASS\nAffiliate disclosure: PASS\nGEO claim protection: PASS\nCrawlability: PASS\nAI crawler policy: INFO\n\nFINAL_RESULT: PASS\nHuman approval is still required."
+    },
+    "seo_geo_validation_status": "PASS",
+    "publish_ready": true,
+    "url": "https://smileaireviewhub.com/how-to-implement-copilot-sdk-review-2026-security-and-privacy/",
+    "title": "Implementing the GitHub Copilot SDK: A Security-First Guide",
+    "description": "A practical, source-backed guide to implementing the GitHub Copilot SDK with scoped tools, permission controls, cost checks, and verification steps."
+  },
+  "external_import": true,
+  "image": {
+    "src": "/assets/og/pages/how-to-implement-copilot-sdk-review-2026-security-and-privacy.svg",
+    "alt": "copilot-sdk Review 2026: Security and Privacy cover image",
+    "width": 1200,
+    "height": 630,
+    "generated_by": "local_svg_cover_generator"
+  },
+  "og_image": "https://smileaireviewhub.com/assets/og/pages/how-to-implement-copilot-sdk-review-2026-security-and-privacy.svg",
+  "twitter_image": "https://smileaireviewhub.com/assets/og/pages/how-to-implement-copilot-sdk-review-2026-security-and-privacy.svg"
+}
