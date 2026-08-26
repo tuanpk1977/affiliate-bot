@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-25T07:30:12.396940+00:00",
-  "date": "2026-08-25",
+  "generated_at": "2026-08-26T13:37:49.112909+00:00",
+  "date": "2026-08-26",
   "summary": {
-    "date": "2026-08-25",
+    "date": "2026-08-26",
     "include_all": false,
     "blocked_only": false,
     "total_items": 1,
@@ -11,7 +11,8 @@
     "git_pushed": 0,
     "live_200": 0,
     "awaiting_publish": 0,
-    "awaiting_push": 1,
+    "ready_deployment_not_started": 1,
+    "awaiting_push": 0,
     "published_local": 0,
     "committed_local": 0,
     "pushed": 0,
@@ -31,8 +32,8 @@
   },
   "items": [
     {
-      "slug": "how-to-implement-copilot-sdk-review-2026-security-and-privacy",
-      "title": "Implementing the GitHub Copilot SDK: A Security-First Guide",
+      "slug": "copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives",
+      "title": "GitHub Copilot SDK Alternatives: Security-Control Guide",
       "editorial_status": "Human Approved",
       "publish_gate_status": "Ready for Publish",
       "publish_queue_status": "approved_for_publish",
@@ -43,17 +44,17 @@
       "docs_synced": true,
       "git_status": "not_committed",
       "git_reason": "file not tracked by git",
-      "url": "https://smileaireviewhub.com/how-to-implement-copilot-sdk-review-2026-security-and-privacy/",
+      "url": "https://smileaireviewhub.com/copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives/",
       "live_status": "404",
-      "display_status": "Awaiting Push",
+      "display_status": "Ready - Deployment Not Started",
       "live_http_status": 404,
       "live_reason": "HTTP Error 404: Not Found",
-      "block_reason": "Awaiting Push: file not tracked by git",
-      "resolution": "Recommended Action: rerun publish-ready so docs/site files are added, committed, and pushed.",
-      "next_action_command": "python editorial_console.py publish-ready --date 2026-08-25",
-      "site_output_file": "D:\\AFFILATE BOT\\site_output\\how-to-implement-copilot-sdk-review-2026-security-and-privacy\\index.html",
-      "docs_file": "D:\\AFFILATE BOT\\docs\\how-to-implement-copilot-sdk-review-2026-security-and-privacy\\index.html",
-      "published_static_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\how-to-implement-copilot-sdk-review-2026-security-and-privacy\\index.html"
+      "block_reason": "No deployment error: approved and Ready for Publish; Menu 8 deployment has not started.",
+      "resolution": "Run Menu 8 once to build, validate, commit, push, and verify this exact approved revision. The current HTTP 404 is expected before the first successful deployment.",
+      "next_action_command": "python editorial_console.py publish-ready --date 2026-08-26",
+      "site_output_file": "D:\\AFFILATE BOT\\site_output\\copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives\\index.html",
+      "docs_file": "D:\\AFFILATE BOT\\docs\\copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives\\index.html",
+      "published_static_file": "D:\\AFFILATE BOT\\data\\published_static_pages\\copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives\\index.html"
     }
   ],
   "repo_sync": {

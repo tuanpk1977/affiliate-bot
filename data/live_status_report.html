@@ -20,13 +20,15 @@
 <body>
   <main class="wrap">
     <section class="card">
-      <h1>Live Status Report - 2026-08-25</h1>
+      <h1>Live Status Report - 2026-08-26</h1>
       <p>Use this report to separate live deployment health from editorial and publish-gate workflow state.</p>
+      <p><strong>Pipeline:</strong> Ready for Publish = approval/gates passed; Ready - Deployment Not Started = run Menu 8; Awaiting Push = a local publish commit exists; Deploy Pending = pushed and waiting for hosting; Live 200 = online. HTTP 404 is expected before the first successful deployment.</p>
       <h2>Deployment summary</h2>
       <div class="kpis">
         <div class="kpi">Live 200<strong>0</strong></div>
         <div class="kpi">Awaiting Publish<strong>0</strong></div>
-        <div class="kpi">Awaiting Push<strong>1</strong></div>
+        <div class="kpi">Ready - Deployment Not Started<strong>1</strong></div>
+        <div class="kpi">Awaiting Push<strong>0</strong></div>
         <div class="kpi">Published Local<strong>0</strong></div>
         <div class="kpi">Committed Local<strong>0</strong></div>
         <div class="kpi">Pushed<strong>0</strong></div>
@@ -57,14 +59,14 @@
             <th>Local</th>
             <th>Docs</th>
             <th>Git</th>
-            <th>Status</th>
+            <th>Deployment status / live check</th>
             <th>Block reason</th>
             <th>How to fix</th>
             <th>URL</th>
             <th>Docs path</th>
           </tr>
         </thead>
-        <tbody><tr><td><strong>Implementing the GitHub Copilot SDK: A Security-First Guide</strong><br><code>how-to-implement-copilot-sdk-review-2026-security-and-privacy</code></td><td>Human Approved</td><td>Ready for Publish</td><td>docs_synced</td><td>yes</td><td>not_committed<br><small>file not tracked by git</small></td><td>Awaiting Push<br><small>404</small></td><td>Awaiting Push: file not tracked by git</td><td>Recommended Action: rerun publish-ready so docs/site files are added, committed, and pushed.<br><code>python editorial_console.py publish-ready --date 2026-08-25</code></td><td><a href='https://smileaireviewhub.com/how-to-implement-copilot-sdk-review-2026-security-and-privacy/'>https://smileaireviewhub.com/how-to-implement-copilot-sdk-review-2026-security-and-privacy/</a></td><td><code>D:\AFFILATE BOT\docs\how-to-implement-copilot-sdk-review-2026-security-and-privacy\index.html</code></td></tr></tbody>
+        <tbody><tr><td><strong>GitHub Copilot SDK Alternatives: Security-Control Guide</strong><br><code>copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives</code></td><td>Human Approved</td><td>Ready for Publish</td><td>docs_synced</td><td>yes</td><td>not_committed<br><small>file not tracked by git</small></td><td>Ready - Deployment Not Started<br><small>Live check: 404 (expected before first publish)</small></td><td>No deployment error: approved and Ready for Publish; Menu 8 deployment has not started.</td><td>Run Menu 8 once to build, validate, commit, push, and verify this exact approved revision. The current HTTP 404 is expected before the first successful deployment.<br><code>python editorial_console.py publish-ready --date 2026-08-26</code></td><td><a href='https://smileaireviewhub.com/copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives/'>https://smileaireviewhub.com/copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives/</a></td><td><code>D:\AFFILATE BOT\docs\copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives\index.html</code></td></tr></tbody>
       </table>
     </section>
   </main>

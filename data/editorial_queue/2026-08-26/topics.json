@@ -1,0 +1,1013 @@
+{
+  "generated_at": "2026-08-26T05:14:14.542387+00:00",
+  "date": "2026-08-26",
+  "batch_state": "UNDER_REVIEW",
+  "week_start": "2026-08-24",
+  "week_end": "2026-08-30",
+  "mode": "advanced",
+  "day_profile": "comparison",
+  "root_topic_count": 2,
+  "active_root_topics": 2,
+  "locked_root_ids": [
+    "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+    "best-copilot-sdk-review-2026-workflows-and-use-cases-security"
+  ],
+  "count": 1,
+  "topics": [
+    {
+      "root_topic_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+      "root_title": "copilot-sdk Review 2026: Security and Privacy",
+      "title": "copilot-sdk Review 2026: Security and Privacy",
+      "keyword": "copilot-sdk review 2026: security and privacy comparison and alternatives",
+      "primary_keyword": "copilot-sdk review 2026: security and privacy",
+      "slug": "copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives",
+      "parent_slug": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+      "search_intent": "comparison",
+      "primary_search_intent": "security research",
+      "selection_score": 78.96,
+      "total_score": 69.8,
+      "reason_selected": [
+        "Selected as existing root expansion.",
+        "freshness_gap=18.0",
+        "topical_depth_gap=17.0",
+        "commercial_value=15.0"
+      ],
+      "content_lane": "FOUNDATION_ADVANCED",
+      "selected": true,
+      "selected_status": "selected",
+      "series_status": "active",
+      "rank": 2,
+      "topic_tier": 1,
+      "topic_tier_id": "CORE_AI",
+      "category": "ai_assistants",
+      "subcategory": "copilot",
+      "content_plan": [
+        {
+          "angle": "pillar",
+          "title": "copilot-sdk Review 2026: Security and Privacy"
+        },
+        {
+          "angle": "implementation",
+          "title": "How to evaluate copilot-sdk Review 2026: Security and Privacy"
+        },
+        {
+          "angle": "limitations",
+          "title": "copilot-sdk Review 2026: Security and Privacy: limitations and risks"
+        }
+      ],
+      "series_plan": [
+        {
+          "root_topic_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+          "root_title": "copilot-sdk Review 2026: Security and Privacy",
+          "content_lane": "FOUNDATION_MAIN",
+          "article_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security-main_review",
+          "sequence_number": 1,
+          "scheduled_date": "2026-08-24",
+          "planned_publishing_day": "2026-08-24",
+          "daily_angle": "main_review",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate copilot-sdk Review 2026: Security and Privacy for category overview?",
+          "unique_thesis": "copilot-sdk Review 2026: Security and Privacy should be judged through category overview, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use copilot-sdk Review 2026: Security and Privacy for category overview.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Category Overview context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare category overview options without repeating the Monday table.",
+          "faq_set": [
+            "main_review_faq_1",
+            "main_review_faq_2",
+            "main_review_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "implementation_guide",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "implementation_guide",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+          "root_title": "copilot-sdk Review 2026: Security and Privacy",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security-implementation_guide",
+          "sequence_number": 2,
+          "scheduled_date": "2026-08-25",
+          "planned_publishing_day": "2026-08-25",
+          "daily_angle": "implementation_guide",
+          "primary_search_intent": "implementation guide",
+          "search_intent": "implementation guide",
+          "reader_question": "How should a small business evaluate copilot-sdk Review 2026: Security and Privacy for implementation workflow?",
+          "unique_thesis": "copilot-sdk Review 2026: Security and Privacy should be judged through implementation workflow, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use copilot-sdk Review 2026: Security and Privacy for implementation workflow.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Implementation Workflow context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare implementation workflow options without repeating the Monday table.",
+          "faq_set": [
+            "implementation_guide_faq_1",
+            "implementation_guide_faq_2",
+            "implementation_guide_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "main_review",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "comparison",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "comparison",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+          "root_title": "copilot-sdk Review 2026: Security and Privacy",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security-comparison",
+          "sequence_number": 3,
+          "scheduled_date": "2026-08-26",
+          "planned_publishing_day": "2026-08-26",
+          "daily_angle": "comparison",
+          "primary_search_intent": "comparison",
+          "search_intent": "comparison",
+          "reader_question": "How should a small business evaluate copilot-sdk Review 2026: Security and Privacy for comparison and alternatives?",
+          "unique_thesis": "copilot-sdk Review 2026: Security and Privacy should be judged through comparison and alternatives, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use copilot-sdk Review 2026: Security and Privacy for comparison and alternatives.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Comparison And Alternatives context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare comparison and alternatives options without repeating the Monday table.",
+          "faq_set": [
+            "comparison_faq_1",
+            "comparison_faq_2",
+            "comparison_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "implementation_guide",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "pricing",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "pricing",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+          "root_title": "copilot-sdk Review 2026: Security and Privacy",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security-pricing",
+          "sequence_number": 4,
+          "scheduled_date": "2026-08-27",
+          "planned_publishing_day": "2026-08-27",
+          "daily_angle": "pricing",
+          "primary_search_intent": "commercial investigation",
+          "search_intent": "commercial investigation",
+          "reader_question": "How should a small business evaluate copilot-sdk Review 2026: Security and Privacy for pricing, cost, and ROI?",
+          "unique_thesis": "copilot-sdk Review 2026: Security and Privacy should be judged through pricing, cost, and ROI, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use copilot-sdk Review 2026: Security and Privacy for pricing, cost, and ROI.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Pricing, Cost, And Roi context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare pricing, cost, and ROI options without repeating the Monday table.",
+          "faq_set": [
+            "pricing_faq_1",
+            "pricing_faq_2",
+            "pricing_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "comparison",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "use_cases",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "use_cases",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+          "root_title": "copilot-sdk Review 2026: Security and Privacy",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security-use_cases",
+          "sequence_number": 5,
+          "scheduled_date": "2026-08-28",
+          "planned_publishing_day": "2026-08-28",
+          "daily_angle": "use_cases",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate copilot-sdk Review 2026: Security and Privacy for workflows and use cases?",
+          "unique_thesis": "copilot-sdk Review 2026: Security and Privacy should be judged through workflows and use cases, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use copilot-sdk Review 2026: Security and Privacy for workflows and use cases.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Workflows And Use Cases context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare workflows and use cases options without repeating the Monday table.",
+          "faq_set": [
+            "use_cases_faq_1",
+            "use_cases_faq_2",
+            "use_cases_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "pricing",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "troubleshooting",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "troubleshooting",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+          "root_title": "copilot-sdk Review 2026: Security and Privacy",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security-troubleshooting",
+          "sequence_number": 6,
+          "scheduled_date": "2026-08-29",
+          "planned_publishing_day": "2026-08-29",
+          "daily_angle": "troubleshooting",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate copilot-sdk Review 2026: Security and Privacy for mistakes and troubleshooting?",
+          "unique_thesis": "copilot-sdk Review 2026: Security and Privacy should be judged through mistakes and troubleshooting, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use copilot-sdk Review 2026: Security and Privacy for mistakes and troubleshooting.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Mistakes And Troubleshooting context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare mistakes and troubleshooting options without repeating the Monday table.",
+          "faq_set": [
+            "troubleshooting_faq_1",
+            "troubleshooting_faq_2",
+            "troubleshooting_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "use_cases",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "buying_decision",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "buying_decision",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+          "root_title": "copilot-sdk Review 2026: Security and Privacy",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security-buying_decision",
+          "sequence_number": 7,
+          "scheduled_date": "2026-08-30",
+          "planned_publishing_day": "2026-08-30",
+          "daily_angle": "buying_decision",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate copilot-sdk Review 2026: Security and Privacy for small-business buying decision?",
+          "unique_thesis": "copilot-sdk Review 2026: Security and Privacy should be judged through small-business buying decision, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use copilot-sdk Review 2026: Security and Privacy for small-business buying decision.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Small-Business Buying Decision context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare small-business buying decision options without repeating the Monday table.",
+          "faq_set": [
+            "buying_decision_faq_1",
+            "buying_decision_faq_2",
+            "buying_decision_faq_3"
+          ],
+          "cta_intent": "close the same-root editorial series",
+          "previous_article": "troubleshooting",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "",
+            "bridge_state": "SERIES_COMPLETE"
+          },
+          "next_article": "",
+          "bridge_state": "SERIES_COMPLETE",
+          "series_status": "planned",
+          "article_state": "planned"
+        }
+      ],
+      "selection_source": "weekly_content_planning",
+      "fallback_level": 2,
+      "opportunity_type": "existing_root_expansion",
+      "parent_root_id": "copilot-sdk-review-2026",
+      "source_article_slug": "best-copilot-sdk-review-2026-workflows-and-use-cases",
+      "proposed_new_intent": "security research",
+      "upgrade_opportunity_score": 78.96,
+      "score_breakdown": {
+        "schema_version": "upgrade_opportunity_score_v1",
+        "config_schema_version": "content_opportunity_fallback_config_v1",
+        "opportunity_type": "existing_root_expansion",
+        "upgrade_opportunity_score": 78.96,
+        "freshness_gap": 18.0,
+        "commercial_value": 15.0,
+        "affiliate_opportunity": 0.0,
+        "partnerstack_opportunity": 0.0,
+        "topical_depth_gap": 17.0,
+        "internal_link_opportunity": 3.96,
+        "source_availability": 12.0,
+        "existing_authority_value": 5.0,
+        "entity_coverage_gap": 8.0,
+        "duplication_penalty": 0.0,
+        "source_penalty": 0.0,
+        "obsolete_product_penalty": 0.0,
+        "low_relevance_penalty": 0.0
+      },
+      "unique_thesis": "copilot-sdk Review 2026: Security and Privacy should be judged through comparison and alternatives, not a repeated feature checklist.",
+      "refresh_thesis": null,
+      "update_scope": null,
+      "existing_slug": null,
+      "refresh_reason": [],
+      "refresh_scope": [],
+      "preserve_slug": false,
+      "create_new_url": true,
+      "deep_dive_eligible": true,
+      "refresh_existing_article": false,
+      "human_approval_required": true,
+      "duplicate_risk": "low",
+      "cannibalization_risk": false,
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://github.com/github/copilot-sdk",
+          "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+        ],
+        "unique_source_domains": [
+          "github.com",
+          "sdtimes.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "normalized_root_topic": "copilot-sdk-review-2026-security-and-privacy",
+      "topic_category": "AI_ASSISTANTS",
+      "primary_entity": "copilot-sdk Review 2026: Security and Privacy",
+      "freshness_score": 0.0,
+      "official_source_confidence": "unknown",
+      "likely_search_demand": 0.0,
+      "commercial_relevance": 0.0,
+      "depth_potential": 78.96,
+      "source_references": [],
+      "maximum_useful_article_angles": 7,
+      "trend_score": 0.0,
+      "business_value": 0.0,
+      "sources": [],
+      "entities": [],
+      "week_start": "2026-08-24",
+      "status": "published",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "copilot-sdk review 2026: security and privacy",
+      "daily_angles": {
+        "2026-08-24": {
+          "angle": "main_review",
+          "title": "copilot-sdk review 2026: security and privacy",
+          "slug": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+          "search_intent": "security research",
+          "status": "queue_created"
+        },
+        "2026-08-25": {
+          "angle": "implementation_guide",
+          "title": "how to implement copilot-sdk review 2026: security and privacy",
+          "slug": "how-to-implement-copilot-sdk-review-2026-security-and-privacy",
+          "search_intent": "implementation guide",
+          "status": "queue_created"
+        }
+      },
+      "content_type": "comparison",
+      "search_intent_score": 86.0,
+      "daily_angle": "comparison",
+      "weekly_article_history": [
+        {
+          "angle": "main_review",
+          "title": "copilot-sdk review 2026: security and privacy",
+          "slug": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+          "search_intent": "security research",
+          "status": "queue_created",
+          "date": "2026-08-24"
+        },
+        {
+          "angle": "implementation_guide",
+          "title": "how to implement copilot-sdk review 2026: security and privacy",
+          "slug": "how-to-implement-copilot-sdk-review-2026-security-and-privacy",
+          "search_intent": "implementation guide",
+          "status": "queue_created",
+          "date": "2026-08-25"
+        }
+      ],
+      "suggested_article_angle": "comparison follow-up for copilot-sdk review 2026: security and privacy",
+      "batch_date": "2026-08-26",
+      "editorial_week_id": "",
+      "parent_monday_article": {
+        "root_topic_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+        "slug": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+        "title": "copilot-sdk review 2026: security and privacy",
+        "scheduled_date": "2026-08-24"
+      },
+      "mode": "advanced",
+      "sequence_number": 3,
+      "reader_question": "How should a small business evaluate copilot-sdk Review 2026: Security and Privacy for comparison and alternatives?",
+      "required_evidence": [
+        "prepared sources",
+        "official source where available",
+        "same-root article history"
+      ],
+      "prohibited_overlap": [
+        "same search intent as an earlier article",
+        "same FAQ set as an earlier article",
+        "same table purpose as an earlier article",
+        "same conclusion/CTA purpose as an earlier article"
+      ],
+      "next_article_bridge": {
+        "root_topic_id": "best-copilot-sdk-review-2026-workflows-and-use-cases-security",
+        "state": "NEXT_SCHEDULED_NOT_LIVE",
+        "daily_angle": "pricing",
+        "instructions": "End with a natural bridge to the next scheduled same-root angle, pricing. Do not link or claim it is published."
+      },
+      "affiliate_monetization_score": 70.0,
+      "competition_difficulty_score": 45.0,
+      "product_availability_score": 65.0,
+      "content_freshness_score": 70.0,
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 54.43,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives",
+      "review_preview": "",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "approved_for_publish",
+      "article_readiness": {
+        "task_id": "website-advanced-2026-08-26-copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives",
+        "slug": "copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives",
+        "status": "RESEARCH_MINIMUM",
+        "article_ready": false,
+        "sources_attempted": 2,
+        "sources_retrieved": 2,
+        "sources_blocked": 0,
+        "usable_paragraphs": 38,
+        "candidate_claims": 69,
+        "publishable_claims": 0,
+        "rejected_claims": 69,
+        "mandatory_sections_covered": 4,
+        "mandatory_sections_total": 10,
+        "blockers": [
+          "Only 0 directly supported claims; comparison evidence target is 30.",
+          "Mandatory evidence sections blocked: product-identity, core-workflow, feature-scope, pros, final-recommendation, faq",
+          "Evidence coverage score 0.10 is below the required 0.70.",
+          "Only 1 distinct source families; comparison requires 2.",
+          "Angle research plan blocked: Angle requires 2 verified comparator entities; resolved 0.",
+          "Angle research plan blocked: Comparator confirmation required; review comparator_candidate_report.md and confirm exactly two verified entities.",
+          "Angle research plan blocked: Root entity copilot-sdk : Security and Privacy has no approved official source.",
+          "Angle research plan blocked: Comparison topic identifies only 0 concrete product entities; exactly 3 are required before evidence acquisition.",
+          "Entity copilot-sdk : Security and Privacy has 0 accepted claim(s); requires 5.",
+          "Entity copilot-sdk : Security and Privacy coverage 0.00 is below 0.60."
+        ],
+        "warnings": [],
+        "validation_errors": [],
+        "artifact_dir": "D:\\AFFILATE BOT\\data\\research\\copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives",
+        "research_level": "RESEARCH_MINIMUM",
+        "draft_exportable": false,
+        "critical_safety_violations": [],
+        "research_tasks": [
+          {
+            "task_id": "research-comparators",
+            "task_type": "MISSING_COMPARATOR",
+            "section": "comparison",
+            "status": "HELD_WAITING_COMPARATORS",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Comparison requires 2 verified comparators; 0 currently verified.",
+            "recommended_source_families": [
+              "official_docs",
+              "product_page",
+              "integration_page"
+            ],
+            "recommended_wording": "Omit rankings and direct comparisons until comparator evidence is verified."
+          },
+          {
+            "task_id": "research-001",
+            "task_type": "EVIDENCE_GAP",
+            "section": "product-identity",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for product-identity.",
+            "recommended_source_families": [
+              "official_website",
+              "docs",
+              "github",
+              "readme"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-002",
+            "task_type": "EVIDENCE_GAP",
+            "section": "core-workflow",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for core-workflow.",
+            "recommended_source_families": [
+              "docs",
+              "tutorial",
+              "examples",
+              "readme"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-003",
+            "task_type": "EVIDENCE_GAP",
+            "section": "feature-scope",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for feature-scope.",
+            "recommended_source_families": [
+              "docs",
+              "api_docs",
+              "release_notes",
+              "changelog"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-004",
+            "task_type": "EVIDENCE_GAP",
+            "section": "limitations",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for limitations.",
+            "recommended_source_families": [
+              "docs",
+              "faq",
+              "support",
+              "github"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-005",
+            "task_type": "MISSING_PRICING",
+            "section": "pricing",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for pricing.",
+            "recommended_source_families": [
+              "pricing"
+            ],
+            "recommended_wording": "Do not state a price; direct readers to the current official pricing page."
+          },
+          {
+            "task_id": "research-006",
+            "task_type": "EVIDENCE_GAP",
+            "section": "pros",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for pros.",
+            "recommended_source_families": [
+              "docs",
+              "examples",
+              "tutorial"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-007",
+            "task_type": "EVIDENCE_GAP",
+            "section": "cons",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for cons.",
+            "recommended_source_families": [
+              "faq",
+              "support",
+              "github"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-008",
+            "task_type": "EVIDENCE_GAP",
+            "section": "final-recommendation",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for final-recommendation.",
+            "recommended_source_families": [
+              "official_website",
+              "docs",
+              "pricing"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-009",
+            "task_type": "EVIDENCE_GAP",
+            "section": "faq",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for faq.",
+            "recommended_source_families": [
+              "faq",
+              "docs",
+              "support"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-010",
+            "task_type": "WEAK_SECTION",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Mandatory evidence sections blocked: product-identity, core-workflow, feature-scope, pros, final-recommendation, faq",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-011",
+            "task_type": "WEAK_SECTION",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence coverage score 0.10 is below the required 0.70.",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-012",
+            "task_type": "MISSING_SECURITY",
+            "section": "security",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Angle research plan blocked: Root entity copilot-sdk : Security and Privacy has no approved official source.",
+            "recommended_source_families": [],
+            "recommended_wording": "Do not claim compliance, certification, or security guarantees."
+          },
+          {
+            "task_id": "research-013",
+            "task_type": "MISSING_SECURITY",
+            "section": "security",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Entity copilot-sdk : Security and Privacy has 0 accepted claim(s); requires 5.",
+            "recommended_source_families": [],
+            "recommended_wording": "Do not claim compliance, certification, or security guarantees."
+          },
+          {
+            "task_id": "research-014",
+            "task_type": "MISSING_SECURITY",
+            "section": "security",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Entity copilot-sdk : Security and Privacy coverage 0.00 is below 0.60.",
+            "recommended_source_families": [],
+            "recommended_wording": "Do not claim compliance, certification, or security guarantees."
+          }
+        ],
+        "known_uncertainties": [
+          "Comparison requires 2 verified comparators; 0 currently verified.",
+          "Evidence is incomplete for product-identity.",
+          "Evidence is incomplete for core-workflow.",
+          "Evidence is incomplete for feature-scope.",
+          "Evidence is incomplete for limitations.",
+          "Evidence is incomplete for pricing.",
+          "Evidence is incomplete for pros.",
+          "Evidence is incomplete for cons.",
+          "Evidence is incomplete for final-recommendation.",
+          "Evidence is incomplete for faq.",
+          "Mandatory evidence sections blocked: product-identity, core-workflow, feature-scope, pros, final-recommendation, faq",
+          "Evidence coverage score 0.10 is below the required 0.70.",
+          "Angle research plan blocked: Root entity copilot-sdk : Security and Privacy has no approved official source.",
+          "Entity copilot-sdk : Security and Privacy has 0 accepted claim(s); requires 5.",
+          "Entity copilot-sdk : Security and Privacy coverage 0.00 is below 0.60."
+        ],
+        "weak_sections": [
+          "product-identity",
+          "core-workflow",
+          "feature-scope",
+          "limitations",
+          "pricing",
+          "alternatives",
+          "pros",
+          "cons",
+          "final-recommendation",
+          "faq"
+        ],
+        "comparison_status": "HELD_WAITING_COMPARATORS",
+        "identified_comparison_entities": [
+          "copilot-sdk : Security and Privacy"
+        ],
+        "official_sources_per_entity": {
+          "copilot-sdk : Security and Privacy": []
+        },
+        "entity_coverage": [
+          {
+            "canonical_entity_id": "copilot-sdk-security-and-privacy",
+            "canonical_entity_name": "copilot-sdk : Security and Privacy",
+            "entity_role": "root",
+            "source_count": 2,
+            "claim_count": 0,
+            "claim_categories": [],
+            "sections_covered": [],
+            "sections_required": [
+              "product-identity",
+              "core-workflow",
+              "feature-scope",
+              "limitations",
+              "pricing",
+              "alternatives",
+              "final-recommendation"
+            ],
+            "coverage_score": 0.0,
+            "status": "MISSING"
+          }
+        ],
+        "source_family_counts": {
+          "independent_evidence": 2
+        },
+        "evidence_coverage_score": 0.1,
+        "estimated_publish_readiness": 0.5,
+        "revision_count": 0,
+        "unique_thesis": "copilot-sdk Review 2026: Security and Privacy should be judged through comparison and alternatives, not a repeated feature checklist.",
+        "unique_thesis_status": "PROVIDED"
+      },
+      "research_artifacts": {
+        "task_id": "website-advanced-2026-08-26-copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives",
+        "slug": "copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives",
+        "batch_date": "2026-08-26",
+        "canonical_dir": "D:\\AFFILATE BOT\\data\\research\\copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives",
+        "package_file": "D:\\AFFILATE BOT\\data\\research\\copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives\\package.json",
+        "enrichment_report_file": "D:\\AFFILATE BOT\\data\\research\\copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives\\enrichment_report.json",
+        "source_excerpts_file": "D:\\AFFILATE BOT\\data\\research\\copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives\\SOURCE_EXCERPTS.json",
+        "fact_ledger_file": "D:\\AFFILATE BOT\\data\\research\\copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives\\FACT_LEDGER.json",
+        "article_blueprint_file": "D:\\AFFILATE BOT\\data\\research\\copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives\\ARTICLE_BLUEPRINT.json",
+        "evidence_coverage_file": "D:\\AFFILATE BOT\\data\\research\\copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives\\evidence_coverage.json",
+        "angle_research_plan_file": "D:\\AFFILATE BOT\\data\\research\\copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives\\ANGLE_RESEARCH_PLAN.json",
+        "claim_extraction_diagnostics_file": "D:\\AFFILATE BOT\\data\\research\\copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives\\claim_extraction_diagnostics.json",
+        "duplicate_dirs": [],
+        "slug_aliases": [],
+        "missing_files": [],
+        "legacy_reasons": [
+          "FACT_LEDGER contains zero claims"
+        ],
+        "paragraph_count": 38,
+        "claim_count": 0,
+        "coverage_score": 0.1,
+        "angle_profile": "comparison_and_alternatives",
+        "required_entity_count": 3,
+        "resolved_entity_count": 1,
+        "entity_coverage_score": 0.0,
+        "candidate_claim_count": 69,
+        "rejected_claim_count": 69,
+        "mandatory_sections_covered": 4,
+        "mandatory_sections_total": 10,
+        "status": "RESEARCH_MINIMUM",
+        "article_ready": false,
+        "research_level": "RESEARCH_MINIMUM",
+        "draft_exportable": true,
+        "critical_safety_violations": [],
+        "outstanding_research_tasks": 15,
+        "weak_sections": [
+          "product-identity",
+          "core-workflow",
+          "feature-scope",
+          "limitations",
+          "pricing",
+          "alternatives",
+          "pros",
+          "cons",
+          "final-recommendation",
+          "faq"
+        ],
+        "comparison_status": "HELD_WAITING_COMPARATORS",
+        "estimated_publish_readiness": 0.5,
+        "revision_count": 0,
+        "total_source_count": 2,
+        "official_source_count": 1,
+        "verified_source_count": 2,
+        "source_families": [
+          "independent_evidence"
+        ],
+        "source_quality_score": 80.0,
+        "failing_gates": [],
+        "is_legacy": true
+      },
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "research_level": "RESEARCH_MINIMUM",
+      "comparison_status": "HELD_WAITING_COMPARATORS",
+      "outstanding_research_tasks": 15,
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "writer_type": "external_ai",
+        "writer_name": "ChatGPT",
+        "writer_version": "web",
+        "generated_at": "2026-08-26T05:31:03.689359+00:00",
+        "package_id": "001c09dc8a01b4f2",
+        "task_id": "website_advanced-2026-08-26-0b416e664660a6e4",
+        "revision": 1
+      },
+      "approved_by": "editor",
+      "validation_mode": "smart",
+      "validation_status": "passed",
+      "autofix_status": "skipped_read_only",
+      "cta_status": "not_changed",
+      "faq_schema_status": "not_changed",
+      "meta_description_status": "not_changed",
+      "redirect_status": "not_changed",
+      "block_reason": "",
+      "validation_errors": [],
+      "next_action": "",
+      "published_at": "2026-08-26T13:47:15.672807+00:00"
+    }
+  ],
+  "held_topics": [
+    {
+      "root_topic_id": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-pricing",
+      "root_title": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Pricing, Cost, and ROI",
+      "slug": "ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-pricing-cost-and-roi-comparison-and-alternatives",
+      "daily_angle": "comparison",
+      "reason": "weekly title collision: ai in healthcare marketing: moving from automation to intelligent engagement: pricing, cost, and roi"
+    }
+  ],
+  "blocked_diagnostics": [
+    {
+      "slug": "ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-pricing-cost-and-roi-comparison-and-alternatives",
+      "BLOCKED_STAGE": "BLOCKED",
+      "BLOCKED_REASON": "weekly title collision: ai in healthcare marketing: moving from automation to intelligent engagement: pricing, cost, and roi",
+      "REQUIRED_OPERATOR_ACTION": "Review the named blocker and add or verify the required evidence; then rerun the same menu."
+    }
+  ],
+  "held_due_to_sources": 0,
+  "skipped_duplicates": 1,
+  "skipped_disconnected_roots": 0,
+  "new_roots_created": 0,
+  "research_prepared_at": "2026-08-26T05:14:18.466340+00:00"
+}

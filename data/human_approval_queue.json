@@ -1748,5 +1748,41 @@
         "source_reference": "how-to-implement-copilot-sdk-review-2026-security-and-privacy"
       }
     ]
+  },
+  {
+    "slug": "copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives",
+    "topic": "copilot-sdk review 2026: security and privacy comparison and alternatives",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-08-26T05:44:29.608459+00:00",
+    "approved_at": "2026-08-26T10:22:06.407618+00:00",
+    "approved_by": "editor",
+    "reason": "",
+    "canonical_task_id": "",
+    "legacy_task_id": "copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives",
+    "revision_id": "website-revision-v1:22229c7035045ba6233885a9b1402fd96e478a798b622d10dfbf6827f38ba6ae",
+    "content_hash": "22229c7035045ba6233885a9b1402fd96e478a798b622d10dfbf6827f38ba6ae",
+    "content_hash_version": "sha256_utf8_exact_v1",
+    "approval_scope": "website",
+    "approved_revision_id": "website-revision-v1:22229c7035045ba6233885a9b1402fd96e478a798b622d10dfbf6827f38ba6ae",
+    "approved_content_hash": "22229c7035045ba6233885a9b1402fd96e478a798b622d10dfbf6827f38ba6ae",
+    "approval_binding_status": "MATCHED",
+    "approval_history": [
+      {
+        "status": "human_approved",
+        "approved_at": "2026-08-26T10:15:56.006489+00:00",
+        "approved_by": "editor",
+        "canonical_task_id": "",
+        "legacy_task_id": "copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives",
+        "revision_id": "website-revision-v1:01b127dd1456f3f9dc0a9dce5122f3927c5f50f437a6089625b707671665fdf3",
+        "content_hash": "01b127dd1456f3f9dc0a9dce5122f3927c5f50f437a6089625b707671665fdf3",
+        "approval_scope": "website",
+        "binding_status": "MATCHED",
+        "superseded_at": "2026-08-26T10:22:06.407596+00:00",
+        "superseded_reason": "new explicit human approval for a different revision",
+        "source_event": "explicit_human_approval",
+        "source_reference": "copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives"
+      }
+    ]
   }
 ]

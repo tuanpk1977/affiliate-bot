@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "website_advanced-2026-08-26-0b416e664660a6e4",
+  "slug": "copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives",
+  "revision": 1,
+  "status": "REVISION_REQUIRED",
+  "tasks": [
+    {
+      "revision_task_id": "website_advanced-2026-08-26-0b416e664660a6e4-r1-001",
+      "task_id": "website_advanced-2026-08-26-0b416e664660a6e4",
+      "slug": "copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives",
+      "revision": 1,
+      "task_type": "EVIDENCE_GAP",
+      "section": "general",
+      "status": "PENDING",
+      "reason": "The external writer validation report requires editorial revision.",
+      "research_enrichment_required": false
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "writer": {
+    "writer_type": "external_ai",
+    "writer_name": "ChatGPT",
+    "writer_version": "web",
+    "generated_at": "2026-08-26T05:31:03.689359+00:00",
+    "package_id": "001c09dc8a01b4f2",
+    "task_id": "website_advanced-2026-08-26-0b416e664660a6e4",
+    "revision": 1
+  },
+  "source_urls": [
+    "https://github.com/github/copilot-sdk",
+    "https://sdtimes.com/ai/this-week-in-ai-updates-github-copilot-sdk-claudes-new-constitution-and-more-january-23-2026/"
+  ],
+  "human_approval_required": true,
+  "approved": false,
+  "published": false
+}
