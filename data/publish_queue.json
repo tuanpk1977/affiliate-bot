@@ -9301,7 +9301,7 @@
   {
     "slug": "copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives",
     "topic": "copilot-sdk review 2026: security and privacy comparison and alternatives",
-    "status": "published_local",
+    "status": "live",
     "checked_at": "2026-08-26T13:44:00.279546+00:00",
     "failures": [],
     "hard_blockers": [],
@@ -9592,6 +9592,1595 @@
         "published_at": "2026-08-26T13:47:15.690134+00:00",
         "url": "https://smileaireviewhub.com/copilot-sdk-review-2026-security-and-privacy-comparison-and-alternatives/"
       }
+    ],
+    "publish_queue_status": "live",
+    "deployment_state": "live",
+    "updated_at": "2026-08-26T13:50:27.070227+00:00",
+    "committed_local": true,
+    "pushed": true,
+    "pushed_at": "2026-08-26T13:50:27.070227+00:00",
+    "git_push_status": "pushed",
+    "git_push_reason": "",
+    "git_push_retry_count": 0,
+    "force_push_used": false,
+    "live": true,
+    "live_at": "2026-08-26T13:50:27.070227+00:00",
+    "post_push_live_status": "live_ok",
+    "post_push_live_message": "Website live OK: 1/1 URLs returned 200/3xx after push."
+  },
+  {
+    "slug": "common-ai-accounting-automation-software-comparison-mistakes-and-troubleshooting",
+    "topic": "Ai accounting automation software comparison mistakes and troubleshooting",
+    "status": "blocked",
+    "checked_at": "2026-08-28T05:09:50.938711+00:00",
+    "failures": [
+      "AI review failed"
+    ],
+    "hard_blockers": [
+      "AI review failed"
+    ],
+    "warnings": [
+      "SEO/GEO: citation_structure: Only part of the supplied source set is cited in the candidate HTML.",
+      "AI quality below high-confidence target"
+    ],
+    "pending_reviews": [],
+    "review_states": {
+      "ai_review": "failed",
+      "source_review": "passed",
+      "freshness_review": "passed"
+    },
+    "severity_counts": {
+      "BLOCK": 1,
+      "WARNING": 2,
+      "HUMAN_REVIEW_REQUIRED": 0
+    },
+    "total_score": 73.9,
+    "score_band": "human_review_required",
+    "final_gate": "Publish Blocked",
+    "research_quality_passed": true,
+    "verified_source_score_passed": true,
+    "knowledge_freshness_passed": true,
+    "ai_review_passed": false,
+    "ai_review_source": "D:\\AFFILATE BOT\\data\\import_history\\external_writer\\2026-08-15\\9e6b1299a5a3f782\\import.json",
+    "ai_review_package_id": "9e6b1299a5a3f782",
+    "ai_review_task_id": "website_advanced-2026-08-15-f4774068c33f8f81",
+    "human_approval_passed": true,
+    "approval_binding_status": "MATCHED",
+    "current_content_hash": "2df639ea893bdab19519566671d6637d16721c328e42c5b52dba921f7c04fa5b",
+    "current_revision_id": "website-revision-v1:2df639ea893bdab19519566671d6637d16721c328e42c5b52dba921f7c04fa5b",
+    "content_hash_version": "sha256_utf8_exact_v1",
+    "current_authorization": "valid",
+    "public_marker_violations": [],
+    "broken_links": [],
+    "duplicate_title_meta": false,
+    "affiliate_disclosure_present": true,
+    "minimum_business_score_passed": true,
+    "minimum_readability_score_passed": true,
+    "business_score": 60.5,
+    "readability_score": 60.13,
+    "verified_source_score": 70.0,
+    "knowledge_freshness_score": 80.0,
+    "seo_geo_validation": {
+      "schema_version": "seo_geo_validation_v1",
+      "checked_at": "2026-08-28T05:09:51.000402+00:00",
+      "slug": "common-ai-accounting-automation-software-comparison-mistakes-and-troubleshooting",
+      "page_url": "https://smileaireviewhub.com/common-ai-accounting-automation-software-comparison-mistakes-and-troubleshooting/",
+      "article_type": "troubleshooting",
+      "content_sha256": "2df639ea893bdab19519566671d6637d16721c328e42c5b52dba921f7c04fa5b",
+      "semantic_html_status": "PASS",
+      "heading_status": "PASS",
+      "author_metadata_status": "PASS",
+      "structured_data_status": "PASS",
+      "canonical_status": "PASS",
+      "indexability_status": "PASS",
+      "internal_link_status": "PASS",
+      "source_citation_status": "WARNING",
+      "disclosure_status": "PASS",
+      "geo_claim_protection_status": "PASS",
+      "crawlability_status": "PASS",
+      "ai_crawler_advisory": {
+        "status": "INFO",
+        "robots_path": "D:\\AFFILATE BOT\\site_output\\robots.txt",
+        "reason": "Crawler directives are reported as owner-controlled policy; no directive was changed.",
+        "matrix": [
+          {
+            "crawler": "OAI-SearchBot",
+            "purpose": "search",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Preserve the owner-selected search visibility policy."
+          },
+          {
+            "crawler": "ChatGPT-User",
+            "purpose": "user_fetch",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Preserve explicit user-requested retrieval control."
+          },
+          {
+            "crawler": "PerplexityBot",
+            "purpose": "search",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Preserve the owner-selected answer-engine policy."
+          },
+          {
+            "crawler": "ClaudeBot",
+            "purpose": "ai_crawler",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Review periodically; this is an owner policy decision."
+          },
+          {
+            "crawler": "Google-Extended",
+            "purpose": "ai_training_control",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Keep separate from Googlebot search crawling."
+          },
+          {
+            "crawler": "GPTBot",
+            "purpose": "ai_training",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+          },
+          {
+            "crawler": "CCBot",
+            "purpose": "dataset_crawler",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate dataset-crawler control."
+          },
+          {
+            "crawler": "anthropic-ai",
+            "purpose": "ai_training",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+          },
+          {
+            "crawler": "Bytespider",
+            "purpose": "ai_training",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+          }
+        ],
+        "policy_changed": false
+      },
+      "checks": {
+        "semantic_html": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "visible_words=2538",
+            "main=1",
+            "article=7",
+            "section=2",
+            "nav=2",
+            "footer=1",
+            "table=1",
+            "ul=5",
+            "ol=1"
+          ]
+        },
+        "heading": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "H1: AI Accounting Automation: Mistakes and Fixes",
+            "H2: Make, Zapier, and AdCreative AI: Define the Stack",
+            "H2: Core Workflow: Trace the Accounting Automation Chain",
+            "H2: AdCreative AI: Keep Creative Work Outside the Ledger",
+            "H2: Zapier: Inspect Tasks, Connections, and Governance",
+            "H2: Make: Validate Scenario Logic and Team Handoffs",
+            "H2: Security, Privacy, and Integration Checks",
+            "H2: Operational Risks and Common Failure Modes",
+            "H2: Pricing and Hidden Cost Checks",
+            "H2: Comparison Table: Diagnose Before You Switch",
+            "H2: Practical Strengths",
+            "H2: Practical Drawbacks",
+            "H2: Final Recommendation and Verification Checklist",
+            "H2: FAQ",
+            "H3: Is Make an accounting system?",
+            "H3: Is Zapier an accounting system?",
+            "H3: Can AdCreative AI automate bookkeeping?",
+            "H3: What should be tested first?",
+            "H3: How do I prevent duplicate records?",
+            "H3: Why can an automation run successfully but still be wrong?"
+          ]
+        },
+        "canonical": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "https://smileaireviewhub.com/common-ai-accounting-automation-software-comparison-mistakes-and-troubleshooting/"
+          ]
+        },
+        "structured_data": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "Article",
+            "BreadcrumbList"
+          ]
+        },
+        "author_trust": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "author_signals=4",
+            "date_signals=1"
+          ]
+        },
+        "indexability": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "index,follow,max-image-preview:large"
+          ]
+        },
+        "internal_links": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "internal_links=19",
+            "broken_links=0"
+          ]
+        },
+        "citation_structure": {
+          "status": "WARNING",
+          "reasons": [
+            "Only part of the supplied source set is cited in the candidate HTML."
+          ],
+          "evidence": [
+            "supplied_sources=17",
+            "matched_sources=2",
+            "concise_answer_blocks=24"
+          ]
+        },
+        "affiliate_disclosure": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "required=True",
+            "present=True"
+          ]
+        },
+        "geo_claim_protection": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": []
+        },
+        "crawlability": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "D:\\AFFILATE BOT\\site_output\\robots.txt",
+            "D:\\AFFILATE BOT\\site_output\\sitemap.xml"
+          ]
+        }
+      },
+      "blocking_reasons": [],
+      "warnings": [
+        "citation_structure: Only part of the supplied source set is cited in the candidate HTML."
+      ],
+      "recommended_fixes": [
+        "Only part of the supplied source set is cited in the candidate HTML."
+      ],
+      "final_result": "WARNING",
+      "human_approval_required": true,
+      "auto_publish": false,
+      "paid_api_used": false,
+      "inputs": {
+        "source_urls": [
+          "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+          "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+          "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/",
+          "https://www.adcreative.ai/",
+          "https://www.analyticsinsight.net/artificial-intelligence/top-10-marketing-automation-software-platforms-for-businesses-in-2026/",
+          "https://www.dqindia.com/data-and-ai/ai-tools-in-2026-what-each-platform-does-best-in-real-world-workflows-11262991/",
+          "https://www.forbes.com/advisor/business/software/best-crm-software/",
+          "https://www.forbes.com/councils/forbesagencycouncil/2026/07/09/how-to-overcome-real-world-challenges-in-ai-marketing-automation/",
+          "https://www.forbes.com/councils/forbesbusinesscouncil/2026/05/08/ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement/",
+          "https://www.healthcareitnews.com/news/healthcare-orgs-moving-beyond-ai-hype-cycle-himss26-attendees-agree/",
+          "https://www.inc.com/leila-sheridan/googles-750-million-plan-to-move-ai-from-experiments-to-the-real-world/91334694/",
+          "https://www.make.com/",
+          "https://www.make.com/en/affiliates/",
+          "https://www.morningstar.com/news/pr-newswire/20260305la02426/consensus-named-one-of-g2s-top-5-sales-software-platforms-of-2026-proving-demo-automation-is-now-a-must-have-in-every-gtm-stack/",
+          "https://www.pcmag.com/picks/the-best-email-marketing-software/",
+          "https://www.utusan.com.my/pr-newswire-en/2026/05/doceree-healthcare-marketings-ai-powered-operating-system-earns-frost-sullivans-2026-global-technology-innovation-leadership-recognition/",
+          "https://zapier.com/"
+        ],
+        "required_internal_links": [],
+        "affiliate_required": true
+      },
+      "report_path": "D:\\AFFILATE BOT\\data\\seo_geo_validation\\common-ai-accounting-automation-software-comparison-mistakes-and-troubleshooting.json",
+      "console_output": "SEO/GEO VALIDATION\n--------------------------------\nSemantic HTML: PASS\nHeading hierarchy: PASS\nCanonical: PASS\nAuthor metadata: PASS\nStructured data: PASS\nIndexability: PASS\nInternal links: PASS\nSource attribution: WARNING\nAffiliate disclosure: PASS\nGEO claim protection: PASS\nCrawlability: PASS\nAI crawler policy: INFO\n\nFINAL_RESULT: WARNING\nHuman approval is still required.\n\nWarnings:\n- citation_structure: Only part of the supplied source set is cited in the candidate HTML."
+    },
+    "seo_geo_validation_status": "WARNING",
+    "publish_ready": false,
+    "url": "https://smileaireviewhub.com/common-ai-accounting-automation-software-comparison-mistakes-and-troubleshooting/",
+    "title": "AI Accounting Automation: Mistakes and Fixes",
+    "description": "Troubleshoot AI accounting automation with practical checks for Make, Zapier, AdCreative AI, pricing, security, integrations, and exceptions."
+  },
+  {
+    "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-comparison",
+    "topic": "ai in healthcare marketing: moving from automation to intelligent engagement: comparison and alternatives",
+    "status": "published_local",
+    "checked_at": "2026-09-15T14:02:39.393382+00:00",
+    "failures": [],
+    "hard_blockers": [],
+    "warnings": [
+      "SEO/GEO: citation_structure: Only part of the supplied source set is cited in the candidate HTML."
+    ],
+    "pending_reviews": [],
+    "review_states": {
+      "ai_review": "passed",
+      "source_review": "passed",
+      "freshness_review": "passed"
+    },
+    "severity_counts": {
+      "BLOCK": 0,
+      "WARNING": 1,
+      "HUMAN_REVIEW_REQUIRED": 0
+    },
+    "total_score": 70.02,
+    "score_band": "human_review_required",
+    "final_gate": "Ready for Publish",
+    "research_quality_passed": true,
+    "verified_source_score_passed": true,
+    "knowledge_freshness_passed": true,
+    "ai_review_passed": true,
+    "ai_review_source": "revision_bound_content_review_queue",
+    "ai_review_package_id": "",
+    "ai_review_task_id": "",
+    "human_approval_passed": true,
+    "approval_binding_status": "MATCHED",
+    "current_content_hash": "17fd0846e054569f3620c989756888c7e84f1f9707f04d7e5bf4ddf8303fd9ca",
+    "current_revision_id": "website-revision-v1:17fd0846e054569f3620c989756888c7e84f1f9707f04d7e5bf4ddf8303fd9ca",
+    "content_hash_version": "sha256_utf8_exact_v1",
+    "current_authorization": "valid",
+    "public_marker_violations": [],
+    "broken_links": [],
+    "duplicate_title_meta": false,
+    "affiliate_disclosure_present": true,
+    "minimum_business_score_passed": true,
+    "minimum_readability_score_passed": true,
+    "business_score": 60.5,
+    "readability_score": 46.0,
+    "verified_source_score": 70.0,
+    "knowledge_freshness_score": 80.0,
+    "seo_geo_validation": {
+      "schema_version": "seo_geo_validation_v1",
+      "checked_at": "2026-09-15T14:02:39.434959+00:00",
+      "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-comparison",
+      "page_url": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-comparison/",
+      "article_type": "alternatives",
+      "content_sha256": "17fd0846e054569f3620c989756888c7e84f1f9707f04d7e5bf4ddf8303fd9ca",
+      "semantic_html_status": "PASS",
+      "heading_status": "PASS",
+      "author_metadata_status": "PASS",
+      "structured_data_status": "PASS",
+      "canonical_status": "PASS",
+      "indexability_status": "PASS",
+      "internal_link_status": "PASS",
+      "source_citation_status": "WARNING",
+      "disclosure_status": "PASS",
+      "geo_claim_protection_status": "PASS",
+      "crawlability_status": "PASS",
+      "ai_crawler_advisory": {
+        "status": "INFO",
+        "robots_path": "D:\\AFFILATE BOT\\site_output\\robots.txt",
+        "reason": "Crawler directives are reported as owner-controlled policy; no directive was changed.",
+        "matrix": [
+          {
+            "crawler": "OAI-SearchBot",
+            "purpose": "search",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Preserve the owner-selected search visibility policy."
+          },
+          {
+            "crawler": "ChatGPT-User",
+            "purpose": "user_fetch",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Preserve explicit user-requested retrieval control."
+          },
+          {
+            "crawler": "PerplexityBot",
+            "purpose": "search",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Preserve the owner-selected answer-engine policy."
+          },
+          {
+            "crawler": "ClaudeBot",
+            "purpose": "ai_crawler",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Review periodically; this is an owner policy decision."
+          },
+          {
+            "crawler": "Google-Extended",
+            "purpose": "ai_training_control",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Keep separate from Googlebot search crawling."
+          },
+          {
+            "crawler": "GPTBot",
+            "purpose": "ai_training",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+          },
+          {
+            "crawler": "CCBot",
+            "purpose": "dataset_crawler",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate dataset-crawler control."
+          },
+          {
+            "crawler": "anthropic-ai",
+            "purpose": "ai_training",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+          },
+          {
+            "crawler": "Bytespider",
+            "purpose": "ai_training",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+          }
+        ],
+        "policy_changed": false
+      },
+      "checks": {
+        "semantic_html": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "visible_words=2352",
+            "main=1",
+            "article=7",
+            "section=15",
+            "nav=2",
+            "footer=1",
+            "table=1",
+            "ul=6",
+            "ol=3"
+          ]
+        },
+        "heading": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "H1: AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Comparison and Alternatives",
+            "H2: Category Overview context: From static automation to intelligent engagement",
+            "H2: Core evaluation criteria for healthcare marketing automation",
+            "H2: Leading platform alternatives: Make, Zapier, and AdCreative AI",
+            "H2: Make workflow architecture for healthcare operational efficiency",
+            "H2: Zapier ecosystem integrations for multi-channel healthcare campaigns",
+            "H2: AdCreative AI generative asset creation and compliance boundaries",
+            "H2: Verification checklist: Assessing data governance and messaging accuracy",
+            "H2: Operational risks and regulatory considerations in healthcare outreach",
+            "H2: Platform comparison and feature capabilities",
+            "H2: Pricing models and commercial transparency",
+            "H2: Frequently asked questions about healthcare marketing AI",
+            "H3: What is the primary difference between basic marketing automation and intelligent engagement?",
+            "H3: Can healthcare marketing teams use Zapier and Make for patient communication?",
+            "H3: How does AdCreative AI ensure that generated ad visuals comply with healthcare standards?",
+            "H3: Which platform is better for complex, multi-system healthcare integrations: Make or Zapier?",
+            "H3: How should healthcare organizations protect patient privacy when using marketing automation?",
+            "H2: Final strategic recommendation and next steps",
+            "H2: Our Community Signals",
+            "H3: Facebook"
+          ]
+        },
+        "canonical": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-comparison/"
+          ]
+        },
+        "structured_data": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "Article",
+            "BreadcrumbList"
+          ]
+        },
+        "author_trust": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "author_signals=4",
+            "date_signals=1"
+          ]
+        },
+        "indexability": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "index,follow,max-image-preview:large"
+          ]
+        },
+        "internal_links": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "internal_links=19",
+            "broken_links=0"
+          ]
+        },
+        "citation_structure": {
+          "status": "WARNING",
+          "reasons": [
+            "Only part of the supplied source set is cited in the candidate HTML."
+          ],
+          "evidence": [
+            "supplied_sources=17",
+            "matched_sources=6",
+            "concise_answer_blocks=16"
+          ]
+        },
+        "affiliate_disclosure": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "required=True",
+            "present=True"
+          ]
+        },
+        "geo_claim_protection": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": []
+        },
+        "crawlability": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "D:\\AFFILATE BOT\\site_output\\robots.txt",
+            "D:\\AFFILATE BOT\\site_output\\sitemap.xml"
+          ]
+        }
+      },
+      "blocking_reasons": [],
+      "warnings": [
+        "citation_structure: Only part of the supplied source set is cited in the candidate HTML."
+      ],
+      "recommended_fixes": [
+        "Only part of the supplied source set is cited in the candidate HTML."
+      ],
+      "final_result": "WARNING",
+      "human_approval_required": true,
+      "auto_publish": false,
+      "paid_api_used": false,
+      "inputs": {
+        "source_urls": [
+          "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+          "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+          "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/",
+          "https://www.adcreative.ai/",
+          "https://www.analyticsinsight.net/artificial-intelligence/top-10-marketing-automation-software-platforms-for-businesses-in-2026/",
+          "https://www.dqindia.com/data-and-ai/ai-tools-in-2026-what-each-platform-does-best-in-real-world-workflows-11262991/",
+          "https://www.forbes.com/advisor/business/software/best-crm-software/",
+          "https://www.forbes.com/councils/forbesagencycouncil/2026/07/09/how-to-overcome-real-world-challenges-in-ai-marketing-automation/",
+          "https://www.forbes.com/councils/forbesbusinesscouncil/2026/05/08/ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement/",
+          "https://www.healthcareitnews.com/news/healthcare-orgs-moving-beyond-ai-hype-cycle-himss26-attendees-agree/",
+          "https://www.inc.com/leila-sheridan/googles-750-million-plan-to-move-ai-from-experiments-to-the-real-world/91334694/",
+          "https://www.make.com/",
+          "https://www.make.com/en/affiliates/",
+          "https://www.morningstar.com/news/pr-newswire/20260305la02426/consensus-named-one-of-g2s-top-5-sales-software-platforms-of-2026-proving-demo-automation-is-now-a-must-have-in-every-gtm-stack/",
+          "https://www.pcmag.com/picks/the-best-email-marketing-software/",
+          "https://www.utusan.com.my/pr-newswire-en/2026/05/doceree-healthcare-marketings-ai-powered-operating-system-earns-frost-sullivans-2026-global-technology-innovation-leadership-recognition/",
+          "https://zapier.com/"
+        ],
+        "required_internal_links": [],
+        "affiliate_required": true
+      },
+      "report_path": "D:\\AFFILATE BOT\\data\\seo_geo_validation\\best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-comparison.json",
+      "console_output": "SEO/GEO VALIDATION\n--------------------------------\nSemantic HTML: PASS\nHeading hierarchy: PASS\nCanonical: PASS\nAuthor metadata: PASS\nStructured data: PASS\nIndexability: PASS\nInternal links: PASS\nSource attribution: WARNING\nAffiliate disclosure: PASS\nGEO claim protection: PASS\nCrawlability: PASS\nAI crawler policy: INFO\n\nFINAL_RESULT: WARNING\nHuman approval is still required.\n\nWarnings:\n- citation_structure: Only part of the supplied source set is cited in the candidate HTML."
+    },
+    "seo_geo_validation_status": "WARNING",
+    "publish_ready": true,
+    "url": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-comparison/",
+    "title": "AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement: Comparison and Alternatives",
+    "description": "A comprehensive comparison of intelligent engagement platforms for healthcare marketing. Compare Make, Zapier, and AdCreative AI for compliance and scalability.",
+    "published_at": "2026-09-15T14:04:58.405884+00:00",
+    "historically_deployed": true,
+    "deployment_history": [
+      {
+        "status": "published_local",
+        "published_at": "2026-09-15T14:04:58.405884+00:00",
+        "url": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-comparison/"
+      }
     ]
+  },
+  {
+    "slug": "open-code-review-review-2026",
+    "topic": "open-code-review Review 2026",
+    "status": "needs_human_review",
+    "checked_at": "2026-09-14T12:46:04.773494+00:00",
+    "failures": [],
+    "hard_blockers": [],
+    "warnings": [],
+    "pending_reviews": [
+      "human approval missing"
+    ],
+    "review_states": {
+      "ai_review": "passed",
+      "source_review": "passed",
+      "freshness_review": "passed"
+    },
+    "severity_counts": {
+      "BLOCK": 0,
+      "WARNING": 0,
+      "HUMAN_REVIEW_REQUIRED": 1
+    },
+    "total_score": 68.79,
+    "score_band": "human_review_required",
+    "final_gate": "Human Approval Required",
+    "research_quality_passed": true,
+    "verified_source_score_passed": true,
+    "knowledge_freshness_passed": true,
+    "ai_review_passed": true,
+    "ai_review_source": "",
+    "ai_review_package_id": "",
+    "ai_review_task_id": "",
+    "human_approval_passed": false,
+    "approval_binding_status": "APPROVAL_NOT_GRANTED",
+    "current_content_hash": "d87551ad2afa566fb6f53301368542b490153f1e5bd8a25ab4f91d5ececb38e0",
+    "current_revision_id": "website-revision-v1:d87551ad2afa566fb6f53301368542b490153f1e5bd8a25ab4f91d5ececb38e0",
+    "content_hash_version": "sha256_utf8_exact_v1",
+    "current_authorization": "review_required",
+    "public_marker_violations": [],
+    "broken_links": [],
+    "duplicate_title_meta": false,
+    "affiliate_disclosure_present": true,
+    "minimum_business_score_passed": true,
+    "minimum_readability_score_passed": true,
+    "business_score": 47.9,
+    "readability_score": 57.12,
+    "verified_source_score": 70.0,
+    "knowledge_freshness_score": 80.0,
+    "seo_geo_validation": {
+      "schema_version": "seo_geo_validation_v1",
+      "checked_at": "2026-09-14T12:46:04.829588+00:00",
+      "slug": "open-code-review-review-2026",
+      "page_url": "https://smileaireviewhub.com/open-code-review-review-2026/",
+      "article_type": "review",
+      "content_sha256": "d87551ad2afa566fb6f53301368542b490153f1e5bd8a25ab4f91d5ececb38e0",
+      "semantic_html_status": "PASS",
+      "heading_status": "PASS",
+      "author_metadata_status": "PASS",
+      "structured_data_status": "PASS",
+      "canonical_status": "PASS",
+      "indexability_status": "PASS",
+      "internal_link_status": "PASS",
+      "source_citation_status": "PASS",
+      "disclosure_status": "PASS",
+      "geo_claim_protection_status": "PASS",
+      "crawlability_status": "PASS",
+      "ai_crawler_advisory": {
+        "status": "INFO",
+        "robots_path": "D:\\AFFILATE BOT\\site_output\\robots.txt",
+        "reason": "Crawler directives are reported as owner-controlled policy; no directive was changed.",
+        "matrix": [
+          {
+            "crawler": "OAI-SearchBot",
+            "purpose": "search",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Preserve the owner-selected search visibility policy."
+          },
+          {
+            "crawler": "ChatGPT-User",
+            "purpose": "user_fetch",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Preserve explicit user-requested retrieval control."
+          },
+          {
+            "crawler": "PerplexityBot",
+            "purpose": "search",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Preserve the owner-selected answer-engine policy."
+          },
+          {
+            "crawler": "ClaudeBot",
+            "purpose": "ai_crawler",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Review periodically; this is an owner policy decision."
+          },
+          {
+            "crawler": "Google-Extended",
+            "purpose": "ai_training_control",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Keep separate from Googlebot search crawling."
+          },
+          {
+            "crawler": "GPTBot",
+            "purpose": "ai_training",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+          },
+          {
+            "crawler": "CCBot",
+            "purpose": "dataset_crawler",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate dataset-crawler control."
+          },
+          {
+            "crawler": "anthropic-ai",
+            "purpose": "ai_training",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+          },
+          {
+            "crawler": "Bytespider",
+            "purpose": "ai_training",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+          }
+        ],
+        "policy_changed": false
+      },
+      "checks": {
+        "semantic_html": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "visible_words=1971",
+            "main=1",
+            "article=12",
+            "section=19",
+            "nav=3",
+            "footer=1",
+            "table=2",
+            "ul=9",
+            "ol=1"
+          ]
+        },
+        "heading": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "H1: open-code-review Review 2026: Pricing, Pros, Cons",
+            "H2: Affiliate disclosure",
+            "H2: Author and editorial review",
+            "H2: Our Community Signals",
+            "H3: Facebook",
+            "H3: LinkedIn",
+            "H3: X",
+            "H3: Quora",
+            "H3: DEV",
+            "H3: Reddit",
+            "H2: Quick verdict",
+            "H2: Core review: what is different in this article",
+            "H3: What this review answers",
+            "H3: Best-fit reader",
+            "H3: What stays unresolved",
+            "H2: How we evaluated the shortlist",
+            "H2: Comparison table",
+            "H2: Pros and cons",
+            "H3: Pros",
+            "H3: Cons"
+          ]
+        },
+        "canonical": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "https://smileaireviewhub.com/open-code-review-review-2026/"
+          ]
+        },
+        "structured_data": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "Article",
+            "BreadcrumbList",
+            "FAQPage"
+          ]
+        },
+        "author_trust": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "author_signals=4",
+            "date_signals=1"
+          ]
+        },
+        "indexability": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "index,follow,max-image-preview:large"
+          ]
+        },
+        "internal_links": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "internal_links=23",
+            "broken_links=0"
+          ]
+        },
+        "citation_structure": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "supplied_sources=3",
+            "matched_sources=3",
+            "concise_answer_blocks=13"
+          ]
+        },
+        "affiliate_disclosure": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "required=True",
+            "present=True"
+          ]
+        },
+        "geo_claim_protection": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": []
+        },
+        "crawlability": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "D:\\AFFILATE BOT\\site_output\\robots.txt",
+            "D:\\AFFILATE BOT\\site_output\\sitemap.xml"
+          ]
+        }
+      },
+      "blocking_reasons": [],
+      "warnings": [],
+      "recommended_fixes": [],
+      "final_result": "PASS",
+      "human_approval_required": true,
+      "auto_publish": false,
+      "paid_api_used": false,
+      "inputs": {
+        "source_urls": [
+          "https://gigazine.net/gsc_news/en/20260607-open-code-review/",
+          "https://github.com/alibaba/open-code-review/",
+          "https://open-codereview.ai/"
+        ],
+        "required_internal_links": [
+          "/reviews/",
+          "/comparisons/",
+          "/categories/",
+          "/best-website-builder-2026/",
+          "/review/surfer-seo/"
+        ],
+        "affiliate_required": true
+      },
+      "report_path": "D:\\AFFILATE BOT\\data\\seo_geo_validation\\open-code-review-review-2026.json",
+      "console_output": "SEO/GEO VALIDATION\n--------------------------------\nSemantic HTML: PASS\nHeading hierarchy: PASS\nCanonical: PASS\nAuthor metadata: PASS\nStructured data: PASS\nIndexability: PASS\nInternal links: PASS\nSource attribution: PASS\nAffiliate disclosure: PASS\nGEO claim protection: PASS\nCrawlability: PASS\nAI crawler policy: INFO\n\nFINAL_RESULT: PASS\nHuman approval is still required."
+    },
+    "seo_geo_validation_status": "PASS",
+    "publish_ready": false,
+    "url": "https://smileaireviewhub.com/open-code-review-review-2026/",
+    "title": "open-code-review Review 2026: Pricing, Pros, Cons",
+    "description": "Independent open-code-review Review 2026 guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advice."
+  },
+  {
+    "slug": "adobe-acquires-indian-ai-startup-rilo-for-marketing-automation",
+    "topic": "Adobe Acquires Indian AI Startup Rilo for Marketing Automation",
+    "status": "blocked",
+    "checked_at": "2026-09-14T12:46:08.979423+00:00",
+    "failures": [
+      "zero usable sources",
+      "SEO/GEO: internal_links: Required internal links are missing: /review/surfer-seo/.",
+      "SEO/GEO: citation_structure: No supplied source URL is preserved in the candidate HTML."
+    ],
+    "hard_blockers": [
+      "zero usable sources",
+      "SEO/GEO: internal_links: Required internal links are missing: /review/surfer-seo/.",
+      "SEO/GEO: citation_structure: No supplied source URL is preserved in the candidate HTML."
+    ],
+    "warnings": [
+      "verified source score below initial threshold",
+      "knowledge freshness below initial threshold"
+    ],
+    "pending_reviews": [
+      "human approval missing"
+    ],
+    "review_states": {
+      "ai_review": "passed",
+      "source_review": "failed",
+      "freshness_review": "warning"
+    },
+    "severity_counts": {
+      "BLOCK": 3,
+      "WARNING": 2,
+      "HUMAN_REVIEW_REQUIRED": 1
+    },
+    "total_score": 69.35,
+    "score_band": "human_review_required",
+    "final_gate": "Publish Blocked",
+    "research_quality_passed": true,
+    "verified_source_score_passed": false,
+    "knowledge_freshness_passed": false,
+    "ai_review_passed": true,
+    "ai_review_source": "",
+    "ai_review_package_id": "",
+    "ai_review_task_id": "",
+    "human_approval_passed": false,
+    "approval_binding_status": "APPROVAL_NOT_GRANTED",
+    "current_content_hash": "fc53772f7d600f1816f3a712353ad0f0c8115b5ed047e813f391323d9423ef11",
+    "current_revision_id": "website-revision-v1:fc53772f7d600f1816f3a712353ad0f0c8115b5ed047e813f391323d9423ef11",
+    "content_hash_version": "sha256_utf8_exact_v1",
+    "current_authorization": "review_required",
+    "public_marker_violations": [],
+    "broken_links": [],
+    "duplicate_title_meta": false,
+    "affiliate_disclosure_present": true,
+    "minimum_business_score_passed": true,
+    "minimum_readability_score_passed": true,
+    "business_score": 53.5,
+    "readability_score": 55.22,
+    "verified_source_score": 0.0,
+    "knowledge_freshness_score": 0.0,
+    "seo_geo_validation": {
+      "schema_version": "seo_geo_validation_v1",
+      "checked_at": "2026-09-14T12:46:09.025783+00:00",
+      "slug": "adobe-acquires-indian-ai-startup-rilo-for-marketing-automation",
+      "page_url": "https://smileaireviewhub.com/adobe-acquires-indian-ai-startup-rilo-for-marketing-automation/",
+      "article_type": "news/update",
+      "content_sha256": "fc53772f7d600f1816f3a712353ad0f0c8115b5ed047e813f391323d9423ef11",
+      "semantic_html_status": "PASS",
+      "heading_status": "PASS",
+      "author_metadata_status": "PASS",
+      "structured_data_status": "PASS",
+      "canonical_status": "PASS",
+      "indexability_status": "PASS",
+      "internal_link_status": "BLOCKED",
+      "source_citation_status": "BLOCKED",
+      "disclosure_status": "PASS",
+      "geo_claim_protection_status": "PASS",
+      "crawlability_status": "PASS",
+      "ai_crawler_advisory": {
+        "status": "INFO",
+        "robots_path": "D:\\AFFILATE BOT\\site_output\\robots.txt",
+        "reason": "Crawler directives are reported as owner-controlled policy; no directive was changed.",
+        "matrix": [
+          {
+            "crawler": "OAI-SearchBot",
+            "purpose": "search",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Preserve the owner-selected search visibility policy."
+          },
+          {
+            "crawler": "ChatGPT-User",
+            "purpose": "user_fetch",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Preserve explicit user-requested retrieval control."
+          },
+          {
+            "crawler": "PerplexityBot",
+            "purpose": "search",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Preserve the owner-selected answer-engine policy."
+          },
+          {
+            "crawler": "ClaudeBot",
+            "purpose": "ai_crawler",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Review periodically; this is an owner policy decision."
+          },
+          {
+            "crawler": "Google-Extended",
+            "purpose": "ai_training_control",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Keep separate from Googlebot search crawling."
+          },
+          {
+            "crawler": "GPTBot",
+            "purpose": "ai_training",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+          },
+          {
+            "crawler": "CCBot",
+            "purpose": "dataset_crawler",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate dataset-crawler control."
+          },
+          {
+            "crawler": "anthropic-ai",
+            "purpose": "ai_training",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+          },
+          {
+            "crawler": "Bytespider",
+            "purpose": "ai_training",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+          }
+        ],
+        "policy_changed": false
+      },
+      "checks": {
+        "semantic_html": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "visible_words=2274",
+            "main=1",
+            "article=13",
+            "section=19",
+            "nav=3",
+            "footer=1",
+            "table=2",
+            "ul=9",
+            "ol=1"
+          ]
+        },
+        "heading": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "H1: Adobe Acquires Indian AI Startup Rilo for Marketing Auto",
+            "H2: Affiliate disclosure",
+            "H2: Author and editorial review",
+            "H2: Our Community Signals",
+            "H3: Facebook",
+            "H3: LinkedIn",
+            "H3: X",
+            "H3: Quora",
+            "H3: DEV",
+            "H3: Reddit",
+            "H2: Quick verdict",
+            "H2: Core review: what is different in this article",
+            "H3: What this review answers",
+            "H3: Best-fit reader",
+            "H3: What stays unresolved",
+            "H2: How we evaluated the shortlist",
+            "H2: Comparison table",
+            "H2: Pros and cons",
+            "H3: Pros",
+            "H3: Cons"
+          ]
+        },
+        "canonical": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "https://smileaireviewhub.com/adobe-acquires-indian-ai-startup-rilo-for-marketing-automation/"
+          ]
+        },
+        "structured_data": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "Article",
+            "BreadcrumbList",
+            "FAQPage"
+          ]
+        },
+        "author_trust": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "author_signals=4",
+            "date_signals=1"
+          ]
+        },
+        "indexability": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "index,follow,max-image-preview:large"
+          ]
+        },
+        "internal_links": {
+          "status": "BLOCKED",
+          "reasons": [
+            "Required internal links are missing: /review/surfer-seo/."
+          ],
+          "evidence": [
+            "internal_links=31",
+            "broken_links=0"
+          ]
+        },
+        "citation_structure": {
+          "status": "BLOCKED",
+          "reasons": [
+            "No supplied source URL is preserved in the candidate HTML."
+          ],
+          "evidence": [
+            "supplied_sources=17",
+            "matched_sources=0",
+            "concise_answer_blocks=15"
+          ]
+        },
+        "affiliate_disclosure": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "required=True",
+            "present=True"
+          ]
+        },
+        "geo_claim_protection": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": []
+        },
+        "crawlability": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "D:\\AFFILATE BOT\\site_output\\robots.txt",
+            "D:\\AFFILATE BOT\\site_output\\sitemap.xml"
+          ]
+        }
+      },
+      "blocking_reasons": [
+        "internal_links: Required internal links are missing: /review/surfer-seo/.",
+        "citation_structure: No supplied source URL is preserved in the candidate HTML."
+      ],
+      "warnings": [],
+      "recommended_fixes": [
+        "Required internal links are missing: /review/surfer-seo/.",
+        "No supplied source URL is preserved in the candidate HTML."
+      ],
+      "final_result": "BLOCKED",
+      "human_approval_required": true,
+      "auto_publish": false,
+      "paid_api_used": false,
+      "inputs": {
+        "source_urls": [
+          "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+          "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+          "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/",
+          "https://www.adcreative.ai/",
+          "https://www.analyticsinsight.net/artificial-intelligence/top-10-marketing-automation-software-platforms-for-businesses-in-2026/",
+          "https://www.dqindia.com/data-and-ai/ai-tools-in-2026-what-each-platform-does-best-in-real-world-workflows-11262991/",
+          "https://www.forbes.com/advisor/business/software/best-crm-software/",
+          "https://www.forbes.com/councils/forbesagencycouncil/2026/07/09/how-to-overcome-real-world-challenges-in-ai-marketing-automation/",
+          "https://www.forbes.com/councils/forbesbusinesscouncil/2026/05/08/ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement/",
+          "https://www.healthcareitnews.com/news/healthcare-orgs-moving-beyond-ai-hype-cycle-himss26-attendees-agree/",
+          "https://www.inc.com/leila-sheridan/googles-750-million-plan-to-move-ai-from-experiments-to-the-real-world/91334694/",
+          "https://www.make.com/",
+          "https://www.make.com/en/affiliates/",
+          "https://www.morningstar.com/news/pr-newswire/20260305la02426/consensus-named-one-of-g2s-top-5-sales-software-platforms-of-2026-proving-demo-automation-is-now-a-must-have-in-every-gtm-stack/",
+          "https://www.pcmag.com/picks/the-best-email-marketing-software/",
+          "https://www.utusan.com.my/pr-newswire-en/2026/05/doceree-healthcare-marketings-ai-powered-operating-system-earns-frost-sullivans-2026-global-technology-innovation-leadership-recognition/",
+          "https://zapier.com/"
+        ],
+        "required_internal_links": [
+          "/reviews/",
+          "/comparisons/",
+          "/categories/",
+          "/zapier-pricing/",
+          "/category/automation-tools/",
+          "/best-website-builder-2026/",
+          "/review/surfer-seo/"
+        ],
+        "affiliate_required": true
+      },
+      "report_path": "D:\\AFFILATE BOT\\data\\seo_geo_validation\\adobe-acquires-indian-ai-startup-rilo-for-marketing-automation.json",
+      "console_output": "SEO/GEO VALIDATION\n--------------------------------\nSemantic HTML: PASS\nHeading hierarchy: PASS\nCanonical: PASS\nAuthor metadata: PASS\nStructured data: PASS\nIndexability: PASS\nInternal links: BLOCKED\nSource attribution: BLOCKED\nAffiliate disclosure: PASS\nGEO claim protection: PASS\nCrawlability: PASS\nAI crawler policy: INFO\n\nFINAL_RESULT: BLOCKED\nHuman approval is still required.\n\nBlocking reasons:\n- internal_links: Required internal links are missing: /review/surfer-seo/.\n- citation_structure: No supplied source URL is preserved in the candidate HTML."
+    },
+    "seo_geo_validation_status": "BLOCKED",
+    "publish_ready": false,
+    "url": "https://smileaireviewhub.com/adobe-acquires-indian-ai-startup-rilo-for-marketing-automation/",
+    "title": "Adobe Acquires Indian AI Startup Rilo for Marketing Auto",
+    "description": "Independent Adobe Acquires Indian AI Startup Rilo for Marketing Automation guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused wo."
+  },
+  {
+    "slug": "we-tested-the-10-best-ai-productivity-tools-in-2026",
+    "topic": "We Tested the 10 Best AI Productivity Tools in 2026",
+    "status": "needs_human_review",
+    "checked_at": "2026-09-14T12:46:12.188809+00:00",
+    "failures": [],
+    "hard_blockers": [],
+    "warnings": [
+      "SEO/GEO: citation_structure: Only part of the supplied source set is cited in the candidate HTML."
+    ],
+    "pending_reviews": [
+      "human approval missing"
+    ],
+    "review_states": {
+      "ai_review": "passed",
+      "source_review": "passed",
+      "freshness_review": "passed"
+    },
+    "severity_counts": {
+      "BLOCK": 0,
+      "WARNING": 1,
+      "HUMAN_REVIEW_REQUIRED": 1
+    },
+    "total_score": 73.06,
+    "score_band": "human_review_required",
+    "final_gate": "Human Approval Required",
+    "research_quality_passed": true,
+    "verified_source_score_passed": true,
+    "knowledge_freshness_passed": true,
+    "ai_review_passed": true,
+    "ai_review_source": "",
+    "ai_review_package_id": "",
+    "ai_review_task_id": "",
+    "human_approval_passed": false,
+    "approval_binding_status": "APPROVAL_NOT_GRANTED",
+    "current_content_hash": "1556630224d343492a8e9c625e428005faedf13e39d96b3fe2126b81f07533cd",
+    "current_revision_id": "website-revision-v1:1556630224d343492a8e9c625e428005faedf13e39d96b3fe2126b81f07533cd",
+    "content_hash_version": "sha256_utf8_exact_v1",
+    "current_authorization": "review_required",
+    "public_marker_violations": [],
+    "broken_links": [],
+    "duplicate_title_meta": false,
+    "affiliate_disclosure_present": true,
+    "minimum_business_score_passed": true,
+    "minimum_readability_score_passed": true,
+    "business_score": 52.1,
+    "readability_score": 55.24,
+    "verified_source_score": 57.0,
+    "knowledge_freshness_score": 81.59,
+    "seo_geo_validation": {
+      "schema_version": "seo_geo_validation_v1",
+      "checked_at": "2026-09-14T12:46:12.237910+00:00",
+      "slug": "we-tested-the-10-best-ai-productivity-tools-in-2026",
+      "page_url": "https://smileaireviewhub.com/we-tested-the-10-best-ai-productivity-tools-in-2026/",
+      "article_type": "listicle",
+      "content_sha256": "1556630224d343492a8e9c625e428005faedf13e39d96b3fe2126b81f07533cd",
+      "semantic_html_status": "PASS",
+      "heading_status": "PASS",
+      "author_metadata_status": "PASS",
+      "structured_data_status": "PASS",
+      "canonical_status": "PASS",
+      "indexability_status": "PASS",
+      "internal_link_status": "PASS",
+      "source_citation_status": "WARNING",
+      "disclosure_status": "PASS",
+      "geo_claim_protection_status": "PASS",
+      "crawlability_status": "PASS",
+      "ai_crawler_advisory": {
+        "status": "INFO",
+        "robots_path": "D:\\AFFILATE BOT\\site_output\\robots.txt",
+        "reason": "Crawler directives are reported as owner-controlled policy; no directive was changed.",
+        "matrix": [
+          {
+            "crawler": "OAI-SearchBot",
+            "purpose": "search",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Preserve the owner-selected search visibility policy."
+          },
+          {
+            "crawler": "ChatGPT-User",
+            "purpose": "user_fetch",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Preserve explicit user-requested retrieval control."
+          },
+          {
+            "crawler": "PerplexityBot",
+            "purpose": "search",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Preserve the owner-selected answer-engine policy."
+          },
+          {
+            "crawler": "ClaudeBot",
+            "purpose": "ai_crawler",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Review periodically; this is an owner policy decision."
+          },
+          {
+            "crawler": "Google-Extended",
+            "purpose": "ai_training_control",
+            "current_policy": "ALLOWED_EXPLICIT",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Keep separate from Googlebot search crawling."
+          },
+          {
+            "crawler": "GPTBot",
+            "purpose": "ai_training",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+          },
+          {
+            "crawler": "CCBot",
+            "purpose": "dataset_crawler",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate dataset-crawler control."
+          },
+          {
+            "crawler": "anthropic-ai",
+            "purpose": "ai_training",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+          },
+          {
+            "crawler": "Bytespider",
+            "purpose": "ai_training",
+            "current_policy": "ALLOWED_BY_WILDCARD",
+            "directives": [
+              "Allow: /"
+            ],
+            "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+          }
+        ],
+        "policy_changed": false
+      },
+      "checks": {
+        "semantic_html": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "visible_words=2318",
+            "main=1",
+            "article=12",
+            "section=19",
+            "nav=3",
+            "footer=1",
+            "table=2",
+            "ul=9",
+            "ol=1"
+          ]
+        },
+        "heading": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "H1: We Tested the 10 Best AI Productivity Tools in 2026",
+            "H2: Affiliate disclosure",
+            "H2: Author and editorial review",
+            "H2: Our Community Signals",
+            "H3: Facebook",
+            "H3: LinkedIn",
+            "H3: X",
+            "H3: Quora",
+            "H3: DEV",
+            "H3: Reddit",
+            "H2: Quick verdict",
+            "H2: Core review: what is different in this article",
+            "H3: What this review answers",
+            "H3: Best-fit reader",
+            "H3: What stays unresolved",
+            "H2: How we evaluated the shortlist",
+            "H2: Comparison table",
+            "H2: Pros and cons",
+            "H3: Pros",
+            "H3: Cons"
+          ]
+        },
+        "canonical": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "https://smileaireviewhub.com/we-tested-the-10-best-ai-productivity-tools-in-2026/"
+          ]
+        },
+        "structured_data": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "Article",
+            "BreadcrumbList",
+            "FAQPage"
+          ]
+        },
+        "author_trust": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "author_signals=4",
+            "date_signals=1"
+          ]
+        },
+        "indexability": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "index,follow,max-image-preview:large"
+          ]
+        },
+        "internal_links": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "internal_links=30",
+            "broken_links=0"
+          ]
+        },
+        "citation_structure": {
+          "status": "WARNING",
+          "reasons": [
+            "Only part of the supplied source set is cited in the candidate HTML."
+          ],
+          "evidence": [
+            "supplied_sources=8",
+            "matched_sources=4",
+            "concise_answer_blocks=15"
+          ]
+        },
+        "affiliate_disclosure": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "required=True",
+            "present=True"
+          ]
+        },
+        "geo_claim_protection": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": []
+        },
+        "crawlability": {
+          "status": "PASS",
+          "reasons": [],
+          "evidence": [
+            "D:\\AFFILATE BOT\\site_output\\robots.txt",
+            "D:\\AFFILATE BOT\\site_output\\sitemap.xml"
+          ]
+        }
+      },
+      "blocking_reasons": [],
+      "warnings": [
+        "citation_structure: Only part of the supplied source set is cited in the candidate HTML."
+      ],
+      "recommended_fixes": [
+        "Only part of the supplied source set is cited in the candidate HTML."
+      ],
+      "final_result": "WARNING",
+      "human_approval_required": true,
+      "auto_publish": false,
+      "paid_api_used": false,
+      "inputs": {
+        "source_urls": [
+          "https://gamma.app/",
+          "https://www.notion.com/",
+          "https://www.notion.com/affiliates/",
+          "https://www.notion.com/help/",
+          "https://www.notion.com/partners/",
+          "https://www.notion.com/pricing/",
+          "https://www.notion.com/product/ai/",
+          "https://www.notion.com/releases/"
+        ],
+        "required_internal_links": [
+          "/reviews/",
+          "/comparisons/",
+          "/categories/",
+          "/best-website-builder-2026/",
+          "/review/surfer-seo/"
+        ],
+        "affiliate_required": true
+      },
+      "report_path": "D:\\AFFILATE BOT\\data\\seo_geo_validation\\we-tested-the-10-best-ai-productivity-tools-in-2026.json",
+      "console_output": "SEO/GEO VALIDATION\n--------------------------------\nSemantic HTML: PASS\nHeading hierarchy: PASS\nCanonical: PASS\nAuthor metadata: PASS\nStructured data: PASS\nIndexability: PASS\nInternal links: PASS\nSource attribution: WARNING\nAffiliate disclosure: PASS\nGEO claim protection: PASS\nCrawlability: PASS\nAI crawler policy: INFO\n\nFINAL_RESULT: WARNING\nHuman approval is still required.\n\nWarnings:\n- citation_structure: Only part of the supplied source set is cited in the candidate HTML."
+    },
+    "seo_geo_validation_status": "WARNING",
+    "publish_ready": false,
+    "url": "https://smileaireviewhub.com/we-tested-the-10-best-ai-productivity-tools-in-2026/",
+    "title": "We Tested the 10 Best AI Productivity Tools in 2026",
+    "description": "Independent We Tested the 10 Best AI Productivity Tools in 2026 guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advi."
   }
 ]

@@ -1,8 +1,8 @@
 # Content Review Report
 
-- Items: 153
+- Items: 158
 - AI Review Passed: 0
-- Needs Human Review: 3
+- Needs Human Review: 6
 - Needs Revision: 10
-- Human Approved: 140
+- Human Approved: 142
 - Rejected: 0

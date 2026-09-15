@@ -1,0 +1,17 @@
+{
+  "schema_version": "website_external_writer_validation_v1",
+  "generation_attempt": 1,
+  "status": "PASS",
+  "task_id": "website_foundation-2026-09-14-19b051de66d30b1f",
+  "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-comparison",
+  "word_count_markdown": 2229,
+  "word_count_html": 2365,
+  "h1_count": 1,
+  "h2_count": 12,
+  "h3_count": 5,
+  "faq_count": 5,
+  "table_count": 1,
+  "violations": [],
+  "warnings": [],
+  "validated_at": "2026-09-14T12:20:53.389176+00:00"
+}
