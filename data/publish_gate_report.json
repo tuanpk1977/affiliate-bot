@@ -1,6 +1,6 @@
 {
   "summary": {
-    "items": 158,
+    "items": 159,
     "blocked": 30,
     "needs_human_review": 6,
     "ready_for_publish": 2,
@@ -9936,7 +9936,7 @@
     {
       "slug": "best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-comparison",
       "topic": "ai in healthcare marketing: moving from automation to intelligent engagement: comparison and alternatives",
-      "status": "published_local",
+      "status": "live",
       "checked_at": "2026-09-15T14:02:39.393382+00:00",
       "failures": [],
       "hard_blockers": [],
@@ -10250,7 +10250,21 @@
           "published_at": "2026-09-15T14:04:58.405884+00:00",
           "url": "https://smileaireviewhub.com/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-comparison/"
         }
-      ]
+      ],
+      "publish_queue_status": "live",
+      "deployment_state": "live",
+      "updated_at": "2026-09-15T14:06:10.690629+00:00",
+      "committed_local": true,
+      "pushed": true,
+      "pushed_at": "2026-09-15T14:06:10.690629+00:00",
+      "git_push_status": "pushed",
+      "git_push_reason": "",
+      "git_push_retry_count": 0,
+      "force_push_used": false,
+      "live": true,
+      "live_at": "2026-09-15T14:06:10.690629+00:00",
+      "post_push_live_status": "live_ok",
+      "post_push_live_message": "Website live OK: 1/1 URLs returned 200/3xx after push."
     },
     {
       "slug": "open-code-review-review-2026",
@@ -11192,6 +11206,343 @@
       "url": "https://smileaireviewhub.com/we-tested-the-10-best-ai-productivity-tools-in-2026/",
       "title": "We Tested the 10 Best AI Productivity Tools in 2026",
       "description": "Independent We Tested the 10 Best AI Productivity Tools in 2026 guide with pricing checks, pros, cons, alternatives, FAQs, and buyer-focused workflow advi."
+    },
+    {
+      "slug": "how-to-implement-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement",
+      "topic": "how to implement AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement",
+      "status": "published_local",
+      "checked_at": "2026-09-16T06:45:45.439165+00:00",
+      "failures": [],
+      "hard_blockers": [],
+      "warnings": [
+        "SEO/GEO: citation_structure: Only part of the supplied source set is cited in the candidate HTML."
+      ],
+      "pending_reviews": [],
+      "review_states": {
+        "ai_review": "passed",
+        "source_review": "passed",
+        "freshness_review": "passed"
+      },
+      "severity_counts": {
+        "BLOCK": 0,
+        "WARNING": 1,
+        "HUMAN_REVIEW_REQUIRED": 0
+      },
+      "total_score": 76.17,
+      "score_band": "human_review_required",
+      "final_gate": "Ready for Publish",
+      "research_quality_passed": true,
+      "verified_source_score_passed": true,
+      "knowledge_freshness_passed": true,
+      "ai_review_passed": true,
+      "ai_review_source": "",
+      "ai_review_package_id": "",
+      "ai_review_task_id": "",
+      "human_approval_passed": true,
+      "approval_binding_status": "MATCHED",
+      "current_content_hash": "330a6c4b240007c53520125f58e0d5c144c1ab0154eb5426f66c2656fb34f114",
+      "current_revision_id": "website-revision-v1:330a6c4b240007c53520125f58e0d5c144c1ab0154eb5426f66c2656fb34f114",
+      "content_hash_version": "sha256_utf8_exact_v1",
+      "current_authorization": "valid",
+      "public_marker_violations": [],
+      "broken_links": [],
+      "duplicate_title_meta": false,
+      "affiliate_disclosure_present": true,
+      "minimum_business_score_passed": true,
+      "minimum_readability_score_passed": true,
+      "business_score": 60.5,
+      "readability_score": 58.0,
+      "verified_source_score": 70.0,
+      "knowledge_freshness_score": 80.0,
+      "seo_geo_validation": {
+        "schema_version": "seo_geo_validation_v1",
+        "checked_at": "2026-09-16T06:45:45.487223+00:00",
+        "slug": "how-to-implement-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement",
+        "page_url": "https://smileaireviewhub.com/how-to-implement-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement/",
+        "article_type": "implementation_guide",
+        "content_sha256": "330a6c4b240007c53520125f58e0d5c144c1ab0154eb5426f66c2656fb34f114",
+        "semantic_html_status": "PASS",
+        "heading_status": "PASS",
+        "author_metadata_status": "PASS",
+        "structured_data_status": "PASS",
+        "canonical_status": "PASS",
+        "indexability_status": "PASS",
+        "internal_link_status": "PASS",
+        "source_citation_status": "WARNING",
+        "disclosure_status": "PASS",
+        "geo_claim_protection_status": "PASS",
+        "crawlability_status": "PASS",
+        "ai_crawler_advisory": {
+          "status": "INFO",
+          "robots_path": "D:\\AFFILATE BOT\\site_output\\robots.txt",
+          "reason": "Crawler directives are reported as owner-controlled policy; no directive was changed.",
+          "matrix": [
+            {
+              "crawler": "OAI-SearchBot",
+              "purpose": "search",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Preserve the owner-selected search visibility policy."
+            },
+            {
+              "crawler": "ChatGPT-User",
+              "purpose": "user_fetch",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Preserve explicit user-requested retrieval control."
+            },
+            {
+              "crawler": "PerplexityBot",
+              "purpose": "search",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Preserve the owner-selected answer-engine policy."
+            },
+            {
+              "crawler": "ClaudeBot",
+              "purpose": "ai_crawler",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Review periodically; this is an owner policy decision."
+            },
+            {
+              "crawler": "Google-Extended",
+              "purpose": "ai_training_control",
+              "current_policy": "ALLOWED_EXPLICIT",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Keep separate from Googlebot search crawling."
+            },
+            {
+              "crawler": "GPTBot",
+              "purpose": "ai_training",
+              "current_policy": "ALLOWED_BY_WILDCARD",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+            },
+            {
+              "crawler": "CCBot",
+              "purpose": "dataset_crawler",
+              "current_policy": "ALLOWED_BY_WILDCARD",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Choose explicitly if the owner wants separate dataset-crawler control."
+            },
+            {
+              "crawler": "anthropic-ai",
+              "purpose": "ai_training",
+              "current_policy": "ALLOWED_BY_WILDCARD",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+            },
+            {
+              "crawler": "Bytespider",
+              "purpose": "ai_training",
+              "current_policy": "ALLOWED_BY_WILDCARD",
+              "directives": [
+                "Allow: /"
+              ],
+              "recommendation": "Choose explicitly if the owner wants separate training-crawler control."
+            }
+          ],
+          "policy_changed": false
+        },
+        "checks": {
+          "semantic_html": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "visible_words=2361",
+              "main=1",
+              "article=7",
+              "section=2",
+              "nav=2",
+              "footer=1",
+              "table=1",
+              "ul=4",
+              "ol=1"
+            ]
+          },
+          "heading": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "H1: Implementing Intelligent AI Healthcare Marketing",
+              "H2: Product identity: an engagement system, not one AI product",
+              "H2: Core workflow: move from signal to governed response",
+              "H2: Feature scope: integrations, creative production and governance",
+              "H2: Limitations, security and organizational risk",
+              "H2: Pricing and cost controls before scaling",
+              "H2: Comparison and alternatives: choose by workflow role",
+              "H2: Pros of a controlled implementation",
+              "H2: Cons and trade-offs",
+              "H2: Final recommendation and implementation CTA",
+              "H2: Frequently asked questions",
+              "H3: What is intelligent AI healthcare marketing and who is it for?",
+              "H3: How should beginners evaluate the workflow before buying tools?",
+              "H3: What workflow problem should the first pilot solve?",
+              "H3: Which integrations matter most?",
+              "H3: What implementation risks appear when teams scale?",
+              "H3: How often should content and workflows be updated?",
+              "H3: How does intelligent engagement compare with ordinary automation?",
+              "H3: When should a buyer choose an alternative?",
+              "H3: What should readers verify on the pricing page?"
+            ]
+          },
+          "canonical": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "https://smileaireviewhub.com/how-to-implement-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement/"
+            ]
+          },
+          "structured_data": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "Article",
+              "BreadcrumbList"
+            ]
+          },
+          "author_trust": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "author_signals=4",
+              "date_signals=1"
+            ]
+          },
+          "indexability": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "index,follow,max-image-preview:large"
+            ]
+          },
+          "internal_links": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "internal_links=20",
+              "broken_links=0"
+            ]
+          },
+          "citation_structure": {
+            "status": "WARNING",
+            "reasons": [
+              "Only part of the supplied source set is cited in the candidate HTML."
+            ],
+            "evidence": [
+              "supplied_sources=17",
+              "matched_sources=5",
+              "concise_answer_blocks=21"
+            ]
+          },
+          "affiliate_disclosure": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "required=True",
+              "present=True"
+            ]
+          },
+          "geo_claim_protection": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": []
+          },
+          "crawlability": {
+            "status": "PASS",
+            "reasons": [],
+            "evidence": [
+              "D:\\AFFILATE BOT\\site_output\\robots.txt",
+              "D:\\AFFILATE BOT\\site_output\\sitemap.xml"
+            ]
+          }
+        },
+        "blocking_reasons": [],
+        "warnings": [
+          "citation_structure: Only part of the supplied source set is cited in the candidate HTML."
+        ],
+        "recommended_fixes": [
+          "Only part of the supplied source set is cited in the candidate HTML."
+        ],
+        "final_result": "WARNING",
+        "human_approval_required": true,
+        "auto_publish": false,
+        "paid_api_used": false,
+        "inputs": {
+          "source_urls": [
+            "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+            "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+            "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/",
+            "https://www.adcreative.ai/",
+            "https://www.analyticsinsight.net/artificial-intelligence/top-10-marketing-automation-software-platforms-for-businesses-in-2026/",
+            "https://www.dqindia.com/data-and-ai/ai-tools-in-2026-what-each-platform-does-best-in-real-world-workflows-11262991/",
+            "https://www.forbes.com/advisor/business/software/best-crm-software/",
+            "https://www.forbes.com/councils/forbesagencycouncil/2026/07/09/how-to-overcome-real-world-challenges-in-ai-marketing-automation/",
+            "https://www.forbes.com/councils/forbesbusinesscouncil/2026/05/08/ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement/",
+            "https://www.healthcareitnews.com/news/healthcare-orgs-moving-beyond-ai-hype-cycle-himss26-attendees-agree/",
+            "https://www.inc.com/leila-sheridan/googles-750-million-plan-to-move-ai-from-experiments-to-the-real-world/91334694/",
+            "https://www.make.com/",
+            "https://www.make.com/en/affiliates/",
+            "https://www.morningstar.com/news/pr-newswire/20260305la02426/consensus-named-one-of-g2s-top-5-sales-software-platforms-of-2026-proving-demo-automation-is-now-a-must-have-in-every-gtm-stack/",
+            "https://www.pcmag.com/picks/the-best-email-marketing-software/",
+            "https://www.utusan.com.my/pr-newswire-en/2026/05/doceree-healthcare-marketings-ai-powered-operating-system-earns-frost-sullivans-2026-global-technology-innovation-leadership-recognition/",
+            "https://zapier.com/"
+          ],
+          "required_internal_links": [
+            "/",
+            "/reviews/",
+            "/comparisons/",
+            "/contact/",
+            "/",
+            "/reviews/",
+            "/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-comparison/",
+            "/best-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement-workflows-and-use-cases-comparison/",
+            "/reviews/",
+            "/comparisons/",
+            "/pricing/",
+            "/categories/",
+            "/about/",
+            "/editorial-policy/",
+            "/affiliate-disclosure/",
+            "/privacy-policy/",
+            "/contact/"
+          ],
+          "affiliate_required": true
+        },
+        "report_path": "D:\\AFFILATE BOT\\data\\seo_geo_validation\\how-to-implement-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement.json",
+        "console_output": "SEO/GEO VALIDATION\n--------------------------------\nSemantic HTML: PASS\nHeading hierarchy: PASS\nCanonical: PASS\nAuthor metadata: PASS\nStructured data: PASS\nIndexability: PASS\nInternal links: PASS\nSource attribution: WARNING\nAffiliate disclosure: PASS\nGEO claim protection: PASS\nCrawlability: PASS\nAI crawler policy: INFO\n\nFINAL_RESULT: WARNING\nHuman approval is still required.\n\nWarnings:\n- citation_structure: Only part of the supplied source set is cited in the candidate HTML."
+      },
+      "seo_geo_validation_status": "WARNING",
+      "publish_ready": true,
+      "url": "https://smileaireviewhub.com/how-to-implement-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement/",
+      "title": "Implementing Intelligent AI Healthcare Marketing",
+      "description": "A practical implementation guide for moving healthcare marketing from disconnected automation to governed, signal-led physician engagement.",
+      "published_at": "2026-09-16T07:02:44.873874+00:00",
+      "historically_deployed": true,
+      "deployment_history": [
+        {
+          "status": "published_local",
+          "published_at": "2026-09-16T07:02:44.873874+00:00",
+          "url": "https://smileaireviewhub.com/how-to-implement-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement/"
+        }
+      ]
     }
   ]
 }

@@ -1902,5 +1902,41 @@
     "content_hash": "1556630224d343492a8e9c625e428005faedf13e39d96b3fe2126b81f07533cd",
     "content_hash_version": "sha256_utf8_exact_v1",
     "approval_scope": "website"
+  },
+  {
+    "slug": "how-to-implement-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement",
+    "topic": "how to implement AI In Healthcare Marketing: Moving From Automation To Intelligent Engagement",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-09-16T06:45:44.738835+00:00",
+    "approved_at": "2026-09-16T06:41:31.447718+00:00",
+    "approved_by": "editor",
+    "reason": "",
+    "canonical_task_id": "",
+    "legacy_task_id": "how-to-implement-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement",
+    "revision_id": "website-revision-v1:330a6c4b240007c53520125f58e0d5c144c1ab0154eb5426f66c2656fb34f114",
+    "content_hash": "330a6c4b240007c53520125f58e0d5c144c1ab0154eb5426f66c2656fb34f114",
+    "content_hash_version": "sha256_utf8_exact_v1",
+    "approval_scope": "website",
+    "approved_content_hash": "330a6c4b240007c53520125f58e0d5c144c1ab0154eb5426f66c2656fb34f114",
+    "approved_revision_id": "website-revision-v1:330a6c4b240007c53520125f58e0d5c144c1ab0154eb5426f66c2656fb34f114",
+    "approval_binding_status": "MATCHED",
+    "approval_history": [
+      {
+        "status": "human_approved",
+        "approved_at": "2026-09-16T06:38:59.192791+00:00",
+        "approved_by": "editor",
+        "canonical_task_id": "",
+        "legacy_task_id": "how-to-implement-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement",
+        "revision_id": "website-revision-v1:8aca7148550fe73dbec12a2c79cf1791f9fc9eaf4437c3def8936be6cefe063c",
+        "content_hash": "8aca7148550fe73dbec12a2c79cf1791f9fc9eaf4437c3def8936be6cefe063c",
+        "approval_scope": "website",
+        "binding_status": "MATCHED",
+        "superseded_at": "2026-09-16T06:41:31.447698+00:00",
+        "superseded_reason": "new explicit human approval for a different revision",
+        "source_event": "explicit_human_approval",
+        "source_reference": "how-to-implement-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement"
+      }
+    ]
   }
 ]

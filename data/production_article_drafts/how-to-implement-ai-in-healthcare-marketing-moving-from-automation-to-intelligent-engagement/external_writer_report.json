@@ -1,0 +1,26 @@
+{
+  "writer": {
+    "writer_type": "external_ai",
+    "writer_name": "ChatGPT",
+    "writer_version": "web",
+    "generated_at": "2026-09-16T06:35:10.061616+00:00",
+    "package_id": "c9b5d8f1c77ae9ca",
+    "task_id": "website_advanced-2026-09-16-76dc9815db22439d",
+    "revision": 1
+  },
+  "source_urls": [
+    "https://finance.yahoo.com/sectors/healthcare/articles/doceree-healthcare-marketings-ai-powered-133000303.html",
+    "https://www.healthcareitnews.com/news/healthcare-orgs-moving-beyond-ai-hype-cycle-himss26-attendees-agree",
+    "https://news.microsoft.com/signal/articles/work-smarter-in-90-days-a-real-world-guide-to-using-ai/",
+    "https://www.make.com",
+    "https://www.adcreative.ai",
+    "https://zapier.com",
+    "https://semiengineering.com/embedded-world-2026-bringing-edge-ai-into-the-real-world/",
+    "https://www.analyticsinsight.net/artificial-intelligence/top-10-marketing-automation-software-platforms-for-businesses-in-2026"
+  ],
+  "ai_review_passed": true,
+  "ai_review_status": "needs_human_review",
+  "human_approval_required": true,
+  "approved": false,
+  "published": false
+}
