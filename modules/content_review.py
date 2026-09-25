@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from config import settings
+from modules.revision_binding import binding_for_content
 from modules.editorial_quality import (
     EditorialJudge,
     FactVerificationEngine,
@@ -335,11 +336,17 @@ class ContentReviewEngine:
             source_urls=[row["url"] for row in source_quality_review if row.get("url")],
         )
         review_state = "BLOCKED" if hard_blockers else ("WARNING" if review_warnings or failures else "PASS")
+        reviewed_binding = binding_for_content(html)
         result.update(
             {
                 "schema_version": 2,
                 "article_id": str(topic.get("slug") or ""),
                 "review_state": review_state,
+                "quality_review_status": status,
+                "quality_review_state": review_state,
+                "reviewed_revision_id": reviewed_binding["revision_id"],
+                "reviewed_content_hash": reviewed_binding["content_hash"],
+                "content_hash_version": reviewed_binding["content_hash_version"],
                 "structured_review": structured_review,
                 "source_quality_review": source_quality_review,
                 "fact_verification": fact_verification,

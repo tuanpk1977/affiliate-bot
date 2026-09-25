@@ -1,0 +1,11 @@
+{
+  "topic": "Best AI workflow tools for small teams",
+  "slug": "best-ai-workflow-tools-small-teams",
+  "primary_keyword": "best AI workflow tools",
+  "intent": "top list buyer guide",
+  "sources": [
+    {"url": "https://example.com/flowpilot-official", "domain": "example.com", "title": "FlowPilot official"},
+    {"url": "https://taskboard.example.net/product", "domain": "taskboard.example.net", "title": "TaskBoard official"},
+    {"url": "https://opsuite.example.org/docs", "domain": "opsuite.example.org", "title": "OpsSuite docs"}
+  ]
+}

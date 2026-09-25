@@ -1,0 +1,15 @@
+{
+  "schema_version": "usage_evidence_config_v1",
+  "enabled": true,
+  "store": "observability/usage/events.jsonl",
+  "monitoring_started_at": "2026-09-23T00:00:00Z",
+  "default_window_days": 30,
+  "allowed_window_days": [7, 30, 60, 90],
+  "identifier_max_length": 100,
+  "privacy": {
+    "allow_free_form_arguments": false,
+    "allow_urls": false,
+    "allow_content": false,
+    "allow_exception_messages": false
+  }
+}

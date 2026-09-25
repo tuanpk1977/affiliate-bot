@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import json
 import sys
 from pathlib import Path
@@ -10,6 +11,48 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from modules.editorial_operations_console import EditorialOperationsConsole  # noqa: E402
+
+
+def _load_daily_console():
+    """Load the canonical root CLI without colliding with this legacy module.
+
+    Some test runners and operator shells put ``scripts/`` before the project
+    root on ``sys.path``.  In that situation ``import editorial_console`` used
+    to select this legacy approval CLI and silently lose the daily commands.
+    """
+    module_name = "_affiliate_bot_daily_editorial_console"
+    loaded = sys.modules.get(module_name)
+    if loaded is not None:
+        return loaded
+    spec = importlib.util.spec_from_file_location(module_name, ROOT / "editorial_console.py")
+    if spec is None or spec.loader is None:  # pragma: no cover - defensive
+        raise RuntimeError("Canonical editorial_console.py could not be loaded")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[module_name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+# Expose the canonical workflow dependency for callers/tests that imported the
+# legacy path because of sys.path ordering.  main() propagates any patch of this
+# symbol before delegating.
+_CANONICAL_CONSOLE = _load_daily_console()
+DailyEditorialWorkflow = _CANONICAL_CONSOLE.DailyEditorialWorkflow
+PublishLock = _CANONICAL_CONSOLE.PublishLock
+_start_publish_watch = _CANONICAL_CONSOLE._start_publish_watch
+
+
+_DAILY_COMMANDS = {
+    "trend", "daily-followup", "morning", "draft", "prepare-research",
+    "comparator-candidates", "confirm-comparators", "hold-comparators",
+    "codex-write", "approve", "reject", "publish", "publish-ready",
+    "publish-exact-slug", "validate-batch", "prepare-article-output",
+    "publish-dry-run", "autofix-batch", "request-topic", "partner-intake",
+    "status", "check-live", "diagnose-article", "diagnose-batch",
+    "build-selected", "publish-lock-status", "clear-stale-publish-lock",
+    "clear-stale-weekly-lock", "recover-interrupted-preparation",
+    "reset-unpublished", "serve",
+}
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -29,8 +72,15 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    effective_argv = list(sys.argv[1:] if argv is None else argv)
+    if effective_argv and effective_argv[0] in _DAILY_COMMANDS:
+        daily_console = _load_daily_console()
+        daily_console.DailyEditorialWorkflow = DailyEditorialWorkflow
+        daily_console.PublishLock = PublishLock
+        daily_console._start_publish_watch = _start_publish_watch
+        return daily_console.main(effective_argv)
     parser = build_parser()
-    args = parser.parse_args(argv)
+    args = parser.parse_args(effective_argv)
     console = EditorialOperationsConsole()
 
     if args.list:

@@ -6,6 +6,8 @@ import xml.etree.ElementTree as ET
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
+
+from modules.revision_binding import approval_binding_status, binding_for_file
 from urllib.parse import urlparse
 
 
@@ -274,21 +276,46 @@ class EditorialStateReset:
             return []
         publish_path = self.data_dir / "publish_queue.json"
         publish_rows = _read_json(publish_path, [])
+        approval_rows = _read_json(self.data_dir / "human_approval_queue.json", [])
+        approval_by_slug = {
+            str(row.get("slug") or ""): row for row in approval_rows if isinstance(row, dict)
+        }
         for row in publish_rows:
-            if str(row.get("slug") or "") not in valid:
+            slug = str(row.get("slug") or "")
+            if slug not in valid:
                 continue
-            row["status"] = "published_local"
-            row["published_local"] = True
-            row["failures"] = []
-            row["hard_blockers"] = []
-            row["warnings"] = []
-            row["pending_reviews"] = []
+            row["historically_deployed"] = True
+            row["deployment_status"] = "confirmed_live"
+            row["live_confirmed_at_reset"] = datetime.now(UTC).isoformat()
+            draft = self.data_dir / "production_article_drafts" / slug / "index.html"
+            binding = binding_for_file(draft) if draft.is_file() else {
+                "content_hash": "", "revision_id": ""
+            }
+            binding_status = approval_binding_status(
+                approval_by_slug.get(slug, {}),
+                current_content_hash=binding["content_hash"],
+                current_revision_id=binding["revision_id"],
+            )
+            row["approval_binding_status"] = binding_status
+            if binding_status != "MATCHED":
+                pending = list(row.get("pending_reviews") or [])
+                reason = "current revision requires new human approval"
+                if reason not in pending:
+                    pending.append(reason)
+                row["status"] = "needs_human_review"
+                row["published_local"] = False
+                row["pending_reviews"] = pending
+                row["human_approval_passed"] = False
+                row["publish_ready"] = False
+                row["final_gate"] = "Human Approval Required"
+                row["current_authorization"] = "review_required"
         _write_json(publish_path, publish_rows)
         batch_path = self.data_dir / "editorial_queue" / active_date / "topics.json"
         batch = _read_json(batch_path, {})
         for row in batch.get("topics", []) if isinstance(batch, dict) else []:
             if str(row.get("slug") or "") in valid:
-                row["status"] = "published"
+                row["historically_deployed"] = True
+                row["deployment_status"] = "confirmed_live"
         if batch:
             _write_json(batch_path, batch)
         return sorted(valid)

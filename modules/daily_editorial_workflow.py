@@ -5,6 +5,7 @@ import json
 import os
 import re
 import shutil
+import sqlite3
 import subprocess
 import sys
 import time
@@ -18,23 +19,59 @@ from typing import Any, Callable
 from build_site import incremental_build
 from config import settings
 from modules.affiliate_links import load_affiliate_links
-from modules.ai_trend_discovery import TrendDiscoveryEngine, classify_content_type, classify_search_intent, load_affiliate_brands, normalize_source_url, slugify
+from modules.article_operational_state import has_publish_cta_block, resolve_article_operational_state
+from modules.ai_trend_discovery import (
+    FOUNDATION_MAIN as TOPIC_SCORING_FOUNDATION_MAIN,
+    REJECTED_HARD_GATE,
+    SELECTED_QUALITY_LIMITED,
+    SELECTED_THRESHOLD_PASS,
+    TOPIC_SCORING_VERSION,
+    TrendDiscoveryEngine,
+    classify_content_type,
+    classify_search_intent,
+    load_affiliate_brands,
+    normalize_source_url,
+    score_topic_candidate,
+    select_topic_candidates,
+    slugify,
+    topic_scoring_profile,
+)
 from modules.content_growth_pipeline import generate_production_article_draft_from_package, get_research_platform, is_near_duplicate
+from modules.content_strategy_planner import enrich_topics_with_content_strategy
 from modules.editorial_quality import CapacityManager, SafeDailyDryRunOrchestrator, write_capacity_report
 from modules.editorial_operations_console import EditorialOperationsConsole
+from modules.editorial_queue_resolution import (
+    BATCH_STATE_DRAFT_READY,
+    BATCH_STATE_HUMAN_APPROVED,
+    BATCH_STATE_PUBLISHED,
+    BATCH_STATE_QUEUE_CREATED,
+    BATCH_STATE_READY_FOR_PUBLISH,
+    BATCH_STATE_UNDER_REVIEW,
+    BATCH_STATE_WRITING,
+    EditorialQueueResolution,
+)
 from modules.editorial_state_reset import EditorialStateReset
+from modules.external_writer_return_validator import validate_public_output_files
 from modules.git_publish_recovery import GitPublishRecovery
 from modules.publish_gate import PublishGate
+from modules.operations_intelligence.editorial_memory import EditorialMemoryStore
+from modules.operations_intelligence.feature_flags import feature_enabled
 from modules.publishing_indexing import normalize_public_url, validate_page
 from modules.research_intelligence import ResearchIntelligencePlatform
+from modules.research_artifacts import resolve_research_artifacts
+from modules.research_enrichment import ResearchEnrichmentPipeline
+from modules.revision_binding import approval_binding_status, binding_for_content, binding_for_file
+from modules.weekly_root_guard import (
+    FOUNDATION_ADVANCED,
+    FOUNDATION_MAIN,
+    MAX_FOUNDATION_ROOTS,
+    WeeklyRootValidationError,
+    normalize_weekly_root_manifest,
+    planned_weekly_series,
+    validate_daily_topics_against_weekly_roots,
+    validate_weekly_root_manifest,
+)
 
-BATCH_STATE_QUEUE_CREATED = "QUEUE_CREATED"
-BATCH_STATE_WRITING = "WRITING"
-BATCH_STATE_DRAFT_READY = "DRAFT_READY"
-BATCH_STATE_UNDER_REVIEW = "UNDER_REVIEW"
-BATCH_STATE_HUMAN_APPROVED = "HUMAN_APPROVED"
-BATCH_STATE_READY_FOR_PUBLISH = "READY_FOR_PUBLISH"
-BATCH_STATE_PUBLISHED = "PUBLISHED"
 REVIEWABLE_BATCH_STATES = {
     BATCH_STATE_DRAFT_READY,
     BATCH_STATE_UNDER_REVIEW,
@@ -86,6 +123,7 @@ def _score_product_availability(topic: str, brands: set[str]) -> tuple[int, list
 
 
 def _score_topic_total(item: dict[str, Any]) -> float:
+    _ensure_topic_score_fields(item)
     search_intent_score = float(item["search_intent_score"])
     affiliate_score = float(item["affiliate_monetization_score"])
     competition_difficulty = float(item["competition_difficulty_score"])
@@ -100,6 +138,14 @@ def _score_topic_total(item: dict[str, Any]) -> float:
         + freshness * 0.16,
         1,
     )
+
+
+def _ensure_topic_score_fields(item: dict[str, Any]) -> None:
+    item["search_intent_score"] = float(item.get("search_intent_score") or _score_search_intent(str(item.get("search_intent") or "")))
+    item["affiliate_monetization_score"] = float(item.get("affiliate_monetization_score") or item.get("business_value") or 70)
+    item["competition_difficulty_score"] = float(item.get("competition_difficulty_score") or item.get("competition_score") or 45)
+    item["product_availability_score"] = float(item.get("product_availability_score") or 65)
+    item["content_freshness_score"] = float(item.get("content_freshness_score") or item.get("trend_score") or 70)
 
 
 def _normalize_space(text: str) -> str:
@@ -250,7 +296,12 @@ class DailyEditorialWorkflow:
             published_dir=self.data_dir / "published_static_pages",
         )
         config_path = self.root / "config" / "editorial_system.json"
-        self.editorial_config = _read_json(config_path, {}) or dict(getattr(settings, "editorial_config", {}) or {})
+        local_editorial_config = _read_json(config_path, {})
+        self.editorial_config = local_editorial_config or dict(getattr(settings, "editorial_config", {}) or {})
+        self._local_research_enrichment_configured = bool(
+            isinstance(local_editorial_config, dict)
+            and "research_enrichment" in local_editorial_config
+        )
         self.progress_reporter: Callable[[str], None] | None = None
         self.current_progress_message = ""
         self.command_timeout_seconds = 600
@@ -280,34 +331,372 @@ class DailyEditorialWorkflow:
         finally:
             self._release_weekly_generation_lock(week_start=week_start)
 
-    def daily_followup(self, *, count: int = 10, batch_date: str | None = None) -> dict[str, Any]:
+    def daily_followup(self, *, count: int = 2, batch_date: str | None = None) -> dict[str, Any]:
         """Create a Tue-Sun queue from the current weekly root topics without discovery."""
         target_date = batch_date or date.today().isoformat()
         week_start = self._week_start(target_date)
         self._acquire_weekly_generation_lock(week_start=week_start, batch_date=target_date, command="daily-followup")
         try:
-            return self._daily_followup_payload(count=count, batch_date=target_date, write=True)
+            result = self._daily_followup_payload(count=count, batch_date=target_date, write=True)
+            if self._research_enrichment_enabled() and result.get("topics"):
+                self._report_progress(
+                    f"[research 0/{len(result['topics'])}] Starting evidence acquisition and enrichment"
+                )
+                research = self.prepare_research(batch_date=target_date)
+                refreshed = self._load_queue(target_date)
+                result["topics"] = list(refreshed.get("topics") or [])
+                result["research"] = research
+                result["article_ready"] = int(research.get("prepared") or 0)
+                result["blocked_research"] = int(research.get("blocked") or 0)
+                result["evidence_summary"] = list(research.get("topics") or [])
+                blocked_rows = [
+                    row
+                    for row in result["topics"]
+                    if str(row.get("status") or "").upper().startswith("BLOCKED")
+                    or not bool((row.get("article_readiness") or {}).get("draft_exportable", True))
+                ]
+                result["blocked_diagnostics"] = self._blocked_diagnostics(blocked_rows)
+                result["final_decision"] = "PASS" if result["article_ready"] else "FAIL"
+                result["daily_decision"] = (
+                    "READY_FOR_DAILY_QUEUE" if result["article_ready"] else "BLOCKED_RESEARCH"
+                )
+                result["queue_eligibility"] = bool(result["article_ready"])
+                result["queue_created"] = bool(result["article_ready"])
+                result["next_command"] = (
+                    "Create today's Website queue."
+                    if result["article_ready"]
+                    else "Open Menu S for the exact slug, retry research, or change the deep-dive angle."
+                )
+            return result
         finally:
             self._release_weekly_generation_lock(week_start=week_start)
 
-    def daily_followup_dry_run(self, *, count: int = 10, batch_date: str | None = None) -> dict[str, Any]:
+    def daily_followup_dry_run(self, *, count: int = 2, batch_date: str | None = None) -> dict[str, Any]:
         """Preview a Tue-Sun queue without writing queue, manifest, lock, or research files."""
         target_date = batch_date or date.today().isoformat()
         return self._daily_followup_payload(count=count, batch_date=target_date, write=False)
 
+    @staticmethod
+    def _row_for_slug(payload: Any, slug: str) -> dict[str, Any]:
+        rows = payload if isinstance(payload, list) else list((payload or {}).get("items") or [])
+        return next(
+            (dict(row) for row in rows if isinstance(row, dict) and str(row.get("slug") or "") == slug),
+            {},
+        )
+
+    def _latest_successfully_published_root(self, *, batch_date: str) -> dict[str, Any]:
+        """Resolve only the newest indexed live article; never walk article history."""
+        latest_index = _read_json(self.data_dir / "published_live_urls_latest.json", {})
+        indexed = [row for row in list(latest_index.get("items") or []) if isinstance(row, dict)]
+        indexed.sort(key=lambda row: str(row.get("checked_at") or ""), reverse=True)
+        for live_row in indexed:
+            slug = str(live_row.get("slug") or "").strip()
+            if not slug or slugify(slug) != slug:
+                continue
+            live_status = str(live_row.get("live_status") or "").strip().lower()
+            try:
+                live_http_status = int(live_row.get("live_http_status") or 0)
+            except (TypeError, ValueError):
+                live_http_status = 0
+            if live_status not in {"live", "published"} or live_http_status != 200:
+                continue
+
+            article_dir = self.data_dir / "production_article_drafts" / slug
+            article_path = article_dir / "index.html"
+            metadata = _read_json(article_dir / "metadata.json", {})
+            if not article_path.exists() or not isinstance(metadata, dict):
+                continue
+            html_text = article_path.read_text(encoding="utf-8", errors="ignore")
+            title = str(metadata.get("title") or metadata.get("article_title") or "").strip()
+            canonical_slug = str(metadata.get("slug") or slug).strip()
+            if not html_text or not title or canonical_slug != slug:
+                continue
+
+            review = self._row_for_slug(_read_json(self.data_dir / "content_review_queue.json", []), slug)
+            approval = self._row_for_slug(_read_json(self.data_dir / "human_approval_queue.json", []), slug)
+            publish = self._row_for_slug(_read_json(self.data_dir / "publish_queue.json", []), slug)
+            terminal_statuses = {"archived", "rejected", "human_rejected"}
+            if str(publish.get("status") or "").lower() in terminal_statuses:
+                continue
+            if str(approval.get("status") or "").lower() in {"rejected", "human_rejected"}:
+                continue
+            canonical = resolve_article_operational_state(
+                slug=slug,
+                html_text=html_text,
+                review=review,
+                approval=approval,
+                publish=publish,
+                live_http_status=live_http_status,
+            )
+            if canonical.get("state") != "LIVE_200":
+                continue
+
+            published_date = str(
+                metadata.get("published_date")
+                or live_row.get("batch_date")
+                or latest_index.get("batch_date")
+                or batch_date
+            )
+            source_urls = list(metadata.get("source_urls") or [])
+            return {
+                "slug": slug,
+                "title": title,
+                "keyword": str(metadata.get("primary_keyword") or title),
+                "parent_keyword": title,
+                "parent_slug": slug,
+                "root_topic_id": str(metadata.get("root_topic_id") or slug),
+                "root_title": str(metadata.get("root_title") or title),
+                "root_slug": str(metadata.get("root_slug") or metadata.get("root_topic_id") or slug),
+                "source_article_slug": slug,
+                "search_intent": str(metadata.get("search_intent") or classify_search_intent(title)),
+                "primary_search_intent": str(metadata.get("search_intent") or classify_search_intent(title)),
+                "source_urls": source_urls,
+                "sources": source_urls,
+                "content_freshness_score": 80,
+                "affiliate_monetization_score": 70,
+                "competition_difficulty_score": 45,
+                "product_availability_score": 65,
+                "search_intent_score": _score_search_intent(
+                    str(metadata.get("search_intent") or classify_search_intent(title))
+                ),
+                "status": "active",
+                "series_status": "active",
+                "content_lane": FOUNDATION_MAIN,
+                "relationship": "published_parent",
+                "published_date": published_date,
+                "parent_revision": str(canonical.get("revision_id") or ""),
+                "source_revision": str(canonical.get("revision_id") or ""),
+                "source_content_hash": str(
+                    canonical.get("canonical_content_hash")
+                    or canonical.get("content_hash")
+                    or metadata.get("canonical_content_hash")
+                    or ""
+                ),
+                "canonical_parent_identifier": slug,
+                "root_live_status": str(canonical.get("state_label") or "Live 200"),
+                "canonical_state": canonical,
+                "live_index_row": live_row,
+            }
+        return {}
+
+    @staticmethod
+    def _deep_dive_base_title(title: str) -> str:
+        value = _normalize_space(title)
+        value = re.sub(
+            r"\s*:\s*(?:comparison(?:\s+and\s+alternatives)?|pricing(?:,?\s+cost(?:,?\s+and\s+roi)?)?|review)\s*$",
+            "",
+            value,
+            flags=re.I,
+        )
+        return value or _normalize_space(title)
+
+    @staticmethod
+    def _parent_child_duplicate_assessment(parent: dict[str, Any], child: dict[str, Any]) -> dict[str, Any]:
+        parent_title = str(parent.get("title") or parent.get("root_title") or "")
+        child_title = str(child.get("title") or child.get("keyword") or "")
+        parent_intent = str(parent.get("search_intent") or parent.get("primary_search_intent") or "").strip().lower()
+        child_intent = str(child.get("search_intent") or child.get("primary_search_intent") or "").strip().lower()
+        same_title = bool(parent_title and child_title and _normalize_duplicate_key(parent_title) == _normalize_duplicate_key(child_title))
+        same_intent = bool(parent_intent and child_intent and parent_intent == child_intent)
+        return {
+            "has_collision": bool(same_title or same_intent),
+            "same_topic_family": True,
+            "same_title": same_title,
+            "same_search_intent": same_intent,
+            "reason": "same title semantics" if same_title else ("same search intent as parent" if same_intent else "same topic family with a distinct intent"),
+        }
+
+    def _latest_root_manifest_and_child(
+        self,
+        *,
+        root: dict[str, Any],
+        batch_date: str,
+    ) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+        """Choose a distinct child intent from evidence-supported generic angle profiles."""
+        week_start = self._week_start(batch_date)
+        base_title = self._deep_dive_base_title(str(root.get("title") or root.get("root_title") or ""))
+        weekday_angle = self._daily_angle_name(batch_date)
+        angle_order = [weekday_angle, "implementation_guide", "use_cases", "pricing", "troubleshooting", "buying_decision", "comparison"]
+        angle_order = list(dict.fromkeys(angle_order))
+        templates = {angle: template for angle, template in ADVANCED_WEEKDAY_PATTERNS.values()}
+        intent_by_angle = {
+            "implementation_guide": "informational",
+            "use_cases": "informational",
+            "pricing": "commercial investigation",
+            "troubleshooting": "informational",
+            "buying_decision": "commercial research",
+            "comparison": "comparison",
+        }
+        selected_plan: dict[str, Any] = {}
+        duplicate_assessment: dict[str, Any] = {}
+        for angle in angle_order:
+            template = templates.get(angle)
+            if not template:
+                continue
+            child_title = self._build_advanced_keyword(base_title, content_type=angle, template=template)
+            child_intent = intent_by_angle.get(angle, classify_search_intent(child_title))
+            duplicate_assessment = self._parent_child_duplicate_assessment(
+                root,
+                {"title": child_title, "search_intent": child_intent},
+            )
+            if duplicate_assessment["has_collision"]:
+                continue
+            selected_plan = {
+                "root_topic_id": str(root.get("root_topic_id") or root.get("slug") or ""),
+                "root_title": str(root.get("title") or ""),
+                "content_lane": FOUNDATION_ADVANCED,
+                "scheduled_date": batch_date,
+                "planned_publishing_day": batch_date,
+                "daily_angle": angle,
+                "search_intent": child_intent,
+                "primary_search_intent": child_intent,
+                "title": child_title,
+                "reader_question": f"How should an operator apply {base_title} through {angle.replace('_', ' ')}?",
+                "unique_thesis": f"Evaluate {angle.replace('_', ' ')} execution instead of repeating the parent overview.",
+                "required_evidence": ["child-angle evidence", "official source where available"],
+                "prohibited_overlap": ["parent search intent", "parent title", "parent article structure"],
+                "next_scheduled_article": {"daily_angle": "", "bridge_state": "SERIES_COMPLETE"},
+            }
+            break
+
+        normalized_root = self._normalize_weekly_root_topic(root, week_start=week_start)
+        normalized_root.pop("canonical_state", None)
+        normalized_root.pop("live_index_row", None)
+        normalized_root["parent_keyword"] = base_title
+        normalized_root["parent_slug"] = str(root.get("slug") or "")
+        normalized_root["root_title"] = str(root.get("title") or "")
+        normalized_root["series_plan"] = [selected_plan] if selected_plan else []
+        normalized_root["daily_angles"] = {
+            str(root.get("published_date") or "published"): {
+                "angle": "published_parent",
+                "title": str(root.get("title") or ""),
+                "slug": str(root.get("slug") or ""),
+                "search_intent": str(root.get("search_intent") or ""),
+                "status": "live",
+            }
+        }
+        manifest = normalize_weekly_root_manifest(
+            {
+                "week_start": week_start,
+                "week_end": (date.fromisoformat(week_start) + timedelta(days=6)).isoformat(),
+                "selection_source": "latest_published",
+                "lock_status": "locked",
+                "locked_at": datetime.now(UTC).isoformat(),
+                "topics": [normalized_root],
+            },
+            week_start=week_start,
+            selection_source="latest_published",
+        )
+        if not selected_plan:
+            return manifest, {}, duplicate_assessment
+        child = self._build_daily_topics_from_weekly_batch(
+            weekly_topics=[normalized_root],
+            batch_date=batch_date,
+            mode="advanced",
+        )[0]
+        child.update(
+            {
+                "relationship": "deep_dive",
+                "parent_revision": str(root.get("parent_revision") or ""),
+                "root_slug": str(root.get("root_slug") or root.get("root_topic_id") or ""),
+                "parent_article_slug": str(root.get("slug") or ""),
+                "source_article_slug": str(root.get("slug") or ""),
+                "source_revision": str(root.get("source_revision") or root.get("parent_revision") or ""),
+                "source_revision_id": str(root.get("source_revision") or root.get("parent_revision") or ""),
+                "source_content_hash": str(root.get("source_content_hash") or ""),
+                "child_slug": str(child.get("slug") or ""),
+                "child_angle": str(child.get("daily_angle") or ""),
+                "canonical_parent_identifier": str(root.get("canonical_parent_identifier") or root.get("slug") or ""),
+                "angle": str(child.get("daily_angle") or ""),
+                "primary_search_intent": str(child.get("search_intent") or ""),
+                "research_evidence_scope": "child_angle",
+                "parent_sources_are_candidate_evidence_only": True,
+            }
+        )
+        return manifest, child, duplicate_assessment
+
+    def _latest_child_research_readiness(self, child: dict[str, Any]) -> dict[str, Any]:
+        """Check the child only, without globbing historical queues or resolving old articles."""
+        _ensure_topic_score_fields(child)
+        sources = self._semantically_relevant_topic_sources(child)
+        minimum = self._minimum_verified_sources()
+        freshness = int(float(child.get("content_freshness_score") or 0))
+        freshness_min = int(float((self.editorial_config.get("knowledge_review") or {}).get("minimum_freshness", 35)))
+        slug = str(child.get("slug") or "")
+        direct_collisions = [
+            path
+            for path in (
+                self.data_dir / "production_article_drafts" / slug / "index.html",
+                self.data_dir / "published_static_pages" / slug / "index.html",
+                self.site_output_dir / slug / "index.html",
+            )
+            if path.exists()
+        ]
+        reasons: list[str] = []
+        if len(sources) < minimum:
+            reasons.append(f"{len(sources)} child-angle sources below {minimum}")
+        if freshness < freshness_min:
+            reasons.append(f"freshness {freshness} below {freshness_min}")
+        if direct_collisions:
+            reasons.append("exact child slug already exists")
+        return {
+            "passes": not reasons,
+            "source_count": len(sources),
+            "source_urls": sources,
+            "unique_source_domains": [urllib.parse.urlparse(url).netloc.lower().removeprefix("www.") for url in sources],
+            "collision_result": {"has_collision": bool(direct_collisions), "matches": [str(path) for path in direct_collisions]},
+            "pass_fail_reason": "PASS" if not reasons else "; ".join(reasons),
+        }
+
     def trend_dry_run(self, *, count: int = 10, mode: str = "standard", batch_date: str | None = None) -> dict[str, Any]:
         target_date = batch_date or date.today().isoformat()
-        weekly_batch = self._build_weekly_batch_payload(batch_date=target_date, count=count, write=False)
+        try:
+            weekly_batch = self._load_weekly_root_manifest(target_date)
+        except FileNotFoundError:
+            weekly_batch = self._build_weekly_batch_payload(batch_date=target_date, count=count, write=False)
+        weekly_selection_report = dict(weekly_batch.get("topic_selection_report") or {})
         candidate_topics = self._build_daily_topics_from_weekly_batch(
             weekly_topics=weekly_batch.get("topics", []),
             batch_date=target_date,
             mode=mode,
         )
-        selected, rejected = self._select_source_ready_topics(candidate_topics, count=count)
+        requested_count = min(count, MAX_FOUNDATION_ROOTS) if mode == "standard" else count
+        approved_planning_roots = self._is_approved_planning_manifest(weekly_batch)
+        if approved_planning_roots:
+            selected, rejected = candidate_topics[:requested_count], []
+            self._last_topic_selection_report = {
+                "scoring_profile": TOPIC_SCORING_FOUNDATION_MAIN,
+                "scoring_version": TOPIC_SCORING_VERSION,
+                "candidates_scored": len(candidate_topics),
+                "candidates_hard_gate_passed": len(selected),
+                "candidates_threshold_passed": len(selected),
+                "candidates_above_absolute_floor": len(selected),
+                "selected_threshold_pass_count": len(selected),
+                "selected_quality_limited_count": 0,
+                "selection_reason": (
+                    f"{len(selected)} operator-approved weekly root(s) are reused without trend rediscovery."
+                ),
+            }
+        else:
+            selected, rejected = self._select_source_ready_topics(candidate_topics, count=requested_count)
+        daily_selection_report = dict(getattr(self, "_last_topic_selection_report", {}) or {})
+        rejected = [*list(weekly_batch.get("source_rejected_candidates") or []), *rejected]
         topics: list[dict[str, Any]] = []
         would_create: list[str] = []
         for item in selected:
-            source_details = item.get("source_readiness") if isinstance(item.get("source_readiness"), dict) else self._topic_source_readiness(item)
+            source_details = (
+                {
+                    "source_count": 0,
+                    "source_urls": [],
+                    "unique_source_domains": [],
+                    "source_verification_status": "PENDING_RESEARCH",
+                    "freshness_status": "PENDING_RESEARCH",
+                    "collision_result": {"has_collision": False},
+                    "pass_fail_reason": "Operator-approved weekly root; evidence acquisition runs after queue confirmation.",
+                }
+                if approved_planning_roots
+                else item.get("source_readiness") if isinstance(item.get("source_readiness"), dict) else self._topic_source_readiness(item)
+            )
             topics.append(
                 {
                     "keyword": str(item.get("keyword") or ""),
@@ -321,6 +710,13 @@ class DailyEditorialWorkflow:
                     "freshness_status": source_details["freshness_status"],
                     "collision_result": source_details["collision_result"],
                     "pass_fail_reason": source_details["pass_fail_reason"],
+                    "total_score": float((item.get("topic_score_report") or {}).get("total_score") or item.get("total_score") or 0),
+                    "score_confidence": float((item.get("topic_score_report") or {}).get("score_confidence") or 0),
+                    "recommended_threshold": float((item.get("topic_score_report") or {}).get("recommended_threshold") or 0),
+                    "absolute_minimum_floor": float((item.get("topic_score_report") or {}).get("absolute_minimum_floor") or 0),
+                    "selection_result": str(item.get("selection_result") or ""),
+                    "selection_reason": str(item.get("selection_reason") or ""),
+                    "topic_score_report": item.get("topic_score_report") or {},
                 }
             )
             would_create.extend(
@@ -330,18 +726,50 @@ class DailyEditorialWorkflow:
                     f"data/editorial_queue/{target_date}/topics.json",
                 ]
             )
+        min_required_roots = 1
+        final_decision = "PASS" if len(topics) >= min_required_roots else "FAIL"
         return {
             "generated_at": datetime.now(UTC).isoformat(),
             "dry_run": True,
             "date": target_date,
             "week_start": weekly_batch["week_start"],
             "week_end": weekly_batch["week_end"],
+            "editorial_week_id": str(weekly_batch.get("editorial_week_id") or ""),
             "mode": mode,
+            "target_count": count,
+            "selected_count": len(topics),
             "count": len(topics),
+            "maximum_root_count": int(weekly_batch.get("maximum_root_count") or MAX_FOUNDATION_ROOTS),
+            "foundation_root_target": requested_count,
+            "manifest_lock_status": str(weekly_batch.get("lock_status") or ""),
+            "weekly_roots_locked": str(weekly_batch.get("lock_status") or "").lower() == "locked",
+            "quality_limited": len(topics) < count,
+            "scoring_profile": str(daily_selection_report.get("scoring_profile") or weekly_selection_report.get("scoring_profile") or TOPIC_SCORING_FOUNDATION_MAIN),
+            "scoring_version": str(daily_selection_report.get("scoring_version") or weekly_selection_report.get("scoring_version") or TOPIC_SCORING_VERSION),
+            "recommended_threshold": float(daily_selection_report.get("recommended_threshold") or weekly_selection_report.get("recommended_threshold") or 0),
+            "absolute_minimum_floor": float(daily_selection_report.get("absolute_minimum_floor") or weekly_selection_report.get("absolute_minimum_floor") or 0),
+            "candidates_discovered": int(weekly_selection_report.get("candidates_discovered") or weekly_selection_report.get("candidates_scored") or 0),
+            "candidates_scored": int(daily_selection_report.get("candidates_scored") or weekly_selection_report.get("candidates_scored") or 0),
+            "candidates_hard_gate_passed": int(daily_selection_report.get("candidates_hard_gate_passed") or weekly_selection_report.get("candidates_hard_gate_passed") or 0),
+            "candidates_threshold_passed": int(daily_selection_report.get("candidates_threshold_passed") or weekly_selection_report.get("candidates_threshold_passed") or 0),
+            "candidates_above_absolute_floor": int(daily_selection_report.get("candidates_above_absolute_floor") or weekly_selection_report.get("candidates_above_absolute_floor") or 0),
+            "foundation_roots_selected": len(topics),
+            "selected_threshold_pass_count": sum(1 for item in topics if item.get("selection_result") == SELECTED_THRESHOLD_PASS),
+            "selected_quality_limited_count": sum(1 for item in topics if item.get("selection_result") == SELECTED_QUALITY_LIMITED),
+            "watchlist_count": len(list(weekly_batch.get("watchlist_topics") or [])),
+            "evergreen_selected": sum(
+                1 for item in list(weekly_batch.get("topics") or [])
+                if str(item.get("topic_category") or "EVERGREEN").upper() not in {"CONFIRMED_HOT", "WATCHLIST"}
+            ),
+            "confirmed_hot_selected": sum(
+                1 for item in list(weekly_batch.get("topics") or [])
+                if str(item.get("topic_category") or "").upper() == "CONFIRMED_HOT"
+            ),
             "topics": topics,
             "source_status": weekly_batch.get("source_status", {}),
             "would_create": sorted(set(would_create)),
-            "final_decision": "PASS" if len(topics) == count else "FAIL",
+            "minimum_required_roots": min_required_roots,
+            "final_decision": final_decision,
             "passing_topic_count": len(topics),
             "rejected_candidate_count": len(rejected),
             "rejection_reasons": self._summarize_rejections(rejected),
@@ -380,12 +808,36 @@ class DailyEditorialWorkflow:
             batch_date=batch_date,
             mode=mode,
         )
-        selected, rejected = self._select_source_ready_topics(candidate_topics, count=count)
-        if len(selected) < count:
+        requested_count = min(count, MAX_FOUNDATION_ROOTS) if mode == "standard" else count
+        if self._is_approved_planning_manifest(weekly_batch):
+            selected, rejected = candidate_topics[:requested_count], []
+            self._last_topic_selection_report = {
+                "scoring_profile": TOPIC_SCORING_FOUNDATION_MAIN,
+                "scoring_version": TOPIC_SCORING_VERSION,
+                "candidates_scored": len(candidate_topics),
+                "candidates_hard_gate_passed": len(selected),
+                "candidates_threshold_passed": len(selected),
+                "candidates_above_absolute_floor": len(selected),
+                "selected_threshold_pass_count": len(selected),
+                "selected_quality_limited_count": 0,
+                "selection_reason": (
+                    f"{len(selected)} operator-approved weekly root(s) were reused without replacement."
+                ),
+            }
+        else:
+            selected, rejected = self._select_source_ready_topics(candidate_topics, count=requested_count)
+        selection_report = dict(getattr(self, "_last_topic_selection_report", {}) or {})
+        if not selected:
             raise ValueError(
-                f"Only {len(selected)} topics passed source readiness for {batch_date}; "
+                f"No topics passed source readiness for {batch_date}; "
                 f"{len(rejected)} candidates rejected. Run trend --dry-run for details."
             )
+        strategy_payload = enrich_topics_with_content_strategy(
+            selected,
+            week_start=str(weekly_batch["week_start"]),
+            batch_date=batch_date,
+        )
+        selected = strategy_payload["topics"]
         payload = {
             "generated_at": datetime.now(UTC).isoformat(),
             "date": batch_date,
@@ -393,10 +845,21 @@ class DailyEditorialWorkflow:
             "week_start": weekly_batch["week_start"],
             "week_end": weekly_batch["week_end"],
             "mode": mode,
+            "target_count": count,
+            "selected_count": len(selected),
             "count": len(selected),
             "source_status": weekly_batch.get("source_status", {}),
             "duplicate_warning_count": int(weekly_batch.get("duplicate_warning_count", 0)),
             "duplicate_warning_slugs": list(weekly_batch.get("duplicate_warning_slugs", []) or []),
+            "topic_selection_report": selection_report,
+            "scoring_profile": str(selection_report.get("scoring_profile") or TOPIC_SCORING_FOUNDATION_MAIN),
+            "scoring_version": str(selection_report.get("scoring_version") or TOPIC_SCORING_VERSION),
+            "recommended_threshold": float(selection_report.get("recommended_threshold") or 0),
+            "absolute_minimum_floor": float(selection_report.get("absolute_minimum_floor") or 0),
+            "selected_threshold_pass_count": int(selection_report.get("selected_threshold_pass_count") or 0),
+            "selected_quality_limited_count": int(selection_report.get("selected_quality_limited_count") or 0),
+            "topic_cluster_map": strategy_payload["topic_cluster_map"],
+            "content_quality_guard": strategy_payload["content_quality_guard"],
             "topics": selected,
             "rejected_candidate_count": len(rejected),
             "rejection_reasons": self._summarize_rejections(rejected),
@@ -415,51 +878,353 @@ class DailyEditorialWorkflow:
     def _daily_followup_payload(self, *, count: int, batch_date: str, write: bool) -> dict[str, Any]:
         if date.fromisoformat(batch_date).weekday() == 0:
             raise ValueError("Menu 2 is for Tuesday-Sunday follow-up angles. Run Menu 1 for Monday root topics.")
+        latest_root = self._latest_successfully_published_root(batch_date=batch_date)
+        latest_child: dict[str, Any] = {}
+        duplicate_assessment: dict[str, Any] = {}
+        root_source = "LATEST_PUBLISHED" if latest_root else "WEEKLY_ROOT_FALLBACK"
+        if latest_root:
+            weekly_batch, latest_child, duplicate_assessment = self._latest_root_manifest_and_child(
+                root=latest_root,
+                batch_date=batch_date,
+            )
+        else:
+            try:
+                weekly_batch = self._load_weekly_root_manifest(batch_date)
+            except FileNotFoundError:
+                return {
+                    "date": batch_date,
+                    "week_start": self._week_start(batch_date),
+                    "day_profile": self._daily_angle_name(batch_date),
+                    "root_topic_count": 0,
+                    "active_root_topics": 0,
+                    "existing_daily_articles": 0,
+                    "new_angles_created": 0,
+                    "eligible_root_count": 0,
+                    "held_due_to_sources": 0,
+                    "skipped_duplicates": 0,
+                    "new_roots_created": 0,
+                    "topics": [],
+                    "held_topics": [],
+                    "blocked_diagnostics": [],
+                    "dry_run": not write,
+                    "final_decision": "FAIL",
+                    "daily_decision": "NO_ELIGIBLE_DEEP_DIVE_ROOT",
+                    "root_source": "NONE",
+                    "latest_published_article": "",
+                    "root_slug": "",
+                    "root_live_status": "",
+                    "selected_deep_dive_angle": "",
+                    "child_search_intent": "",
+                    "relationship": "",
+                    "duplicate_risk": "NOT_EVALUATED",
+                    "research_readiness": "NOT_EVALUATED",
+                    "next_command": "",
+                    "next_action": "Run Menu 1 to approve a weekly root, or publish an eligible article before rerunning Menu 2.",
+                    "historical_articles_loaded": 0,
+                    "historical_articles_resolved": 0,
+                }
+        reporting_weekly_batch = weekly_batch
+        if latest_root:
+            try:
+                reporting_weekly_batch = self._load_weekly_root_manifest(batch_date)
+            except FileNotFoundError:
+                reporting_weekly_batch = weekly_batch
+        canonical_roots = [
+            self._normalize_weekly_root_topic(
+                root,
+                week_start=str(weekly_batch["week_start"]),
+            )
+            for root in list(weekly_batch.get("topics") or [])
+        ]
+        reporting_roots = [
+            self._normalize_weekly_root_topic(
+                root,
+                week_start=str(reporting_weekly_batch["week_start"]),
+            )
+            for root in list(reporting_weekly_batch.get("topics") or [])
+        ]
+        reporting_roots_by_id = {
+            str(root.get("root_topic_id") or ""): root for root in reporting_roots
+        }
+        for root in canonical_roots:
+            weekly_root = reporting_roots_by_id.get(str(root.get("root_topic_id") or ""))
+            if not weekly_root:
+                continue
+            root["root_title"] = str(
+                weekly_root.get("root_title") or weekly_root.get("title") or root.get("root_title") or ""
+            )
+            root["root_slug"] = str(
+                weekly_root.get("root_slug") or weekly_root.get("slug") or root.get("root_topic_id") or ""
+            )
+        validation_weekly_batch = weekly_batch
+        latest_root_id = str(latest_root.get("root_topic_id") or "")
+        latest_weekly_root = reporting_roots_by_id.get(latest_root_id)
+        if latest_child and latest_weekly_root:
+            latest_child["root_topic_id"] = latest_root_id
+            latest_child["root_slug"] = str(
+                latest_weekly_root.get("root_slug")
+                or latest_weekly_root.get("slug")
+                or latest_root_id
+            )
+            latest_child["root_title"] = str(
+                latest_weekly_root.get("root_title")
+                or latest_weekly_root.get("title")
+                or latest_child.get("root_title")
+                or ""
+            )
+        if latest_root and latest_weekly_root and reporting_weekly_batch is not weekly_batch:
+            validation_weekly_batch = dict(reporting_weekly_batch)
+            validation_topics = [dict(root) for root in reporting_roots]
+            synthetic_by_id = {
+                str(root.get("root_topic_id") or ""): root for root in canonical_roots
+            }
+            for root in validation_topics:
+                synthetic = synthetic_by_id.get(str(root.get("root_topic_id") or ""))
+                if synthetic and synthetic.get("series_plan"):
+                    root["series_plan"] = list(synthetic.get("series_plan") or [])
+            validation_weekly_batch["topics"] = validation_topics
+        locked_root_ids = [str(root.get("root_topic_id") or "") for root in reporting_roots]
+        active_locked_roots = [
+            root
+            for root in reporting_roots
+            if str(root.get("series_status") or "active").lower() in {"active", "planned"}
+        ]
+        selected_root = latest_root or (canonical_roots[0] if canonical_roots else {})
+        root_summary = {
+            "root_source": root_source,
+            "latest_published_article": str(latest_root.get("title") or ""),
+            "root_slug": str(selected_root.get("slug") or selected_root.get("parent_slug") or ""),
+            "root_live_status": str(latest_root.get("root_live_status") or "NOT_APPLICABLE"),
+            "historical_articles_loaded": 0,
+            "historical_articles_resolved": 0,
+        }
         queue_path = self._queue_dir(batch_date) / "topics.json"
         if queue_path.exists():
             existing = self._load_queue(batch_date)
             topics = list(existing.get("topics") or [])
+            # Recover a child->child chain from the exact parent metadata.
+            # Older queues promoted the latest published child to a new root;
+            # this keeps the weekly root stable without scanning history.
+            binding_repaired = False
+            for topic in topics:
+                parent_slug = str(
+                    topic.get("parent_article_slug")
+                    or topic.get("source_article_slug")
+                    or topic.get("parent_slug")
+                    or ""
+                )
+                parent_dir = self.data_dir / "production_article_drafts" / parent_slug
+                parent_metadata = _read_json(parent_dir / "metadata.json", {})
+                canonical_root_id = str(parent_metadata.get("root_topic_id") or "")
+                canonical_root = reporting_roots_by_id.get(canonical_root_id)
+                if not canonical_root:
+                    continue
+                previous_binding = (
+                    str(topic.get("root_topic_id") or ""),
+                    str(topic.get("source_article_slug") or ""),
+                    str(topic.get("source_content_hash") or ""),
+                )
+                topic["root_topic_id"] = canonical_root_id
+                topic["root_slug"] = str(
+                    canonical_root.get("root_slug")
+                    or canonical_root.get("slug")
+                    or canonical_root_id
+                )
+                topic["root_title"] = str(
+                    canonical_root.get("root_title")
+                    or canonical_root.get("title")
+                    or topic.get("root_title")
+                    or ""
+                )
+                topic["parent_article_slug"] = parent_slug
+                topic["source_article_slug"] = parent_slug
+                topic["source_revision"] = str(
+                    topic.get("source_revision") or topic.get("parent_revision") or ""
+                )
+                topic["source_revision_id"] = topic["source_revision"]
+                parent_html = parent_dir / "index.html"
+                if parent_html.is_file():
+                    topic["source_content_hash"] = binding_for_file(parent_html)["content_hash"]
+                topic["child_slug"] = str(topic.get("slug") or "")
+                topic["child_angle"] = str(topic.get("daily_angle") or topic.get("angle") or "")
+                if isinstance(topic.get("parent_monday_article"), dict):
+                    topic["parent_monday_article"]["root_topic_id"] = canonical_root_id
+                binding_repaired = binding_repaired or previous_binding != (
+                    str(topic.get("root_topic_id") or ""),
+                    str(topic.get("source_article_slug") or ""),
+                    str(topic.get("source_content_hash") or ""),
+                )
+            chain_held: list[dict[str, Any]] = []
+            topics, chain_held = self._filter_daily_topics_to_continuing_roots(
+                topics,
+                weekly_batch=weekly_batch,
+                batch_date=batch_date,
+            )
+            if (chain_held or binding_repaired) and write:
+                existing["topics"] = topics
+                existing["count"] = len(topics)
+                existing["root_topic_count"] = len(reporting_roots)
+                existing["active_root_topics"] = len(active_locked_roots)
+                existing["locked_root_ids"] = locked_root_ids
+                existing["held_topics"] = [*list(existing.get("held_topics") or []), *chain_held]
+                existing["skipped_disconnected_roots"] = len(chain_held)
+                _write_json(queue_path, existing)
             valid_daily_contract = bool(topics) and all(
                 str(item.get("root_topic_id") or "").strip() and str(item.get("daily_angle") or "").strip()
                 for item in topics
+            )
+            root_validation_blockers: list[str] = []
+            root_validation = validate_daily_topics_against_weekly_roots(
+                topics,
+                manifest=normalize_weekly_root_manifest(
+                    validation_weekly_batch,
+                    week_start=str(validation_weekly_batch.get("week_start") or self._week_start(batch_date)),
+                    selection_source=str(validation_weekly_batch.get("selection_source") or "menu_1"),
+                ),
+                batch_date=batch_date,
+            )
+            root_validation_blockers = list(root_validation.blockers)
+            valid_daily_contract = valid_daily_contract and root_validation.passed
+            existing_held = [*list(existing.get("held_topics") or []), *([] if write else chain_held)]
+            held_for_research_count = sum(
+                1 for row in existing_held
+                if str(row.get("status") or "").upper() == "HELD_FOR_RESEARCH"
+            )
+            existing_topic = topics[0] if topics else {}
+            existing_readiness = (
+                existing_topic.get("article_readiness")
+                if isinstance(existing_topic.get("article_readiness"), dict)
+                else {}
+            )
+            existing_status = str(existing_topic.get("status") or "").upper()
+            research_evaluated = bool(
+                existing_readiness
+                or existing_status in {
+                    "ARTICLE_READY", "BLOCKED_RESEARCH", "RESEARCH_STRONG", "RESEARCH_MINIMUM"
+                }
+            )
+            research_passed = bool(
+                research_evaluated
+                and not list(existing_readiness.get("blockers") or [])
+                and existing_readiness.get("draft_exportable") is not False
+                and not existing_status.startswith("BLOCKED")
+            )
+            existing_decision = (
+                "READY_FOR_DAILY_QUEUE"
+                if valid_daily_contract and research_passed
+                else "BLOCKED_RESEARCH"
+                if valid_daily_contract and research_evaluated
+                else "READY_FOR_RESEARCH"
+                if valid_daily_contract
+                else "NEEDS_REANGLE"
             )
             return {
                 "date": batch_date,
                 "week_start": str(existing.get("week_start") or self._week_start(batch_date)),
                 "day_profile": str(existing.get("day_profile") or self._daily_angle_name(batch_date)),
-                "root_topic_count": int(existing.get("root_topic_count") or len(topics)),
-                "active_root_topics": int(existing.get("active_root_topics") or len(topics)),
+                "root_topic_count": len(reporting_roots),
+                "weekly_approved_root_count": len(reporting_roots),
+                "today_selected_root_count": len(topics),
+                "active_root_topics": len(active_locked_roots),
+                "locked_root_ids": locked_root_ids,
                 "existing_daily_articles": len(topics),
                 "new_angles_created": 0,
-                "held_due_to_sources": len(list(existing.get("held_topics") or [])),
+                "eligible_root_count": len(topics),
+                "held_for_research_count": held_for_research_count,
+                "held_due_to_sources": len(existing_held),
                 "skipped_duplicates": int(existing.get("skipped_duplicates") or 0),
+                "skipped_disconnected_roots": int(existing.get("skipped_disconnected_roots") or len(chain_held)),
+                "new_roots_created": 0,
                 "daily_queue_path": str(queue_path),
                 "topics": topics,
-                "held_topics": list(existing.get("held_topics") or []),
+                "held_topics": existing_held,
+                "blocked_diagnostics": self._blocked_diagnostics(existing_held),
+                "root_validation_blockers": root_validation_blockers,
                 "idempotent_existing_queue": True,
                 "legacy_queue_requires_manual_review": not valid_daily_contract,
                 "dry_run": not write,
                 "final_decision": "PASS" if valid_daily_contract else "FAIL",
-                "next_command": "python scripts/codex_write_daily_articles.py --date latest --count 10 --depth deep",
+                "daily_decision": existing_decision,
+                "selected_deep_dive_angle": str(existing_topic.get("daily_angle") or ""),
+                "child_search_intent": str(existing_topic.get("search_intent") or ""),
+                "relationship": str(existing_topic.get("relationship") or "deep_dive"),
+                "duplicate_risk": "PASS" if valid_daily_contract else "NEEDS_REANGLE",
+                "research_readiness": "PASS" if research_passed else ("BLOCKED" if research_evaluated else "ACQUISITION_REQUIRED"),
+                "next_action": (
+                    "Create today's Website queue."
+                    if research_passed
+                    else "Open targeted Source Review (Menu S), retry research, or change the deep-dive angle."
+                    if research_evaluated
+                    else "Acquire and validate research for the selected topic."
+                    if valid_daily_contract
+                    else "Regenerate the deep-dive angle; do not create a queue from this preview."
+                ),
+                "next_command": (
+                    f"python editorial_console.py daily-followup --count {count} "
+                    f"--date {batch_date} --confirm"
+                ) if valid_daily_contract and not research_evaluated else "",
+                **root_summary,
             }
 
-        weekly_batch = self._load_weekly_root_manifest(batch_date)
-        roots = [
-            self._normalize_weekly_root_topic(item, week_start=str(weekly_batch["week_start"]))
-            for item in list(weekly_batch.get("topics") or [])
-            if str(item.get("status") or "active") in {"active", "weekly_selected"}
-        ][:count]
-        candidates = self._build_daily_topics_from_weekly_batch(
-            weekly_topics=roots,
-            batch_date=batch_date,
-            mode="advanced",
-        )
+        if latest_root:
+            roots = canonical_roots[:1]
+            disconnected_roots: list[dict[str, Any]] = []
+            candidates = [latest_child] if latest_child else []
+        else:
+            roots, disconnected_roots = self._filter_weekly_roots_to_continuing_roots(
+                canonical_roots,
+                week_start=str(weekly_batch["week_start"]),
+            )
+            roots = roots[:count]
+            candidates = self._build_daily_topics_from_weekly_batch(
+                weekly_topics=roots,
+                batch_date=batch_date,
+                mode="advanced",
+            )
         selected: list[dict[str, Any]] = []
         held: list[dict[str, Any]] = []
-        held_due_to_sources = 0
+        held_due_to_sources = sum(
+            1 for row in disconnected_roots if str(row.get("status") or "").upper() == "HELD_FOR_RESEARCH"
+        )
         skipped_duplicates = 0
         for item in candidates:
-            weekly_collision = self._weekly_angle_collision(item)
+            if latest_root:
+                duplicate_assessment = self._parent_child_duplicate_assessment(latest_root, item)
+                if duplicate_assessment.get("has_collision"):
+                    skipped_duplicates += 1
+                    held.append(
+                        {
+                            "root_topic_id": str(item.get("root_topic_id") or ""),
+                            "root_title": str(item.get("root_title") or ""),
+                            "slug": str(item.get("slug") or ""),
+                            "daily_angle": str(item.get("daily_angle") or ""),
+                            "status": "NEEDS_REANGLE",
+                            "reason": str(duplicate_assessment.get("reason") or "same parent intent"),
+                            "required_operator_action": "Regenerate the deep-dive angle.",
+                        }
+                    )
+                    continue
+            root_validation = validate_daily_topics_against_weekly_roots(
+                [item],
+                manifest=normalize_weekly_root_manifest(
+                    validation_weekly_batch,
+                    week_start=str(validation_weekly_batch.get("week_start") or self._week_start(batch_date)),
+                    selection_source=str(validation_weekly_batch.get("selection_source") or "menu_1"),
+                ),
+                batch_date=batch_date,
+            )
+            if not root_validation.passed:
+                held.append(
+                    {
+                        "root_topic_id": str(item.get("root_topic_id") or ""),
+                        "root_title": str(item.get("root_title") or ""),
+                        "slug": str(item.get("slug") or ""),
+                        "daily_angle": str(item.get("daily_angle") or ""),
+                        "reason": "; ".join(root_validation.blockers),
+                    }
+                )
+                continue
+            weekly_collision = "" if latest_root else self._weekly_angle_collision(item)
             if weekly_collision:
                 skipped_duplicates += 1
                 held.append(
@@ -472,7 +1237,11 @@ class DailyEditorialWorkflow:
                     }
                 )
                 continue
-            readiness = self._topic_source_readiness(item)
+            readiness = (
+                self._latest_child_research_readiness(item)
+                if latest_root
+                else self._topic_source_readiness(item)
+            )
             item["source_readiness"] = readiness
             if readiness.get("passes"):
                 selected.append(item)
@@ -499,42 +1268,92 @@ class DailyEditorialWorkflow:
             "week_start": str(weekly_batch["week_start"]),
             "week_end": str(weekly_batch.get("week_end") or ""),
             "mode": "advanced",
-            "day_profile": self._daily_angle_name(batch_date),
-            "root_topic_count": len(roots),
-            "active_root_topics": len(roots),
+            "day_profile": str(latest_child.get("daily_angle") or self._daily_angle_name(batch_date)),
+            "root_topic_count": len(reporting_roots),
+            "weekly_approved_root_count": len(reporting_roots),
+            "today_selected_root_count": len(selected),
+            "active_root_topics": len(active_locked_roots),
+            "locked_root_ids": locked_root_ids,
             "count": len(selected),
             "topics": selected,
-            "held_topics": held,
+            "held_topics": [*disconnected_roots, *held],
+            "blocked_diagnostics": self._blocked_diagnostics([*disconnected_roots, *held]),
             "held_due_to_sources": held_due_to_sources,
             "skipped_duplicates": skipped_duplicates,
+            "skipped_disconnected_roots": len(disconnected_roots),
+            "new_roots_created": 0,
+            "root_source": root_source,
+            "parent_revision": str(latest_root.get("parent_revision") or ""),
         }
         if write:
             _write_json(queue_path, payload)
-            self._record_weekly_daily_angles(
-                week_start=str(weekly_batch["week_start"]),
-                batch_date=batch_date,
-                topics=selected,
-                angle=self._daily_angle_name(batch_date),
-                status="queue_created",
-                held=held,
+            if not latest_root:
+                self._record_weekly_daily_angles(
+                    week_start=str(weekly_batch["week_start"]),
+                    batch_date=batch_date,
+                    topics=selected,
+                    angle=self._daily_angle_name(batch_date),
+                    status="queue_created",
+                    held=held,
+                )
+        if selected:
+            daily_decision = "READY_FOR_RESEARCH"
+            next_action = "Acquire and validate research for the selected topic."
+            next_command = (
+                f"python editorial_console.py daily-followup --count {count} "
+                f"--date {batch_date} --confirm"
             )
+        elif latest_root and duplicate_assessment.get("has_collision"):
+            daily_decision = "NEEDS_REANGLE"
+            next_action = "Regenerate the deep-dive angle; do not create a queue from this preview."
+            next_command = ""
+        elif held_due_to_sources or held:
+            daily_decision = "NEEDS_RESEARCH"
+            research_slug = str((candidates[0] if candidates else latest_child).get("slug") or root_summary["root_slug"])
+            next_action = f"Open Menu S for {research_slug} and add child-angle evidence."
+            next_command = ""
+        else:
+            daily_decision = "NO_ELIGIBLE_DEEP_DIVE_ROOT"
+            next_action = "Run Menu 1 to approve a weekly root, or publish an eligible article before rerunning Menu 2."
+            next_command = ""
+        selected_topic = selected[0] if selected else (candidates[0] if candidates else {})
         return {
             "date": batch_date,
             "week_start": str(weekly_batch["week_start"]),
-            "day_profile": self._daily_angle_name(batch_date),
-            "root_topic_count": len(roots),
-            "active_root_topics": len(roots),
+            "day_profile": str(selected_topic.get("daily_angle") or self._daily_angle_name(batch_date)),
+            "root_topic_count": len(reporting_roots),
+            "weekly_approved_root_count": len(reporting_roots),
+            "today_selected_root_count": len(selected),
+            "active_root_topics": len(active_locked_roots),
+            "locked_root_ids": locked_root_ids,
             "existing_daily_articles": 0,
             "new_angles_created": len(selected),
+            "eligible_root_count": len(selected),
+            "held_for_research_count": sum(
+                1 for row in [*disconnected_roots, *held]
+                if str(row.get("status") or "").upper() == "HELD_FOR_RESEARCH"
+            ),
             "held_due_to_sources": held_due_to_sources,
             "skipped_duplicates": skipped_duplicates,
+            "skipped_disconnected_roots": len(disconnected_roots),
+            "new_roots_created": 0,
             "daily_queue_path": str(queue_path),
             "topics": selected,
-            "held_topics": held,
+            "held_topics": [*disconnected_roots, *held],
+            "blocked_diagnostics": self._blocked_diagnostics([*disconnected_roots, *held]),
             "idempotent_existing_queue": False,
             "dry_run": not write,
             "final_decision": "PASS" if selected else "FAIL",
-            "next_command": "python scripts/codex_write_daily_articles.py --date latest --count 10 --depth deep",
+            "daily_decision": daily_decision,
+            "selected_deep_dive_angle": str(selected_topic.get("daily_angle") or selected_topic.get("angle") or ""),
+            "child_search_intent": str(selected_topic.get("search_intent") or ""),
+            "relationship": str(selected_topic.get("relationship") or "deep_dive"),
+            "duplicate_risk": "NEEDS_REANGLE" if daily_decision == "NEEDS_REANGLE" else "PASS",
+            "duplicate_assessment": duplicate_assessment,
+            "research_readiness": "ACQUISITION_REQUIRED" if selected else ("NEEDS_RESEARCH" if daily_decision == "NEEDS_RESEARCH" else "NOT_EVALUATED"),
+            "next_command": next_command,
+            "next_action": next_action,
+            **root_summary,
         }
 
     def draft(self, *, batch_date: str) -> dict[str, Any]:
@@ -610,6 +1429,19 @@ class DailyEditorialWorkflow:
                     blocked += 1
                     results.append({"slug": slug, "status": item["status"], "error": item["error"]})
                     continue
+                if self._research_enrichment_enabled():
+                    evidence = self._enrich_research_slug(slug, topic_record)
+                    item["article_readiness"] = evidence.as_dict()
+                    if not evidence.article_ready:
+                        item["status"] = "needs_enrichment"
+                        item["draft_dir"] = ""
+                        item["review_preview"] = ""
+                        item["error"] = "Research evidence gate blocked draft generation: " + "; ".join(
+                            evidence.blockers
+                        )
+                        blocked += 1
+                        results.append({"slug": slug, "status": item["status"], "error": item["error"]})
+                        continue
                 result = generate_production_article_draft_from_package(slug)
                 preview_path = self._copy_review_preview(slug=slug, batch_date=batch_date)
                 metadata = _read_json(Path(result["metadata_file"]), {})
@@ -668,9 +1500,14 @@ class DailyEditorialWorkflow:
             site_output_dir=self.site_output_dir,
             config=self.editorial_config,
         )
-        for item in topics:
+        total_topics = len(topics)
+        for topic_index, item in enumerate(topics, start=1):
             slug = str(item.get("slug") or "")
+            self._report_progress(
+                f"[research {topic_index}/{total_topics}] Acquiring and validating evidence for {slug}"
+            )
             topic_record = {
+                **dict(item),
                 "topic": str(item.get("keyword") or item.get("topic") or slug.replace("-", " ")),
                 "slug": slug,
                 "title": str(item.get("keyword") or item.get("topic") or slug.replace("-", " ")),
@@ -681,6 +1518,8 @@ class DailyEditorialWorkflow:
                 "suggested_article_angle": str(item.get("suggested_article_angle") or ""),
                 "source_urls": list(item.get("source_urls") or []),
                 "source_readiness": dict(item.get("source_readiness") or {}),
+                "batch_date": batch_date,
+                "task_id": str(item.get("task_id") or f"website-advanced-{batch_date}-{slug}"),
             }
             source_readiness = dict(item.get("source_readiness") or {})
             if not source_readiness.get("passes"):
@@ -709,35 +1548,166 @@ class DailyEditorialWorkflow:
                 item["review_preview"] = ""
                 item["human_approval_status"] = "not_started"
                 item["publish_gate_status"] = "not_started"
-                if getattr(gate, "hard_blockers", ()):
-                    item["status"] = "research_blocked"
+                evidence = self._enrich_research_slug(slug, topic_record) if self._research_enrichment_enabled() else None
+                if evidence is not None:
+                    item["article_readiness"] = evidence.as_dict()
+                    artifact_resolution = resolve_research_artifacts(
+                        self.root,
+                        task_id=topic_record["task_id"],
+                        slug=slug,
+                        batch_date=batch_date,
+                    )
+                    item["research_artifacts"] = artifact_resolution.as_dict()
+                evidence_exportable = bool(
+                    evidence is not None
+                    and artifact_resolution.draft_exportable
+                )
+                if getattr(gate, "hard_blockers", ()) or (
+                    evidence is not None and not evidence_exportable
+                ):
+                    item["status"] = (
+                        evidence.status
+                        if evidence is not None
+                        else "BLOCKED_RESEARCH"
+                    )
                     item["batch_state"] = BATCH_STATE_QUEUE_CREATED
-                    item["error"] = "; ".join(str(row) for row in getattr(gate, "hard_blockers", ()) if str(row).strip())
+                    reasons = [
+                        *(str(row) for row in getattr(gate, "hard_blockers", ()) if str(row).strip()),
+                        *(evidence.blockers if evidence is not None else []),
+                        *(
+                            str(row)
+                            for row in (
+                                artifact_resolution.failing_gates
+                                if evidence is not None
+                                else ()
+                            )
+                            if str(row).strip()
+                        ),
+                    ]
+                    item["error"] = "; ".join(reasons)
                     blocked += 1
                 else:
-                    item["status"] = "research_ready"
+                    item["status"] = (
+                        evidence.status
+                        if evidence is not None
+                        else "ARTICLE_READY"
+                    )
                     item["batch_state"] = BATCH_STATE_QUEUE_CREATED
                     item["error"] = ""
+                    item["research_level"] = (
+                        evidence.research_level
+                        if evidence is not None
+                        else "RESEARCH_COMPLETE"
+                    )
+                    item["comparison_status"] = (
+                        evidence.comparison_status
+                        if evidence is not None
+                        else "NOT_APPLICABLE"
+                    )
+                    item["outstanding_research_tasks"] = (
+                        len(evidence.research_tasks)
+                        if evidence is not None
+                        else 0
+                    )
                     prepared += 1
-                results.append({"slug": slug, "status": item["status"], "source_count": source_count})
+                artifacts = item.get("research_artifacts") if isinstance(item.get("research_artifacts"), dict) else {}
+                results.append(
+                    {
+                        "task_id": topic_record["task_id"],
+                        "slug": slug,
+                        "status": item["status"],
+                        "research_level": str(
+                            artifacts.get("research_level") or item["status"]
+                        ),
+                        # Once canonical research artifacts exist their
+                        # decision is authoritative.  The previous ``or``
+                        # resurrected an old ARTICLE_READY state even when a
+                        # newer source-quality report had blocked export.
+                        "draft_exportable": (
+                            bool(artifacts.get("draft_exportable"))
+                            if "draft_exportable" in artifacts
+                            else item["status"] == "ARTICLE_READY"
+                        ),
+                        "outstanding_research_tasks": int(
+                            artifacts.get("outstanding_research_tasks") or 0
+                        ),
+                        "comparison_status": str(
+                            artifacts.get("comparison_status") or "NOT_APPLICABLE"
+                        ),
+                        "source_count": source_count,
+                        "paragraphs": int(artifacts.get("paragraph_count") or 0),
+                        "claims": int(artifacts.get("claim_count") or 0),
+                        "candidate_claims": int(artifacts.get("candidate_claim_count") or 0),
+                        "rejected_claims": int(artifacts.get("rejected_claim_count") or 0),
+                        "angle_profile": str(artifacts.get("angle_profile") or ""),
+                        "required_entities": int(artifacts.get("required_entity_count") or 0),
+                        "resolved_entities": int(artifacts.get("resolved_entity_count") or 0),
+                        "entity_coverage_score": float(
+                            artifacts.get("entity_coverage_score") or 0
+                        ),
+                        "coverage_score": float(artifacts.get("coverage_score") or 0),
+                        "coverage": (
+                            f"{int(artifacts.get('mandatory_sections_covered') or 0)}/"
+                            f"{int(artifacts.get('mandatory_sections_total') or 0)}"
+                        ),
+                        "migration_status": (
+                            "MIGRATED"
+                            if artifacts and not artifacts.get("is_legacy")
+                            else "MIGRATION_REQUIRED"
+                        ),
+                        "next_action": (
+                            "Menu X"
+                            if bool(
+                                artifacts.get("draft_exportable")
+                                or item["status"] == "ARTICLE_READY"
+                            )
+                            else str(item.get("error") or "Run research enrichment again.")
+                        ),
+                    }
+                )
             except Exception as exc:
-                item["status"] = "research_failed"
+                item["status"] = "BLOCKED_RESEARCH"
                 item["error"] = str(exc)
                 item["draft_dir"] = ""
                 item["review_preview"] = ""
                 blocked += 1
-                results.append({"slug": slug, "status": item["status"], "error": str(exc)})
+                results.append(
+                    {
+                        "task_id": topic_record["task_id"],
+                        "slug": slug,
+                        "status": item["status"],
+                        "paragraphs": 0,
+                        "claims": 0,
+                        "candidate_claims": 0,
+                        "rejected_claims": 0,
+                        "angle_profile": "",
+                        "required_entities": 0,
+                        "resolved_entities": 0,
+                        "entity_coverage_score": 0.0,
+                        "coverage_score": 0.0,
+                        "migration_status": "MIGRATION_BLOCKED",
+                        "next_action": str(exc),
+                        "error": str(exc),
+                    }
+                )
         payload["topics"] = topics
-        payload["batch_state"] = BATCH_STATE_QUEUE_CREATED
+        payload["batch_state"] = (
+            BATCH_STATE_QUEUE_CREATED if prepared and not blocked else "RESEARCH_BLOCKED"
+        )
         payload["research_prepared_at"] = datetime.now(UTC).isoformat()
         _write_json(self._queue_dir(batch_date) / "topics.json", payload)
         return {
             "date": batch_date,
-            "batch_state": BATCH_STATE_QUEUE_CREATED,
+            "batch_state": BATCH_STATE_QUEUE_CREATED if prepared and not blocked else "RESEARCH_BLOCKED",
             "prepared": prepared,
             "blocked": blocked,
             "topics": results,
-            "next_command": "python scripts/codex_write_daily_articles.py --date latest --count 10 --depth deep",
+            "final_decision": "PASS" if prepared else "FAIL",
+            "next_command": (
+                "Create today's Website queue."
+                if prepared
+                else "Open Menu S for the exact slug, retry research, or change the deep-dive angle."
+            ),
         }
 
     @staticmethod
@@ -753,6 +1723,31 @@ class DailyEditorialWorkflow:
         except (TypeError, ValueError):
             return 0
 
+    def _research_enrichment_enabled(self) -> bool:
+        config = self.editorial_config.get("research_enrichment")
+        return (
+            self._local_research_enrichment_configured
+            and isinstance(config, dict)
+            and bool(config.get("enabled", False))
+        )
+
+    def _enrich_research_slug(self, slug: str, topic_record: dict[str, Any]):
+        return ResearchEnrichmentPipeline(
+            root=self.root,
+            data_dir=self.data_dir,
+            config=self.editorial_config,
+        ).enrich_slug(
+            slug,
+            task={
+                **topic_record,
+                "task_id": str(topic_record.get("task_id") or slug),
+                "article_slug": slug,
+                "primary_source_url": next(iter(topic_record.get("validated_source_urls") or []), ""),
+                "supporting_source_urls": list(topic_record.get("validated_source_urls") or [])[1:],
+            },
+            reuse_cache=True,
+        )
+
     def request_custom_topic(
         self,
         *,
@@ -764,6 +1759,7 @@ class DailyEditorialWorkflow:
         intent: str = "commercial research",
         count: int = 1,
         batch_date: str | None = None,
+        prepare_only: bool = False,
     ) -> dict[str, Any]:
         target_date = batch_date or date.today().isoformat()
         requests = self._build_custom_topic_requests(topic_name=topic_name, category=category, intent=intent, count=count)
@@ -787,6 +1783,7 @@ class DailyEditorialWorkflow:
                     "requested_batch_date": target_date,
                     "custom_topic_root": topic_name.strip(),
                 },
+                prepare_only=prepare_only,
             )
             slug = str(result.get("slug") or "")
             queue_entry = self._queue_entry_from_request_result(
@@ -825,20 +1822,33 @@ class DailyEditorialWorkflow:
             )
         _write_json(self.data_dir / "custom_topic_history.json", history)
         self._upsert_topics_into_batch(batch_date=target_date, topics=queue_entries, mode="custom")
-        upload_summary = self._sync_upload_batch(batch_date=target_date)
-        master_dashboard = self._build_upload_master_dashboard()
-        return {
+        response = {
             "date": target_date,
             "requested_topic": topic_name.strip(),
             "count": len(results),
             "results": results,
-            "dashboard_file": str(self.review_root / target_date / "index.html"),
-            "operator_console": str(self.console.console_html),
-            "upload_dir": str(self.upload_root / target_date),
-            "master_dashboard": str(master_dashboard),
-            "upload_summary": upload_summary,
             "history_file": str(self.data_dir / "custom_topic_history.json"),
         }
+        if prepare_only:
+            response.update(
+                {
+                    "prepared_for_external_writer": True,
+                    "next_step": "Open Menu X to export the website writing package.",
+                }
+            )
+            return response
+        upload_summary = self._sync_upload_batch(batch_date=target_date)
+        master_dashboard = self._build_upload_master_dashboard()
+        response.update(
+            {
+                "dashboard_file": str(self.review_root / target_date / "index.html"),
+                "operator_console": str(self.console.console_html),
+                "upload_dir": str(self.upload_root / target_date),
+                "master_dashboard": str(master_dashboard),
+                "upload_summary": upload_summary,
+            }
+        )
+        return response
 
     def partner_intake(
         self,
@@ -951,16 +1961,96 @@ class DailyEditorialWorkflow:
     def approve(self, *, slug: str, batch_date: str, approver: str = "editor") -> dict[str, Any]:
         current = self._batch_item(batch_date=batch_date, slug=slug)
         publish_row = self._publish_row(slug)
-        if str(current.get("status") or "") in {"approved", "published"} or str(publish_row.get("status") or "") in {
-            "approved_for_publish",
-            "published_local",
-            "published",
+        current_status = str(current.get("status") or "")
+        publish_status = str(publish_row.get("status") or "")
+        if current_status == "published" or publish_status in {
+            "published_local", "committed_local", "awaiting_push", "pushed", "live", "published"
         }:
-            raise ValueError(f"Article is already approved or published: {slug}")
+            # A live page may have a newly staged revision awaiting an explicit
+            # human refresh approval.  The old live approval is not reusable,
+            # but it must not prevent approval of genuinely different bytes.
+            binding = self._production_draft_approval_binding(slug)
+            if binding.get("binding_status") == "MATCHED":
+                raise ValueError(f"Article is already approved or published: {slug}")
+        elif current_status == "approved" or publish_status == "approved_for_publish":
+            # A batch projection can remain `approved` after the production
+            # draft advances to a new revision.  Only reject a duplicate
+            # approval when the stored human authorization still matches the
+            # exact current bytes; otherwise this is a legitimate re-review.
+            binding = self._production_draft_approval_binding(slug)
+            if binding.get("binding_status") == "MATCHED":
+                raise ValueError(f"Article is already approved or published: {slug}")
         if str(current.get("status") or "") == "rejected":
             raise ValueError(f"Article is rejected and cannot be approved without a revision: {slug}")
+        # Finalize every byte-changing prerequisite before recording human
+        # approval.  Image preparation used to run from Menu 8, after quality
+        # review and approval, which legitimately made the review stale.  The
+        # approval boundary now owns preparation + a revision-bound re-review.
+        draft_path = self._article_bundle_paths(slug)["draft_html"]
+        research_package = self.data_dir / "research" / slug / "package.json"
+        quality_review: dict[str, Any] = {}
+        if draft_path.is_file() and research_package.is_file():
+            image_preparation = self._ensure_required_article_image(
+                slug=slug,
+                title=str(current.get("topic") or current.get("title") or slug),
+                dry_run=False,
+            )
+            quality_review = self._review_current_production_revision(
+                batch_date=batch_date,
+                item=current,
+            )
+            if (
+                str(quality_review.get("review_state") or "").upper() == "BLOCKED"
+                or str(quality_review.get("status") or "").lower()
+                in {"needs_revision", "rejected", "error", "review_error", "not_run"}
+                or list(quality_review.get("hard_blockers") or [])
+                or not bool(quality_review.get("publishable", False))
+            ):
+                reasons = list(quality_review.get("hard_blockers") or quality_review.get("failures") or [])
+                raise ValueError(
+                    "QUALITY_REVIEW_BLOCKED_BEFORE_APPROVAL: "
+                    + ("; ".join(str(reason) for reason in reasons if str(reason).strip()) or "current revision did not pass quality review")
+                )
+        else:
+            # Compatibility-only path for historical/test fixtures that do not
+            # have the current research package contract. Canonical publish
+            # resolution still fails closed on stale/missing review evidence.
+            image_preparation = {
+                "slug": slug,
+                "status": "skipped_missing_current_research_contract",
+                "changed_files": [],
+            }
         result = self.console.approve_slug(slug, approver=approver)
+        result["image_preparation"] = image_preparation
+        if quality_review:
+            result["quality_review_binding"] = {
+                "revision_id": str(quality_review.get("reviewed_revision_id") or ""),
+                "content_hash": str(quality_review.get("reviewed_content_hash") or ""),
+                "status": str(quality_review.get("review_state") or quality_review.get("status") or ""),
+            }
         self._update_batch_status(batch_date=batch_date, slug=slug, status="approved", extra={"approved_by": approver})
+        refreshed = self._refresh_publish_gate_from_current_draft(
+            batch_date=batch_date,
+            item=current,
+        )
+        if refreshed is not None:
+            result["publish_gate"] = refreshed
+            seo_geo = refreshed.get("seo_geo_validation") if isinstance(refreshed, dict) else {}
+            if isinstance(seo_geo, dict) and str(seo_geo.get("console_output") or "").strip():
+                self._report_progress(str(seo_geo["console_output"]))
+        try:
+            from modules.observation_hooks import observe_website_approval_best_effort
+
+            observe_website_approval_best_effort(
+                root=self.root,
+                batch_date=batch_date,
+                slug=slug,
+                approver=approver,
+            )
+        except Exception:
+            # Approval has already succeeded. Observation must never alter its
+            # result or exception semantics.
+            pass
         dashboard = self.build_review_dashboard(batch_date=batch_date)
         return {"date": batch_date, "slug": slug, "result": result, "dashboard": dashboard}
 
@@ -991,6 +2081,44 @@ class DailyEditorialWorkflow:
             str(row.get("slug") or ""): row
             for row in _read_json(self.data_dir / "publish_queue.json", [])
         }
+        capacity_config = (
+            self.editorial_config.get("editorial_capacity", {})
+            if isinstance(self.editorial_config.get("editorial_capacity"), dict)
+            else {}
+        )
+        daily_publish_limit = max(
+            1,
+            int(capacity_config.get("maximum_daily_publishes", 2) or 2),
+        )
+        already_published = [
+            item
+            for item in topics
+            if str((publish_rows.get(str(item.get("slug") or "")) or {}).get("status") or "")
+            in {
+                "published_local",
+                "published",
+                "committed_local",
+                "awaiting_push",
+                "push_blocked",
+                "rebase_conflict",
+                "pushed",
+                "live",
+            }
+        ]
+        new_publish_items = [
+            item
+            for item in topics
+            if str((publish_rows.get(str(item.get("slug") or "")) or {}).get("status") or "")
+            == "approved_for_publish"
+        ]
+        remaining_publish_slots = max(0, daily_publish_limit - len(already_published))
+        if len(new_publish_items) > remaining_publish_slots:
+            raise ValueError(
+                f"Cannot publish batch {batch_date}. Daily website publish limit is "
+                f"{daily_publish_limit}; already published={len(already_published)}, "
+                f"new ready={len(new_publish_items)}. Use publish-ready to publish only "
+                "the available daily slots."
+            )
         blocked_for_publish: list[str] = []
         for item in topics:
             slug = str(item.get("slug") or "")
@@ -1038,16 +2166,60 @@ class DailyEditorialWorkflow:
         )
 
     def publish_ready(self, *, batch_date: str, validation_mode: str = "smart") -> dict[str, Any]:
-        asset_preparation = self.prepare_required_images_for_publish(batch_date=batch_date, dry_run=False)
+        # Publish is a byte-preserving operation.  Missing images must be
+        # prepared before quality review and human approval, never here.
+        asset_preparation = self.prepare_required_images_for_publish(batch_date=batch_date, dry_run=True)
+        if int(asset_preparation.get("missing") or 0) > 0:
+            slugs = [
+                str(item.get("slug") or "")
+                for item in list(asset_preparation.get("items") or [])
+                if str(item.get("status") or "") == "would_generate"
+            ]
+            raise ValueError(
+                "PRE_APPROVAL_IMAGE_REQUIRED: prepare the article image, rerun quality review, "
+                "and approve the resulting revision before publishing"
+                + (f" ({', '.join(slugs)})" if slugs else "")
+            )
         payload = self._load_queue(batch_date)
         topics = payload.get("topics", [])
         if not topics:
             raise ValueError(f"No topics found for {batch_date}.")
+        capacity_config = (
+            self.editorial_config.get("editorial_capacity", {})
+            if isinstance(self.editorial_config.get("editorial_capacity"), dict)
+            else {}
+        )
+        daily_publish_limit = max(
+            1,
+            int(capacity_config.get("maximum_daily_publishes", 2) or 2),
+        )
         self._report_progress(f"[0/6] Preparing publish-ready run for {batch_date} ({validation_mode})")
         publish_rows = {
             str(row.get("slug") or ""): row
             for row in _read_json(self.data_dir / "publish_queue.json", [])
         }
+        published_states = {
+            "published_local",
+            "published",
+            "committed_local",
+            "awaiting_push",
+            "push_blocked",
+            "rebase_conflict",
+            "pushed",
+            "live",
+        }
+        already_published_count = sum(
+            1
+            for item in topics
+            if str(
+                PublishGate.normalize_existing_row(
+                    publish_rows.get(str(item.get("slug") or "")) or {}
+                ).get("normalized_status")
+                or ""
+            )
+            in published_states
+        )
+        remaining_publish_slots = max(0, daily_publish_limit - already_published_count)
         ready_items = []
         for item in topics:
             publish_row = publish_rows.get(str(item.get("slug") or "")) or {}
@@ -1055,8 +2227,17 @@ class DailyEditorialWorkflow:
             if self._candidate_diagnostic(batch_date=batch_date, item=item, publish_row=publish_row)["selected_for_publish"]:
                 ready_items.append(item)
         carry_forward_items: list[dict[str, Any]] = []
-        selected_items = ready_items
+        selected_items = ready_items[:remaining_publish_slots]
+        deferred_ready_slugs = {
+            str(item.get("slug") or "")
+            for item in ready_items[remaining_publish_slots:]
+        }
         if not selected_items:
+            if ready_items and remaining_publish_slots == 0:
+                raise ValueError(
+                    f"No articles are ready for publish in batch {batch_date}. "
+                    f"Daily website publish limit reached ({already_published_count}/{daily_publish_limit})."
+                )
             blocked_items = [
                 item
                 for item in topics
@@ -1069,6 +2250,7 @@ class DailyEditorialWorkflow:
             raise ValueError(f"No articles are ready for publish in batch {batch_date}.")
 
         published_candidates: list[dict[str, Any]] = []
+        approved_source_bindings: dict[str, dict[str, str]] = {}
         skipped: list[dict[str, Any]] = []
         selected_slugs = {str(item.get("slug") or "") for item in selected_items}
         for item in topics:
@@ -1078,13 +2260,17 @@ class DailyEditorialWorkflow:
             publish_row = publish_rows.get(slug) or {}
             normalized = PublishGate.normalize_existing_row(publish_row)
             publish_status = str(normalized.get("normalized_status") or publish_row.get("status") or "missing")
-            skipped.append(
-                {
-                    "slug": slug,
-                    "status": publish_status,
-                    "failures": list(publish_row.get("failures") or []),
-                }
-            )
+            skipped_item = {
+                "slug": slug,
+                "status": publish_status,
+                "failures": list(publish_row.get("failures") or []),
+            }
+            if slug in deferred_ready_slugs:
+                skipped_item["reason"] = (
+                    f"daily website publish limit reached ({daily_publish_limit}); "
+                    "article remains ready for a later batch"
+                )
+            skipped.append(skipped_item)
         total_topics = len(selected_items)
         for index, item in enumerate(selected_items, start=1):
             slug = str(item.get("slug") or "")
@@ -1102,7 +2288,21 @@ class DailyEditorialWorkflow:
                     }
                 )
                 continue
-            prepared = self.prepare_article_output(batch_date=batch_date, slug=slug)
+            binding = self._production_draft_approval_binding(slug)
+            if binding["binding_status"] != "MATCHED":
+                raise RuntimeError(
+                    "PRODUCTION_DRAFT_APPROVAL_BINDING_BLOCKED: "
+                    f"slug={slug}; binding_status={binding['binding_status']}"
+                )
+            approved_source_bindings[slug] = {
+                "revision_id": binding["current_revision_id"],
+                "content_hash": binding["current_content_hash"],
+            }
+            prepared = self.prepare_article_output(
+                batch_date=batch_date,
+                slug=slug,
+                expected_binding=approved_source_bindings[slug],
+            )
             paths = self._article_bundle_paths(slug)
             published_candidates.append({"slug": slug, "site_file": str(paths["site_output"]), "article_file": str(paths["published_static"]), "url": prepared["url"]})
 
@@ -1114,12 +2314,293 @@ class DailyEditorialWorkflow:
             published=published_candidates,
             commit_message=f"Publish ready daily articles {batch_date}",
             validation_mode=validation_mode,
+            expected_source_bindings=approved_source_bindings,
         )
         payload["skipped"] = skipped + list(payload.get("skipped") or [])
         payload["skipped_count"] = len(payload["skipped"])
         payload["carry_forward_count"] = len(carry_forward_items)
         payload["asset_preparation"] = asset_preparation
+        payload["daily_publish_limit"] = daily_publish_limit
+        payload["already_published_count"] = already_published_count
+        payload["remaining_publish_slots_before_run"] = remaining_publish_slots
+        payload["deferred_ready_count"] = len(deferred_ready_slugs)
         return payload
+
+    def exact_slug_preflight(self, *, slug: str, validation_mode: str = "smart") -> dict[str, Any]:
+        """Read-only preflight for one explicitly requested production draft."""
+        requested_slug = str(slug or "").strip()
+        blockers: list[str] = []
+        warnings: list[str] = []
+        if not requested_slug or requested_slug != slugify(requested_slug):
+            blockers.append("invalid or empty slug")
+
+        batch_date, topic = self._find_batch_topic_for_slug(requested_slug)
+        publish_rows = {
+            str(row.get("slug") or ""): row
+            for row in _read_json(self.data_dir / "publish_queue.json", [])
+        }
+        human_rows = {
+            str(row.get("slug") or ""): row
+            for row in _read_json(self.data_dir / "human_approval_queue.json", [])
+        }
+        publish_row = publish_rows.get(requested_slug) or {}
+        approval = human_rows.get(requested_slug) or {}
+        paths = self._article_bundle_paths(requested_slug)
+        draft = paths["draft_html"]
+        binding = self._production_draft_approval_binding(requested_slug)
+
+        if not draft.is_file():
+            blockers.append("production draft is missing")
+        if not publish_row:
+            blockers.append("publish queue record is missing")
+
+        approved_by = str(approval.get("approved_by") or approval.get("approver") or "").strip()
+        if str(approval.get("status") or "") != "human_approved":
+            blockers.append("current human approval is missing")
+        if not approved_by or approved_by.casefold() in {"system", "system_optional", "auto", "automation"}:
+            blockers.append("approved_by is not a valid human operator")
+
+        approved_revision = str(approval.get("approved_revision_id") or approval.get("revision_id") or "")
+        approved_hash = str(approval.get("approved_content_hash") or approval.get("content_hash") or "").upper()
+        if approved_revision != binding["current_revision_id"]:
+            blockers.append("target revision mismatch")
+        if approved_hash != binding["current_content_hash"].upper():
+            blockers.append("target content hash mismatch")
+        queued_revision = str(publish_row.get("current_revision_id") or "")
+        queued_hash = str(publish_row.get("current_content_hash") or "").upper()
+        if queued_revision and queued_revision != binding["current_revision_id"]:
+            blockers.append("publish queue revision mismatch")
+        if queued_hash and queued_hash != binding["current_content_hash"].upper():
+            blockers.append("publish queue content hash mismatch")
+
+        html_text = draft.read_text(encoding="utf-8", errors="ignore") if draft.is_file() else ""
+        canonical = resolve_article_operational_state(
+            slug=requested_slug,
+            html_text=html_text,
+            review=next(
+                (row for row in _read_json(self.data_dir / "content_review_queue.json", []) if str(row.get("slug") or "") == requested_slug),
+                {},
+            ),
+            approval=approval,
+            publish=publish_row,
+            structure_errors=[],
+        )
+        blockers.extend(
+            f"CANONICAL_STATE: {row['code']}: {row['reason']}"
+            for row in canonical["blockers"]
+        )
+        if canonical["state"] != "READY_FOR_PUBLISH":
+            blockers.append(f"CANONICAL_STATE is {canonical['state_label']}")
+        hygiene_violations = validate_public_output_files(
+            task_id=str(topic.get("task_id") or ""),
+            slug=requested_slug,
+            files={f"public/{requested_slug}/index.html": (html_text, "html")},
+        ) if draft.is_file() else [{"message": "production draft missing"}]
+        hygiene_errors = [
+            str(item.get("message") or item.get("reason") or item)
+            for item in hygiene_violations
+        ]
+        blockers.extend(f"PUBLIC_CONTENT_HYGIENE: {error}" for error in hygiene_errors)
+        canonical_match = re.search(
+            r"<link\b[^>]*\brel=['\"]canonical['\"][^>]*\bhref=['\"]([^'\"]+)['\"]",
+            html_text,
+            flags=re.IGNORECASE,
+        )
+        expected_url = normalize_public_url(
+            str(publish_row.get("url") or f"{settings.base_site_url.rstrip('/')}/{requested_slug}/")
+        )
+        canonical_url = normalize_public_url(canonical_match.group(1)) if canonical_match else ""
+        canonical_pass = bool(canonical_url and canonical_url == expected_url)
+        if not canonical_pass:
+            blockers.append("canonical is missing or does not match the exact slug URL")
+        robots_pass = not bool(re.search(r"<meta\b[^>]*\bname=['\"]robots['\"][^>]*\bcontent=['\"][^'\"]*noindex", html_text, flags=re.IGNORECASE))
+        if not robots_pass:
+            blockers.append("robots/indexability blocks indexing")
+
+        schema_blocks = re.findall(r"<script\s+type=(['\"])application/ld\+json\1>(.*?)</script>", html_text, flags=re.IGNORECASE | re.DOTALL)
+        structured_data_pass = bool(schema_blocks)
+        for _quote, payload_text in schema_blocks:
+            try:
+                json.loads(payload_text.strip())
+            except json.JSONDecodeError:
+                structured_data_pass = False
+                break
+        if not structured_data_pass:
+            blockers.append("structured data is missing or invalid")
+
+        # Production content has used both the legacy ``disclosure`` class and
+        # the newer ``disclosure-card`` class. They represent the same semantic
+        # block, so accept either token without changing approved article bytes.
+        disclosure_count = len(re.findall(
+            r"<[^>]+\bclass=['\"][^'\"]*\b(?:disclosure-card|disclosure)\b[^'\"]*['\"][^>]*>",
+            html_text,
+            flags=re.IGNORECASE,
+        ))
+        if disclosure_count != 1:
+            blockers.append(f"affiliate disclosure count is {disclosure_count}; expected 1")
+
+        seo_geo = publish_row.get("seo_geo_validation") if isinstance(publish_row.get("seo_geo_validation"), dict) else {}
+        seo_geo_status = str(publish_row.get("seo_geo_validation_status") or seo_geo.get("final_result") or "").upper()
+        seo_geo_blocking_reasons = list(seo_geo.get("blocking_reasons") or [])
+        if seo_geo_status == "WARNING" and not seo_geo_blocking_reasons:
+            warnings.append("SEO/GEO is WARNING: " + "; ".join(seo_geo.get("warnings") or ["review advisory findings"]))
+        elif seo_geo_status != "PASS":
+            blockers.append(f"SEO/GEO is {seo_geo_status or 'NOT_RUN'}")
+        source_validation_pass = bool(publish_row.get("research_quality_passed", True)) and not any(
+            token in str(reason).casefold()
+            for reason in list(publish_row.get("hard_blockers") or [])
+            for token in ("source", "research", "entity")
+        )
+        if not source_validation_pass:
+            blockers.append("source validation failed")
+
+        target_assets = self._target_required_assets(html_text)
+        missing_assets = [asset for asset in target_assets if not self._shared_asset_exists(asset)]
+        if missing_assets:
+            blockers.append(f"missing shared assets required by target: {', '.join(missing_assets[:5])}")
+
+        shared_preflight = self._exact_slug_shared_preflight()
+        if str(shared_preflight.get("status") or "") != "PASS":
+            blockers.append(f"shared Git/deployment preflight failed: {shared_preflight.get('reason') or 'unknown'}")
+        unrelated = self._unrelated_health_warnings(requested_slug)
+        warnings.extend(f"UNRELATED_HEALTH_WARNING: {item}" for item in unrelated)
+
+        return {
+            "slug": requested_slug,
+            "batch_date": batch_date,
+            "dry_run": True,
+            "status": "ready" if not blockers else "blocked",
+            "exact_slug_ready_for_publish": not blockers,
+            "production_draft": str(draft),
+            "approved_by": approved_by,
+            "approved_revision_id": approved_revision,
+            "approved_content_hash": approved_hash,
+            "current_revision_id": binding["current_revision_id"],
+            "current_content_hash": binding["current_content_hash"].upper(),
+            "approval_binding_status": binding["binding_status"],
+            "publish_gate": canonical["state_label"],
+            "canonical_state": canonical,
+            "public_content_hygiene": "PASS" if not hygiene_errors else "BLOCKED",
+            "seo_geo": seo_geo_status or "NOT_RUN",
+            "structured_data": "PASS" if structured_data_pass else "BLOCKED",
+            "canonical": "PASS" if canonical_pass else "BLOCKED",
+            "robots_indexability": "PASS" if robots_pass else "BLOCKED",
+            "source_validation": "PASS" if source_validation_pass else "BLOCKED",
+            "affiliate_disclosure_count": disclosure_count,
+            "shared_preflight": shared_preflight,
+            "unrelated_health_warnings": unrelated,
+            "blockers": blockers,
+            "warnings": warnings,
+            "topic_found": bool(topic),
+            "auto_publish": False,
+            "paid_api_used": False,
+            "phase_2_started": False,
+        }
+
+    def publish_exact_slug(self, *, slug: str, validation_mode: str = "smart") -> dict[str, Any]:
+        """Publish only one operator-specified slug after exact revision preflight."""
+        preflight = self.exact_slug_preflight(slug=slug, validation_mode=validation_mode)
+        if not preflight["exact_slug_ready_for_publish"]:
+            raise ValueError(
+                "EXACT_SLUG_PREFLIGHT_BLOCKED: " + "; ".join(preflight["blockers"])
+            )
+        batch_date = str(preflight.get("batch_date") or "")
+        if not batch_date:
+            raise ValueError(f"EXACT_SLUG_PREFLIGHT_BLOCKED: slug is not present in an editorial batch: {slug}")
+        recovery = GitPublishRecovery(
+            repo=self.root,
+            run_command=lambda command: self._run_command(command, cwd=self.root, check=False),
+            progress=self._report_progress,
+            allow_dirty_preflight_when_current=True,
+        )
+        shared = recovery.preflight_sync_before_publish().to_dict()
+        if str(shared.get("status") or "") not in {"preflight_in_sync", "preflight_ahead_only", "preflight_rebased"}:
+            raise RuntimeError(
+                "EXACT_SLUG_SHARED_PREFLIGHT_BLOCKED: "
+                f"status={shared.get('status')}; reason={shared.get('reason')}; "
+                f"child_output={self._publish_child_output(shared)}"
+            )
+        expected_binding = {
+            "revision_id": preflight["current_revision_id"],
+            "content_hash": preflight["current_content_hash"],
+        }
+        prepared = self.prepare_article_output(
+            batch_date=batch_date,
+            slug=slug,
+            expected_binding=expected_binding,
+            allow_live_refresh=True,
+        )
+        paths = self._article_bundle_paths(slug)
+        candidate = {
+            "slug": slug,
+            "site_file": str(paths["site_output"]),
+            "article_file": str(paths["published_static"]),
+            "url": prepared["url"],
+        }
+        result = self._finalize_production_publish(
+            batch_date=batch_date,
+            published=[candidate],
+            commit_message=f"Publish exact approved article {slug}",
+            validation_mode=validation_mode,
+            preflight_result=shared,
+            expected_source_bindings={slug: expected_binding},
+        )
+        result["exact_slug_preflight"] = preflight
+        result["exact_slug"] = slug
+        return result
+
+    @staticmethod
+    def _publish_child_output(payload: dict[str, Any]) -> str:
+        evidence: list[str] = []
+        for key in ("initial_push", "fetch", "rebase", "retry_push"):
+            result = payload.get(key)
+            if not isinstance(result, dict):
+                continue
+            stdout = str(result.get("stdout") or "").strip()
+            stderr = str(result.get("stderr") or "").strip()
+            if stdout:
+                evidence.append(f"{key}.stdout={stdout[-1000:]}")
+            if stderr:
+                evidence.append(f"{key}.stderr={stderr[-1000:]}")
+        return " | ".join(evidence) or "none"
+
+    def exact_slug_execution_state(self, slug: str) -> dict[str, Any]:
+        """Read factual local/Git state for an exact-slug outcome screen."""
+        artifacts: dict[str, Any] = {}
+        for key, path in self._article_bundle_paths(slug).items():
+            if key not in {"draft_html", "published_static", "site_output", "docs"}:
+                continue
+            artifacts[key] = {
+                "path": str(path),
+                "exists": path.is_file(),
+                "revision_id": "",
+                "content_hash": "",
+            }
+            if path.is_file():
+                binding = binding_for_file(path)
+                artifacts[key].update(
+                    revision_id=str(binding.get("revision_id") or ""),
+                    content_hash=str(binding.get("content_hash") or ""),
+                )
+        publish_row = next(
+            (
+                row
+                for row in _read_json(self.data_dir / "publish_queue.json", [])
+                if str(row.get("slug") or "") == slug
+            ),
+            {},
+        )
+        head = self._run_command(["git", "rev-parse", "HEAD"], cwd=self.root, check=False)
+        origin = self._run_command(["git", "rev-parse", "origin/main"], cwd=self.root, check=False)
+        return {
+            "slug": slug,
+            "artifacts": artifacts,
+            "publish_status": str(publish_row.get("status") or "missing"),
+            "deployment_state": str(publish_row.get("deployment_state") or publish_row.get("deployment_status") or "unknown"),
+            "git_head": str(head.get("stdout") or "").strip() if head.get("returncode") == 0 else "",
+            "origin_main": str(origin.get("stdout") or "").strip() if origin.get("returncode") == 0 else "",
+            "git_push_status": str(publish_row.get("git_push_status") or ""),
+        }
 
     def prepare_required_images_for_publish(self, *, batch_date: str, dry_run: bool = False) -> dict[str, Any]:
         payload = self._load_queue(batch_date)
@@ -1133,39 +2614,54 @@ class DailyEditorialWorkflow:
         generated = 0
         skipped = 0
         failed = 0
+        revalidated = 0
         items: list[dict[str, Any]] = []
         for item in payload.get("topics", []):
             slug = str(item.get("slug") or "")
             if not slug:
                 continue
             publish_row = publish_rows.get(slug, {})
-            normalized = PublishGate.normalize_existing_row(publish_row)
-            if (
-                str(normalized.get("normalized_status") or publish_row.get("status") or "") != "approved_for_publish"
-                or normalized.get("final_gate") != "Ready for Publish"
-                or list(normalized.get("hard_blockers") or [])
-                or str((human_rows.get(slug) or {}).get("status") or "") != "human_approved"
-            ):
+            if str((human_rows.get(slug) or {}).get("status") or "") != "human_approved":
                 continue
             diagnostic = self._candidate_diagnostic(batch_date=batch_date, item=item, publish_row=publish_row)
             if diagnostic["published_local"] or diagnostic["live_http_status"] == 200:
                 continue
+            if not self._article_bundle_paths(slug)["draft_html"].exists():
+                continue
             inspected += 1
             if diagnostic["image_exists"]:
                 skipped += 1
-                items.append({"slug": slug, "status": "already_has_image"})
-                continue
-            missing += 1
-            try:
-                result = self._ensure_required_article_image(slug=slug, title=str(item.get("topic") or item.get("title") or slug), dry_run=dry_run)
-                if result["status"] == "generated":
-                    generated += 1
-                else:
-                    skipped += 1
-                items.append(result)
-            except Exception as exc:
-                failed += 1
-                items.append({"slug": slug, "status": "failed", "error": str(exc)})
+                result = {"slug": slug, "status": "already_has_image"}
+            else:
+                missing += 1
+                try:
+                    result = self._ensure_required_article_image(
+                        slug=slug,
+                        title=str(item.get("topic") or item.get("title") or slug),
+                        dry_run=dry_run,
+                    )
+                    if result["status"] == "generated":
+                        generated += 1
+                    else:
+                        skipped += 1
+                except Exception as exc:
+                    failed += 1
+                    items.append({"slug": slug, "status": "failed", "error": str(exc)})
+                    continue
+            if not dry_run:
+                try:
+                    refreshed = self._refresh_publish_gate_from_current_draft(
+                        batch_date=batch_date,
+                        item=item,
+                    )
+                    if refreshed is not None:
+                        revalidated += 1
+                        result["publish_gate"] = refreshed.get("final_gate") or refreshed.get("status")
+                        result["hard_blockers"] = list(refreshed.get("hard_blockers") or [])
+                except Exception as exc:
+                    failed += 1
+                    result["revalidation_error"] = str(exc)
+            items.append(result)
         return {
             "date": batch_date,
             "dry_run": dry_run,
@@ -1174,8 +2670,325 @@ class DailyEditorialWorkflow:
             "generated": generated,
             "skipped": skipped,
             "failed": failed,
+            "revalidated": revalidated,
             "items": items,
         }
+
+    def _refresh_publish_gate_from_current_draft(
+        self,
+        *,
+        batch_date: str,
+        item: dict[str, Any],
+    ) -> dict[str, Any] | None:
+        from modules.codex_writer_workflow import CodexDailyArticleWriter
+        from modules.research_intelligence import ResearchPackage
+
+        slug = str(item.get("slug") or "")
+        paths = self._article_bundle_paths(slug)
+        package_payload = _read_json(self.data_dir / "research" / slug / "package.json", {})
+        if not package_payload or not paths["draft_html"].exists():
+            return None
+        package = ResearchPackage(**package_payload)
+        writer = CodexDailyArticleWriter(
+            root=self.root,
+            data_dir=self.data_dir,
+            site_output_dir=self.site_output_dir,
+        )
+        topic = writer._build_topic(item, package, depth="deep")
+        metadata = _read_json(paths["metadata"], {})
+        review_rows = {
+            str(row.get("slug") or ""): row
+            for row in _read_json(self.data_dir / "content_review_queue.json", [])
+        }
+        human_rows = {
+            str(row.get("slug") or ""): row
+            for row in _read_json(self.data_dir / "human_approval_queue.json", [])
+        }
+        review = self._resolve_authoritative_review(
+            batch_date=batch_date,
+            slug=slug,
+            review=review_rows.get(slug) or metadata.get("review") or {},
+            draft_dir=paths["draft_html"].parent,
+        )
+        human = human_rows.get(slug) or metadata.get("human_approval") or {}
+        html_text = paths["draft_html"].read_text(encoding="utf-8")
+        title = str(metadata.get("title") or item.get("article_title") or item.get("topic") or slug)
+        description = str(metadata.get("description") or metadata.get("meta_description") or "")
+        url = str(
+            metadata.get("url")
+            or metadata.get("canonical_url")
+            or f"{settings.base_site_url.rstrip('/')}/{slug}/"
+        )
+        gate = self.console.publish_gate.evaluate(
+            topic=topic,
+            title=title,
+            description=description,
+            url=url,
+            html=html_text,
+            research=topic.get("research") or {},
+            review=review,
+            human_approval=human,
+            internal_links=[],
+        )
+        # PublishGate and the final Menu 8 validator must judge the same
+        # approved source-of-bytes.  Previously structural defects (CTA,
+        # footer, schema, canonical article shell, etc.) were discovered only
+        # after the dashboard had already displayed Ready for Publish.  Fold
+        # the read-only production-draft validation into the gate refresh so
+        # an approval never produces a contradictory ready state.
+        structural_errors = self._validate_single_html_file(
+            paths["draft_html"],
+            scope="production draft",
+        )
+        if structural_errors:
+            hard_blockers = list(gate.get("hard_blockers") or [])
+            for error in structural_errors:
+                reason = f"PRE_PUBLISH_STRUCTURE: {error}"
+                if reason not in hard_blockers:
+                    hard_blockers.append(reason)
+            gate["hard_blockers"] = hard_blockers
+            gate["failures"] = list(hard_blockers)
+            gate["status"] = "blocked"
+            gate["final_gate"] = "Publish Blocked"
+            gate["publish_ready"] = False
+            severity_counts = dict(gate.get("severity_counts") or {})
+            severity_counts["BLOCK"] = len(hard_blockers)
+            gate["severity_counts"] = severity_counts
+            self.console.publish_gate._record(gate)
+        self.console._update_draft_artifacts(
+            slug,
+            review=review,
+            human_approval=human,
+            publish_gate=gate,
+        )
+        self._update_batch_status_if_present(
+            batch_date=batch_date,
+            slug=slug,
+            extra={"publish_gate_status": str(gate.get("status") or "")},
+        )
+        return gate
+
+    def _review_current_production_revision(
+        self,
+        *,
+        batch_date: str,
+        item: dict[str, Any],
+    ) -> dict[str, Any]:
+        """Run the normal quality engine against the exact current HTML bytes."""
+        from modules.codex_writer_workflow import CodexDailyArticleWriter
+        from modules.content_review import ContentReviewEngine
+        from modules.human_approval import HumanApprovalWorkflow
+        from modules.research_intelligence import ResearchPackage
+
+        slug = str(item.get("slug") or "")
+        paths = self._article_bundle_paths(slug)
+        package_payload = _read_json(self.data_dir / "research" / slug / "package.json", {})
+        if not package_payload or not paths["draft_html"].is_file():
+            raise ValueError(
+                f"QUALITY_REVIEW_REFRESH_UNAVAILABLE: current draft or research package is missing for {slug}"
+            )
+        package = ResearchPackage(**package_payload)
+        writer = CodexDailyArticleWriter(
+            root=self.root,
+            data_dir=self.data_dir,
+            site_output_dir=self.site_output_dir,
+        )
+        topic = writer._build_topic(item, package, depth="deep")
+        metadata = _read_json(paths["metadata"], {})
+        html_text = paths["draft_html"].read_text(encoding="utf-8")
+        title = str(metadata.get("title") or item.get("article_title") or item.get("topic") or slug)
+        description = str(metadata.get("description") or metadata.get("meta_description") or "")
+        url = str(
+            metadata.get("url")
+            or metadata.get("canonical_url")
+            or f"{settings.base_site_url.rstrip('/')}/{slug}/"
+        )
+        internal_links = [
+            (href, href)
+            for href in re.findall(
+                r"<a\b[^>]*href=['\"]([^'\"]+)['\"]",
+                html_text,
+                flags=re.IGNORECASE,
+            )
+            if href.startswith("/") and not href.startswith("//")
+        ]
+        review = ContentReviewEngine(
+            data_dir=self.data_dir,
+            config=self.editorial_config.get("content_review", {}),
+        ).review_content(
+            topic=topic,
+            html=html_text,
+            title=title,
+            description=description,
+            url=url,
+            internal_links=internal_links,
+            warnings=[],
+            research=topic.get("research") or {},
+            planning=topic.get("planning") or {},
+        )
+        human = HumanApprovalWorkflow(
+            data_dir=self.data_dir,
+            config=self.editorial_config.get("human_approval", {}),
+        ).sync_review(review)
+        gate = self.console.publish_gate.evaluate(
+            topic=topic,
+            title=title,
+            description=description,
+            url=url,
+            html=html_text,
+            research=topic.get("research") or {},
+            review=review,
+            human_approval=human,
+            internal_links=internal_links,
+        )
+        self.console._update_draft_artifacts(
+            slug,
+            review=review,
+            human_approval=human,
+            publish_gate=gate,
+        )
+        return review
+
+    def _resolve_authoritative_review(
+        self,
+        *,
+        batch_date: str,
+        slug: str,
+        review: dict[str, Any],
+        draft_dir: Path,
+    ) -> dict[str, Any]:
+        resolved = dict(review) if isinstance(review, dict) else {}
+        reviewed_revision = str(resolved.get("reviewed_revision_id") or "")
+        reviewed_hash = str(resolved.get("reviewed_content_hash") or "").casefold()
+        if draft_dir.joinpath("index.html").is_file() and reviewed_revision and reviewed_hash:
+            current = binding_for_file(draft_dir / "index.html")
+            if (
+                reviewed_revision == current["revision_id"]
+                and reviewed_hash == current["content_hash"].casefold()
+            ):
+                quality_state = str(
+                    resolved.get("quality_review_state") or resolved.get("review_state") or ""
+                ).upper()
+                quality_status = str(
+                    resolved.get("quality_review_status") or resolved.get("status") or ""
+                ).lower()
+                resolved["ai_review_passed"] = bool(
+                    quality_state != "BLOCKED"
+                    and quality_status not in {"needs_revision", "rejected", "error", "review_error", "not_run"}
+                    and bool(resolved.get("publishable", False))
+                    and not list(resolved.get("hard_blockers") or [])
+                )
+                resolved["ai_review_source"] = "revision_bound_content_review_queue"
+                return resolved
+        external_report = _read_json(draft_dir / "external_writer_report.json", {})
+        writer = external_report.get("writer") if isinstance(external_report.get("writer"), dict) else {}
+        package_id = str(writer.get("package_id") or "")
+        task_id = str(writer.get("task_id") or "")
+        if not package_id or not task_id:
+            return resolved
+
+        history_path = (
+            self.data_dir
+            / "import_history"
+            / "external_writer"
+            / batch_date
+            / package_id
+            / "import.json"
+        )
+        history = _read_json(history_path, {})
+        imported = history.get("imported") if isinstance(history.get("imported"), list) else []
+        rejected = history.get("rejected") if isinstance(history.get("rejected"), list) else []
+        exact_match = next(
+            (
+                row
+                for row in imported
+                if isinstance(row, dict)
+                and str(row.get("slug") or "") == slug
+                and str(row.get("task_id") or "") == task_id
+            ),
+            None,
+        )
+        imported_exact = bool(
+            str(history.get("status") or "") == "IMPORTED" and exact_match
+        )
+        # A website draft can be registered and synchronously reviewed before a
+        # later, unrelated post-import action (for example dashboard refresh)
+        # fails the package lifecycle.  In that narrow case the draft metadata
+        # is the durable review receipt.  Recover it only when the writer
+        # identity is exact and the failed lifecycle did not reject this task.
+        # This keeps mismatched or genuinely rejected imports fail-closed.
+        draft_metadata = _read_json(draft_dir / "metadata.json", {})
+        metadata_writer = (
+            draft_metadata.get("writer")
+            if isinstance(draft_metadata.get("writer"), dict)
+            else {}
+        )
+        metadata_review = (
+            draft_metadata.get("review")
+            if isinstance(draft_metadata.get("review"), dict)
+            else {}
+        )
+        writer_identity_matches = bool(
+            str(metadata_writer.get("package_id") or "") == package_id
+            and str(metadata_writer.get("task_id") or "") == task_id
+        )
+        current_task_rejected = any(
+            isinstance(row, dict)
+            and (
+                str(row.get("task_id") or "") == task_id
+                or str(row.get("slug") or "") == slug
+            )
+            for row in rejected
+        )
+        metadata_review_passed = bool(
+            str(metadata_review.get("status") or "")
+            in {"ai_review_passed", "needs_human_review", "human_approved", "not_run"}
+            and str(metadata_review.get("review_state") or "").upper() == "PASS"
+            and bool(metadata_review.get("publishable", True))
+            and not list(metadata_review.get("hard_blockers") or [])
+        )
+        resolved_review_passed = bool(
+            str(resolved.get("status") or "")
+            in {"ai_review_passed", "needs_human_review", "human_approved", "not_run"}
+            and str(resolved.get("review_state") or "PASS").upper() == "PASS"
+            and bool(resolved.get("publishable", True))
+            and not list(resolved.get("hard_blockers") or [])
+        )
+        recovered_registered_review = bool(
+            str(history.get("status") or "") == "FAILED_IMPORT"
+            and not exact_match
+            and writer_identity_matches
+            and not current_task_rejected
+            and metadata_review_passed
+            and resolved_review_passed
+        )
+        recorded_pass = exact_match.get("ai_review_passed") if exact_match else None
+        if isinstance(recorded_pass, bool):
+            # New imports record an explicit result for every website lane.
+            # An explicit False remains fail-closed (notably an isolated
+            # WEBSITE_ADVANCED draft that did not pass review).
+            passed = bool((imported_exact and recorded_pass) or recovered_registered_review)
+        else:
+            # Backward compatibility for WEBSITE_FOUNDATION imports produced
+            # before ai_review_passed was recorded.  The exact package/task/
+            # slug match is still mandatory; only then may the persisted,
+            # synchronous content-review result establish the outcome.
+            passed = bool(
+                imported_exact
+                and str(resolved.get("status") or "")
+                in {"ai_review_passed", "needs_human_review", "human_approved"}
+                and bool(resolved.get("publishable", True))
+                and not list(resolved.get("hard_blockers") or [])
+            ) or recovered_registered_review
+        resolved["ai_review_passed"] = passed
+        resolved["ai_review_source"] = str(history_path)
+        resolved["package_id"] = package_id
+        resolved["task_id"] = task_id
+        resolved["batch_date"] = batch_date
+        resolved["ai_review_recovered_from_registered_draft"] = recovered_registered_review
+        if not passed:
+            resolved["status"] = "not_run"
+        return resolved
 
     def _required_image_src(self, slug: str) -> str:
         return f"/assets/og/pages/{slug}.svg"
@@ -1257,7 +3070,7 @@ class DailyEditorialWorkflow:
                 rel = src.lstrip("/")
                 if (self.site_output_dir / rel).exists() or (self.root / "docs" / rel).exists() or (self.root / rel).exists():
                     return True
-                return True
+                return False
             return True
         return False
 
@@ -1316,19 +3129,50 @@ class DailyEditorialWorkflow:
         dashboard = self.build_review_dashboard(batch_date=batch_date)
         return {**report, "dashboard": dashboard}
 
-    def prepare_article_output(self, *, batch_date: str, slug: str) -> dict[str, Any]:
-        candidate = self._selected_publish_candidate(batch_date=batch_date, slug=slug)
+    def prepare_article_output(
+        self,
+        *,
+        batch_date: str,
+        slug: str,
+        expected_binding: dict[str, str] | None = None,
+        allow_live_refresh: bool = False,
+    ) -> dict[str, Any]:
         paths = self._article_bundle_paths(slug)
         source = paths["draft_html"]
         if not source.exists():
             raise FileNotFoundError(f"Missing draft HTML for {slug}: {source}")
         html_text = source.read_text(encoding="utf-8")
+        if expected_binding:
+            actual_binding = binding_for_content(html_text)
+            if (
+                str(actual_binding.get("revision_id") or "") != str(expected_binding.get("revision_id") or "")
+                or str(actual_binding.get("content_hash") or "").casefold()
+                != str(expected_binding.get("content_hash") or "").casefold()
+            ):
+                raise RuntimeError(
+                    "PRODUCTION_DRAFT_APPROVAL_BINDING_BLOCKED: "
+                    f"slug={slug}; failed_stage=source_bytes_before_copy; "
+                    f"actual_revision_id={actual_binding.get('revision_id')}; "
+                    f"actual_content_hash={actual_binding.get('content_hash')}; "
+                    f"approved_revision_id={expected_binding.get('revision_id')}; "
+                    f"approved_content_hash={expected_binding.get('content_hash')}"
+                )
+        candidate = self._selected_publish_candidate(
+            batch_date=batch_date,
+            slug=slug,
+            allow_live_refresh=allow_live_refresh,
+        )
         generated: list[str] = []
         for key in ("published_static", "site_output", "docs"):
             target = paths[key]
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(html_text, encoding="utf-8")
             generated.append(str(target))
+            source_assets = source.parent / "assets"
+            if source_assets.is_dir():
+                target_assets = target.parent / "assets"
+                self._copy_tree_contents(source_assets, target_assets)
+                generated.extend(str(path) for path in target_assets.rglob("*") if path.is_file())
         upload_target = self.upload_root / batch_date / "published" / slug / "index.html"
         self._copy_file(paths["site_output"], upload_target)
         generated.append(str(upload_target))
@@ -1395,37 +3239,258 @@ class DailyEditorialWorkflow:
         candidates = [self._candidate_diagnostic(batch_date=batch_date, item=item, publish_row=publish_rows.get(str(item.get("slug") or ""), {})) for item in payload.get("topics", [])]
         return {"date": batch_date, "candidate_count": len(candidates), "selected_count": sum(bool(row["selected_for_publish"]) for row in candidates), "candidates": candidates}
 
-    def _candidate_diagnostic(self, *, batch_date: str, item: dict[str, Any], publish_row: dict[str, Any]) -> dict[str, Any]:
+    def daily_workflow_doctor(self, *, batch_date: str = "latest", slug: str = "") -> dict[str, Any]:
+        """Return a compact, read-only website + social handoff diagnostic."""
+        requested = str(batch_date or "latest")
+        if requested.lower() == "latest":
+            # Doctor describes the latest operational day. Menu 8 keeps its
+            # separate activity-based resolver for intentionally carried
+            # forward approved/blocked work.
+            resolved = str(self.latest_queue_date() or date.today().isoformat())
+        else:
+            resolved = requested
+        diagnostic = self.diagnose_batch(batch_date=resolved)
+        website_items: list[dict[str, Any]] = []
+        for item in list(diagnostic.get("candidates") or []):
+            if slug and str(item.get("slug") or "") != slug:
+                continue
+            canonical = item.get("canonical_state") if isinstance(item.get("canonical_state"), dict) else {}
+            website_items.append(
+                {
+                    "slug": str(item.get("slug") or ""),
+                    "state": str(canonical.get("state") or "UNKNOWN"),
+                    "quality_review": str(canonical.get("quality_review") or "MISSING"),
+                    "human_approval_binding": str(canonical.get("human_approval_binding") or "MISSING"),
+                    "publish_gate_binding": str(canonical.get("publish_gate_binding") or "MISSING"),
+                    "cta": str(canonical.get("cta_validation") or "FAIL"),
+                    "image": "PASS" if item.get("image_exists") else "MISSING",
+                    "blockers": [str(row.get("code") or "") for row in list(canonical.get("blockers") or []) if isinstance(row, dict)],
+                    "ready_for_publish": bool(canonical.get("publish_eligible")),
+                }
+            )
+
+        from modules.social.draft_workflow import SocialDraftWorkflow
+
+        social = SocialDraftWorkflow(root=self.root)
+        social_batch = social.resolve_latest_live_batch("latest")
+        live_articles = social.live_articles(social_batch)
+        review_batch = social.resolve_latest_social_batch("latest")
+        manifest = _read_json(self.data_dir / "social_drafts" / review_batch / "manifest.json", {})
+        manifest_items = [row for row in list(manifest.get("items") or []) if isinstance(row, dict)]
+        status_counts: dict[str, int] = {}
+        platform_records = 0
+        unsupported_new_claims = 0
+        source_bound_records = 0
+        batch_root = self.data_dir / "social_drafts" / review_batch
+        for manifest_item in manifest_items:
+            item_slug = str(manifest_item.get("slug") or "")
+            item_root = batch_root / item_slug
+            if not item_root.is_dir():
+                continue
+            for metadata_path in item_root.glob("*/metadata.json"):
+                metadata = _read_json(metadata_path, {})
+                selected_variant = str(metadata.get("selected_variant") or "A.md")
+                if selected_variant not in {"A.md", "B.md", "C.md"}:
+                    selected_variant = "A.md"
+                if not (metadata_path.parent / selected_variant).is_file():
+                    continue
+                if str(metadata.get("social_mode") or "") == "SOURCE_BASED_SOCIAL" and all(
+                    str(metadata.get(key) or "").strip()
+                    for key in ("root_topic_id", "source_article_slug", "source_revision_id", "source_content_hash")
+                ):
+                    source_bound_records += 1
+                unsupported_new_claims += len(list(metadata.get("new_claims") or []))
+                status = str(metadata.get("status") or "missing")
+                status_counts[status] = status_counts.get(status, 0) + 1
+                platform_records += 1
+        return {
+            "schema_version": "daily_workflow_doctor_v1",
+            "read_only": True,
+            "website_batch": resolved,
+            "website_items": website_items,
+            "website_ready_count": sum(1 for row in website_items if row["ready_for_publish"]),
+            "website_blocked_count": sum(1 for row in website_items if row["blockers"]),
+            "social_live_batch": social_batch,
+            "social_live_candidates": len(live_articles),
+            "social_review_batch": review_batch,
+            "social_selected_articles": len(manifest_items),
+            "social_mode": str(manifest.get("social_mode") or manifest.get("content_origin") or "UNKNOWN"),
+            "social_week_start": str(manifest.get("social_week_start") or ""),
+            "social_root_topics": list(manifest.get("weekly_root_slugs") or []),
+            "social_platform_records": platform_records,
+            "social_source_bound_records": source_bound_records,
+            "social_unsupported_new_claims": unsupported_new_claims,
+            "unrelated_historical_tasks_loaded": int(manifest.get("unrelated_historical_tasks_loaded") or 0),
+            "social_status_counts": status_counts,
+            "recommended_commands": {
+                "website_review": f"python editorial_console.py serve --date {resolved} --open --background --require-drafts",
+                "website_publish": f"python editorial_console.py publish-ready --date {resolved} --validation-mode smart",
+                "social_select_and_prepare": "python social_console.py prepare-drafts --date latest --count 2 --platforms all",
+                "social_review": "python social_console.py launch-review-dashboard --date latest --open",
+                "social_copy": "python social_console.py approved-for-copy --date latest",
+            },
+        }
+
+    def _candidate_diagnostic(
+        self,
+        *,
+        batch_date: str,
+        item: dict[str, Any],
+        publish_row: dict[str, Any],
+        allow_live_refresh: bool = False,
+    ) -> dict[str, Any]:
         slug = str(item.get("slug") or "")
         normalized = PublishGate.normalize_existing_row(publish_row)
-        status = str(normalized.get("normalized_status") or publish_row.get("status") or "unknown")
+        canonical = self._canonical_state_for_item(
+            item,
+            publish_row,
+            live_http_status=0 if allow_live_refresh else None,
+        )
+        status = str(publish_row.get("status") or "unknown")
+        display_gate = str(canonical["state_label"])
+        has_draft = self._has_draft_output(item)
         human_rows = {str(row.get("slug") or ""): row for row in _read_json(self.data_dir / "human_approval_queue.json", [])}
         human_approved = str((human_rows.get(slug) or {}).get("status") or "") == "human_approved"
         live_report = _read_json(self.data_dir / "live_status_report.json", {})
         live_row = next((row for row in live_report.get("items", []) if str(row.get("slug") or "") == slug), {})
         live_http = int(live_row.get("live_http_status") or 0)
         paths = self._article_bundle_paths(slug)
-        hard_blockers = list(normalized.get("hard_blockers") or [])
+        hard_blockers = [str(row["reason"]) for row in canonical["blockers"]]
         published_local = status in {"published_local", "published"} or bool(publish_row.get("published_local"))
-        selected = status == "approved_for_publish" and normalized.get("final_gate") == "Ready for Publish" and human_approved and not hard_blockers and not published_local and live_http != 200 and str(item.get("batch_date") or batch_date) == batch_date
+        source_binding = self._production_draft_approval_binding(slug)
+        selected = bool(canonical["publish_eligible"]) and human_approved and source_binding["binding_status"] == "MATCHED" and not published_local and (allow_live_refresh or live_http != 200) and str(item.get("batch_date") or batch_date) == batch_date
         reasons = []
-        if status != "approved_for_publish" or normalized.get("final_gate") != "Ready for Publish": reasons.append(f"final gate is {normalized.get('final_gate') or status}")
-        if not human_approved: reasons.append("human approval missing")
+        if not canonical["publish_eligible"]: reasons.append(f"canonical state is {display_gate}")
+        if has_draft and not human_approved: reasons.append("human approval missing")
         if hard_blockers: reasons.append("hard blockers present")
         if published_local: reasons.append("already published locally")
-        if live_http == 200: reasons.append("already Live 200")
-        source_path = paths["site_output"] if paths["site_output"].exists() else paths["draft_html"]
+        if live_http == 200 and not allow_live_refresh: reasons.append("already Live 200")
+        # An unpublished candidate is authorized and published from the
+        # production draft.  site_output may be a stale projection from an
+        # earlier revision, so using it for image readiness can falsely report
+        # a missing image and mutate the already approved source-of-bytes.
+        source_path = paths["draft_html"] if paths["draft_html"].exists() else paths["site_output"]
         html_text = source_path.read_text(encoding="utf-8", errors="ignore") if source_path.exists() else ""
         url = normalize_public_url(str(publish_row.get("url") or f"{settings.base_site_url.rstrip('/')}/{slug}/"))
         image_exists = self._html_has_local_image(html_text)
         schema_passes = "application/ld+json" in html_text
         canonical_passes = bool(re.search(r"<link\b[^>]*\brel=[\"']canonical[\"'][^>]*\bhref=[\"']https?://[^\"']+[\"']", html_text, flags=re.IGNORECASE))
-        if not image_exists: reasons.append("required image missing")
-        if not schema_passes: reasons.append("schema missing")
-        if not canonical_passes: reasons.append("canonical missing or mismatched")
+        if has_draft and not image_exists: reasons.append("required image missing")
+        if has_draft and not schema_passes: reasons.append("schema missing")
+        if has_draft and not canonical_passes: reasons.append("canonical missing or mismatched")
+        if not has_draft: reasons.append("draft not generated")
+        if has_draft and source_binding["binding_status"] != "MATCHED": reasons.append(f"approval binding {source_binding['binding_status']}")
         selected = selected and image_exists and schema_passes and canonical_passes
         sitemap_text = (self.site_output_dir / "sitemap.xml").read_text(encoding="utf-8", errors="ignore") if (self.site_output_dir / "sitemap.xml").exists() else ""
-        return {"slug": slug, "queue_source": str(self._queue_dir(batch_date) / "topics.json"), "editorial_status": self._editorial_status_for_item(item, publish_row), "publish_gate": normalized.get("final_gate") or status, "normalized_status": status, "deployment_status": self._deployment_status_for_item(item, publish_row), "published_local": published_local, "live_http_status": live_http or None, "hard_blockers": hard_blockers, "warnings": list(normalized.get("warnings") or []), "output_exists": paths["site_output"].exists(), "docs_output_exists": paths["docs"].exists(), "published_static_exists": paths["published_static"].exists(), "image_exists": image_exists, "schema_passes": schema_passes, "canonical_passes": canonical_passes, "sitemap_contains_url": url in sitemap_text, "selected_for_publish": selected, "exclusion_reason": "; ".join(reasons) if reasons else ""}
+        return {"slug": slug, "queue_source": str(self._queue_dir(batch_date) / "topics.json"), "editorial_status": self._editorial_status_for_item(item, publish_row), "publish_gate": display_gate, "normalized_status": status, "deployment_status": canonical["state_label"], "published_local": published_local, "live_http_status": live_http or None, "hard_blockers": hard_blockers, "warnings": list(canonical.get("warnings") or []), "output_exists": paths["site_output"].exists(), "docs_output_exists": paths["docs"].exists(), "published_static_exists": paths["published_static"].exists(), "image_exists": image_exists, "schema_passes": schema_passes, "canonical_passes": canonical_passes, "approval_binding_status": canonical["human_approval_binding"], "quality_review": canonical["quality_review"], "cta_validation": canonical["cta_validation"], "current_revision_id": canonical["revision_id"], "current_content_hash": canonical["content_hash"], "sitemap_contains_url": url in sitemap_text, "selected_for_publish": selected, "exclusion_reason": "; ".join(reasons) if reasons else "", "canonical_state": canonical}
+
+    def _production_draft_approval_binding(self, slug: str) -> dict[str, str]:
+        draft = self.data_dir / "production_article_drafts" / slug / "index.html"
+        if not draft.is_file():
+            return {
+                "binding_status": "CURRENT_CONTENT_UNAVAILABLE",
+                "current_revision_id": "",
+                "current_content_hash": "",
+            }
+        human_rows = {
+            str(row.get("slug") or ""): row
+            for row in _read_json(self.data_dir / "human_approval_queue.json", [])
+        }
+        binding = binding_for_file(draft)
+        status = approval_binding_status(
+            human_rows.get(slug) or {},
+            current_content_hash=binding["content_hash"],
+            current_revision_id=binding["revision_id"],
+        )
+        return {
+            "binding_status": status,
+            "current_revision_id": str(binding["revision_id"]),
+            "current_content_hash": str(binding["content_hash"]),
+        }
+
+    def _find_batch_topic_for_slug(self, slug: str) -> tuple[str, dict[str, Any]]:
+        if not self.queue_root.exists():
+            return "", {}
+        for queue_file in sorted(self.queue_root.glob("*/topics.json"), reverse=True):
+            payload = _read_json(queue_file, {})
+            for topic in list(payload.get("topics") or []):
+                if str(topic.get("slug") or "") == slug:
+                    return queue_file.parent.name, topic
+        return "", {}
+
+    def _exact_slug_shared_preflight(self) -> dict[str, Any]:
+        """Local, non-mutating portion of the shared publish preflight."""
+        required_scripts = (
+            self.root / "scripts" / "build_selected_output.py",
+            self.root / "scripts" / "sync_site_output_to_docs.py",
+        )
+        missing = [str(path.relative_to(self.root)) for path in required_scripts if not path.is_file()]
+        if missing:
+            return {"status": "BLOCKED", "reason": f"missing deployment prerequisites: {', '.join(missing)}"}
+        branch = self._run_command(["git", "branch", "--show-current"], cwd=self.root, check=False)
+        if branch["returncode"] != 0 or str(branch.get("stdout") or "").strip() != "main":
+            return {"status": "BLOCKED", "reason": "current branch is not main"}
+        remote = self._run_command(["git", "rev-parse", "--verify", "origin/main"], cwd=self.root, check=False)
+        if remote["returncode"] != 0:
+            return {"status": "BLOCKED", "reason": "remote branch origin/main is missing"}
+        git_dir = self.root / ".git"
+        if any((git_dir / marker).exists() for marker in ("rebase-merge", "rebase-apply", "MERGE_HEAD", "CHERRY_PICK_HEAD")):
+            return {"status": "BLOCKED", "reason": "rebase, merge, or cherry-pick is already in progress"}
+        return {
+            "status": "PASS",
+            "reason": "local Git/build prerequisites pass; fetch/sync is rechecked immediately before publication",
+            "network_sync_check": "DEFERRED_TO_EXPLICIT_PUBLISH",
+        }
+
+    @staticmethod
+    def _target_required_assets(html_text: str) -> list[str]:
+        assets: list[str] = []
+        patterns = (
+            r"<img\b[^>]*\bsrc=['\"]([^'\"]+)['\"]",
+            r"<script\b[^>]*\bsrc=['\"]([^'\"]+)['\"]",
+            r"<link\b(?=[^>]*\brel=['\"]stylesheet['\"])[^>]*\bhref=['\"]([^'\"]+)['\"]",
+        )
+        for pattern in patterns:
+            for value in re.findall(pattern, html_text, flags=re.IGNORECASE):
+                clean = str(value).strip()
+                if clean.startswith("/") and clean not in assets:
+                    assets.append(clean)
+        return assets
+
+    def _shared_asset_exists(self, asset: str) -> bool:
+        relative = urllib.parse.urlsplit(asset).path.lstrip("/")
+        return any(
+            path.is_file()
+            for path in (self.root / relative, self.site_output_dir / relative, self.root / "docs" / relative)
+        )
+
+    def _unrelated_health_warnings(self, slug: str) -> list[str]:
+        report = _read_json(self.data_dir / "system_health_report.json", {})
+        warnings: list[str] = []
+        unrelated_ids = {
+            "MENU_2_MENU_X_READINESS",
+            "COMPARATOR_READINESS",
+            "WEBSITE_DERIVED_SOCIAL_GO_NO_GO",
+            "HISTORICAL_DEPLOYMENT_APPROVAL_EVIDENCE",
+        }
+        for check in list(report.get("checks") or []):
+            check_id = str(check.get("check_id") or check.get("id") or "")
+            status = str(check.get("status") or "").upper()
+            if check_id in unrelated_ids and status in {"BLOCKED", "WARNING", "FAIL"}:
+                warnings.append(f"{check_id}: {check.get('summary') or check.get('message') or status}")
+        approval_check = next(
+            (
+                check
+                for check in list(report.get("checks") or [])
+                if str(check.get("check_id") or check.get("id") or "") == "APPROVAL_PUBLISH_CANONICAL_STATE"
+            ),
+            {},
+        )
+        if approval_check and str(approval_check.get("status") or "").upper() in {"BLOCKED", "FAIL"}:
+            actual = json.dumps(approval_check.get("actual_value") or approval_check, ensure_ascii=False)
+            if slug not in actual or any(other != slug for other in re.findall(r'"slug"\s*:\s*"([^"]+)"', actual)):
+                warnings.append("APPROVAL_PUBLISH_CANONICAL_STATE: unrelated slug authorization/content conflict remains open")
+        return warnings
 
     def build_selected(self, *, batch_date: str, slug: str, timeout: int = 180, retry_count: int = 1) -> dict[str, Any]:
         self._selected_publish_candidate(batch_date=batch_date, slug=slug)
@@ -1479,11 +3544,11 @@ class DailyEditorialWorkflow:
                     "status": "missing_queue",
                     "message": f"Chua co editorial queue cho ngay {batch_date}.",
                     "how_to_fix": [
-                        "Neu la dau tuan, chay menu 1 de tao 10 chu de va draft.",
+                        "Neu la dau tuan, chay menu 1 de tao 2 chu de va draft.",
                         "Neu la Tue-Sun, chay menu 2 de tao bai chuyen sau.",
                         "Neu la bai rieng, chay menu 3 hoac menu 9.",
                     ],
-                    "next_recommended_command": f"python editorial_console.py morning --count 10 --date {batch_date}",
+                    "next_recommended_command": f"python editorial_console.py morning --count 2 --date {batch_date}",
                     "latest_available_queue": "",
                 }
             resolved_date = fallback
@@ -1515,11 +3580,14 @@ class DailyEditorialWorkflow:
             for row in _read_json(self.data_dir / "publish_queue.json", [])
         }
         batch_publish_rows = [publish_rows.get(str(item.get("slug") or ""), {}) for item in topics]
+        canonical_states = [
+            self._canonical_state_for_item(item, publish_rows.get(str(item.get("slug") or ""), {}))
+            for item in topics
+        ]
         editorial_statuses = [self._editorial_status_for_item(item, publish_rows.get(str(item.get("slug") or ""), {})) for item in topics]
-        normalized_publish_rows = [PublishGate.normalize_existing_row(row) for row in batch_publish_rows if row]
-        summary["ready_for_publish"] = sum(1 for row in normalized_publish_rows if str(row.get("normalized_status") or "") == "approved_for_publish")
-        summary["publish_blocked"] = sum(1 for row in normalized_publish_rows if str(row.get("normalized_status") or "") == "blocked")
-        summary["human_approval_required"] = sum(1 for row in normalized_publish_rows if str(row.get("normalized_status") or "") == "needs_human_review")
+        summary["ready_for_publish"] = sum(1 for row in canonical_states if row["state"] == "READY_FOR_PUBLISH")
+        summary["publish_blocked"] = sum(1 for row in canonical_states if row["state"] == "PUBLISH_BLOCKED")
+        summary["human_approval_required"] = sum(1 for row in canonical_states if row["state"] == "NEEDS_REVIEW")
         summary["published_local"] = sum(1 for row in batch_publish_rows if str(row.get("status") or "") == "published_local")
         summary["published"] = sum(
             1
@@ -1529,9 +3597,69 @@ class DailyEditorialWorkflow:
         summary["drafts"] = sum(1 for status in editorial_statuses if status == "Draft")
         summary["needs_review"] = sum(1 for status in editorial_statuses if status == "Needs Review")
         summary["human_approved"] = sum(1 for status in editorial_statuses if status == "Human Approved")
+        # The queue status is only a historical projection.  A later render can
+        # legitimately invalidate a revision-bound approval, so operator-facing
+        # counts must follow the current approval binding instead of the stale
+        # queue value.
+        summary["queue_approved"] = summary["approved"]
+        summary["approved"] = summary["human_approved"]
+        summary["waiting_for_draft"] = sum(1 for status in editorial_statuses if status == "Waiting for Draft")
+        summary["blocked_research"] = sum(1 for status in editorial_statuses if status == "Blocked Research")
         summary["published_this_batch"] = summary["published"]
         summary["top_block_reasons"] = self._top_block_reasons(batch_publish_rows)
         summary["next_recommended_command"] = self._recommended_command(summary, batch_date=resolved_date)
+        approval_rows = {
+            str(row.get("slug") or ""): row
+            for row in _read_json(self.data_dir / "human_approval_queue.json", [])
+        }
+        topic_status: list[dict[str, Any]] = []
+        for item, canonical in zip(topics, canonical_states):
+            slug = str(item.get("slug") or "")
+            publish_row = publish_rows.get(slug, {})
+            approval = approval_rows.get(slug, {})
+            research_dir = self.data_dir / "research" / slug
+            draft_file = self.data_dir / "production_article_drafts" / slug / "index.html"
+            research_ready = all(
+                (research_dir / name).is_file()
+                for name in ("package.json", "sources.json")
+            )
+            approval_status = str(approval.get("status") or "NOT_STARTED").upper()
+            gate_status = str(canonical["state"])
+            deployed = str(canonical["state"])
+            social_candidates = list((self.data_dir / "social_drafts").glob(f"*/{slug}"))
+            social_status = "READY" if social_candidates else "NOT_READY"
+            if not research_ready:
+                next_action = "Complete or verify research"
+            elif not draft_file.is_file():
+                next_action = "Export/import the external writer draft"
+            elif approval_status != "HUMAN_APPROVED":
+                next_action = "Review article"
+            elif gate_status != "READY_FOR_PUBLISH":
+                next_action = "Resolve publish gate blockers"
+            elif deployed.upper() not in {"PUBLISHED_LOCAL", "COMMITTED", "PUSHED", "DEPLOY_PENDING", "LIVE_200"}:
+                next_action = "Run exact-slug publish preflight"
+            elif social_status != "READY":
+                next_action = "Prepare social drafts"
+            else:
+                next_action = "Review social drafts"
+            topic_status.append(
+                {
+                    "slug": slug,
+                    "research": "READY" if research_ready else "NOT_READY",
+                    "draft": "READY" if draft_file.is_file() else "NOT_READY",
+                    "human_approval": approval_status,
+                    "publish_gate": gate_status,
+                    "canonical_state": str(canonical["state"]),
+                    "canonical_state_detail": canonical,
+                    "quality_review": str(canonical["quality_review"]),
+                    "cta_validation": str(canonical["cta_validation"]),
+                    "approval_binding": str(canonical["human_approval_binding"]),
+                    "deployment": deployed.upper(),
+                    "social": social_status,
+                    "next_action": next_action,
+                }
+            )
+        summary["topic_status"] = topic_status
         reset_summary = _read_json(self.data_dir / "archive" / "unpublished_reset" / "latest_summary.json", {})
         summary["archived_unpublished"] = int(reset_summary.get("archived_count") or 0)
         return summary
@@ -1555,6 +3683,12 @@ class DailyEditorialWorkflow:
         human = human_rows.get(slug) or metadata.get("human_approval") or {}
         publish_row = publish_rows.get(slug) or metadata.get("publish_gate") or {}
         normalized = PublishGate.normalize_existing_row(publish_row)
+        canonical_research = resolve_research_artifacts(
+            self.root,
+            task_id=str(queue_item.get("task_id") or ""),
+            slug=slug,
+            batch_date=batch_date,
+        )
         raw_scores = {
             "publish_queue_total_score": publish_row.get("total_score"),
             "publish_readiness": review.get("publish_readiness"),
@@ -1583,6 +3717,14 @@ class DailyEditorialWorkflow:
             "current_publish_queue_status": str(publish_row.get("status") or "missing"),
             "normalized_publish_status": normalized["normalized_status"],
             "final_gate_decision": normalized["final_gate"],
+            "canonical_research_eligibility": {
+                "draft_exportable": canonical_research.draft_exportable,
+                "research_level": canonical_research.research_level,
+                "failing_gates": list(canonical_research.failing_gates),
+                "source_quality_score": canonical_research.source_quality_score,
+                "verified_sources": canonical_research.verified_source_count,
+                "official_sources": canonical_research.official_source_count,
+            },
             "raw_scores": raw_scores,
             "normalized_scores": normalized_scores,
             "review_states": publish_row.get("review_states") or {
@@ -1647,7 +3789,13 @@ class DailyEditorialWorkflow:
             )
         return candidates
 
-    def _selected_publish_candidate(self, *, batch_date: str, slug: str) -> dict[str, Any]:
+    def _selected_publish_candidate(
+        self,
+        *,
+        batch_date: str,
+        slug: str,
+        allow_live_refresh: bool = False,
+    ) -> dict[str, Any]:
         payload = self._load_queue(batch_date)
         topics = payload.get("topics", [])
         queue_item = next((item for item in topics if str(item.get("slug") or "") == slug), None)
@@ -1657,7 +3805,12 @@ class DailyEditorialWorkflow:
         publish_row = publish_rows.get(slug) or {}
         normalized = PublishGate.normalize_existing_row(publish_row)
         publish_status = str(normalized.get("normalized_status") or publish_row.get("status") or "")
-        diagnostic = self._candidate_diagnostic(batch_date=batch_date, item=queue_item, publish_row=publish_row)
+        diagnostic = self._candidate_diagnostic(
+            batch_date=batch_date,
+            item=queue_item,
+            publish_row=publish_row,
+            allow_live_refresh=allow_live_refresh,
+        )
         if not diagnostic["selected_for_publish"]:
             label = str(normalized.get("final_gate") or publish_status or "Unknown")
             reason = str(diagnostic.get("exclusion_reason") or label)
@@ -2145,13 +4298,17 @@ class DailyEditorialWorkflow:
             errors.append(f"{scope} related titles are duplicated")
         if len(related_urls) != len(set(related_urls)):
             errors.append(f"{scope} related URLs are duplicated")
-        if "Visit official website" not in text and "Check current pricing" not in text:
+        if not self._has_publish_cta_block(text):
             errors.append(f"{scope} is missing CTA block")
         if "<details" in text.lower() and not faq_schema_present:
             errors.append(f"{scope} visible FAQ exists but FAQPage schema is missing")
         if not re.search(r"<meta\b(?=[^>]*name=['\"]description['\"])", text, flags=re.I):
             errors.append(f"{scope} meta description is missing")
         return errors
+
+    @staticmethod
+    def _has_publish_cta_block(text: str) -> bool:
+        return has_publish_cta_block(text)
 
     def _run_publish_validation(self, *, batch_date: str, published: list[dict[str, Any]], mode: str, autofix: bool = True) -> dict[str, Any]:
         items: list[dict[str, Any]] = []
@@ -2251,10 +4408,39 @@ class DailyEditorialWorkflow:
         }
 
     def check_live(self, *, batch_date: str | None = None, include_all: bool = False, blocked_only: bool = False) -> dict[str, Any]:
-        target_date = batch_date or date.today().isoformat()
-        items = self._check_live_items(batch_date=target_date, include_all=include_all)
+        requested_date = str(batch_date or "latest").strip()
+        target_date = (
+            self.latest_queue_date() or date.today().isoformat()
+            if not requested_date or requested_date.lower() == "latest"
+            else requested_date
+        )
+        current_batch_slugs = self._live_candidate_slugs(batch_date=target_date, include_all=False)
+        candidate_slugs = (
+            self._live_candidate_slugs(batch_date=target_date, include_all=True)
+            if include_all
+            else current_batch_slugs
+        )
+        items = self._check_live_items(
+            batch_date=target_date,
+            include_all=include_all,
+            candidate_slugs=candidate_slugs,
+        )
         if blocked_only:
-            items = [item for item in items if str(item.get("publish_queue_status") or "") == "blocked"]
+            # Canonical state, not the publish-queue projection, owns blocker
+            # visibility.  A stale quality review can block current bytes while
+            # an older queue row still says approved_for_publish.
+            items = [
+                item
+                for item in items
+                if str(item.get("publish_gate_status") or "") == "Publish Blocked"
+                or str((item.get("canonical_state") or {}).get("state") or "") == "PUBLISH_BLOCKED"
+            ]
+        historical_slugs = set(candidate_slugs) - set(current_batch_slugs) if include_all else set()
+        scope_label = "HISTORICAL/SITE-WIDE AUDIT" if include_all else (
+            "LATEST BATCH ONLY"
+            if not requested_date or requested_date.lower() == "latest"
+            else "SELECTED BATCH ONLY"
+        )
         summary = {
             "date": target_date,
             "include_all": include_all,
@@ -2265,7 +4451,10 @@ class DailyEditorialWorkflow:
             "git_pushed": sum(1 for item in items if item["git_status"] == "pushed"),
             "live_200": sum(1 for item in items if item["display_status"] == "Live 200"),
             "awaiting_publish": sum(1 for item in items if item["display_status"] == "Awaiting Publish"),
-            "awaiting_push": sum(1 for item in items if item["display_status"] == "Awaiting Push"),
+            "ready_deployment_not_started": sum(
+                1 for item in items if item["display_status"] == "Ready for Publish"
+            ),
+            "awaiting_push": sum(1 for item in items if item["display_status"] == "Committed"),
             "published_local": sum(1 for item in items if item["publish_queue_status"] == "published_local"),
             "committed_local": sum(1 for item in items if item["publish_queue_status"] == "committed_local"),
             "pushed": sum(1 for item in items if item["publish_queue_status"] == "pushed"),
@@ -2274,25 +4463,34 @@ class DailyEditorialWorkflow:
             "deploy_pending": sum(1 for item in items if item["display_status"] == "Deploy Pending"),
             "missing_local_output": sum(1 for item in items if item["display_status"] == "Missing Local Output"),
             "missing_docs": sum(1 for item in items if item["display_status"] == "Missing Docs"),
-            "unexpected_live_404": sum(1 for item in items if item["display_status"] == "Unexpected Live 404"),
+            "unexpected_live_404": 0,
             "unknown": sum(1 for item in items if item["display_status"] == "Unknown"),
             "human_approved": sum(1 for item in items if item["editorial_status"] == "Human Approved"),
             "ready_for_publish": sum(1 for item in items if item["publish_gate_status"] == "Ready for Publish"),
             "publish_blocked": sum(1 for item in items if item["publish_gate_status"] == "Publish Blocked"),
             "rejected": sum(1 for item in items if item["editorial_status"] == "Rejected"),
             "published_this_batch": sum(1 for item in items if item["display_status"] == "Live 200"),
+            "site_wide_live": "NOT_COMPUTED",
         }
         summary["awaiting_first_publish"] = summary["awaiting_publish"]
         report = {
             "generated_at": datetime.now(UTC).isoformat(),
             "date": target_date,
+            "report_date": date.today().isoformat(),
+            "operational_batch": target_date,
+            "scope": scope_label,
+            "articles_loaded": len(candidate_slugs),
+            "articles_resolved": len(candidate_slugs),
+            "historical_articles_loaded": len(historical_slugs),
+            "historical_articles_resolved": len(historical_slugs),
             "summary": summary,
             "items": items,
             "repo_sync": self._git_branch_sync_status(),
         }
-        json_path = self.data_dir / "live_status_report.json"
-        md_path = self.data_dir / "live_status_report.md"
-        html_path = self.data_dir / "live_status_report.html"
+        report_stem = "blocked_status_report" if blocked_only else "live_status_report"
+        json_path = self.data_dir / f"{report_stem}.json"
+        md_path = self.data_dir / f"{report_stem}.md"
+        html_path = self.data_dir / f"{report_stem}.html"
         _write_json(json_path, report)
         md_path.write_text(self._render_live_status_markdown(report), encoding="utf-8")
         html_path.write_text(self._render_live_status_html(report), encoding="utf-8")
@@ -2632,6 +4830,7 @@ class DailyEditorialWorkflow:
         next_action = self._next_action_for_item(item, publish_row, batch_date=batch_date)
         href = f"/?date={batch_date}&slug={slug}#row-{slug}"
         has_preview = self._has_reviewable_preview(item)
+        current_title = self._current_article_title(item)
         view_cell = (
             f"<a class='button' href='{html.escape(href, quote=True)}'>Open Review</a>"
             if has_preview
@@ -2639,7 +4838,7 @@ class DailyEditorialWorkflow:
         )
         return (
             f"<tr id='row-{html.escape(slug, quote=True)}' data-filter='{html.escape(row_filter, quote=True)}'>"
-            f"<td><a href='{html.escape(href, quote=True)}'><strong>{html.escape(str(item.get('article_title') or item.get('keyword') or slug))}</strong></a><br><code>{html.escape(slug)}</code></td>"
+            f"<td><a href='{html.escape(href, quote=True)}'><strong>{html.escape(current_title)}</strong></a><br><code>{html.escape(slug)}</code></td>"
             f"<td><span class='status {html.escape(self._status_tone_for_label(editorial_status))}'>{html.escape(editorial_status)}</span></td>"
             f"<td><span class='status {html.escape(self._status_tone_for_label(gate_status))}'>{html.escape(gate_status)}</span></td>"
             f"<td><span class='status {html.escape(self._status_tone_for_label(deployment_status))}'>{html.escape(deployment_status)}</span></td>"
@@ -2670,6 +4869,7 @@ class DailyEditorialWorkflow:
         gate_status = self._publish_gate_status_for_item(selected, publish_row)
         deployment_status = self._deployment_status_for_item(selected, publish_row)
         publish_status = str(publish_row.get("status") or "")
+        current_title = self._current_article_title(selected)
         approve_disabled = editorial_status != "Needs Review" or publish_status in {"approved_for_publish", "published_local", "published"}
         reject_disabled = (not has_preview) or editorial_status == "Rejected" or selected_status == "published" or publish_status in {"published_local", "published"}
         block_reason = self._row_block_reason(selected, publish_row)
@@ -2701,6 +4901,8 @@ class DailyEditorialWorkflow:
                 ),
             ]
         )
+        strategy_html = self._render_content_strategy_section(selected)
+        memory_html = self._render_editorial_memory_advisory(selected)
         preview_block = (
             f"""
             <div class="detail-actions">
@@ -2714,7 +4916,7 @@ class DailyEditorialWorkflow:
         if not has_preview:
             preview_block = f"<div class='empty-preview'><strong>No draft preview yet.</strong><br>{html.escape(status_message)}</div>"
         return f"""
-            <h2>{html.escape(str(selected.get('article_title') or selected.get('keyword') or selected_slug_value))}</h2>
+            <h2>{html.escape(current_title)}</h2>
             <p><code>{html.escape(selected_slug_value)}</code></p>
             <p>Keyword: <strong>{html.escape(str(selected.get('keyword') or ''))}</strong></p>
             <div class="status-row">
@@ -2725,6 +4927,8 @@ class DailyEditorialWorkflow:
             <p>Main block reason: <strong>{html.escape(self._operator_block_title(block_reason))}</strong></p>
             <p>Validation: <strong>{html.escape(validation_status)}</strong> | Autofix: <strong>{html.escape(autofix_status)}</strong> | CTA: <strong>{html.escape(cta_status)}</strong> | FAQ schema: <strong>{html.escape(faq_status)}</strong> | Meta: <strong>{html.escape(meta_status)}</strong> | Redirect: <strong>{html.escape(redirect_status)}</strong></p>
             <p>Next action: <code>{html.escape(str(selected.get('next_action') or next_action))}</code></p>
+            {strategy_html}
+            {memory_html}
             {f"<p class='detail-note'>{html.escape(status_message)}</p>" if status_message else ""}
             {preview_block}
             <div class="form-row">
@@ -2746,6 +4950,70 @@ class DailyEditorialWorkflow:
                 {'<span class="button danger disabled">Rejected</span>' if editorial_status == 'Rejected' else f'<button class="button danger" {"disabled" if reject_disabled else ""}>Reject</button>'}
               </form>
             </div>
+            """
+
+    def _render_editorial_memory_advisory(self, item: dict[str, Any]) -> str:
+        if not feature_enabled(self.root, "editorial_memory.enabled"):
+            return ""
+        try:
+            result = EditorialMemoryStore(root=self.root).detect_duplicates(
+                {
+                    "slug": item.get("slug"),
+                    "title": item.get("article_title") or item.get("title") or item.get("keyword"),
+                    "root_topic": item.get("root_topic_id"),
+                    "angle": item.get("daily_angle") or item.get("angle"),
+                    "keyword": item.get("keyword") or item.get("primary_keyword"),
+                    "entities": item.get("entities") or [],
+                    "claims": item.get("claims") or [],
+                    "cited_sources": item.get("cited_sources") or item.get("verified_sources") or [],
+                },
+                exclude_same_slug=True,
+            )
+        except (OSError, ValueError, sqlite3.Error):
+            return "<details class='strategy-panel'><summary>Editorial Memory</summary><p>Memory advisory unavailable; workflow is unchanged.</p></details>"
+        matches = result.get("matches") or []
+        rows = "<li>No similar historical article found.</li>" if not matches else "".join(
+            f"<li><code>{html.escape(str(row.get('slug') or ''))}</code> - {html.escape(str(row.get('title') or ''))} (score {float(row.get('overall_score') or 0):.2f})</li>"
+            for row in matches
+        )
+        return f"<details class='strategy-panel'><summary>Similar historical articles (recommendation only)</summary><p>Recommendation: <strong>{html.escape(str(result.get('recommendation') or 'CONTINUE'))}</strong>. This does not block, delete, approve, or publish anything.</p><ul>{rows}</ul></details>"
+
+    def _render_content_strategy_section(self, item: dict[str, Any]) -> str:
+        strategy = item.get("content_strategy")
+        if not isinstance(strategy, dict) or not strategy:
+            return ""
+        related = list(strategy.get("related_weekly_topics") or strategy.get("suggested_internal_links") or [])
+        related_html = "<li>None yet</li>"
+        if related:
+            related_html = "".join(
+                f"<li><code>{html.escape(str(row.get('slug') or ''))}</code> - {html.escape(str(row.get('title') or ''))}</li>"
+                for row in related
+                if isinstance(row, dict)
+            )
+        internal_links = list(strategy.get("suggested_internal_links") or [])
+        internal_html = "<li>None yet</li>"
+        if internal_links:
+            internal_html = "".join(
+                f"<li><code>{html.escape(str(row.get('slug') or ''))}</code> - {html.escape(str(row.get('reason') or ''))}</li>"
+                for row in internal_links
+                if isinstance(row, dict)
+            )
+        return f"""
+            <details class="strategy-panel">
+              <summary>Content Strategy</summary>
+              <dl class="strategy-grid">
+                <dt>Topic Type</dt><dd>{html.escape(str(strategy.get('content_type') or ''))}</dd>
+                <dt>Audience</dt><dd>{html.escape(str(strategy.get('audience') or strategy.get('target_audience') or ''))}</dd>
+                <dt>Search Intent</dt><dd>{html.escape(str(strategy.get('search_intent') or strategy.get('estimated_search_intent') or ''))}</dd>
+                <dt>Marketing Funnel</dt><dd>{html.escape(str(strategy.get('marketing_funnel') or ''))}</dd>
+                <dt>Cluster Health</dt><dd>{html.escape(str(strategy.get('cluster_health') or ''))}</dd>
+                <dt>Suggested CTA</dt><dd>{html.escape(str(strategy.get('recommended_cta') or ''))}</dd>
+              </dl>
+              <p><strong>Internal Links</strong></p>
+              <ul>{internal_html}</ul>
+              <p><strong>Related Weekly Topics</strong></p>
+              <ul>{related_html}</ul>
+            </details>
             """
 
     def _render_kpi_grid(self, summary: dict[str, Any]) -> str:
@@ -2841,6 +5109,11 @@ class DailyEditorialWorkflow:
     .kpi{background:#f8fafc;border:1px solid #d8e1ec;border-radius:10px;padding:12px}
     .kpi strong{display:block;font-size:1.5rem;margin-top:6px}
     .kpi .small{font-size:.9rem;line-height:1.35}
+    .strategy-panel{border:1px solid #d8e1ec;border-radius:10px;background:#f8fafc;margin:12px 0;padding:12px}
+    .strategy-panel summary{cursor:pointer;font-weight:700;color:#17324d}
+    .strategy-grid{display:grid;grid-template-columns:minmax(140px,.45fr) 1fr;gap:8px 12px;margin:12px 0}
+    .strategy-grid dt{font-weight:700;color:#475569}
+    .strategy-grid dd{margin:0}
     .notice{background:#dcfce7;color:#166534;border:1px solid #86efac;padding:12px 14px;border-radius:8px;margin:12px 0;font-weight:700}
     .notice.error{background:#fee2e2;color:#991b1b;border-color:#fca5a5}
     input[type=text]{padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;min-width:220px}
@@ -3148,14 +5421,19 @@ class DailyEditorialWorkflow:
         manifest_path = self._week_manifest_path(week_start)
         existing = _read_json(manifest_path, {})
         if existing:
-            return existing
+            return normalize_weekly_root_manifest(
+                existing,
+                week_start=week_start,
+                selection_source=str(existing.get("selection_source") or "menu_1"),
+            )
         payload = self._build_weekly_batch_payload(batch_date=batch_date, count=count, write=True)
         return payload
 
     def _build_weekly_batch_payload(self, *, batch_date: str, count: int, write: bool) -> dict[str, Any]:
         week_start = self._week_start(batch_date)
         manifest_path = self._week_manifest_path(week_start)
-        discovery = TrendDiscoveryEngine(read_only=not write).run(limit=max(count * 3, 30))
+        root_count = min(count, MAX_FOUNDATION_ROOTS)
+        discovery = TrendDiscoveryEngine(read_only=not write).run(limit=max(root_count * 8, 40))
         brands = set(load_affiliate_brands())
         candidates = [self._candidate_to_queue_item(candidate, brands=brands) for candidate in discovery.selected_topics]
         published_history = self._load_published_live_history()
@@ -3164,9 +5442,11 @@ class DailyEditorialWorkflow:
             item["published_live_duplicate_warning"] = duplicate_warning.get("warning", "")
             item["published_live_duplicate_match"] = duplicate_warning.get("match", {})
             self._apply_duplicate_penalty(item)
-        selected = sorted(candidates, key=lambda row: (-float(row["total_score"]), row["keyword"]))[:count]
-        if count >= 10 and week_start == "2026-07-13":
-            replacement_candidates = list(candidates)
+        ranked_candidates = sorted(candidates, key=lambda row: (-float(row["total_score"]), row["keyword"]))
+        selected, source_rejected_candidates = self._select_source_ready_topics(ranked_candidates, count=root_count)
+        topic_selection_report = dict(getattr(self, "_last_topic_selection_report", {}) or {})
+        if root_count >= MAX_FOUNDATION_ROOTS and week_start == "2026-07-13":
+            replacement_candidates = list(ranked_candidates)
             vetted_items = self._vetted_weekly_replacement_items()
             for item in vetted_items:
                 duplicate_warning = self._find_published_live_duplicate(item, published_history)
@@ -3174,26 +5454,76 @@ class DailyEditorialWorkflow:
                 item["published_live_duplicate_match"] = duplicate_warning.get("match", {})
                 self._apply_duplicate_penalty(item)
             replacement_candidates.extend(vetted_items)
-            selected = self._replace_semantically_rejected_topics(selected, replacement_candidates, count=count)
+            selected = self._replace_semantically_rejected_topics(selected, replacement_candidates, count=root_count)
+            selected, replacement_rejected_candidates = self._select_source_ready_topics(selected, count=root_count)
+            source_rejected_candidates = [*source_rejected_candidates, *replacement_rejected_candidates]
+            topic_selection_report = dict(getattr(self, "_last_topic_selection_report", {}) or {})
         for index, item in enumerate(selected, start=1):
             item.update(self._normalize_weekly_root_topic(item, week_start=week_start))
             item["rank"] = index
         week_start_date = date.fromisoformat(week_start)
         duplicate_warning_count = sum(1 for item in selected if str(item.get("published_live_duplicate_warning") or "").strip())
+        strategy_payload = enrich_topics_with_content_strategy(
+            selected,
+            week_start=week_start,
+            batch_date=batch_date,
+        )
+        selected = strategy_payload["topics"]
         payload = {
             "generated_at": datetime.now(UTC).isoformat(),
+            "selected_at": datetime.now(UTC).isoformat(),
             "week_start": week_start,
             "week_end": (week_start_date + timedelta(days=6)).isoformat(),
             "count": len(selected),
+            "selection_source": "menu_1",
             "source_status": discovery.source_status,
             "duplicate_warning_count": duplicate_warning_count,
             "duplicate_warning_slugs": [str(item.get("slug") or "") for item in selected if str(item.get("published_live_duplicate_warning") or "").strip()],
+            "topic_selection_report": {
+                **topic_selection_report,
+                "candidates_discovered": int(getattr(discovery, "candidates_evaluated", len(candidates))),
+                "candidates_ranked_before_readiness": len(ranked_candidates),
+            },
+            "scoring_profile": str(topic_selection_report.get("scoring_profile") or TOPIC_SCORING_FOUNDATION_MAIN),
+            "scoring_version": str(topic_selection_report.get("scoring_version") or TOPIC_SCORING_VERSION),
+            "recommended_threshold": float(topic_selection_report.get("recommended_threshold") or 0),
+            "absolute_minimum_floor": float(topic_selection_report.get("absolute_minimum_floor") or 0),
+            "selected_threshold_pass_count": int(topic_selection_report.get("selected_threshold_pass_count") or 0),
+            "selected_quality_limited_count": int(topic_selection_report.get("selected_quality_limited_count") or 0),
+            "topic_cluster_map": strategy_payload["topic_cluster_map"],
+            "content_quality_guard": strategy_payload["content_quality_guard"],
             "topics": selected,
+            "source_rejected_candidates": source_rejected_candidates,
         }
+
+        payload = normalize_weekly_root_manifest(payload, week_start=week_start, selection_source="menu_1")
+        validation = validate_weekly_root_manifest(payload, batch_date=batch_date)
+        if not validation.passed:
+            if write or payload.get("topics"):
+                raise WeeklyRootValidationError("; ".join(validation.blockers))
         if write:
             _write_json(manifest_path, payload)
             _write_json(self.queue_root / "current_week.json", {"week_start": week_start, "batch_date": batch_date})
         return payload
+
+    @staticmethod
+    def _is_approved_planning_manifest(payload: dict[str, Any]) -> bool:
+        topics = [row for row in list(payload.get("topics") or []) if isinstance(row, dict)]
+        selection_source = str(payload.get("selection_source") or "").strip().lower()
+        if selection_source not in {"weekly_topic_selection", "menu_1"}:
+            return False
+        if str(payload.get("lock_status") or "").lower() != "locked" or len(topics) not in {1, 2}:
+            return False
+        # This recognizes approval of the weekly root selection only. Research,
+        # article human approval, and publish gates remain independent and required.
+        if selection_source == "menu_1" and not str(payload.get("selected_at") or payload.get("locked_at") or "").strip():
+            return False
+        return all(
+            str(row.get("root_topic_id") or "").strip()
+            and bool(row.get("selected", True))
+            and str(row.get("selected_status") or "selected").lower() == "selected"
+            for row in topics
+        )
 
     def _build_daily_topics_from_weekly_batch(self, *, weekly_topics: list[dict[str, Any]], batch_date: str, mode: str) -> list[dict[str, Any]]:
         week_start = self._week_start(batch_date)
@@ -3201,6 +5531,8 @@ class DailyEditorialWorkflow:
             content_type, template = self._advanced_pattern_for_date(batch_date)
             topics: list[dict[str, Any]] = []
             for base in weekly_topics:
+                if base.get("deep_dive_eligible") is False:
+                    continue
                 parent_keyword = str(base.get("parent_keyword") or base.get("keyword") or "")
                 parent_slug = str(base.get("parent_slug") or base.get("slug") or slugify(parent_keyword))
                 keyword = self._build_advanced_keyword(parent_keyword, content_type=content_type, template=template)
@@ -3208,6 +5540,7 @@ class DailyEditorialWorkflow:
                 item["keyword"] = keyword
                 item["slug"] = slugify(keyword)
                 item["content_type"] = content_type
+                item["content_lane"] = FOUNDATION_ADVANCED
                 item["search_intent"] = classify_search_intent(keyword)
                 item["search_intent_score"] = _score_search_intent(item["search_intent"])
                 item["parent_keyword"] = parent_keyword
@@ -3219,7 +5552,43 @@ class DailyEditorialWorkflow:
                 item["suggested_article_angle"] = f"{item['daily_angle']} follow-up for {parent_keyword}"
                 item["batch_date"] = batch_date
                 item["week_start"] = week_start
+                item["editorial_week_id"] = str(base.get("editorial_week_id") or "")
+                item["parent_monday_article"] = {
+                    "root_topic_id": item["root_topic_id"],
+                    "slug": parent_slug,
+                    "title": parent_keyword,
+                    "scheduled_date": week_start,
+                }
                 item["mode"] = mode
+                planned = self._series_plan_item_for_date(base, batch_date=batch_date)
+                if planned:
+                    planned_title = str(planned.get("title") or "").strip()
+                    planned_angle = str(planned.get("daily_angle") or "").strip()
+                    if planned_title:
+                        item["keyword"] = planned_title
+                        item["title"] = planned_title
+                        item["slug"] = slugify(planned_title)
+                    if planned_angle:
+                        item["daily_angle"] = planned_angle
+                        item["content_type"] = planned_angle
+                    if str(planned.get("search_intent") or "").strip():
+                        item["search_intent"] = str(planned["search_intent"])
+                        item["search_intent_score"] = _score_search_intent(item["search_intent"])
+                    item["sequence_number"] = int(planned.get("sequence_number") or 0)
+                    item["reader_question"] = str(planned.get("reader_question") or "")
+                    item["unique_thesis"] = str(planned.get("unique_thesis") or "")
+                    item["required_evidence"] = list(planned.get("required_evidence") or [])
+                    item["prohibited_overlap"] = list(planned.get("prohibited_overlap") or [])
+                    next_article = planned.get("next_scheduled_article") if isinstance(planned.get("next_scheduled_article"), dict) else {}
+                    item["next_article_bridge"] = {
+                        "root_topic_id": item["root_topic_id"],
+                        "state": str(next_article.get("bridge_state") or "NEXT_UNKNOWN"),
+                        "daily_angle": str(next_article.get("daily_angle") or ""),
+                        "instructions": self._bridge_instruction_from_state(
+                            state=str(next_article.get("bridge_state") or "NEXT_UNKNOWN"),
+                            next_angle=str(next_article.get("daily_angle") or ""),
+                        ),
+                    }
                 item["status"] = "selected"
                 item["total_score"] = _score_topic_total(item)
                 topics.append(item)
@@ -3231,6 +5600,18 @@ class DailyEditorialWorkflow:
             item["slug"] = str(base.get("parent_slug") or base.get("slug") or "")
             item["parent_keyword"] = str(base.get("parent_keyword") or item["keyword"])
             item["parent_slug"] = str(base.get("parent_slug") or item["slug"])
+            item["content_lane"] = FOUNDATION_MAIN
+            item["daily_angle"] = str(
+                base.get("daily_angle")
+                or ("content_refresh" if base.get("opportunity_type") == "content_refresh" else "main_review")
+            )
+            if base.get("opportunity_type") == "content_refresh":
+                item["content_type"] = "content_refresh"
+                item["refresh_existing_article"] = True
+                item["preserve_slug"] = True
+                item["create_new_url"] = False
+            item["root_topic_id"] = str(base.get("root_topic_id") or item["parent_slug"])
+            item["root_title"] = str(base.get("root_title") or item["keyword"])
             item["batch_date"] = batch_date
             item["week_start"] = week_start
             item["mode"] = mode
@@ -3238,15 +5619,61 @@ class DailyEditorialWorkflow:
             topics.append(item)
         return topics
 
+    @staticmethod
+    def _blocked_diagnostics(rows: list[dict[str, Any]]) -> list[dict[str, str]]:
+        diagnostics: list[dict[str, str]] = []
+        for row in rows:
+            readiness = row.get("article_readiness") if isinstance(row.get("article_readiness"), dict) else {}
+            blockers = list(readiness.get("blockers") or row.get("blockers") or [])
+            reason = str(blockers[0] if blockers else row.get("reason") or "Unknown blocking condition.")
+            status = str(row.get("status") or readiness.get("status") or "BLOCKED").upper()
+            stage = "RESEARCH" if "RESEARCH" in status or blockers else status.removeprefix("BLOCKED_")
+            research_tasks = list(readiness.get("research_tasks") or [])
+            required_source_types = sorted(
+                {
+                    str(family)
+                    for task in research_tasks
+                    if isinstance(task, dict)
+                    for family in list(task.get("recommended_source_families") or [])
+                    if str(family)
+                }
+                | ({"pricing_page"} if any("pricing_source_score" in str(item).casefold() for item in blockers) else set())
+            )
+            default_action = (
+                f"Open Menu S for {row.get('slug', '')}; add/verify the required source types, "
+                "then retry research."
+                if stage == "RESEARCH"
+                else "Review the named blocker and rerun the same menu."
+            )
+            action = str(row.get("required_operator_action") or default_action)
+            diagnostics.append(
+                {
+                    "slug": str(row.get("slug") or ""),
+                    "BLOCKED_STAGE": stage or "UNKNOWN",
+                    "BLOCKED_REASON": reason,
+                    "MISSING_EVIDENCE": "; ".join(str(item) for item in blockers) or reason,
+                    "TARGET_ENTITY_OR_TOPIC": str(
+                        row.get("keyword") or row.get("title") or row.get("root_title") or row.get("slug") or ""
+                    ),
+                    "REQUIRED_SOURCE_TYPES": ", ".join(required_source_types) or "See research task recommendations",
+                    "REQUIRED_OPERATOR_ACTION": action,
+                }
+            )
+        return diagnostics
+
     def _load_weekly_root_manifest(self, batch_date: str) -> dict[str, Any]:
         week_start = self._week_start(batch_date)
         manifest_path = self._week_manifest_path(week_start)
         payload = _read_json(manifest_path, {})
         if not payload or not list(payload.get("topics") or []):
             raise FileNotFoundError(
-                "No weekly root topics found.\nPlease run Menu 1 first to select this week's 10 hot topics."
+                "No weekly root topics found.\nPlease run Menu 1 first to select this week's foundation root topics."
             )
-        return payload
+        return normalize_weekly_root_manifest(
+            payload,
+            week_start=week_start,
+            selection_source=str(payload.get("selection_source") or "menu_1"),
+        )
 
     def _normalize_weekly_root_topic(self, item: dict[str, Any], *, week_start: str) -> dict[str, Any]:
         normalized = dict(item)
@@ -3264,10 +5691,15 @@ class DailyEditorialWorkflow:
                 "entities": list(item.get("entities") or item.get("matched_products") or []),
                 "week_start": week_start,
                 "status": "active",
+                "content_lane": FOUNDATION_MAIN,
                 "selection_status": str(item.get("selection_status") or "weekly_selected"),
                 "parent_keyword": str(item.get("parent_keyword") or item.get("keyword") or title),
                 "parent_slug": str(item.get("parent_slug") or item.get("slug") or root_id),
                 "daily_angles": dict(item.get("daily_angles") or {}),
+                "series_plan": list(
+                    item.get("series_plan")
+                    or planned_weekly_series(root_topic_id=root_id, root_title=title, week_start=week_start)
+                ),
             }
         )
         return normalized
@@ -3276,6 +5708,195 @@ class DailyEditorialWorkflow:
     def _weekly_article_history(root_topic: dict[str, Any]) -> list[dict[str, Any]]:
         angles = root_topic.get("daily_angles") if isinstance(root_topic.get("daily_angles"), dict) else {}
         return [dict(value, date=day) for day, value in sorted(angles.items()) if isinstance(value, dict)]
+
+    @staticmethod
+    def _series_plan_item_for_date(root_topic: dict[str, Any], *, batch_date: str) -> dict[str, Any]:
+        for item in list(root_topic.get("series_plan") or []):
+            if isinstance(item, dict) and str(item.get("scheduled_date") or "") == batch_date:
+                return dict(item)
+        return {}
+
+    @staticmethod
+    def _bridge_instruction_from_state(*, state: str, next_angle: str) -> str:
+        normalized = state.strip().upper()
+        if normalized == "NEXT_SCHEDULED_NOT_LIVE" and next_angle:
+            return (
+                f"End with a natural bridge to the next scheduled same-root angle, {next_angle}. "
+                "Do not link or claim it is published."
+            )
+        if normalized == "NEXT_LIVE" and next_angle:
+            return f"Link only the verified live canonical URL for the next same-root angle, {next_angle}."
+        if normalized == "SERIES_COMPLETE":
+            return "Do not invent a successor; close the series naturally."
+        if normalized == "SERIES_PAUSED":
+            return "Do not promise a next article; explain that verified coverage is paused."
+        return "Do not fabricate a next article teaser."
+
+    def _weekly_root_has_primary_draft(self, root_topic: dict[str, Any], *, week_start: str) -> bool:
+        root_id = str(root_topic.get("root_topic_id") or "").strip()
+        parent_slug = str(root_topic.get("parent_slug") or root_topic.get("slug") or "").strip()
+        monday_angle = (root_topic.get("daily_angles") or {}).get(week_start) if isinstance(root_topic.get("daily_angles"), dict) else {}
+        monday_status = str((monday_angle or {}).get("status") or "").lower() if isinstance(monday_angle, dict) else ""
+        if monday_status in {"drafted", "draft_ready", BATCH_STATE_DRAFT_READY.lower()}:
+            return True
+
+        monday_queue = _read_json(self._queue_dir(week_start) / "topics.json", {})
+        for item in list(monday_queue.get("topics") or []):
+            slug = str(item.get("slug") or "").strip()
+            item_root = str(item.get("root_topic_id") or item.get("parent_slug") or slug).strip()
+            if root_id and item_root != root_id and slug != parent_slug:
+                continue
+            if parent_slug and slug != parent_slug and item_root != root_id:
+                continue
+            status = str(item.get("status") or "").lower()
+            draft_file_text = str(item.get("draft_file") or "").strip()
+            draft_file = Path(draft_file_text) if draft_file_text else None
+            if status in {"drafted", "draft_ready"}:
+                return True
+            if draft_file is not None and draft_file.exists():
+                return True
+            if slug and (self.data_dir / "production_article_drafts" / slug / "index.html").exists():
+                return True
+        return bool(parent_slug and (self.data_dir / "production_article_drafts" / parent_slug / "index.html").exists())
+
+    def _weekly_root_primary_hold(self, root_topic: dict[str, Any], *, week_start: str) -> dict[str, Any]:
+        root_id = str(root_topic.get("root_topic_id") or "").strip()
+        parent_slug = str(root_topic.get("parent_slug") or root_topic.get("slug") or "").strip()
+        root_title = str(root_topic.get("root_title") or root_topic.get("title") or "").strip()
+        monday_queue = _read_json(self._queue_dir(week_start) / "topics.json", {})
+        for item in list(monday_queue.get("topics") or []):
+            slug = str(item.get("slug") or "").strip()
+            item_root = str(item.get("root_topic_id") or item.get("parent_slug") or slug).strip()
+            if root_id and item_root != root_id and slug != parent_slug:
+                continue
+            if parent_slug and slug != parent_slug and item_root != root_id:
+                continue
+            readiness = item.get("article_readiness") if isinstance(item.get("article_readiness"), dict) else {}
+            source_synced_at = self._parse_observation_timestamp(item.get("source_review_synced_at"))
+            readiness_at = self._parse_observation_timestamp(
+                readiness.get("evaluated_at") or readiness.get("generated_at")
+            )
+            use_source_review = bool(source_synced_at) and (
+                not readiness_at or source_synced_at >= readiness_at
+            )
+            if use_source_review:
+                blockers = list(item.get("source_review_failing_gates") or [])
+                draft_exportable = item.get("draft_exportable")
+                item_status = str(item.get("research_state") or item.get("status") or "").upper()
+                readiness_scope = str(item.get("source_review_scope") or "ROOT_FOUNDATION")
+                source_families = list(item.get("source_review_source_families") or [])
+                official_source_count = int(item.get("source_review_official_sources") or 0)
+            else:
+                blockers = list(readiness.get("blockers") or item.get("blockers") or [])
+                draft_exportable = readiness.get("draft_exportable")
+                item_status = str(readiness.get("status") or item.get("status") or "").upper()
+                readiness_scope = str(readiness.get("readiness_scope") or "ROOT_FOUNDATION")
+                source_families = list(readiness.get("source_families") or [])
+                official_source_count = int(readiness.get("official_source_count") or 0)
+            research_pending = bool(blockers) or "BLOCKED_RESEARCH" in item_status or draft_exportable is False
+            if research_pending:
+                reason = str(blockers[0] if blockers else readiness.get("reason") or "Monday root research is not article-ready")
+                if official_source_count == 0:
+                    action = (
+                        "Open Menu S for this root. Add and validate one official product/docs URL with M, "
+                        "then run F; review the listed missing evidence sections and rerun Menu 2."
+                    )
+                else:
+                    action = (
+                        "Open Menu S for this root, run F, and resolve the listed missing evidence "
+                        "sections/source families before rerunning Menu 2."
+                    )
+                return {
+                    "root_topic_id": root_id,
+                    "root_title": root_title,
+                    "slug": parent_slug,
+                    "status": "HELD_FOR_RESEARCH",
+                    "reason": reason,
+                    "blockers": blockers or [reason],
+                    "readiness_scope": readiness_scope,
+                    "source_families": source_families,
+                    "required_operator_action": action,
+                }
+            break
+        return {
+            "root_topic_id": root_id,
+            "root_title": root_title,
+            "slug": parent_slug,
+            "status": "HELD_FOR_PRIMARY_ARTICLE",
+            "reason": "weekly root has no Monday draft/article",
+            "readiness_scope": "ROOT_FOUNDATION",
+            "scheduled_angle_readiness": "NOT_EVALUATED",
+            "required_operator_action": (
+                "Root research is exportable, but the locked Monday root article is not complete. "
+                "Export it with Menu X, import the completed writer ZIP with Menu W, complete the normal "
+                "review boundary, then rerun Menu 2."
+            ),
+        }
+
+    @staticmethod
+    def _parse_observation_timestamp(value: Any) -> datetime | None:
+        text = str(value or "").strip()
+        if not text:
+            return None
+        try:
+            parsed = datetime.fromisoformat(text.replace("Z", "+00:00"))
+        except ValueError:
+            return None
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=UTC)
+        return parsed.astimezone(UTC)
+
+    def _filter_weekly_roots_to_continuing_roots(
+        self,
+        roots: list[dict[str, Any]],
+        *,
+        week_start: str,
+    ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+        continuing: list[dict[str, Any]] = []
+        held: list[dict[str, Any]] = []
+        for raw_root in roots:
+            root = self._normalize_weekly_root_topic(raw_root, week_start=week_start)
+            root_id = str(root.get("root_topic_id") or "")
+            if str(root.get("status") or "active") not in {"active", "weekly_selected"}:
+                held.append({"root_topic_id": root_id, "slug": str(root.get("parent_slug") or root.get("slug") or ""), "reason": "weekly root is not active"})
+                continue
+            if not self._weekly_root_has_primary_draft(root, week_start=week_start):
+                held.append(self._weekly_root_primary_hold(root, week_start=week_start))
+                continue
+            continuing.append(root)
+        return continuing, held
+
+    def _filter_daily_topics_to_continuing_roots(
+        self,
+        topics: list[dict[str, Any]],
+        *,
+        weekly_batch: dict[str, Any],
+        batch_date: str,
+    ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+        roots, disconnected_roots = self._filter_weekly_roots_to_continuing_roots(
+            list(weekly_batch.get("topics") or []),
+            week_start=str(weekly_batch.get("week_start") or self._week_start(batch_date)),
+        )
+        allowed_root_ids = {str(root.get("root_topic_id") or "") for root in roots}
+        allowed_parent_slugs = {str(root.get("parent_slug") or root.get("slug") or "") for root in roots}
+        filtered: list[dict[str, Any]] = []
+        held: list[dict[str, Any]] = list(disconnected_roots)
+        for item in topics:
+            root_id = str(item.get("root_topic_id") or item.get("parent_slug") or "").strip()
+            parent_slug = str(item.get("parent_slug") or "").strip()
+            if root_id in allowed_root_ids or parent_slug in allowed_parent_slugs:
+                filtered.append(item)
+                continue
+            held.append(
+                {
+                    "root_topic_id": root_id,
+                    "root_title": str(item.get("root_title") or item.get("parent_keyword") or ""),
+                    "slug": str(item.get("slug") or ""),
+                    "daily_angle": str(item.get("daily_angle") or ""),
+                    "reason": "not part of the continuing Monday root-topic set",
+                }
+            )
+        return filtered, held
 
     @staticmethod
     def _weekly_angle_collision(item: dict[str, Any]) -> str:
@@ -3504,16 +6125,22 @@ class DailyEditorialWorkflow:
         return accepted[:count]
 
     def _select_source_ready_topics(self, candidates: list[dict[str, Any]], *, count: int) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-        selected: list[dict[str, Any]] = []
+        ready_candidates: list[dict[str, Any]] = []
         rejected: list[dict[str, Any]] = []
         for item in candidates:
             readiness = self._topic_source_readiness(item)
             if readiness["passes"]:
-                if len(selected) < count:
-                    selected_item = dict(item)
-                    selected_item["source_readiness"] = readiness
-                    selected.append(selected_item)
+                ready_item = dict(item)
+                ready_item["source_readiness"] = readiness
+                ready_candidates.append(ready_item)
             else:
+                score_report = score_topic_candidate(
+                    {**dict(item), "source_readiness": readiness},
+                    content_lane=TOPIC_SCORING_FOUNDATION_MAIN,
+                    config=self.editorial_config,
+                )
+                score_report["selection_result"] = REJECTED_HARD_GATE
+                score_report["reason"] = readiness["pass_fail_reason"]
                 rejected.append(
                     {
                         "keyword": str(item.get("keyword") or ""),
@@ -3521,11 +6148,25 @@ class DailyEditorialWorkflow:
                         "source_count": readiness["source_count"],
                         "unique_source_domains": readiness["unique_source_domains"],
                         "reason": readiness["pass_fail_reason"],
+                        "selection_result": REJECTED_HARD_GATE,
+                        "total_score": float(score_report.get("total_score") or 0),
+                        "topic_score_report": score_report,
                     }
                 )
-        return selected[:count], rejected
+        selected, score_rejected, summary = select_topic_candidates(
+            ready_candidates,
+            count=min(count, MAX_FOUNDATION_ROOTS),
+            content_lane=TOPIC_SCORING_FOUNDATION_MAIN,
+            config=self.editorial_config,
+        )
+        summary["candidates_discovered"] = len(candidates)
+        summary["candidates_source_ready"] = len(ready_candidates)
+        summary["candidates_hard_gate_passed"] = len(ready_candidates)
+        self._last_topic_selection_report = summary
+        return selected[:count], [*rejected, *score_rejected]
 
     def _topic_source_readiness(self, item: dict[str, Any]) -> dict[str, Any]:
+        _ensure_topic_score_fields(item)
         min_sources = self._minimum_verified_sources()
         source_urls = self._semantically_relevant_topic_sources(item)
         domains = [urllib.parse.urlparse(url).netloc.lower().removeprefix("www.") for url in source_urls]
@@ -3557,7 +6198,7 @@ class DailyEditorialWorkflow:
 
     def _semantically_relevant_topic_sources(self, item: dict[str, Any]) -> list[str]:
         slug = str(item.get("slug") or "")
-        source_urls = self._independent_topic_sources(list(item.get("source_urls") or []))
+        source_urls = self._independent_topic_sources(self._topic_source_url_candidates(item))
         policy = SEMANTIC_SOURCE_POLICIES.get(slug)
         if not policy:
             return source_urls
@@ -3574,6 +6215,45 @@ class DailyEditorialWorkflow:
                 continue
             filtered.append(url)
         return filtered
+
+    def _topic_source_url_candidates(self, item: dict[str, Any]) -> list[str]:
+        candidates: list[str] = []
+        for key in ("source_urls", "source_references", "sources", "validated_source_urls", "supporting_source_urls"):
+            candidates.extend(self._extract_source_urls(item.get(key)))
+        for slug_key in ("parent_slug", "root_topic_id", "slug"):
+            research_slug = str(item.get(slug_key) or "").strip()
+            if research_slug:
+                candidates.extend(self._research_source_urls(research_slug))
+        return candidates
+
+    def _research_source_urls(self, slug: str) -> list[str]:
+        research_sources = self.data_dir / "research" / slug / "sources.json"
+        if not research_sources.exists():
+            return []
+        return self._extract_source_urls(_read_json(research_sources, {}))
+
+    @classmethod
+    def _extract_source_urls(cls, value: Any) -> list[str]:
+        urls: list[str] = []
+        if isinstance(value, str):
+            if value.strip():
+                urls.append(value.strip())
+            return urls
+        if isinstance(value, list):
+            for item in value:
+                urls.extend(cls._extract_source_urls(item))
+            return urls
+        if not isinstance(value, dict):
+            return urls
+        status = str(value.get("status") or "").strip().lower()
+        if status != "missing":
+            for key in ("url", "source_url", "href", "canonical_url"):
+                raw_url = value.get(key)
+                if isinstance(raw_url, str) and raw_url.strip():
+                    urls.append(raw_url.strip())
+        for key in ("trusted_sources", "official_documentation", "pricing_pages", "product_pages", "release_notes", "verified_sources", "sources"):
+            urls.extend(cls._extract_source_urls(value.get(key)))
+        return urls
 
     def _has_direct_semantic_source(self, slug: str, source_urls: list[str]) -> bool:
         policy = SEMANTIC_SOURCE_POLICIES.get(slug)
@@ -3760,132 +6440,49 @@ class DailyEditorialWorkflow:
         item["duplicate_penalty_applied"] = penalty
         item["total_score"] = _clamp_score(raw_score - penalty)
 
+    def _queue_resolution(self) -> EditorialQueueResolution:
+        return EditorialQueueResolution(
+            queue_root=self.queue_root,
+            data_dir=self.data_dir,
+            review_root=self.review_root,
+            site_output_dir=self.site_output_dir,
+            read_json=_read_json,
+            normalize_publish_row=PublishGate.normalize_existing_row,
+        )
+
     def _queue_dir(self, batch_date: str) -> Path:
-        return self.queue_root / batch_date
+        return self._queue_resolution()._queue_dir(batch_date)
 
     def _load_queue(self, batch_date: str) -> dict[str, Any]:
-        path = self._queue_dir(batch_date) / "topics.json"
-        payload = _read_json(path, {})
-        if not payload:
-            raise FileNotFoundError(f"Editorial queue not found for {batch_date}: {path}")
-        return payload
+        return self._queue_resolution()._load_queue(batch_date)
 
     def latest_queue_date(self) -> str:
-        if not self.queue_root.exists():
-            return ""
-        candidates: list[str] = []
-        for path in self.queue_root.iterdir():
-            if not path.is_dir():
-                continue
-            if path.name == "weeks":
-                continue
-            try:
-                date.fromisoformat(path.name)
-            except ValueError:
-                continue
-            if (path / "topics.json").exists():
-                candidates.append(path.name)
-        return max(candidates) if candidates else ""
+        return self._queue_resolution().latest_queue_date()
 
     def resolve_batch_date(self, batch_date: str | None, *, require_activity: bool = False) -> str:
-        requested = str(batch_date or "").strip()
-        if requested and requested.lower() != "latest":
-            return requested
-        if not self.queue_root.exists():
-            return requested or date.today().isoformat()
-        candidates: list[tuple[str, int]] = []
-        human_rows = {str(row.get("slug") or ""): row for row in _read_json(self.data_dir / "human_approval_queue.json", [])}
-        for path in self.queue_root.iterdir():
-            if not path.is_dir() or path.name == "weeks":
-                continue
-            try:
-                date.fromisoformat(path.name)
-            except ValueError:
-                continue
-            queue_path = path / "topics.json"
-            if not queue_path.exists():
-                continue
-            payload = _read_json(queue_path, {})
-            topics = list(payload.get("topics") or []) if isinstance(payload, dict) else []
-            activity = 0
-            for item in topics:
-                slug = str(item.get("slug") or "")
-                if (self.data_dir / "production_article_drafts" / slug / "index.html").exists():
-                    activity += 1
-                if str((human_rows.get(slug) or {}).get("status") or "") == "human_approved":
-                    activity += 2
-            if require_activity and activity <= 0:
-                continue
-            candidates.append((path.name, activity))
-        if not candidates:
-            return self.latest_queue_date() or requested or date.today().isoformat()
-        candidates.sort(key=lambda row: (row[0], row[1]))
-        return candidates[-1][0]
+        return self._queue_resolution().resolve_batch_date(batch_date, require_activity=require_activity)
 
     def batch_state(self, batch_date: str) -> str:
-        queue_path = self._queue_dir(batch_date) / "topics.json"
-        payload = _read_json(queue_path, {})
-        if not isinstance(payload, dict) or not queue_path.exists():
-            return ""
-        topics = list(payload.get("topics") or [])
-        if not topics:
-            return BATCH_STATE_QUEUE_CREATED
-        publish_rows = {str(row.get("slug") or ""): row for row in _read_json(self.data_dir / "publish_queue.json", [])}
-        human_rows = {str(row.get("slug") or ""): row for row in _read_json(self.data_dir / "human_approval_queue.json", [])}
-        has_draft = False
-        has_under_review = False
-        has_human_approved = False
-        has_ready = False
-        has_published = False
-        has_writing = False
-        for item in topics:
-            slug = str(item.get("slug") or "")
-            status = str(item.get("status") or "").strip().lower()
-            if status in {"writing", "drafting"}:
-                has_writing = True
-            draft_file = Path(str(item.get("draft_file") or "")) if str(item.get("draft_file") or "") else self.data_dir / "production_article_drafts" / slug / "index.html"
-            review_preview = Path(str(item.get("review_preview") or "")) if str(item.get("review_preview") or "") else self.site_output_dir / "review" / batch_date / slug / "index.html"
-            if slug and (draft_file.exists() or review_preview.exists()):
-                has_draft = True
-            if status in {"drafted", "needs_review"} or str((human_rows.get(slug) or {}).get("status") or "") == "needs_human_review":
-                has_under_review = True
-            if status == "approved" or str((human_rows.get(slug) or {}).get("status") or "") == "human_approved":
-                has_human_approved = True
-            publish_row = publish_rows.get(slug) or {}
-            normalized = PublishGate.normalize_existing_row(publish_row)
-            publish_status = str(normalized.get("normalized_status") or publish_row.get("status") or "").strip().lower()
-            if publish_status == "approved_for_publish" or normalized.get("final_gate") == "Ready for Publish":
-                has_ready = True
-            if status == "published" or publish_status in {"published_local", "published"}:
-                has_published = True
-        if has_published:
-            return BATCH_STATE_PUBLISHED
-        if has_ready:
-            return BATCH_STATE_READY_FOR_PUBLISH
-        if has_human_approved:
-            return BATCH_STATE_HUMAN_APPROVED
-        if has_under_review:
-            return BATCH_STATE_UNDER_REVIEW
-        if has_draft:
-            return BATCH_STATE_DRAFT_READY
-        if has_writing:
-            return BATCH_STATE_WRITING
-        return BATCH_STATE_QUEUE_CREATED
+        return self._queue_resolution().batch_state(batch_date)
 
     def resolve_latest_batch_by_state(self, states: set[str]) -> str:
-        if not self.queue_root.exists():
-            return ""
-        matches: list[str] = []
-        for path in self.queue_root.iterdir():
-            if not path.is_dir() or path.name == "weeks":
-                continue
-            try:
-                date.fromisoformat(path.name)
-            except ValueError:
-                continue
-            if self.batch_state(path.name) in states:
-                matches.append(path.name)
-        return max(matches) if matches else ""
+        return self._queue_resolution().resolve_latest_batch_by_state(states)
+
+    @staticmethod
+    def _activity_timestamp(value: Any) -> float:
+        return EditorialQueueResolution._activity_timestamp(value)
+
+    def reviewable_batch_details(self, batch_date: str) -> dict[str, Any]:
+        return self._queue_resolution().reviewable_batch_details(batch_date)
+
+    def resolve_latest_reviewable_batch(self) -> dict[str, Any]:
+        return self._queue_resolution().resolve_latest_reviewable_batch()
+
+    def publish_candidate_batch_details(self, batch_date: str) -> dict[str, Any]:
+        return self._queue_resolution().publish_candidate_batch_details(batch_date)
+
+    def resolve_latest_publish_candidate_batch(self) -> dict[str, Any]:
+        return self._queue_resolution().resolve_latest_publish_candidate_batch()
 
     def _save_queue(self, batch_date: str, payload: dict[str, Any]) -> None:
         _write_json(self._queue_dir(batch_date) / "topics.json", payload)
@@ -4125,9 +6722,31 @@ class DailyEditorialWorkflow:
             return False
         return Path(draft_file).exists() and Path(preview).exists()
 
+    def _has_draft_output(self, item: dict[str, Any]) -> bool:
+        """A dashboard Draft label requires an actual article file."""
+        explicit = str(item.get("draft_file") or "").strip()
+        if explicit and Path(explicit).is_file():
+            return True
+        slug = str(item.get("slug") or "").strip()
+        if not slug:
+            return False
+        draft_dir = self.data_dir / "production_article_drafts" / slug
+        return any((draft_dir / name).is_file() for name in ("article.md", "article.html", "index.html"))
+
+    @staticmethod
+    def _is_research_blocked_status(status: str) -> bool:
+        normalized = str(status or "").strip().lower()
+        return normalized in {
+            "blocked_research",
+            "needs_enrichment",
+            "research_blocked",
+            "no_official_sources",
+            "migration_required",
+        }
+
     def _recommended_command(self, summary: dict[str, Any], *, batch_date: str) -> str:
         if summary["total_topics"] == 0:
-            return f"python editorial_console.py trend --count 10 --date {batch_date}"
+            return f"python editorial_console.py trend --count 2 --date {batch_date}"
         if summary["drafted"] + summary["approved"] + summary["rejected"] + summary["published"] == 0:
             return f"python editorial_console.py draft --date {batch_date}"
         if summary.get("ready_for_publish", 0) > 0:
@@ -4162,6 +6781,10 @@ class DailyEditorialWorkflow:
             return f"python editorial_console.py publish-ready --date {batch_date}"
         if normalized_status == "published_local" or status == "published":
             return "Already published"
+        if not self._has_draft_output(item):
+            if self._is_research_blocked_status(status):
+                return "Complete verified-source research, then run Menu X"
+            return f"python editorial_console.py draft --date {batch_date}"
         if self._has_reviewable_preview(item) and status in {"drafted", "selected"}:
             return f"python editorial_console.py approve --slug {slug} --date {batch_date}"
         if normalized_status == "blocked":
@@ -4194,76 +6817,82 @@ class DailyEditorialWorkflow:
             return normalized
         return "selected"
 
+    def _canonical_state_for_item(
+        self,
+        item: dict[str, Any],
+        publish_row: dict[str, Any] | None = None,
+        *,
+        live_http_status: int | None = None,
+        review_row: dict[str, Any] | None = None,
+        approval_row: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        slug = str(item.get("slug") or "").strip()
+        draft = self.data_dir / "production_article_drafts" / slug / "index.html"
+        html_text = draft.read_text(encoding="utf-8", errors="ignore") if draft.is_file() else ""
+        review = review_row if review_row is not None else next(
+            (row for row in _read_json(self.data_dir / "content_review_queue.json", []) if str(row.get("slug") or "") == slug),
+            {},
+        )
+        approval = approval_row if approval_row is not None else next(
+            (row for row in _read_json(self.data_dir / "human_approval_queue.json", []) if str(row.get("slug") or "") == slug),
+            {},
+        )
+        if live_http_status is None:
+            live_report = _read_json(self.data_dir / "live_status_report.json", {})
+            live_row = next(
+                (row for row in list(live_report.get("items") or []) if str(row.get("slug") or "") == slug),
+                {},
+            )
+            live_http_status = int(live_row.get("live_http_status") or 0) or None
+        structure_errors: list[str] = []
+        item_status = str(item.get("status") or "").strip()
+        if self._is_research_blocked_status(item_status):
+            structure_errors.append(
+                str(item.get("error") or "research quality gate blocks draft generation")
+            )
+        return resolve_article_operational_state(
+            slug=slug,
+            html_text=html_text,
+            review=review,
+            approval=approval,
+            publish=publish_row or {},
+            structure_errors=structure_errors,
+            live_http_status=live_http_status,
+        )
+
     def _editorial_status_for_item(self, item: dict[str, Any], publish_row: dict[str, Any] | None = None) -> str:
         status = str(item.get("status") or "").strip().lower()
         publish_status = str((publish_row or {}).get("status") or "").strip().lower()
+        binding_status = str((publish_row or {}).get("approval_binding_status") or "").strip().upper()
         if status == "published" or publish_status in {"published_local", "committed_local", "awaiting_push", "pushed", "live", "published"}:
             return "Published"
         if status == "rejected":
             return "Rejected"
+        if binding_status in {"LEGACY_APPROVAL_UNBOUND", "CONTENT_HASH_MISMATCH", "REVISION_ID_MISMATCH"} and self._has_reviewable_preview(item):
+            return "Needs Review"
         if status == "approved" or publish_status == "approved_for_publish":
             return "Human Approved"
         if self._has_reviewable_preview(item):
             return "Needs Review"
-        return "Draft"
+        if self._is_research_blocked_status(status):
+            return "Blocked Research"
+        return "Draft" if self._has_draft_output(item) else "Waiting for Draft"
+
+    def _current_article_title(self, item: dict[str, Any]) -> str:
+        """Return the title belonging to the current production draft revision."""
+        slug = str(item.get("slug") or "").strip()
+        if slug:
+            metadata = _read_json(self.data_dir / "production_article_drafts" / slug / "metadata.json", {})
+            title = str(metadata.get("title") or "").strip()
+            if title:
+                return title
+        return str(item.get("article_title") or item.get("keyword") or slug)
 
     def _publish_gate_status_for_item(self, item: dict[str, Any], publish_row: dict[str, Any] | None = None) -> str:
-        status = str(item.get("status") or "").strip().lower()
-        if not publish_row:
-            return "Review Pending" if self._has_reviewable_preview(item) else "Draft"
-        normalized = PublishGate.normalize_existing_row(publish_row or {})
-        publish_status = str(normalized.get("normalized_status") or (publish_row or {}).get("status") or "missing").strip().lower()
-        if status == "published" or publish_status in {"published_local", "published"}:
-            return "Published"
-        if publish_status == "committed_local":
-            return "Committed Local"
-        if publish_status == "awaiting_push":
-            return "Awaiting Push"
-        if publish_status == "push_blocked":
-            return "Push Blocked"
-        if publish_status == "rebase_conflict":
-            return "Rebase Conflict"
-        if publish_status == "pushed":
-            return "Pushed"
-        if publish_status == "live":
-            return "Live"
-        if publish_status == "approved_for_publish":
-            return "Ready for Publish"
-        if publish_status == "blocked":
-            return "Publish Blocked"
-        if publish_status == "needs_human_review":
-            return "Human Approval Required"
-        return "Review Pending"
+        return self._canonical_state_for_item(item, publish_row)["state_label"]
 
     def _deployment_status_for_item(self, item: dict[str, Any], publish_row: dict[str, Any] | None = None) -> str:
-        slug = str(item.get("slug") or "").strip()
-        if not slug:
-            return "Unknown"
-        latest_live = _read_json(self.data_dir / "live_status_report.json", {})
-        for live_item in list(latest_live.get("items") or []):
-            if str(live_item.get("slug") or "") != slug:
-                continue
-            display_status = str(live_item.get("display_status") or "")
-            if display_status == "Live 200":
-                return "Live 200"
-            if display_status == "Unexpected Live 404":
-                return "Unexpected Live 404"
-            if display_status == "Awaiting Push":
-                return "Awaiting Push"
-            if display_status == "Missing Local Output":
-                return "Not Generated"
-            if display_status == "Missing Docs":
-                return "Local Output Ready"
-        site_file = self.site_output_dir / slug / "index.html"
-        docs_file = self.root / "docs" / slug / "index.html"
-        if not site_file.exists() and not (self.data_dir / "published_static_pages" / slug / "index.html").exists():
-            return "Not Generated"
-        if not docs_file.exists():
-            return "Local Output Ready"
-        publish_status = str((publish_row or {}).get("status") or "").strip().lower()
-        if publish_status in {"published_local", "published"}:
-            return "Docs Synced"
-        return "Docs Synced"
+        return self._canonical_state_for_item(item, publish_row)["state_label"]
 
     def _status_tone_for_label(self, label: str) -> str:
         normalized = label.strip().lower()
@@ -4548,23 +7177,54 @@ class DailyEditorialWorkflow:
         path.write_text(html_text, encoding="utf-8")
         return path
 
-    def _check_live_items(self, *, batch_date: str, include_all: bool = False) -> list[dict[str, Any]]:
+    def _live_candidate_slugs(self, *, batch_date: str, include_all: bool) -> list[str]:
+        """Select live-report scope before metadata or canonical state is loaded."""
+        if include_all:
+            return list(dict.fromkeys(
+                str(row.get("slug") or "").strip()
+                for row in _read_json(self.data_dir / "publish_queue.json", [])
+                if isinstance(row, dict) and str(row.get("slug") or "").strip()
+            ))
+        payload = _read_json(self._queue_dir(batch_date) / "topics.json", {})
+        return list(dict.fromkeys(
+            str(item.get("slug") or "").strip()
+            for item in list(payload.get("topics") or [])
+            if isinstance(item, dict) and str(item.get("slug") or "").strip()
+        ))
+
+    def _check_live_items(
+        self,
+        *,
+        batch_date: str,
+        include_all: bool = False,
+        candidate_slugs: list[str] | None = None,
+    ) -> list[dict[str, Any]]:
         payload = _read_json(self._queue_dir(batch_date) / "topics.json", {})
         queue_topics = list(payload.get("topics") or [])
         queue_by_slug = {str(item.get("slug") or ""): item for item in queue_topics}
+        scoped_slugs = candidate_slugs if candidate_slugs is not None else self._live_candidate_slugs(
+            batch_date=batch_date,
+            include_all=include_all,
+        )
+        wanted_slugs = set(scoped_slugs)
         publish_rows = {
             str(row.get("slug") or ""): row
             for row in _read_json(self.data_dir / "publish_queue.json", [])
+            if str(row.get("slug") or "") in wanted_slugs
         }
-        if include_all:
-            candidate_slugs = [slug for slug in publish_rows.keys() if slug]
-        elif queue_topics:
-            candidate_slugs = [str(item.get("slug") or "") for item in queue_topics if str(item.get("slug") or "")]
-        else:
-            candidate_slugs = [slug for slug in publish_rows.keys() if slug]
+        review_rows = {
+            str(row.get("slug") or ""): row
+            for row in _read_json(self.data_dir / "content_review_queue.json", [])
+            if str(row.get("slug") or "") in wanted_slugs
+        }
+        approval_rows = {
+            str(row.get("slug") or ""): row
+            for row in _read_json(self.data_dir / "human_approval_queue.json", [])
+            if str(row.get("slug") or "") in wanted_slugs
+        }
 
         items: list[dict[str, Any]] = []
-        for slug in candidate_slugs:
+        for slug in scoped_slugs:
             queue_item = queue_by_slug.get(slug) or {"slug": slug}
             publish_row = publish_rows.get(slug) or {}
             metadata = self.console._load_metadata(slug)
@@ -4576,6 +7236,13 @@ class DailyEditorialWorkflow:
             docs_exists = docs_file.exists()
             git_status = self._git_file_publish_status(docs_file if docs_exists else site_file)
             live_probe = self._probe_live_url(url) if url else {"status": "unknown", "http_status": None, "reason": "missing url"}
+            canonical = self._canonical_state_for_item(
+                queue_item,
+                publish_row,
+                live_http_status=int(live_probe.get("http_status") or 0) or None,
+                review_row=review_rows.get(slug, {}),
+                approval_row=approval_rows.get(slug, {}),
+            )
             local_status = "local_only" if local_exists and not docs_exists else ("docs_synced" if docs_exists else "missing_local")
             diagnosis = self._diagnose_live_item(
                 slug=slug,
@@ -4586,15 +7253,34 @@ class DailyEditorialWorkflow:
                 live_probe=live_probe,
                 url=url,
             )
-            display_status = self._live_display_status(
-                publish_row=publish_row,
-                local_status=local_status,
-                docs_exists=docs_exists,
-                git_status=git_status,
-                live_probe=live_probe,
-            )
+            display_status = str(canonical["state_label"])
+            if canonical["state"] == "PUBLISH_BLOCKED":
+                canonical_reasons = "; ".join(str(row["reason"]) for row in canonical["blockers"])
+                diagnosis = {
+                    "block_reason": f"Publish Blocked: {canonical_reasons}",
+                    "resolution": "Recommended Action: fix the canonical blockers, then rerun review and publish validation.",
+                    "next_action_command": f"python editorial_console.py serve --date {batch_date} --open",
+                }
+            elif canonical["state"] == "WAITING_FOR_DRAFT":
+                diagnosis = {
+                    "block_reason": "Waiting for Draft: production draft is missing",
+                    "resolution": "Recommended Action: generate the production draft, then run quality review.",
+                    "next_action_command": f"python editorial_console.py draft --date {batch_date}",
+                }
+            elif canonical["state"] == "NEEDS_REVIEW":
+                diagnosis = {
+                    "block_reason": f"Needs Review: approval binding is {canonical['human_approval_binding']}",
+                    "resolution": "Recommended Action: review and approve the current revision.",
+                    "next_action_command": f"python editorial_console.py serve --date {batch_date} --open",
+                }
+            elif canonical["state"] == "READY_FOR_PUBLISH":
+                diagnosis = {
+                    "block_reason": "No deployment error: canonical state is Ready for Publish.",
+                    "resolution": "Run Menu 8 once to publish this exact approved revision.",
+                    "next_action_command": f"python editorial_console.py publish-ready --date {batch_date}",
+                }
             editorial_status = self._editorial_status_for_item(queue_item, publish_row)
-            publish_gate_status = self._publish_gate_status_for_item(queue_item, publish_row)
+            publish_gate_status = str(canonical["state_label"])
             publish_queue_status = str(PublishGate.normalize_existing_row(publish_row).get("normalized_status") or publish_row.get("status") or "missing")
             if not include_all and not self._should_show_in_live_status(
                 editorial_status=editorial_status,
@@ -4627,6 +7313,7 @@ class DailyEditorialWorkflow:
                     "block_reason": diagnosis["block_reason"],
                     "resolution": diagnosis["resolution"],
                     "next_action_command": diagnosis["next_action_command"],
+                    "canonical_state": canonical,
                     "site_output_file": str(site_file),
                     "docs_file": str(docs_file),
                     "published_static_file": str(local_article_file),
@@ -4644,7 +7331,7 @@ class DailyEditorialWorkflow:
         docs_exists: bool,
         display_status: str,
     ) -> bool:
-        if display_status in {"Live 200", "Awaiting Push", "Published Local", "Committed Local", "Deploy Pending", "Push Blocked", "Rebase Conflict", "Unexpected Live 404"}:
+        if display_status in {"Live 200", "Ready - Deployment Not Started", "Awaiting Push", "Published Local", "Committed Local", "Deploy Pending", "Push Blocked", "Rebase Conflict", "Unexpected Live 404"}:
             return True
         if editorial_status in {"Human Approved", "Published"}:
             return True
@@ -4683,6 +7370,12 @@ class DailyEditorialWorkflow:
             return "Live 200"
         if queue_status in published_states and live_state == "404":
             return "Unexpected Live 404"
+        # A generated docs projection is not evidence that deployment started.
+        # approved_for_publish is the canonical pre-deployment state even when
+        # the prospective URL naturally returns 404 and Git does not track the
+        # generated file yet.
+        if queue_status == "approved_for_publish":
+            return "Ready - Deployment Not Started"
         if local_status == "missing_local":
             return "Missing Local Output"
         if queue_status in awaiting_states:
@@ -4693,8 +7386,6 @@ class DailyEditorialWorkflow:
             return "Missing Docs"
         if git_state in {"not_synced", "not_committed", "not_pushed"}:
             return "Awaiting Push"
-        if queue_status == "approved_for_publish":
-            return "Awaiting Publish"
         return "Unknown"
 
     def _diagnose_live_item(
@@ -4750,6 +7441,20 @@ class DailyEditorialWorkflow:
                 "block_reason": self._operator_block_title(reason),
                 "resolution": f"Recommended Action: {self._recommended_action_for_reason(reason)}. Review warnings: {', '.join(self._operator_block_title(item) for item in warnings) or 'none'}.",
                 "next_action_command": f"python editorial_console.py serve --date {batch_date} --open",
+            }
+        if queue_status == "approved_for_publish":
+            live_note = (
+                " The current HTTP 404 is expected before the first successful deployment."
+                if live_state == "404"
+                else ""
+            )
+            return {
+                "block_reason": "No deployment error: approved and Ready for Publish; Menu 8 deployment has not started.",
+                "resolution": (
+                    "Run Menu 8 once to build, validate, commit, push, and verify this exact approved revision."
+                    f"{live_note}"
+                ),
+                "next_action_command": f"python editorial_console.py publish-ready --date {batch_date}",
             }
         if queue_status in {"missing", "selected", "drafted"} or local_status == "missing_local":
             return {
@@ -4903,10 +7608,17 @@ class DailyEditorialWorkflow:
         lines = [
             f"# Live Status Report {report['date']}",
             "",
-            f"- Total items: {summary['total_items']}",
+            f"- Report date: {report['report_date']}",
+            f"- Operational batch: {report['operational_batch']}",
+            f"- Scope: {report['scope']}",
+            f"- Articles loaded: {report['articles_loaded']}",
+            f"- Historical articles scanned: {report['historical_articles_loaded']}",
+            f"- Historical articles resolved: {report['historical_articles_resolved']}",
+            f"- Site-wide Live 200: {summary['site_wide_live']}",
             "## Deployment summary",
-            f"- Live 200: {summary['live_200']}",
+            f"- Current Batch Live: {summary['live_200']}",
             f"- Awaiting Publish: {summary['awaiting_publish']}",
+            f"- Ready - Deployment Not Started: {summary['ready_deployment_not_started']}",
             f"- Awaiting Push: {summary['awaiting_push']}",
             f"- Published Local: {summary['published_local']}",
             f"- Committed Local: {summary['committed_local']}",
@@ -4925,6 +7637,12 @@ class DailyEditorialWorkflow:
             f"- Publish Blocked: {summary['publish_blocked']}",
             f"- Rejected: {summary['rejected']}",
             f"- Live This Batch: {summary['published_this_batch']}",
+            "",
+            "## Status meaning",
+            "- Ready for Publish: editorial approval and publish gates passed.",
+            "- Ready - Deployment Not Started: Menu 8 has not yet created/pushed a publish commit; a 404 is expected.",
+            "- Awaiting Push: a local publish commit exists but is not yet on origin/main.",
+            "- Deploy Pending: the commit was pushed and the site host has not served it yet.",
             "",
             "| Slug | Editorial | Publish gate | Deployment | Local | Docs | Git | Block reason | How to fix | URL |",
             "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
@@ -4947,7 +7665,7 @@ class DailyEditorialWorkflow:
                 f"<td>{html.escape(item['local_status'])}</td>"
                 f"<td>{'yes' if item['docs_synced'] else 'no'}</td>"
                 f"<td>{html.escape(item['git_status'])}<br><small>{html.escape(item['git_reason'])}</small></td>"
-                f"<td>{html.escape(item['display_status'])}<br><small>{html.escape(str(item['live_http_status'] or item['live_reason']))}</small></td>"
+                f"<td>{html.escape(item['display_status'])}<br><small>Live check: {html.escape(str(item['live_http_status'] or item['live_reason']))}{' (expected before first publish)' if item['display_status'] == 'Ready - Deployment Not Started' and item['live_status'] == '404' else ''}</small></td>"
                 f"<td>{html.escape(item['block_reason'])}</td>"
                 f"<td>{html.escape(item['resolution'])}{('<br><code>' + html.escape(item['next_action_command']) + '</code>') if item['next_action_command'] else ''}</td>"
                 f"<td><a href='{html.escape(item['url'], quote=True)}'>{html.escape(item['url'])}</a></td>"
@@ -4977,11 +7695,20 @@ class DailyEditorialWorkflow:
   <main class="wrap">
     <section class="card">
       <h1>Live Status Report - {html.escape(report['date'])}</h1>
+      <p><strong>Report date:</strong> {html.escape(report['report_date'])}<br>
+      <strong>Operational batch:</strong> {html.escape(report['operational_batch'])}<br>
+      <strong>Scope:</strong> {html.escape(report['scope'])}<br>
+      <strong>Articles loaded:</strong> {report['articles_loaded']}<br>
+      <strong>Historical articles scanned:</strong> {report['historical_articles_loaded']}<br>
+      <strong>Historical articles resolved:</strong> {report['historical_articles_resolved']}</p>
       <p>Use this report to separate live deployment health from editorial and publish-gate workflow state.</p>
+      <p><strong>Pipeline:</strong> Ready for Publish = approval/gates passed; Ready - Deployment Not Started = run Menu 8; Awaiting Push = a local publish commit exists; Deploy Pending = pushed and waiting for hosting; Live 200 = online. HTTP 404 is expected before the first successful deployment.</p>
       <h2>Deployment summary</h2>
       <div class="kpis">
-        <div class="kpi">Live 200<strong>{summary['live_200']}</strong></div>
+        <div class="kpi">Current Batch Live<strong>{summary['live_200']}</strong></div>
+        <div class="kpi">Site-wide Live 200<strong>{summary['site_wide_live']}</strong></div>
         <div class="kpi">Awaiting Publish<strong>{summary['awaiting_publish']}</strong></div>
+        <div class="kpi">Ready - Deployment Not Started<strong>{summary['ready_deployment_not_started']}</strong></div>
         <div class="kpi">Awaiting Push<strong>{summary['awaiting_push']}</strong></div>
         <div class="kpi">Published Local<strong>{summary['published_local']}</strong></div>
         <div class="kpi">Committed Local<strong>{summary['committed_local']}</strong></div>
@@ -5013,7 +7740,7 @@ class DailyEditorialWorkflow:
             <th>Local</th>
             <th>Docs</th>
             <th>Git</th>
-            <th>Status</th>
+            <th>Deployment status / live check</th>
             <th>Block reason</th>
             <th>How to fix</th>
             <th>URL</th>
@@ -5028,15 +7755,25 @@ class DailyEditorialWorkflow:
 </html>
 """
 
-    def _finalize_production_publish(self, *, batch_date: str, published: list[dict[str, Any]], commit_message: str, validation_mode: str = "smart") -> dict[str, Any]:
+    def _finalize_production_publish(
+        self,
+        *,
+        batch_date: str,
+        published: list[dict[str, Any]],
+        commit_message: str,
+        validation_mode: str = "smart",
+        preflight_result: dict[str, Any] | None = None,
+        expected_source_bindings: dict[str, dict[str, str]] | None = None,
+    ) -> dict[str, Any]:
         slugs = [str(item.get("slug") or "") for item in published if str(item.get("slug") or "")]
-        preflight_recovery = GitPublishRecovery(
-            repo=self.root,
-            run_command=lambda command: self._run_command(command, cwd=self.root, check=False),
-            progress=self._report_progress,
-            allow_dirty_preflight_when_current=True,
-        )
-        preflight_result = preflight_recovery.preflight_sync_before_publish().to_dict()
+        if preflight_result is None:
+            preflight_recovery = GitPublishRecovery(
+                repo=self.root,
+                run_command=lambda command: self._run_command(command, cwd=self.root, check=False),
+                progress=self._report_progress,
+                allow_dirty_preflight_when_current=True,
+            )
+            preflight_result = preflight_recovery.preflight_sync_before_publish().to_dict()
         if str(preflight_result.get("status") or "") not in {"preflight_in_sync", "preflight_ahead_only", "preflight_rebased"}:
             raise RuntimeError(
                 "Pre-publish git sync failed safely. "
@@ -5056,8 +7793,56 @@ class DailyEditorialWorkflow:
             label="[2/7] Sync site_output -> docs",
         )
         self._sync_docs_for_published(published)
+        # The site build/sync layer may inject site-wide operational metadata
+        # (for example domain-verification tags).  A revision-bound approval is
+        # authorization for the exact final HTML bytes, so restore the approved
+        # article file after those global build steps and before validation.
+        # Shared indexes/assets remain generated by the normal build.
+        self._restore_approved_article_bytes_after_site_sync(
+            batch_date=batch_date,
+            expected_source_bindings=expected_source_bindings or {},
+        )
+        source_binding_checks: list[dict[str, Any]] = []
+        for slug, expected in (expected_source_bindings or {}).items():
+            for key in ("draft_html", "published_static", "site_output", "docs"):
+                path = self._article_bundle_paths(slug)[key]
+                if not path.is_file():
+                    raise RuntimeError(
+                        f"PRODUCTION_DRAFT_APPROVAL_BINDING_BLOCKED: slug={slug}; {key}=missing"
+                    )
+                actual = binding_for_file(path)
+                if (
+                    str(actual.get("revision_id") or "") != str(expected.get("revision_id") or "")
+                    or str(actual.get("content_hash") or "").casefold()
+                    != str(expected.get("content_hash") or "").casefold()
+                ):
+                    raise RuntimeError(
+                        "PRODUCTION_DRAFT_APPROVAL_BINDING_BLOCKED: "
+                        f"slug={slug}; source={key}; "
+                        f"actual_revision_id={actual.get('revision_id')}; "
+                        f"actual_content_hash={actual.get('content_hash')}; "
+                        f"approved_revision_id={expected.get('revision_id')}; "
+                        f"approved_content_hash={expected.get('content_hash')}"
+                    )
+                source_binding_checks.append(
+                    {
+                        "slug": slug,
+                        "source": key,
+                        "status": "MATCHED",
+                        "revision_id": str(actual.get("revision_id") or ""),
+                        "content_hash": str(actual.get("content_hash") or ""),
+                    }
+                )
         self._report_progress(f"[3/7] Running {validation_mode} publish validation")
-        validation_report = self._run_publish_validation(batch_date=batch_date, published=published, mode=validation_mode)
+        # Publishing must validate the exact bytes that the operator approved.
+        # Autofix remains an explicit pre-approval operation; running it here
+        # would silently create a new revision after human approval.
+        validation_report = self._run_publish_validation(
+            batch_date=batch_date,
+            published=published,
+            mode=validation_mode,
+            autofix=False,
+        )
         valid_published = list(validation_report.get("published") or [])
         skipped = list(validation_report.get("skipped") or [])
         for item in list(validation_report.get("items") or []):
@@ -5100,6 +7885,10 @@ class DailyEditorialWorkflow:
                 "skipped_count": len(skipped),
                 "build": build_result,
                 "sync_docs": sync_result,
+                "preflight_sync": preflight_result,
+                "source_binding_checks": source_binding_checks,
+                "git_add": {"status": "skipped"},
+                "git_commit": {"status": "skipped"},
                 "validation": validation_report,
                 "git_push": {"status": "skipped", "reason": "No publishable articles passed validation."},
                 "post_push_live_check": {"status": "not_run", "message": "No publishable articles passed validation.", "attempts": [], "items": []},
@@ -5122,8 +7911,16 @@ class DailyEditorialWorkflow:
             if publish_row is None:
                 raise RuntimeError(f"Unable to mark validated article Published: {slug}")
         stage_paths = self._publish_stage_paths(batch_date=batch_date, published=valid_published)
-        self._run_command(["git", "add", "--", *stage_paths], cwd=self.root, check=True, label="[4/7] Git add")
-        self._run_command(["git", "commit", "-m", commit_message], cwd=self.root, check=True, label="[5/7] Git commit")
+        git_add_result = self._run_command(["git", "add", "--", *stage_paths], cwd=self.root, check=True, label="[4/7] Git add")
+        # Commit only the exact publish pathspecs.  This prevents unrelated
+        # operator-staged files in a dirty production worktree from leaking
+        # into a Menu 8 publish commit.
+        git_commit_result = self._run_command(
+            ["git", "commit", "--only", "-m", commit_message, "--", *stage_paths],
+            cwd=self.root,
+            check=True,
+            label="[5/7] Git commit",
+        )
         self._update_publish_rows_status(valid_published, status="committed_local")
         push_recovery = GitPublishRecovery(
             repo=self.root,
@@ -5148,6 +7945,7 @@ class DailyEditorialWorkflow:
             raise RuntimeError(
                 "Git push did not complete safely. "
                 f"PUSH_STATUS={push_result.get('status')}; "
+                f"CHILD_OUTPUT={self._publish_child_output(push_result)}; "
                 f"LOCAL_COMMIT_PRESERVED=YES; FORCE_PUSH_USED=NO; "
                 f"report={publish_report}; dashboard={dashboard}; upload={upload_summary.get('batch_dir', '')}; master={master_dashboard}"
             )
@@ -5177,6 +7975,10 @@ class DailyEditorialWorkflow:
             "skipped_count": len(skipped),
             "build": build_result,
             "sync_docs": sync_result,
+            "preflight_sync": preflight_result,
+            "source_binding_checks": source_binding_checks,
+            "git_add": git_add_result,
+            "git_commit": git_commit_result,
             "validation": validation_report,
             "git_push": push_result,
             "post_push_live_check": post_push_live_check,
@@ -5187,6 +7989,40 @@ class DailyEditorialWorkflow:
             "master_dashboard": str(master_dashboard),
             "upload_summary": upload_summary,
         }
+
+    def _restore_approved_article_bytes_after_site_sync(
+        self,
+        *,
+        batch_date: str,
+        expected_source_bindings: dict[str, dict[str, str]],
+    ) -> None:
+        """Restore exact approved article bytes after global site transforms."""
+        for slug, expected in expected_source_bindings.items():
+            paths = self._article_bundle_paths(slug)
+            html_text = paths["draft_html"].read_text(encoding="utf-8")
+            actual = binding_for_content(html_text)
+            if (
+                str(actual.get("revision_id") or "") != str(expected.get("revision_id") or "")
+                or str(actual.get("content_hash") or "").casefold()
+                != str(expected.get("content_hash") or "").casefold()
+            ):
+                raise RuntimeError(
+                    "PRODUCTION_DRAFT_APPROVAL_BINDING_BLOCKED: "
+                    f"slug={slug}; failed_stage=post_sync_source_restore"
+                )
+            for key in ("published_static", "site_output", "docs"):
+                target = paths[key]
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_text(html_text, encoding="utf-8")
+                source_assets = paths["draft_html"].parent / "assets"
+                if source_assets.is_dir():
+                    self._copy_tree_contents(source_assets, target.parent / "assets")
+            upload_target = self.upload_root / batch_date / "published" / slug / "index.html"
+            upload_target.parent.mkdir(parents=True, exist_ok=True)
+            upload_target.write_text(html_text, encoding="utf-8")
+            source_assets = paths["draft_html"].parent / "assets"
+            if source_assets.is_dir():
+                self._copy_tree_contents(source_assets, upload_target.parent / "assets")
 
     def _write_publish_report(
         self,

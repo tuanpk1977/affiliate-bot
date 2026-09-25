@@ -10,7 +10,7 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from functools import lru_cache
 from pathlib import Path
-from typing import Callable
+from typing import Any, Callable
 from urllib.parse import parse_qs, quote_plus, unquote, urlparse
 from xml.etree import ElementTree as ET
 
@@ -53,6 +53,84 @@ SOURCE_WEIGHTS = {
     "youtube_trending": 0.9,
     "ai_newsletters": 0.9,
     "local_keyword_intelligence": 0.55,
+}
+
+CANONICAL_TOPIC_SCORING_OWNER = "modules.ai_trend_discovery"
+TOPIC_SCORING_VERSION = "topic_scoring_v2"
+SCORE_SCALE = "0-100"
+FOUNDATION_MAIN = "FOUNDATION_MAIN"
+SOCIAL_HOT_UNCONFIRMED = "SOCIAL_HOT_UNCONFIRMED"
+OFFICIAL_NEWS_STANDALONE = "OFFICIAL_NEWS_STANDALONE"
+
+SELECTED_THRESHOLD_PASS = "SELECTED_THRESHOLD_PASS"
+SELECTED_QUALITY_LIMITED = "SELECTED_QUALITY_LIMITED"
+REJECTED_HARD_GATE = "REJECTED_HARD_GATE"
+REJECTED_BELOW_ABSOLUTE_FLOOR = "REJECTED_BELOW_ABSOLUTE_FLOOR"
+REJECTED_LOWER_RANK = "REJECTED_LOWER_RANK"
+REJECTED_MAX_CAP_REACHED = "REJECTED_MAX_CAP_REACHED"
+
+DEFAULT_TOPIC_SCORING_CONFIG: dict[str, Any] = {
+    "version": TOPIC_SCORING_VERSION,
+    "scale": SCORE_SCALE,
+    "profiles": {
+        FOUNDATION_MAIN: {
+            "recommended_threshold": 65.0,
+            "absolute_minimum_floor": 50.0,
+            "maximum_roots": 5,
+            "component_weights": {
+                "search_volume_potential": 0.22,
+                "low_competition_opportunity": 0.16,
+                "affiliate_opportunity": 0.20,
+                "evergreen_value": 0.14,
+                "news_freshness": 0.16,
+                "cpc_potential": 0.12,
+            },
+            "missing_data_policy": {
+                "source_evidence": "REQUIRED",
+                "search_volume_potential": "OPTIONAL",
+                "low_competition_opportunity": "OPTIONAL",
+                "affiliate_opportunity": "OPTIONAL",
+                "evergreen_value": "OPTIONAL",
+                "news_freshness": "OPTIONAL",
+                "cpc_potential": "OPTIONAL",
+            },
+        },
+        SOCIAL_HOT_UNCONFIRMED: {
+            "social_interest_threshold": 60.0,
+            "evidence_confidence_threshold": 35.0,
+            "website_eligible_without_official_confirmation": False,
+            "component_weights": {
+                "freshness": 0.28,
+                "discussion_velocity": 0.24,
+                "audience_interest": 0.20,
+                "novelty": 0.14,
+                "source_traceability": 0.14,
+            },
+            "missing_data_policy": {
+                "source_evidence": "REQUIRED",
+                "official_confirmation": "OPTIONAL",
+                "discussion_velocity": "OPTIONAL",
+            },
+        },
+        OFFICIAL_NEWS_STANDALONE: {
+            "recommended_threshold": 70.0,
+            "absolute_minimum_floor": 60.0,
+            "requires_official_confirmation": True,
+            "component_weights": {
+                "official_confirmation": 0.30,
+                "user_impact": 0.22,
+                "freshness": 0.18,
+                "confirmed_detail_depth": 0.14,
+                "novelty": 0.10,
+                "commercial_significance": 0.06,
+            },
+            "missing_data_policy": {
+                "official_confirmation": "REQUIRED",
+                "source_evidence": "REQUIRED",
+                "commercial_significance": "OPTIONAL",
+            },
+        },
+    },
 }
 
 
@@ -105,6 +183,366 @@ class DiscoveryResult:
     candidates_evaluated: int
     published_topics_checked: int
     methodology: dict[str, object] = field(default_factory=dict)
+
+
+def topic_scoring_config(config: dict[str, Any] | None = None) -> dict[str, Any]:
+    configured = (config or {}).get("topic_scoring") if isinstance(config, dict) else None
+    if not isinstance(configured, dict):
+        return json.loads(json.dumps(DEFAULT_TOPIC_SCORING_CONFIG))
+    merged = json.loads(json.dumps(DEFAULT_TOPIC_SCORING_CONFIG))
+    for key, value in configured.items():
+        if key != "profiles":
+            merged[key] = value
+    profiles = configured.get("profiles")
+    if isinstance(profiles, dict):
+        for lane, profile in profiles.items():
+            if not isinstance(profile, dict):
+                continue
+            base = merged["profiles"].setdefault(lane, {})
+            for key, value in profile.items():
+                if isinstance(value, dict) and isinstance(base.get(key), dict):
+                    base[key].update(value)
+                else:
+                    base[key] = value
+    return merged
+
+
+def topic_scoring_profile(content_lane: str = FOUNDATION_MAIN, config: dict[str, Any] | None = None) -> dict[str, Any]:
+    scoring = topic_scoring_config(config)
+    profiles = scoring.get("profiles") if isinstance(scoring.get("profiles"), dict) else {}
+    profile = profiles.get(content_lane) or profiles.get(FOUNDATION_MAIN) or {}
+    result = dict(profile)
+    result["content_lane"] = content_lane
+    result["version"] = str(scoring.get("version") or TOPIC_SCORING_VERSION)
+    result["scale"] = str(scoring.get("scale") or SCORE_SCALE)
+    return result
+
+
+def normalize_component_values(values: list[float]) -> list[float]:
+    if not values:
+        return []
+    numeric = [float(value) for value in values]
+    low = min(numeric)
+    high = max(numeric)
+    if high == low:
+        return [50.0 for _ in numeric]
+    return [round((value - low) * 100.0 / (high - low), 1) for value in numeric]
+
+
+def _candidate_value(candidate: Any, *keys: str, default: Any = None) -> Any:
+    for key in keys:
+        if isinstance(candidate, dict) and key in candidate:
+            return candidate.get(key)
+        if not isinstance(candidate, dict) and hasattr(candidate, key):
+            return getattr(candidate, key)
+    return default
+
+
+def _float_or_none(value: Any) -> float | None:
+    try:
+        if value is None or value == "":
+            return None
+        number = float(value)
+    except (TypeError, ValueError):
+        return None
+    if math.isnan(number) or math.isinf(number):
+        return None
+    return number
+
+
+def _normalize_score_value(value: Any) -> tuple[float | None, str, str]:
+    number = _float_or_none(value)
+    if number is None:
+        return None, "missing", "missing component value"
+    if 0.0 <= number <= 1.0:
+        return round(number * 100.0, 1), "normalized_0_1_to_0_100", "0-1 value normalized to 0-100 scale"
+    return round(max(0.0, min(100.0, number)), 1), "available", "0-100 value"
+
+
+def _source_count(candidate: Any) -> int:
+    explicit = _float_or_none(_candidate_value(candidate, "source_count"))
+    if explicit is not None:
+        return int(explicit)
+    readiness = _candidate_value(candidate, "source_readiness", default={})
+    if isinstance(readiness, dict):
+        ready_count = _float_or_none(readiness.get("source_count"))
+        if ready_count is not None:
+            return int(ready_count)
+    urls = _candidate_value(candidate, "source_urls", "sources", default=[])
+    return len(list(urls or []))
+
+
+def _component_raw_value(candidate: Any, component: str) -> Any:
+    if component == "low_competition_opportunity":
+        value = _candidate_value(candidate, "low_competition_opportunity")
+        if value is not None:
+            return value
+        competition = _candidate_value(candidate, "competition_difficulty_score", "competition")
+        competition_score = _float_or_none(competition)
+        return None if competition_score is None else 100.0 - competition_score
+    aliases = {
+        "search_volume_potential": ("search_volume_potential", "search_intent_score"),
+        "affiliate_opportunity": ("affiliate_opportunity", "affiliate_monetization_score"),
+        "evergreen_value": ("evergreen_value", "product_availability_score"),
+        "news_freshness": ("news_freshness", "content_freshness_score", "freshness"),
+        "cpc_potential": ("cpc_potential", "commercial_significance"),
+        "freshness": ("freshness", "news_freshness", "content_freshness_score"),
+        "discussion_velocity": ("discussion_velocity", "engagement", "trend_score"),
+        "audience_interest": ("audience_interest", "search_volume_potential", "search_intent_score"),
+        "novelty": ("novelty", "news_freshness", "content_freshness_score"),
+        "source_traceability": ("source_traceability", "verified_source_score"),
+        "official_confirmation": ("official_confirmation_score", "official_confirmation"),
+        "user_impact": ("user_impact", "search_volume_potential", "search_intent_score"),
+        "confirmed_detail_depth": ("confirmed_detail_depth", "product_availability_score"),
+        "commercial_significance": ("commercial_significance", "affiliate_opportunity", "affiliate_monetization_score"),
+    }
+    return _candidate_value(candidate, *aliases.get(component, (component,)))
+
+
+def _is_true(value: Any) -> bool:
+    if isinstance(value, bool):
+        return value
+    return str(value or "").strip().lower() in {"1", "true", "yes", "confirmed", "pass", "passed"}
+
+
+def score_topic_candidate(
+    candidate: Any,
+    *,
+    content_lane: str = FOUNDATION_MAIN,
+    config: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    profile = topic_scoring_profile(content_lane, config)
+    weights = dict(profile.get("component_weights") or {})
+    missing_policy = dict(profile.get("missing_data_policy") or {})
+    not_applicable = set(_candidate_value(candidate, "not_applicable_components", default=[]) or [])
+    components: dict[str, dict[str, Any]] = {}
+    hard_gate_results: list[dict[str, Any]] = []
+    total_weight = 0.0
+    weighted_total = 0.0
+    available_weight = 0.0
+    missing_fields: list[str] = []
+    scale_warnings: list[str] = []
+
+    for component, raw_weight in weights.items():
+        weight = float(raw_weight)
+        if component in not_applicable:
+            components[component] = {
+                "raw_value": None,
+                "normalized_value": None,
+                "weight": weight,
+                "status": "NOT_APPLICABLE",
+                "missing_policy": "NOT_APPLICABLE",
+                "reason": "Excluded from denominator for this candidate.",
+            }
+            continue
+        total_weight += weight
+        normalized, status, reason = _normalize_score_value(_component_raw_value(candidate, component))
+        policy = str(missing_policy.get(component) or "OPTIONAL")
+        raw_value = _component_raw_value(candidate, component)
+        if normalized is None:
+            if policy == "REQUIRED":
+                hard_gate_results.append({"gate": component, "passed": False, "reason": f"required {component} missing"})
+                normalized = 0.0
+            else:
+                missing_fields.append(component)
+                normalized = 50.0
+                reason = "Optional component missing; neutral 50 used and score confidence reduced."
+        else:
+            available_weight += weight
+            if status == "normalized_0_1_to_0_100":
+                scale_warnings.append(f"{component}: {reason}")
+        weighted_total += normalized * weight
+        components[component] = {
+            "raw_value": raw_value,
+            "normalized_value": normalized,
+            "weight": weight,
+            "status": status if raw_value is not None else "OPTIONAL_MISSING_NEUTRAL",
+            "missing_policy": policy,
+            "reason": reason,
+        }
+
+    source_count = _source_count(candidate)
+    if missing_policy.get("source_evidence") == "REQUIRED" and source_count < 1:
+        hard_gate_results.append({"gate": "source_evidence", "passed": False, "reason": "missing required source evidence"})
+    if _is_true(_candidate_value(candidate, "duplicate_collision")):
+        hard_gate_results.append({"gate": "duplicate_collision", "passed": False, "reason": "duplicate root or canonical collision"})
+    readiness = _candidate_value(candidate, "source_readiness", default={})
+    if isinstance(readiness, dict) and isinstance(readiness.get("collision_result"), dict):
+        if readiness["collision_result"].get("has_collision"):
+            hard_gate_results.append({"gate": "duplicate_collision", "passed": False, "reason": "source-readiness collision result is true"})
+    if _candidate_value(candidate, "relevant_to_site", default=True) is False:
+        hard_gate_results.append({"gate": "site_relevance", "passed": False, "reason": "topic is not relevant to this site"})
+    if content_lane == OFFICIAL_NEWS_STANDALONE and bool(profile.get("requires_official_confirmation", True)):
+        if not _is_true(_candidate_value(candidate, "official_confirmation", "official_confirmation_status")):
+            hard_gate_results.append({"gate": "official_confirmation", "passed": False, "reason": "official confirmation is required for website news candidacy"})
+
+    denominator = total_weight or 1.0
+    computed_total_score = round(max(0.0, min(100.0, weighted_total / denominator)), 1)
+    total_score = computed_total_score
+    scoring_adjustments: list[str] = []
+    existing_total = _float_or_none(_candidate_value(candidate, "total_score"))
+    if existing_total is not None and abs(existing_total - computed_total_score) > 0.05:
+        total_score = round(max(0.0, min(100.0, existing_total)), 1)
+        scoring_adjustments.append(
+            f"workflow-adjusted total_score {total_score} used instead of component recompute {computed_total_score}"
+        )
+    score_confidence = round(available_weight / denominator, 2) if denominator else 0.0
+    recommended_threshold = float(profile.get("recommended_threshold", profile.get("social_interest_threshold", 0)) or 0)
+    absolute_floor = float(profile.get("absolute_minimum_floor", 0) or 0)
+    hard_gates_passed = not hard_gate_results
+    return {
+        "candidate_id": str(_candidate_value(candidate, "candidate_id", "slug", default="")),
+        "content_lane": content_lane,
+        "title": str(_candidate_value(candidate, "title", "keyword", "topic", default="")),
+        "scoring_owner": CANONICAL_TOPIC_SCORING_OWNER,
+        "scoring_version": str(profile.get("version") or TOPIC_SCORING_VERSION),
+        "score_scale": str(profile.get("scale") or SCORE_SCALE),
+        "raw_component_values": {name: data["raw_value"] for name, data in components.items()},
+        "normalized_component_values": {name: data["normalized_value"] for name, data in components.items()},
+        "component_weights": {name: data["weight"] for name, data in components.items()},
+        "component_reports": components,
+        "missing_fields": missing_fields,
+        "weights_applied": round(total_weight, 4),
+        "weights_available": round(available_weight, 4),
+        "weights_redistributed": False,
+        "hard_gate_results": hard_gate_results or [{"gate": "all_required_gates", "passed": True, "reason": "PASS"}],
+        "hard_gates_passed": hard_gates_passed,
+        "score_confidence": score_confidence,
+        "total_score": total_score,
+        "computed_total_score": computed_total_score,
+        "scoring_adjustments": scoring_adjustments,
+        "recommended_threshold": recommended_threshold,
+        "absolute_minimum_floor": absolute_floor,
+        "rank": 0,
+        "selection_result": "",
+        "reason": "",
+        "scale_warnings": scale_warnings,
+    }
+
+
+def select_topic_candidates(
+    candidates: list[dict[str, Any]],
+    *,
+    count: int,
+    content_lane: str = FOUNDATION_MAIN,
+    config: dict[str, Any] | None = None,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, Any]]:
+    max_count = min(int(count), int(topic_scoring_profile(content_lane, config).get("maximum_roots", count) or count))
+    scored: list[tuple[dict[str, Any], dict[str, Any]]] = []
+    for item in candidates:
+        report = score_topic_candidate(item, content_lane=content_lane, config=config)
+        scored.append((item, report))
+    scored.sort(key=lambda row: (-float(row[1]["total_score"]), str(row[1]["title"]).lower()))
+    for rank, (_, report) in enumerate(scored, start=1):
+        report["rank"] = rank
+
+    selected: list[dict[str, Any]] = []
+    rejected: list[dict[str, Any]] = []
+    eligible: list[tuple[dict[str, Any], dict[str, Any]]] = []
+    for item, report in scored:
+        if not report["hard_gates_passed"]:
+            report["selection_result"] = REJECTED_HARD_GATE
+            report["reason"] = "; ".join(str(gate.get("reason") or "") for gate in report["hard_gate_results"] if not gate.get("passed"))
+            rejected.append(_candidate_rejection(item, report))
+            continue
+        if float(report["total_score"]) < float(report["absolute_minimum_floor"]):
+            report["selection_result"] = REJECTED_BELOW_ABSOLUTE_FLOOR
+            report["reason"] = f"score {report['total_score']} below absolute minimum floor {report['absolute_minimum_floor']}"
+            rejected.append(_candidate_rejection(item, report))
+            continue
+        eligible.append((item, report))
+
+    threshold_pass = [row for row in eligible if float(row[1]["total_score"]) >= float(row[1]["recommended_threshold"])]
+    quality_limited = [row for row in eligible if row not in threshold_pass]
+    for item, report in [*threshold_pass, *quality_limited]:
+        if len(selected) >= max_count:
+            report["selection_result"] = REJECTED_MAX_CAP_REACHED
+            report["reason"] = f"maximum foundation roots {max_count} already selected"
+            rejected.append(_candidate_rejection(item, report))
+            continue
+        selected_item = dict(item)
+        if float(report["total_score"]) >= float(report["recommended_threshold"]):
+            report["selection_result"] = SELECTED_THRESHOLD_PASS
+            report["reason"] = "Passed hard gates and met the recommended quality threshold."
+        else:
+            report["selection_result"] = SELECTED_QUALITY_LIMITED
+            report["reason"] = "Passed hard gates and stayed above the absolute floor; selected as quality-limited fill from the strongest available candidates."
+        selected_item["topic_score_report"] = report
+        selected_item["selection_result"] = report["selection_result"]
+        selected_item["selection_reason"] = report["reason"]
+        selected_item["rank"] = report["rank"]
+        selected.append(selected_item)
+
+    selected_ids = {str(item.get("slug") or item.get("keyword") or "") for item in selected}
+    for item, report in eligible:
+        item_id = str(item.get("slug") or item.get("keyword") or "")
+        if item_id in selected_ids or report.get("selection_result"):
+            continue
+        report["selection_result"] = REJECTED_LOWER_RANK
+        report["reason"] = "Eligible but ranked below selected candidates."
+        rejected.append(_candidate_rejection(item, report))
+
+    summary = {
+        "scoring_owner": CANONICAL_TOPIC_SCORING_OWNER,
+        "scoring_profile": content_lane,
+        "scoring_version": TOPIC_SCORING_VERSION,
+        "recommended_threshold": float(topic_scoring_profile(content_lane, config).get("recommended_threshold", 0) or 0),
+        "absolute_minimum_floor": float(topic_scoring_profile(content_lane, config).get("absolute_minimum_floor", 0) or 0),
+        "max_foundation_roots": max_count,
+        "candidates_scored": len(scored),
+        "candidates_hard_gate_passed": len(eligible),
+        "candidates_threshold_passed": len(threshold_pass),
+        "candidates_above_absolute_floor": len(eligible),
+        "foundation_roots_selected": len(selected),
+        "selected_threshold_pass_count": sum(1 for item in selected if item.get("selection_result") == SELECTED_THRESHOLD_PASS),
+        "selected_quality_limited_count": sum(1 for item in selected if item.get("selection_result") == SELECTED_QUALITY_LIMITED),
+        "quality_limited": any(item.get("selection_result") == SELECTED_QUALITY_LIMITED for item in selected),
+        "ranked_candidates": [report for _, report in scored],
+    }
+    return selected, rejected, summary
+
+
+def _candidate_rejection(item: dict[str, Any], report: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "keyword": str(item.get("keyword") or item.get("topic") or ""),
+        "slug": str(item.get("slug") or ""),
+        "source_count": _source_count(item),
+        "unique_source_domains": list((item.get("source_readiness") or {}).get("unique_source_domains") or []),
+        "reason": str(report.get("reason") or report.get("selection_result") or "rejected"),
+        "selection_result": str(report.get("selection_result") or ""),
+        "rank": int(report.get("rank") or 0),
+        "total_score": float(report.get("total_score") or 0),
+        "topic_score_report": report,
+    }
+
+
+def score_social_hot_candidate(candidate: dict[str, Any], *, config: dict[str, Any] | None = None) -> dict[str, Any]:
+    report = score_topic_candidate(candidate, content_lane=SOCIAL_HOT_UNCONFIRMED, config=config)
+    evidence = report["normalized_component_values"].get("source_traceability")
+    social_interest = report["total_score"]
+    official_status = "CONFIRMED" if _is_true(candidate.get("official_confirmation_status") or candidate.get("official_confirmation")) else "UNCONFIRMED"
+    return {
+        "hot_topic_id": str(candidate.get("candidate_id") or candidate.get("slug") or ""),
+        "social_interest_score": social_interest,
+        "evidence_confidence_score": float(evidence if evidence is not None else 0),
+        "official_confirmation_status": official_status,
+        "routing_result": SOCIAL_HOT_UNCONFIRMED,
+        "website_eligible": False,
+        "score_report": report,
+    }
+
+
+def score_official_news_candidate(candidate: dict[str, Any], *, config: dict[str, Any] | None = None) -> dict[str, Any]:
+    report = score_topic_candidate(candidate, content_lane=OFFICIAL_NEWS_STANDALONE, config=config)
+    website_eligible = bool(report["hard_gates_passed"] and report["total_score"] >= report["absolute_minimum_floor"])
+    return {
+        "candidate_id": str(candidate.get("candidate_id") or candidate.get("slug") or ""),
+        "official_news_score": report["total_score"],
+        "official_confirmation_status": "CONFIRMED" if _is_true(candidate.get("official_confirmation_status") or candidate.get("official_confirmation")) else "UNCONFIRMED",
+        "routing_result": OFFICIAL_NEWS_STANDALONE,
+        "website_eligible": website_eligible,
+        "score_report": report,
+    }
 
 
 class TrendDiscoveryEngine:
@@ -181,19 +619,54 @@ class TrendDiscoveryEngine:
     def enrich_candidate_sources(self, candidates: list[TopicCandidate], *, pool_limit: int) -> list[TopicCandidate]:
         enriched: list[TopicCandidate] = []
         for candidate in candidates[:pool_limit]:
-            supplemental = self.bing_sources_for_topic(candidate.topic)
+            supplemental = [
+                signal
+                for signal in self.bing_sources_for_topic(candidate.topic)
+                if supplemental_source_matches_topic(candidate.topic, signal)
+            ]
+            official_homepages = [
+                homepage
+                for url in candidate.source_urls
+                if source_domain(url) == "github.com"
+                for homepage in [self.github_repository_homepage(url)]
+                if homepage
+            ]
             if supplemental:
-                candidate.source_urls = independent_source_urls([*candidate.source_urls, *[signal.url for signal in supplemental if signal.url]])
+                candidate.source_urls = independent_source_urls(
+                    [*candidate.source_urls, *official_homepages, *[signal.url for signal in supplemental if signal.url]]
+                )
                 candidate.sources = sorted(set([*candidate.sources, *[signal.source for signal in supplemental]]))
                 candidate.signals += len(supplemental)
                 if len(candidate.source_urls) >= 2 and candidate.confidence == "low":
                     candidate.confidence = "medium"
                     candidate.why_selected = [*candidate.why_selected, "Supplemental Bing source aggregation found at least two independent source domains."]
             else:
-                candidate.source_urls = independent_source_urls(candidate.source_urls)
+                candidate.source_urls = independent_source_urls([*candidate.source_urls, *official_homepages])
+            if official_homepages:
+                candidate.sources = sorted(set([*candidate.sources, "official_project_homepage"]))
+                if len(candidate.source_urls) >= 2 and candidate.confidence == "low":
+                    candidate.confidence = "medium"
+                    candidate.why_selected = [*candidate.why_selected, "Official project homepage confirmed from GitHub repository metadata."]
             enriched.append(candidate)
         enriched.extend(candidates[pool_limit:])
         return enriched
+
+    def github_repository_homepage(self, repository_url: str) -> str:
+        parsed = urlparse(normalize_source_url(repository_url))
+        if source_domain(repository_url) != "github.com":
+            return ""
+        parts = [part for part in parsed.path.split("/") if part]
+        if len(parts) < 2:
+            return ""
+        try:
+            payload = self.get_json(f"https://api.github.com/repos/{parts[0]}/{parts[1]}")
+        except Exception:
+            return ""
+        homepage = normalize_source_url(str(payload.get("homepage") or ""))
+        homepage_domain = source_domain(homepage)
+        if not homepage or not homepage_domain or homepage_domain == "github.com":
+            return ""
+        return homepage
 
     def score_group(self, signals: list[TrendSignal]) -> TopicCandidate:
         representative = choose_representative(signals)
@@ -731,6 +1204,28 @@ def clean_topic_query(topic: str) -> str:
     query = re.sub(r"\bReview\s+20\d{2}\b", "", str(topic or ""), flags=re.I)
     query = re.sub(r"\b(best|pricing|alternatives|comparison)\b", "", query, flags=re.I)
     return re.sub(r"\s+", " ", query.replace("_", " ").replace("-", " ")).strip()
+
+
+def supplemental_source_matches_topic(topic: str, signal: TrendSignal) -> bool:
+    query = clean_topic_query(topic)
+    query_text = re.sub(r"[^a-z0-9]+", " ", query.lower()).strip()
+    evidence_text = re.sub(
+        r"[^a-z0-9]+",
+        " ",
+        f"{signal.title} {signal.description} {unquote(urlparse(signal.url).path)}".lower(),
+    ).strip()
+    if not query_text or not evidence_text:
+        return False
+    if query_text in evidence_text:
+        return True
+
+    ignored = {"ai", "the", "a", "an", "and", "for", "of", "to", "in", "tool", "tools", "software"}
+    query_tokens = [token for token in query_text.split() if token not in ignored]
+    if len(query_tokens) < 4:
+        return False
+    evidence_tokens = set(evidence_text.split())
+    matched = sum(1 for token in query_tokens if token in evidence_tokens)
+    return matched >= 4 and matched / len(query_tokens) >= 0.7
 
 
 def save_discovery_result(result: DiscoveryResult, output: Path | None = None) -> tuple[Path, Path]:

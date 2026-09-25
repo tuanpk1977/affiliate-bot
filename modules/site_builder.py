@@ -1755,16 +1755,76 @@ def write_rss(output: Path, pages: list[dict] | None = None) -> None:
 def write_media_kit(output: Path) -> None:
     folder = output / "media-kit"
     folder.mkdir(parents=True, exist_ok=True)
-    site_name = public_site_name()
+    # Keep this page's public-facing identity explicit.  The repository may
+    # retain legacy operational names, but they must not leak into the media
+    # kit presented to partners and readers.
+    site_name = "Smile AI Review Hub"
     contact = verified_contact_email()
     contact_markup = (
-        f"<p>Contact: <a href='mailto:{html.escape(contact)}'>{html.escape(contact)}</a></p>"
+        f"<p><strong>Business Inquiries:</strong> <a href='mailto:{html.escape(contact)}'>{html.escape(contact)}</a></p>"
         if contact
-        else "<p>Contact: use the public contact page for corrections, editorial questions, and partnerships.</p>"
+        else "<p><strong>Business Inquiries:</strong> Use the <a href='/contact/'>contact page</a> for corrections, editorial questions, and partnerships.</p>"
     )
-    body = f"""<section class='card'><h1>Media Kit</h1><p><strong>{html.escape(site_name)}</strong> is an independent-style AI and SaaS review hub focused on research, comparisons, and transparent affiliate disclosure.</p><h2>Business Contact</h2>{contact_markup}<p>Website: <a href='{html.escape(settings.base_site_url)}'>{html.escape(settings.base_site_url)}</a></p></section>
-    <section class='grid'><div class='card'><h2>Categories</h2><ul><li>AI Tools</li><li>Marketing</li><li>CRM</li><li>Website Builders</li><li>Productivity</li></ul></div><div class='card'><h2>Social preview</h2><img loading='lazy' src='/assets/og/home.svg' alt='AI Tool Review Hub social preview' style='width:100%;border-radius:8px'></div></section>"""
-    (folder / "index.html").write_text(page_shell("Media Kit", "Brand, category, contact, and social preview information.", body, "/media-kit/", robots="index,follow"), encoding="utf-8")
+    base_url = (settings.base_site_url or settings.site_domain or "https://smileaireviewhub.com").rstrip("/")
+    body = f"""
+<section class='card media-kit-introduction'>
+  <h1>{html.escape(site_name)} Media Kit</h1>
+  <p>{html.escape(site_name)} is an AI and SaaS research, review, and comparison website focused on helping businesses evaluate software through transparent research, comparisons, and clear affiliate disclosure.</p>
+</section>
+<section class='trust-upgrade-section author-trust-card' aria-label='Founder'>
+  <div class='author-trust-avatar'>NT</div>
+  <div><strong>Nguyen Quoc Tuan</strong><p>Founder - {html.escape(site_name)}</p></div>
+  <a href='/about-author/'>About the founder</a>
+</section>
+<section class='trust-upgrade-section community-signals'>
+  <h2>Our Community Signals</h2>
+  <div class='trust-upgrade-grid'>
+    <div class='trust-upgrade-card'><strong>75,000+</strong><span>Facebook Views</span></div>
+    <div class='trust-upgrade-card'><strong>LinkedIn</strong><span>AI reviews and workflow updates</span></div>
+    <div class='trust-upgrade-card'><strong>Quora</strong><span>Public AI and software answers</span></div>
+    <div class='trust-upgrade-card'><strong>DEV</strong><span>Technical AI and software articles</span></div>
+    <div class='trust-upgrade-card'><strong>Reddit</strong><span>Community discussions</span></div>
+    <div class='trust-upgrade-card'><strong>X</strong><span>AI workflow and software updates</span></div>
+    <div class='trust-upgrade-card'><strong>Hashnode</strong><span>Technical/build notes</span></div>
+    <div class='trust-upgrade-card'><strong>Velog/Qiita</strong><span>Developer or technical notes</span></div>
+  </div>
+  <p>Metrics are based on public content activity and are updated monthly. They are not website visitor claims.</p>
+</section>
+<section class='trust-upgrade-section research-methodology'>
+  <h2>Research Methodology</h2>
+  <ul><li>Pricing checked</li><li>Official documentation reviewed</li><li>Community feedback reviewed</li><li>Affiliate disclosure verified</li><li>Updated dates shown</li></ul>
+  <p><a href='/how-we-review-tools/'>Read how we review software</a> and <a href='/editorial-policy/'>our Editorial Policy</a>.</p>
+</section>
+<section class='card media-kit-affiliate-disclosure'>
+  <h2>Affiliate Disclosure</h2>
+  <p>Some links may be affiliate links. Smile AI Review Hub may earn a commission at no extra cost to the reader, and affiliate relationships are clearly disclosed.</p>
+  <p><a href='/affiliate-disclosure/'>Read the full Affiliate Disclosure</a>.</p>
+</section>
+<section class='card partnership-opportunities' aria-labelledby='partnership-opportunities'>
+  <h2 id='partnership-opportunities'>Partnership Opportunities</h2>
+  <p>Smile AI Review Hub works with AI and SaaS companies through product reviews, comparison content, pricing and feature research, tutorials, and educational buyer guides.</p>
+  <p>We prioritize transparent, research-based content and clearly disclose affiliate relationships.</p>
+  <p>Partnership opportunities may include affiliate programs, product access for editorial evaluation, comparison coverage, and educational content for relevant audiences.</p>
+  <p><strong>Commercial relationships do not guarantee favorable editorial coverage.</strong></p>
+</section>
+<section class="card business-verification-contact" aria-labelledby='business-contact'>
+  <h2 id='business-contact'>Business Contact</h2>
+  {contact_markup}
+  <p><strong>Website:</strong> <a href='{html.escape(base_url, quote=True)}'>{html.escape(base_url)}</a></p>
+</section>
+<section class='grid media-kit-details'>
+  <div class='card'><h2>Coverage Categories</h2><ul><li>AI Tools</li><li>Marketing</li><li>CRM</li><li>Website Builders</li><li>Productivity</li></ul></div>
+  <div class='card'><h2>{html.escape(site_name)} Social Preview</h2><img loading='lazy' src='/assets/og/home.svg' alt='{html.escape(site_name)} social preview' style='width:100%;border-radius:8px'></div>
+</section>
+<section class='card related-articles'>
+  <h2>Related Articles</h2>
+  <ul><li><a href='/reviews/'>AI and SaaS Reviews</a></li><li><a href='/comparisons/'>Software Comparisons</a></li><li><a href='/blog/'>Research and Buyer Guides</a></li></ul>
+</section>"""
+    description = "Media kit, community signals, research standards, and partnership information for Smile AI Review Hub."
+    (folder / "index.html").write_text(
+        page_shell("Media Kit", description, body, "/media-kit/", page_type="website", robots="index,follow", schema_kind="standard"),
+        encoding="utf-8",
+    )
 
 
 def write_aeo_action_plan(output: Path) -> None:

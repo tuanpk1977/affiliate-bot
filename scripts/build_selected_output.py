@@ -9,9 +9,10 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from build_site import generate_sitemap, sync_article_visuals, sync_public_article_assets  # noqa: E402
+from build_site import sync_article_visuals, sync_public_article_assets  # noqa: E402
 from config import settings  # noqa: E402
 from modules.site_verification_meta import apply_pinterest_domain_verification  # noqa: E402
+from modules.sitemap_generator import generate_sitemap  # noqa: E402
 
 
 def main() -> int:

@@ -1,0 +1,45 @@
+{
+  "schema_version": "runtime_profiles_v1",
+  "environment_variable": "AFFILIATE_BOT_RUNTIME_PROFILE",
+  "default_profile": "FULL_COMPATIBILITY",
+  "profiles": {
+    "FULL_COMPATIBILITY": {
+      "description": "Current Runbot behavior and every compatibility/optional operator feature.",
+      "manifest": "architecture/ACTIVE_RUNTIME_MANIFEST_V1.json",
+      "menu_choices": ["*"],
+      "features": ["*"],
+      "compatibility_escape_hatch": null
+    },
+    "LITE_DAILY": {
+      "description": "Opt-in daily website and website-derived social workflow with optional features excluded from menu dispatch.",
+      "manifest": "architecture/LITE_DAILY_RUNTIME_MANIFEST_V1.json",
+      "menu_choices": ["1", "2", "3", "4", "5", "6", "7", "8", "A", "E", "F", "G", "S", "W", "X", "Y"],
+      "features": [
+        "weekly_root_selection",
+        "daily_website_deep_dive",
+        "custom_topic",
+        "website_review",
+        "workflow_status",
+        "live_status",
+        "blocked_reasons",
+        "explicit_website_publish",
+        "manual_social_publish",
+        "website_derived_social",
+        "social_review",
+        "source_review",
+        "external_writer_import",
+        "external_writer_export",
+        "system_health"
+      ],
+      "excluded_features": [
+        "partner_intake_unknown",
+        "strict_full_site_audit",
+        "interactive_seo_console",
+        "state_maintenance",
+        "social_hot_news",
+        "editorial_intelligence"
+      ],
+      "compatibility_escape_hatch": "runbot_full.bat"
+    }
+  }
+}

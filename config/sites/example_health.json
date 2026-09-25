@@ -39,6 +39,13 @@
     "require_freshness_check": true,
     "reject_entity_mismatch": true
   },
+  "compliance": {
+    "risk_level": "high",
+    "regulated_content": true,
+    "expert_review_required": true,
+    "disclaimer_required": true,
+    "official_sources_required": true
+  },
   "output": {
     "namespace": "example_health",
     "site_output_dir": "site_output/sites/example_health",

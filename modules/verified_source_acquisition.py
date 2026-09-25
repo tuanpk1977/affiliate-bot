@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from config import settings
+from modules.source_classification import classify_source
 
 
 SOURCE_TYPES = (
@@ -150,6 +151,62 @@ class VerifiedSourceAcquisition:
         normalized.sort(key=lambda row: (str(row.get("slug", "")), str(row.get("source_type", "")), str(row.get("source_name", ""))))
         return normalized
 
+    def score_verified_rows(self, rows: list[dict[str, Any]]) -> dict[str, int]:
+        """Score already-approved rows with the canonical source weights."""
+        grouped = {source_type: [] for source_type in SOURCE_TYPES}
+        aliases = {
+            "docs": "official_docs",
+            "documentation": "official_docs",
+            "official_documentation": "official_docs",
+            "pricing": "pricing_page",
+            "pricing_pages": "pricing_page",
+            "product_pages": "product_page",
+            "affiliate_page": "affiliate_program_page",
+            "affiliate_pages": "affiliate_program_page",
+            "affiliate_program_pages": "affiliate_program_page",
+            "release_notes": "release_notes",
+            "changelog": "release_notes",
+            "api": "api_docs",
+            "official_website": "product_page",
+            "editorially_approved": "product_page",
+            "task_approved": "product_page",
+            "knowledge_graph_provenance": "product_page",
+        }
+        canonical_rows: list[dict[str, Any]] = []
+        for row in rows:
+            scored_row = dict(row)
+            # Older registry rows predate the ownership flag.  Recompute it
+            # conservatively from their explicit brand and URL; an explicit
+            # False remains authoritative and is never upgraded here.
+            if "official_ownership_verified" not in scored_row:
+                brand = str(
+                    scored_row.get("brand")
+                    or scored_row.get("tool_name")
+                    or scored_row.get("brand_name")
+                    or ""
+                ).strip()
+                if brand:
+                    scored_row = classify_source(scored_row, [brand])
+            source_type = str(scored_row.get("source_type") or "product_page").casefold()
+            canonical_type = aliases.get(source_type, source_type)
+            # The source-quality score represents first-party evidence.  A
+            # readable/verified independent article must never satisfy the
+            # official docs, pricing, affiliate, or release-note gates.
+            if canonical_type in {
+                "official_docs",
+                "pricing_page",
+                "affiliate_program_page",
+                "release_notes",
+                "api_docs",
+                "product_page",
+            } and not bool(scored_row.get("official_ownership_verified")):
+                continue
+            canonical_rows.append({**scored_row, "source_type": canonical_type})
+        for row in self.normalize_rows(canonical_rows):
+            source_type = str(row.get("source_type") or "product_page")
+            grouped.setdefault(source_type, []).append(row)
+        return self._score(grouped)
+
     def _normalize_record(self, row: dict[str, Any]) -> VerifiedSourceRecord:
         brand = str(row.get("brand") or row.get("tool_name") or row.get("brand_name") or "").strip()
         slug = str(row.get("slug") or _slugify(brand)).strip() or _slugify(brand)
@@ -194,7 +251,10 @@ class VerifiedSourceAcquisition:
             return min(100, verified * verified_weight + estimated * estimated_weight + review * 4)
 
         scores = {
-            "official_docs_score": score_for("official_docs", 40),
+            "official_docs_score": min(
+                100,
+                score_for("official_docs", 40) + score_for("product_page", 40),
+            ),
             "pricing_source_score": score_for("pricing_page", 40),
             "affiliate_source_score": score_for("affiliate_program_page", 30),
             "changelog_source_score": score_for("release_notes", 25),

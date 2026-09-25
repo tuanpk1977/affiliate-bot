@@ -1,0 +1,10 @@
+{
+  "topic": "FlowPilot AI vs TaskBoard AI",
+  "slug": "flowpilot-vs-taskboard-ai",
+  "primary_keyword": "FlowPilot AI vs TaskBoard AI",
+  "intent": "comparison",
+  "sources": [
+    {"url": "https://example.com/flowpilot-official", "domain": "example.com", "title": "FlowPilot official"},
+    {"url": "https://taskboard.example.net/product", "domain": "taskboard.example.net", "title": "TaskBoard AI product"}
+  ]
+}

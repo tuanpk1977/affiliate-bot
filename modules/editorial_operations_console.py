@@ -12,9 +12,11 @@ from typing import Any
 from urllib.parse import urlparse
 
 from config import settings
+from modules.article_operational_state import resolve_article_operational_state
 from modules.content_review import ContentReviewEngine
 from modules.human_approval import HumanApprovalWorkflow
 from modules.publish_gate import PublishGate
+from modules.revision_binding import approval_binding_status, binding_for_content, binding_for_file
 
 
 def _read_json(path: Path, default: Any) -> Any:
@@ -86,15 +88,26 @@ class EditorialOperationsConsole:
         self.publish_gate = PublishGate(data_dir=self.data_dir, site_output_dir=self.site_output_dir, config=getattr(settings, "editorial_config", {}).get("publish_gate", {}))
 
     def list_pending_approvals(self) -> list[dict[str, Any]]:
-        rows = self.collect_rows()
-        return [row for row in rows if str(row.get("human_approval_status", "")) == "needs_human_review"]
+        pending = {
+            str(row.get("slug") or "")
+            for row in _read_json(self.human_queue_path, [])
+            if str(row.get("status") or "") == "needs_human_review"
+        }
+        return [row for row in self.collect_rows() if str(row.get("slug") or "") in pending]
 
     def approve_slug(self, slug: str, *, approver: str = "editor") -> dict[str, Any]:
+        draft = self.drafts_dir / slug / "index.html"
+        review_exists = any(str(row.get("slug") or "") == slug for row in _read_json(self.review_queue_path, []))
+        publish_exists = any(str(row.get("slug") or "") == slug for row in _read_json(self.publish_queue_path, []))
+        if not draft.is_file() or not review_exists or not publish_exists:
+            raise ValueError(
+                f"Cannot approve {slug}: current draft, review row, and publish row must all exist before any approval mutation."
+            )
         approval = self.human_workflow.approve(slug, approver=approver)
         if not approval:
             raise ValueError(f"Unknown approval slug: {slug}")
         review = self._update_review_status(slug, status="human_approved", reason="")
-        publish = self._update_publish_status_after_approval(slug)
+        publish = self._update_publish_status_after_approval(slug, approval=approval)
         self._update_draft_artifacts(slug, review=review, human_approval=approval, publish_gate=publish)
         self.rebuild_outputs()
         return {"slug": slug, "review": review, "human_approval": approval, "publish_gate": publish}
@@ -136,6 +149,7 @@ class EditorialOperationsConsole:
         cluster_article_number: int = 1,
         cluster_article_total: int = 1,
         extra_context: dict[str, Any] | None = None,
+        prepare_only: bool = False,
     ) -> dict[str, Any]:
         from modules.content_growth_pipeline import generate_production_article_draft_from_package, get_research_platform
 
@@ -201,15 +215,19 @@ class EditorialOperationsConsole:
                 "status": gate.status,
             },
         }
-        if gate.passed:
+        if gate.passed and not prepare_only:
             result["draft"] = generate_production_article_draft_from_package(slug)
             metadata_path = self.drafts_dir / slug / "metadata.json"
             metadata = _read_json(metadata_path, {})
             metadata["request_context"] = request_context
             _write_json(metadata_path, metadata)
+        elif gate.passed:
+            result["prepared_for_external_writer"] = True
+            result["research_package"] = str(package_path)
         else:
             result["queue"] = str(self.data_dir / "research_enrichment_queue.json")
-        self.rebuild_outputs()
+        if not prepare_only:
+            self.rebuild_outputs()
         return result
 
     def _publish_slug(self, slug: str, *, rebuild: bool) -> dict[str, Any]:
@@ -229,6 +247,25 @@ class EditorialOperationsConsole:
         metadata = self._load_metadata(slug)
         url = str(metadata.get("url") or publish_row.get("url") or "")
         html_text = draft_html.read_text(encoding="utf-8")
+        actual_binding = binding_for_content(html_text)
+        approval = next(
+            (row for row in _read_json(self.human_queue_path, []) if str(row.get("slug", "")) == slug),
+            {},
+        )
+        binding_status = approval_binding_status(
+            approval,
+            current_content_hash=actual_binding["content_hash"],
+            current_revision_id=actual_binding["revision_id"],
+        )
+        if binding_status != "MATCHED":
+            raise ValueError(
+                "PRODUCTION_DRAFT_APPROVAL_BINDING_BLOCKED: "
+                f"slug={slug}; binding_status={binding_status}; "
+                f"actual_revision_id={actual_binding['revision_id']}; "
+                f"actual_content_hash={actual_binding['content_hash']}; "
+                f"approved_revision_id={approval.get('approved_revision_id') or approval.get('revision_id') or 'missing'}; "
+                f"approved_content_hash={approval.get('approved_content_hash') or approval.get('content_hash') or 'missing'}"
+            )
         article_file = self._write_local_publish(slug, html_text, root=self.published_dir)
         site_file = self._write_local_publish(slug, html_text, root=self.site_output_dir)
         updated = self.publish_gate.mark_published_local(slug, url=url, article_file=article_file, site_file=site_file)
@@ -257,22 +294,32 @@ class EditorialOperationsConsole:
             publish = publish_rows.get(slug) or metadata.get("publish_gate") or {}
             quality_gate = metadata.get("research_quality_gate") if isinstance(metadata.get("research_quality_gate"), dict) else {}
             title = str(metadata.get("title") or publish.get("title") or slug.replace("-", " "))
-            status = self._overall_status(review, human, publish)
             draft_dir = self.drafts_dir / slug
+            draft_file = draft_dir / "index.html"
+            draft_html = draft_file.read_text(encoding="utf-8", errors="ignore") if draft_file.is_file() else ""
+            canonical = resolve_article_operational_state(
+                slug=slug,
+                html_text=draft_html,
+                review=review,
+                approval=human,
+                publish=publish,
+            )
+            status = str(canonical["state"])
             html_stats = self._extract_html_stats(draft_dir / "index.html", metadata=metadata, review=review)
             command_paths = self._build_action_launchers(slug)
             social = self._collect_social_drafts(slug)
             social_actions = self._build_social_actions(slug, social)
-            publish_enabled = self._publish_enabled(review, quality_gate, human, publish)
+            publish_enabled = bool(canonical["publish_eligible"])
             rows.append(
                 {
                     "title": title,
                     "slug": slug,
                     "status": status,
                     "research_quality_status": self._quality_status(quality_gate),
-                    "ai_review_status": str(review.get("status") or "missing"),
-                    "human_approval_status": str(human.get("status") or "missing"),
-                    "publish_gate_status": str(publish.get("status") or "missing"),
+                    "ai_review_status": str(canonical["quality_review"]),
+                    "human_approval_status": str(canonical["human_approval_binding"]),
+                    "publish_gate_status": str(canonical["state"]),
+                    "canonical_state": canonical,
                     "word_count": int(review.get("word_count") or 0),
                     "last_updated": self._last_updated(slug, review, human, publish),
                     "article_markdown": self._relative_link(draft_dir / "article.md"),
@@ -335,6 +382,18 @@ class EditorialOperationsConsole:
         return payload
 
     def rebuild_outputs(self) -> dict[str, Any]:
+        protected_sources: dict[Path, bytes] = {}
+        if self.drafts_dir.exists():
+            for draft_dir in self.drafts_dir.iterdir():
+                if not draft_dir.is_dir():
+                    continue
+                draft_html = draft_dir / "index.html"
+                metadata = _read_json(draft_dir / "metadata.json", {})
+                if draft_html.is_file() and (
+                    bool(metadata.get("external_import"))
+                    or (draft_dir / "external_writer_report.json").is_file()
+                ):
+                    protected_sources[draft_html] = draft_html.read_bytes()
         self.review_engine.refresh_reports()
         self.publish_gate.refresh_reports()
         if self.data_dir.resolve() == settings.data_dir.resolve():
@@ -344,7 +403,17 @@ class EditorialOperationsConsole:
                 build_dashboard_main = None
             if build_dashboard_main is not None:
                 build_dashboard_main(verbose=False)
-        return self.build_console()
+        payload = self.build_console()
+        changed = [path for path, original in protected_sources.items() if not path.is_file() or path.read_bytes() != original]
+        if changed:
+            for path in changed:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(protected_sources[path])
+            raise RuntimeError(
+                "EXTERNAL_WRITER_SOURCE_BYTES_MUTATED_DURING_DASHBOARD_REBUILD: "
+                + ", ".join(path.parent.name for path in changed)
+            )
+        return payload
 
     def _load_metadata(self, slug: str) -> dict[str, Any]:
         return _read_json(self.drafts_dir / slug / "metadata.json", {})
@@ -368,7 +437,7 @@ class EditorialOperationsConsole:
         _write_json(self.review_queue_path, rows)
         return updated
 
-    def _update_publish_status_after_approval(self, slug: str) -> dict[str, Any]:
+    def _update_publish_status_after_approval(self, slug: str, *, approval: dict[str, Any]) -> dict[str, Any]:
         rows = _read_json(self.publish_queue_path, [])
         updated: dict[str, Any] | None = None
         for row in rows:
@@ -382,14 +451,47 @@ class EditorialOperationsConsole:
                 for item in list(normalized.get("pending_reviews") or [])
                 if str(item).strip().lower() != "human approval missing"
             ]
-            row["human_approval_passed"] = True
+            draft = self.drafts_dir / slug / "index.html"
+            if not draft.is_file():
+                raise ValueError(f"Current draft is missing for revision-bound approval: {slug}")
+            binding = binding_for_file(draft)
+            binding_status = approval_binding_status(
+                approval,
+                current_content_hash=binding["content_hash"],
+                current_revision_id=binding["revision_id"],
+            )
+            human_approval_passed = binding_status == "MATCHED"
+            row["human_approval_passed"] = human_approval_passed
+            row["approval_binding_status"] = binding_status
+            row["current_content_hash"] = binding["content_hash"]
+            row["current_revision_id"] = binding["revision_id"]
+            row["content_hash_version"] = binding["content_hash_version"]
+            row["current_authorization"] = "valid" if human_approval_passed else "review_required"
+            if not human_approval_passed:
+                pending_reviews.append("current revision requires new human approval")
+            current_review = next(
+                (item for item in _read_json(self.review_queue_path, []) if str(item.get("slug") or "") == slug),
+                {},
+            )
+            canonical = resolve_article_operational_state(
+                slug=slug,
+                html_text=draft.read_text(encoding="utf-8", errors="ignore"),
+                review=current_review,
+                approval=approval,
+                publish={**row, "hard_blockers": hard_blockers},
+            )
+            hard_blockers = [str(item["reason"]) for item in canonical["blockers"]]
             row["hard_blockers"] = hard_blockers
             row["warnings"] = warnings
             row["pending_reviews"] = pending_reviews
             row["failures"] = hard_blockers
-            row["publish_ready"] = not hard_blockers
-            row["status"] = "approved_for_publish" if not hard_blockers else "blocked"
-            row["final_gate"] = "Ready for Publish" if not hard_blockers else "Publish Blocked"
+            row["publish_ready"] = bool(canonical["publish_eligible"])
+            row["status"] = {
+                "READY_FOR_PUBLISH": "approved_for_publish",
+                "NEEDS_REVIEW": "needs_human_review",
+            }.get(str(canonical["state"]), "blocked")
+            row["final_gate"] = str(canonical["state_label"])
+            row["canonical_state"] = canonical
             row["severity_counts"] = {
                 "BLOCK": len(hard_blockers),
                 "WARNING": len(warnings),
@@ -520,8 +622,12 @@ class EditorialOperationsConsole:
     def _ensure_operator_assets(self, slug: str) -> None:
         draft_dir = self.drafts_dir / slug
         metadata = self._load_metadata(slug)
+        external_writer_draft = bool(metadata.get("external_import")) or (
+            draft_dir / "external_writer_report.json"
+        ).is_file()
         needs_sync = (
             draft_dir.exists()
+            and not external_writer_draft
             and (
                 not isinstance(metadata.get("editorial"), dict)
                 or not str(metadata.get("social_folder") or "").strip()
@@ -536,6 +642,9 @@ class EditorialOperationsConsole:
                 metadata = self._load_metadata(slug)
             except Exception:
                 metadata = self._load_metadata(slug)
+        # External-writer HTML is the review and approval source-of-bytes.  It
+        # must never be regenerated from the generic research template merely
+        # to populate optional console/social metadata.
         social = self._collect_social_drafts(slug)
         self._write_social_index(slug, social)
 

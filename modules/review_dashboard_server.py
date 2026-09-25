@@ -18,11 +18,13 @@ from modules.daily_editorial_workflow import DASHBOARD_BATCH_STATES, DailyEditor
 
 
 class ReviewDashboardServer:
-    def __init__(self, workflow: DailyEditorialWorkflow | None = None) -> None:
+    def __init__(self, workflow: DailyEditorialWorkflow | None = None, *, code_signature: str = "") -> None:
         self.workflow = workflow or DailyEditorialWorkflow()
+        self.code_signature = str(code_signature or "")
 
     def serve(self, *, batch_date: str, host: str = "127.0.0.1", port: int = 8765, open_browser: bool = False) -> ThreadingHTTPServer:
         workflow = self.workflow
+        code_signature = self.code_signature
         csrf_token = secrets.token_urlsafe(24)
         server_ref: dict[str, ThreadingHTTPServer] = {}
 
@@ -31,7 +33,7 @@ class ReviewDashboardServer:
                 parsed = urllib.parse.urlparse(self.path)
                 params = urllib.parse.parse_qs(parsed.query)
                 if parsed.path == "/health":
-                    self._send_html("<html><body>ok</body></html>")
+                    self._send_json({"ok": True, "service": "editorial-review-dashboard", "code_signature": code_signature})
                     return
                 if parsed.path == "/preview":
                     slug = (params.get("slug") or [""])[0]
@@ -137,6 +139,14 @@ class ReviewDashboardServer:
                 encoded = content.encode("utf-8")
                 self.send_response(HTTPStatus.OK)
                 self.send_header("Content-Type", "text/plain; charset=utf-8")
+                self.send_header("Content-Length", str(len(encoded)))
+                self.end_headers()
+                self.wfile.write(encoded)
+
+            def _send_json(self, payload: dict[str, Any]) -> None:
+                encoded = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+                self.send_response(HTTPStatus.OK)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
                 self.send_header("Content-Length", str(len(encoded)))
                 self.end_headers()
                 self.wfile.write(encoded)

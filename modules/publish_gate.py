@@ -8,6 +8,13 @@ from pathlib import Path
 from typing import Any
 
 from config import settings
+from modules.external_writer_return_validator import validate_public_output_files
+from modules.revision_binding import approval_binding_status, binding_for_content
+from modules.seo_geo_validator import (
+    format_seo_geo_report,
+    validate_seo_geo_candidate,
+    write_seo_geo_report,
+)
 
 
 PUBLISH_STATUSES = {
@@ -109,6 +116,30 @@ def _legacy_failure_severity(reason: str) -> str:
     return "block"
 
 
+def _research_source_urls(value: Any, *, source_context: bool = False) -> list[str]:
+    """Collect source URLs without treating article canonicals as research evidence."""
+    urls: list[str] = []
+    if isinstance(value, dict):
+        for key, item in value.items():
+            normalized_key = str(key).casefold()
+            child_context = source_context or any(
+                token in normalized_key for token in ("source", "evidence", "reference", "citation")
+            )
+            if child_context and normalized_key in {"url", "source_url", "official_url", "pricing_url", "affiliate_url"}:
+                candidate = str(item or "").strip()
+                if candidate.startswith(("http://", "https://")) and candidate not in urls:
+                    urls.append(candidate)
+            urls.extend(url for url in _research_source_urls(item, source_context=child_context) if url not in urls)
+    elif isinstance(value, list):
+        for item in value:
+            urls.extend(url for url in _research_source_urls(item, source_context=source_context) if url not in urls)
+    elif source_context:
+        candidate = str(value or "").strip()
+        if candidate.startswith(("http://", "https://")):
+            urls.append(candidate)
+    return urls
+
+
 class PublishGate:
     def __init__(self, data_dir: Path | None = None, site_output_dir: Path | None = None, config: dict[str, Any] | None = None) -> None:
         self.data_dir = data_dir or settings.data_dir
@@ -120,6 +151,55 @@ class PublishGate:
         self.report_csv = self.data_dir / "publish_gate_report.csv"
         self.report_md = self.data_dir / "publish_gate_report.md"
 
+    @property
+    def seo_geo_enabled(self) -> bool:
+        config = self.config.get("seo_geo_validation")
+        return bool(config.get("enabled", False)) if isinstance(config, dict) else False
+
+    def validate_seo_geo(
+        self,
+        *,
+        topic: dict[str, Any],
+        url: str,
+        html: str,
+        research: dict[str, Any],
+        internal_links: list[tuple[str, str]],
+        affiliate_required: bool,
+    ) -> dict[str, Any]:
+        slug = str(topic.get("slug") or "")
+        article_type = str(
+            topic.get("article_type")
+            or topic.get("content_type")
+            or topic.get("angle")
+            or "article"
+        )
+        source_urls = _research_source_urls(research)
+        required_links = [str(href) for href, _label in internal_links if str(href).strip()]
+        root = self.data_dir.parent
+        robots_path = self.site_output_dir / "robots.txt"
+        sitemap_path = self.site_output_dir / "sitemap.xml"
+        if not robots_path.is_file() and (root / "docs" / "robots.txt").is_file():
+            robots_path = root / "docs" / "robots.txt"
+        if not sitemap_path.is_file() and (root / "docs" / "sitemap.xml").is_file():
+            sitemap_path = root / "docs" / "sitemap.xml"
+        report = validate_seo_geo_candidate(
+            slug=slug,
+            page_url=url,
+            article_type=article_type,
+            html_text=html,
+            site_output_dir=self.site_output_dir,
+            docs_dir=root / "docs",
+            source_urls=source_urls,
+            required_internal_links=required_links,
+            affiliate_required=affiliate_required,
+            robots_path=robots_path,
+            sitemap_path=sitemap_path,
+        )
+        report_path = write_seo_geo_report(report, self.data_dir)
+        report["report_path"] = str(report_path)
+        report["console_output"] = format_seo_geo_report(report)
+        return report
+
     @staticmethod
     def normalize_existing_row(row: dict[str, Any]) -> dict[str, Any]:
         """Return a severity-aware view of old and new publish queue rows."""
@@ -129,7 +209,15 @@ class PublishGate:
         legacy_failures = [str(item).strip() for item in list(row.get("failures") or []) if str(item).strip()]
         status = str(row.get("status") or "missing")
         local_publish_states = {"published_local", "published", "committed_local", "awaiting_push", "push_blocked", "rebase_conflict", "pushed", "live"}
-        if status in local_publish_states:
+        authorization_invalidated = str(row.get("current_authorization") or "").lower() in {
+            "invalid",
+            "review_required",
+        } or (
+            status in local_publish_states
+            and row.get("human_approval_passed") is False
+            and str(row.get("final_gate") or "").lower() in {"human approval required", "publish blocked"}
+        )
+        if status in local_publish_states and not authorization_invalidated:
             historical_warnings: list[str] = []
             for reason in [*hard_blockers, *warnings, *pending_reviews, *legacy_failures]:
                 _unique_append(historical_warnings, reason)
@@ -155,6 +243,8 @@ class PublishGate:
                 "normalized_status": status,
                 "publish_ready": False,
             }
+        if status in local_publish_states:
+            row = {**row, "historically_deployed": True}
         if not hard_blockers and not warnings and not pending_reviews and legacy_failures:
             for reason in legacy_failures:
                 severity = _legacy_failure_severity(reason)
@@ -217,19 +307,36 @@ class PublishGate:
         human_approval: dict[str, Any],
         internal_links: list[tuple[str, str]],
     ) -> dict[str, Any]:
+        binding = binding_for_content(html)
+        binding_status = approval_binding_status(
+            human_approval,
+            current_content_hash=binding["content_hash"],
+            current_revision_id=binding["revision_id"],
+        )
+        human_approval_passed = binding_status == "MATCHED"
         if not bool(self.config.get("enabled", False)):
+            pending = [] if human_approval_passed else [self._approval_pending_reason(binding_status)]
             return self._record(
                 {
                     "slug": str(topic.get("slug") or ""),
                     "topic": str(topic.get("topic") or ""),
-                    "status": "approved_for_publish",
+                    "status": "approved_for_publish" if human_approval_passed else "needs_human_review",
                     "checked_at": datetime.now(UTC).isoformat(),
                     "failures": [],
                     "research_quality_passed": True,
                     "verified_source_score_passed": True,
                     "knowledge_freshness_passed": True,
                     "ai_review_passed": True,
-                    "human_approval_passed": True,
+                    "human_approval_passed": human_approval_passed,
+                    "approval_binding_status": binding_status,
+                    "current_content_hash": binding["content_hash"],
+                    "current_revision_id": binding["revision_id"],
+                    "content_hash_version": binding["content_hash_version"],
+                    "current_authorization": "valid" if human_approval_passed else "review_required",
+                    "pending_reviews": pending,
+                    "hard_blockers": [],
+                    "warnings": [],
+                    "final_gate": "Ready for Publish" if human_approval_passed else "Human Approval Required",
                     "broken_links": [],
                     "duplicate_title_meta": False,
                     "affiliate_disclosure_present": True,
@@ -237,7 +344,7 @@ class PublishGate:
                     "minimum_readability_score_passed": True,
                     "business_score": float(review.get("business_value", 0)),
                     "readability_score": float(review.get("readability", 0)),
-                    "publish_ready": True,
+                    "publish_ready": human_approval_passed,
                     "url": url,
                     "title": title,
                     "description": description,
@@ -279,9 +386,13 @@ class PublishGate:
         verified_source_score_passed = verified_score >= configured_verified_min
         knowledge_freshness_passed = freshness_score >= configured_freshness_min
         review_status = str(review.get("status", "")).strip()
-        ai_review_passed = review_status in {"ai_review_passed", "needs_human_review", "human_approved"}
+        explicit_ai_review_passed = review.get("ai_review_passed")
+        ai_review_passed = (
+            bool(explicit_ai_review_passed)
+            if isinstance(explicit_ai_review_passed, bool)
+            else review_status in {"ai_review_passed", "needs_human_review", "human_approved"}
+        )
         human_required = True
-        human_approval_passed = str(human_approval.get("status", "")) == "human_approved" and str(human_approval.get("approved_by", "")).strip().lower() != "system_optional"
 
         broken_links = [href for href, _ in internal_links if not self._link_exists(href)]
         duplicate_title_meta = self._duplicate_title_or_description(title, description, current_slug=str(topic.get("slug") or ""))
@@ -293,10 +404,27 @@ class PublishGate:
         description_present = bool(description.strip())
         canonical_present = bool(re.search(r"<link\b[^>]*rel=['\"]canonical['\"]", html, flags=re.I)) or bool(url.strip())
         meta_present = bool(re.search(r"<meta\b[^>]*name=['\"]description['\"]", html, flags=re.I)) or description_present
-        forbidden_marker_leak = any(marker in html for marker in ("{{", "}}", "Research package snapshot", "Affiliate placeholder fields"))
+        public_marker_violations = validate_public_output_files(
+            task_id=str(review.get("task_id") or topic.get("task_id") or ""),
+            slug=str(topic.get("slug") or ""),
+            files={
+                f"public/{str(topic.get('slug') or '')}/index.html": (html, "html"),
+            },
+        )
+        forbidden_marker_leak = bool(public_marker_violations)
         english_page_has_vietnamese_labels = bool(re.search(r"<html\b[^>]*lang=['\"]en", html, flags=re.I)) and any(
             label in html for label in ("Đăng", "Duyệt", "Chưa", "Bài viết", "Nguồn")
         )
+        seo_geo_validation: dict[str, Any] = {}
+        if self.seo_geo_enabled:
+            seo_geo_validation = self.validate_seo_geo(
+                topic=topic,
+                url=url,
+                html=html,
+                research=research,
+                internal_links=internal_links,
+                affiliate_required=True,
+            )
 
         if not html.strip():
             _unique_append(hard_blockers, "missing article output")
@@ -324,15 +452,13 @@ class PublishGate:
             _unique_append(warnings, "knowledge freshness below initial threshold")
         if not ai_review_passed:
             if not review:
-                _unique_append(pending_reviews, "AI review not_run")
+                _unique_append(hard_blockers, "AI review not_run")
             elif review_status in {"error", "review_error"}:
                 _unique_append(hard_blockers, "AI review error")
-            elif total_score >= needs_revision_min:
-                _unique_append(warnings, "AI review failed")
             else:
                 _unique_append(hard_blockers, "AI review failed")
         if not human_approval_passed:
-            _unique_append(pending_reviews, "human approval missing")
+            _unique_append(pending_reviews, self._approval_pending_reason(binding_status))
         if broken_links:
             _unique_append(warnings, "broken links detected")
         if duplicate_title_meta:
@@ -343,14 +469,23 @@ class PublishGate:
             _unique_append(warnings, "business score below threshold")
         if not minimum_readability_score_passed:
             _unique_append(warnings, "readability score below threshold")
+        for reason in list(seo_geo_validation.get("blocking_reasons") or []):
+            _unique_append(hard_blockers, f"SEO/GEO: {reason}")
+        for reason in list(seo_geo_validation.get("warnings") or []):
+            _unique_append(warnings, f"SEO/GEO: {reason}")
 
-        if total_score < high_confidence_min and total_score >= human_review_min:
-            _unique_append(warnings, "AI quality below high-confidence target")
-        elif total_score < human_review_min and total_score >= needs_revision_min:
-            _unique_append(warnings, "AI quality review required")
+        if not ai_review_passed:
+            if total_score < high_confidence_min and total_score >= human_review_min:
+                _unique_append(warnings, "AI quality below high-confidence target")
+            elif total_score < human_review_min and total_score >= needs_revision_min:
+                _unique_append(warnings, "AI quality review required")
 
+        ai_review_warning = any(
+            warning in {"AI review failed", "AI quality below high-confidence target", "AI quality review required"}
+            for warning in warnings
+        )
         review_states = {
-            "ai_review": self._review_state(review, passed=ai_review_passed, warning=bool(warnings), failed=any("AI review" in item for item in hard_blockers)),
+            "ai_review": self._review_state(review, passed=ai_review_passed, warning=ai_review_warning, failed=any("AI review" in item for item in hard_blockers)),
             "source_review": "warning" if not verified_source_score_passed and "zero usable sources" not in hard_blockers else ("failed" if "zero usable sources" in hard_blockers else "passed"),
             "freshness_review": "not_run" if "source_confidence" not in research_quality else ("warning" if not knowledge_freshness_passed else "passed"),
         }
@@ -364,7 +499,7 @@ class PublishGate:
 
         status = "blocked" if hard_blockers else ("approved_for_publish" if human_approval_passed else "needs_human_review")
         failures = list(hard_blockers)
-        return self._record(
+        result = self._record(
             {
                 "slug": str(topic.get("slug") or ""),
                 "topic": str(topic.get("topic") or ""),
@@ -387,7 +522,16 @@ class PublishGate:
                 "verified_source_score_passed": verified_source_score_passed,
                 "knowledge_freshness_passed": knowledge_freshness_passed,
                 "ai_review_passed": ai_review_passed,
+                "ai_review_source": str(review.get("ai_review_source") or ""),
+                "ai_review_package_id": str(review.get("package_id") or ""),
+                "ai_review_task_id": str(review.get("task_id") or ""),
                 "human_approval_passed": human_approval_passed,
+                "approval_binding_status": binding_status,
+                "current_content_hash": binding["content_hash"],
+                "current_revision_id": binding["revision_id"],
+                "content_hash_version": binding["content_hash_version"],
+                "current_authorization": "valid" if human_approval_passed else "review_required",
+                "public_marker_violations": public_marker_violations,
                 "broken_links": broken_links,
                 "duplicate_title_meta": duplicate_title_meta,
                 "affiliate_disclosure_present": affiliate_disclosure_present,
@@ -397,21 +541,56 @@ class PublishGate:
                 "readability_score": readability_score,
                 "verified_source_score": verified_score,
                 "knowledge_freshness_score": freshness_score,
+                "seo_geo_validation": seo_geo_validation,
+                "seo_geo_validation_status": str(seo_geo_validation.get("final_result") or "NOT_RUN"),
                 "publish_ready": status == "approved_for_publish",
                 "url": url,
                 "title": title,
                 "description": description,
             }
         )
+        if binding_status in {"LEGACY_APPROVAL_UNBOUND", "CONTENT_HASH_MISMATCH", "REVISION_ID_MISMATCH"}:
+            try:
+                from modules.observation_hooks import observe_revision_safety_event_best_effort
+
+                observe_revision_safety_event_best_effort(
+                    root=self.data_dir.parent,
+                    event_type="PUBLISH_AUTHORIZATION_BINDING_REJECTED",
+                    slug=str(topic.get("slug") or ""),
+                    canonical_task_id_value=str(topic.get("canonical_task_id") or "") or None,
+                    artifact_paths=[self.queue_path],
+                    details={
+                        "approval_binding_status": binding_status,
+                        "current_revision_id": binding["revision_id"],
+                        "current_content_hash": binding["content_hash"],
+                    },
+                )
+            except Exception:
+                pass
+        return result
 
     def mark_published_local(self, slug: str, *, url: str, article_file: Path, site_file: Path) -> dict[str, Any] | None:
         rows = self.load_queue()
         for row in rows:
             if str(row.get("slug", "")) != slug:
                 continue
+            if (
+                str(row.get("status") or "") != "approved_for_publish"
+                or not bool(row.get("human_approval_passed"))
+                or str(row.get("approval_binding_status") or "") != "MATCHED"
+                or str(row.get("current_authorization") or "") != "valid"
+            ):
+                raise PermissionError(
+                    f"Current revision for {slug} is not authorized by an exact revision-bound human approval."
+                )
             row["status"] = "published_local" if article_file.exists() and site_file.exists() else "publish_failed"
             row["published_at"] = datetime.now(UTC).isoformat()
             row["url"] = url
+            row["historically_deployed"] = row["status"] == "published_local" or bool(row.get("historically_deployed"))
+            if row["status"] == "published_local":
+                history = list(row.get("deployment_history") or [])
+                history.append({"status": "published_local", "published_at": row["published_at"], "url": url})
+                row["deployment_history"] = history
             self.save_queue(rows)
             self._write_report(rows)
             return row
@@ -422,6 +601,16 @@ class PublishGate:
         replaced = False
         for index, row in enumerate(rows):
             if str(row.get("slug", "")) == str(result.get("slug", "")):
+                was_deployed = str(row.get("status") or "") in {
+                    "published_local", "published", "committed_local", "awaiting_push",
+                    "push_blocked", "rebase_conflict", "pushed", "live",
+                } or bool(row.get("historically_deployed"))
+                if was_deployed:
+                    result["historically_deployed"] = True
+                    result["deployment_status"] = str(row.get("deployment_status") or row.get("status") or "historically_deployed")
+                    result["deployment_history"] = list(row.get("deployment_history") or [])
+                    result["historical_published_at"] = str(row.get("historical_published_at") or row.get("published_at") or "")
+                    result["historical_url"] = str(row.get("historical_url") or row.get("url") or result.get("url") or "")
                 rows[index] = result
                 replaced = True
                 break
@@ -430,6 +619,16 @@ class PublishGate:
         self.save_queue(rows)
         self._write_report(rows)
         return result
+
+    @staticmethod
+    def _approval_pending_reason(binding_status: str) -> str:
+        return {
+            "LEGACY_APPROVAL_UNBOUND": "legacy approval is not bound to the current revision",
+            "CONTENT_HASH_MISMATCH": "human approval content hash mismatch",
+            "REVISION_ID_MISMATCH": "human approval revision mismatch",
+            "INVALID_APPROVER": "human approval actor is invalid",
+            "APPROVAL_NOT_GRANTED": "human approval missing",
+        }.get(binding_status, "human approval missing")
 
     def _write_report(self, rows: list[dict[str, Any]]) -> None:
         normalized_rows = [self.normalize_existing_row(row) for row in rows]

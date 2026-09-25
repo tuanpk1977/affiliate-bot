@@ -32,6 +32,7 @@ REQUIRED_FIELDS = (
     "seo_defaults",
     "social_platform_settings",
     "source_policy",
+    "compliance",
     "output",
     "active",
     "production_enabled",
@@ -62,6 +63,7 @@ class SiteProfile:
     seo_defaults: dict[str, Any]
     social_platform_settings: dict[str, Any]
     source_policy: dict[str, Any]
+    compliance: dict[str, Any]
     output: dict[str, Any]
     active: bool
     production_enabled: bool
@@ -187,6 +189,7 @@ def validate_site_profile(
     seo = _require_mapping(profile, "seo_defaults")
     social = _require_mapping(profile, "social_platform_settings")
     source_policy = _require_mapping(profile, "source_policy")
+    compliance = _require_mapping(profile, "compliance")
     output = _require_mapping(profile, "output")
 
     if not isinstance(editorial.get("human_approval_required"), bool):
@@ -196,6 +199,37 @@ def validate_site_profile(
     minimum_sources = source_policy.get("minimum_usable_sources")
     if not isinstance(minimum_sources, int) or isinstance(minimum_sources, bool) or minimum_sources < 1:
         raise SiteProfileError("'source_policy.minimum_usable_sources' must be an integer of at least 1.")
+    risk_level = str(compliance.get("risk_level") or "").strip().lower()
+    if risk_level not in {"low", "medium", "high"}:
+        raise SiteProfileError("'compliance.risk_level' must be low, medium, or high.")
+    for key in (
+        "regulated_content",
+        "expert_review_required",
+        "disclaimer_required",
+        "official_sources_required",
+    ):
+        if not isinstance(compliance.get(key), bool):
+            raise SiteProfileError(f"'compliance.{key}' must be boolean.")
+    if risk_level == "high" or compliance["regulated_content"]:
+        missing_safeguards = [
+            key
+            for key in (
+                "expert_review_required",
+                "disclaimer_required",
+                "official_sources_required",
+            )
+            if not compliance[key]
+        ]
+        if missing_safeguards:
+            raise SiteProfileError(
+                "High-risk or regulated profiles must enable: "
+                + ", ".join(f"compliance.{key}" for key in missing_safeguards)
+                + "."
+            )
+        if minimum_sources < 3:
+            raise SiteProfileError(
+                "High-risk or regulated profiles require at least 3 usable sources."
+            )
     canonical_base = _validate_public_url(
         str(seo.get("canonical_base_url") or "").strip(),
         "seo_defaults.canonical_base_url",
@@ -245,6 +279,7 @@ def _to_site_profile(profile: Mapping[str, Any]) -> SiteProfile:
         seo_defaults=dict(profile["seo_defaults"]),
         social_platform_settings=dict(profile["social_platform_settings"]),
         source_policy=dict(profile["source_policy"]),
+        compliance=dict(profile["compliance"]),
         output=dict(profile["output"]),
         active=bool(profile["active"]),
         production_enabled=bool(profile["production_enabled"]),

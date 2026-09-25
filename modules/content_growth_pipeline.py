@@ -7,6 +7,7 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 from dataclasses import dataclass
 from datetime import date, datetime, timezone
 from pathlib import Path
@@ -27,6 +28,7 @@ from modules.publish_gate import PublishGate
 from modules.human_approval import HumanApprovalWorkflow
 from modules.indexing_policy import INDEXABLE_ROBOTS_META
 from modules.research_intelligence import ResearchIntelligencePlatform, ResearchPackage
+from modules.revision_binding import binding_for_content
 from modules.site_stats import load_site_stats
 
 
@@ -66,6 +68,64 @@ class GeneratedPage:
     human_approval: dict[str, Any]
     publish_gate: dict[str, Any]
     warnings: list[str]
+
+
+class ExistingPublishedRevisionReviewRequired(RuntimeError):
+    def __init__(self, slug: str, paths: list[Path]) -> None:
+        self.state = {
+            "status": "RE_REVIEW_REQUIRED",
+            "slug": slug,
+            "existing_published_paths": [str(path) for path in paths],
+            "human_approval_required": True,
+            "publish_ready": False,
+        }
+        super().__init__(
+            f"Existing published slug '{slug}' requires an explicit revision/content-refresh workflow and a new revision-bound human approval."
+        )
+
+
+def _is_explicit_content_refresh(topic: dict[str, Any]) -> bool:
+    return (
+        int(topic.get("fallback_level") or 0) == 3
+        and str(topic.get("opportunity_type") or "").strip().lower() == "content_refresh"
+        and bool(topic.get("preserve_slug"))
+        and topic.get("create_new_url") is False
+    )
+
+
+def _existing_published_paths(slug: str) -> list[Path]:
+    candidates = (
+        PUBLISHED_DIR / slug / "index.html",
+        SITE_OUTPUT / slug / "index.html",
+        ROOT / "docs" / slug / "index.html",
+    )
+    return [path for path in candidates if path.is_file()]
+
+
+def _bind_review_to_content(review: dict[str, Any], topic: dict[str, Any], article_html: str) -> dict[str, Any]:
+    binding = binding_for_content(article_html)
+    review.update(binding)
+    review["canonical_task_id"] = str(topic.get("canonical_task_id") or "")
+    review["legacy_task_id"] = str(topic.get("legacy_task_id") or topic.get("task_id") or topic.get("slug") or "")
+    review["approval_scope"] = "website"
+    return review
+
+
+def _queue_snapshot(paths: tuple[Path, ...]) -> dict[Path, bytes | None]:
+    return {path: path.read_bytes() if path.is_file() else None for path in paths}
+
+
+def _restore_queue_snapshot(snapshot: dict[Path, bytes | None]) -> None:
+    for path, payload in snapshot.items():
+        if payload is None:
+            if path.exists():
+                path.unlink()
+            continue
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with tempfile.NamedTemporaryFile(dir=path.parent, delete=False) as handle:
+            handle.write(payload)
+            temporary = Path(handle.name)
+        temporary.replace(path)
 
 
 def load_research_package(slug: str) -> dict[str, Any]:
@@ -471,6 +531,10 @@ def planning_payload(topic: dict[str, Any]) -> dict[str, Any]:
 
 
 def generate_topic_package(topic: dict[str, Any]) -> GeneratedPage:
+    requested_slug = str(topic.get("slug") or "")
+    existing_paths = _existing_published_paths(requested_slug)
+    if existing_paths and not _is_explicit_content_refresh(topic):
+        raise ExistingPublishedRevisionReviewRequired(requested_slug, existing_paths)
     enriched_topic = enrich_topic_with_research_and_planning(topic)
     topic_name = str(enriched_topic["topic"])
     slug = str(enriched_topic["slug"])
@@ -482,40 +546,55 @@ def generate_topic_package(topic: dict[str, Any]) -> GeneratedPage:
     warnings = fact_warnings(topic_name)
 
     article_html = render_article(enriched_topic, title, description, path, links, warnings)
-    review = get_content_review_engine().review_content(
-        topic=enriched_topic,
-        html=article_html,
-        title=title,
-        description=description,
-        url=url,
-        internal_links=links or [(href, href) for href in coerce_text_list(enriched_topic.get("suggested_internal_links"))],
-        warnings=warnings,
-        research=research_payload(enriched_topic),
-        planning=planning_payload(enriched_topic),
+    queue_paths = (
+        DATA_DIR / "content_review_queue.json",
+        DATA_DIR / "human_approval_queue.json",
+        DATA_DIR / "publish_queue.json",
     )
-    if str(review.get("rewritten_html") or "").strip():
-        article_html = str(review["rewritten_html"])
-    human_approval = get_human_approval_workflow().sync_review(review)
-    publish_gate = get_publish_gate().evaluate(
-        topic=enriched_topic,
-        title=title,
-        description=description,
-        url=url,
-        html=article_html,
-        research=research_payload(enriched_topic),
-        review=review,
-        human_approval=human_approval,
-        internal_links=links,
-    )
+    snapshot = _queue_snapshot(queue_paths)
+    try:
+        review = get_content_review_engine().review_content(
+            topic=enriched_topic,
+            html=article_html,
+            title=title,
+            description=description,
+            url=url,
+            internal_links=links or [(href, href) for href in coerce_text_list(enriched_topic.get("suggested_internal_links"))],
+            warnings=warnings,
+            research=research_payload(enriched_topic),
+            planning=planning_payload(enriched_topic),
+        )
+        if str(review.get("rewritten_html") or "").strip():
+            article_html = str(review["rewritten_html"])
+        _bind_review_to_content(review, enriched_topic, article_html)
+        human_approval = get_human_approval_workflow().sync_review(review)
+        publish_gate = get_publish_gate().evaluate(
+            topic=enriched_topic,
+            title=title,
+            description=description,
+            url=url,
+            html=article_html,
+            research=research_payload(enriched_topic),
+            review=review,
+            human_approval=human_approval,
+            internal_links=links,
+        )
+    except Exception:
+        _restore_queue_snapshot(snapshot)
+        raise
     if str(publish_gate.get("status", "")) != "approved_for_publish":
         raise RuntimeError(
             f"Publish gate blocked generation for {topic_name}: {'; '.join(publish_gate.get('failures', [])) or '; '.join(publish_gate.get('pending_reviews', [])) or 'publish checks failed'}."
         )
-    article_file = write_article(path, article_html)
-    site_file = write_article(path, article_html, output=SITE_OUTPUT)
-    video_folder = write_video_drafts(enriched_topic, url, title)
-    social_folder = write_social_drafts(enriched_topic, url, title)
-    publish_gate = get_publish_gate().mark_published_local(slug, url=url, article_file=article_file, site_file=site_file) or publish_gate
+    try:
+        article_file = write_article(path, article_html)
+        site_file = write_article(path, article_html, output=SITE_OUTPUT)
+        video_folder = write_video_drafts(enriched_topic, url, title)
+        social_folder = write_social_drafts(enriched_topic, url, title)
+        publish_gate = get_publish_gate().mark_published_local(slug, url=url, article_file=article_file, site_file=site_file) or publish_gate
+    except Exception:
+        _restore_queue_snapshot(snapshot)
+        raise
     return GeneratedPage(
         topic=topic_name,
         slug=slug,
@@ -568,6 +647,7 @@ def generate_production_article_draft_from_package(slug: str) -> dict[str, Any]:
     if str(review.get("rewritten_html") or "").strip():
         article_html = str(review["rewritten_html"])
         article_markdown = render_article_markdown(topic, title, description, url, links, warnings)
+    _bind_review_to_content(review, topic, article_html)
     human_approval = get_human_approval_workflow().sync_review(review)
     publish_gate = get_publish_gate().evaluate(
         topic=topic,
@@ -587,6 +667,19 @@ def generate_production_article_draft_from_package(slug: str) -> dict[str, Any]:
     topic = {**topic, "editorial": editorial}
     article_html = render_article(topic, title, description, path, links, warnings)
     article_markdown = render_article_markdown(topic, title, description, url, links, warnings)
+    _bind_review_to_content(review, topic, article_html)
+    human_approval = get_human_approval_workflow().sync_review(review)
+    publish_gate = get_publish_gate().evaluate(
+        topic=topic,
+        title=title,
+        description=description,
+        url=url,
+        html=article_html,
+        research=research,
+        review=review,
+        human_approval=human_approval,
+        internal_links=links,
+    )
 
     draft_dir = PRODUCTION_DRAFTS / slug
     draft_dir.mkdir(parents=True, exist_ok=True)
@@ -758,6 +851,9 @@ def render_article(
     research_entities = research.get("entities") if isinstance(research.get("entities"), dict) else {}
     research_outline = research.get("outline") if isinstance(research.get("outline"), dict) else {}
     tool_profiles = article_tool_profiles(research)
+    angle_profile = daily_angle_profile(topic)
+    angle_sections = render_daily_angle_sections(topic, angle_profile, tool_profiles)
+    next_series = render_next_series_section(topic, angle_profile)
     article_angle = str(topic.get("suggested_article_angle") or default_article_angle(topic_name, content_type))
     video_angle = str(topic.get("suggested_video_angle") or default_video_angle(topic_name, content_type))
     canonical = BASE_URL + path
@@ -796,6 +892,7 @@ def render_article(
       <p class="eyebrow">Buyer Guide · Updated June 2026</p>
       <h1>{html.escape(title)}</h1>
       <p class="lede">{html.escape(description)}</p>
+      <p><strong>Series angle:</strong> {html.escape(str(angle_profile["label"]))} - {html.escape(str(angle_profile["focus"]))}.</p>
       {hero_image}
       <div class="cta-row">
         <a class="cta-button" href="#pricing">Check pricing notes</a>
@@ -810,11 +907,13 @@ def render_article(
     {community_signals}
     <nav class="article-card toc-links" aria-label="Article sections">
       <a href="#quick-verdict">Quick verdict</a>
+      <a href="#daily-angle">Today's angle</a>
       <a href="#comparison-table">Comparison table</a>
       <a href="#pros-cons">Pros and cons</a>
       <a href="#pricing">Pricing</a>
       <a href="#alternatives">Alternatives</a>
       <a href="#faq">FAQ</a>
+      <a href="#series-next">Next in series</a>
       {outline_links}
     </nav>
     <section class="article-card article-section" id="quick-verdict">
@@ -823,10 +922,12 @@ def render_article(
       <p>{render_buying_guidance(tool_profiles)}</p>
       <ul>
         <li><strong>Best for:</strong> teams that need a clear shortlist before testing software.</li>
+        <li><strong>Today's lens:</strong> {html.escape(str(angle_profile["label"]))} - {html.escape(str(angle_profile["focus"]))}.</li>
         <li><strong>Not best for:</strong> buyers expecting guaranteed pricing, official endorsement, or one-size-fits-all advice.</li>
         <li><strong>Verification required:</strong> pricing, free-trial terms, refund rules, usage limits, integrations, and affiliate terms.</li>
       </ul>
     </section>
+    {angle_sections}
     <section class="article-card article-section" id="methodology">
       <h2>How we evaluated the shortlist</h2>
       <p>This article uses the approved research package only. That means the shortlist is based on verified official pages already stored in the local registry, entity extraction from the approved package, and the current quality-gate output for this topic. It does not pull in a fresh weekly trend list or ad hoc live browsing during drafting.</p>
@@ -948,6 +1049,7 @@ def render_article(
       <p>Warnings: {html.escape('; '.join(warnings) if warnings else 'No critical warnings. Verify vendor facts before final promotion.')}</p>
       <p>EEAT note: recommendations in this draft are limited to what the current approved package can support. Where the package is thin, the article says so directly instead of claiming precision it does not have.</p>
     </section>
+    {next_series}
     <section class="article-card article-section" id="faq">
       <h2>FAQ</h2>
       <div class="faq-list">{faq_html(faq_items)}</div>
@@ -1227,6 +1329,202 @@ def render_buying_guidance(tool_profiles: list[dict[str, str]]) -> str:
     )
 
 
+ANGLE_SEQUENCE = (
+    "main_review",
+    "implementation_guide",
+    "comparison",
+    "pricing",
+    "use_cases",
+    "troubleshooting",
+    "buying_decision",
+)
+
+
+ANGLE_PROFILES: dict[str, dict[str, Any]] = {
+    "main_review": {
+        "label": "Core review",
+        "focus": "establish whether the topic deserves buyer attention at all",
+        "headings": [
+            ("What this review answers", "This opening article defines the buyer problem, the verified source base, and the first decision boundary. It should help a reader decide whether the topic belongs on a shortlist before they spend time on setup or pricing research."),
+            ("Best-fit reader", "The best reader is an operator, founder, marketer, or technical lead who needs a reliable first pass. They should leave with a shortlist hypothesis, not a final procurement decision."),
+            ("What stays unresolved", "Plan limits, implementation effort, and long-term support claims remain open until the follow-up articles test them from narrower angles."),
+        ],
+    },
+    "implementation_guide": {
+        "label": "Implementation guide",
+        "focus": "turn the review into a practical setup and rollout plan",
+        "headings": [
+            ("Implementation path", "Start with one repeatable workflow, assign an owner, and test the tool against the current process before adding broader team access."),
+            ("Setup checklist", "Check account structure, permissions, integrations, data import, export, admin controls, and handoff points before declaring the tool usable."),
+            ("Rollout risks", "The biggest implementation risk is not missing a feature. It is moving work into a tool before the team understands ownership, permissions, and support limits."),
+        ],
+    },
+    "comparison": {
+        "label": "Comparison and alternatives",
+        "focus": "help the reader compare alternatives without repeating the core review",
+        "headings": [
+            ("Alternative decision map", "Compare the shortlisted option against narrower alternatives by workflow, switching cost, evidence quality, and buyer risk."),
+            ("When to choose an alternative", "Choose an alternative when it solves the exact workflow with fewer assumptions, clearer documentation, or lower operational overhead."),
+            ("Comparison traps", "Avoid ranking tools only by feature count. A smaller tool with clearer ownership, pricing, and documentation can be the safer choice."),
+        ],
+    },
+    "pricing": {
+        "label": "Pricing and ROI",
+        "focus": "separate real cost signals from marketing claims",
+        "headings": [
+            ("Cost model to verify", "Verify seats, usage caps, AI credits, automation limits, export access, support tier, billing period, renewal rules, and cancellation terms before using any pricing claim."),
+            ("ROI questions before buying", "Ask what work the tool removes, who saves time, how often the workflow runs, and what manual review remains after automation."),
+            ("Hidden cost checklist", "Watch for onboarding time, admin maintenance, training, data migration, compliance review, and paid add-ons that are not obvious from a pricing table."),
+        ],
+    },
+    "use_cases": {
+        "label": "Workflow use cases",
+        "focus": "show practical use cases rather than another general review",
+        "headings": [
+            ("Workflow examples", "Use cases should start from repeated work: planning, intake, drafting, review, reporting, support handoff, or customer follow-up."),
+            ("Role-based fit", "A founder, marketer, operations lead, and technical user may need different proof. The article should separate those roles instead of treating all buyers as one persona."),
+            ("Where it does not fit", "The tool is a poor fit when the team cannot verify sources, cannot own the workflow, or needs guarantees that the source package does not support."),
+        ],
+    },
+    "troubleshooting": {
+        "label": "Mistakes and troubleshooting",
+        "focus": "help readers avoid failure after the first trial",
+        "headings": [
+            ("Common failure signs", "Watch for unclear ownership, unsupported claims, missing export paths, weak documentation, vague pricing, and workflows that still require the same manual effort."),
+            ("Troubleshooting checklist", "When a test fails, reduce scope, verify source assumptions, check permissions, compare one alternative, and document what would need to change before approval."),
+            ("When to stop the rollout", "Stop when the team cannot prove value in a real workflow or when the official source does not support the claim being used to justify purchase."),
+        ],
+    },
+    "buying_decision": {
+        "label": "Buying decision",
+        "focus": "turn the series into a final human-review decision framework",
+        "headings": [
+            ("Approve, hold, or reject", "Approve only when the workflow test, source evidence, pricing assumptions, and support expectations all line up. Hold when one layer is unclear. Reject when the core workflow still needs manual work."),
+            ("Final buyer checklist", "Before purchase, confirm the official product page, pricing page, documentation, cancellation terms, data controls, and one live workflow test."),
+            ("Recommendation boundary", "A recommendation should stay narrow. It should say who the tool fits, what the source package proves, and what the reader must still verify."),
+        ],
+    },
+}
+
+
+def daily_angle_key(topic: dict[str, Any]) -> str:
+    raw = " ".join(
+        str(topic.get(key) or "")
+        for key in ("daily_angle", "content_type", "slug", "topic", "title", "suggested_article_angle")
+    ).lower()
+    if any(marker in raw for marker in ("implementation", "implement", "how-to", "how to")):
+        return "implementation_guide"
+    if any(marker in raw for marker in ("comparison", "alternative", "alternatives", " vs ")):
+        return "comparison"
+    if any(marker in raw for marker in ("pricing", "cost", "roi")):
+        return "pricing"
+    if any(marker in raw for marker in ("use case", "use-case", "workflow", "workflows")):
+        return "use_cases"
+    if any(marker in raw for marker in ("troubleshoot", "mistake", "mistakes", "problem")):
+        return "troubleshooting"
+    if any(marker in raw for marker in ("decision", "recommendation", "final", "buying")):
+        return "buying_decision"
+    return "main_review"
+
+
+def daily_angle_profile(topic: dict[str, Any]) -> dict[str, Any]:
+    key = daily_angle_key(topic)
+    profile = dict(ANGLE_PROFILES.get(key) or ANGLE_PROFILES["main_review"])
+    profile["key"] = key
+    return profile
+
+
+def next_series_step(topic: dict[str, Any], current_key: str) -> dict[str, str]:
+    try:
+        next_key = ANGLE_SEQUENCE[ANGLE_SEQUENCE.index(current_key) + 1]
+    except (ValueError, IndexError):
+        next_key = ""
+    if not next_key:
+        return {
+            "label": "Series complete",
+            "text": "This article closes the current buyer series. Revisit the earlier articles if a pricing, implementation, or source-confidence assumption changes.",
+            "url": "",
+        }
+    next_profile = ANGLE_PROFILES[next_key]
+    history = topic.get("weekly_article_history") if isinstance(topic.get("weekly_article_history"), list) else []
+    for row in history:
+        if not isinstance(row, dict):
+            continue
+        if str(row.get("angle") or "").strip().lower() == next_key and str(row.get("slug") or "").strip():
+            return {
+                "label": str(next_profile["label"]),
+                "text": f"Next in this series: {next_profile['label']} will focus on {next_profile['focus']}.",
+                "url": f"/{str(row['slug']).strip().strip('/')}/",
+            }
+    return {
+        "label": str(next_profile["label"]),
+        "text": f"Next in this series: {next_profile['label']} will focus on {next_profile['focus']}.",
+        "url": "",
+    }
+
+
+def render_daily_angle_sections(topic: dict[str, Any], profile: dict[str, Any], tool_profiles: list[dict[str, str]]) -> str:
+    topic_name = str(topic.get("topic") or "this topic")
+    lead_tool = tool_profiles[0]["name"] if tool_profiles else topic_name
+    section_blocks = []
+    for heading, body in list(profile.get("headings") or []):
+        section_blocks.append(
+            f"""
+        <section class="article-card">
+          <h3>{html.escape(str(heading))}</h3>
+          <p>{html.escape(str(body))}</p>
+        </section>"""
+        )
+    return f"""
+    <section class="article-card article-section" id="daily-angle">
+      <h2>{html.escape(str(profile['label']))}: what is different in this article</h2>
+      <p>This article is part of a weekly series for <strong>{html.escape(topic_name)}</strong>. Its job is to {html.escape(str(profile['focus']))}. It should not repeat the same verdict from the earlier article.</p>
+      <p>Use the previous article as context, then evaluate <strong>{html.escape(lead_tool)}</strong> through this narrower lens. That makes the series useful for readers who follow the topic across the week.</p>
+      <div class="grid">{''.join(section_blocks)}</div>
+    </section>
+"""
+
+
+def render_next_series_section(topic: dict[str, Any], profile: dict[str, Any]) -> str:
+    next_step = next_series_step(topic, str(profile.get("key") or "main_review"))
+    link = ""
+    if next_step.get("url"):
+        link = f'<p><a class="cta-button cta-button-secondary" href="{html.escape(next_step["url"])}">Read the next article</a></p>'
+    return f"""
+    <section class="article-card article-section" id="series-next">
+      <h2>Next in this series</h2>
+      <p>{html.escape(next_step["text"])}</p>
+      <p>Follow the series in order: first validate the core review, then test implementation, alternatives, pricing, use cases, troubleshooting, and the final buying decision.</p>
+      {link}
+    </section>
+"""
+
+
+def render_daily_angle_markdown(topic: dict[str, Any], profile: dict[str, Any], tool_profiles: list[dict[str, str]]) -> str:
+    topic_name = str(topic.get("topic") or "this topic")
+    lead_tool = tool_profiles[0]["name"] if tool_profiles else topic_name
+    headings = "\n\n".join(
+        f"### {heading}\n\n{body}"
+        for heading, body in list(profile.get("headings") or [])
+    )
+    next_step = next_series_step(topic, str(profile.get("key") or "main_review"))
+    next_url = f"\n\nNext article link: {next_step['url']}" if next_step.get("url") else ""
+    return f"""## {profile['label']}: what is different in this article
+
+This article is part of a weekly series for **{topic_name}**. Its job is to {profile['focus']}. It should not repeat the same verdict from the earlier article.
+
+Use the previous article as context, then evaluate **{lead_tool}** through this narrower lens.
+
+{headings}
+
+## Next in this series
+
+{next_step['text']}{next_url}
+
+Follow the series in order: core review, implementation, alternatives, pricing, use cases, troubleshooting, and final buying decision.
+"""
+
+
 def render_article_markdown(
     topic: dict[str, Any],
     title: str,
@@ -1239,6 +1537,8 @@ def render_article_markdown(
     planning = planning_payload(topic)
     editorial = topic.get("editorial") if isinstance(topic.get("editorial"), dict) else build_editorial_metadata()
     tool_profiles = article_tool_profiles(research)
+    angle_profile = daily_angle_profile(topic)
+    angle_markdown = render_daily_angle_markdown(topic, angle_profile, tool_profiles)
     faq_groups = research.get("faq") if isinstance(research.get("faq"), dict) else {}
     faq_items: list[str] = []
     for key in ("beginner", "intermediate", "advanced", "comparison", "pricing", "troubleshooting"):
@@ -1303,6 +1603,8 @@ The shortlist focuses on:
 ## Quick Verdict
 
 {render_buying_guidance(tool_profiles)}
+
+{angle_markdown}
 
 ## Tool Shortlist
 

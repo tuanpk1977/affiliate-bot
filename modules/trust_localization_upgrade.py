@@ -233,9 +233,18 @@ def enhance_html(html_text: str, rel_path: str, scores: dict[str, str]) -> str:
     text = preserve_business_mailto_links(text)
     text = insert_comparison_scorecard(text, rel_path, lang, scores)
     text = insert_trust_blocks(text, lang, rel_path)
+    if rel_path.removeprefix("vi/").strip("/") == "media-kit/index.html":
+        text = standardize_media_kit_brand(text)
     if lang == "vi":
         text = cleanup_vietnamese_text(text)
     return text
+
+
+def standardize_media_kit_brand(html_text: str) -> str:
+    """Prevent legacy brand aliases from leaking onto the Media Kit page."""
+    return html_text.replace("MS Smile AI Review Hub", "Smile AI Review Hub").replace(
+        "Smile AI Reviews", "Smile AI Review Hub"
+    )
 
 
 def preserve_business_mailto_links(html_text: str) -> str:

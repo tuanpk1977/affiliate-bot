@@ -4,9 +4,11 @@ import re
 from pathlib import Path
 from urllib.parse import urlparse
 
-import pandas as pd
-
 from config import settings
+from modules.lazy_imports import lazy_module
+
+
+pd = lazy_module("pandas")
 
 
 OPPORTUNITY_COLUMNS = [

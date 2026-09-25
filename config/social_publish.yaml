@@ -13,5 +13,83 @@ platforms:
   blogger: false
   telegram: false
 
+# Canonical normal-social writing/review registry. Menu F and the external
+# writer use this list; publishing enablement above remains a separate choice.
+draft_platforms:
+  facebook_en: true
+  facebook_vi: true
+  linkedin: true
+  x: true
+  quora: true
+  devto: true
+  pinterest: true
+  blogger: true
+
+# Platform-native writing contracts used by Menu F, Menu W and Menu G.
+# Keep this registry configuration-driven; publishing enablement is separate.
+platform_playbooks:
+  x:
+    max_characters: 280
+    thread_enabled: false
+    structure: "hook -> one useful idea -> optional compact CTA"
+  linkedin:
+    structure: "hook -> context -> 2-4 insights -> practical takeaway -> optional question"
+  facebook_en:
+    structure: "relatable problem -> conversational explanation -> clear takeaway"
+  facebook_vi:
+    structure: "Vietnamese-native hook -> natural explanation -> practical takeaway"
+  quora:
+    structure: "relevant question -> direct answer -> explanation -> useful steps"
+  devto:
+    structure: "supported technical problem -> implementation insight -> technical takeaway"
+  pinterest:
+    structure: "search title -> description -> visual concept -> keyword intent -> destination"
+  blogger:
+    structure: "standalone mini-article -> expanded insight -> practical conclusion"
+
 pinterest:
   mode: manual_assisted
+
+social_assets:
+  enabled: true
+  generator: local
+  reuse_existing: true
+  output_format: png
+  quality: 92
+  master:
+    width: 1200
+    height: 1200
+  formats:
+    og:
+      width: 1200
+      height: 630
+    facebook:
+      width: 1200
+      height: 630
+    linkedin:
+      width: 1200
+      height: 630
+    x:
+      width: 1200
+      height: 675
+    pinterest:
+      width: 1000
+      height: 1500
+    threads:
+      width: 1080
+      height: 1080
+    bluesky:
+      width: 1200
+      height: 675
+    medium:
+      width: 1200
+      height: 630
+    hashnode:
+      width: 1200
+      height: 630
+    blogger:
+      width: 1200
+      height: 630
+    telegram:
+      width: 1280
+      height: 720

@@ -1,0 +1,40 @@
+{
+  "article_type": "comparison",
+  "canonical": "https://smileaireviewhub.com/flowpilot-vs-taskboard-ai/",
+  "expected_output_suffix": "comparison/expected_output/article.html",
+  "minimum_total_score": 95,
+  "required_sections": [
+    "Quick Comparison",
+    "Workflow Fit",
+    "Pricing Verification",
+    "Admin and Data Risk",
+    "Best Choice by Use Case",
+    "Frequently Asked Questions",
+    "Final Recommendation"
+  ],
+  "section_order": [
+    "Quick Comparison",
+    "Workflow Fit",
+    "Pricing Verification",
+    "Admin and Data Risk",
+    "Best Choice by Use Case",
+    "Frequently Asked Questions",
+    "Final Recommendation"
+  ],
+  "required_css_classes": ["article-shell", "hero", "disclosure", "cta", "comparison-table"],
+  "required_schema_types": ["Article", "BreadcrumbList", "FAQPage", "Person"],
+  "minimum_counts": {
+    "word_count": 250,
+    "h1_count": 1,
+    "h2_count": 7,
+    "h3_count": 3,
+    "table_count": 1,
+    "faq_count": 3,
+    "cta_count": 1,
+    "internal_link_count": 1,
+    "external_link_count": 2,
+    "average_paragraph_words": 10
+  },
+  "maximum_counts": {"word_count": 1200},
+  "source_discipline": {"minimum_source_links": 2}
+}

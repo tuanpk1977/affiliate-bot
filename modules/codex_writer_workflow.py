@@ -35,6 +35,41 @@ WRITER_METADATA = {
 }
 
 
+def _series_article_title(item: dict[str, Any], fallback_topic: str) -> str:
+    root_title = str(item.get("root_title") or item.get("title") or fallback_topic).strip()
+    daily_angle = str(item.get("daily_angle") or "").strip().lower()
+    templates = {
+        "implementation_guide": ("Implement ", ": Practical Setup Guide"),
+        "comparison": ("Compare ", ": Alternatives Guide"),
+        "pricing": ("Price ", ": Cost and ROI Guide"),
+        "use_cases": ("Use ", ": Workflow Examples"),
+        "troubleshooting": ("Troubleshooting ", ": Common Mistakes"),
+        "buying_decision": ("Should You Buy ", "? Final Decision"),
+    }
+    if not root_title or daily_angle not in templates:
+        return seo_title(fallback_topic)
+    prefix, suffix = templates[daily_angle]
+    candidate = f"{prefix}{root_title}{suffix}"
+    if len(candidate) <= 60:
+        return candidate
+    angle_first = f"{prefix}{root_title}"
+    if len(angle_first) <= 60:
+        return angle_first
+    available = max(8, 60 - len(prefix))
+    shortened_root = root_title[:available].rstrip(" -:,")
+    if " " in shortened_root:
+        shortened_root = shortened_root.rsplit(" ", 1)[0].rstrip(" -:,")
+    return f"{prefix}{shortened_root}"
+
+
+def _series_topic_name(item: dict[str, Any], fallback_topic: str) -> str:
+    root_title = str(item.get("root_title") or item.get("title") or "").strip()
+    daily_angle = str(item.get("daily_angle") or "").strip().lower()
+    if root_title and daily_angle == "troubleshooting":
+        return f"{root_title} mistakes and troubleshooting"
+    return fallback_topic
+
+
 def _read_json(path: Path, default: Any) -> Any:
     if not path.exists():
         return default
@@ -118,7 +153,7 @@ class CodexDailyArticleWriter:
             "held_topics": held,
             "written": written,
             "would_create": self._would_create(batch_date, selected),
-            "final_decision": "PASS" if len(selected) >= count else "FAIL",
+            "final_decision": "PASS" if selected else "FAIL",
         }
 
     def _load_queue(self, batch_date: str) -> dict[str, Any]:
@@ -172,7 +207,7 @@ class CodexDailyArticleWriter:
         if package is None:
             raise FileNotFoundError(f"Research package not found for {slug}")
         topic = self._build_topic(item, package, depth=depth)
-        title = seo_title(str(topic.get("topic") or slug.replace("-", " ")))
+        title = _series_article_title(item, str(topic.get("topic") or slug.replace("-", " ")))
         description = meta_description(str(topic.get("topic") or slug.replace("-", " ")))
         path = f"/{slug}/"
         url = BASE_URL + path
@@ -276,6 +311,8 @@ class CodexDailyArticleWriter:
         }
 
     def _build_topic(self, item: dict[str, Any], package: ResearchPackage, *, depth: str) -> dict[str, Any]:
+        fallback_topic = str(item.get("keyword") or item.get("topic") or package.keyword)
+        topic_name = _series_topic_name(item, fallback_topic)
         research = {
             "keyword": package.keyword,
             "slug": package.slug,
@@ -307,9 +344,9 @@ class CodexDailyArticleWriter:
             "depth": depth,
         }
         return {
-            "topic": str(item.get("keyword") or item.get("topic") or package.keyword),
+            "topic": topic_name,
             "slug": package.slug,
-            "title": str(item.get("keyword") or package.keyword),
+            "title": topic_name,
             "content_type": str(item.get("content_type") or planning["article_type"]),
             "search_intent": planning["intent"],
             "related_keywords": list(item.get("related_keywords") or []),
@@ -368,6 +405,8 @@ class CodexDailyArticleWriter:
             "written": len(written),
             "held": len(held),
         }
+        if written:
+            payload["batch_state"] = "UNDER_REVIEW"
 
     def _load_research_package(self, slug: str) -> ResearchPackage | None:
         payload = _read_json(self.data_dir / "research" / slug / "package.json", None)

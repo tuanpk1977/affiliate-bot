@@ -197,6 +197,49 @@ def load_simple_yaml(path: Path = CONFIG_PATH) -> dict[str, Any]:
     return result
 
 
+def configured_social_draft_platforms(root: Path = ROOT) -> list[str]:
+    """Return the configured writing/review platforms from the active social config."""
+    config = load_simple_yaml(root / "config" / "social_publish.yaml")
+    registry = config.get("draft_platforms") if isinstance(config, dict) else {}
+    if isinstance(registry, dict):
+        selected = [str(name) for name, enabled in registry.items() if bool(enabled)]
+        if selected:
+            return selected
+    return [
+        "facebook_en",
+        "facebook_vi",
+        "linkedin",
+        "x",
+        "quora",
+        "devto",
+        "pinterest",
+        "blogger",
+    ]
+
+
+def configured_social_platform_playbooks(root: Path = ROOT) -> dict[str, dict[str, Any]]:
+    """Load playbooks only for platforms enabled in the canonical draft registry."""
+    config = load_simple_yaml(root / "config" / "social_publish.yaml")
+    configured = configured_social_draft_platforms(root)
+    raw = config.get("platform_playbooks") if isinstance(config, dict) else {}
+    if not isinstance(raw, dict):
+        raw = {}
+    defaults = {
+        "x": {"max_characters": 280, "thread_enabled": False, "structure": "hook -> one useful idea -> optional compact CTA"},
+        "linkedin": {"structure": "hook -> context -> insights -> practical takeaway"},
+        "facebook_en": {"structure": "relatable problem -> explanation -> takeaway"},
+        "facebook_vi": {"structure": "Vietnamese-native hook -> explanation -> takeaway"},
+        "quora": {"structure": "question -> direct answer -> useful steps"},
+        "devto": {"structure": "technical problem -> implementation insight -> takeaway"},
+        "pinterest": {"structure": "search title -> description -> visual concept -> destination"},
+        "blogger": {"structure": "standalone mini-article -> insight -> conclusion"},
+    }
+    return {
+        platform: dict(raw.get(platform) or defaults.get(platform) or {"structure": "platform-native"})
+        for platform in configured
+    }
+
+
 def ensure_default_config(path: Path = CONFIG_PATH) -> None:
     if path.exists():
         return

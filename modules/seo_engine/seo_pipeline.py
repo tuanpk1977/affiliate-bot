@@ -70,6 +70,82 @@ class SeoPipeline:
         report["report_path"] = str(report_path)
         return report
 
+    def run_selected(
+        self,
+        actions: list[str],
+        *,
+        seeds: list[str] | None = None,
+        imports: list[Path] | None = None,
+        weekly_roots: list[str] | None = None,
+    ) -> dict[str, Any]:
+        """Run only preflight-approved SEO stages, reusing saved dependencies."""
+        selected = set(actions)
+        candidates = self._read(self.data_dir / "keyword_candidates.json", [])
+        if "import_keywords" in selected:
+            candidates = self.import_keywords(
+                seeds or list(self.config.get("seed_keywords", [])), imports or []
+            )
+        pages = self.existing_pages()
+        slugs = {row["slug"] for row in pages}
+        clusters = self._read(self.data_dir / "keyword_clusters.json", [])
+        if "build_clusters" in selected:
+            clusters = build_clusters(candidates, slugs)
+            self._write("keyword_clusters.json", clusters)
+            self._write("competitor_analysis.json", analyze_competitors(clusters))
+        gaps = self._read(self.data_dir / "content_gaps.json", [])
+        if "analyze_gaps" in selected:
+            gaps = analyze_gaps(clusters, slugs)
+            roots = [str(value).casefold() for value in (weekly_roots or []) if value]
+            if roots:
+                gaps.sort(
+                    key=lambda row: (
+                        0
+                        if any(root in str(row.get("slug") or "").casefold() for root in roots)
+                        else 1,
+                        str(row.get("slug") or ""),
+                    )
+                )
+            self._write("content_gaps.json", gaps)
+        links = self._read(self.data_dir / "internal_link_plan.json", [])
+        if "plan_internal_links" in selected:
+            links = plan_internal_links(gaps, pages)
+            self._write("internal_link_plan.json", links)
+        opportunities = self._read(self.data_dir / "opportunities.json", [])
+        if "rank_opportunities" in selected:
+            opportunities = score_opportunities(
+                gaps, clusters, self.config.get("scoring_weights")
+            )
+            roots = [str(value).casefold() for value in (weekly_roots or []) if value]
+            if roots:
+                opportunities.sort(
+                    key=lambda row: (
+                        0
+                        if any(root in str(row.get("slug") or "").casefold() for root in roots)
+                        else 1,
+                        -float(row.get("opportunity_score") or 0),
+                    )
+                )
+            self._write("opportunities.json", opportunities)
+        report = {
+            "generated_at": datetime.now(UTC).isoformat(),
+            "mode": "offline_selected_steps",
+            "executed_steps": sorted(selected),
+            "counts": {
+                "candidates": len(candidates),
+                "clusters": len(clusters),
+                "gaps": len(gaps),
+                "links": len(links),
+                "opportunities": len(opportunities),
+            },
+            "approval_changed": False,
+            "published": False,
+            "weekly_roots_changed": False,
+        }
+        report_path = self._write("pipeline_report.json", report)
+        report["dashboard"] = str(self.render_dashboard(opportunities))
+        report["report_path"] = str(report_path)
+        return report
+
     def render_dashboard(self, opportunities: list[dict[str, Any]] | None = None) -> Path:
         opportunities = opportunities if opportunities is not None else self._read(self.data_dir / "opportunities.json", [])
         rows = "".join(f"<tr data-intent='{html.escape(str(row['search_intent']))}' data-decision='{html.escape(str(row['decision']))}'><td>{html.escape(str(row['keyword']))}</td><td>{html.escape(str(row['search_intent']))}</td><td>{html.escape(str(row['decision']))}</td><td>{row['opportunity_score']}</td><td>{html.escape(str(row['slug']))}</td></tr>" for row in opportunities)

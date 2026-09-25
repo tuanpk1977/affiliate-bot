@@ -1,0 +1,24 @@
+{
+  "topic": "FlowPilot AI review 2026",
+  "slug": "flowpilot-ai-review-2026",
+  "primary_keyword": "FlowPilot AI review",
+  "intent": "buyer evaluation",
+  "sources": [
+    {
+      "url": "https://example.com/flowpilot-official",
+      "title": "FlowPilot AI official product page",
+      "domain": "example.com",
+      "relationship": "official"
+    },
+    {
+      "url": "https://docs.example.org/flowpilot-admin-guide",
+      "title": "FlowPilot admin guide",
+      "domain": "docs.example.org",
+      "relationship": "documentation"
+    }
+  ],
+  "claims": [
+    "FlowPilot AI focuses on workflow planning and task handoff.",
+    "Pricing and admin controls must be verified on official pages before purchase."
+  ]
+}

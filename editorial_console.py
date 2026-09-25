@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import subprocess
@@ -8,6 +9,7 @@ import sys
 import threading
 import time
 import urllib.request
+import webbrowser
 from datetime import date
 from pathlib import Path
 
@@ -15,7 +17,7 @@ ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from modules.daily_editorial_workflow import DASHBOARD_BATCH_STATES, DailyEditorialWorkflow  # noqa: E402
+from modules.daily_editorial_workflow import DailyEditorialWorkflow  # noqa: E402
 from modules.review_dashboard_server import ReviewDashboardServer  # noqa: E402
 from modules.publish_lock import PublishLock  # noqa: E402
 
@@ -26,16 +28,17 @@ def build_parser() -> argparse.ArgumentParser:
     today = date.today().isoformat()
 
     trend = subparsers.add_parser("trend", help="Find, score, and queue trending editorial topics.")
-    trend.add_argument("--count", type=int, default=10, help="Number of topics to select.")
+    trend.add_argument("--count", type=int, default=2, help="Number of topics to select.")
     trend.add_argument("--mode", choices=("standard", "advanced"), default="standard", help="Topic generation mode.")
     trend.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
     trend.add_argument("--dry-run", action="store_true", help="Preview topic selection without writing any queue, batch, dashboard, or state files.")
+    trend.add_argument("--json", action="store_true", help="Also print the complete JSON diagnostic payload.")
     trend.add_argument("--confirm", action="store_true", help="Required for real topic queue creation.")
     trend.add_argument("--timeout", type=int, default=300, help="Outer timeout in seconds for real topic generation.")
     trend.add_argument("--retries", type=int, default=1, help="Bounded retry count for real topic generation.")
 
     daily_followup = subparsers.add_parser("daily-followup", help="Create Tue-Sun article angles from the current weekly root topics without discovery.")
-    daily_followup.add_argument("--count", type=int, default=10, help="Maximum number of active weekly root topics to reuse.")
+    daily_followup.add_argument("--count", type=int, default=2, help="Maximum number of active weekly root topics to reuse.")
     daily_followup.add_argument("--date", default=today, help="Daily batch date in YYYY-MM-DD format. Defaults to today.")
     daily_followup.add_argument("--dry-run", action="store_true", help="Preview the daily angle queue without writing files or locks.")
     daily_followup.add_argument("--confirm", action="store_true", help="Required before creating a new daily queue.")
@@ -43,7 +46,7 @@ def build_parser() -> argparse.ArgumentParser:
     daily_followup.add_argument("--retries", type=int, default=1, help="Bounded retry count for daily queue preparation.")
 
     morning = subparsers.add_parser("morning", help="Run trend discovery and draft generation, then build the review dashboard.")
-    morning.add_argument("--count", type=int, default=10, help="Number of topics to select.")
+    morning.add_argument("--count", type=int, default=2, help="Number of topics to select.")
     morning.add_argument("--mode", choices=("standard", "advanced"), default="standard", help="Topic generation mode.")
     morning.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
     morning.add_argument("--open", action="store_true", help="Open the daily review dashboard after generation.")
@@ -58,9 +61,37 @@ def build_parser() -> argparse.ArgumentParser:
     prepare_research.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
     prepare_research.add_argument("--open", action="store_true", help="Deprecated and ignored. Research preparation never opens the review dashboard.")
 
+    comparator_candidates = subparsers.add_parser(
+        "comparator-candidates",
+        help="Show verified, ambiguous, and rejected comparator candidates for one comparison task.",
+    )
+    comparator_candidates.add_argument("--date", default=today)
+    comparator_candidates.add_argument("--slug", required=True)
+
+    confirm_comparators = subparsers.add_parser(
+        "confirm-comparators",
+        help="Confirm exactly two already-verifiable comparators and refresh research.",
+    )
+    confirm_comparators.add_argument("--date", default=today)
+    confirm_comparators.add_argument("--slug", required=True)
+    confirm_comparators.add_argument("--comparators", nargs=2, required=True)
+    confirm_comparators.add_argument("--operator", default="editor")
+
+    hold_comparators = subparsers.add_parser(
+        "hold-comparators",
+        help="Hold one unresolved comparison task without editing JSON manually.",
+    )
+    hold_comparators.add_argument("--date", default=today)
+    hold_comparators.add_argument("--slug", required=True)
+    hold_comparators.add_argument(
+        "--reason",
+        default="No verified comparator pair is available.",
+    )
+    hold_comparators.add_argument("--operator", default="editor")
+
     codex_write = subparsers.add_parser("codex-write", help="Use repository-local Codex writer to create drafts from queued topics and research.")
     codex_write.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
-    codex_write.add_argument("--count", type=int, default=10, help="Maximum drafts to write.")
+    codex_write.add_argument("--count", type=int, default=2, help="Maximum drafts to write.")
     codex_write.add_argument("--depth", choices=("deep", "standard"), default="deep", help="Draft depth profile.")
     codex_write.add_argument("--dry-run", action="store_true", help="Preview selected topics and outputs without writing files.")
 
@@ -82,6 +113,11 @@ def build_parser() -> argparse.ArgumentParser:
     publish_ready.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
     publish_ready.add_argument("--validation-mode", choices=("smart", "strict"), default="smart", help="Validation mode. Smart validates only today's selected articles; strict validates the full site.")
 
+    publish_exact = subparsers.add_parser("publish-exact-slug", help="Preflight or publish one operator-specified approved slug.")
+    publish_exact.add_argument("--slug", required=True, help="Exact article slug. It is never selected automatically.")
+    publish_exact.add_argument("--validation-mode", choices=("smart", "strict"), default="smart")
+    publish_exact.add_argument("--dry-run", action="store_true", help="Run the exact-slug preflight without writing or publishing.")
+
     validate_batch = subparsers.add_parser("validate-batch", help="Validate a batch without pushing GitHub.")
     validate_batch.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
     validate_batch.add_argument("--mode", choices=("smart", "strict"), default="smart", help="Validation mode.")
@@ -98,7 +134,7 @@ def build_parser() -> argparse.ArgumentParser:
     autofix_batch = subparsers.add_parser("autofix-batch", help="Auto-fix simple publish validation issues for the batch.")
     autofix_batch.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
 
-    request_topic = subparsers.add_parser("request-topic", help="Create a custom affiliate/content topic draft outside the daily batch.")
+    request_topic = subparsers.add_parser("request-topic", help="Create or prepare a custom affiliate/content topic outside the daily batch.")
     request_topic.add_argument("--topic", required=True, help="Requested topic title or keyword.")
     request_topic.add_argument("--category", default="", help="Optional category.")
     request_topic.add_argument("--intent", default="commercial research", help="Optional intent hint.")
@@ -107,6 +143,11 @@ def build_parser() -> argparse.ArgumentParser:
     request_topic.add_argument("--affiliate-url", default="", help="Affiliate program or tracking URL.")
     request_topic.add_argument("--pricing-url", default="", help="Pricing page URL.")
     request_topic.add_argument("--count", type=int, default=1, help="Number of drafts to generate for the custom topic cluster.")
+    request_topic.add_argument(
+        "--prepare-only",
+        action="store_true",
+        help="Prepare research for the external writer without creating a website draft.",
+    )
     request_topic.add_argument("--open", action="store_true", help="Open the operator console after generating the draft.")
 
     partner_intake = subparsers.add_parser("partner-intake", help="Create an affiliate partner profile and generate a content cluster for review.")
@@ -126,7 +167,7 @@ def build_parser() -> argparse.ArgumentParser:
     status.add_argument("--json", action="store_true", help="Print the complete status payload.")
 
     check_live = subparsers.add_parser("check-live", help="Check whether articles are only local, synced to docs, pushed to GitHub, or likely live on the domain.")
-    check_live.add_argument("--date", default=today, help="Batch date in YYYY-MM-DD format. Defaults to today.")
+    check_live.add_argument("--date", default="latest", help="Batch date in YYYY-MM-DD format. Defaults to the latest operational batch.")
     check_live.add_argument("--all", action="store_true", help="Check every article currently present in publish_queue.json, not only the selected batch date.")
     check_live.add_argument("--blocked-only", action="store_true", help="Show only blocked articles inside the live-status report.")
     check_live.add_argument("--open", action="store_true", help="Open the generated HTML live-status report.")
@@ -137,6 +178,11 @@ def build_parser() -> argparse.ArgumentParser:
 
     diagnose_batch = subparsers.add_parser("diagnose-batch", help="Show deterministic publish selection diagnostics without changing state.")
     diagnose_batch.add_argument("--date", default=today)
+
+    doctor = subparsers.add_parser("doctor", help="Compact read-only website and social workflow diagnostic.")
+    doctor.add_argument("--date", default="latest")
+    doctor.add_argument("--slug", default="", help="Optionally limit website output to one exact slug.")
+    doctor.add_argument("--json", action="store_true", help="Print the complete compact JSON payload.")
 
     build_selected = subparsers.add_parser("build-selected", help="Prepare and run one bounded targeted build for an exact Ready for Publish slug.")
     build_selected.add_argument("--date", default=today)
@@ -174,6 +220,7 @@ def build_parser() -> argparse.ArgumentParser:
     serve.add_argument("--open", action="store_true", help="Open the browser automatically.")
     serve.add_argument("--background", action="store_true", help="Start or reuse the local dashboard server, then return immediately.")
     serve.add_argument("--require-drafts", action="store_true", help="Only start when the resolved batch contains reviewable drafts.")
+    serve.add_argument("--code-signature", default="", help=argparse.SUPPRESS)
 
     return parser
 
@@ -217,6 +264,15 @@ def _print_trend_summary(payload: dict) -> None:
 
 def _print_trend_dry_run(payload: dict) -> None:
     print(f"Dry-run date: {payload['date']} | Week: {payload['week_start']} | Mode: {payload['mode']} | Topics: {payload['count']}")
+    print(f"EDITORIAL_WEEK: {payload.get('editorial_week_id', '')}")
+    print(f"EVERGREEN_SELECTED: {payload.get('evergreen_selected', 0)}")
+    print(f"CONFIRMED_HOT_SELECTED: {payload.get('confirmed_hot_selected', 0)}")
+    print(f"FOUNDATION_ROOTS_SELECTED: {payload.get('selected_count', payload.get('count', 0))}")
+    print(f"MAX_FOUNDATION_ROOTS: {payload.get('maximum_root_count', 5)}")
+    print(f"FOUNDATION_ROOT_TARGET: {payload.get('foundation_root_target', payload.get('maximum_root_count', 5))}")
+    print(f"WEEKLY_ROOTS_LOCKED: {'YES' if payload.get('weekly_roots_locked') else 'NO'}")
+    print(f"QUALITY_LIMITED: {'YES' if payload.get('quality_limited') else 'NO'}")
+    print(f"WATCHLIST_COUNT: {payload.get('watchlist_count', 0)}")
     print(f"{'#':<3} {'Primary keyword':<48} {'Intent':<24} {'Slug':<46} {'Src':>3} {'Source':<28} {'Fresh':<10} Collision")
     for index, item in enumerate(payload.get("topics", []), start=1):
         collision = item.get("collision_result") or {}
@@ -283,11 +339,23 @@ def _print_candidate_table(diagnostic: dict) -> None:
 
 
 def _open_local_path(path: str) -> None:
-    target = str(path).strip()
+    target = str(path).strip().strip('"')
     if not target:
         return
+    candidate = Path(target)
+    if candidate.exists():
+        target = str(candidate.resolve())
     if sys.platform.startswith("win"):
-        os.startfile(target)  # type: ignore[attr-defined]
+        try:
+            os.startfile(target)  # type: ignore[attr-defined]
+        except OSError as exc:
+            # Windows can reject an otherwise valid absolute path when the
+            # selected shell/browser handler expects a URL.  A properly
+            # encoded file URI avoids treating the drive colon as an invalid
+            # argument while preserving the exact local file target.
+            if exc.errno != 22 or not candidate.exists():
+                raise
+            webbrowser.open(candidate.resolve().as_uri())
         return
     subprocess.Popen(["xdg-open", target], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
@@ -300,21 +368,68 @@ def _dashboard_url(*, port: int, batch_date: str) -> str:
     return f"http://127.0.0.1:{port}/?date={batch_date}"
 
 
-def _server_is_healthy(port: int) -> bool:
+def _dashboard_code_signature() -> str:
+    """Identify the exact source set loaded by the interactive review server."""
+    digest = hashlib.sha256()
+    for path in (
+        ROOT / "editorial_console.py",
+        ROOT / "modules" / "review_dashboard_server.py",
+        ROOT / "modules" / "editorial_operations_console.py",
+        ROOT / "modules" / "daily_editorial_workflow.py",
+        ROOT / "modules" / "human_approval.py",
+        ROOT / "modules" / "publish_gate.py",
+    ):
+        digest.update(path.name.encode("utf-8"))
+        digest.update(path.read_bytes())
+    return digest.hexdigest()
+
+
+def _dashboard_health(port: int) -> dict:
     try:
-        urllib.request.urlopen(_dashboard_health_url(port), timeout=1).close()
-        return True
+        with urllib.request.urlopen(_dashboard_health_url(port), timeout=1) as response:
+            raw = response.read().decode("utf-8")
+        try:
+            payload = json.loads(raw)
+        except (json.JSONDecodeError, TypeError):
+            return {"reachable": True, "incompatible": True}
+        if isinstance(payload, dict) and payload.get("ok") is True:
+            return {**payload, "reachable": True}
+        return {"reachable": True, "incompatible": True}
+    except Exception:
+        return {}
+
+
+def _server_is_healthy(port: int) -> bool:
+    return _dashboard_health(port).get("ok") is True
+
+
+def _shutdown_stale_dashboard(port: int) -> bool:
+    try:
+        urllib.request.urlopen(f"http://127.0.0.1:{port}/shutdown", timeout=2).close()
     except Exception:
         return False
+    deadline = time.monotonic() + 5
+    while time.monotonic() < deadline:
+        if not _dashboard_health(port):
+            return True
+        time.sleep(0.1)
+    return False
 
 
 def _serve_dashboard_background(*, batch_date: str, port: int, open_browser: bool) -> int:
     url = _dashboard_url(port=port, batch_date=batch_date)
-    if _server_is_healthy(port):
+    expected_signature = _dashboard_code_signature()
+    health = _dashboard_health(port)
+    if health and health.get("code_signature") == expected_signature:
         if open_browser:
             _open_local_path(url)
         print(json.dumps({"status": "reused_existing_server", "url": url, "port": port}, indent=2, ensure_ascii=False))
         return 0
+    if health:
+        print("[INFO] Dashboard code changed. Restarting the stale local review server.", flush=True)
+        if not _shutdown_stale_dashboard(port):
+            print(f"[ERROR] A stale dashboard is still using port {port}. Close it, then open Menu 4 again.", flush=True)
+            return 1
 
     log_dir = ROOT / "logs"
     log_dir.mkdir(parents=True, exist_ok=True)
@@ -328,6 +443,8 @@ def _serve_dashboard_background(*, batch_date: str, port: int, open_browser: boo
         batch_date,
         "--port",
         str(port),
+        "--code-signature",
+        expected_signature,
     ]
     creationflags = 0
     if os.name == "nt":
@@ -351,7 +468,8 @@ def _serve_dashboard_background(*, batch_date: str, port: int, open_browser: boo
             log_handle.close()
             print(f"[ERROR] Dashboard server exited early with code {process.returncode}. Log: {log_path}", flush=True)
             return 1
-        if _server_is_healthy(port):
+        health = _dashboard_health(port)
+        if health and health.get("code_signature") == expected_signature:
             if open_browser:
                 _open_local_path(url)
             print(json.dumps({"status": "started_background_server", "pid": process.pid, "url": url, "port": port, "log": str(log_path)}, indent=2, ensure_ascii=False))
@@ -423,24 +541,245 @@ def _print_no_ready_publish_summary(workflow: DailyEditorialWorkflow, *, batch_d
 
 
 def _print_daily_followup_summary(payload: dict) -> None:
-    print("WEEKLY_ROOT_TOPICS:", flush=True)
+    print("DAILY DEEP-DIVE", flush=True)
+    print(f"Date: {payload.get('date', '')}", flush=True)
+    print(f"Latest published article: {payload.get('latest_published_article') or 'None eligible'}", flush=True)
+    print(f"Root source: {payload.get('root_source', '')}", flush=True)
+    print(f"Root slug: {payload.get('root_slug', '')}", flush=True)
+    print(f"Root live status: {payload.get('root_live_status', '')}", flush=True)
+    print("", flush=True)
+    print(f"Selected deep-dive angle: {payload.get('selected_deep_dive_angle', '')}", flush=True)
+    print(f"Search intent: {payload.get('child_search_intent', '')}", flush=True)
+    print(f"Relationship: {payload.get('relationship', '')}", flush=True)
+    print(f"Duplicate risk: {payload.get('duplicate_risk', '')}", flush=True)
+    print(f"Research readiness: {payload.get('research_readiness', '')}", flush=True)
+    print(f"Decision: {payload.get('daily_decision', payload.get('final_decision', ''))}", flush=True)
+    print("", flush=True)
+    print("DETAILS:", flush=True)
     print(f"- week_start: {payload.get('week_start', '')}", flush=True)
     print(f"- root_topic_count: {payload.get('root_topic_count', 0)}", flush=True)
+    print(f"- WEEKLY_APPROVED_ROOT_COUNT: {payload.get('weekly_approved_root_count', payload.get('root_topic_count', 0))}", flush=True)
+    print(f"- TODAY_SELECTED_ROOT_COUNT: {payload.get('today_selected_root_count', payload.get('eligible_root_count', 0))}", flush=True)
     print(f"- active_root_topics: {payload.get('active_root_topics', 0)}", flush=True)
-    print("", flush=True)
-    print("TODAY:", flush=True)
-    print(f"- date: {payload.get('date', '')}", flush=True)
     print(f"- day_profile: {payload.get('day_profile', '')}", flush=True)
     print(f"- existing_daily_articles: {payload.get('existing_daily_articles', 0)}", flush=True)
     print(f"- new_angles_created: {payload.get('new_angles_created', 0)}", flush=True)
     print(f"- held_due_to_sources: {payload.get('held_due_to_sources', 0)}", flush=True)
     print(f"- skipped_duplicates: {payload.get('skipped_duplicates', 0)}", flush=True)
+    print(f"- NEW_ROOTS_CREATED: {payload.get('new_roots_created', 0)}", flush=True)
+    blockers = list(payload.get("root_validation_blockers") or [])
+    if blockers:
+        print("- root_validation_blockers:", flush=True)
+        for blocker in blockers[:10]:
+            print(f"  - {blocker}", flush=True)
+    diagnostics = list(payload.get("blocked_diagnostics") or [])
+    if diagnostics:
+        print("", flush=True)
+        print("BLOCKED_DIAGNOSTICS:", flush=True)
+        for row in diagnostics:
+            print(f"- slug: {row.get('slug', '')}", flush=True)
+            print(f"  BLOCKED_STAGE: {row.get('BLOCKED_STAGE', '')}", flush=True)
+            print(f"  BLOCKED_REASON: {row.get('BLOCKED_REASON', '')}", flush=True)
+            print(f"  MISSING_EVIDENCE: {row.get('MISSING_EVIDENCE', '')}", flush=True)
+            print(f"  TARGET_ENTITY_OR_TOPIC: {row.get('TARGET_ENTITY_OR_TOPIC', '')}", flush=True)
+            print(f"  REQUIRED_SOURCE_TYPES: {row.get('REQUIRED_SOURCE_TYPES', '')}", flush=True)
+            print(
+                f"  REQUIRED_OPERATOR_ACTION: {row.get('REQUIRED_OPERATOR_ACTION', '')}",
+                flush=True,
+            )
     print(f"- daily_queue_path: {payload.get('daily_queue_path', '')}", flush=True)
     if payload.get("legacy_queue_requires_manual_review"):
         print("- status: existing legacy queue requires manual review; it was not overwritten", flush=True)
+    evidence = list(payload.get("evidence_summary") or [])
+    if evidence:
+        print("", flush=True)
+        print("RESEARCH_EVIDENCE:", flush=True)
+        print(
+            "slug | angle | entities resolved/required | paragraphs | "
+            "candidates/accepted/rejected | section coverage | entity coverage | "
+            "status | next action",
+            flush=True,
+        )
+        for row in evidence:
+            print(
+                f"{row.get('slug', '')} | {row.get('angle_profile', '')} | "
+                f"{row.get('resolved_entities', 0)}/{row.get('required_entities', 0)} | "
+                f"{row.get('paragraphs', 0)} | "
+                f"{row.get('candidate_claims', 0)}/"
+                f"{row.get('claims', 0)}/{row.get('rejected_claims', 0)} | "
+                f"{row.get('coverage', '0/0')} "
+                f"({float(row.get('coverage_score') or 0):.2f}) | "
+                f"{float(row.get('entity_coverage_score') or 0):.2f} | "
+                f"{row.get('status', '')} | {row.get('next_action', '')}",
+                flush=True,
+            )
+        print(
+            f"ARTICLE_READY={payload.get('article_ready', 0)} | "
+            f"BLOCKED_RESEARCH={payload.get('blocked_research', 0)}",
+            flush=True,
+        )
     print("", flush=True)
-    print("CODEX_NEXT_STEP:", flush=True)
-    print("python scripts/codex_write_daily_articles.py --date latest --count 10 --depth deep", flush=True)
+    print("Next action:", flush=True)
+    print(payload.get("next_action") or "Review the daily deep-dive decision.", flush=True)
+    decision = str(payload.get("daily_decision") or "")
+    if decision == "BLOCKED_RESEARCH":
+        print("[S] Open targeted Source Review (Menu S)", flush=True)
+        print("[R] Retry research", flush=True)
+        print("[E] Change deep-dive angle", flush=True)
+        print("[X] Cancel", flush=True)
+    elif decision == "READY_FOR_DAILY_QUEUE":
+        print("[C] Create queue", flush=True)
+        print("[V] View research", flush=True)
+        print("[E] Edit angle", flush=True)
+        print("[X] Cancel", flush=True)
+    if payload.get("daily_decision") == "READY_FOR_DAILY_QUEUE" and payload.get("next_command"):
+        print("", flush=True)
+        print("NEXT_STEP:", flush=True)
+        print(payload["next_command"], flush=True)
+
+
+def _exact_slug_state(workflow: object, slug: str) -> dict:
+    reader = getattr(workflow, "exact_slug_execution_state", None)
+    if not callable(reader):
+        return {"slug": slug, "artifacts": {}, "publish_status": "unknown", "git_head": "", "origin_main": ""}
+    try:
+        return dict(reader(slug) or {})
+    except Exception as exc:
+        return {"slug": slug, "artifacts": {}, "publish_status": "unknown", "git_head": "", "origin_main": "", "state_error": str(exc)}
+
+
+def _exact_slug_failed_stage(reason: str) -> str:
+    value = reason.casefold()
+    if "exact_slug_preflight_blocked" in value or "canonical_state:" in value:
+        return "ELIGIBILITY_PREFLIGHT"
+    if "source_bytes_before_copy" in value or "approval_binding" in value or "content_hash_mismatch" in value:
+        return "APPROVAL_BINDING_OR_SOURCE_BYTES"
+    if "preflight" in value or "git fetch" in value or "git sync" in value:
+        return "GIT_SYNC"
+    if "targeted build" in value or "build_selected_output" in value:
+        return "TARGETED_BUILD"
+    if "source=published_static" in value or "source=site_output" in value or "source=docs" in value:
+        return "POST_BUILD_HASH_CHECK"
+    if "sync_site_output_to_docs" in value or "sync site_output" in value:
+        return "DOCS_SYNC"
+    if "publish validation" in value or "no publishable articles" in value:
+        return "PUBLISH_VALIDATION"
+    if "git add" in value:
+        return "GIT_ADD"
+    if "git commit" in value:
+        return "GIT_COMMIT"
+    if "git push" in value or "push_status" in value:
+        return "GIT_PUSH"
+    return "EXACT_SLUG_PUBLISH"
+
+
+def _exact_slug_state_changed(before: dict, after: dict) -> bool:
+    if str(before.get("publish_status") or "") != str(after.get("publish_status") or ""):
+        return True
+    before_artifacts = before.get("artifacts") if isinstance(before.get("artifacts"), dict) else {}
+    after_artifacts = after.get("artifacts") if isinstance(after.get("artifacts"), dict) else {}
+    for key in {*(before_artifacts or {}), *(after_artifacts or {})}:
+        old = before_artifacts.get(key) if isinstance(before_artifacts.get(key), dict) else {}
+        new = after_artifacts.get(key) if isinstance(after_artifacts.get(key), dict) else {}
+        if (old.get("exists"), old.get("content_hash")) != (new.get("exists"), new.get("content_hash")):
+            return True
+    return False
+
+
+def _build_exact_slug_outcome(
+    *,
+    slug: str,
+    preflight: dict,
+    before: dict,
+    after: dict,
+    result: dict | None = None,
+    error: Exception | None = None,
+) -> dict:
+    if error is not None:
+        reason = str(error)
+        head_changed = bool(before.get("git_head") and after.get("git_head") and before.get("git_head") != after.get("git_head"))
+        pushed = bool(head_changed and after.get("git_head") == after.get("origin_main"))
+        return {
+            "slug": slug,
+            "result": "BLOCKED" if "BLOCKED" in reason.upper() or "PREFLIGHT" in reason.upper() else "FAILED",
+            "approval_binding": str(preflight.get("approval_binding_status") or "UNKNOWN"),
+            "local_publish": "PARTIAL_OR_CHANGED" if _exact_slug_state_changed(before, after) else "NOT_PERFORMED",
+            "targeted_build": "UNKNOWN_OR_FAILED",
+            "post_build_hash_check": "NOT_CONFIRMED",
+            "git_sync": "FAILED" if _exact_slug_failed_stage(reason) == "GIT_SYNC" else "UNKNOWN",
+            "commit": "PERFORMED" if head_changed else "NOT_PERFORMED",
+            "push": "PERFORMED" if pushed else "NOT_PERFORMED",
+            "deployment": str(after.get("deployment_state") or "NOT_CONFIRMED"),
+            "final_publish_state": str(after.get("publish_status") or "unknown"),
+            "failed_stage": _exact_slug_failed_stage(reason),
+            "reason": reason,
+            "production_mutation_before_failure": _exact_slug_state_changed(before, after),
+            "safe_next_action": "Review this result and current hashes before retrying; do not assume publication succeeded.",
+        }
+
+    payload = dict(result or {})
+    build = payload.get("build") if isinstance(payload.get("build"), dict) else {}
+    commit = payload.get("git_commit") if isinstance(payload.get("git_commit"), dict) else {}
+    push = payload.get("git_push") if isinstance(payload.get("git_push"), dict) else {}
+    sync = payload.get("preflight_sync") if isinstance(payload.get("preflight_sync"), dict) else {}
+    binding_checks = list(payload.get("source_binding_checks") or [])
+    binding_matched = bool(binding_checks) and all(str(row.get("status") or "") == "MATCHED" for row in binding_checks)
+    success = (
+        int(payload.get("published_count") or 0) == 1
+        and int(build.get("returncode", 1)) == 0
+        and binding_matched
+        and int(commit.get("returncode", 1)) == 0
+        and str(push.get("status") or "") in {"pushed", "pushed_after_rebase"}
+        and str(sync.get("status") or "") in {"preflight_in_sync", "preflight_ahead_only", "preflight_rebased"}
+    )
+    live = payload.get("post_push_live_check") if isinstance(payload.get("post_push_live_check"), dict) else {}
+    return {
+        "slug": slug,
+        "result": "SUCCESS" if success else "FAILED",
+        "approval_binding": str(preflight.get("approval_binding_status") or "UNKNOWN"),
+        "local_publish": "SUCCESS" if int(payload.get("published_count") or 0) == 1 else "FAILED",
+        "targeted_build": "SUCCESS" if int(build.get("returncode", 1)) == 0 else "FAILED",
+        "post_build_hash_check": "MATCHED" if binding_matched else "FAILED",
+        "git_sync": "SUCCESS" if str(sync.get("status") or "") in {"preflight_in_sync", "preflight_ahead_only", "preflight_rebased"} else "FAILED",
+        "commit": "SUCCESS" if int(commit.get("returncode", 1)) == 0 else "FAILED",
+        "push": "SUCCESS" if str(push.get("status") or "") in {"pushed", "pushed_after_rebase"} else "FAILED",
+        "deployment": str(live.get("status") or "NOT_CONFIRMED"),
+        "final_publish_state": str(after.get("publish_status") or "unknown"),
+        "failed_stage": "" if success else "RESULT_VERIFICATION",
+        "reason": "" if success else "One or more required publish stages did not report factual success.",
+        "production_mutation_before_failure": False if success else _exact_slug_state_changed(before, after),
+        "safe_next_action": "No retry is needed; inspect deployment status." if success else "Inspect stage results before retrying.",
+    }
+
+
+def _print_exact_slug_outcome(outcome: dict) -> None:
+    print("", flush=True)
+    print("========================================", flush=True)
+    print("EXACT-SLUG PUBLISH RESULT", flush=True)
+    print("========================================", flush=True)
+    labels = (
+        ("Slug", "slug"),
+        ("Result", "result"),
+        ("Approval binding", "approval_binding"),
+        ("Local publish", "local_publish"),
+        ("Targeted build", "targeted_build"),
+        ("Post-build hash check", "post_build_hash_check"),
+        ("Git sync", "git_sync"),
+        ("Commit", "commit"),
+        ("Push", "push"),
+        ("Deployment", "deployment"),
+        ("Final publish state", "final_publish_state"),
+    )
+    for label, key in labels:
+        print(f"{label}: {outcome.get(key, '')}", flush=True)
+    if outcome.get("failed_stage"):
+        print(f"Failed stage: {outcome['failed_stage']}", flush=True)
+    if outcome.get("reason"):
+        print(f"Reason: {outcome['reason']}", flush=True)
+    if outcome.get("result") != "SUCCESS":
+        print(f"Production mutation before failure: {'YES' if outcome.get('production_mutation_before_failure') else 'NO'}", flush=True)
+        print(f"Safe next action: {outcome.get('safe_next_action', '')}", flush=True)
+    print("========================================", flush=True)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -453,7 +792,10 @@ def main(argv: list[str] | None = None) -> int:
         if args.dry_run:
             payload = workflow.trend_dry_run(count=args.count, mode=args.mode, batch_date=args.date)
             _print_trend_dry_run(payload)
-            print(json.dumps(payload, indent=2, ensure_ascii=False))
+            if args.json:
+                print(json.dumps(payload, indent=2, ensure_ascii=False))
+            else:
+                print("Full diagnostics: rerun this command with --json")
             return 0 if payload.get("final_decision") == "PASS" else 2
         if not args.confirm:
             print("[ERROR] Real topic generation requires a successful dry-run and --confirm.", flush=True)
@@ -514,6 +856,124 @@ def main(argv: list[str] | None = None) -> int:
         payload = workflow.prepare_research(batch_date=args.date)
         print(json.dumps(payload, indent=2, ensure_ascii=False))
         return 0
+    if args.command in {
+        "comparator-candidates",
+        "confirm-comparators",
+        "hold-comparators",
+    }:
+        from modules.comparator_discovery import ComparatorDiscoveryEngine
+
+        queue = workflow._load_queue(args.date)
+        task = next(
+            (
+                row
+                for row in queue.get("topics", [])
+                if str(row.get("slug") or "") == args.slug
+            ),
+            None,
+        )
+        if not isinstance(task, dict):
+            print(f"[ERROR] Comparator task not found: {args.slug}", flush=True)
+            return 2
+        plan_path = ROOT / "data" / "research" / args.slug / "ANGLE_RESEARCH_PLAN.json"
+        try:
+            plan = json.loads(plan_path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            print(
+                f"[ERROR] Research plan not found. Run: "
+                f"python editorial_console.py prepare-research --date {args.date}",
+                flush=True,
+            )
+            return 2
+        root_entity = str(
+            (plan.get("root_entity") or {}).get("canonical_name")
+            or task.get("primary_entity")
+            or task.get("root_title")
+            or ""
+        )
+        engine = ComparatorDiscoveryEngine(root=ROOT)
+        if args.command == "comparator-candidates":
+            report_path = (
+                ROOT / "data" / "research" / args.slug
+                / "comparator_candidate_report.json"
+            )
+            report = json.loads(report_path.read_text(encoding="utf-8"))
+            print(f"Comparator candidates for {root_entity}:")
+            for index, row in enumerate(report.get("operator_candidates", []), start=1):
+                print(
+                    f"{index}. {row.get('canonical_name')} - "
+                    f"{row.get('verification_status')} - "
+                    f"{row.get('why_comparable')} "
+                    f"(confidence {float(row.get('confidence') or 0):.2f})"
+                )
+                if row.get("rejection_reason"):
+                    print(f"   Reason: {row['rejection_reason']}")
+            verified = [
+                row
+                for row in report.get("operator_candidates", [])
+                if str(row.get("verification_status") or "") == "VERIFIED"
+            ]
+            if len(verified) >= 2:
+                names = [str(row.get("canonical_name") or "") for row in verified[:2]]
+                print(
+                    f"Next: python editorial_console.py confirm-comparators "
+                    f"--date {args.date} --slug {args.slug} "
+                    f"--comparators \"{names[0]}\" \"{names[1]}\""
+                )
+            else:
+                print(
+                    "No verified comparator pair is available. "
+                    "Do not confirm these candidates yet."
+                )
+                print(
+                    f"Hold: python editorial_console.py hold-comparators "
+                    f"--date {args.date} --slug {args.slug}"
+                )
+            return 0
+        if args.command == "hold-comparators":
+            report_path = (
+                ROOT / "data" / "research" / args.slug
+                / "comparator_candidate_report.json"
+            )
+            report = json.loads(report_path.read_text(encoding="utf-8"))
+            report["operator_decision"] = {
+                "status": "HELD",
+                "reason": args.reason,
+                "operator": args.operator,
+                "recorded_on": date.today().isoformat(),
+            }
+            report_path.write_text(
+                json.dumps(report, indent=2, ensure_ascii=False) + "\n",
+                encoding="utf-8",
+            )
+            print(
+                json.dumps(
+                    {
+                        "status": "HELD",
+                        "slug": args.slug,
+                        "reason": args.reason,
+                        "report": str(report_path),
+                    },
+                    indent=2,
+                    ensure_ascii=False,
+                )
+            )
+            return 0
+        try:
+            result = engine.confirm(
+                root_entity=root_entity,
+                comparator_names=list(args.comparators),
+                article_slug=args.slug,
+                operator=args.operator,
+            )
+            result["research_refresh"] = workflow.prepare_research(
+                batch_date=args.date
+            )
+            print(json.dumps(result, indent=2, ensure_ascii=False))
+            return 0
+        except ValueError as exc:
+            print(f"[ERROR] {exc}", flush=True)
+            return 2
     if args.command == "codex-write":
         from modules.codex_writer_workflow import run_codex_daily_writer
 
@@ -562,9 +1022,23 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.command == "publish-ready":
         requested_date = args.date
-        resolved_date = workflow.resolve_batch_date(requested_date, require_activity=True) if hasattr(workflow, "resolve_batch_date") else requested_date
+        publish_candidates = {}
+        if str(requested_date or "").strip().lower() == "latest" and hasattr(workflow, "resolve_latest_publish_candidate_batch"):
+            publish_candidates = workflow.resolve_latest_publish_candidate_batch()
+            resolved_date = str(publish_candidates.get("batch_date") or "")
+        else:
+            resolved_date = workflow.resolve_batch_date(requested_date, require_activity=True) if hasattr(workflow, "resolve_batch_date") else requested_date
         print(f"Requested batch: {requested_date}", flush=True)
-        print(f"Resolved batch: {resolved_date}", flush=True)
+        if not resolved_date:
+            print("Resolved batch: none (no non-terminal human-approved publish candidate)", flush=True)
+            print("[INFO] Khong co bai da duyet nao dang cho publish. Khong co file nao duoc commit hoac push.", flush=True)
+            return 2
+        print(f"Resolved publish batch: {resolved_date}", flush=True)
+        if publish_candidates:
+            candidate_slugs = list(publish_candidates.get("candidate_slugs") or [])
+            print(f"Active publish candidates: {len(candidate_slugs)}", flush=True)
+            for slug in candidate_slugs:
+                print(f"- {slug}", flush=True)
         asset_preparation = {}
         if hasattr(workflow, "prepare_required_images_for_publish"):
             asset_preparation = workflow.prepare_required_images_for_publish(batch_date=resolved_date, dry_run=False)
@@ -623,6 +1097,72 @@ def main(argv: list[str] | None = None) -> int:
             print(f"[LIVE LATEST] {history.get('latest_json', '')}", flush=True)
         print(json.dumps(result, indent=2, ensure_ascii=False))
         return 0
+    if args.command == "publish-exact-slug":
+        preflight = workflow.exact_slug_preflight(slug=args.slug, validation_mode=args.validation_mode)
+        print(json.dumps(preflight, indent=2, ensure_ascii=False), flush=True)
+        if args.dry_run:
+            if not preflight.get("exact_slug_ready_for_publish"):
+                state = _exact_slug_state(workflow, args.slug)
+                outcome = _build_exact_slug_outcome(
+                    slug=args.slug,
+                    preflight=preflight,
+                    before=state,
+                    after=state,
+                    error=ValueError("EXACT_SLUG_PREFLIGHT_BLOCKED: " + "; ".join(preflight.get("blockers") or [])),
+                )
+                _print_exact_slug_outcome(outcome)
+            return 0 if preflight.get("exact_slug_ready_for_publish") else 2
+        if not preflight.get("exact_slug_ready_for_publish"):
+            state = _exact_slug_state(workflow, args.slug)
+            outcome = _build_exact_slug_outcome(
+                slug=args.slug,
+                preflight=preflight,
+                before=state,
+                after=state,
+                error=ValueError("EXACT_SLUG_PREFLIGHT_BLOCKED: " + "; ".join(preflight.get("blockers") or [])),
+            )
+            _print_exact_slug_outcome(outcome)
+            return 2
+        batch_date = str(preflight.get("batch_date") or "exact-slug")
+        before = _exact_slug_state(workflow, args.slug)
+        try:
+            publish_lock.acquire(batch_date=batch_date, slugs=[args.slug], command="publish-exact-slug")
+        except RuntimeError as exc:
+            after = _exact_slug_state(workflow, args.slug)
+            _print_exact_slug_outcome(
+                _build_exact_slug_outcome(
+                    slug=args.slug,
+                    preflight=preflight,
+                    before=before,
+                    after=after,
+                    error=exc,
+                )
+            )
+            return 3
+        stop_event, watcher, started_at = _start_publish_watch(workflow)
+        result: dict = {}
+        publish_error: Exception | None = None
+        try:
+            result = workflow.publish_exact_slug(slug=args.slug, validation_mode=args.validation_mode)
+        except Exception as exc:
+            publish_error = exc
+        finally:
+            stop_event.set()
+            watcher.join(timeout=1)
+            publish_lock.release()
+        after = _exact_slug_state(workflow, args.slug)
+        if result:
+            print(json.dumps(result, indent=2, ensure_ascii=False), flush=True)
+        outcome = _build_exact_slug_outcome(
+            slug=args.slug,
+            preflight=preflight,
+            before=before,
+            after=after,
+            result=result,
+            error=publish_error,
+        )
+        _print_exact_slug_outcome(outcome)
+        return 0 if outcome.get("result") == "SUCCESS" else 1
     if args.command == "validate-batch":
         print(json.dumps(workflow.validate_batch(batch_date=args.date, mode=args.mode), indent=2, ensure_ascii=False))
         return 0
@@ -640,6 +1180,33 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.command == "diagnose-batch":
         print(json.dumps(workflow.diagnose_batch(batch_date=args.date), indent=2, ensure_ascii=False))
+        return 0
+    if args.command == "doctor":
+        payload = workflow.daily_workflow_doctor(batch_date=args.date, slug=args.slug)
+        print("DAILY WORKFLOW DOCTOR (READ ONLY)")
+        print(f"Website batch: {payload['website_batch']}")
+        for item in payload["website_items"]:
+            blockers = ",".join(item["blockers"]) or "NONE"
+            print(
+                f"WEB {item['slug']} | state={item['state']} | quality={item['quality_review']} | "
+                f"approval={item['human_approval_binding']} | gate={item['publish_gate_binding']} | "
+                f"cta={item['cta']} | image={item['image']} | blockers={blockers}"
+            )
+        print(
+            f"SOCIAL live_batch={payload['social_live_batch']} | live_candidates={payload['social_live_candidates']} | "
+            f"review_batch={payload['social_review_batch']} | selected_articles={payload['social_selected_articles']} | "
+            f"platform_records={payload['social_platform_records']}"
+        )
+        print(
+            f"SOCIAL mode={payload.get('social_mode', 'UNKNOWN')} | roots={len(payload.get('social_root_topics') or [])} | "
+            f"source_bound={payload.get('social_source_bound_records', 0)} | "
+            f"unsupported_new_claims={payload.get('social_unsupported_new_claims', 0)} | "
+            f"historical_loaded={payload.get('unrelated_historical_tasks_loaded', 0)}"
+        )
+        social_counts = payload.get("social_status_counts") or {}
+        print("SOCIAL statuses=" + (", ".join(f"{key}:{value}" for key, value in sorted(social_counts.items())) or "NONE"))
+        if args.json:
+            print(json.dumps(payload, indent=2, ensure_ascii=False))
         return 0
     if args.command == "build-selected":
         print(json.dumps(workflow.build_selected(batch_date=args.date, slug=args.slug, timeout=args.timeout), indent=2, ensure_ascii=False))
@@ -681,6 +1248,7 @@ def main(argv: list[str] | None = None) -> int:
             intent=args.intent,
             count=args.count,
             batch_date=today if not hasattr(args, "date") else getattr(args, "date", today),
+            prepare_only=args.prepare_only,
         )
         if args.open:
             _open_local_path(str(workflow.console.console_html))
@@ -713,6 +1281,16 @@ def main(argv: list[str] | None = None) -> int:
             print(f"Publish Blocked: {result.get('publish_blocked', 0)}")
             print(f"Human Approval Required: {result.get('human_approval_required', 0)}")
             print(f"Needs Enrichment: {result.get('needs_enrichment', 0)}")
+            for topic in result.get("topic_status", []):
+                print("")
+                print(f"Topic: {topic.get('slug', '')}")
+                print(f"Research: {topic.get('research', 'UNKNOWN')}")
+                print(f"Draft: {topic.get('draft', 'UNKNOWN')}")
+                print(f"Human Approval: {topic.get('human_approval', 'UNKNOWN')}")
+                print(f"Publish Gate: {topic.get('publish_gate', 'UNKNOWN')}")
+                print(f"Deployment: {topic.get('deployment', 'UNKNOWN')}")
+                print(f"Social: {topic.get('social', 'UNKNOWN')}")
+                print(f"Next Action: {topic.get('next_action', '')}")
             print(f"Dashboard HTML: {result.get('dashboard_file', '')}")
             print(f"Master dashboard XLSX: {workflow.data_dir / 'master_dashboard.xlsx'}")
         return 0
@@ -756,20 +1334,32 @@ def main(argv: list[str] | None = None) -> int:
         if args.require_drafts:
             requested_date = args.date
             resolved_date = ""
+            reviewable_slugs: list[str] = []
             if str(requested_date or "").strip().lower() == "latest":
-                resolved_date = workflow.resolve_latest_batch_by_state(DASHBOARD_BATCH_STATES) if hasattr(workflow, "resolve_latest_batch_by_state") else ""
-            elif hasattr(workflow, "batch_state") and workflow.batch_state(requested_date) in DASHBOARD_BATCH_STATES:
-                resolved_date = requested_date
+                details = workflow.resolve_latest_reviewable_batch() if hasattr(workflow, "resolve_latest_reviewable_batch") else {}
+                resolved_date = str(details.get("batch_date") or "")
+                reviewable_slugs = list(details.get("reviewable_slugs") or [])
+            elif hasattr(workflow, "reviewable_batch_details"):
+                details = workflow.reviewable_batch_details(requested_date)
+                reviewable_slugs = list(details.get("reviewable_slugs") or [])
+                if reviewable_slugs:
+                    resolved_date = requested_date
             if not resolved_date:
                 print("No draft available. Run Codex Writer first.", flush=True)
                 return 2
             args.date = resolved_date
             print(f"Requested date: {requested_date}", flush=True)
-            print(f"Resolved batch date: {resolved_date}", flush=True)
+            print(f"Resolved review batch date: {resolved_date}", flush=True)
+            if reviewable_slugs:
+                print(f"Reviewable drafts: {len(reviewable_slugs)}", flush=True)
+                for slug in reviewable_slugs:
+                    print(f"- {slug}", flush=True)
         if args.background:
             return _serve_dashboard_background(batch_date=args.date, port=args.port, open_browser=args.open)
         url = _dashboard_url(port=args.port, batch_date=args.date)
-        if _server_is_healthy(args.port):
+        expected_signature = args.code_signature or _dashboard_code_signature()
+        health = _dashboard_health(args.port)
+        if health and health.get("code_signature") == expected_signature:
             if args.open:
                 _open_local_path(url)
             print(
@@ -784,7 +1374,18 @@ def main(argv: list[str] | None = None) -> int:
                 )
             )
             return 0
-        server = ReviewDashboardServer(workflow=workflow).serve(batch_date=args.date, port=args.port, open_browser=args.open)
+        if health:
+            print(
+                f"[ERROR] A different dashboard build is already using port {args.port}. "
+                "Open Menu 4 to restart it safely.",
+                flush=True,
+            )
+            return 1
+        server = ReviewDashboardServer(workflow=workflow, code_signature=expected_signature).serve(
+            batch_date=args.date,
+            port=args.port,
+            open_browser=args.open,
+        )
         print(
             json.dumps(
                 {

@@ -1,0 +1,140 @@
+{
+  "schema_version": "operations_intelligence_config_v1",
+  "feature_flags": {
+    "knowledge_graph.enabled": true,
+    "editorial_memory.enabled": false,
+    "analytics_feedback.enabled": false,
+    "social_signal_ingestion.enabled": false,
+    "source_scoring_v2.enabled": false
+  },
+  "enabled_modules": {
+    "entity_graph": true,
+    "editorial_memory": true,
+    "evergreen": true,
+    "internal_links": true,
+    "quality": true,
+    "affiliates": false,
+    "competitors": false,
+    "broken_links": false,
+    "images": false
+  },
+  "default_mode": "dry-run",
+  "network": {
+    "request_timeout_seconds": 10,
+    "retry_count": 2,
+    "rate_limit_seconds_per_domain": 2.0,
+    "cache_ttl_hours": 24,
+    "user_agent": "SmileAIReviewHub-OperationsIntelligence/1.0 (+https://smileaireviewhub.com/)",
+    "respect_robots_txt": true
+  },
+  "competitor_domains": [],
+  "affiliate_verification_interval_days": 90,
+  "evergreen_age_thresholds_days": [
+    30,
+    90,
+    180,
+    365
+  ],
+  "verified_facts": {
+    "reverify_after_days": 180,
+    "writer_allowed_statuses": [
+      "VERIFIED_OFFICIAL",
+      "VERIFIED_LOCAL_PRODUCTION",
+      "VERIFIED_MULTISOURCE"
+    ]
+  },
+  "editorial_memory": {
+    "metadata_only": true,
+    "human_checkpoint_required": true,
+    "store_full_article_body": false,
+    "sqlite_schema": "editorial_memory_sqlite_v2",
+    "duplicate_detection_is_recommendation_only": true,
+    "stale_claim_action": "needs_review",
+    "pricing_reverify_days": 90,
+    "feature_reverify_days": 180,
+    "shortlist_default": 20,
+    "shortlist_minimum": 10,
+    "shortlist_maximum": 30
+  },
+  "analytics_feedback": {
+    "schema_version": "analytics_feedback_config_v1",
+    "recommendation_only": true,
+    "minimum_rows": 30,
+    "minimum_observation_age_days": 7,
+    "candidate_expiry_days": 60,
+    "causal_language_allowed": false,
+    "manual_import_formats": [
+      "csv",
+      "json"
+    ],
+    "rules": {}
+  },
+  "social_signal_ingestion": {
+    "schema_version": "social_signal_ingestion_config_v1",
+    "recommendation_only": true,
+    "human_review_required": true,
+    "manual_import_formats": [
+      "csv",
+      "json",
+      "url"
+    ],
+    "official_source_required_for_menu_h": true,
+    "maximum_hot_news_per_day": 1,
+    "maximum_total_social_topics_per_day": 3,
+    "allow_automatic_queue_changes": false,
+    "allow_automatic_writer_calls": false,
+    "allow_automatic_publish": false
+  },
+  "quality": {
+    "style_deviation_is_recommendation_only": true,
+    "detect_utf8_mojibake": true,
+    "severity_levels": [
+      "BLOCKING",
+      "HIGH_PRIORITY",
+      "MAINTENANCE",
+      "INFORMATIONAL"
+    ]
+  },
+  "internal_links": {
+    "minimum_inbound_links": 2,
+    "maximum_suggestions_per_article": 5,
+    "minimum_confidence": 0.55,
+    "medium_priority_minimum_confidence": 0.65,
+    "high_priority_minimum_confidence": 0.7,
+    "maximum_high_priority_per_article": 3
+  },
+  "calibration": {
+    "default_mode": "dry-run",
+    "exclude_navigation_legal_archive_and_boilerplate": true,
+    "never_auto_merge_aliases": true,
+    "never_auto_approve_memory": true,
+    "never_apply_internal_links": true,
+    "never_create_evergreen_tasks": true
+  },
+  "images": {
+    "maximum_file_size_bytes": 500000,
+    "minimum_width": 1200,
+    "minimum_height": 630,
+    "staging_path": "data/intelligence/images/staging"
+  },
+  "broken_links": {
+    "external_checks_enabled": false,
+    "head_first": true,
+    "maximum_urls_per_run": 200
+  },
+  "reports": {
+    "maximum_items_per_section": 200
+  },
+  "paths": {
+    "intelligence_root": "data/intelligence",
+    "report_root": "data/reports/operations_intelligence"
+  },
+  "safety": {
+    "recommendation_only": true,
+    "human_review_required": true,
+    "allow_automatic_content_edits": false,
+    "allow_automatic_approval": false,
+    "allow_automatic_publish": false,
+    "allow_git_actions": false
+  }
+}

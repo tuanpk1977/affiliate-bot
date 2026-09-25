@@ -20,6 +20,8 @@ from modules.source_connectors import SourceConnectorFramework
 from modules.source_review import SourceReview
 from modules.topic_cluster_engine import TopicClusterEngine
 from modules.verified_source_acquisition import VerifiedSourceAcquisition
+from modules.research_enrichment import ResearchEnrichmentPipeline
+from modules.research_readiness import applicable_source_score_thresholds
 
 
 UTC = timezone.utc
@@ -324,7 +326,12 @@ class ResearchIntelligencePlatform:
             else allow_override
         ) or bool(gate_config.get("allow_override", False))
         score = float(package.quality.get("overall_score", 0))
-        source_gate_passed, source_gate_reasons = self._passes_verified_source_gate(package.sources, source_gate)
+        source_gate_passed, source_gate_reasons = self._passes_verified_source_gate(
+            package.sources,
+            source_gate,
+            topic=topic or {},
+            article_type=str(package.writing_plan.get("article_type") or ""),
+        )
         source_count = self._package_verified_source_count(package)
         critical_minimum_sources = int(float(critical_minimums.get("minimum_usable_sources", 1)))
         warnings: list[str] = []
@@ -375,6 +382,17 @@ class ResearchIntelligencePlatform:
     def run_enrichment(self, *, topics: list[dict[str, Any]] | None = None) -> dict[str, Any]:
         targets = topics or self.queue.pending()
         results: list[dict[str, Any]] = []
+        evidence_config = self.config.get("research_enrichment")
+        evidence_enabled = isinstance(evidence_config, dict) and bool(evidence_config.get("enabled", False))
+        evidence_pipeline = (
+            ResearchEnrichmentPipeline(
+                root=settings.base_dir,
+                data_dir=self.data_dir,
+                config=self.config,
+            )
+            if evidence_enabled
+            else None
+        )
         for row in targets:
             slug = str(row.get("slug", "")).strip()
             keyword = str(row.get("topic") or row.get("keyword") or "").strip()
@@ -383,7 +401,23 @@ class ResearchIntelligencePlatform:
             self.queue.update_status(slug, "enriching", started_at=datetime.now(UTC).isoformat())
             package = self.build_research_package({"topic": keyword, "slug": slug}, force_refresh=True)
             gate = self.evaluate_quality_gate(package, topic={"topic": keyword, "slug": slug}, allow_override=False)
-            final_status = "approved" if gate.passed else "needs_enrichment"
+            evidence = (
+                evidence_pipeline.enrich_slug(
+                    slug,
+                    task={
+                        "task_id": str(row.get("task_id") or slug),
+                        "slug": slug,
+                        "title": keyword,
+                        "primary_source_url": str(row.get("primary_source_url") or ""),
+                        "supporting_source_urls": list(row.get("supporting_source_urls") or []),
+                    },
+                    refresh_sources=bool(row.get("refresh_sources", False)),
+                    reuse_cache=True,
+                )
+                if evidence_pipeline is not None
+                else None
+            )
+            final_status = "approved" if gate.passed and (evidence is None or evidence.article_ready) else "needs_enrichment"
             self.queue.update_status(
                 slug,
                 final_status,
@@ -400,6 +434,10 @@ class ResearchIntelligencePlatform:
                     "source_status": package.sources.get("source_status", "missing"),
                     "total_verified_source_score": package.quality.get("total_verified_source_score", 0),
                     "missing_information": package.quality.get("missing_information", []),
+                    "article_readiness_status": evidence.status if evidence is not None else "legacy_not_evaluated",
+                    "usable_paragraphs": evidence.usable_paragraphs if evidence is not None else 0,
+                    "publishable_claims": evidence.publishable_claims if evidence is not None else 0,
+                    "evidence_blockers": evidence.blockers if evidence is not None else [],
                 }
             )
         self._write_enrichment_report(results)
@@ -616,6 +654,37 @@ class ResearchIntelligencePlatform:
             "community": [],
             "affiliate_program_pages": connector_rows["affiliate_program_page"],
         }
+        # Preserve manual operator sources from existing canonical sources.json
+        slug = _slugify(keyword)
+        canonical_sources_path = self.research_root / slug / "sources.json"
+        manual_sources_by_family: dict[str, list[dict[str, Any]]] = {}
+        if canonical_sources_path.is_file():
+            existing = _read_json(canonical_sources_path, {})
+            if isinstance(existing, dict):
+                trusted = existing.get("trusted_sources", {})
+                if isinstance(trusted, dict):
+                    for family, rows in trusted.items():
+                        if isinstance(rows, list):
+                            for row in rows:
+                                if isinstance(row, dict) and str(row.get("provenance") or "").upper() == "MANUAL_OPERATOR":
+                                    manual_sources_by_family.setdefault(family, []).append(row)
+                verified = existing.get("verified_sources", [])
+                if isinstance(verified, list):
+                    for row in verified:
+                        if isinstance(row, dict) and str(row.get("provenance") or "").upper() == "MANUAL_OPERATOR":
+                            family = str(row.get("source_family") or row.get("source_type") or "").strip()
+                            if family:
+                                manual_sources_by_family.setdefault(family, []).append(row)
+        # Merge preserved manual sources into trusted_sources
+        for family, rows in manual_sources_by_family.items():
+            if rows:
+                trusted_sources.setdefault(family, [])
+                existing_urls = {str(r.get("url") or r.get("source_url") or r.get("canonical_url") or "").strip().rstrip("/") for r in trusted_sources[family] if isinstance(r, dict)}
+                for row in rows:
+                    url = str(row.get("url") or row.get("source_url") or row.get("canonical_url") or "").strip().rstrip("/")
+                    if url and url not in existing_urls:
+                        trusted_sources[family].append(row)
+                        existing_urls.add(url)
         validated_topic_sources = self._validated_topic_source_rows(topic or {})
         if validated_topic_sources:
             trusted_sources["validated_topic_sources"] = validated_topic_sources
@@ -677,7 +746,7 @@ class ResearchIntelligencePlatform:
                     "confidence": 80,
                     "trust_score": 80,
                     "freshness_score": 80,
-                    "notes": "Validated by weekly topic source-readiness preflight.",
+                    "notes": "Approved source inventory; article evidence requires content retrieval and enrichment.",
                     "last_verified_at": now,
                     "verification_date": now,
                 }
@@ -890,16 +959,23 @@ class ResearchIntelligencePlatform:
         }
         return merged
 
-    def _passes_verified_source_gate(self, sources: dict[str, Any], gate_config: dict[str, Any]) -> tuple[bool, list[str]]:
+    def _passes_verified_source_gate(
+        self,
+        sources: dict[str, Any],
+        gate_config: dict[str, Any],
+        *,
+        topic: dict[str, Any] | None = None,
+        article_type: str = "",
+    ) -> tuple[bool, list[str]]:
         if not bool(gate_config.get("enabled", True)):
             return True, []
         knowledge_gate = self.config.get("knowledge_review", {})
-        thresholds = {
-            "official_docs_score": float(gate_config.get("minimum_official_docs_score", 20)),
-            "pricing_source_score": float(gate_config.get("minimum_pricing_source_score", 20)),
-            "affiliate_source_score": float(gate_config.get("minimum_affiliate_source_score", 10)),
-            "total_verified_source_score": float(gate_config.get("minimum_total_score", 35)),
-        }
+        thresholds = applicable_source_score_thresholds(
+            gate_config,
+            article_type=article_type,
+            task=topic or {},
+            claim_categories=set(),
+        )
         failures: list[str] = []
         for key, threshold in thresholds.items():
             actual = float(sources.get(key, 0))

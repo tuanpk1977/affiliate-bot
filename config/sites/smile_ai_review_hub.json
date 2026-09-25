@@ -47,6 +47,13 @@
     "require_freshness_check": true,
     "reject_entity_mismatch": true
   },
+  "compliance": {
+    "risk_level": "low",
+    "regulated_content": false,
+    "expert_review_required": false,
+    "disclaimer_required": false,
+    "official_sources_required": true
+  },
   "output": {
     "namespace": "",
     "site_output_dir": "site_output",

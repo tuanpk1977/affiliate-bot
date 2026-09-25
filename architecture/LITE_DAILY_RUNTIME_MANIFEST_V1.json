@@ -1,0 +1,337 @@
+{
+  "schema_version": "LITE_DAILY_RUNTIME_MANIFEST_V1",
+  "generated_at": "2026-09-24T13:00:29.5877958Z",
+  "status": "CHECKPOINT_2_OPT_IN",
+  "profile": "LITE_DAILY",
+  "default_profile": false,
+  "full_compatibility_manifest": "architecture/ACTIVE_RUNTIME_MANIFEST_V1.json",
+  "scope": {
+    "purpose": "Bounded daily operator/runtime and AI context surface for website production and website-derived social.",
+    "coverage": "Explicit daily ownership surface plus known eager import coupling; not a Python import sandbox.",
+    "physical_quarantine": false,
+    "deletion_authorized": false,
+    "business_logic_changed": false,
+    "canonical_state_changed": false
+  },
+  "operator_entrypoints": [
+    "runbot_lite.bat",
+    "runbot_menu.bat",
+    "editorial_console.py",
+    "external_writer_console.py",
+    "weekly_planning_console.py",
+    "source_review_console.py",
+    "social_console.py"
+  ],
+  "allowed_menu_choices": ["1", "2", "3", "4", "5", "6", "7", "8", "A", "E", "F", "G", "S", "W", "X", "Y"],
+  "component_groups": [
+    {
+      "id": "profile_and_entrypoints",
+      "classification": "LITE_ACTIVE",
+      "reason": "Opt-in launcher, strict profile selection, and current thin operator consoles.",
+      "files": [
+        "runbot_lite.bat",
+        "runbot_full.bat",
+        "runbot_menu.bat",
+        "runbot_custom_topic.bat",
+        "modules/runtime_profile.py",
+        "editorial_console.py",
+        "external_writer_console.py",
+        "weekly_planning_console.py",
+        "source_review_console.py",
+        "social_console.py",
+        "scripts/editorial_console.py"
+      ]
+    },
+    {
+      "id": "planning_and_daily_queue",
+      "classification": "LITE_ACTIVE",
+      "reason": "Weekly roots, daily deep dives, custom topics, guarded opportunity fallback, and required planning advisories.",
+      "files": [
+        "modules/weekly_content_planning.py",
+        "modules/weekly_root_guard.py",
+        "modules/editorial_topic_strategy.py",
+        "modules/content_strategy_planner.py",
+        "modules/content_opportunity_fallback.py",
+        "modules/affiliate_opportunity_discovery.py",
+        "modules/ai_trend_discovery.py",
+        "modules/official_source_registry.py",
+        "modules/operations_intelligence/analytics_feedback.py",
+        "modules/operations_intelligence/calibration.py",
+        "modules/operations_intelligence/editorial_memory.py",
+        "modules/operations_intelligence/feature_flags.py",
+        "modules/operations_intelligence/weekly_preflight.py",
+        "modules/seo_engine/content_gap.py",
+        "modules/seo_engine/internal_link_planner.py",
+        "modules/seo_engine/keyword_clustering.py",
+        "modules/seo_engine/keyword_research.py",
+        "modules/seo_engine/opportunity_scoring.py",
+        "modules/seo_engine/weekly_preflight.py"
+      ]
+    },
+    {
+      "id": "research_and_source_authority",
+      "classification": "CORE_ACTIVE",
+      "reason": "Canonical research acquisition, entity/source ownership, Menu S, and readiness authority shared with Menu 2/X.",
+      "files": [
+        "modules/research_intelligence.py",
+        "modules/research_enrichment.py",
+        "modules/research_artifacts.py",
+        "modules/research_readiness.py",
+        "modules/source_review.py",
+        "modules/source_review_operator.py",
+        "modules/source_classification.py",
+        "modules/source_connectors.py",
+        "modules/entity_knowledge_base.py",
+        "modules/verified_source_acquisition.py",
+        "modules/competitor_snapshot_ingestion.py",
+        "modules/content_outline_engine.py",
+        "modules/keyword_intent_engine.py",
+        "modules/search_intent_analyzer.py",
+        "modules/topic_cluster_engine.py",
+        "modules/knowledge_registry.py",
+        "modules/knowledge_dashboard.py"
+      ]
+    },
+    {
+      "id": "daily_coordinator_and_state",
+      "classification": "CORE_ACTIVE",
+      "reason": "Current application coordinator, canonical state resolution, and extracted read-only queue/batch resolution.",
+      "files": [
+        "modules/daily_editorial_workflow.py",
+        "modules/editorial_queue_resolution.py",
+        "modules/article_operational_state.py",
+        "modules/revision_binding.py",
+        "modules/editorial_operations_console.py",
+        "modules/editorial_state_reset.py",
+        "modules/review_dashboard_server.py",
+        "modules/publish_lock.py",
+        "modules/git_publish_recovery.py"
+      ]
+    },
+    {
+      "id": "validation_approval_and_qa",
+      "classification": "CORE_ACTIVE",
+      "reason": "Research/draft/return quality, explicit human approval, and publish eligibility.",
+      "files": [
+        "modules/editorial_quality.py",
+        "modules/content_review.py",
+        "modules/human_approval.py",
+        "modules/publish_gate.py",
+        "modules/external_writer_return_validator.py",
+        "modules/seo_geo_validator.py",
+        "modules/content_approval.py",
+        "modules/compliance_checker.py"
+      ]
+    },
+    {
+      "id": "external_writer_exchange",
+      "classification": "CORE_ACTIVE",
+      "reason": "X/W queue, immutable evidence package, validation, import, and final revision staging.",
+      "files": [
+        "modules/external_writer_pipeline.py",
+        "modules/external_writer_source_preflight.py",
+        "modules/verified_writer_package.py",
+        "modules/final_revision_staging.py",
+        "modules/codex_writer_workflow.py",
+        "validate_verified_package.py"
+      ]
+    },
+    {
+      "id": "targeted_publish_and_render",
+      "classification": "CORE_ACTIVE",
+      "reason": "Existing exact-slug build, validation, docs sync, and factual deployment evidence path.",
+      "files": [
+        "build_site.py",
+        "modules/content_growth_pipeline.py",
+        "modules/site_builder.py",
+        "modules/publishing_indexing.py",
+        "modules/canonical_routes.py",
+        "modules/internal_linker.py",
+        "modules/sitemap_generator.py",
+        "modules/structured_data_upgrade.py",
+        "modules/seo_ai_search_upgrade.py",
+        "modules/seo_technical_cleanup.py",
+        "modules/seo_title_optimizer.py",
+        "modules/trust_localization_upgrade.py",
+        "modules/bilingual_site.py",
+        "modules/facebook_meta.py",
+        "modules/homepage_crawl_sections.py",
+        "modules/site_verification_meta.py",
+        "modules/legacy_slug_normalizer.py",
+        "modules/topical_hubs.py",
+        "scripts/build_selected_output.py",
+        "scripts/sync_site_output_to_docs.py",
+        "scripts/validate_site.py"
+      ]
+    },
+    {
+      "id": "website_derived_social",
+      "classification": "LITE_ACTIVE",
+      "reason": "F/X/W/G/E website-derived social task, QA, review, and manual publish state.",
+      "files": [
+        "modules/social/draft_assets.py",
+        "modules/social/draft_contracts.py",
+        "modules/social/draft_selection.py",
+        "modules/social/draft_workflow.py",
+        "modules/social/external_draft_exchange.py",
+        "modules/social/content_quality.py",
+        "modules/social/platform_native.py",
+        "modules/social/review_dashboard_server.py",
+        "modules/social/manual_actions.py",
+        "modules/social/publish_status.py",
+        "modules/social/utils.py",
+        "modules/social/publisher_manager.py"
+      ]
+    },
+    {
+      "id": "social_eager_import_compatibility",
+      "classification": "LEGACY_COMPAT",
+      "reason": "Imported eagerly by the pre-existing dirty publisher manager. Preserved to avoid changing public behavior; Hot News remains dispatch-blocked in Lite.",
+      "files": [
+        "modules/social/base_publisher.py",
+        "modules/social/history.py",
+        "modules/social/blogger.py",
+        "modules/social/bluesky.py",
+        "modules/social/devto.py",
+        "modules/social/facebook.py",
+        "modules/social/hashnode.py",
+        "modules/social/linkedin.py",
+        "modules/social/medium.py",
+        "modules/social/pinterest.py",
+        "modules/social/telegram.py",
+        "modules/social/threads.py",
+        "modules/social/twitter_x.py",
+        "modules/social/hot_news_editor.py",
+        "modules/operations_intelligence/social_signal_ingestion.py"
+      ]
+    },
+    {
+      "id": "observation_and_health",
+      "classification": "LITE_ACTIVE",
+      "reason": "Non-authoritative observation and operator-visible read-only health support.",
+      "files": [
+        "modules/observation_hooks.py",
+        "modules/system_health_check.py",
+        "scripts/observe_architecture.py"
+      ]
+    },
+    {
+      "id": "usage_evidence",
+      "classification": "LITE_ACTIVE",
+      "reason": "Checkpoint 3 local fail-open usage evidence at profile and social console seams.",
+      "files": [
+        "config/usage_evidence.json",
+        "modules/runtime_usage.py",
+        "scripts/runtime_usage.py"
+      ]
+    },
+    {
+      "id": "runtime_slimming_support",
+      "classification": "LITE_ACTIVE",
+      "reason": "Checkpoint 4 explicit deferred-import adapter used by a clean command-independent scoring boundary.",
+      "files": [
+        "modules/lazy_imports.py"
+      ]
+    }
+  ],
+  "active_config": [
+    "config.py",
+    "config/runtime_profiles.json",
+    "config/editorial_system.json",
+    "config/operations_intelligence.json",
+    "config/social_publish.yaml",
+    "config/sites/smile_ai_review_hub.json"
+  ],
+  "active_templates": [
+    "PROJECT_GUIDE.md",
+    "AI_WRITER_INSTRUCTIONS.md",
+    "AI_ONBOARDING.md",
+    "WRITING_DNA.md",
+    "STRUCTURE_DNA.md",
+    "VOICE_DNA.md",
+    "STYLE_ENGINE.md",
+    "ARTICLE_BLUEPRINT_ENGINE.md",
+    "SELF_VALIDATION_ENGINE.md",
+    "QUALITY_SCORE_ENGINE.md"
+  ],
+  "canonical_data_contracts": [
+    "data/editorial_queue/weeks/<week>/week.json",
+    "data/editorial_queue/<batch>/topics.json",
+    "data/research/<slug>/{package.json,sources.json,research_quality.json}",
+    "data/production_article_drafts/<slug>/index.html",
+    "data/content_review_queue.json",
+    "data/human_approval_queue.json",
+    "data/publish_queue.json",
+    "data/live_status_report.json",
+    "data/write_queue/<task_id>.json",
+    "data/import_history/external_writer/<batch>/<package>/import.json",
+    "data/social_drafts/<date>/<slug>/<platform>/metadata.json"
+  ],
+  "excluded_default_features": [
+    {
+      "id": "partner_intake_unknown",
+      "menu": "9",
+      "classification": "UNKNOWN",
+      "reason": "Missing runbot_partner_intake.bat; Python implementation exists but operator usage is unproven."
+    },
+    {
+      "id": "strict_full_site_audit",
+      "menu": "B",
+      "classification": "OPTIONAL",
+      "reason": "Not required for the daily happy path."
+    },
+    {
+      "id": "interactive_seo_console",
+      "menu": "C",
+      "classification": "OPTIONAL",
+      "reason": "Interactive feature excluded; the exact SEO libraries used by weekly planning remain included."
+    },
+    {
+      "id": "state_maintenance",
+      "menu": "D",
+      "classification": "OPTIONAL",
+      "reason": "Privileged maintenance is not a daily happy-path action."
+    },
+    {
+      "id": "social_hot_news",
+      "menu": "H",
+      "classification": "OPTIONAL",
+      "reason": "Independent lane excluded from dispatch; code remains import-coupled and preserved."
+    },
+    {
+      "id": "editorial_intelligence",
+      "menu": "I",
+      "classification": "OPTIONAL",
+      "reason": "Interactive calibration/intelligence surface excluded; required planning advisory libraries remain included."
+    },
+    {
+      "id": "legacy_platform_dashboard",
+      "entrypoint": "run_platform.bat",
+      "classification": "LEGACY_COMPAT",
+      "reason": "Not part of the Lite launcher or daily menu path."
+    }
+  ],
+  "classification_vocabulary": [
+    "CORE_ACTIVE",
+    "LITE_ACTIVE",
+    "OPTIONAL",
+    "LEGACY_COMPAT",
+    "QUARANTINE_CANDIDATE",
+    "UNKNOWN",
+    "DELETION_CANDIDATE"
+  ],
+  "summary": {
+    "unique_component_files": 125,
+    "existing_component_files": 125,
+    "python_component_files": 120,
+    "approximate_python_loc": 68449,
+    "component_dependency_edges_from_full_manifest": 272,
+    "excluded_default_features": 7,
+    "deletion_candidates": 0
+  },
+  "known_limitations": [
+    "The current editorial coordinator retains broad eager imports; Checkpoint 2 does not refactor it.",
+    "The current social publisher manager has extensive pre-existing uncommitted changes and eagerly imports optional/platform modules; lazy loading is deferred rather than risking overwrite.",
+    "Manifest inclusion expresses bounded ownership/context and known import coupling, not operating-system enforcement of Python imports."
+  ]
+}

@@ -6,22 +6,6 @@ import shutil
 from pathlib import Path
 
 from config import settings
-from modules.content_approval import publish_static_draft
-from modules.bilingual_site import add_bilingual_pages
-from modules.facebook_meta import post_process_facebook_meta
-from modules.sitemap_generator import generate_sitemap
-from modules.trust_localization_upgrade import enhance_site
-from modules.gsc_404_recovery import write_gsc_404_recovery_pages
-from modules.homepage_crawl_sections import enrich_homepage_crawl_sections
-from modules.internal_linker import post_process_internal_links
-from modules.legacy_slug_normalizer import normalize_legacy_slugs
-from modules.canonical_routes import apply_canonical_routing
-from modules.seo_ai_search_upgrade import apply_seo_ai_search_upgrade
-from modules.seo_title_optimizer import optimize_site_titles
-from modules.seo_technical_cleanup import apply_technical_seo_cleanup
-from modules.structured_data_upgrade import apply_structured_data_upgrade
-from modules.topical_hubs import write_topical_hubs
-from modules.site_verification_meta import apply_pinterest_domain_verification
 
 
 def sync_root_verification_files() -> int:
@@ -91,6 +75,22 @@ def sync_public_article_assets() -> int:
 
 
 def incremental_build() -> dict[str, object]:
+    from modules.bilingual_site import add_bilingual_pages
+    from modules.canonical_routes import apply_canonical_routing
+    from modules.facebook_meta import post_process_facebook_meta
+    from modules.gsc_404_recovery import write_gsc_404_recovery_pages
+    from modules.homepage_crawl_sections import enrich_homepage_crawl_sections
+    from modules.internal_linker import post_process_internal_links
+    from modules.legacy_slug_normalizer import normalize_legacy_slugs
+    from modules.seo_ai_search_upgrade import apply_seo_ai_search_upgrade
+    from modules.seo_technical_cleanup import apply_technical_seo_cleanup
+    from modules.seo_title_optimizer import optimize_site_titles
+    from modules.site_verification_meta import apply_pinterest_domain_verification
+    from modules.sitemap_generator import generate_sitemap
+    from modules.structured_data_upgrade import apply_structured_data_upgrade
+    from modules.topical_hubs import write_topical_hubs
+    from modules.trust_localization_upgrade import enhance_site
+
     settings.site_output_dir.mkdir(parents=True, exist_ok=True)
     verification_files_changed = sync_root_verification_files()
     sync_stats = sync_published_pages()
@@ -152,6 +152,16 @@ def incremental_build() -> dict[str, object]:
 
 def full_build() -> dict[str, object]:
     from main import main
+    from modules.canonical_routes import apply_canonical_routing
+    from modules.homepage_crawl_sections import enrich_homepage_crawl_sections
+    from modules.internal_linker import post_process_internal_links
+    from modules.legacy_slug_normalizer import normalize_legacy_slugs
+    from modules.seo_ai_search_upgrade import apply_seo_ai_search_upgrade
+    from modules.seo_title_optimizer import optimize_site_titles
+    from modules.site_verification_meta import apply_pinterest_domain_verification
+    from modules.sitemap_generator import generate_sitemap
+    from modules.structured_data_upgrade import apply_structured_data_upgrade
+    from modules.topical_hubs import write_topical_hubs
 
     main()
     verification_files_changed = sync_root_verification_files()
@@ -204,6 +214,8 @@ def main_cli() -> None:
         result = full_build()
     else:
         if args.publish_draft:
+            from modules.content_approval import publish_static_draft
+
             ok, message = publish_static_draft(args.publish_draft, overwrite=args.overwrite)
             print(f"publish_draft={args.publish_draft} ok={ok} message={message}")
             if not ok:

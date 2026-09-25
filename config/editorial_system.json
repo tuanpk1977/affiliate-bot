@@ -60,6 +60,30 @@
       "medium_priority_below_score": 60
     }
   },
+  "research_enrichment": {
+    "enabled": true,
+    "minimum_publishable_claims": 20,
+      "maximum_publishable_claims": 100,
+      "maximum_expanded_sources": 12,
+      "minimum_coverage_score": 0.65,
+      "partial_batch_export": true,
+      "maximum_research_passes": 3,
+      "maximum_zero_gain_passes": 2,
+      "knowledge_freshness_days": 90,
+      "article_type_claim_targets": {
+        "software_review": 25,
+        "comparison": 30,
+        "top_list": 34,
+        "news": 20,
+        "tutorial": 24,
+        "deep_dive": 32
+      },
+    "timeout_seconds": 12,
+    "retries": 2,
+    "max_response_bytes": 2000000,
+    "stale_after_days": 14,
+    "user_agent": "SmileAIReviewHub-ResearchBot/1.0 (local editorial research)"
+  },
   "knowledge_review": {
     "freshness_threshold": 35,
     "review_after_days": 90,
@@ -134,10 +158,11 @@
     ]
   },
   "editorial_capacity": {
-    "minimum_daily_review_ready": 5,
-    "target_daily_review_ready": 10,
-    "maximum_daily_drafts": 15,
-    "max_parallel_topics": 3,
+    "minimum_daily_review_ready": 2,
+    "target_daily_review_ready": 2,
+    "maximum_daily_drafts": 2,
+    "maximum_daily_publishes": 2,
+    "max_parallel_topics": 2,
     "max_rewrite_attempts": 2,
     "max_review_cycles": 3,
     "daily_failure_budget": 5,
@@ -229,6 +254,9 @@
   },
   "publish_gate": {
     "enabled": true,
+    "seo_geo_validation": {
+      "enabled": true
+    },
     "minimum_verified_source_score": 35,
     "minimum_knowledge_freshness": 20,
     "require_human_approval": true,
@@ -249,5 +277,130 @@
   "published_live_duplicate_guard": {
     "mode": "deprioritize",
     "score_penalty": 4.0
+  },
+  "three_level_content_opportunity_fallback": {
+    "schema_version": "content_opportunity_fallback_config_v1",
+    "enabled": true,
+    "required_weekly_root_count": 2,
+    "minimum_upgrade_opportunity_score": 55.0,
+    "component_weights": {
+      "freshness_gap": 18.0,
+      "topical_depth_gap": 17.0,
+      "commercial_value": 15.0,
+      "affiliate_opportunity": 10.0,
+      "internal_link_opportunity": 12.0,
+      "source_availability": 12.0,
+      "existing_authority_value": 8.0,
+      "entity_coverage_gap": 8.0
+    },
+    "penalties": {
+      "duplicate_intent": 30.0,
+      "source_unavailable": 25.0,
+      "obsolete_or_dead_product": 30.0,
+      "low_commercial_relevance": 20.0
+    },
+    "gates": {
+      "verified_source_required": true,
+      "human_approval_required": true,
+      "auto_publish": false
+    }
+  },
+  "affiliate_opportunity_discovery": {
+    "schema_version": "affiliate_opportunity_discovery_config_v1",
+    "enabled": true,
+    "require_verified_program_for_commercial_boost": true,
+    "social_signal_is_evidence": false,
+    "auto_publish": false,
+    "minimum_evidence_score": 45,
+    "minimum_opportunity_score": 55,
+    "weekly_score_boost_max": 8,
+    "outdated_after_days": 180,
+    "weights": {
+      "program_verified": 20.0,
+      "commercial_intent": 12.0,
+      "product_relevance": 12.0,
+      "trend_momentum": 8.0,
+      "commission_quality": 8.0,
+      "recurring_revenue": 7.0,
+      "cookie_quality": 5.0,
+      "evidence_quality": 10.0,
+      "official_source_quality": 8.0,
+      "content_gap": 5.0,
+      "existing_site_authority": 3.0,
+      "freshness": 2.0
+    },
+    "penalties": {
+      "unverified_program": 30.0,
+      "social_only_evidence": 20.0,
+      "weak_official_evidence": 15.0,
+      "stale_information": 12.0,
+      "duplicate_coverage": 18.0,
+      "high_cannibalization": 25.0,
+      "unsupported_claims": 15.0,
+      "unknown_entity": 20.0
+    }
+  },
+  "topic_scoring": {
+    "version": "topic_scoring_v2",
+    "scale": "0-100",
+    "profiles": {
+      "FOUNDATION_MAIN": {
+        "recommended_threshold": 65.0,
+        "absolute_minimum_floor": 50.0,
+        "maximum_roots": 5,
+        "component_weights": {
+          "search_volume_potential": 0.22,
+          "low_competition_opportunity": 0.16,
+          "affiliate_opportunity": 0.20,
+          "evergreen_value": 0.14,
+          "news_freshness": 0.16,
+          "cpc_potential": 0.12
+        },
+        "missing_data_policy": {
+          "source_evidence": "REQUIRED",
+          "search_volume_potential": "OPTIONAL",
+          "low_competition_opportunity": "OPTIONAL",
+          "affiliate_opportunity": "OPTIONAL",
+          "evergreen_value": "OPTIONAL",
+          "news_freshness": "OPTIONAL",
+          "cpc_potential": "OPTIONAL"
+        }
+      },
+      "SOCIAL_HOT_UNCONFIRMED": {
+        "social_interest_threshold": 60.0,
+        "evidence_confidence_threshold": 35.0,
+        "website_eligible_without_official_confirmation": false,
+        "component_weights": {
+          "freshness": 0.28,
+          "discussion_velocity": 0.24,
+          "audience_interest": 0.2,
+          "novelty": 0.14,
+          "source_traceability": 0.14
+        },
+        "missing_data_policy": {
+          "source_evidence": "REQUIRED",
+          "official_confirmation": "OPTIONAL",
+          "discussion_velocity": "OPTIONAL"
+        }
+      },
+      "OFFICIAL_NEWS_STANDALONE": {
+        "recommended_threshold": 70.0,
+        "absolute_minimum_floor": 60.0,
+        "requires_official_confirmation": true,
+        "component_weights": {
+          "official_confirmation": 0.3,
+          "user_impact": 0.22,
+          "freshness": 0.18,
+          "confirmed_detail_depth": 0.14,
+          "novelty": 0.1,
+          "commercial_significance": 0.06
+        },
+        "missing_data_policy": {
+          "official_confirmation": "REQUIRED",
+          "source_evidence": "REQUIRED",
+          "commercial_significance": "OPTIONAL"
+        }
+      }
+    }
   }
 }
