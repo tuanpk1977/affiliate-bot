@@ -99,6 +99,7 @@
       "files": [
         "modules/daily_editorial_workflow.py",
         "modules/editorial_article_image_materialization.py",
+        "modules/editorial_queue_mutation.py",
         "modules/editorial_queue_resolution.py",
         "modules/article_operational_state.py",
         "modules/revision_binding.py",
@@ -324,11 +325,11 @@
     "DELETION_CANDIDATE"
   ],
   "summary": {
-    "unique_component_files": 128,
-    "existing_component_files": 128,
-    "python_component_files": 123,
-    "approximate_python_loc": 68808,
-    "component_dependency_edges_from_full_manifest": 275,
+    "unique_component_files": 129,
+    "existing_component_files": 129,
+    "python_component_files": 124,
+    "approximate_python_loc": 69018,
+    "component_dependency_edges_from_full_manifest": 277,
     "excluded_default_features": 7,
     "deletion_candidates": 0
   },

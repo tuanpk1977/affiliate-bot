@@ -41,6 +41,7 @@ from modules.content_strategy_planner import enrich_topics_with_content_strategy
 from modules.editorial_quality import CapacityManager, SafeDailyDryRunOrchestrator, write_capacity_report
 from modules.editorial_operations_console import EditorialOperationsConsole
 from modules.editorial_article_image_materialization import EditorialArticleImageMaterialization
+from modules.editorial_queue_mutation import EditorialQueueMutation
 from modules.editorial_queue_resolution import (
     BATCH_STATE_DRAFT_READY,
     BATCH_STATE_HUMAN_APPROVED,
@@ -316,6 +317,23 @@ class DailyEditorialWorkflow:
             site_output_dir=self.site_output_dir,
             base_site_url=settings.base_site_url,
             article_bundle_paths=self._article_bundle_paths,
+        )
+
+    def _queue_mutation(self) -> EditorialQueueMutation:
+        return EditorialQueueMutation(
+            data_dir=self.data_dir,
+            review_root=self.review_root,
+            queue_dir=self._queue_dir,
+            load_queue=self._load_queue,
+            save_queue=self._save_queue,
+            week_start=self._week_start,
+            copy_review_preview=self._copy_review_preview,
+            load_metadata=self.console._load_metadata,
+            classify_content_type=classify_content_type,
+            score_search_intent=_score_search_intent,
+            now_iso=lambda: datetime.now(UTC).isoformat(),
+            read_json=_read_json,
+            write_json=_write_json,
         )
 
     def editorial_quality_dry_run(self, *, candidates: list[dict[str, Any]], target: int = 10) -> dict[str, Any]:
@@ -6427,79 +6445,39 @@ class DailyEditorialWorkflow:
         return self._queue_resolution().resolve_latest_publish_candidate_batch()
 
     def _save_queue(self, batch_date: str, payload: dict[str, Any]) -> None:
-        _write_json(self._queue_dir(batch_date) / "topics.json", payload)
+        self._queue_mutation().save_queue(batch_date, payload)
 
     def _batch_item(self, *, batch_date: str, slug: str) -> dict[str, Any]:
-        payload = self._load_queue(batch_date)
-        for item in payload.get("topics", []):
-            if str(item.get("slug") or "") == slug:
-                return dict(item)
-        raise ValueError(f"Unknown batch slug: {slug}")
+        return self._queue_mutation().batch_item(batch_date=batch_date, slug=slug)
 
     def _publish_row(self, slug: str) -> dict[str, Any]:
-        for row in _read_json(self.data_dir / "publish_queue.json", []):
-            if str(row.get("slug") or "") == slug:
-                return dict(row)
-        return {}
+        return self._queue_mutation().publish_row(slug)
 
     def _copy_review_preview(self, *, slug: str, batch_date: str) -> Path:
-        source = self.data_dir / "production_article_drafts" / slug / "index.html"
-        if not source.exists():
-            raise FileNotFoundError(f"Draft preview missing for {slug}: {source}")
-        target = self.review_root / batch_date / slug / "index.html"
-        target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(source, target)
-        return target
+        return self._queue_mutation().copy_review_preview(slug=slug, batch_date=batch_date)
 
     def _update_batch_status(self, *, batch_date: str, slug: str, status: str, extra: dict[str, Any] | None = None) -> None:
-        payload = self._load_queue(batch_date)
-        for item in payload.get("topics", []):
-            if str(item.get("slug") or "") != slug:
-                continue
-            item["status"] = status
-            if extra:
-                item.update(extra)
-            break
-        self._save_queue(batch_date, payload)
+        self._queue_mutation().update_batch_status(
+            batch_date=batch_date,
+            slug=slug,
+            status=status,
+            extra=extra,
+        )
 
     def _update_batch_status_if_present(self, *, batch_date: str, slug: str, status: str | None = None, extra: dict[str, Any] | None = None) -> None:
-        try:
-            payload = self._load_queue(batch_date)
-        except FileNotFoundError:
-            return
-        for item in payload.get("topics", []):
-            if str(item.get("slug") or "") != slug:
-                continue
-            if status is not None:
-                item["status"] = status
-            if extra:
-                item.update(extra)
-            self._save_queue(batch_date, payload)
-            return
+        self._queue_mutation().update_batch_status_if_present(
+            batch_date=batch_date,
+            slug=slug,
+            status=status,
+            extra=extra,
+        )
 
     def _upsert_topics_into_batch(self, *, batch_date: str, topics: list[dict[str, Any]], mode: str) -> dict[str, Any]:
-        try:
-            payload = self._load_queue(batch_date)
-        except FileNotFoundError:
-            payload = {
-                "generated_at": datetime.now(UTC).isoformat(),
-                "date": batch_date,
-                "week_start": self._week_start(batch_date),
-                "week_end": (date.fromisoformat(self._week_start(batch_date)) + timedelta(days=6)).isoformat(),
-                "mode": mode,
-                "count": 0,
-                "topics": [],
-            }
-        existing = {str(item.get("slug") or ""): item for item in payload.get("topics", [])}
-        for topic in topics:
-            existing[str(topic.get("slug") or "")] = topic
-        merged = list(existing.values())
-        payload["generated_at"] = datetime.now(UTC).isoformat()
-        payload["mode"] = mode
-        payload["count"] = len(merged)
-        payload["topics"] = merged
-        self._save_queue(batch_date, payload)
-        return payload
+        return self._queue_mutation().upsert_topics_into_batch(
+            batch_date=batch_date,
+            topics=topics,
+            mode=mode,
+        )
 
     def _queue_entry_from_request_result(
         self,
@@ -6520,142 +6498,47 @@ class DailyEditorialWorkflow:
         cluster_article_total: int,
         suggested_article_angle: str,
     ) -> dict[str, Any]:
-        drafted = bool(result.get("draft"))
-        entry = {
-            "keyword": keyword,
-            "slug": slug,
-            "title": keyword,
-            "content_type": content_type,
-            "search_intent": intent.strip() or "commercial research",
-            "search_intent_score": _score_search_intent(intent.strip() or "commercial research"),
-            "category": category.strip(),
-            "source_type": source_type,
-            "partner_name": partner_name.strip(),
-            "official_url": official_url.strip(),
-            "affiliate_url": affiliate_url.strip(),
-            "pricing_url": pricing_url.strip(),
-            "cluster_article_number": int(cluster_article_number or 1),
-            "cluster_article_total": int(cluster_article_total or 1),
-            "suggested_article_angle": suggested_article_angle,
-            "status": "drafted" if drafted else "needs_enrichment",
-            "batch_date": batch_date,
-            "week_start": self._week_start(batch_date),
-            "mode": source_type,
-            "source_urls": [url for url in [official_url.strip(), affiliate_url.strip(), pricing_url.strip()] if url],
-            "draft_dir": str(self.data_dir / "production_article_drafts" / slug) if drafted else "",
-            "review_preview": "",
-            "research_quality_gate": dict(result.get("quality_gate") or {}),
-            "error": "" if drafted else "Research/source quality gate blocked draft generation.",
-        }
-        if drafted:
-            try:
-                preview_path = self._copy_review_preview(slug=slug, batch_date=batch_date)
-                entry["review_preview"] = str(preview_path)
-                entry["draft_file"] = str((self.data_dir / "production_article_drafts" / slug / "index.html"))
-                entry["metadata_file"] = str((self.data_dir / "production_article_drafts" / slug / "metadata.json"))
-            except FileNotFoundError:
-                pass
-        return entry
+        return self._queue_mutation().queue_entry_from_request_result(
+            keyword=keyword,
+            slug=slug,
+            result=result,
+            batch_date=batch_date,
+            category=category,
+            intent=intent,
+            content_type=content_type,
+            source_type=source_type,
+            partner_name=partner_name,
+            official_url=official_url,
+            affiliate_url=affiliate_url,
+            pricing_url=pricing_url,
+            cluster_article_number=cluster_article_number,
+            cluster_article_total=cluster_article_total,
+            suggested_article_angle=suggested_article_angle,
+        )
 
     def _build_custom_topic_requests(self, *, topic_name: str, category: str, intent: str, count: int) -> list[dict[str, str]]:
-        normalized = topic_name.strip()
-        if not normalized:
-            return []
-        if int(count or 1) <= 1:
-            return [
-                {
-                    "topic": normalized,
-                    "content_type": classify_content_type(normalized),
-                    "suggested_article_angle": f"Custom topic request for {normalized}",
-                    "category": category.strip(),
-                    "intent": intent.strip(),
-                }
-            ]
-        templates = [
-            ("review", f"{normalized} review 2026"),
-            ("pricing", f"{normalized} pricing"),
-            ("alternatives", f"{normalized} alternatives"),
-            ("pros_cons", f"{normalized} pros and cons"),
-            ("tutorial", f"how to use {normalized}"),
-            ("comparison", f"{normalized} vs competitors"),
-            ("affiliate_program", f"{normalized} affiliate program"),
-            ("faq", f"{normalized} faq"),
-        ]
-        requests: list[dict[str, str]] = []
-        for content_type, topic in templates[: max(1, int(count or 1))]:
-            requests.append(
-                {
-                    "topic": topic,
-                    "content_type": content_type,
-                    "suggested_article_angle": f"Custom cluster article for {normalized}: {content_type}",
-                    "category": category.strip(),
-                    "intent": intent.strip(),
-                }
-            )
-        return requests
+        return self._queue_mutation().build_custom_topic_requests(
+            topic_name=topic_name,
+            category=category,
+            intent=intent,
+            count=count,
+        )
 
     def _build_partner_cluster_topics(self, *, partner_name: str, count: int) -> list[dict[str, str]]:
-        templates = [
-            ("review", f"{partner_name} Review 2026"),
-            ("pricing", f"{partner_name} Pricing"),
-            ("alternatives", f"{partner_name} Alternatives"),
-            ("pros_cons", f"{partner_name} Pros and Cons"),
-            ("tutorial", f"How to Use {partner_name}"),
-            ("affiliate_program", f"{partner_name} Affiliate Program"),
-            ("comparison", f"{partner_name} vs top competitor"),
-            ("faq", f"{partner_name} FAQ"),
-        ]
-        return [
-            {
-                "topic": topic,
-                "content_type": content_type,
-                "suggested_article_angle": f"Affiliate partner cluster for {partner_name}: {content_type}",
-                "category": "Affiliate Partner",
-            }
-            for content_type, topic in templates[: max(1, int(count or 8))]
-        ]
+        return self._queue_mutation().build_partner_cluster_topics(
+            partner_name=partner_name,
+            count=count,
+        )
 
     def _carry_forward_publish_candidates(self, *, batch_date: str, topics: list[dict[str, Any]], publish_rows: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
-        known_slugs = {str(item.get("slug") or "") for item in topics}
-        carry_forward: list[dict[str, Any]] = []
-        for row in publish_rows.values():
-            slug = str(row.get("slug") or "")
-            if not slug or slug in known_slugs:
-                continue
-            status = str(row.get("status") or "")
-            if status not in {"approved_for_publish", "published_local"}:
-                continue
-            metadata = self.console._load_metadata(slug)
-            carry_forward.append(
-                {
-                    "keyword": str(metadata.get("title") or row.get("title") or slug.replace("-", " ")),
-                    "slug": slug,
-                    "status": "approved" if status == "approved_for_publish" else "published",
-                    "carry_forward": True,
-                    "batch_date": batch_date,
-                }
-            )
-        return carry_forward
+        return self._queue_mutation().carry_forward_publish_candidates(
+            batch_date=batch_date,
+            topics=topics,
+            publish_rows=publish_rows,
+        )
 
     def _upsert_affiliate_partner_record(self, partner_profile: dict[str, Any]) -> None:
-        try:
-            from modules.affiliate_links import upsert_affiliate_link
-        except Exception:
-            return
-        upsert_affiliate_link(
-            {
-                "brand": str(partner_profile.get("name") or ""),
-                "slug": str(partner_profile.get("slug") or ""),
-                "official_url": str(partner_profile.get("official_url") or ""),
-                "affiliate_url": str(partner_profile.get("affiliate_url") or ""),
-                "status": "approved" if str(partner_profile.get("affiliate_url") or "").strip() else "official_only",
-                "affiliate_status": "approved" if str(partner_profile.get("affiliate_url") or "").strip() else "official_only",
-                "notes": str(partner_profile.get("contact_note") or ""),
-                "commission_note": str(partner_profile.get("commission_note") or ""),
-                "network": str(partner_profile.get("payout_note") or "Direct"),
-                "approved": bool(str(partner_profile.get("affiliate_url") or "").strip()),
-            }
-        )
+        self._queue_mutation().upsert_affiliate_partner_record(partner_profile)
 
     def _topic_files_exist(self, item: dict[str, Any]) -> bool:
         draft_file = str(item.get("draft_file") or "")
