@@ -8,7 +8,6 @@ import shutil
 import sqlite3
 import tempfile
 import zipfile
-from dataclasses import dataclass
 from datetime import UTC, datetime
 from html import unescape as _html_unescape
 from html.parser import HTMLParser
@@ -25,6 +24,10 @@ from modules.external_writer_return_validator import (
 from modules.external_writer_source_preflight import (
     _CachedOnlySourceRetriever,
     _website_source_preflight,
+)
+from modules.external_writer_return_discovery import (
+    ExternalWriterReturnDiscovery,
+    ImportCandidate,
 )
 from modules.research_artifacts import resolve_research_artifacts
 from modules.affiliate_opportunity_discovery import build_affiliate_opportunity_brief
@@ -279,17 +282,6 @@ class _HTMLContractParser(HTMLParser):
             self.canonical += 1
         elif tag.lower() == "meta" and values.get("charset", "").lower() == "utf-8":
             self.charset += 1
-
-
-@dataclass(frozen=True)
-class ImportCandidate:
-    path: Path
-    checksum: str
-    modified_at: str = ""
-    package_id: str = ""
-    lane: str = ""
-    status: str = "PENDING"
-    reason: str = ""
 
 
 class UniversalWriteQueue:
@@ -3658,164 +3650,44 @@ class UniversalExternalWriterImporter:
         self.duplicate_root = root / "exports" / "external_writer" / "Duplicate"
         self.lifecycle_root = self.history_root / "file_lifecycle"
 
-    def discover(self, *, explicit: str = "") -> list[ImportCandidate]:
-        paths: list[Path] = (
-            [Path(explicit).expanduser()]
-            if explicit
-            else list(self.returned_root.glob("completed_drafts*.zip"))
-            if self.returned_root.exists()
-            else []
+    def _return_discovery(self) -> ExternalWriterReturnDiscovery:
+        return ExternalWriterReturnDiscovery(
+            root=self.root,
+            queue=self.queue,
+            validate_zip=self.validate_zip,
+            validate_archive_members=self._validate_archive_members,
+            read_zip_json=self._read_zip_json,
+            normalize_completed_manifest=self._normalize_completed_manifest,
+            immutable_website_states=IMMUTABLE_WEBSITE_STATES,
+            protected_website_states=PROTECTED_WEBSITE_STATES,
+            is_website_revision=_is_website_revision,
         )
-        unique: dict[str, Path] = {}
-        for path in paths:
-            try:
-                resolved = path.resolve()
-            except OSError:
-                continue
-            if resolved.is_file() and resolved.suffix.lower() == ".zip":
-                unique[str(resolved).lower()] = resolved
-        candidates = [
-            self.inspect_candidate(path)
-            for path in sorted(unique.values(), key=lambda item: item.stat().st_mtime, reverse=True)
-        ]
-        return candidates if explicit else [row for row in candidates if row.status == "PENDING"]
+
+    def discover(self, *, explicit: str = "") -> list[ImportCandidate]:
+        return self._return_discovery().discover(
+            explicit=explicit,
+            inspect_candidate=self.inspect_candidate,
+        )
 
     def audit_returned(self) -> list[ImportCandidate]:
-        """Classify Returned read-only; never changes workflow state or moves a file."""
-        if not self.returned_root.exists():
-            return []
-        paths = sorted(
-            self.returned_root.glob("completed_drafts*.zip"),
-            key=lambda item: item.stat().st_mtime,
-            reverse=True,
-        )
-        return [self.inspect_candidate(path) for path in paths if path.is_file()]
+        return self._return_discovery().audit_returned(inspect_candidate=self.inspect_candidate)
 
     def _successful_import_index(self) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]]]:
-        by_sha: dict[str, dict[str, Any]] = {}
-        by_package: dict[str, dict[str, Any]] = {}
-        if not self.history_root.exists():
-            return by_sha, by_package
-        for path in self.history_root.glob("*/*/import.json"):
-            record = _read_json(path, {})
-            if not isinstance(record, dict) or record.get("status") != "IMPORTED":
-                continue
-            if not record.get("imported"):
-                continue
-            checksum = _text(record.get("zip_sha256")).lower()
-            package_id = _text(record.get("package_id"))
-            payload = {**record, "history_path": str(path)}
-            if checksum:
-                by_sha.setdefault(checksum, payload)
-            if package_id:
-                by_package.setdefault(package_id, payload)
-        return by_sha, by_package
+        return self._return_discovery().successful_import_index()
 
     def _manifest_identity(self, source: Path) -> tuple[str, str, str]:
-        package_id = ""
-        lane = ""
-        try:
-            with zipfile.ZipFile(source) as archive:
-                self._validate_archive_members(archive)
-                raw = self._read_zip_json(archive, "completed_manifest.json")
-                manifest = self._normalize_completed_manifest(raw, archive)
-                package_id = _text(manifest.get("package_id"))
-                lanes = {_text(manifest.get("task_type"))} if manifest.get("task_type") else set()
-                for item in manifest.get("items", []):
-                    if isinstance(item, dict) and item.get("task_type"):
-                        lanes.add(_text(item.get("task_type")))
-                    task_id = _text(item.get("task_id")) if isinstance(item, dict) else ""
-                    queued = self.queue.get(task_id) if task_id else None
-                    if queued and queued.get("task_type"):
-                        lanes.add(_text(queued.get("task_type")))
-                lanes.discard("")
-                if len(lanes) > 1:
-                    return package_id, "", f"Completed ZIP mixes workflow lanes: {sorted(lanes)}"
-                lane = next(iter(lanes), "")
-        except (OSError, ValueError, zipfile.BadZipFile, UnicodeError, json.JSONDecodeError) as exc:
-            return package_id, lane, str(exc)
-        return package_id, lane, ""
+        return self._return_discovery().manifest_identity(source)
 
     def _protected_manifest_states(self, source: Path) -> list[dict[str, Any]]:
-        """Identify stale website returns before validation/import prompts."""
-        conflicts: list[dict[str, Any]] = []
-        try:
-            with zipfile.ZipFile(source) as archive:
-                self._validate_archive_members(archive)
-                raw = self._read_zip_json(archive, "completed_manifest.json")
-                manifest = self._normalize_completed_manifest(raw, archive)
-            for item in manifest.get("items", []):
-                task_id = _text(item.get("task_id")) if isinstance(item, dict) else ""
-                task = self.queue.get(task_id) if task_id else None
-                if not task or not _text(task.get("task_type")).startswith("WEBSITE_"):
-                    continue
-                states = self.queue._website_states(task)
-                protected = states & (
-                    (
-                        {"published", "published_local"}
-                        if self.queue._invalidated_unpublished_approval(task)
-                        else IMMUTABLE_WEBSITE_STATES
-                    )
-                    if _is_website_revision(task)
-                    else PROTECTED_WEBSITE_STATES
-                )
-                if protected:
-                    conflicts.append({"task_id": task_id, "states": sorted(protected)})
-        except (OSError, ValueError, zipfile.BadZipFile, UnicodeError, json.JSONDecodeError):
-            return []
-        return conflicts
+        return self._return_discovery().protected_manifest_states(source)
 
     def inspect_candidate(self, source: Path) -> ImportCandidate:
-        resolved = source.resolve()
-        checksum = _sha256(resolved)
-        modified_at = datetime.fromtimestamp(resolved.stat().st_mtime, tz=UTC).isoformat()
-        package_id, lane, identity_error = self._manifest_identity(resolved)
-        lifecycle = _read_json(self.lifecycle_root / f"{checksum}.json", {})
-        if lifecycle.get("import_result") == "IMPORTED" and not lifecycle.get("destination_path"):
-            return ImportCandidate(
-                resolved, checksum, modified_at, package_id, lane, "ARCHIVE_PENDING",
-                "Import succeeded previously, but the archive move did not finish.",
-            )
-        by_sha, by_package = self._successful_import_index()
-        if checksum.lower() in by_sha:
-            return ImportCandidate(
-                resolved, checksum, modified_at, package_id, lane, "DUPLICATE",
-                "SHA-256 checksum was imported previously.",
-            )
-        if package_id and package_id in by_package:
-            return ImportCandidate(
-                resolved, checksum, modified_at, package_id, lane, "DUPLICATE",
-                "package_id was imported previously.",
-            )
-        if identity_error:
-            return ImportCandidate(
-                resolved, checksum, modified_at, package_id, lane, "INVALID", identity_error,
-            )
-        protected = self._protected_manifest_states(resolved)
-        if protected:
-            details = "; ".join(
-                f"{row['task_id']}: {', '.join(row['states'])}" for row in protected
-            )
-            return ImportCandidate(
-                resolved,
-                checksum,
-                modified_at,
-                package_id,
-                lane,
-                "STALE_PROTECTED",
-                f"Package targets protected website state and is no longer pending ({details}).",
-            )
-        validation = self.validate_zip(resolved)
-        if validation.get("status") != "VALIDATION_PASS":
-            reasons = [
-                _text(row.get("reason")) for row in validation.get("rejected", [])
-                if isinstance(row, dict) and row.get("reason")
-            ]
-            return ImportCandidate(
-                resolved, checksum, modified_at, package_id, lane, "INVALID",
-                "; ".join(reasons) or "Shared completed-drafts validator failed.",
-            )
-        return ImportCandidate(resolved, checksum, modified_at, package_id, lane, "PENDING", "")
+        return self._return_discovery().inspect_candidate(
+            source,
+            manifest_identity=self._manifest_identity,
+            successful_import_index=self._successful_import_index,
+            protected_manifest_states=self._protected_manifest_states,
+        )
 
     def _lifecycle_path(self, checksum: str) -> Path:
         return self.lifecycle_root / f"{checksum}.json"

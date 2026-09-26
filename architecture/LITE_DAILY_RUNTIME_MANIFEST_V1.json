@@ -129,6 +129,7 @@
       "reason": "X/W queue, immutable evidence package, validation, import, and final revision staging.",
       "files": [
         "modules/external_writer_pipeline.py",
+        "modules/external_writer_return_discovery.py",
         "modules/external_writer_source_preflight.py",
         "modules/verified_writer_package.py",
         "modules/final_revision_staging.py",
@@ -321,11 +322,11 @@
     "DELETION_CANDIDATE"
   ],
   "summary": {
-    "unique_component_files": 125,
-    "existing_component_files": 125,
-    "python_component_files": 120,
-    "approximate_python_loc": 68449,
-    "component_dependency_edges_from_full_manifest": 272,
+    "unique_component_files": 126,
+    "existing_component_files": 126,
+    "python_component_files": 121,
+    "approximate_python_loc": 68576,
+    "component_dependency_edges_from_full_manifest": 273,
     "excluded_default_features": 7,
     "deletion_candidates": 0
   },
