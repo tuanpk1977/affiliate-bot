@@ -174,7 +174,12 @@ class SocialPublishFrameworkTests(unittest.TestCase):
             self.assertTrue(result.file_path.exists())
             saved = result.file_path.read_text(encoding="utf-8")
             self.assertIn("https://smileaireviewhub.com/one/", saved)
-            self.assertIn("Platform: pinterest", saved)
+            self.assertIn("PIN TITLE", saved)
+            self.assertIn("PIN DESCRIPTION", saved)
+            self.assertIn("DESTINATION URL", saved)
+            self.assertNotIn("Platform: pinterest", saved)
+            description_block = saved.split("PIN DESCRIPTION", 1)[1].split("DESTINATION URL", 1)[0]
+            self.assertNotIn("https://", description_block)
 
     def test_platform_content_contains_url_and_long_form_is_excerpt(self) -> None:
         long_summary = " ".join(f"word{i}" for i in range(500))

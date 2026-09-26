@@ -43,6 +43,13 @@ def profile_payload(**overrides: object) -> dict:
         "seo_defaults": {"canonical_base_url": "https://smileaireviewhub.com"},
         "social_platform_settings": {"manual_publish_only": True},
         "source_policy": {"minimum_usable_sources": 2},
+        "compliance": {
+            "risk_level": "low",
+            "regulated_content": False,
+            "expert_review_required": False,
+            "disclaimer_required": False,
+            "official_sources_required": True,
+        },
         "output": {
             "site_output_dir": "site_output",
             "production_output_dir": "docs",
@@ -355,7 +362,7 @@ def test_page_shell_adapter_is_exactly_byte_equivalent(
     assert "\r\n" not in adapter_html
 
 
-def test_page_shell_mismatched_profile_still_renders_legacy_name(
+def test_page_shell_mismatched_profile_renders_public_brand(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     import modules.site_builder as site_builder
@@ -366,7 +373,8 @@ def test_page_shell_mismatched_profile_still_renders_legacy_name(
         lambda **kwargs: SimpleNamespace(site_name=site_builder.settings.site_name),
     )
     rendered = page_shell("Preview", "Description", "<h1>Preview</h1>", "/preview/")
-    assert f"Preview - {site_builder.settings.site_name}" in rendered
+    assert "Preview - Smile AI Review Hub" in rendered
+    assert f"Preview - {site_builder.settings.site_name}" not in rendered
 
 
 def test_drift_marks_only_renderer_adapter_as_integrated() -> None:

@@ -14,6 +14,7 @@ from unittest.mock import patch
 
 from modules.ai_trend_discovery import TopicCandidate, TrendDiscoveryEngine, TrendSignal
 from modules.daily_editorial_workflow import DailyEditorialWorkflow
+from modules.revision_binding import binding_for_content
 
 EDITORIAL_CONSOLE_PATH = Path(__file__).resolve().parents[1] / "editorial_console.py"
 EDITORIAL_CONSOLE_SPEC = spec_from_file_location("root_editorial_console", EDITORIAL_CONSOLE_PATH)
@@ -31,6 +32,65 @@ def _write_json(path: Path, payload: object) -> None:
 
 def _read_json_for_test(path: Path) -> object:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _canonical_article_html(title: str = "Good") -> str:
+    return f"""<!doctype html>
+<html lang="en"><head>
+<title>{title}</title>
+<meta name="description" content="desc">
+<link rel="canonical" href="https://smileaireviewhub.com/good/">
+<link rel="stylesheet" href="/assets/article.css">
+<script type="application/ld+json">{{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[]}}</script>
+</head><body>
+<header class="site-header"><nav class="site-nav"></nav></header>
+<main class="article-layout"><article class="article-container">
+<img src="/assets/hero.webp" alt="Article hero" width="1200" height="630">
+<a class="cta-button" href="https://example.com" rel="noopener noreferrer">Visit official website</a>
+<div class="table-wrapper"><table class="article-table"><thead><tr><th scope="col">Tool</th></tr></thead><tbody><tr><th scope="row">One</th></tr></tbody></table></div>
+<section id="faq"><div class="faq-list"><details><summary>Question?</summary><p>Answer.</p></details></div></section>
+</article></main>
+<footer class="site-footer">
+<div class="footer-grid"><div class="footer-column footer-brand"><p class="footer-description">Independent reviews.</p></div>
+<div class="footer-column"><ul class="footer-links"><li><a href="/reviews/">Reviews</a></li></ul></div>
+<div class="footer-column"><ul class="footer-links"><li><a href="/about/">About</a></li></ul></div>
+<div class="footer-column"><ul class="footer-links footer-social-links"><li><a href="https://example.com">LinkedIn</a></li></ul></div></div>
+<div class="footer-bottom"><p>Copyright</p></div>
+</footer></body></html>"""
+
+
+def _authorized_publish_row(slug: str, html_text: str) -> dict:
+    binding = binding_for_content(html_text)
+    return {
+        "slug": slug,
+        "status": "approved_for_publish",
+        "failures": [],
+        "human_approval_passed": True,
+        "approval_binding_status": "MATCHED",
+        "current_authorization": "valid",
+        "current_content_hash": binding["content_hash"],
+        "current_revision_id": binding["revision_id"],
+    }
+
+
+def _write_canonical_hero(root: Path) -> None:
+    hero = root / "assets" / "hero.webp"
+    hero.parent.mkdir(parents=True, exist_ok=True)
+    hero.write_bytes(b"test-webp")
+
+
+def _bound_quality_row(slug: str, html_text: str) -> dict:
+    binding = binding_for_content(html_text)
+    return {
+        "slug": slug,
+        "status": "needs_human_review",
+        "quality_review_status": "needs_human_review",
+        "quality_review_state": "PASS",
+        "reviewed_revision_id": binding["revision_id"],
+        "reviewed_content_hash": binding["content_hash"],
+        "publishable": True,
+        "hard_blockers": [],
+    }
 
 
 def _canonical_article_html(title: str = "Good") -> str:
@@ -181,14 +241,15 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             ["validate-batch"],
             ["autofix-batch"],
             ["status"],
-            ["check-live"],
-            ["check-live", "--blocked-only"],
             ["open"],
             ["serve"],
         ):
             with self.subTest(args=args):
                 parsed = parser.parse_args(args)
                 self.assertEqual(parsed.date, today)
+
+        self.assertEqual(parser.parse_args(["check-live"]).date, "latest")
+        self.assertEqual(parser.parse_args(["check-live", "--blocked-only"]).date, "latest")
 
     def test_editorial_console_request_topic_parser(self) -> None:
         parser = build_parser()
@@ -347,8 +408,14 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
         self.assertIn("de trong = batch moi nhat", menu_text)
         self.assertIn("python editorial_console.py publish-ready --date latest --validation-mode smart", menu_text)
         self.assertIn("python editorial_console.py check-live --open", menu_text)
+        self.assertIn("python editorial_console.py check-live --date latest --open", menu_text)
+        self.assertIn("python editorial_console.py check-live --all --open", menu_text)
         self.assertIn("python editorial_console.py check-live --blocked-only --open", menu_text)
-        self.assertNotIn("check-live --all", menu_text)
+        blocked_section = menu_text.split(":blocked_reasons", 1)[1].split(":publish_ready", 1)[0]
+        self.assertIn("chuong trinh khong bi dong", blocked_section)
+        self.assertIn("goto menu", blocked_section)
+        history_section = menu_text.split(":check_live_history", 1)[1].split(":blocked_reasons", 1)[0]
+        self.assertIn("check-live --all", history_section)
         open_section = menu_text.split(":open_dashboard", 1)[1].split(":status", 1)[0]
         self.assertNotIn("pause", open_section.lower())
 
@@ -384,7 +451,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
         self.assertTrue(parsed.open)
         self.assertTrue(parsed.background)
 
-    def test_prepare_required_images_generates_only_ready_human_approved_articles(self) -> None:
+    def test_prepare_required_images_breaks_missing_image_gate_cycle_for_human_approved_articles(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
             workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
@@ -396,6 +463,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                     "topics": [
                         {"slug": "ready-topic", "topic": "Ready Topic", "batch_date": batch_date},
                         {"slug": "blocked-topic", "topic": "Blocked Topic", "batch_date": batch_date},
+                        {"slug": "unapproved-topic", "topic": "Unapproved Topic", "batch_date": batch_date},
                     ],
                 },
             )
@@ -404,6 +472,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 [
                     {"slug": "ready-topic", "status": "approved_for_publish", "final_gate": "Ready for Publish", "hard_blockers": [], "url": "https://smileaireviewhub.com/ready-topic/"},
                     {"slug": "blocked-topic", "status": "blocked", "final_gate": "Publish Blocked", "hard_blockers": ["source mismatch"], "url": "https://smileaireviewhub.com/blocked-topic/"},
+                    {"slug": "unapproved-topic", "status": "blocked", "final_gate": "Publish Blocked", "hard_blockers": ["human approval missing"], "url": "https://smileaireviewhub.com/unapproved-topic/"},
                 ],
             )
             _write_json(
@@ -411,9 +480,14 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 [
                     {"slug": "ready-topic", "status": "human_approved"},
                     {"slug": "blocked-topic", "status": "human_approved"},
+                    {"slug": "unapproved-topic", "status": "needs_human_review"},
                 ],
             )
-            for slug, title in (("ready-topic", "Ready Topic"), ("blocked-topic", "Blocked Topic")):
+            for slug, title in (
+                ("ready-topic", "Ready Topic"),
+                ("blocked-topic", "Blocked Topic"),
+                ("unapproved-topic", "Unapproved Topic"),
+            ):
                 draft_dir = root / "data" / "production_article_drafts" / slug
                 draft_dir.mkdir(parents=True, exist_ok=True)
                 html_without_image = re.sub(r"<img\b[^>]*>\n?", "", _canonical_article_html(title), flags=re.IGNORECASE)
@@ -422,12 +496,14 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
 
             result = workflow.prepare_required_images_for_publish(batch_date=batch_date)
 
-            self.assertEqual(result["missing"], 1)
-            self.assertEqual(result["generated"], 1)
+            self.assertEqual(result["missing"], 2)
+            self.assertEqual(result["generated"], 2)
             ready_html = (root / "data" / "production_article_drafts" / "ready-topic" / "index.html").read_text(encoding="utf-8")
             blocked_html = (root / "data" / "production_article_drafts" / "blocked-topic" / "index.html").read_text(encoding="utf-8")
+            unapproved_html = (root / "data" / "production_article_drafts" / "unapproved-topic" / "index.html").read_text(encoding="utf-8")
             self.assertIn("/assets/og/pages/ready-topic.svg", ready_html)
-            self.assertNotIn("/assets/og/pages/blocked-topic.svg", blocked_html)
+            self.assertIn("/assets/og/pages/blocked-topic.svg", blocked_html)
+            self.assertNotIn("/assets/og/pages/unapproved-topic.svg", unapproved_html)
             self.assertTrue((root / "site_output" / "assets" / "og" / "pages" / "ready-topic.svg").exists())
             metadata = _read_json_for_test(root / "data" / "production_article_drafts" / "ready-topic" / "metadata.json")
             self.assertEqual(metadata["image"]["width"], 1200)
@@ -468,7 +544,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 result = workflow.prepare_research(batch_date=batch_date)
 
             self.assertEqual(result["batch_state"], "QUEUE_CREATED")
-            self.assertEqual(result["next_command"], "python scripts/codex_write_daily_articles.py --date latest --count 10 --depth deep")
+            self.assertEqual(result["next_command"], "Create today's Website queue.")
             self.assertFalse((root / "site_output" / "review" / batch_date / "index.html").exists())
             self.assertFalse((root / "upload" / batch_date / "review_dashboard.html").exists())
             self.assertFalse((root / "upload" / "dashboard.html").exists())
@@ -560,7 +636,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertEqual(root_topic["status"], "active")
             self.assertEqual(root_topic["daily_angles"]["2026-07-07"]["angle"], "main_review")
 
-    def test_menu_1_persists_exactly_ten_weekly_root_topics(self) -> None:
+    def test_menu_1_persists_up_to_two_weekly_root_topics(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
             workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
@@ -583,10 +659,11 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                     payload = workflow.trend(count=10, mode="standard", batch_date="2026-07-06")
 
             weekly = _read_json_for_test(root / "data" / "editorial_queue" / "weeks" / "2026-07-06" / "week.json")
-            self.assertEqual(payload["count"], 10)
-            self.assertEqual(weekly["count"], 10)
-            self.assertEqual(len(weekly["topics"]), 10)
-            self.assertEqual(len({item["root_topic_id"] for item in weekly["topics"]}), 10)
+            self.assertEqual(payload["count"], 2)
+            self.assertEqual(weekly["count"], 2)
+            self.assertEqual(len(weekly["topics"]), 2)
+            self.assertEqual(len({item["root_topic_id"] for item in weekly["topics"]}), 2)
+            self.assertEqual(weekly["maximum_root_count"], 2)
             self.assertTrue(all("2026-07-06" in item["daily_angles"] for item in weekly["topics"]))
 
     def test_daily_followup_reuses_roots_without_discovery_and_tracks_tuesday_angle(self) -> None:
@@ -651,7 +728,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                         "competition_difficulty_score": 40,
                         "product_availability_score": 75,
                         "search_intent_score": 90,
-                        "daily_angles": {},
+                        "daily_angles": {"2026-07-13": {"angle": "main_review", "slug": "mastra-ai-review-2026", "status": "drafted"}},
                     }
                 ],
             }
@@ -668,16 +745,18 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertEqual(second["new_angles_created"], 0)
             self.assertEqual(queue_path.read_bytes(), first_bytes)
 
-    def test_daily_followup_missing_week_stops_without_discovery_or_queue(self) -> None:
+    def test_daily_followup_without_latest_or_weekly_root_reports_no_eligible_root(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
             workflow = DailyEditorialWorkflow(root=root, data_dir=root / "data", site_output_dir=root / "site_output")
 
             with patch("modules.daily_editorial_workflow.TrendDiscoveryEngine") as discovery:
-                with self.assertRaisesRegex(FileNotFoundError, "No weekly root topics found"):
-                    workflow.daily_followup_dry_run(count=10, batch_date="2026-07-14")
+                payload = workflow.daily_followup_dry_run(count=10, batch_date="2026-07-14")
 
             discovery.assert_not_called()
+            self.assertEqual(payload["daily_decision"], "NO_ELIGIBLE_DEEP_DIVE_ROOT")
+            self.assertEqual(payload["root_source"], "NONE")
+            self.assertEqual(payload["next_command"], "")
             self.assertFalse((root / "data" / "editorial_queue" / "2026-07-14").exists())
             self.assertFalse((root / "data" / "editorial_queue" / "weeks" / "2026-07-13" / "generation.lock").exists())
 
@@ -697,7 +776,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                         "affiliate_monetization_score": 70, "competition_difficulty_score": 40,
                         "product_availability_score": 75, "content_freshness_score": 85,
                         "source_urls": ["https://pydantic.dev/docs/ai/overview/", "https://github.com/pydantic/pydantic-ai"],
-                        "daily_angles": {},
+                        "daily_angles": {"2026-07-13": {"angle": "main_review", "slug": "pydantic-ai-review-2026", "status": "drafted"}},
                     }],
                 },
             )
@@ -725,7 +804,10 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                         "competition_difficulty_score": 40, "product_availability_score": 75,
                         "content_freshness_score": 85,
                         "source_urls": ["https://pydantic.dev/docs/ai/overview/", "https://github.com/pydantic/pydantic-ai"],
-                        "daily_angles": {"2026-07-14": {"angle": "implementation_guide", "title": "Existing guide", "slug": "existing-guide"}},
+                        "daily_angles": {
+                            "2026-07-13": {"angle": "main_review", "slug": "pydantic-ai-review-2026", "status": "drafted"},
+                            "2026-07-14": {"angle": "implementation_guide", "title": "Existing guide", "slug": "existing-guide"},
+                        },
                     }],
                 },
             )
@@ -926,7 +1008,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertEqual(rejected[0]["slug"], "weak")
             self.assertIn("1 usable sources below 2", rejected[0]["reason"])
 
-    def test_source_ready_selection_fails_when_pool_has_fewer_than_ten_passing_topics(self) -> None:
+    def test_source_ready_selection_caps_foundation_roots_at_two(self) -> None:
         with TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
             _write_json(root / "config" / "editorial_system.json", {"knowledge_review": {"minimum_verified_sources": 2, "minimum_freshness": 35}})
@@ -938,8 +1020,9 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
 
             selected, rejected = workflow._select_source_ready_topics(candidates, count=10)
 
-            self.assertEqual(len(selected), 9)
-            self.assertEqual(rejected, [])
+            self.assertEqual(len(selected), 2)
+            self.assertEqual(len(rejected), 7)
+            self.assertTrue(all(row["selection_result"] == "REJECTED_MAX_CAP_REACHED" for row in rejected))
 
     def test_trend_dry_run_replaces_semantically_invalid_top_topics(self) -> None:
         with TemporaryDirectory() as temp_dir:
@@ -982,11 +1065,12 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
 
             slugs = [item["slug"] for item in payload["topics"]]
             self.assertEqual(payload["final_decision"], "PASS")
-            self.assertEqual(len(slugs), 10)
+            self.assertEqual(len(slugs), 2)
+            self.assertEqual(payload["maximum_root_count"], 2)
             self.assertNotIn("core-review-2026", slugs)
             self.assertNotIn("ai-hedge-fund-review-2026", slugs)
             self.assertNotIn("12-best-ai-for-coding-tools-in-2026-vibecoding-data-science", slugs)
-            self.assertEqual(slugs[-3:], ["pydantic-ai-review-2026", "n8n-ai-agents-review-2026", "mastra-ai-review-2026"])
+            self.assertEqual(slugs, [f"valid-topic-{index}" for index in range(2)])
             self.assertFalse((root / "data" / "editorial_queue" / "2026-07-13" / "topics.json").exists())
             self.assertFalse((root / "data" / "editorial_queue" / "weeks" / "2026-07-13" / "week.json").exists())
 
@@ -1793,8 +1877,15 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             )
             _write_json(
                 data_dir / "publish_queue.json",
-                [{"slug": "one", "status": "approved_for_publish", "failures": []}],
+                [_authorized_publish_row("one", _canonical_article_html("One"))],
             )
+            binding = binding_for_content(_canonical_article_html("One"))
+            _write_json(data_dir / "human_approval_queue.json", [{
+                "slug": "one", "status": "human_approved", "approved_by": "operator",
+                "approved_content_hash": binding["content_hash"],
+                "approved_revision_id": binding["revision_id"],
+            }])
+            _write_json(data_dir / "content_review_queue.json", [_bound_quality_row("one", _canonical_article_html("One"))])
 
             with patch.object(workflow.console, "publish_slug", return_value={"site_file": str(site_output / "one" / "index.html"), "article_file": str(data_dir / "published_static_pages" / "one" / "index.html")}):
                 (site_output / "one").mkdir(parents=True, exist_ok=True)
@@ -1857,11 +1948,18 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             _write_json(
                 data_dir / "publish_queue.json",
                 [
-                    {"slug": "one", "status": "approved_for_publish", "failures": []},
+                    _authorized_publish_row("one", _canonical_article_html("One")),
                     {"slug": "two", "status": "blocked", "failures": ["AI review failed"]},
                 ],
             )
-            _write_json(data_dir / "human_approval_queue.json", [{"slug": "one", "status": "human_approved"}])
+            binding = binding_for_content(_canonical_article_html("One"))
+            _write_json(data_dir / "human_approval_queue.json", [{
+                "slug": "one", "status": "human_approved", "approved_by": "operator",
+                "approved_content_hash": binding["content_hash"],
+                "approved_revision_id": binding["revision_id"],
+            }])
+            _write_json(data_dir / "content_review_queue.json", [_bound_quality_row("one", _canonical_article_html("One"))])
+            _write_canonical_hero(root)
             draft = data_dir / "production_article_drafts" / "one" / "index.html"
             draft.parent.mkdir(parents=True, exist_ok=True)
             draft.write_text(_canonical_article_html("One"), encoding="utf-8")
@@ -2001,7 +2099,22 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                     {"slug": other_slug, "status": "approved_for_publish", "failures": [], "hard_blockers": [], "url": f"https://smileaireviewhub.com/{other_slug}/"},
                 ],
             )
-            _write_json(data_dir / "human_approval_queue.json", [{"slug": target_slug, "status": "human_approved"}, {"slug": other_slug, "status": "human_approved"}])
+            target_binding = binding_for_content(_canonical_article_html(target_slug))
+            other_binding = binding_for_content(_canonical_article_html(other_slug))
+            publish_rows = _read_json_for_test(data_dir / "publish_queue.json")
+            for row, binding in zip(publish_rows, (target_binding, other_binding)):
+                row["current_revision_id"] = binding["revision_id"]
+                row["current_content_hash"] = binding["content_hash"]
+            _write_json(data_dir / "publish_queue.json", publish_rows)
+            _write_json(data_dir / "human_approval_queue.json", [
+                {"slug": target_slug, "status": "human_approved", "approved_revision_id": target_binding["revision_id"], "approved_content_hash": target_binding["content_hash"]},
+                {"slug": other_slug, "status": "human_approved", "approved_revision_id": other_binding["revision_id"], "approved_content_hash": other_binding["content_hash"]},
+            ])
+            _write_json(data_dir / "content_review_queue.json", [
+                _bound_quality_row(target_slug, _canonical_article_html(target_slug)),
+                _bound_quality_row(other_slug, _canonical_article_html(other_slug)),
+            ])
+            _write_canonical_hero(root)
             for slug in (target_slug, other_slug):
                 draft_dir = data_dir / "production_article_drafts" / slug
                 draft_dir.mkdir(parents=True, exist_ok=True)
@@ -2034,7 +2147,14 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 data_dir / "publish_queue.json",
                 [{"slug": slug, "status": "approved_for_publish", "failures": [], "hard_blockers": [], "url": f"https://smileaireviewhub.com/{slug}/"}],
             )
-            _write_json(data_dir / "human_approval_queue.json", [{"slug": slug, "status": "human_approved"}])
+            approved_binding = binding_for_content(_canonical_article_html("Best Agent Skills Review 2026"))
+            publish_rows = _read_json_for_test(data_dir / "publish_queue.json")
+            publish_rows[0]["current_revision_id"] = approved_binding["revision_id"]
+            publish_rows[0]["current_content_hash"] = approved_binding["content_hash"]
+            _write_json(data_dir / "publish_queue.json", publish_rows)
+            _write_json(data_dir / "human_approval_queue.json", [{"slug": slug, "status": "human_approved", "approved_revision_id": approved_binding["revision_id"], "approved_content_hash": approved_binding["content_hash"]}])
+            _write_json(data_dir / "content_review_queue.json", [_bound_quality_row(slug, _canonical_article_html("Best Agent Skills Review 2026"))])
+            _write_canonical_hero(root)
             draft_dir = data_dir / "production_article_drafts" / slug
             draft_dir.mkdir(parents=True, exist_ok=True)
             (draft_dir / "index.html").write_text(_canonical_article_html("Best Agent Skills Review 2026"), encoding="utf-8")
@@ -2221,7 +2341,7 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             self.assertEqual(report["items"][0]["local_status"], "docs_synced")
             self.assertEqual(report["items"][0]["git_status"], "pushed")
             self.assertEqual(report["items"][0]["live_status"], "404")
-            self.assertEqual(report["items"][0]["display_status"], "Unexpected Live 404")
+            self.assertEqual(report["items"][0]["display_status"], "Published Local")
             self.assertIn("Live 404", report["items"][0]["block_reason"])
             self.assertIn("check-live", report["items"][0]["next_action_command"])
             self.assertTrue((data_dir / "live_status_report.json").exists())
@@ -2328,8 +2448,8 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
 
             item = report["items"][0]
             self.assertEqual(item["publish_queue_status"], "committed_local")
-            self.assertEqual(item["publish_gate_status"], "Committed Local")
-            self.assertEqual(item["display_status"], "Awaiting Push")
+            self.assertEqual(item["publish_gate_status"], "Committed")
+            self.assertEqual(item["display_status"], "Committed")
             self.assertIn("Awaiting Push", item["block_reason"])
             self.assertEqual(report["summary"]["committed_local"], 1)
             self.assertEqual(report["summary"]["awaiting_push"], 1)
@@ -2430,10 +2550,10 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
                 report = workflow.check_live(batch_date="2026-07-07")
 
             item = report["items"][0]
-            self.assertEqual(item["display_status"], "Missing Local Output")
+            self.assertEqual(item["display_status"], "Publish Blocked")
             self.assertIn("Publish Blocked", item["block_reason"])
             self.assertIn("affiliate disclosure missing", item["block_reason"])
-            self.assertIn("Need better verified sources", item["block_reason"])
+            self.assertIn("verified source score too low", item["block_reason"])
             self.assertIn("Recommended Action", item["resolution"])
             self.assertIn("serve --date 2026-07-07 --open", item["next_action_command"])
 
@@ -2600,12 +2720,13 @@ class DailyEditorialWorkflowTests(unittest.TestCase):
             summary = workflow.status(batch_date="2026-07-07")
 
             self.assertEqual(summary["total_topics"], 4)
-            self.assertEqual(summary["drafts"], 2)
+            self.assertEqual(summary["drafts"], 0)
+            self.assertEqual(summary["waiting_for_draft"], 2)
             self.assertEqual(summary["needs_review"], 1)
             self.assertEqual(summary["human_approved"], 1)
-            self.assertEqual(summary["ready_for_publish"], 1)
-            self.assertEqual(summary["publish_blocked"], 0)
-            self.assertEqual(summary["human_approval_required"], 1)
+            self.assertEqual(summary["ready_for_publish"], 0)
+            self.assertEqual(summary["publish_blocked"], 2)
+            self.assertEqual(summary["human_approval_required"], 0)
             self.assertEqual(summary["published_this_batch"], 0)
 
     def test_live_200_blocked_article_is_not_counted_as_unpublished_error(self) -> None:

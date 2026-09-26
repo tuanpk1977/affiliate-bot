@@ -9,6 +9,7 @@ import pytest
 
 from modules.daily_editorial_workflow import DailyEditorialWorkflow
 from modules.publish_lock import PublishLock
+from modules.revision_binding import binding_for_content
 
 
 def write_json(path: Path, payload: object) -> None:
@@ -18,13 +19,16 @@ def write_json(path: Path, payload: object) -> None:
 
 def seed_ready(root: Path, slug: str = "ready-article") -> DailyEditorialWorkflow:
     data = root / "data"
+    html_text = "<html><head><link rel='canonical' href='https://smileaireviewhub.com/ready-article/'></head><body><img src='hero.webp'><a class='cta-button' href='/reviews/'>Compare options</a><script type='application/ld+json'>{}</script></body></html>"
+    binding = binding_for_content(html_text)
     write_json(data / "editorial_queue" / "2026-07-11" / "topics.json", {"date": "2026-07-11", "count": 1, "topics": [{"slug": slug, "keyword": slug, "status": "approved", "batch_date": "2026-07-11"}]})
-    write_json(data / "publish_queue.json", [{"slug": slug, "status": "approved_for_publish", "failures": [], "hard_blockers": [], "url": f"https://smileaireviewhub.com/{slug}/"}])
-    write_json(data / "human_approval_queue.json", [{"slug": slug, "status": "human_approved"}])
+    write_json(data / "content_review_queue.json", [{"slug": slug, "status": "needs_human_review", "quality_review_status": "needs_human_review", "quality_review_state": "PASS", "reviewed_revision_id": binding["revision_id"], "reviewed_content_hash": binding["content_hash"], "publishable": True, "hard_blockers": []}])
+    write_json(data / "publish_queue.json", [{"slug": slug, "status": "approved_for_publish", "failures": [], "hard_blockers": [], "ai_review_passed": True, "current_revision_id": binding["revision_id"], "current_content_hash": binding["content_hash"], "url": f"https://smileaireviewhub.com/{slug}/"}])
+    write_json(data / "human_approval_queue.json", [{"slug": slug, "status": "human_approved", "approved_revision_id": binding["revision_id"], "approved_content_hash": binding["content_hash"]}])
     write_json(data / "live_status_report.json", {"items": []})
     draft = data / "production_article_drafts" / slug / "index.html"
     draft.parent.mkdir(parents=True)
-    draft.write_text("<html><head><link rel='canonical' href='https://smileaireviewhub.com/ready-article/'></head><body><img src='hero.webp'><script type='application/ld+json'>{}</script></body></html>", encoding="utf-8")
+    draft.write_text(html_text, encoding="utf-8")
     return DailyEditorialWorkflow(root=root, data_dir=data, site_output_dir=root / "site_output")
 
 
