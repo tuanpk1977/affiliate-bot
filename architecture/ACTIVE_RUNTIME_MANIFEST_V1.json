@@ -46,9 +46,9 @@
     "dashboard/app.py"
   ],
   "summary": {
-    "active_runtime_files": 240,
-    "active_python_runtime_files": 232,
-    "active_test_files": 142,
+    "active_runtime_files": 241,
+    "active_python_runtime_files": 233,
+    "active_test_files": 143,
     "active_config_files": 5,
     "legacy_candidates": 0,
     "files_quarantined_this_run": 0,
@@ -1859,6 +1859,7 @@
         "tests/test_editorial_memory_long_term_phase2.py",
         "tests/test_editorial_pipeline_recovery_e2e.py",
         "tests/test_editorial_writing_standards.py",
+        "tests/test_external_writer_package_materialization_characterization.py",
         "tests/test_external_writer_return_discovery_characterization.py",
         "tests/test_menu2_research_workflow.py",
         "tests/test_research_intelligence_engine.py",
@@ -1874,6 +1875,7 @@
         "modules/codex_writer_workflow.py",
         "modules/content_review.py",
         "modules/daily_editorial_workflow.py",
+        "modules/external_writer_package_materialization.py",
         "modules/external_writer_return_discovery.py",
         "modules/external_writer_return_validator.py",
         "modules/external_writer_source_preflight.py",
@@ -1904,6 +1906,26 @@
       "runtime_required": true,
       "test_required": true,
       "reason": "Reachable from an active or compatibility operator entrypoint through imports/script dispatch.",
+      "confidence": "HIGH"
+    },
+    {
+      "path": "modules/external_writer_package_materialization.py",
+      "classification": "ACTIVE_RUNTIME",
+      "referenced_by": [
+        "modules/external_writer_pipeline.py"
+      ],
+      "imports": [],
+      "entrypoint_reachability": [
+        "dashboard/app.py",
+        "editorial_console.py",
+        "external_writer_console.py",
+        "main.py",
+        "scripts/editorial_console.py",
+        "social_console.py"
+      ],
+      "runtime_required": true,
+      "test_required": true,
+      "reason": "Canonical EWP-R03 writer-package input and guidance materialization service imported by the active external writer pipeline facade.",
       "confidence": "HIGH"
     },
     {
@@ -7110,6 +7132,23 @@
       "runtime_required": false,
       "test_required": true,
       "reason": "Current test-suite file discovered under tests/.",
+      "confidence": "HIGH"
+    },
+    {
+      "path": "tests/test_external_writer_package_materialization_characterization.py",
+      "classification": "ACTIVE_TEST",
+      "referenced_by": [
+        "pytest discovery"
+      ],
+      "imports": [
+        "modules/external_writer_pipeline.py"
+      ],
+      "entrypoint_reachability": [
+        "python -m pytest"
+      ],
+      "runtime_required": false,
+      "test_required": true,
+      "reason": "EWP-R03 writer-package input and guidance materialization characterization and legacy facade contract.",
       "confidence": "HIGH"
     },
     {

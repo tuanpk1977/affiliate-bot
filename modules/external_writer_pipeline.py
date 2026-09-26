@@ -29,6 +29,7 @@ from modules.external_writer_return_discovery import (
     ExternalWriterReturnDiscovery,
     ImportCandidate,
 )
+from modules.external_writer_package_materialization import ExternalWriterPackageMaterializer
 from modules.research_artifacts import resolve_research_artifacts
 from modules.affiliate_opportunity_discovery import build_affiliate_opportunity_brief
 from modules.research_enrichment import ResearchEnrichmentPipeline, SourceRetriever
@@ -1022,6 +1023,12 @@ class UniversalExternalWriterExporter:
         self.queue = UniversalWriteQueue(root=root)
         self.export_root = root / "exports" / "external_writer"
 
+    def _package_materializer(self) -> ExternalWriterPackageMaterializer:
+        return ExternalWriterPackageMaterializer(
+            root=self.root,
+            affiliate_brief_builder=build_affiliate_opportunity_brief,
+        )
+
     def export(
         self,
         *,
@@ -1806,242 +1813,29 @@ class UniversalExternalWriterExporter:
         return ready, held
 
     def _copy_inputs(self, package_dir: Path, tasks: list[dict[str, Any]]) -> None:
-        for task in tasks:
-            slug = task["article_slug"]
-            task_id = task["task_id"]
-            strict_verified_package = bool(_text(task.get("legacy_queue_file")))
-            for fact_root in (
-                self.root / "data" / "write_queue" / task_id,
-                self.root / "data" / "intelligence" / "verified_facts" / task_id,
-            ):
-                for name in ("verified_facts.json", "facts_to_verify.json", "fact_conflicts.json"):
-                    source = fact_root / name
-                    if source.is_file():
-                        target = package_dir / "research" / slug / "verified_facts" / name
-                        target.parent.mkdir(parents=True, exist_ok=True)
-                        shutil.copy2(source, target)
-            if not strict_verified_package:
-                for raw in list(task.get("research_files") or []):
-                    source = self.root / raw
-                    if source.is_file():
-                        target = package_dir / "research" / slug / source.name
-                        target.parent.mkdir(parents=True, exist_ok=True)
-                        shutil.copy2(source, target)
-            if _text(task.get("task_type")).startswith("WEBSITE_"):
-                self._copy_website_research_artifacts(package_dir, slug)
-            if _text(task.get("task_type")) == "WEBSITE_UPDATE":
-                self._copy_existing_article_snapshot(package_dir, task)
-            for raw in list(task.get("source_files") or []):
-                source = self.root / raw
-                if source.is_file():
-                    target = package_dir / "official_sources" / slug / source.name
-                    target.parent.mkdir(parents=True, exist_ok=True)
-                    shutil.copy2(source, target)
-            for asset_root in (
-                self.root / "data" / "social_drafts" / task["batch_date"] / slug / "assets",
-                self.root / "data" / "production_article_drafts" / slug / "assets",
-            ):
-                if not asset_root.exists():
-                    continue
-                target_root = package_dir / "images" / slug
-                target_root.mkdir(parents=True, exist_ok=True)
-                for source in asset_root.iterdir():
-                    if source.is_file() and source.suffix.lower() in {".png", ".jpg", ".jpeg", ".webp", ".svg"}:
-                        shutil.copy2(source, target_root / source.name)
-            if task["task_type"] == "WEBSITE_ADVANCED":
-                self._copy_series_history(package_dir, task)
+        self._package_materializer().copy_inputs(
+            package_dir,
+            tasks,
+            copy_website_research_artifacts=self._copy_website_research_artifacts,
+            copy_existing_article_snapshot=self._copy_existing_article_snapshot,
+            copy_series_history=self._copy_series_history,
+        )
 
     def _copy_existing_article_snapshot(self, package_dir: Path, task: dict[str, Any]) -> None:
-        """Supply a read-only current-article snapshot for in-place refresh tasks."""
-        slug = _text(task.get("article_slug"))
-        source_root = self.root / "data" / "production_article_drafts" / slug
-        target_root = package_dir / "existing_article" / slug
-        copied: list[str] = []
-        for source_name, target_name in (
-            ("article.md", "article.md"),
-            ("metadata.json", "metadata.json"),
-        ):
-            source = source_root / source_name
-            if source.is_file():
-                target_root.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(source, target_root / target_name)
-                copied.append(target_name)
-        if not copied:
-            html_source = source_root / "index.html"
-            if html_source.is_file():
-                target_root.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(html_source, target_root / "current_article.html")
-                copied.append("current_article.html")
-        _write_json(
-            target_root / "refresh_contract.json",
-            {
-                "schema_version": "existing_article_refresh_contract_v1",
-                "task_type": "UPDATE EXISTING ARTICLE",
-                "existing_slug": slug,
-                "preserve_slug": True,
-                "create_new_url": False,
-                "refresh_reason": list(task.get("refresh_reason") or []),
-                "refresh_scope": list(task.get("refresh_scope") or []),
-                "snapshot_files": copied,
-                "human_approval_required": True,
-            },
-        )
+        self._package_materializer().copy_existing_article_snapshot(package_dir, task)
 
     def _copy_website_research_artifacts(self, package_dir: Path, slug: str) -> None:
-        """Copy the prepared local research package that external writers need."""
-        source_root = self.root / "data" / "research" / slug
-        if not source_root.is_dir():
-            return
-        target_root = package_dir / "research" / slug
-        copied: list[dict[str, Any]] = []
-        for source in sorted(source_root.rglob("*")):
-            if not source.is_file():
-                continue
-            if source.suffix.lower() not in EXPORTABLE_RESEARCH_SUFFIXES:
-                continue
-            if SECRET_NAME_RE.search(source.name):
-                continue
-            if source.name == "AFFILIATE_OPPORTUNITY_BRIEF.json":
-                continue
-            try:
-                relative = source.relative_to(source_root)
-            except ValueError:
-                continue
-            if any(part.startswith(".") for part in relative.parts):
-                continue
-            target = target_root / relative
-            target.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(source, target)
-            copied.append(
-                {
-                    "path": f"research/{slug}/{relative.as_posix()}",
-                    "source": _relative(self.root, source),
-                    "sha256": _sha256(source),
-                }
-            )
-        _write_json(
-            target_root / "AFFILIATE_OPPORTUNITY_BRIEF.json",
-            build_affiliate_opportunity_brief(self.root, slug),
-        )
-        if copied:
-            _write_json(
-                target_root / "research_inventory.json",
-                {
-                    "schema_version": "external_writer_research_inventory_v1",
-                    "slug": slug,
-                    "artifact_count": len(copied),
-                    "artifacts": copied,
-                },
-            )
+        self._package_materializer().copy_website_research_artifacts(package_dir, slug)
 
     def _copy_series_history(self, package_dir: Path, task: dict[str, Any]) -> None:
-        """Copy prior same-root drafts as read-only differentiation evidence."""
-        root_topic_id = _text(task.get("root_topic_id"))
-        current_slug = _text(task.get("article_slug"))
-        if not root_topic_id:
-            return
-        draft_root = self.root / "data" / "production_article_drafts"
-        matches: list[tuple[str, Path, dict[str, Any]]] = []
-        if not draft_root.exists():
-            return
-        for metadata_path in draft_root.glob("*/metadata.json"):
-            metadata = _read_json(metadata_path, {})
-            if not isinstance(metadata, dict):
-                continue
-            prior_slug = _text(metadata.get("slug") or metadata_path.parent.name)
-            if prior_slug == current_slug or _text(metadata.get("root_topic_id")) != root_topic_id:
-                continue
-            article_path = metadata_path.parent / "article.md"
-            if article_path.is_file():
-                matches.append((prior_slug, article_path, metadata))
-        history_root = package_dir / "research" / current_slug / "series_history"
-        for prior_slug, article_path, metadata in sorted(matches)[:7]:
-            target = history_root / prior_slug
-            target.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(article_path, target / "article.md")
-            safe_metadata = {
-                key: metadata.get(key)
-                for key in (
-                    "slug",
-                    "title",
-                    "root_topic_id",
-                    "series_id",
-                    "batch_date",
-                    "daily_angle",
-                    "article_type",
-                    "content_goal",
-                    "search_intent",
-                )
-                if metadata.get(key) not in (None, "", [], {})
-            }
-            _write_json(target / "context.json", safe_metadata)
+        self._package_materializer().copy_series_history(package_dir, task)
 
     def _copy_guidance(self, package_dir: Path) -> None:
-        guidance = (
-            "AI_ONBOARDING.md",
-            "PROJECT_GUIDE.md",
-            "AI_WRITER_INSTRUCTIONS.md",
-            "EDITORIAL_MEMORY.md",
-            "WRITING_DNA.md",
-            "STRUCTURE_DNA.md",
-            "VOICE_DNA.md",
-            "ARTICLE_FINGERPRINT.md",
-            "DECISION_ENGINE.md",
-            "STYLE_ENGINE.md",
-            "ARTICLE_BLUEPRINT_ENGINE.md",
-            "SELF_VALIDATION_ENGINE.md",
-            "QUALITY_SCORE_ENGINE.md",
-            "docs/editorial/CHATGPT_WRITER_READ_FIRST.md",
-            "docs/editorial/UNIVERSAL_WRITING_STANDARD.md",
-            "docs/editorial/WEBSITE_WRITING_STANDARD.md",
-            "docs/editorial/CHATGPT_WEBSITE_WRITING_PLAYBOOK.md",
-            "docs/editorial/SOCIAL_WRITING_STANDARD.md",
-            "docs/editorial/CHATGPT_SOCIAL_WRITING_PLAYBOOK.md",
-            "docs/editorial/PLATFORM_STYLE_MATRIX.md",
-            "docs/editorial/ARTICLE_TYPE_MATRIX.md",
-            "docs/editorial/CODEX_STYLE_FINGERPRINT.json",
-            "docs/editorial/GOLD_STANDARD_INDEX.md",
-            "docs/editorial/CHATGPT_EXECUTION_ORDER.md",
-            "docs/editorial/SELF_REVIEW_CHECKLIST.md",
-            "docs/editorial/STYLE_FINGERPRINT_V2.json",
-            "docs/editorial/ARTICLE_TEMPLATE.md",
-            "docs/editorial/QUALITY_CHECKLIST.md",
-        )
-        for raw in guidance:
-            source = self.root / raw
-            if source.is_file():
-                target = package_dir / "templates" / raw.replace("/", "__")
-                target.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(source, target)
-        examples = self.root / "docs" / "examples"
-        if examples.exists():
-            for source in examples.glob("*.md"):
-                target = package_dir / "examples" / source.name
-                target.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(source, target)
-        self._copy_guidance_tree(
-            self.root / "docs" / "editorial" / "editorial_brain",
-            package_dir / "editorial_brain",
-        )
-        self._copy_guidance_tree(
-            self.root / "editorial_memory",
-            package_dir / "editorial_memory",
-        )
-        self._copy_guidance_tree(
-            self.root / "gold_library",
-            package_dir / "gold_library",
-        )
+        self._package_materializer().copy_guidance(package_dir)
 
     @staticmethod
     def _copy_guidance_tree(source_root: Path, target_root: Path) -> None:
-        if not source_root.exists():
-            return
-        for source in sorted(source_root.rglob("*")):
-            if not source.is_file() or source.suffix.lower() not in {".md", ".json", ".txt"}:
-                continue
-            target = target_root / source.relative_to(source_root)
-            target.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(source, target)
+        ExternalWriterPackageMaterializer.copy_guidance_tree(source_root, target_root)
 
     @staticmethod
     def _package_id(batch_date: str, task_type: str, tasks: list[dict[str, Any]]) -> str:
