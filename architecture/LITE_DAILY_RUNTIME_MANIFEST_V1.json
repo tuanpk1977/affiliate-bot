@@ -98,6 +98,7 @@
       "reason": "Current application coordinator, canonical state resolution, and extracted read-only queue/batch resolution.",
       "files": [
         "modules/daily_editorial_workflow.py",
+        "modules/editorial_article_image_materialization.py",
         "modules/editorial_queue_resolution.py",
         "modules/article_operational_state.py",
         "modules/revision_binding.py",
@@ -323,11 +324,11 @@
     "DELETION_CANDIDATE"
   ],
   "summary": {
-    "unique_component_files": 127,
-    "existing_component_files": 127,
-    "python_component_files": 122,
-    "approximate_python_loc": 68677,
-    "component_dependency_edges_from_full_manifest": 274,
+    "unique_component_files": 128,
+    "existing_component_files": 128,
+    "python_component_files": 123,
+    "approximate_python_loc": 68808,
+    "component_dependency_edges_from_full_manifest": 275,
     "excluded_default_features": 7,
     "deletion_candidates": 0
   },

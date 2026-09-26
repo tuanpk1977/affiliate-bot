@@ -40,6 +40,7 @@ from modules.content_growth_pipeline import generate_production_article_draft_fr
 from modules.content_strategy_planner import enrich_topics_with_content_strategy
 from modules.editorial_quality import CapacityManager, SafeDailyDryRunOrchestrator, write_capacity_report
 from modules.editorial_operations_console import EditorialOperationsConsole
+from modules.editorial_article_image_materialization import EditorialArticleImageMaterialization
 from modules.editorial_queue_resolution import (
     BATCH_STATE_DRAFT_READY,
     BATCH_STATE_HUMAN_APPROVED,
@@ -308,6 +309,14 @@ class DailyEditorialWorkflow:
         self.post_push_live_waits = (15, 45, 120)
         self.sleep_fn: Callable[[float], None] = time.sleep
         self.capacity_manager = CapacityManager(self.editorial_config.get("editorial_capacity", {}) if isinstance(self.editorial_config.get("editorial_capacity"), dict) else {})
+
+    def _article_image_materializer(self) -> EditorialArticleImageMaterialization:
+        return EditorialArticleImageMaterialization(
+            root=self.root,
+            site_output_dir=self.site_output_dir,
+            base_site_url=settings.base_site_url,
+            article_bundle_paths=self._article_bundle_paths,
+        )
 
     def editorial_quality_dry_run(self, *, candidates: list[dict[str, Any]], target: int = 10) -> dict[str, Any]:
         """Run the safe editorial quality pipeline preview without queue/publish mutation."""
@@ -2991,113 +3000,46 @@ class DailyEditorialWorkflow:
         return resolved
 
     def _required_image_src(self, slug: str) -> str:
-        return f"/assets/og/pages/{slug}.svg"
+        return self._article_image_materializer().required_image_src(slug)
 
     def _required_image_asset_paths(self, slug: str) -> list[Path]:
-        rel = Path("assets") / "og" / "pages" / f"{slug}.svg"
-        return [
-            self.root / rel,
-            self.site_output_dir / rel,
-            self.root / "docs" / rel,
-        ]
+        return self._article_image_materializer().required_image_asset_paths(slug)
 
     def _render_local_cover_svg(self, *, title: str, slug: str) -> str:
-        safe_title = html.escape(title[:120])
-        safe_slug = html.escape(slug)
-        return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-  <title id="title">{safe_title}</title>
-  <desc id="desc">Smile AI Review Hub editorial cover for {safe_slug}</desc>
-  <rect width="1200" height="630" fill="#0f172a"/>
-  <rect x="48" y="48" width="1104" height="534" rx="28" fill="#f8fafc"/>
-  <text x="92" y="132" fill="#0f766e" font-family="Arial, sans-serif" font-size="34" font-weight="700">Smile AI Review Hub</text>
-  <text x="92" y="288" fill="#111827" font-family="Arial, sans-serif" font-size="58" font-weight="700">{safe_title}</text>
-  <text x="92" y="420" fill="#475569" font-family="Arial, sans-serif" font-size="30">Source-backed AI software review</text>
-  <circle cx="1010" cy="422" r="76" fill="#14b8a6"/>
-  <path d="M973 421l26 27 55-70" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-"""
+        return self._article_image_materializer().render_local_cover_svg(title=title, slug=slug)
 
     def _ensure_required_article_image(self, *, slug: str, title: str, dry_run: bool = False) -> dict[str, Any]:
-        paths = self._article_bundle_paths(slug)
-        draft_path = paths["draft_html"]
-        if not draft_path.exists():
-            raise FileNotFoundError(f"Missing draft HTML for {slug}: {draft_path}")
-        html_text = draft_path.read_text(encoding="utf-8", errors="ignore")
-        if self._html_has_local_image(html_text):
-            return {"slug": slug, "status": "already_has_image", "changed_files": []}
-        image_src = self._required_image_src(slug)
-        changed_files = [str(path) for path in self._required_image_asset_paths(slug)]
-        changed_files.extend([str(draft_path), str(paths["metadata"])])
-        if dry_run:
-            return {"slug": slug, "status": "would_generate", "image_src": image_src, "changed_files": changed_files}
-
-        svg = self._render_local_cover_svg(title=title, slug=slug)
-        for asset_path in self._required_image_asset_paths(slug):
-            asset_path.parent.mkdir(parents=True, exist_ok=True)
-            if not asset_path.exists():
-                asset_path.write_text(svg, encoding="utf-8")
-        image_html = (
-            f'<img class="article-hero-image" src="{html.escape(image_src)}" '
-            f'width="1200" height="630" alt="{html.escape(title)} cover image" '
-            f'loading="eager" decoding="async">'
+        return self._article_image_materializer().ensure_required_article_image(
+            slug=slug,
+            title=title,
+            dry_run=dry_run,
+            required_image_src=self._required_image_src,
+            required_image_asset_paths=self._required_image_asset_paths,
+            render_local_cover_svg=self._render_local_cover_svg,
+            html_has_local_image=self._html_has_local_image,
+            inject_required_image_html=self._inject_required_image_html,
+            upsert_meta_property=self._upsert_meta_property,
+            upsert_meta_name=self._upsert_meta_name,
         )
-        updated_html = self._inject_required_image_html(html_text, image_html=image_html)
-        absolute_image = f"{settings.base_site_url.rstrip('/')}{image_src}"
-        updated_html = self._upsert_meta_property(updated_html, "og:image", absolute_image)
-        updated_html = self._upsert_meta_name(updated_html, "twitter:image", absolute_image)
-        draft_path.write_text(updated_html, encoding="utf-8")
-
-        metadata = _read_json(paths["metadata"], {})
-        if isinstance(metadata, dict):
-            metadata["image"] = {
-                "src": image_src,
-                "alt": f"{title} cover image",
-                "width": 1200,
-                "height": 630,
-                "generated_by": "local_svg_cover_generator",
-            }
-            metadata["og_image"] = absolute_image
-            metadata["twitter_image"] = absolute_image
-            _write_json(paths["metadata"], metadata)
-        return {"slug": slug, "status": "generated", "image_src": image_src, "changed_files": changed_files}
 
     def _html_has_local_image(self, html_text: str) -> bool:
-        for match in re.finditer(r"<img\b[^>]*\bsrc=[\"']([^\"']+)[\"'][^>]*>", html_text, flags=re.IGNORECASE):
-            src = match.group(1).strip()
-            if not src or src.startswith(("http://", "https://", "data:")):
-                return bool(src)
-            if src.startswith("/"):
-                rel = src.lstrip("/")
-                if (self.site_output_dir / rel).exists() or (self.root / "docs" / rel).exists() or (self.root / rel).exists():
-                    return True
-                return False
-            return True
-        return False
+        return self._article_image_materializer().html_has_local_image(html_text)
 
     def _inject_required_image_html(self, html_text: str, *, image_html: str) -> str:
-        h1_match = re.search(r"</h1>", html_text, flags=re.IGNORECASE)
-        if h1_match:
-            insert_at = h1_match.end()
-            return html_text[:insert_at] + "\n" + image_html + html_text[insert_at:]
-        body_match = re.search(r"<body[^>]*>", html_text, flags=re.IGNORECASE)
-        if body_match:
-            insert_at = body_match.end()
-            return html_text[:insert_at] + "\n" + image_html + html_text[insert_at:]
-        return image_html + "\n" + html_text
+        return self._article_image_materializer().inject_required_image_html(
+            html_text,
+            image_html=image_html,
+        )
 
     def _upsert_meta_property(self, html_text: str, property_name: str, content: str) -> str:
-        pattern = rf"<meta\b[^>]*\bproperty=[\"']{re.escape(property_name)}[\"'][^>]*>"
-        replacement = f'<meta property="{html.escape(property_name)}" content="{html.escape(content)}">'
-        if re.search(pattern, html_text, flags=re.IGNORECASE):
-            return re.sub(pattern, replacement, html_text, count=1, flags=re.IGNORECASE)
-        return html_text.replace("</head>", f"  {replacement}\n</head>", 1)
+        return self._article_image_materializer().upsert_meta_property(
+            html_text,
+            property_name,
+            content,
+        )
 
     def _upsert_meta_name(self, html_text: str, name: str, content: str) -> str:
-        pattern = rf"<meta\b[^>]*\bname=[\"']{re.escape(name)}[\"'][^>]*>"
-        replacement = f'<meta name="{html.escape(name)}" content="{html.escape(content)}">'
-        if re.search(pattern, html_text, flags=re.IGNORECASE):
-            return re.sub(pattern, replacement, html_text, count=1, flags=re.IGNORECASE)
-        return html_text.replace("</head>", f"  {replacement}\n</head>", 1)
+        return self._article_image_materializer().upsert_meta_name(html_text, name, content)
 
     def autofix_batch(self, *, batch_date: str) -> dict[str, Any]:
         candidates = self._publish_validation_candidates(batch_date=batch_date)

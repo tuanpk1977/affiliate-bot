@@ -46,9 +46,9 @@
     "dashboard/app.py"
   ],
   "summary": {
-    "active_runtime_files": 241,
-    "active_python_runtime_files": 233,
-    "active_test_files": 143,
+    "active_runtime_files": 242,
+    "active_python_runtime_files": 234,
+    "active_test_files": 144,
     "active_config_files": 5,
     "legacy_candidates": 0,
     "files_quarantined_this_run": 0,
@@ -1568,6 +1568,7 @@
         "modules/review_dashboard_server.py",
         "tests/phase0b_compatibility_audit.py",
         "tests/test_daily_editorial_workflow.py",
+        "tests/test_editorial_article_image_materialization_characterization.py",
         "tests/test_editorial_queue_resolution_characterization.py",
         "tests/test_editorial_memory_long_term_phase2.py",
         "tests/test_editorial_pipeline_recovery.py",
@@ -1598,6 +1599,7 @@
         "modules/content_strategy_planner.py",
         "modules/editorial_operations_console.py",
         "modules/editorial_quality.py",
+        "modules/editorial_article_image_materialization.py",
         "modules/editorial_queue_resolution.py",
         "modules/editorial_state_reset.py",
         "modules/external_writer_return_validator.py",
@@ -1626,6 +1628,26 @@
       "runtime_required": true,
       "test_required": true,
       "reason": "Reachable from an active or compatibility operator entrypoint through imports/script dispatch.",
+      "confidence": "HIGH"
+    },
+    {
+      "path": "modules/editorial_article_image_materialization.py",
+      "classification": "ACTIVE_RUNTIME",
+      "referenced_by": [
+        "modules/daily_editorial_workflow.py"
+      ],
+      "imports": [],
+      "entrypoint_reachability": [
+        "dashboard/app.py",
+        "editorial_console.py",
+        "external_writer_console.py",
+        "main.py",
+        "scripts/editorial_console.py",
+        "social_console.py"
+      ],
+      "runtime_required": true,
+      "test_required": true,
+      "reason": "Canonical DEW-R05A article image asset and HTML metadata materialization imported by the active daily editorial workflow facade.",
       "confidence": "HIGH"
     },
     {
@@ -6773,6 +6795,24 @@
       "runtime_required": false,
       "test_required": true,
       "reason": "Current test-suite file discovered under tests/.",
+      "confidence": "HIGH"
+    },
+    {
+      "path": "tests/test_editorial_article_image_materialization_characterization.py",
+      "classification": "ACTIVE_TEST",
+      "referenced_by": [
+        "pytest discovery"
+      ],
+      "imports": [
+        "config.py",
+        "modules/daily_editorial_workflow.py"
+      ],
+      "entrypoint_reachability": [
+        "python -m pytest"
+      ],
+      "runtime_required": false,
+      "test_required": true,
+      "reason": "DEW-R05A article image asset and HTML metadata materialization characterization and legacy compatibility contract.",
       "confidence": "HIGH"
     },
     {
