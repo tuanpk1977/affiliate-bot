@@ -46,9 +46,9 @@
     "dashboard/app.py"
   ],
   "summary": {
-    "active_runtime_files": 246,
-    "active_python_runtime_files": 238,
-    "active_test_files": 148,
+    "active_runtime_files": 247,
+    "active_python_runtime_files": 239,
+    "active_test_files": 149,
     "active_config_files": 5,
     "legacy_candidates": 0,
     "files_quarantined_this_run": 0,
@@ -4401,6 +4401,7 @@
       "referenced_by": [
         "modules/external_writer_pipeline.py",
         "modules/social/draft_contracts.py",
+        "modules/social/draft_hot_news.py",
         "modules/social/draft_workflow.py",
         "tests/test_social_content_quality.py"
       ],
@@ -4487,6 +4488,30 @@
       "confidence": "HIGH"
     },
     {
+      "path": "modules/social/draft_hot_news.py",
+      "classification": "ACTIVE_RUNTIME",
+      "referenced_by": [
+        "modules/social/draft_workflow.py"
+      ],
+      "imports": [
+        "modules/social/content_quality.py",
+        "modules/social/utils.py",
+        "modules/weekly_root_guard.py"
+      ],
+      "entrypoint_reachability": [
+        "dashboard/app.py",
+        "editorial_console.py",
+        "external_writer_console.py",
+        "main.py",
+        "scripts/editorial_console.py",
+        "social_console.py"
+      ],
+      "runtime_required": true,
+      "test_required": true,
+      "reason": "Canonical SDW-R01 hot-news monitoring package, prompt and starter-draft owner imported by the active Social workflow facade.",
+      "confidence": "HIGH"
+    },
+    {
       "path": "modules/social/draft_root_selection.py",
       "classification": "ACTIVE_RUNTIME",
       "referenced_by": [
@@ -4567,6 +4592,7 @@
         "tests/test_social_content_quality.py",
         "tests/test_social_draft_assets_characterization.py",
         "tests/test_social_draft_contracts_characterization.py",
+        "tests/test_social_draft_hot_news_characterization.py",
         "tests/test_social_draft_selection_characterization.py",
         "tests/test_social_draft_root_selection_characterization.py",
         "tests/test_social_draft_source_package_characterization.py",
@@ -4579,6 +4605,7 @@
         "modules/social/content_quality.py",
                         "modules/social/draft_assets.py",
                         "modules/social/draft_contracts.py",
+                        "modules/social/draft_hot_news.py",
                         "modules/social/draft_root_selection.py",
                         "modules/social/draft_selection.py",
                         "modules/social/draft_source_package.py",
@@ -5001,6 +5028,7 @@
         "modules/social/base_publisher.py",
         "modules/social/draft_assets.py",
         "modules/social/draft_contracts.py",
+        "modules/social/draft_hot_news.py",
         "modules/social/draft_root_selection.py",
         "modules/social/draft_source_package.py",
         "modules/social/draft_workflow.py",
@@ -5737,6 +5765,7 @@
       "classification": "ACTIVE_RUNTIME",
       "referenced_by": [
         "modules/daily_editorial_workflow.py",
+        "modules/social/draft_hot_news.py",
         "modules/social/draft_workflow.py",
         "modules/weekly_content_planning.py",
         "tests/test_daily_editorial_workflow.py",
@@ -8500,6 +8529,23 @@
       "runtime_required": false,
       "test_required": true,
       "reason": "Current test-suite file discovered under tests/.",
+      "confidence": "HIGH"
+    },
+    {
+      "path": "tests/test_social_draft_hot_news_characterization.py",
+      "classification": "ACTIVE_TEST",
+      "referenced_by": [
+        "pytest discovery"
+      ],
+      "imports": [
+        "modules/social/draft_workflow.py"
+      ],
+      "entrypoint_reachability": [
+        "python -m pytest"
+      ],
+      "runtime_required": false,
+      "test_required": true,
+      "reason": "SDW-R01 hot-news package, prompt, starter-copy and root-relative artifacts characterization via legacy facade.",
       "confidence": "HIGH"
     },
     {
