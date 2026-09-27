@@ -46,9 +46,9 @@
     "dashboard/app.py"
   ],
   "summary": {
-    "active_runtime_files": 244,
-    "active_python_runtime_files": 236,
-    "active_test_files": 146,
+    "active_runtime_files": 245,
+    "active_python_runtime_files": 237,
+    "active_test_files": 147,
     "active_config_files": 5,
     "legacy_candidates": 0,
     "files_quarantined_this_run": 0,
@@ -4507,6 +4507,28 @@
       "confidence": "HIGH"
     },
     {
+      "path": "modules/social/draft_source_package.py",
+      "classification": "ACTIVE_RUNTIME",
+      "referenced_by": [
+        "modules/social/draft_workflow.py"
+      ],
+      "imports": [
+        "modules/social/utils.py"
+      ],
+      "entrypoint_reachability": [
+        "dashboard/app.py",
+        "editorial_console.py",
+        "external_writer_console.py",
+        "main.py",
+        "scripts/editorial_console.py",
+        "social_console.py"
+      ],
+      "runtime_required": true,
+      "test_required": true,
+      "reason": "Canonical SDW-R03 live-article, source-package and writing-prompt owner imported by the active Social workflow facade.",
+      "confidence": "HIGH"
+    },
+    {
       "path": "modules/social/draft_workflow.py",
       "classification": "ACTIVE_RUNTIME",
       "referenced_by": [
@@ -4522,6 +4544,7 @@
         "tests/test_social_draft_assets_characterization.py",
         "tests/test_social_draft_contracts_characterization.py",
         "tests/test_social_draft_selection_characterization.py",
+        "tests/test_social_draft_source_package_characterization.py",
         "tests/test_social_hot_editor.py",
         "tests/test_universal_external_writer_pipeline.py"
       ],
@@ -4532,6 +4555,7 @@
                         "modules/social/draft_assets.py",
                         "modules/social/draft_contracts.py",
                         "modules/social/draft_selection.py",
+                        "modules/social/draft_source_package.py",
                         "modules/social/external_draft_exchange.py",
                         "modules/social/platform_native.py",
                         "modules/social/utils.py",
@@ -4951,6 +4975,7 @@
         "modules/social/base_publisher.py",
         "modules/social/draft_assets.py",
         "modules/social/draft_contracts.py",
+        "modules/social/draft_source_package.py",
         "modules/social/draft_workflow.py",
         "modules/social/external_draft_exchange.py",
         "modules/social/history.py",
@@ -8466,6 +8491,23 @@
       "runtime_required": false,
       "test_required": true,
       "reason": "Current test-suite file discovered under tests/.",
+      "confidence": "HIGH"
+    },
+    {
+      "path": "tests/test_social_draft_source_package_characterization.py",
+      "classification": "ACTIVE_TEST",
+      "referenced_by": [
+        "pytest discovery"
+      ],
+      "imports": [
+        "modules/social/draft_workflow.py"
+      ],
+      "entrypoint_reachability": [
+        "python -m pytest"
+      ],
+      "runtime_required": false,
+      "test_required": true,
+      "reason": "SDW-R03 live article, source package and writing prompt characterization via legacy facade.",
       "confidence": "HIGH"
     },
     {
