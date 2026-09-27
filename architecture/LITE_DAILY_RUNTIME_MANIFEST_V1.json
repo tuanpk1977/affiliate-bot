@@ -176,6 +176,7 @@
       "files": [
         "modules/social/draft_assets.py",
         "modules/social/draft_contracts.py",
+        "modules/social/draft_root_selection.py",
         "modules/social/draft_selection.py",
         "modules/social/draft_source_package.py",
         "modules/social/draft_workflow.py",
@@ -327,11 +328,11 @@
     "DELETION_CANDIDATE"
   ],
   "summary": {
-    "unique_component_files": 131,
-    "existing_component_files": 131,
-    "python_component_files": 126,
-    "approximate_python_loc": 69151,
-    "component_dependency_edges_from_full_manifest": 280,
+    "unique_component_files": 132,
+    "existing_component_files": 132,
+    "python_component_files": 127,
+    "approximate_python_loc": 69262,
+    "component_dependency_edges_from_full_manifest": 282,
     "excluded_default_features": 7,
     "deletion_candidates": 0
   },

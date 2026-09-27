@@ -46,9 +46,9 @@
     "dashboard/app.py"
   ],
   "summary": {
-    "active_runtime_files": 245,
-    "active_python_runtime_files": 237,
-    "active_test_files": 147,
+    "active_runtime_files": 246,
+    "active_python_runtime_files": 238,
+    "active_test_files": 148,
     "active_config_files": 5,
     "legacy_candidates": 0,
     "files_quarantined_this_run": 0,
@@ -3752,6 +3752,7 @@
         "modules/final_revision_staging.py",
         "modules/human_approval.py",
         "modules/publish_gate.py",
+        "modules/social/draft_root_selection.py",
         "modules/system_health_check.py",
         "tests/test_article_operational_state.py",
         "tests/test_daily_editorial_workflow.py",
@@ -4486,6 +4487,29 @@
       "confidence": "HIGH"
     },
     {
+      "path": "modules/social/draft_root_selection.py",
+      "classification": "ACTIVE_RUNTIME",
+      "referenced_by": [
+        "modules/social/draft_workflow.py"
+      ],
+      "imports": [
+        "modules/revision_binding.py",
+        "modules/social/utils.py"
+      ],
+      "entrypoint_reachability": [
+        "dashboard/app.py",
+        "editorial_console.py",
+        "external_writer_console.py",
+        "main.py",
+        "scripts/editorial_console.py",
+        "social_console.py"
+      ],
+      "runtime_required": true,
+      "test_required": true,
+      "reason": "Canonical SDW-R02 article ranking and weekly Website-root/source-binding owner imported by the active Social workflow facade.",
+      "confidence": "HIGH"
+    },
+    {
       "path": "modules/social/draft_selection.py",
       "classification": "ACTIVE_RUNTIME",
       "referenced_by": [
@@ -4544,6 +4568,7 @@
         "tests/test_social_draft_assets_characterization.py",
         "tests/test_social_draft_contracts_characterization.py",
         "tests/test_social_draft_selection_characterization.py",
+        "tests/test_social_draft_root_selection_characterization.py",
         "tests/test_social_draft_source_package_characterization.py",
         "tests/test_social_hot_editor.py",
         "tests/test_universal_external_writer_pipeline.py"
@@ -4554,6 +4579,7 @@
         "modules/social/content_quality.py",
                         "modules/social/draft_assets.py",
                         "modules/social/draft_contracts.py",
+                        "modules/social/draft_root_selection.py",
                         "modules/social/draft_selection.py",
                         "modules/social/draft_source_package.py",
                         "modules/social/external_draft_exchange.py",
@@ -4975,6 +5001,7 @@
         "modules/social/base_publisher.py",
         "modules/social/draft_assets.py",
         "modules/social/draft_contracts.py",
+        "modules/social/draft_root_selection.py",
         "modules/social/draft_source_package.py",
         "modules/social/draft_workflow.py",
         "modules/social/external_draft_exchange.py",
@@ -8473,6 +8500,24 @@
       "runtime_required": false,
       "test_required": true,
       "reason": "Current test-suite file discovered under tests/.",
+      "confidence": "HIGH"
+    },
+    {
+      "path": "tests/test_social_draft_root_selection_characterization.py",
+      "classification": "ACTIVE_TEST",
+      "referenced_by": [
+        "pytest discovery"
+      ],
+      "imports": [
+        "modules/social/draft_workflow.py",
+        "modules/social/utils.py"
+      ],
+      "entrypoint_reachability": [
+        "python -m pytest"
+      ],
+      "runtime_required": false,
+      "test_required": true,
+      "reason": "SDW-R02 ranking, root selection, source binding and weekly manifest characterization via legacy facade.",
       "confidence": "HIGH"
     },
     {
