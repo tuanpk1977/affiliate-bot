@@ -46,9 +46,9 @@
     "dashboard/app.py"
   ],
   "summary": {
-    "active_runtime_files": 247,
-    "active_python_runtime_files": 239,
-    "active_test_files": 149,
+    "active_runtime_files": 248,
+    "active_python_runtime_files": 240,
+    "active_test_files": 150,
     "active_config_files": 5,
     "legacy_candidates": 0,
     "files_quarantined_this_run": 0,
@@ -1923,6 +1923,7 @@
         "modules/content_review.py",
         "modules/daily_editorial_workflow.py",
         "modules/external_writer_batch_preflight.py",
+        "modules/external_writer_completed_zip_helper.py",
         "modules/external_writer_package_materialization.py",
         "modules/external_writer_return_discovery.py",
         "modules/external_writer_return_validator.py",
@@ -1954,6 +1955,26 @@
       "runtime_required": true,
       "test_required": true,
       "reason": "Reachable from an active or compatibility operator entrypoint through imports/script dispatch.",
+      "confidence": "HIGH"
+    },
+    {
+      "path": "modules/external_writer_completed_zip_helper.py",
+      "classification": "ACTIVE_RUNTIME",
+      "referenced_by": [
+        "modules/external_writer_pipeline.py"
+      ],
+      "imports": [],
+      "entrypoint_reachability": [
+        "dashboard/app.py",
+        "editorial_console.py",
+        "external_writer_console.py",
+        "main.py",
+        "scripts/editorial_console.py",
+        "social_console.py"
+      ],
+      "runtime_required": true,
+      "test_required": true,
+      "reason": "Canonical EWP-R05 generated completed-ZIP helper script, imported by the active Writer pipeline facade.",
       "confidence": "HIGH"
     },
     {
@@ -7333,6 +7354,23 @@
       "runtime_required": false,
       "test_required": true,
       "reason": "EWP-R02A active Writer batch and advanced editorial preflight characterization and legacy facade contract.",
+      "confidence": "HIGH"
+    },
+    {
+      "path": "tests/test_external_writer_completed_zip_helper_characterization.py",
+      "classification": "ACTIVE_TEST",
+      "referenced_by": [
+        "pytest discovery"
+      ],
+      "imports": [
+        "modules/external_writer_pipeline.py"
+      ],
+      "entrypoint_reachability": [
+        "python -m pytest"
+      ],
+      "runtime_required": false,
+      "test_required": true,
+      "reason": "EWP-R05 exact helper-script output and package call-path characterization.",
       "confidence": "HIGH"
     },
     {
