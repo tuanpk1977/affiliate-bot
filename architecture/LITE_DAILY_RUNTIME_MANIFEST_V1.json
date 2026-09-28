@@ -182,6 +182,7 @@
         "modules/social/draft_selection.py",
         "modules/social/draft_source_package.py",
         "modules/social/draft_workflow.py",
+        "modules/social/draft_review_dashboard_renderer.py",
         "modules/social/external_draft_exchange.py",
         "modules/social/content_quality.py",
         "modules/social/platform_native.py",
@@ -330,11 +331,11 @@
     "DELETION_CANDIDATE"
   ],
   "summary": {
-    "unique_component_files": 134,
-    "existing_component_files": 134,
-    "python_component_files": 129,
-    "approximate_python_loc": 69350,
-    "component_dependency_edges_from_full_manifest": 287,
+    "unique_component_files": 135,
+    "existing_component_files": 135,
+    "python_component_files": 130,
+    "approximate_python_loc": 69360,
+    "component_dependency_edges_from_full_manifest": 288,
     "excluded_default_features": 7,
     "deletion_candidates": 0
   },

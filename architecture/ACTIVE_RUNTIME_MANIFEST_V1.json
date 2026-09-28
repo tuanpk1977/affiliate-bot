@@ -46,9 +46,9 @@
     "dashboard/app.py"
   ],
   "summary": {
-    "active_runtime_files": 248,
-    "active_python_runtime_files": 240,
-    "active_test_files": 150,
+    "active_runtime_files": 249,
+    "active_python_runtime_files": 241,
+    "active_test_files": 151,
     "active_config_files": 5,
     "legacy_candidates": 0,
     "files_quarantined_this_run": 0,
@@ -4616,6 +4616,7 @@
         "tests/test_social_draft_hot_news_characterization.py",
         "tests/test_social_draft_selection_characterization.py",
         "tests/test_social_draft_root_selection_characterization.py",
+        "tests/test_social_review_dashboard_renderer_characterization.py",
         "tests/test_social_draft_source_package_characterization.py",
         "tests/test_social_hot_editor.py",
         "tests/test_universal_external_writer_pipeline.py"
@@ -4628,6 +4629,7 @@
                         "modules/social/draft_contracts.py",
                         "modules/social/draft_hot_news.py",
                         "modules/social/draft_root_selection.py",
+                        "modules/social/draft_review_dashboard_renderer.py",
                         "modules/social/draft_selection.py",
                         "modules/social/draft_source_package.py",
                         "modules/social/external_draft_exchange.py",
@@ -4646,6 +4648,26 @@
       "runtime_required": true,
       "test_required": true,
       "reason": "Reachable from an active or compatibility operator entrypoint through imports/script dispatch.",
+      "confidence": "HIGH"
+    },
+    {
+      "path": "modules/social/draft_review_dashboard_renderer.py",
+      "classification": "ACTIVE_RUNTIME",
+      "referenced_by": [
+        "modules/social/draft_workflow.py"
+      ],
+      "imports": [],
+      "entrypoint_reachability": [
+        "dashboard/app.py",
+        "editorial_console.py",
+        "external_writer_console.py",
+        "main.py",
+        "scripts/editorial_console.py",
+        "social_console.py"
+      ],
+      "runtime_required": true,
+      "test_required": true,
+      "reason": "Canonical SDW-R05 dashboard HTML rendering owner imported by the active Social workflow compatibility facade.",
       "confidence": "HIGH"
     },
     {
@@ -8584,6 +8606,23 @@
       "runtime_required": false,
       "test_required": true,
       "reason": "SDW-R01 hot-news package, prompt, starter-copy and root-relative artifacts characterization via legacy facade.",
+      "confidence": "HIGH"
+    },
+    {
+      "path": "tests/test_social_review_dashboard_renderer_characterization.py",
+      "classification": "ACTIVE_TEST",
+      "referenced_by": [
+        "pytest discovery"
+      ],
+      "imports": [
+        "modules/social/draft_workflow.py"
+      ],
+      "entrypoint_reachability": [
+        "python -m pytest"
+      ],
+      "runtime_required": false,
+      "test_required": true,
+      "reason": "SDW-R05 exact dashboard HTML rendering and legacy facade characterization.",
       "confidence": "HIGH"
     },
     {
