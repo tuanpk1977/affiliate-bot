@@ -277,6 +277,79 @@ class EditorialQueueResolutionCharacterizationTests(unittest.TestCase):
             ):
                 self.assertTrue(callable(getattr(workflow, name)))
 
+    def test_research_blocked_batch_is_not_reviewable(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            workflow = self._workflow(root)
+            queue_path = self._queue(
+                root,
+                "2026-09-19",
+                [{"slug": "blocked-topic", "status": "ENTITY_COLLISION"}],
+            )
+            payload = json.loads(queue_path.read_text(encoding="utf-8"))
+            payload["batch_state"] = "RESEARCH_BLOCKED"
+            queue_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+            draft = self._draft(root, "blocked-topic")
+            os.utime(draft, (1_775_000_000, 1_775_000_000))
+
+            self.assertEqual(
+                workflow.reviewable_batch_details("2026-09-19")["reviewable_slugs"],
+                [],
+            )
+
+    def test_resolve_latest_reviewable_skips_research_blocked_even_with_newer_draft(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            workflow = self._workflow(root)
+            blocked_queue = self._queue(
+                root,
+                "2026-09-19",
+                [{"slug": "blocked-topic", "status": "ENTITY_COLLISION"}],
+            )
+            blocked_payload = json.loads(blocked_queue.read_text(encoding="utf-8"))
+            blocked_payload["batch_state"] = "RESEARCH_BLOCKED"
+            blocked_queue.write_text(json.dumps(blocked_payload, indent=2) + "\n", encoding="utf-8")
+            blocked_draft = self._draft(root, "blocked-topic")
+            os.utime(blocked_draft, (1_775_000_000, 1_775_000_000))
+
+            valid_queue = self._queue(root, "2026-09-28", [{"slug": "univer-review-2026", "status": "drafted"}])
+            valid_payload = json.loads(valid_queue.read_text(encoding="utf-8"))
+            valid_payload["batch_state"] = "UNDER_REVIEW"
+            valid_queue.write_text(json.dumps(valid_payload, indent=2) + "\n", encoding="utf-8")
+            valid_draft = self._draft(root, "univer-review-2026")
+            os.utime(valid_draft, (1_700_000_000, 1_700_000_000))
+
+            self.assertEqual(
+                workflow.resolve_latest_reviewable_batch()["batch_date"],
+                "2026-09-28",
+            )
+
+    def test_non_dashboard_batch_states_are_excluded_from_reviewable(self) -> None:
+        with TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            workflow = self._workflow(root)
+            for batch_date, batch_state, slug in (
+                ("2026-09-10", "QUEUE_CREATED", "queue-topic"),
+                ("2026-09-11", "WRITING", "writing-topic"),
+                ("2026-09-12", "RESEARCH_BLOCKED", "blocked-topic"),
+            ):
+                queue_path = self._queue(root, batch_date, [{"slug": slug, "status": "drafted"}])
+                payload = json.loads(queue_path.read_text(encoding="utf-8"))
+                payload["batch_state"] = batch_state
+                queue_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+                self._draft(root, slug)
+
+            valid_queue = self._queue(root, "2026-09-13", [{"slug": "valid-topic", "status": "drafted"}])
+            valid_payload = json.loads(valid_queue.read_text(encoding="utf-8"))
+            valid_payload["batch_state"] = "UNDER_REVIEW"
+            valid_queue.write_text(json.dumps(valid_payload, indent=2) + "\n", encoding="utf-8")
+            self._draft(root, "valid-topic")
+
+            self.assertEqual(
+                workflow.resolve_latest_reviewable_batch()["batch_date"],
+                "2026-09-13",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

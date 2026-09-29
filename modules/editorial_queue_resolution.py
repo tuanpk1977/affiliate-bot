@@ -12,6 +12,13 @@ BATCH_STATE_UNDER_REVIEW = "UNDER_REVIEW"
 BATCH_STATE_HUMAN_APPROVED = "HUMAN_APPROVED"
 BATCH_STATE_READY_FOR_PUBLISH = "READY_FOR_PUBLISH"
 BATCH_STATE_PUBLISHED = "PUBLISHED"
+_DASHBOARD_REVIEWABLE_BATCH_STATES = {
+    BATCH_STATE_DRAFT_READY,
+    BATCH_STATE_UNDER_REVIEW,
+    BATCH_STATE_HUMAN_APPROVED,
+    BATCH_STATE_READY_FOR_PUBLISH,
+    BATCH_STATE_PUBLISHED,
+}
 
 
 class EditorialQueueResolution:
@@ -202,6 +209,15 @@ class EditorialQueueResolution:
         queue_path = self._queue_dir(batch_date) / "topics.json"
         payload = self._read_json(queue_path, {})
         if not isinstance(payload, dict) or not queue_path.exists():
+            return {
+                "batch_date": batch_date,
+                "reviewable_slugs": [],
+                "activity_timestamp": 0.0,
+                "activity_at": "",
+            }
+
+        batch_state = str(payload.get("batch_state") or "").strip()
+        if batch_state and batch_state not in _DASHBOARD_REVIEWABLE_BATCH_STATES:
             return {
                 "batch_date": batch_date,
                 "reviewable_slugs": [],
