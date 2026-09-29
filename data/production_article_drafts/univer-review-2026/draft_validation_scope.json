@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "status": "VALIDATED",
+  "checks": [
+    "required_files",
+    "utf8",
+    "json",
+    "markdown",
+    "html",
+    "schema",
+    "citation_urls_exist_in_package"
+  ],
+  "research_revalidated": false,
+  "comparator_run": false
+}

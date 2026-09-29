@@ -1,0 +1,20 @@
+{
+  "writer": {
+    "writer_type": "external_ai",
+    "writer_name": "ChatGPT",
+    "writer_version": "web",
+    "generated_at": "2026-09-29T04:03:36.382241+00:00",
+    "package_id": "8679eed51cdd87b6",
+    "task_id": "website_foundation-2026-09-28-16aac9e36e02795f",
+    "revision": 1
+  },
+  "source_urls": [
+    "https://github.com/dream-num/univer",
+    "https://docs.univer.ai"
+  ],
+  "ai_review_passed": false,
+  "ai_review_status": "needs_human_review",
+  "human_approval_required": true,
+  "approved": false,
+  "published": false
+}

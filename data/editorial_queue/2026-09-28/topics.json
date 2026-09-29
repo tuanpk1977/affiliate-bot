@@ -1,0 +1,2171 @@
+{
+  "generated_at": "2026-09-28T12:59:25.275533+00:00",
+  "date": "2026-09-28",
+  "batch_state": "UNDER_REVIEW",
+  "week_start": "2026-09-28",
+  "week_end": "2026-10-04",
+  "mode": "standard",
+  "target_count": 2,
+  "selected_count": 2,
+  "count": 2,
+  "source_status": {
+    "google_trends": {
+      "status": "ok",
+      "signals": 10
+    },
+    "bing_trending": {
+      "status": "ok",
+      "signals": 40
+    },
+    "reddit": {
+      "status": "empty",
+      "signals": 0
+    },
+    "hacker_news": {
+      "status": "ok",
+      "signals": 40
+    },
+    "product_hunt": {
+      "status": "ok",
+      "signals": 40
+    },
+    "github_trending": {
+      "status": "ok",
+      "signals": 8
+    },
+    "x_twitter": {
+      "status": "unavailable",
+      "signals": 0,
+      "detail": "Set TWITTER_BEARER_TOKEN to enable X recent-search discovery."
+    },
+    "linkedin": {
+      "status": "unavailable",
+      "signals": 0,
+      "detail": "LinkedIn does not expose public trending search; set LINKEDIN_ACCESS_TOKEN and a permitted discovery endpoint."
+    },
+    "youtube_trending": {
+      "status": "unavailable",
+      "signals": 0,
+      "detail": "Set YOUTUBE_API_KEY to enable YouTube trending discovery."
+    },
+    "ai_newsletters": {
+      "status": "ok",
+      "signals": 40
+    },
+    "local_keyword_intelligence": {
+      "status": "ok",
+      "signals": 40
+    }
+  },
+  "duplicate_warning_count": 0,
+  "duplicate_warning_slugs": [],
+  "topic_selection_report": {
+    "scoring_profile": "FOUNDATION_MAIN",
+    "scoring_version": "topic_scoring_v2",
+    "candidates_scored": 2,
+    "candidates_hard_gate_passed": 2,
+    "candidates_threshold_passed": 2,
+    "candidates_above_absolute_floor": 2,
+    "selected_threshold_pass_count": 2,
+    "selected_quality_limited_count": 0,
+    "selection_reason": "2 operator-approved weekly root(s) were reused without replacement."
+  },
+  "scoring_profile": "FOUNDATION_MAIN",
+  "scoring_version": "topic_scoring_v2",
+  "recommended_threshold": 0.0,
+  "absolute_minimum_floor": 0.0,
+  "selected_threshold_pass_count": 2,
+  "selected_quality_limited_count": 0,
+  "topic_cluster_map": {
+    "week_start": "2026-09-28",
+    "batch_date": "2026-09-28",
+    "mode": "planning_only",
+    "tree": "weekly_topic_cluster\n- 2026\n  - up-review-2026 (Review)\n- univer 2026\n  - univer-review-2026 (Review)",
+    "clusters": [
+      {
+        "name": "2026",
+        "topics": [
+          {
+            "slug": "up-review-2026",
+            "title": "up Review 2026",
+            "content_type": "Review",
+            "search_intent": "commercial research"
+          }
+        ],
+        "topic_count": 1
+      },
+      {
+        "name": "univer 2026",
+        "topics": [
+          {
+            "slug": "univer-review-2026",
+            "title": "univer Review 2026",
+            "content_type": "Review",
+            "search_intent": "commercial research"
+          }
+        ],
+        "topic_count": 1
+      }
+    ],
+    "duplicate_topics": {
+      "slugs": [],
+      "titles": []
+    },
+    "missing_content_reviews": [
+      "Pillar Guide",
+      "Comparison",
+      "Best List"
+    ],
+    "weak_clusters": [
+      "univer 2026",
+      "2026"
+    ],
+    "orphan_topics": [
+      "univer-review-2026",
+      "up-review-2026"
+    ]
+  },
+  "content_quality_guard": {
+    "mode": "warning_only",
+    "warning_count": 6,
+    "warnings_by_slug": {
+      "univer-review-2026": [
+        "Warning only: duplicate search intent appears 2 times in this weekly batch.",
+        "Warning only: duplicate CTA appears 2 times in this weekly batch.",
+        "Warning only: duplicate FAQ pattern appears 2 times in this weekly batch."
+      ],
+      "up-review-2026": [
+        "Warning only: duplicate search intent appears 2 times in this weekly batch.",
+        "Warning only: duplicate CTA appears 2 times in this weekly batch.",
+        "Warning only: duplicate FAQ pattern appears 2 times in this weekly batch."
+      ]
+    }
+  },
+  "topics": [
+    {
+      "keyword": "univer Review 2026",
+      "slug": "univer-review-2026",
+      "search_intent": "commercial research",
+      "search_intent_score": 90.0,
+      "affiliate_monetization_score": 44.0,
+      "competition_difficulty_score": 37.0,
+      "product_availability_score": 58.0,
+      "content_freshness_score": 65.0,
+      "content_type": "review",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/dream-num/univer",
+        "https://docs.univer.ai"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "Review univer Review 2026 with independent methodology, use cases, pricing cautions, pros, cons, and alternatives.",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Recent multi-source activity indicates timely interest.",
+        "Official project homepage confirmed from GitHub repository metadata."
+      ],
+      "signals": 1,
+      "confidence": "medium",
+      "total_score": 63.7,
+      "raw_total_score": 63.7,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://github.com/dream-num/univer",
+          "https://docs.univer.ai"
+        ],
+        "unique_source_domains": [
+          "github.com",
+          "docs.univer.ai"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "topic_score_report": {
+        "candidate_id": "univer-review-2026",
+        "content_lane": "FOUNDATION_MAIN",
+        "title": "univer Review 2026",
+        "scoring_owner": "modules.ai_trend_discovery",
+        "scoring_version": "topic_scoring_v2",
+        "score_scale": "0-100",
+        "raw_component_values": {
+          "search_volume_potential": 90.0,
+          "low_competition_opportunity": 63.0,
+          "affiliate_opportunity": 44.0,
+          "evergreen_value": 58.0,
+          "news_freshness": 65.0,
+          "cpc_potential": null
+        },
+        "normalized_component_values": {
+          "search_volume_potential": 90.0,
+          "low_competition_opportunity": 63.0,
+          "affiliate_opportunity": 44.0,
+          "evergreen_value": 58.0,
+          "news_freshness": 65.0,
+          "cpc_potential": 50.0
+        },
+        "component_weights": {
+          "search_volume_potential": 0.22,
+          "low_competition_opportunity": 0.16,
+          "affiliate_opportunity": 0.2,
+          "evergreen_value": 0.14,
+          "news_freshness": 0.16,
+          "cpc_potential": 0.12
+        },
+        "component_reports": {
+          "search_volume_potential": {
+            "raw_value": 90.0,
+            "normalized_value": 90.0,
+            "weight": 0.22,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "low_competition_opportunity": {
+            "raw_value": 63.0,
+            "normalized_value": 63.0,
+            "weight": 0.16,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "affiliate_opportunity": {
+            "raw_value": 44.0,
+            "normalized_value": 44.0,
+            "weight": 0.2,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "evergreen_value": {
+            "raw_value": 58.0,
+            "normalized_value": 58.0,
+            "weight": 0.14,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "news_freshness": {
+            "raw_value": 65.0,
+            "normalized_value": 65.0,
+            "weight": 0.16,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "cpc_potential": {
+            "raw_value": null,
+            "normalized_value": 50.0,
+            "weight": 0.12,
+            "status": "OPTIONAL_MISSING_NEUTRAL",
+            "missing_policy": "OPTIONAL",
+            "reason": "Optional component missing; neutral 50 used and score confidence reduced."
+          }
+        },
+        "missing_fields": [
+          "cpc_potential"
+        ],
+        "weights_applied": 1.0,
+        "weights_available": 0.88,
+        "weights_redistributed": false,
+        "hard_gate_results": [
+          {
+            "gate": "all_required_gates",
+            "passed": true,
+            "reason": "PASS"
+          }
+        ],
+        "hard_gates_passed": true,
+        "score_confidence": 0.88,
+        "total_score": 63.7,
+        "computed_total_score": 63.2,
+        "scoring_adjustments": [
+          "workflow-adjusted total_score 63.7 used instead of component recompute 63.2"
+        ],
+        "recommended_threshold": 65.0,
+        "absolute_minimum_floor": 50.0,
+        "rank": 1,
+        "selection_result": "SELECTED_QUALITY_LIMITED",
+        "reason": "Passed hard gates and stayed above the absolute floor; selected as quality-limited fill from the strongest available candidates.",
+        "scale_warnings": []
+      },
+      "selection_result": "SELECTED_QUALITY_LIMITED",
+      "selection_reason": "Passed hard gates and stayed above the absolute floor; selected as quality-limited fill from the strongest available candidates.",
+      "rank": 1,
+      "root_topic_id": "univer-review-2026",
+      "title": "univer Review 2026",
+      "primary_keyword": "univer Review 2026",
+      "category": "review",
+      "trend_score": 65.0,
+      "business_value": 44.0,
+      "sources": [
+        "https://github.com/dream-num/univer",
+        "https://docs.univer.ai"
+      ],
+      "entities": [],
+      "week_start": "2026-09-28",
+      "status": "published",
+      "content_lane": "FOUNDATION_MAIN",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "univer Review 2026",
+      "parent_slug": "univer-review-2026",
+      "daily_angles": {},
+      "series_plan": [
+        {
+          "root_topic_id": "univer-review-2026",
+          "root_title": "univer Review 2026",
+          "content_lane": "FOUNDATION_MAIN",
+          "article_id": "univer-review-2026-main_review",
+          "sequence_number": 1,
+          "scheduled_date": "2026-09-28",
+          "planned_publishing_day": "2026-09-28",
+          "daily_angle": "main_review",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate univer Review 2026 for category overview?",
+          "unique_thesis": "univer Review 2026 should be judged through category overview, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use univer Review 2026 for category overview.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Category Overview context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare category overview options without repeating the Monday table.",
+          "faq_set": [
+            "main_review_faq_1",
+            "main_review_faq_2",
+            "main_review_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "implementation_guide",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "implementation_guide",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "univer-review-2026",
+          "root_title": "univer Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "univer-review-2026-implementation_guide",
+          "sequence_number": 2,
+          "scheduled_date": "2026-09-29",
+          "planned_publishing_day": "2026-09-29",
+          "daily_angle": "implementation_guide",
+          "primary_search_intent": "implementation guide",
+          "search_intent": "implementation guide",
+          "reader_question": "How should a small business evaluate univer Review 2026 for implementation workflow?",
+          "unique_thesis": "univer Review 2026 should be judged through implementation workflow, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use univer Review 2026 for implementation workflow.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Implementation Workflow context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare implementation workflow options without repeating the Monday table.",
+          "faq_set": [
+            "implementation_guide_faq_1",
+            "implementation_guide_faq_2",
+            "implementation_guide_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "main_review",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "comparison",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "comparison",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "univer-review-2026",
+          "root_title": "univer Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "univer-review-2026-comparison",
+          "sequence_number": 3,
+          "scheduled_date": "2026-09-30",
+          "planned_publishing_day": "2026-09-30",
+          "daily_angle": "comparison",
+          "primary_search_intent": "comparison",
+          "search_intent": "comparison",
+          "reader_question": "How should a small business evaluate univer Review 2026 for comparison and alternatives?",
+          "unique_thesis": "univer Review 2026 should be judged through comparison and alternatives, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use univer Review 2026 for comparison and alternatives.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Comparison And Alternatives context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare comparison and alternatives options without repeating the Monday table.",
+          "faq_set": [
+            "comparison_faq_1",
+            "comparison_faq_2",
+            "comparison_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "implementation_guide",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "pricing",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "pricing",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "univer-review-2026",
+          "root_title": "univer Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "univer-review-2026-pricing",
+          "sequence_number": 4,
+          "scheduled_date": "2026-10-01",
+          "planned_publishing_day": "2026-10-01",
+          "daily_angle": "pricing",
+          "primary_search_intent": "commercial investigation",
+          "search_intent": "commercial investigation",
+          "reader_question": "How should a small business evaluate univer Review 2026 for pricing, cost, and ROI?",
+          "unique_thesis": "univer Review 2026 should be judged through pricing, cost, and ROI, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use univer Review 2026 for pricing, cost, and ROI.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Pricing, Cost, And Roi context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare pricing, cost, and ROI options without repeating the Monday table.",
+          "faq_set": [
+            "pricing_faq_1",
+            "pricing_faq_2",
+            "pricing_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "comparison",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "use_cases",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "use_cases",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "univer-review-2026",
+          "root_title": "univer Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "univer-review-2026-use_cases",
+          "sequence_number": 5,
+          "scheduled_date": "2026-10-02",
+          "planned_publishing_day": "2026-10-02",
+          "daily_angle": "use_cases",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate univer Review 2026 for workflows and use cases?",
+          "unique_thesis": "univer Review 2026 should be judged through workflows and use cases, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use univer Review 2026 for workflows and use cases.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Workflows And Use Cases context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare workflows and use cases options without repeating the Monday table.",
+          "faq_set": [
+            "use_cases_faq_1",
+            "use_cases_faq_2",
+            "use_cases_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "pricing",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "troubleshooting",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "troubleshooting",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "univer-review-2026",
+          "root_title": "univer Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "univer-review-2026-troubleshooting",
+          "sequence_number": 6,
+          "scheduled_date": "2026-10-03",
+          "planned_publishing_day": "2026-10-03",
+          "daily_angle": "troubleshooting",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate univer Review 2026 for mistakes and troubleshooting?",
+          "unique_thesis": "univer Review 2026 should be judged through mistakes and troubleshooting, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use univer Review 2026 for mistakes and troubleshooting.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Mistakes And Troubleshooting context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare mistakes and troubleshooting options without repeating the Monday table.",
+          "faq_set": [
+            "troubleshooting_faq_1",
+            "troubleshooting_faq_2",
+            "troubleshooting_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "use_cases",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "buying_decision",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "buying_decision",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "univer-review-2026",
+          "root_title": "univer Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "univer-review-2026-buying_decision",
+          "sequence_number": 7,
+          "scheduled_date": "2026-10-04",
+          "planned_publishing_day": "2026-10-04",
+          "daily_angle": "buying_decision",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate univer Review 2026 for small-business buying decision?",
+          "unique_thesis": "univer Review 2026 should be judged through small-business buying decision, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use univer Review 2026 for small-business buying decision.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Small-Business Buying Decision context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare small-business buying decision options without repeating the Monday table.",
+          "faq_set": [
+            "buying_decision_faq_1",
+            "buying_decision_faq_2",
+            "buying_decision_faq_3"
+          ],
+          "cta_intent": "close the same-root editorial series",
+          "previous_article": "troubleshooting",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "",
+            "bridge_state": "SERIES_COMPLETE"
+          },
+          "next_article": "",
+          "bridge_state": "SERIES_COMPLETE",
+          "series_status": "planned",
+          "article_state": "planned"
+        }
+      ],
+      "content_strategy": {
+        "content_type": "Review",
+        "audience": "Small business operators",
+        "search_intent": "commercial research",
+        "marketing_funnel": "Middle of funnel",
+        "primary_keyword": "univer Review 2026",
+        "secondary_semantic_keywords": [
+          "univer",
+          "2026"
+        ],
+        "suggested_internal_links": [
+          {
+            "slug": "up-review-2026",
+            "title": "up Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "related_weekly_topics": [
+          {
+            "slug": "up-review-2026",
+            "title": "up Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "recommended_cta": "Read the full review",
+        "estimated_search_intent": "commercial research",
+        "suggested_external_link_count": 3,
+        "recommended_faq_count": 5,
+        "suggested_heading_count": 8,
+        "reading_level": "Grade 8-10",
+        "target_audience": "Small business operators",
+        "content_freshness": "current",
+        "topical_authority_score": 62,
+        "entity_keywords": [
+          "univer",
+          "2026"
+        ],
+        "schema_recommendation": [
+          "Article",
+          "BreadcrumbList",
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Product"
+        ],
+        "cluster_health": "weak",
+        "planning_scope": "weekly_batch_only"
+      },
+      "content_quality_warnings": [
+        "Warning only: duplicate search intent appears 2 times in this weekly batch.",
+        "Warning only: duplicate CTA appears 2 times in this weekly batch.",
+        "Warning only: duplicate FAQ pattern appears 2 times in this weekly batch."
+      ],
+      "normalized_root_topic": "univer-review-2026",
+      "root_title": "univer Review 2026",
+      "topic_category": "REVIEW",
+      "primary_entity": "univer Review 2026",
+      "primary_search_intent": "commercial research",
+      "reason_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Strong directional search-demand potential.",
+        "Competition estimate is low-to-medium.",
+        "Recent multi-source activity indicates timely interest.",
+        "Official project homepage confirmed from GitHub repository metadata."
+      ],
+      "selection_score": 63.7,
+      "freshness_score": 65.0,
+      "official_source_confidence": "unknown",
+      "likely_search_demand": 90.0,
+      "commercial_relevance": 44.0,
+      "depth_potential": 63.7,
+      "source_references": [
+        "https://github.com/dream-num/univer",
+        "https://docs.univer.ai"
+      ],
+      "selected": true,
+      "selected_status": "selected",
+      "series_status": "active",
+      "maximum_useful_article_angles": 7,
+      "daily_angle": "main_review",
+      "batch_date": "2026-09-28",
+      "mode": "standard",
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\univer-review-2026",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 52.14,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "entity_coverage_score 36.0 below initial threshold 40.0",
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "D:\\AFFILATE BOT\\data\\production_article_drafts\\univer-review-2026",
+      "review_preview": "",
+      "human_approval_status": "needs_human_review",
+      "publish_gate_status": "approved_for_publish",
+      "article_readiness": {
+        "task_id": "website-advanced-2026-09-28-univer-review-2026",
+        "slug": "univer-review-2026",
+        "status": "RESEARCH_STRONG",
+        "article_ready": false,
+        "sources_attempted": 12,
+        "sources_retrieved": 9,
+        "sources_blocked": 3,
+        "usable_paragraphs": 124,
+        "candidate_claims": 109,
+        "publishable_claims": 100,
+        "rejected_claims": 9,
+        "mandatory_sections_covered": 10,
+        "mandatory_sections_total": 10,
+        "blockers": [
+          "Advanced article contract is incomplete: reader_question, unique_thesis",
+          "Angle research plan blocked: Topic univer has no concrete product, vendor, service, or platform evidence entity."
+        ],
+        "warnings": [],
+        "validation_errors": [],
+        "artifact_dir": "D:\\AFFILATE BOT\\data\\research\\univer-review-2026",
+        "research_level": "RESEARCH_STRONG",
+        "draft_exportable": false,
+        "critical_safety_violations": [],
+        "research_tasks": [
+          {
+            "task_id": "research-001",
+            "task_type": "MISSING_PRICING",
+            "section": "pricing",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for pricing.",
+            "recommended_source_families": [
+              "pricing"
+            ],
+            "recommended_wording": "Do not state a price; direct readers to the current official pricing page."
+          },
+          {
+            "task_id": "research-002",
+            "task_type": "MISSING_COMPARATOR",
+            "section": "alternatives",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for alternatives.",
+            "recommended_source_families": [
+              "blog",
+              "marketplace",
+              "community"
+            ],
+            "recommended_wording": "Omit direct rankings and state that alternatives require verification."
+          },
+          {
+            "task_id": "research-003",
+            "task_type": "EVIDENCE_GAP",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Advanced article contract is incomplete: reader_question, unique_thesis",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-004",
+            "task_type": "EVIDENCE_GAP",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Angle research plan blocked: Topic univer has no concrete product, vendor, service, or platform evidence entity.",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          }
+        ],
+        "known_uncertainties": [
+          "Evidence is incomplete for pricing.",
+          "Evidence is incomplete for alternatives.",
+          "Advanced article contract is incomplete: reader_question, unique_thesis",
+          "Angle research plan blocked: Topic univer has no concrete product, vendor, service, or platform evidence entity."
+        ],
+        "weak_sections": [
+          "pricing",
+          "alternatives"
+        ],
+        "comparison_status": "NOT_APPLICABLE",
+        "identified_comparison_entities": [
+          "univer"
+        ],
+        "official_sources_per_entity": {
+          "univer": [
+            {
+              "url": "https://docs.univer.ai/reference",
+              "source_type": "official_docs"
+            },
+            {
+              "url": "https://docs.univer.ai/guides/sheets",
+              "source_type": "official_docs"
+            },
+            {
+              "url": "https://docs.univer.ai/server",
+              "source_type": "official_docs"
+            },
+            {
+              "url": "https://docs.univer.ai/ai",
+              "source_type": "official_docs"
+            },
+            {
+              "url": "https://docs.univer.ai/blog/univer-1-0",
+              "source_type": "official_docs"
+            },
+            {
+              "url": "https://docs.univer.ai/server/collaboration/overview",
+              "source_type": "official_docs"
+            },
+            {
+              "url": "https://docs.univer.ai/server/import-export",
+              "source_type": "official_docs"
+            },
+            {
+              "url": "https://docs.univer.ai/server/collaboration/extensions",
+              "source_type": "official_docs"
+            }
+          ]
+        },
+        "entity_coverage": [
+          {
+            "canonical_entity_id": "univer",
+            "canonical_entity_name": "univer",
+            "entity_role": "topic",
+            "source_count": 9,
+            "claim_count": 100,
+            "claim_categories": [
+              "feature",
+              "general",
+              "identity",
+              "integration",
+              "limitation",
+              "workflow"
+            ],
+            "sections_covered": [
+              "feature-scope",
+              "limitations",
+              "product-identity"
+            ],
+            "sections_required": [
+              "product-identity",
+              "feature-scope",
+              "limitations"
+            ],
+            "coverage_score": 1.0,
+            "status": "STRONG"
+          }
+        ],
+        "source_family_counts": {
+          "independent_evidence": 1,
+          "official_docs": 8
+        },
+        "evidence_coverage_score": 0.85,
+        "estimated_publish_readiness": 0.9025,
+        "revision_count": 0,
+        "unique_thesis": "",
+        "unique_thesis_status": "MISSING"
+      },
+      "research_artifacts": {
+        "task_id": "website-advanced-2026-09-28-univer-review-2026",
+        "slug": "univer-review-2026",
+        "batch_date": "2026-09-28",
+        "canonical_dir": "D:\\AFFILATE BOT\\data\\research\\univer-review-2026",
+        "package_file": "D:\\AFFILATE BOT\\data\\research\\univer-review-2026\\package.json",
+        "enrichment_report_file": "D:\\AFFILATE BOT\\data\\research\\univer-review-2026\\enrichment_report.json",
+        "source_excerpts_file": "D:\\AFFILATE BOT\\data\\research\\univer-review-2026\\SOURCE_EXCERPTS.json",
+        "fact_ledger_file": "D:\\AFFILATE BOT\\data\\research\\univer-review-2026\\FACT_LEDGER.json",
+        "article_blueprint_file": "D:\\AFFILATE BOT\\data\\research\\univer-review-2026\\ARTICLE_BLUEPRINT.json",
+        "evidence_coverage_file": "D:\\AFFILATE BOT\\data\\research\\univer-review-2026\\evidence_coverage.json",
+        "angle_research_plan_file": "D:\\AFFILATE BOT\\data\\research\\univer-review-2026\\ANGLE_RESEARCH_PLAN.json",
+        "claim_extraction_diagnostics_file": "D:\\AFFILATE BOT\\data\\research\\univer-review-2026\\claim_extraction_diagnostics.json",
+        "duplicate_dirs": [],
+        "slug_aliases": [],
+        "missing_files": [],
+        "legacy_reasons": [],
+        "paragraph_count": 124,
+        "claim_count": 100,
+        "coverage_score": 0.85,
+        "angle_profile": "advanced_features",
+        "required_entity_count": 1,
+        "resolved_entity_count": 1,
+        "entity_coverage_score": 1.0,
+        "candidate_claim_count": 109,
+        "rejected_claim_count": 9,
+        "mandatory_sections_covered": 10,
+        "mandatory_sections_total": 10,
+        "status": "RESEARCH_STRONG",
+        "article_ready": false,
+        "research_level": "RESEARCH_STRONG",
+        "draft_exportable": true,
+        "critical_safety_violations": [],
+        "outstanding_research_tasks": 4,
+        "weak_sections": [
+          "pricing",
+          "alternatives"
+        ],
+        "comparison_status": "NOT_APPLICABLE",
+        "estimated_publish_readiness": 0.9025,
+        "revision_count": 0,
+        "total_source_count": 9,
+        "official_source_count": 8,
+        "verified_source_count": 9,
+        "source_families": [
+          "independent_evidence",
+          "official_docs"
+        ],
+        "source_quality_score": 100.0,
+        "failing_gates": [],
+        "is_legacy": false
+      },
+      "batch_state": "QUEUE_CREATED",
+      "error": "",
+      "research_level": "RESEARCH_STRONG",
+      "comparison_status": "NOT_APPLICABLE",
+      "outstanding_research_tasks": 4,
+      "draft_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\univer-review-2026\\index.html",
+      "metadata_file": "D:\\AFFILATE BOT\\data\\production_article_drafts\\univer-review-2026\\metadata.json",
+      "review_status": "needs_human_review",
+      "writer": {
+        "writer_type": "external_ai",
+        "writer_name": "ChatGPT",
+        "writer_version": "web",
+        "generated_at": "2026-09-29T04:03:36.382241+00:00",
+        "package_id": "8679eed51cdd87b6",
+        "task_id": "website_foundation-2026-09-28-16aac9e36e02795f",
+        "revision": 1
+      },
+      "approved_by": "editor",
+      "published_at": "2026-09-29T12:55:38.871115+00:00",
+      "validation_mode": "smart",
+      "validation_status": "passed",
+      "autofix_status": "skipped_read_only",
+      "cta_status": "not_changed",
+      "faq_schema_status": "not_changed",
+      "meta_description_status": "not_changed",
+      "redirect_status": "not_changed",
+      "block_reason": "",
+      "validation_errors": [],
+      "next_action": ""
+    },
+    {
+      "keyword": "up Review 2026",
+      "slug": "up-review-2026",
+      "search_intent": "commercial research",
+      "search_intent_score": 90.0,
+      "affiliate_monetization_score": 44.0,
+      "competition_difficulty_score": 37.0,
+      "product_availability_score": 58.0,
+      "content_freshness_score": 62.0,
+      "content_type": "review",
+      "matched_products": [],
+      "related_keywords": [],
+      "source_urls": [
+        "https://github.com/byoungd/up",
+        "https://biezou.com"
+      ],
+      "suggested_internal_links": [
+        "/",
+        "/reviews/",
+        "/comparisons/"
+      ],
+      "suggested_article_angle": "Review up Review 2026 with independent methodology, use cases, pricing cautions, pros, cons, and alternatives.",
+      "why_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Competition estimate is low-to-medium.",
+        "Official project homepage confirmed from GitHub repository metadata."
+      ],
+      "signals": 1,
+      "confidence": "medium",
+      "total_score": 63.2,
+      "raw_total_score": 63.2,
+      "duplicate_penalty_applied": 0.0,
+      "published_live_duplicate_warning": "",
+      "published_live_duplicate_match": {},
+      "source_readiness": {
+        "passes": true,
+        "source_count": 2,
+        "source_urls": [
+          "https://github.com/byoungd/up",
+          "https://biezou.com"
+        ],
+        "unique_source_domains": [
+          "github.com",
+          "biezou.com"
+        ],
+        "source_verification_status": "passed",
+        "source_semantic_status": "passed",
+        "freshness_status": "passed",
+        "collision_result": {
+          "has_collision": false,
+          "matches": [
+            "none"
+          ]
+        },
+        "pass_fail_reason": "PASS"
+      },
+      "topic_score_report": {
+        "candidate_id": "up-review-2026",
+        "content_lane": "FOUNDATION_MAIN",
+        "title": "up Review 2026",
+        "scoring_owner": "modules.ai_trend_discovery",
+        "scoring_version": "topic_scoring_v2",
+        "score_scale": "0-100",
+        "raw_component_values": {
+          "search_volume_potential": 90.0,
+          "low_competition_opportunity": 63.0,
+          "affiliate_opportunity": 44.0,
+          "evergreen_value": 58.0,
+          "news_freshness": 62.0,
+          "cpc_potential": null
+        },
+        "normalized_component_values": {
+          "search_volume_potential": 90.0,
+          "low_competition_opportunity": 63.0,
+          "affiliate_opportunity": 44.0,
+          "evergreen_value": 58.0,
+          "news_freshness": 62.0,
+          "cpc_potential": 50.0
+        },
+        "component_weights": {
+          "search_volume_potential": 0.22,
+          "low_competition_opportunity": 0.16,
+          "affiliate_opportunity": 0.2,
+          "evergreen_value": 0.14,
+          "news_freshness": 0.16,
+          "cpc_potential": 0.12
+        },
+        "component_reports": {
+          "search_volume_potential": {
+            "raw_value": 90.0,
+            "normalized_value": 90.0,
+            "weight": 0.22,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "low_competition_opportunity": {
+            "raw_value": 63.0,
+            "normalized_value": 63.0,
+            "weight": 0.16,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "affiliate_opportunity": {
+            "raw_value": 44.0,
+            "normalized_value": 44.0,
+            "weight": 0.2,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "evergreen_value": {
+            "raw_value": 58.0,
+            "normalized_value": 58.0,
+            "weight": 0.14,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "news_freshness": {
+            "raw_value": 62.0,
+            "normalized_value": 62.0,
+            "weight": 0.16,
+            "status": "available",
+            "missing_policy": "OPTIONAL",
+            "reason": "0-100 value"
+          },
+          "cpc_potential": {
+            "raw_value": null,
+            "normalized_value": 50.0,
+            "weight": 0.12,
+            "status": "OPTIONAL_MISSING_NEUTRAL",
+            "missing_policy": "OPTIONAL",
+            "reason": "Optional component missing; neutral 50 used and score confidence reduced."
+          }
+        },
+        "missing_fields": [
+          "cpc_potential"
+        ],
+        "weights_applied": 1.0,
+        "weights_available": 0.88,
+        "weights_redistributed": false,
+        "hard_gate_results": [
+          {
+            "gate": "all_required_gates",
+            "passed": true,
+            "reason": "PASS"
+          }
+        ],
+        "hard_gates_passed": true,
+        "score_confidence": 0.88,
+        "total_score": 63.2,
+        "computed_total_score": 62.7,
+        "scoring_adjustments": [
+          "workflow-adjusted total_score 63.2 used instead of component recompute 62.7"
+        ],
+        "recommended_threshold": 65.0,
+        "absolute_minimum_floor": 50.0,
+        "rank": 2,
+        "selection_result": "SELECTED_QUALITY_LIMITED",
+        "reason": "Passed hard gates and stayed above the absolute floor; selected as quality-limited fill from the strongest available candidates.",
+        "scale_warnings": []
+      },
+      "selection_result": "SELECTED_QUALITY_LIMITED",
+      "selection_reason": "Passed hard gates and stayed above the absolute floor; selected as quality-limited fill from the strongest available candidates.",
+      "rank": 2,
+      "root_topic_id": "up-review-2026",
+      "title": "up Review 2026",
+      "primary_keyword": "up Review 2026",
+      "category": "review",
+      "trend_score": 62.0,
+      "business_value": 44.0,
+      "sources": [
+        "https://github.com/byoungd/up",
+        "https://biezou.com"
+      ],
+      "entities": [],
+      "week_start": "2026-09-28",
+      "status": "NO_OFFICIAL_SOURCES",
+      "content_lane": "FOUNDATION_MAIN",
+      "selection_status": "weekly_selected",
+      "parent_keyword": "up Review 2026",
+      "parent_slug": "up-review-2026",
+      "daily_angles": {},
+      "series_plan": [
+        {
+          "root_topic_id": "up-review-2026",
+          "root_title": "up Review 2026",
+          "content_lane": "FOUNDATION_MAIN",
+          "article_id": "up-review-2026-main_review",
+          "sequence_number": 1,
+          "scheduled_date": "2026-09-28",
+          "planned_publishing_day": "2026-09-28",
+          "daily_angle": "main_review",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate up Review 2026 for category overview?",
+          "unique_thesis": "up Review 2026 should be judged through category overview, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use up Review 2026 for category overview.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Category Overview context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare category overview options without repeating the Monday table.",
+          "faq_set": [
+            "main_review_faq_1",
+            "main_review_faq_2",
+            "main_review_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "implementation_guide",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "implementation_guide",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "up-review-2026",
+          "root_title": "up Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "up-review-2026-implementation_guide",
+          "sequence_number": 2,
+          "scheduled_date": "2026-09-29",
+          "planned_publishing_day": "2026-09-29",
+          "daily_angle": "implementation_guide",
+          "primary_search_intent": "implementation guide",
+          "search_intent": "implementation guide",
+          "reader_question": "How should a small business evaluate up Review 2026 for implementation workflow?",
+          "unique_thesis": "up Review 2026 should be judged through implementation workflow, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use up Review 2026 for implementation workflow.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Implementation Workflow context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare implementation workflow options without repeating the Monday table.",
+          "faq_set": [
+            "implementation_guide_faq_1",
+            "implementation_guide_faq_2",
+            "implementation_guide_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "main_review",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "comparison",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "comparison",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "up-review-2026",
+          "root_title": "up Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "up-review-2026-comparison",
+          "sequence_number": 3,
+          "scheduled_date": "2026-09-30",
+          "planned_publishing_day": "2026-09-30",
+          "daily_angle": "comparison",
+          "primary_search_intent": "comparison",
+          "search_intent": "comparison",
+          "reader_question": "How should a small business evaluate up Review 2026 for comparison and alternatives?",
+          "unique_thesis": "up Review 2026 should be judged through comparison and alternatives, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use up Review 2026 for comparison and alternatives.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Comparison And Alternatives context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare comparison and alternatives options without repeating the Monday table.",
+          "faq_set": [
+            "comparison_faq_1",
+            "comparison_faq_2",
+            "comparison_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "implementation_guide",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "pricing",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "pricing",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "up-review-2026",
+          "root_title": "up Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "up-review-2026-pricing",
+          "sequence_number": 4,
+          "scheduled_date": "2026-10-01",
+          "planned_publishing_day": "2026-10-01",
+          "daily_angle": "pricing",
+          "primary_search_intent": "commercial investigation",
+          "search_intent": "commercial investigation",
+          "reader_question": "How should a small business evaluate up Review 2026 for pricing, cost, and ROI?",
+          "unique_thesis": "up Review 2026 should be judged through pricing, cost, and ROI, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use up Review 2026 for pricing, cost, and ROI.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Pricing, Cost, And Roi context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare pricing, cost, and ROI options without repeating the Monday table.",
+          "faq_set": [
+            "pricing_faq_1",
+            "pricing_faq_2",
+            "pricing_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "comparison",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "use_cases",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "use_cases",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "up-review-2026",
+          "root_title": "up Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "up-review-2026-use_cases",
+          "sequence_number": 5,
+          "scheduled_date": "2026-10-02",
+          "planned_publishing_day": "2026-10-02",
+          "daily_angle": "use_cases",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate up Review 2026 for workflows and use cases?",
+          "unique_thesis": "up Review 2026 should be judged through workflows and use cases, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use up Review 2026 for workflows and use cases.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Workflows And Use Cases context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare workflows and use cases options without repeating the Monday table.",
+          "faq_set": [
+            "use_cases_faq_1",
+            "use_cases_faq_2",
+            "use_cases_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "pricing",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "troubleshooting",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "troubleshooting",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "up-review-2026",
+          "root_title": "up Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "up-review-2026-troubleshooting",
+          "sequence_number": 6,
+          "scheduled_date": "2026-10-03",
+          "planned_publishing_day": "2026-10-03",
+          "daily_angle": "troubleshooting",
+          "primary_search_intent": "informational",
+          "search_intent": "informational",
+          "reader_question": "How should a small business evaluate up Review 2026 for mistakes and troubleshooting?",
+          "unique_thesis": "up Review 2026 should be judged through mistakes and troubleshooting, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use up Review 2026 for mistakes and troubleshooting.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Mistakes And Troubleshooting context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare mistakes and troubleshooting options without repeating the Monday table.",
+          "faq_set": [
+            "troubleshooting_faq_1",
+            "troubleshooting_faq_2",
+            "troubleshooting_faq_3"
+          ],
+          "cta_intent": "continue the same-root editorial series",
+          "previous_article": "use_cases",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "buying_decision",
+            "bridge_state": "NEXT_SCHEDULED_NOT_LIVE"
+          },
+          "next_article": "buying_decision",
+          "bridge_state": "NEXT_SCHEDULED_NOT_LIVE",
+          "series_status": "planned",
+          "article_state": "planned"
+        },
+        {
+          "root_topic_id": "up-review-2026",
+          "root_title": "up Review 2026",
+          "content_lane": "FOUNDATION_ADVANCED",
+          "article_id": "up-review-2026-buying_decision",
+          "sequence_number": 7,
+          "scheduled_date": "2026-10-04",
+          "planned_publishing_day": "2026-10-04",
+          "daily_angle": "buying_decision",
+          "primary_search_intent": "commercial research",
+          "search_intent": "commercial research",
+          "reader_question": "How should a small business evaluate up Review 2026 for small-business buying decision?",
+          "unique_thesis": "up Review 2026 should be judged through small-business buying decision, not a repeated feature checklist.",
+          "decision_objective": "Help the reader decide how to use up Review 2026 for small-business buying decision.",
+          "required_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "key_evidence": [
+            "prepared sources",
+            "official source where available",
+            "same-root article history"
+          ],
+          "unique_sections": [
+            "Small-Business Buying Decision context",
+            "Verification checklist",
+            "Operational risks"
+          ],
+          "table_purpose": "Compare small-business buying decision options without repeating the Monday table.",
+          "faq_set": [
+            "buying_decision_faq_1",
+            "buying_decision_faq_2",
+            "buying_decision_faq_3"
+          ],
+          "cta_intent": "close the same-root editorial series",
+          "previous_article": "troubleshooting",
+          "prohibited_overlap": [
+            "same search intent as an earlier article",
+            "same FAQ set as an earlier article",
+            "same table purpose as an earlier article",
+            "same conclusion/CTA purpose as an earlier article"
+          ],
+          "next_scheduled_article": {
+            "daily_angle": "",
+            "bridge_state": "SERIES_COMPLETE"
+          },
+          "next_article": "",
+          "bridge_state": "SERIES_COMPLETE",
+          "series_status": "planned",
+          "article_state": "planned"
+        }
+      ],
+      "content_strategy": {
+        "content_type": "Review",
+        "audience": "Small business operators",
+        "search_intent": "commercial research",
+        "marketing_funnel": "Middle of funnel",
+        "primary_keyword": "up Review 2026",
+        "secondary_semantic_keywords": [
+          "2026"
+        ],
+        "suggested_internal_links": [
+          {
+            "slug": "univer-review-2026",
+            "title": "univer Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "related_weekly_topics": [
+          {
+            "slug": "univer-review-2026",
+            "title": "univer Review 2026",
+            "reason": "Shares 1 weekly-batch topic term(s)."
+          }
+        ],
+        "recommended_cta": "Read the full review",
+        "estimated_search_intent": "commercial research",
+        "suggested_external_link_count": 3,
+        "recommended_faq_count": 5,
+        "suggested_heading_count": 8,
+        "reading_level": "Grade 8-10",
+        "target_audience": "Small business operators",
+        "content_freshness": "current",
+        "topical_authority_score": 62,
+        "entity_keywords": [
+          "2026"
+        ],
+        "schema_recommendation": [
+          "Article",
+          "BreadcrumbList",
+          "Organization",
+          "WebSite",
+          "FAQPage",
+          "Product"
+        ],
+        "cluster_health": "weak",
+        "planning_scope": "weekly_batch_only"
+      },
+      "content_quality_warnings": [
+        "Warning only: duplicate search intent appears 2 times in this weekly batch.",
+        "Warning only: duplicate CTA appears 2 times in this weekly batch.",
+        "Warning only: duplicate FAQ pattern appears 2 times in this weekly batch."
+      ],
+      "normalized_root_topic": "up-review-2026",
+      "root_title": "up Review 2026",
+      "topic_category": "REVIEW",
+      "primary_entity": "up Review 2026",
+      "primary_search_intent": "commercial research",
+      "reason_selected": [
+        "Detected across 1 source(s): github_trending.",
+        "Competition estimate is low-to-medium.",
+        "Official project homepage confirmed from GitHub repository metadata."
+      ],
+      "selection_score": 63.2,
+      "freshness_score": 62.0,
+      "official_source_confidence": "unknown",
+      "likely_search_demand": 90.0,
+      "commercial_relevance": 44.0,
+      "depth_potential": 63.2,
+      "source_references": [
+        "https://github.com/byoungd/up",
+        "https://biezou.com"
+      ],
+      "selected": true,
+      "selected_status": "selected",
+      "series_status": "active",
+      "maximum_useful_article_angles": 7,
+      "daily_angle": "main_review",
+      "batch_date": "2026-09-28",
+      "mode": "standard",
+      "research_package": "D:\\AFFILATE BOT\\data\\research\\up-review-2026",
+      "research_quality_gate": {
+        "passed": true,
+        "score": 52.14,
+        "threshold": 50.0,
+        "override_used": false,
+        "status": "passed",
+        "source_count": 2,
+        "minimum_sources": 2,
+        "warnings": [
+          "entity_coverage_score 36.0 below initial threshold 40.0",
+          "competitor_coverage_score 10.0 below initial threshold 30.0"
+        ],
+        "hard_blockers": []
+      },
+      "draft_dir": "",
+      "review_preview": "",
+      "human_approval_status": "not_started",
+      "publish_gate_status": "not_started",
+      "article_readiness": {
+        "task_id": "website-advanced-2026-09-28-up-review-2026",
+        "slug": "up-review-2026",
+        "status": "NO_OFFICIAL_SOURCES",
+        "article_ready": false,
+        "sources_attempted": 2,
+        "sources_retrieved": 0,
+        "sources_blocked": 2,
+        "usable_paragraphs": 0,
+        "candidate_claims": 0,
+        "publishable_claims": 0,
+        "rejected_claims": 0,
+        "mandatory_sections_covered": 4,
+        "mandatory_sections_total": 10,
+        "blockers": [
+          "No real readable source paragraphs were retrieved.",
+          "Only 0 directly supported claims; software_review evidence target is 25.",
+          "Mandatory evidence sections blocked: product-identity, core-workflow, feature-scope, pros, final-recommendation, faq",
+          "Evidence coverage score 0.10 is below the required 0.65.",
+          "Only 0 distinct source families; software_review requires 1.",
+          "Advanced article contract is incomplete: reader_question, unique_thesis",
+          "Angle research plan blocked: Topic up has no concrete product, vendor, service, or platform evidence entity.",
+          "Entity up has 0 approved source(s); requires 1.",
+          "Entity up has 0 accepted claim(s); requires 8.",
+          "Entity up coverage 0.00 is below 0.65.",
+          "total_verified_source_score 0 is below required 35.",
+          "official_docs_score 0 is below required 20."
+        ],
+        "warnings": [],
+        "validation_errors": [],
+        "artifact_dir": "D:\\AFFILATE BOT\\data\\research\\up-review-2026",
+        "research_level": "NO_OFFICIAL_SOURCES",
+        "draft_exportable": false,
+        "critical_safety_violations": [
+          "NO_OFFICIAL_SOURCES"
+        ],
+        "research_tasks": [
+          {
+            "task_id": "research-001",
+            "task_type": "EVIDENCE_GAP",
+            "section": "product-identity",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for product-identity.",
+            "recommended_source_families": [
+              "official_website",
+              "docs",
+              "github",
+              "readme"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-002",
+            "task_type": "EVIDENCE_GAP",
+            "section": "core-workflow",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for core-workflow.",
+            "recommended_source_families": [
+              "docs",
+              "tutorial",
+              "examples",
+              "readme"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-003",
+            "task_type": "EVIDENCE_GAP",
+            "section": "feature-scope",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for feature-scope.",
+            "recommended_source_families": [
+              "docs",
+              "api_docs",
+              "release_notes",
+              "changelog"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-004",
+            "task_type": "EVIDENCE_GAP",
+            "section": "limitations",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for limitations.",
+            "recommended_source_families": [
+              "docs",
+              "faq",
+              "support",
+              "github"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-005",
+            "task_type": "MISSING_PRICING",
+            "section": "pricing",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for pricing.",
+            "recommended_source_families": [
+              "pricing"
+            ],
+            "recommended_wording": "Do not state a price; direct readers to the current official pricing page."
+          },
+          {
+            "task_id": "research-006",
+            "task_type": "MISSING_COMPARATOR",
+            "section": "alternatives",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for alternatives.",
+            "recommended_source_families": [
+              "blog",
+              "marketplace",
+              "community"
+            ],
+            "recommended_wording": "Omit direct rankings and state that alternatives require verification."
+          },
+          {
+            "task_id": "research-007",
+            "task_type": "EVIDENCE_GAP",
+            "section": "pros",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for pros.",
+            "recommended_source_families": [
+              "docs",
+              "examples",
+              "tutorial"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-008",
+            "task_type": "EVIDENCE_GAP",
+            "section": "cons",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for cons.",
+            "recommended_source_families": [
+              "faq",
+              "support",
+              "github"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-009",
+            "task_type": "EVIDENCE_GAP",
+            "section": "final-recommendation",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for final-recommendation.",
+            "recommended_source_families": [
+              "official_website",
+              "docs",
+              "pricing"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-010",
+            "task_type": "EVIDENCE_GAP",
+            "section": "faq",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence is incomplete for faq.",
+            "recommended_source_families": [
+              "faq",
+              "docs",
+              "support"
+            ],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-011",
+            "task_type": "MISSING_CITATION",
+            "section": "citations",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "No real readable source paragraphs were retrieved.",
+            "recommended_source_families": [],
+            "recommended_wording": "Omit the claim until an approved source and excerpt are available."
+          },
+          {
+            "task_id": "research-012",
+            "task_type": "EVIDENCE_GAP",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Only 0 directly supported claims; software_review evidence target is 25.",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-013",
+            "task_type": "WEAK_SECTION",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Mandatory evidence sections blocked: product-identity, core-workflow, feature-scope, pros, final-recommendation, faq",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-014",
+            "task_type": "WEAK_SECTION",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Evidence coverage score 0.10 is below the required 0.65.",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-015",
+            "task_type": "MISSING_CITATION",
+            "section": "citations",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Only 0 distinct source families; software_review requires 1.",
+            "recommended_source_families": [],
+            "recommended_wording": "Omit the claim until an approved source and excerpt are available."
+          },
+          {
+            "task_id": "research-016",
+            "task_type": "EVIDENCE_GAP",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Advanced article contract is incomplete: reader_question, unique_thesis",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-017",
+            "task_type": "EVIDENCE_GAP",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Angle research plan blocked: Topic up has no concrete product, vendor, service, or platform evidence entity.",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-018",
+            "task_type": "MISSING_CITATION",
+            "section": "citations",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Entity up has 0 approved source(s); requires 1.",
+            "recommended_source_families": [],
+            "recommended_wording": "Omit the claim until an approved source and excerpt are available."
+          },
+          {
+            "task_id": "research-019",
+            "task_type": "EVIDENCE_GAP",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Entity up has 0 accepted claim(s); requires 8.",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-020",
+            "task_type": "WEAK_SECTION",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "Entity up coverage 0.00 is below 0.65.",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          },
+          {
+            "task_id": "research-021",
+            "task_type": "MISSING_CITATION",
+            "section": "citations",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "total_verified_source_score 0 is below required 35.",
+            "recommended_source_families": [],
+            "recommended_wording": "Omit the claim until an approved source and excerpt are available."
+          },
+          {
+            "task_id": "research-022",
+            "task_type": "EVIDENCE_GAP",
+            "section": "general",
+            "status": "PENDING",
+            "severity": "non_critical",
+            "blocks_first_draft": false,
+            "reason": "official_docs_score 0 is below required 20.",
+            "recommended_source_families": [],
+            "recommended_wording": "Use cautious wording and do not infer facts beyond supplied evidence."
+          }
+        ],
+        "known_uncertainties": [
+          "Evidence is incomplete for product-identity.",
+          "Evidence is incomplete for core-workflow.",
+          "Evidence is incomplete for feature-scope.",
+          "Evidence is incomplete for limitations.",
+          "Evidence is incomplete for pricing.",
+          "Evidence is incomplete for alternatives.",
+          "Evidence is incomplete for pros.",
+          "Evidence is incomplete for cons.",
+          "Evidence is incomplete for final-recommendation.",
+          "Evidence is incomplete for faq.",
+          "No real readable source paragraphs were retrieved.",
+          "Only 0 directly supported claims; software_review evidence target is 25.",
+          "Mandatory evidence sections blocked: product-identity, core-workflow, feature-scope, pros, final-recommendation, faq",
+          "Evidence coverage score 0.10 is below the required 0.65.",
+          "Only 0 distinct source families; software_review requires 1.",
+          "Advanced article contract is incomplete: reader_question, unique_thesis",
+          "Angle research plan blocked: Topic up has no concrete product, vendor, service, or platform evidence entity.",
+          "Entity up has 0 approved source(s); requires 1.",
+          "Entity up has 0 accepted claim(s); requires 8.",
+          "Entity up coverage 0.00 is below 0.65.",
+          "total_verified_source_score 0 is below required 35.",
+          "official_docs_score 0 is below required 20."
+        ],
+        "weak_sections": [
+          "product-identity",
+          "core-workflow",
+          "feature-scope",
+          "limitations",
+          "pricing",
+          "alternatives",
+          "pros",
+          "cons",
+          "final-recommendation",
+          "faq"
+        ],
+        "comparison_status": "NOT_APPLICABLE",
+        "identified_comparison_entities": [
+          "up"
+        ],
+        "official_sources_per_entity": {
+          "up": []
+        },
+        "entity_coverage": [
+          {
+            "canonical_entity_id": "up",
+            "canonical_entity_name": "up",
+            "entity_role": "topic",
+            "source_count": 0,
+            "claim_count": 0,
+            "claim_categories": [],
+            "sections_covered": [],
+            "sections_required": [
+              "product-identity",
+              "feature-scope",
+              "limitations"
+            ],
+            "coverage_score": 0.0,
+            "status": "MISSING"
+          }
+        ],
+        "source_family_counts": {},
+        "evidence_coverage_score": 0.1,
+        "estimated_publish_readiness": 0.0,
+        "revision_count": 0,
+        "unique_thesis": "",
+        "unique_thesis_status": "MISSING"
+      },
+      "research_artifacts": {
+        "task_id": "website-advanced-2026-09-28-up-review-2026",
+        "slug": "up-review-2026",
+        "batch_date": "2026-09-28",
+        "canonical_dir": "D:\\AFFILATE BOT\\data\\research\\up-review-2026",
+        "package_file": "D:\\AFFILATE BOT\\data\\research\\up-review-2026\\package.json",
+        "enrichment_report_file": "D:\\AFFILATE BOT\\data\\research\\up-review-2026\\enrichment_report.json",
+        "source_excerpts_file": "D:\\AFFILATE BOT\\data\\research\\up-review-2026\\SOURCE_EXCERPTS.json",
+        "fact_ledger_file": "D:\\AFFILATE BOT\\data\\research\\up-review-2026\\FACT_LEDGER.json",
+        "article_blueprint_file": "D:\\AFFILATE BOT\\data\\research\\up-review-2026\\ARTICLE_BLUEPRINT.json",
+        "evidence_coverage_file": "D:\\AFFILATE BOT\\data\\research\\up-review-2026\\evidence_coverage.json",
+        "angle_research_plan_file": "D:\\AFFILATE BOT\\data\\research\\up-review-2026\\ANGLE_RESEARCH_PLAN.json",
+        "claim_extraction_diagnostics_file": "D:\\AFFILATE BOT\\data\\research\\up-review-2026\\claim_extraction_diagnostics.json",
+        "duplicate_dirs": [],
+        "slug_aliases": [],
+        "missing_files": [],
+        "legacy_reasons": [
+          "FACT_LEDGER contains zero claims"
+        ],
+        "paragraph_count": 0,
+        "claim_count": 0,
+        "coverage_score": 0.1,
+        "angle_profile": "advanced_features",
+        "required_entity_count": 1,
+        "resolved_entity_count": 1,
+        "entity_coverage_score": 0.0,
+        "candidate_claim_count": 0,
+        "rejected_claim_count": 0,
+        "mandatory_sections_covered": 4,
+        "mandatory_sections_total": 10,
+        "status": "NO_OFFICIAL_SOURCES",
+        "article_ready": false,
+        "research_level": "BLOCKED_RESEARCH",
+        "draft_exportable": false,
+        "critical_safety_violations": [
+          "NO_OFFICIAL_SOURCES"
+        ],
+        "outstanding_research_tasks": 22,
+        "weak_sections": [
+          "product-identity",
+          "core-workflow",
+          "feature-scope",
+          "limitations",
+          "pricing",
+          "alternatives",
+          "pros",
+          "cons",
+          "final-recommendation",
+          "faq"
+        ],
+        "comparison_status": "NOT_APPLICABLE",
+        "estimated_publish_readiness": 0.0,
+        "revision_count": 0,
+        "total_source_count": 2,
+        "official_source_count": 0,
+        "verified_source_count": 2,
+        "source_families": [
+          "independent_evidence"
+        ],
+        "source_quality_score": 0.0,
+        "failing_gates": [
+          "VERIFIED_SOURCE_SCORE 0 below 35",
+          "OFFICIAL_DOCS_SCORE 0 below 20",
+          "NO_VERIFIED_SOURCES",
+          "NO_VERIFIED_OFFICIAL_SOURCE",
+          "No real readable source paragraphs were retrieved.",
+          "Only 0 directly supported claims; software_review evidence target is 25.",
+          "Mandatory evidence sections blocked: product-identity, core-workflow, feature-scope, pros, final-recommendation, faq",
+          "Evidence coverage score 0.10 is below the required 0.65.",
+          "Only 0 distinct source families; software_review requires 1.",
+          "Advanced article contract is incomplete: reader_question, unique_thesis",
+          "Angle research plan blocked: Topic up has no concrete product, vendor, service, or platform evidence entity.",
+          "Entity up has 0 approved source(s); requires 1.",
+          "Entity up has 0 accepted claim(s); requires 8.",
+          "Entity up coverage 0.00 is below 0.65.",
+          "total_verified_source_score 0 is below required 35.",
+          "official_docs_score 0 is below required 20."
+        ],
+        "is_legacy": true
+      },
+      "batch_state": "QUEUE_CREATED",
+      "error": "No real readable source paragraphs were retrieved.; Only 0 directly supported claims; software_review evidence target is 25.; Mandatory evidence sections blocked: product-identity, core-workflow, feature-scope, pros, final-recommendation, faq; Evidence coverage score 0.10 is below the required 0.65.; Only 0 distinct source families; software_review requires 1.; Advanced article contract is incomplete: reader_question, unique_thesis; Angle research plan blocked: Topic up has no concrete product, vendor, service, or platform evidence entity.; Entity up has 0 approved source(s); requires 1.; Entity up has 0 accepted claim(s); requires 8.; Entity up coverage 0.00 is below 0.65.; total_verified_source_score 0 is below required 35.; official_docs_score 0 is below required 20.; VERIFIED_SOURCE_SCORE 0 below 35; OFFICIAL_DOCS_SCORE 0 below 20; NO_VERIFIED_SOURCES; NO_VERIFIED_OFFICIAL_SOURCE; No real readable source paragraphs were retrieved.; Only 0 directly supported claims; software_review evidence target is 25.; Mandatory evidence sections blocked: product-identity, core-workflow, feature-scope, pros, final-recommendation, faq; Evidence coverage score 0.10 is below the required 0.65.; Only 0 distinct source families; software_review requires 1.; Advanced article contract is incomplete: reader_question, unique_thesis; Angle research plan blocked: Topic up has no concrete product, vendor, service, or platform evidence entity.; Entity up has 0 approved source(s); requires 1.; Entity up has 0 accepted claim(s); requires 8.; Entity up coverage 0.00 is below 0.65.; total_verified_source_score 0 is below required 35.; official_docs_score 0 is below required 20."
+    }
+  ],
+  "rejected_candidate_count": 0,
+  "rejection_reasons": {},
+  "research_prepared_at": "2026-09-28T13:00:07.613160+00:00"
+}

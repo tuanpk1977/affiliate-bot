@@ -1938,5 +1938,24 @@
         "source_reference": "how-to-implement-ai-in-healthcare-marketing-moving-from-automation-to-intelligent-engagement"
       }
     ]
+  },
+  {
+    "slug": "univer-review-2026",
+    "topic": "univer Review 2026",
+    "status": "human_approved",
+    "required": true,
+    "reviewed_at": "2026-09-29T09:51:04.611461+00:00",
+    "approved_at": "2026-09-29T09:52:42.845593+00:00",
+    "approved_by": "editor",
+    "reason": "",
+    "canonical_task_id": "",
+    "legacy_task_id": "univer-review-2026",
+    "revision_id": "website-revision-v1:85d5c39e380c77e493adcac8151d6d76779f8b089e11140c87897b72174718bb",
+    "content_hash": "85d5c39e380c77e493adcac8151d6d76779f8b089e11140c87897b72174718bb",
+    "content_hash_version": "sha256_utf8_exact_v1",
+    "approval_scope": "website",
+    "approved_revision_id": "website-revision-v1:85d5c39e380c77e493adcac8151d6d76779f8b089e11140c87897b72174718bb",
+    "approved_content_hash": "85d5c39e380c77e493adcac8151d6d76779f8b089e11140c87897b72174718bb",
+    "approval_binding_status": "MATCHED"
   }
 ]
