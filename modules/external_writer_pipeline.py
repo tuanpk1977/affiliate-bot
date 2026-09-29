@@ -2986,6 +2986,38 @@ class UniversalExternalWriterImporter:
                 )
             if _text(contract.get("package_id")) != package_id:
                 raise ValueError("verified_package_contract package_id mismatch.")
+            # The returned manifest and contract are both writer-controlled.  A
+            # matching hash between them is not proof of export provenance.
+            export_paths: set[Path] = set()
+            for item in manifest["items"]:
+                task_id = _text(item.get("task_id")) if isinstance(item, dict) else ""
+                if not re.fullmatch(r"[A-Za-z0-9_-]+", task_id):
+                    raise ValueError(f"Invalid task_id in returned manifest: {task_id}")
+                queued = self.queue.get(task_id)
+                if not queued or _text(queued.get("package_id")) != package_id:
+                    raise ValueError(f"Trusted export task unavailable: {task_id}")
+                export_name = _text(queued.get("exported_zip"))
+                export_path = (self.root / export_name).resolve() if export_name else None
+                if (
+                    export_path is None
+                    or not export_path.is_relative_to(self.root.resolve())
+                    or not export_path.is_file()
+                ):
+                    raise ValueError(f"Trusted export package unavailable: {task_id}")
+                export_paths.add(export_path)
+            if len(export_paths) != 1:
+                raise ValueError("Returned tasks do not share one trusted export package.")
+            try:
+                with zipfile.ZipFile(next(iter(export_paths))) as trusted_zip:
+                    trusted_manifest = self._read_zip_json(trusted_zip, "manifest.json")
+                    trusted_bytes = trusted_zip.read("verified_package_contract.json")
+            except (OSError, KeyError, zipfile.BadZipFile) as exc:
+                raise ValueError(f"Trusted export contract unavailable: {exc}") from exc
+            if _text(trusted_manifest.get("package_id")) != package_id:
+                raise ValueError("Trusted export package_id mismatch.")
+            if contract_path.read_bytes() != trusted_bytes:
+                raise ValueError("Trusted contract identity mismatch: returned contract differs from export.")
+            contract = json.loads(trusted_bytes)
             standalone_tasks = {
                 _text(row.get("task_id")): row
                 for row in contract.get("tasks", [])
@@ -3004,6 +3036,17 @@ class UniversalExternalWriterImporter:
                 if isinstance(row, dict) and _text(row.get("task_id"))
             }
             declared_all.add("verified_package_contract.json")
+            manifest_sources = {
+                _text(url)
+                for row in standalone_tasks.values()
+                for url in [
+                    row.get("primary_source_url"),
+                    *list(row.get("supporting_source_urls") or []),
+                    *list(row.get("allowed_source_urls") or []),
+                ]
+                if _http_url(url)
+            }
+            self._validate_structured_urls(manifest, manifest_sources, set(), "completed_manifest")
         for item in manifest["items"]:
             if isinstance(item, dict) and isinstance(item.get("files"), dict):
                 declared_all.update(
@@ -3026,6 +3069,9 @@ class UniversalExternalWriterImporter:
                 rejected.append({"task_id": "", "reason": "manifest item must be an object"})
                 continue
             task_id = _text(item.get("task_id"))
+            if standalone_tasks and task_id not in standalone_tasks:
+                rejected.append({"task_id": task_id, "reason": "Task is absent from trusted contract."})
+                continue
             source_task = standalone_tasks.get(task_id) or self.queue.get(task_id)
             task = dict(source_task) if isinstance(source_task, dict) else None
             try:
@@ -3047,6 +3093,10 @@ class UniversalExternalWriterImporter:
                     or (task.get("blueprint") if isinstance(task.get("blueprint"), dict) else {})
                 )
                 task["_website_writing_contract"] = website_contract
+                if standalone_tasks:
+                    task["_trusted_allowed_source_urls"] = list(
+                        standalone_tasks[task_id].get("allowed_source_urls") or []
+                    )
                 if root_name == "website":
                     self._import_website(
                         extracted / expected_root,
@@ -3355,6 +3405,7 @@ class UniversalExternalWriterImporter:
             task,
             metadata,
             html + "\n" + markdown,
+            validation_report=validation_report,
             extra_allowed_urls=self._website_asset_urls(
                 html + "\n" + markdown,
                 source_dir,
@@ -4124,11 +4175,16 @@ class UniversalExternalWriterImporter:
         metadata: dict[str, Any],
         body: str,
         *,
+        validation_report: dict[str, Any] | None = None,
         extra_allowed_urls: set[str] | None = None,
     ) -> None:
         approved_sources = {
             _text(url)
-            for url in [task.get("primary_source_url"), *list(task.get("supporting_source_urls") or [])]
+            for url in [
+                task.get("primary_source_url"),
+                *list(task.get("supporting_source_urls") or []),
+                *list(task.get("_trusted_allowed_source_urls") or []),
+            ]
             if _http_url(url)
         }
         if _text(task.get("task_type")).startswith("WEBSITE_") and not approved_sources:
@@ -4159,6 +4215,12 @@ class UniversalExternalWriterImporter:
         body_urls = self._extract_http_urls(body) - STANDARD_VOCABULARY_URLS
         if body_urls - allowed:
             raise ValueError(f"Returned content contains URLs outside task allowlist: {sorted(body_urls - allowed)}")
+        site_urls = allowed - approved_sources
+        self._validate_structured_urls(metadata, approved_sources, site_urls, "metadata")
+        if validation_report is not None:
+            self._validate_structured_urls(
+                validation_report, approved_sources, site_urls, "validation"
+            )
         if _text(task.get("task_type")).startswith("WEBSITE_"):
             cited_sources = (returned | body_urls) & approved_sources
             if not cited_sources:
@@ -4168,6 +4230,51 @@ class UniversalExternalWriterImporter:
         if task["task_type"] == "SOCIAL_HOT_NEWS":
             if "smileaireviewhub.com/" in body.lower() or "smileaireviewhub.com/" in json.dumps(metadata).lower():
                 raise ValueError("Hot-news draft must not create a Smile AI Review Hub URL.")
+
+    @classmethod
+    def _validate_structured_urls(
+        cls, value: Any, source_urls: set[str], site_urls: set[str], location: str
+    ) -> None:
+        """Check writer-controlled structured URL fields against trusted exact URLs.
+
+        Task citations and evidence URLs are exact-match authorities; canonical,
+        local assets and schema vocabulary are separate non-source exceptions.
+        Unknown external URL fields are rejected rather than treated as citations.
+        """
+        if isinstance(value, dict):
+            for key, child in value.items():
+                cls._validate_structured_urls(
+                    child, source_urls, site_urls, f"{location}.{key}"
+                )
+        elif isinstance(value, list):
+            for index, child in enumerate(value):
+                cls._validate_structured_urls(
+                    child, source_urls, site_urls, f"{location}[{index}]"
+                )
+        elif isinstance(value, str):
+            urls = cls._extract_http_urls(value)
+            field = location.lower()
+            if field.endswith(("canonical_url", "website_url", "internal_url")) or (
+                "internal_link" in field
+            ):
+                permitted = site_urls
+            elif any(
+                marker in field
+                for marker in ("source", "citation", "evidence", "reference", "research")
+            ):
+                permitted = source_urls
+            elif field.endswith(("@context", "schema_url")):
+                permitted = STANDARD_VOCABULARY_URLS
+            else:
+                # URL fields without declared semantics, such as writer profile
+                # links, cannot silently gain citation or site-link authority.
+                permitted = set()
+            unauthorized = urls - permitted
+            if unauthorized:
+                raise ValueError(
+                    f"Returned {location} contains URL outside trusted allowlist: "
+                    f"{sorted(unauthorized)}"
+                )
 
     @staticmethod
     def _website_asset_urls(body: str, source_dir: Path, task: dict[str, Any]) -> set[str]:
